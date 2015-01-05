@@ -9,6 +9,6 @@ modulos como son:
 - Aliados
 
 Elaborado por:
-Erick Murillo
-Pablo Garcia
+Erick Murillo,
+Pablo Garcia,
 Carlos Rocha
