@@ -1,7 +1,7 @@
 from django.contrib import admin
 from models import *
 from ckeditor.widgets import CKEditorWidget
-from agendas.forms import *
+from comunicacion.agendas.forms import *
 from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
 

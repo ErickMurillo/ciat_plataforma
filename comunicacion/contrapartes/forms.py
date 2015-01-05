@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
 from django.forms.widgets import RadioSelect, CheckboxSelectMultiple
 from django.forms.extras.widgets import SelectDateWidget
-from contrapartes.widgets import ColorPickerWidget
+from comunicacion.contrapartes.widgets import ColorPickerWidget
 
 class ContraparteForms(forms.ModelForm):
     temas = forms.CharField(widget=CKEditorWidget())

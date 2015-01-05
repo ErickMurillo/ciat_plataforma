@@ -1,7 +1,7 @@
 from django.contrib import admin
 from models import *
-from foros.models import *
-from notas.forms import NotasForms
+from comunicacion.foros.models import *
+from comunicacion.notas.forms import NotasForms
 
 class DocumentosInline(generic.GenericTabularInline):
     model = Documentos

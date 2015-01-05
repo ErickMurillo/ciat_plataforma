@@ -3,7 +3,7 @@ from django.db import models
 #from django.forms import ModelForm
 from django import forms
 from models import *
-from foros.models import *
+from comunicacion.foros.models import *
 from ckeditor.widgets import CKEditorWidget
 
 class AgendaForm(forms.ModelForm):

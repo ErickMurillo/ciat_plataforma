@@ -25,7 +25,7 @@ class Notas(models.Model):
     user = models.ForeignKey(User)
 
     class Meta:
-    	verbose_name_plural = "Notas"
+    	verbose_name_plural = "Noticias"
         ordering = ['-fecha','-id']
 
     def __unicode__(self):

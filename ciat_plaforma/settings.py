@@ -28,18 +28,26 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = (
+    #apps para mejorar el admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #apps solo de comunicion
     'comunicacion.aliados',
     'comunicacion.contrapartes',
     'comunicacion.foros',
     'comunicacion.agendas',
     'comunicacion.notas',
     'comunicacion.lugar',
+    #apps solo de analisis
+    'analisis.analisis',
+    'analisis.configuracion',
+    #apps solo de monitoreo,
+    
+
 )
 
 MIDDLEWARE_CLASSES = (
