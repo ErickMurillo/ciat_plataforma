@@ -8,7 +8,7 @@ from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 from django.contrib.auth.models import User
 #from contrapartes.models import Usuarios
-from utils import *
+from comunicacion.utils import *
 import datetime
 from south.modelsinspector import add_introspection_rules
 from ckeditor.fields import RichTextField

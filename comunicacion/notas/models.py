@@ -2,8 +2,8 @@
 
 from django.db import models
 from django.contrib.contenttypes import generic
-from contrapartes.models import *
-from foros.models import *
+from comunicacion.contrapartes.models import *
+from comunicacion.foros.models import *
 from django.template.defaultfilters import slugify
 from south.modelsinspector import add_introspection_rules
 from ckeditor.fields import RichTextField

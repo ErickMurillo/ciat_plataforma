@@ -2,12 +2,12 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from thumbs_logo import ImageWithThumbsField
-from utils import *
+#from thumbs_logo import ImageWithThumbsField
+from comunicacion.utils import *
 from south.modelsinspector import add_introspection_rules
 from ckeditor.fields import RichTextField
 import datetime
-from lugar.models import *
+from comunicacion.lugar.models import *
 from sorl.thumbnail import ImageField
 
 add_introspection_rules ([], ["^ckeditor\.fields\.RichTextField"])
@@ -15,7 +15,7 @@ add_introspection_rules ([], ["^ckeditor\.fields\.RichTextField"])
 add_introspection_rules ([], ["^contrapartes\.models\.ColorField"])
 
 # Create your models here.
-from contrapartes.widgets import ColorPickerWidget
+from comunicacion.contrapartes.widgets import ColorPickerWidget
 
 class ColorField(models.CharField):
     def __init__(self, *args, **kwargs):
@@ -35,7 +35,8 @@ class Pais(models.Model):
     nombre = models.CharField(max_length=200)
     latitud = models.FloatField(blank=True, null=True)
     longitud = models.FloatField(blank=True, null=True)
-    codigo = models.CharField(max_length=2, help_text='Código de 2 letras del país, ejemplo : Nicaragua (ni)')
+    codigo = models.CharField(max_length=2, 
+                help_text='Código de 2 letras del país, ejemplo : Nicaragua (ni)')
 
     class Meta:
         verbose_name_plural = "Países"
@@ -78,8 +79,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     # Other fields here
     contraparte = models.ForeignKey(Contraparte)
-    avatar = ImageWithThumbsField(upload_to=get_file_path,
-                                   sizes=((350,250), (70,60),(180,160)), 
+    avatar = models.ImageField(upload_to=get_file_path,
                                    null=True, blank=True)
     fileDir = 'usuario/avatar/'
 

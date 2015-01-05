@@ -2,18 +2,17 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from thumbs_logo import ImageWithThumbsField
-from utils import *
+#from thumbs_logo import ImageWithThumbsField
+from comunicacion.utils import *
 from ckeditor.fields import RichTextField
-from contrapartes.models import Pais
+from comunicacion.contrapartes.models import Pais
 
 # Create your models here.
 # 
 class Aliados(models.Model):
     nombre = models.CharField(max_length=200)
     siglas = models.CharField("Siglas o nombre corto",help_text="Siglas o nombre corto de la oganización",max_length=200,blank=True, null=True)
-    logo = ImageWithThumbsField(upload_to=get_file_path,
-                                   sizes=((350,250), (70,60),(180,160)), 
+    logo = models.ImageField(upload_to=get_file_path,
                                    null=True, blank=True)
     fileDir = 'aliados/logos/'
     pais = models.ForeignKey(Pais)

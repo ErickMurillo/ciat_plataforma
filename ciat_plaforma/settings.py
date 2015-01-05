@@ -34,6 +34,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'comunicacion.aliados',
+    'comunicacion.contrapartes',
+    'comunicacion.foros',
+    'comunicacion.agendas',
+    'comunicacion.notas',
+    'comunicacion.lugar',
 )
 
 MIDDLEWARE_CLASSES = (

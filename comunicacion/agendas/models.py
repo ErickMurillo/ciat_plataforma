@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.db import models
-from foros.models import Documentos
+from comunicacion.foros.models import Documentos
 from django.contrib.contenttypes import generic
 from django.contrib.auth.models import User
 from south.modelsinspector import add_introspection_rules
