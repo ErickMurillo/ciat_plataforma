@@ -53,3 +53,13 @@ docs/_build/
 
 # PyBuilder
 target/
+
+local_settings.py
+static_media/uploads/
+*.sublime-project
+*.sublime-workspace
+*.db
+*.sqlite3
+CACHE
+*.bd
+*.sql
