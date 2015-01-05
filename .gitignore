@@ -63,3 +63,4 @@ static_media/uploads/
 CACHE
 *.bd
 *.sql
+*.DS_Store
