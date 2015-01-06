@@ -3,11 +3,8 @@
 from django.db import models
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
-from south.modelsinspector import add_introspection_rules
-from tagging.models import Tag
 from tagging_autocomplete.models import TagAutocompleteField
 from django.contrib.auth.models import User
-#from contrapartes.models import Usuarios
 from comunicacion.utils import *
 import datetime
 from south.modelsinspector import add_introspection_rules
