@@ -46,7 +46,12 @@ INSTALLED_APPS = (
     'analisis.analisis',
     'analisis.configuracion',
     #apps solo de monitoreo,
-    
+    #apps de terceros
+    'sorl.thumbnail',
+    'ckeditor',
+    'magicembed',
+    'tagging',
+    'tagging_autocomplete',
 
 )
 
@@ -107,3 +112,20 @@ TEMPLATE_DIRS = (
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
+AUTH_PROFILE_MODULE = 'comunicacion.contrapartes.UserProfile'
+
+LOGIN_REDIRECT_URL = '/foros/perfil'
+
+CKEDITOR_MEDIA_PREFIX = '/media/ckeditor/'
+
+CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'static_media/uploads/')
+
+CKEDITOR_RESTRICT_BY_USER = True
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': 650,
+    },
+}

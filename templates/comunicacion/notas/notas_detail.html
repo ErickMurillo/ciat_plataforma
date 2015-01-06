@@ -1,4 +1,4 @@
-{% extends "basexterno.html" %}
+{% extends "comunicacion/basecomunicacion.html"%}
 
 {% load magicembed_tags %}
 {% load thumbnail %}
@@ -29,7 +29,7 @@
                 
                   <ol class="breadcrumb">
                         <li><a href="/">Home</a></li>
-                        <li><a href="/notas">News</a></li>
+                        <li><a href="{% url 'notas_list' %}">Noticias</a></li>
                         <li class="active">{{nota.titulo}}</li>
                   </ol>
                     
@@ -51,11 +51,11 @@
                                 {%if nota.fotos.all.count > 0%}
                                  {%for thumb in nota.fotos.all|slice:"1"%} 
                                         {% thumbnail thumb.foto "700x350" crop="center" as im %}
-                                            <a href="/notas/{{nota.id}}"><img src="/uploads/{{im}}" class="img-responsive" ></a>
+                                            <a href="#"><img src="/uploads/{{im}}" class="img-responsive" ></a>
                                       {% endthumbnail %}
                                  {%endfor%}
                                 {%else%}
-                                       <a href="/notas/{{nota.id}}"><img  src="/files/img/nofoto.png" class="img-responsive"><a/>
+                                    <a href="#"><img  src="/files/img/nofoto.png" class="img-responsive"></a>
                                 {%endif%}  
                                 </figure>
                                 
@@ -79,10 +79,9 @@
                                 </div>
                                 
                                 <div class="news-tags tagcloud">
-                                  <a href="#" rel="tag">#Boston University</a>
-                                    <a href="#" rel="tag">#Megan Boyle</a>
-                                    <a href="#" rel="tag">#Aliquam</a>
-                                    <a href="#" rel="tag">#Competition</a>
+                                 {%for tags in nota.fotos.all %}
+                                    <a href="#" rel="tag">#{{tags.tags_img}}</a>
+                                {%endfor%}
                                 </div>
                             
                                
@@ -201,7 +200,7 @@
                   
                     <div class="col-padded col-shaded"><!-- inner custom column -->
                     
-                        {% include "widgets.html" %}
+                        {% include "comunicacion/widgets.html" %}
 
                     </div><!-- inner custom column end -->
                     

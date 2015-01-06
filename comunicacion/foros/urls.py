@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import ListView, DetailView
 from models import Foros
 
-urlpatterns = patterns('foros.views',
+urlpatterns = patterns('comunicacion.foros.views',
     #url(r'^$', 'index', name='index'),
     url(r'^$', ListView.as_view(model=Foros, 
     	                        template_name="foros/foro_list.html"),

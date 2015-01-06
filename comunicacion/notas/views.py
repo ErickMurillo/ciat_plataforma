@@ -5,9 +5,9 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
-from models import *
-from agendas.models import *
-from contrapartes.models import *
+from comunicacion.notas.models import *
+from comunicacion.agendas.models import *
+from comunicacion.contrapartes.models import *
 from forms import *
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -18,7 +18,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 from django.views.generic import TemplateView
-from foros.models import Documentos, Videos
+from comunicacion.foros.models import Documentos, Videos
 
 # Create your views here.
 
@@ -26,13 +26,13 @@ def logout_page(request):
   logout(request)
   return HttpResponseRedirect('/')
 
-class HomeView(TemplateView):
-    template_name = "comunicacion/index.html"
+# class HomeView(TemplateView):
+#     template_name = "comunicacion/index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
-        context['book_list'] = "hola!"
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super(HomeView, self).get_context_data(**kwargs)
+#         context['book_list'] = "hola!"
+#         return context
 
 def lista_notas(request):
     notas_list = Notas.objects.all().order_by('-fecha','-id')

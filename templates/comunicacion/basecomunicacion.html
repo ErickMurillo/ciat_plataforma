@@ -7,17 +7,17 @@
 
     <title>{%block title%}Humidtropics Comunicaciones{%endblock%}</title>
 
-    <link rel="shortcut icon" href="/files/temporal/img/logo.jpg" />
+    <link rel="shortcut icon" href="/static/temporal/img/logo.jpg" />
     <!-- Styles -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css"><!-- Google web fonts -->
-    <link href="/files/temporal/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"><!-- font-awesome -->
-    <link href="/files/temporal/js/dropdown-menu/dropdown-menu.css" rel="stylesheet" type="text/css"><!-- dropdown-menu -->
-    <link href="/files/temporal/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!-- Bootstrap -->
-    <link href="/files/temporal/js/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css"><!-- Fancybox -->
-    <link href="/files/temporal/js/audioplayer/audioplayer.css" rel="stylesheet" type="text/css"><!-- Audioplayer -->
-    <link href="/files/temporal/style.css" rel="stylesheet" type="text/css"><!-- theme styles -->
-    <link rel="stylesheet" href="/files/temporal/src/css/mediaelementplayer.css" />
-    <link href="/files/temporal/js/bxslider/jquery.bxslider.css" rel="stylesheet" /><!-- bxSlider CSS file -->
+    <link href="/static/temporal/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"><!-- font-awesome -->
+    <link href="/static/temporal/js/dropdown-menu/dropdown-menu.css" rel="stylesheet" type="text/css"><!-- dropdown-menu -->
+    <link href="/static/temporal/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!-- Bootstrap -->
+    <link href="/static/temporal/js/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css"><!-- Fancybox -->
+    <link href="/static/temporal/js/audioplayer/audioplayer.css" rel="stylesheet" type="text/css"><!-- Audioplayer -->
+    <link href="/static/temporal/style.css" rel="stylesheet" type="text/css"><!-- theme styles -->
+    <link rel="stylesheet" href="/static/temporal/src/css/mediaelementplayer.css" />
+    <link href="/static/temporal/js/bxslider/jquery.bxslider.css" rel="stylesheet" /><!-- bxSlider CSS file -->
     
 
   </head>
@@ -35,8 +35,8 @@
         		<div id="k-site-logo" class="pull-left"><!-- site logo -->
                 
                     <h1 class="k-logo">
-                        <a href="/" title="Home Page">
-                            <img src="/files/temporal/img/site-logo.jpg" alt="Site Logo" class="img-responsive" />
+                        <a href="/comunicacion" title="Home Page">
+                            <img src="/static/temporal/img/site-logo.jpg" alt="Site Logo" class="img-responsive" />
                         </a>
                     </h1>
                     
@@ -48,7 +48,7 @@
         
                     <ul id="drop-down-left" class="k-dropdown-menu">
                         <li>
-                            <a href="/notas" title="Nuevas Noticias">Noticias</a>
+                            <a href="{% url 'notas_list' %}" title="Nuevas Noticias">Noticias</a>
                         </li>
                         <li>
                             <a href="/agendas/eventos" title="Proximos Eventos">Eventos</a>
@@ -173,14 +173,14 @@
                                 <h1 class="title-widget">Imagenes</h1>
                                 
                                 <ul class="k-flickr-photos list-unstyled">
-                                	<li><a href="#" title="Flickr photo"><img src="/files/temporal/img/flickr-1.jpg" alt="Photo 1" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/files/temporal/img/flickr-2.jpg" alt="Photo 2" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/files/temporal/img/flickr-3.jpg" alt="Photo 3" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/files/temporal/img/flickr-4.jpg" alt="Photo 4" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/files/temporal/img/flickr-5.jpg" alt="Photo 5" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/files/temporal/img/flickr-6.jpg" alt="Photo 6" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/files/temporal/img/flickr-7.jpg" alt="Photo 7" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/files/temporal/img/flickr-8.jpg" alt="Photo 8" /></a></li>
+                                	<li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-1.jpg" alt="Photo 1" /></a></li>
+                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-2.jpg" alt="Photo 2" /></a></li>
+                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-3.jpg" alt="Photo 3" /></a></li>
+                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-4.jpg" alt="Photo 4" /></a></li>
+                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-5.jpg" alt="Photo 5" /></a></li>
+                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-6.jpg" alt="Photo 6" /></a></li>
+                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-7.jpg" alt="Photo 7" /></a></li>
+                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-8.jpg" alt="Photo 8" /></a></li>
                                 </ul>
                     
 							</li>
@@ -218,40 +218,40 @@
     </div><!-- subfooter end -->
 {% endblock %}
     <!-- jQuery -->
-    <script src="/files/temporal/jQuery/jquery-2.1.1.min.js"></script>
-    <script src="/files/temporal/jQuery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/temporal/jQuery/jquery-2.1.1.min.js"></script>
+    <script src="/static/temporal/jQuery/jquery-migrate-1.2.1.min.js"></script>
     
     <!-- Bootstrap -->
-    <script src="/files/temporal/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/temporal/bootstrap/js/bootstrap.min.js"></script>
     
     <!-- Drop-down -->
-    <script src="/files/temporal/js/dropdown-menu/dropdown-menu.js"></script>
+    <script src="/static/temporal/js/dropdown-menu/dropdown-menu.js"></script>
     
     <!-- Fancybox -->
-	<script src="/files/temporal/js/fancybox/jquery.fancybox.pack.js"></script>
-    <script src="/files/temporal/js/fancybox/jquery.fancybox-media.js"></script><!-- Fancybox media -->
+	<script src="/static/temporal/js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="/static/temporal/js/fancybox/jquery.fancybox-media.js"></script><!-- Fancybox media -->
     
     <!-- Responsive videos -->
-    <script src="/files/temporal/js/jquery.fitvids.js"></script>
+    <script src="/static/temporal/js/jquery.fitvids.js"></script>
     
     <!-- Audio player -->
-	<script src="/files/temporal/js/audioplayer/audioplayer.min.js"></script>
+	<script src="/static/temporal/js/audioplayer/audioplayer.min.js"></script>
     
     <!-- Pie charts -->
-    <script src="/files/temporal/js/jquery.easy-pie-chart.js"></script>
+    <script src="/static/temporal/js/jquery.easy-pie-chart.js"></script>
     
     <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     
     <!-- Theme -->
-    <script src="/files/temporal/js/theme.js"></script>
+    <script src="/static/temporal/js/theme.js"></script>
     
-    <script src="/files/temporal/mediaelement-and-player.js"></script>
+    <script src="/static/temporal/mediaelement-and-player.js"></script>
     <script>
 $('audio,video').mediaelementplayer();
 </script>
     <!-- bxSlider Javascript file -->
-    <script src="/files/temporal/js/bxslider/jquery.bxslider.js"></script>
+    <script src="/static/temporal/js/bxslider/jquery.bxslider.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
           $('.sliderorg').bxSlider({
