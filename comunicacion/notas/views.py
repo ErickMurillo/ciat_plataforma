@@ -27,7 +27,7 @@ def logout_page(request):
   return HttpResponseRedirect('/')
 
 class HomeView(TemplateView):
-    template_name = "index.html"
+    template_name = "comunicacion/index.html"
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
@@ -49,7 +49,7 @@ def lista_notas(request):
     except EmptyPage:
         notas = paginator.page(paginator.num_pages)
 
-    return render_to_response('notas/notas_list.html', locals(),
+    return render_to_response('comunicacion/notas/notas_list.html', locals(),
                               context_instance=RequestContext(request))
 
 def detalle_notas(request, id):
@@ -70,7 +70,7 @@ def detalle_notas(request, id):
     else:
         form = ComentarioForm()
 
-    return render_to_response('notas/notas_detail.html', locals(),
+    return render_to_response('comunicacion/notas/notas_detail.html', locals(),
                                  context_instance=RequestContext(request))  
 
 def lista_notas_pais(request,id):
@@ -88,7 +88,7 @@ def lista_notas_pais(request,id):
     except EmptyPage:
         notas = paginator.page(paginator.num_pages)
 
-    return render_to_response('notas/notas_list.html', locals(),
+    return render_to_response('comunicacion/notas/notas_list.html', locals(),
                               context_instance=RequestContext(request))
 
 
@@ -101,7 +101,7 @@ def index(request):
     documentos = Documentos.objects.order_by('-id')[:2]
     video = Videos.objects.order_by('-id')[:1]
 
-    return render_to_response('index.html', locals(),
+    return render_to_response('comunicacion/index.html', locals(),
                               context_instance=RequestContext(request))
 
 @login_required
@@ -142,7 +142,7 @@ def crear_nota(request):
         form3 = AdjuntoForm()
         form4 = VideoForm()
         form5 = AudioForm()
-    return render_to_response('notas/crear_nota.html', locals(),
+    return render_to_response('comunicacion/notas/crear_nota.html', locals(),
     	                         context_instance=RequestContext(request))
 
 @login_required
@@ -186,7 +186,7 @@ def editar_nota(request, id):
         form5 = NotaAudioFormSet(instance=nota)
 
 
-    return render_to_response('notas/editar_nota.html', locals(),
+    return render_to_response('comunicacion/notas/editar_nota.html', locals(),
     	                         context_instance=RequestContext(request))
 
 @login_required
@@ -203,7 +203,7 @@ def borrar_nota(request, id):
 def notify_all_notas(notas):
     site = Site.objects.get_current()
     users = User.objects.all() #.exclude(username=foros.contraparte.username)
-    contenido = render_to_string('notas/notify_new_nota.txt', {'nota': notas,
+    contenido = render_to_string('comunicacion/notas/notify_new_nota.txt', {'nota': notas,
                                  'url': '%s/notas/%s' % (site, notas.id),
                                  #'url_aporte': '%s/foros/ver/%s/#aporte' % (site, foros.id),
                                  })
@@ -227,5 +227,5 @@ def comentar_nota(request, id):
     else:
         form = ComentarioForm()
 
-    return render_to_response('privados/ver_nota.html', locals(),
+    return render_to_response('comunicacion/privados/ver_nota.html', locals(),
                                  context_instance=RequestContext(request))  
