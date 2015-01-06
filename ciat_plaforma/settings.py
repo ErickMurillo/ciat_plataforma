@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     #apps solo de analisis
     'analisis.analisis',
     'analisis.configuracion',
+    'smart_selects',
     #apps solo de monitoreo,
     
 
