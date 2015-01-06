@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name="indexgeneral.html")),
     
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^chaining/', include('smart_selects.urls')),
 )
