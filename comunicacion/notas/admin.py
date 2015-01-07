@@ -13,10 +13,6 @@ class ImagenInline(generic.GenericTabularInline):
 
 class NotasAdmin(admin.ModelAdmin):
     form = NotasForms
-    #class Media:
-    #	css = {
-    #	    "all": ("css/custom.css",)
-    #	}
 
     inlines = [ImagenInline, DocumentosInline, ]
 

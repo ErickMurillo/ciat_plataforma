@@ -2,7 +2,6 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-#from thumbs_logo import ImageWithThumbsField
 from comunicacion.utils import *
 from south.modelsinspector import add_introspection_rules
 from ckeditor.fields import RichTextField
@@ -79,7 +78,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     # Other fields here
     contraparte = models.ForeignKey(Contraparte)
-    avatar = models.ImageField(upload_to=get_file_path,
+    avatar = ImageField(upload_to=get_file_path,
                                    null=True, blank=True)
     fileDir = 'usuario/avatar/'
 

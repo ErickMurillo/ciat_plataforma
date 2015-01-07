@@ -2,7 +2,7 @@ from django.conf.urls import *
 from django.views.generic import ListView, DetailView
 from models import Contraparte
 
-urlpatterns = patterns('contrapartes.views',
+urlpatterns = patterns('comunicacion.contrapartes.views',
     url(r'^$', 'lista_contrapartes', name="contraparte-list"),
     url(r'^pais/(?P<id>\d+)/$', 'lista_contrapartes_pais', name="contraparte_list_pais"),
     url(r'^mapa/$', 'lista_contrapartes_mapa', name="contraparte-list-mapa"),

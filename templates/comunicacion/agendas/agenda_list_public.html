@@ -1,0 +1,175 @@
+{% extends "comunicacion/basecomunicacion.html"%}
+
+{% block extra_js %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link href="/static/temporal/css/fullcalendar.css" rel="stylesheet" type="text/css">
+<link href="/static/temporal/css/cupertino/theme.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/temporal/js/fullcalendar.min.js"></script>
+<script type='text/javascript'>
+	$(document).ready(function() {
+ 		 // para resaltar menu
+  		$('#eventos-menu').addClass('active');
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		m = m-1;
+
+		$('#calendar').fullCalendar({
+			minTime: '8:00',
+			maxTime: '6:00pm',
+			defaultView: 'month',
+			dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+			dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            contentHeight: 350,
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: ''
+			},
+            buttonText: {   
+                today: 'Hoy',
+                month: 'Mes',
+                day: 'Día',
+                week: 'Semana'
+            },
+			eventClick: function(calEvent, jsEvent, view) {
+                window.location = '/agendas/eventos/' + calEvent.id;
+                },
+			editable: false,
+			events: "/agendas/eventos"
+
+		});	
+	});
+</script>
+{%endblock%}
+{%block titulo%}Calendario de eventos{%endblock%}
+{%block descriptitulo%}Actividades programadas de las asociadas y organizaciones aliadas de AMARC-Nicaragua{%endblock%}
+{% block contenido %}
+<div class="row">
+	<div class="encabezado">
+	  <div class="container">
+		    <div class="row">
+			    <div class="span5">
+			    	<div class="encabezado-title">
+			      		AGENDA DE ACTIVIDADES
+			  		</div>
+			    </div>
+	        </div>
+	  </div>
+	</div>
+</div>
+
+    <div id="k-body"><!-- content wrapper -->
+
+
+    	<div class="container"><!-- container -->
+        
+        	<div class="row"><!-- row -->
+            
+                <div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
+                
+                    <form action="#" id="top-searchform" method="get" role="search">
+                        <div class="input-group">
+                            <input type="text" name="s" id="sitesearch" class="form-control" autocomplete="off" placeholder="Type in keyword(s) then hit Enter on keyboard" />
+                        </div>
+                    </form>
+                    
+                    <div id="bt-toggle-search" class="search-icon text-center"><i class="s-open fa fa-search"></i><i class="s-close fa fa-times"></i></div><!-- toggle search button -->
+                
+                </div><!-- top search end -->
+            
+            	<div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
+                
+                	<ol class="breadcrumb">
+                    	<li><a href="/">Inicio</a></li>
+                        <li class="active">Calendario de Eventos</li>
+                        
+                    </ol>
+                    
+                </div><!-- breadcrumbs end -->               
+                
+            </div><!-- row end -->
+            
+            <div class="row no-gutter col-lg-8 col-md-8"><!-- row -->
+                
+                <div class=""><!-- doc body wrapper -->
+
+
+                	
+                    <div class="col-padded"><!-- inner custom column -->
+                            <div class="col-lg-12 col-md-12">
+                                <div class="btn-group paises ">
+                                  <button type="button" class="btn txt-black" disabled="disabled">Filtar por:</button>
+                                  <button type="button" class="btn btn-default">
+                                  Trifinio
+                                  </button>
+                                  <button type="button" class="btn btn-default">
+                                  Nicanorte
+                                  </button>
+                                  <button type="button" class="btn btn-default">
+                                  AH-RD
+                                  </button>
+                                </div>
+                                <hr />
+                            </div>
+                    
+
+
+
+                    	<div class="row gutter"><!-- row -->
+                        
+                        	<div class="col-lg-12 col-md-12">
+
+                                <div id='calendar'></div>
+                                    
+                            </div>
+                            
+                            </div>
+                        
+                        </div><!-- row end -->               
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- doc body wrapper end -->
+                
+                <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
+
+                    <div class="col-padded col-shaded"><!-- inner custom column -->
+                    
+                    <h1 class="title-widget">Organizaciones</h1>
+
+                    <ul class="nav nav-list">
+
+						 {% for pais in paises %}
+							<li class="nav-header" style="margin-bottom:5px">
+					    	{{pais}}
+					  		</li>
+
+						 	{% for contraparte in contrapartes %}
+						 		{% if contraparte.pais.id == pais.id%}
+
+						 		<div class="leyenda" style ="margin-right:5px;background:{{contraparte.font_color}}">
+						 			
+						 		</div>
+
+						 		<li class="title-widget-org">
+									<a href="/contrapartes/{{contraparte.id}}">{{contraparte.siglas}}</a>
+								</li>
+								<div class="clean" style="margin-bottom:5px"></div>
+						 		{%endif%}
+						 	{% endfor %}
+						{% endfor %}
+						
+					</ul>
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- sidebar wrapper end -->
+            
+            </div><!-- row end -->
+         
+        </div><!-- container end -->
+{% endblock %}

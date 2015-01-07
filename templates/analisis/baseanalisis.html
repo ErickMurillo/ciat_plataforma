@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+{%load staticfiles%}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Analisis Humidtropics</title>
+    <link rel="shortcut icon" href="{% static 'analisis/img/logo.jpg' %}" />
+    <!-- BOOTSTRAP STYLES-->
+    <link href="{% static 'analisis/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"><!-- Bootstrap -->
+     <!-- FONTAWESOME STYLES-->
+
+    <link href="{% static 'analisis/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"><!-- font-awesome -->
+        <!-- CUSTOM STYLES-->
+    <link href="{% static 'analisis/css/analisis.css' %}" rel="stylesheet" />
+    <link href="{% static 'analisis/css/style.css' %}" rel="stylesheet" type="text/css"><!-- theme styles -->
+     <!-- GOOGLE FONTS-->
+   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default hidden-lg hidden-md " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+            </div>
+
+        </nav>   
+           <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav drop-down-left" id="main-menu">
+
+                    <li class="text-center">
+                    <img src="{% static 'analisis/img/site-logo.jpg' %}" class="user-image"/>
+                    </li>
+                
+                    
+                    <li>
+                        <a  href="index.html"><i class="fa fa-dashboard fa-2x"></i> Dashboard</a>
+                    </li>
+                      <li>
+                        <a  href="ui.html"><i class="fa fa-desktop fa-2x"></i> UI Elements</a>
+                    </li>
+                    <li>
+                        <a  href="tab-panel.html"><i class="fa fa-qrcode fa-2x"></i> Tabs & Panels</a>
+                    </li>
+                           <li  >
+                        <a  href="chart.html"><i class="fa fa-bar-chart-o fa-2x"></i> Morris Charts</a>
+                    </li>   
+                      <li  >
+                        <a  href="table.html"><i class="fa fa-table fa-2x"></i> Table Examples</a>
+                    </li>
+                    <li  >
+                        <a  href="form.html"><i class="fa fa-edit fa-2x"></i> Forms </a>
+                    </li>               
+                    
+                                       
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-2x"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+
+                                </ul>
+                               
+                            </li>
+                        </ul>
+                      </li>  
+                  <li  >
+                        <a class=""  href="blank.html"><i class="fa fa-square-o fa-2x"></i> Blank Page</a>
+                    </li>   
+                </ul>
+               
+            </div>
+            
+        </nav>  
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+
+                    {% block contenido %}{% endblock contenido %}
+                     
+                       
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+
+    <div id="k-footer" style="background: url({% static 'analisis/img/footer-bg.png' %}) repeat left top scroll #FFF;"><!-- footer -->
+    
+        <div class="container"><!-- container -->
+        
+            <div class="row no-gutter"><!-- row -->
+            
+                <div class="col-lg-4 col-md-4"><!-- widgets column left -->
+            
+                    <div class="col-padded col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_nav_menu"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Useful links</h1>
+                                
+                                <ul>
+                                    <li><a href="#" title="menu item">Placement Exam Schedule</a></li>
+                                    <li><a href="#" title="menu item">Superintendent's Hearing Audio</a></li>
+                                    <li><a href="#" title="menu item">Budget Central</a></li>
+                                    <li><a href="#" title="menu item">Job Opportunities - Application</a></li>
+                                    <li><a href="#" title="menu item">College Acceptances as of May 12</a></li>
+                                </ul>
+                    
+                            </li>
+                            
+                        </ul>
+                         
+                    </div>
+                    
+                </div><!-- widgets column left end -->
+                
+                <div class="col-lg-4 col-md-4"><!-- widgets column center -->
+                
+                    <div class="col-padded col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_recent_news"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">School Contact</h1>
+                                
+                                <div itemscope itemtype="http://data-vocabulary.org/Organization"> 
+                                
+                                    <h2 class="title-median m-contact-subject" itemprop="name">Buntington Public Schools</h2>
+                                
+                                    <div class="m-contact-address" itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
+                                        <span class="m-contact-street" itemprop="street-address">19 Tower Avenue, Buntington Station</span>
+                                        <span class="m-contact-city-region"><span class="m-contact-city" itemprop="locality">New York</span>, <span class="m-contact-region" itemprop="region">NY</span></span>
+                                        <span class="m-contact-zip-country"><span class="m-contact-zip" itemprop="postal-code">11506</span> <span class="m-contact-country" itemprop="country-name">USA</span></span>
+                                    </div>
+                                     
+
+                                    
+                                </div>
+                                
+                    
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                    
+                </div><!-- widgets column center end -->
+                
+                <div class="col-lg-4 col-md-4"><!-- widgets column right -->
+                
+                    <div class="col-padded col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_sofa_flickr"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Flickr Stream</h1>
+                                <div class="m-contact-tel-fax">
+                                    <span class="m-contact-tel">Tel: <span itemprop="tel">631-551-3678</span></span>
+                                    <span class="m-contact-fax">Fax: <span itemprop="fax">631-551-3688</span></span>
+                                </div>
+                                <div class="social-icons">
+                                
+                                    <ul class="list-unstyled list-inline">
+                                    
+                                        <li><a href="#" title="Contact us"><i class="fa fa-envelope"></i></a></li>
+                                        <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    
+                                    </ul>
+                                
+                                </div>
+
+                    
+                            </li>
+                            
+                        </ul> 
+                        
+                    </div>
+                
+                </div><!-- widgets column right end -->
+            
+            </div><!-- row end -->
+        
+        </div><!-- container end -->
+    
+    </div><!-- footer end -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="{% static 'analisis/jQuery/jquery-2.1.1.min.js' %}"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="{% static 'analisis/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="{% static 'analisis/js/jquery.metisMenu.js' %}"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'analisis/js/analisis.js' %}"></script>
+
+    <script src="{% static 'analisis/js/jquery.min.js' %}"></script>
+    <script src="{% static 'analisis/js/highcharts.js' %}"></script>
+    <script src="{% static 'analisis/js/exporting.js' %}"></script>
+
+
+    {% block extra_js%}{% endblock extra_js %}
+
+
+
+
+</body>
+</html>
