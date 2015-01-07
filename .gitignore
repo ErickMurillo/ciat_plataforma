@@ -56,6 +56,7 @@ target/
 
 local_settings.py
 static_media/uploads/
+static_media/media/
 *.sublime-project
 *.sublime-workspace
 *.db

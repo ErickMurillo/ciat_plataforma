@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^comunicacion/', include('comunicacion.notas.urls')),
     url(r'^foros/', include('comunicacion.foros.urls')),
     url(r'^agendas/', include('comunicacion.agendas.urls')),
+    url(r'^contrapartes/', include('comunicacion.contrapartes.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^chaining/', include('smart_selects.urls')),
@@ -30,7 +31,6 @@ urlpatterns = patterns('',
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
 )
 
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns += staticfiles_urlpatterns()
 
 if DEBUG:

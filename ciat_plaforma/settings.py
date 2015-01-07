@@ -129,3 +129,5 @@ CKEDITOR_CONFIGS = {
         'width': 650,
     },
 }
+
+CKEDITOR_JQUERY_URL = 'https://code.jquery.com/jquery-2.1.3.min.js'

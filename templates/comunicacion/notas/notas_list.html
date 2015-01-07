@@ -6,8 +6,6 @@
 
 {% endblock %}
 
-
-
 {% block contenido %}
     <div id="k-body"><!-- content wrapper -->
     
@@ -82,7 +80,7 @@
                                       {% endthumbnail %}
                                  {%endfor%}
                                 {%else%}
-                                       <a href="{% url 'detalle-notas' nota.id %}"><img  src="/files/img/nofoto.png" class="img-responsive"><a/>
+                                       <a href="{% url 'detalle-notas' nota.id %}"><img  src="/files/img/nofoto.png" class="img-responsive"></a>
                                 {%endif%}
                                 </figure>
                                 

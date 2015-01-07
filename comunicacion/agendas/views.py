@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from models import *
-from contrapartes.models import *
+from comunicacion.contrapartes.models import *
 from forms import *
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
@@ -32,7 +32,7 @@ def crear_agenda(request):
     else:
         form = AgendaForm()
         form1 = DocuForm()
-    return render_to_response('agendas/crear_agenda.html', locals(),
+    return render_to_response('comunicacion/agendas/crear_agenda.html', locals(),
     	                         context_instance=RequestContext(request))
 
 @login_required
@@ -63,7 +63,7 @@ def editar_agenda(request, id):
         form = AgendaForm(instance=agenda)
         form1 = AgendaFormSet(instance=agenda)
         
-    return render_to_response('agendas/crear_agenda.html', locals(),
+    return render_to_response('comunicacion/agendas/crear_agenda.html', locals(),
     	                         context_instance=RequestContext(request))
 
 @login_required
@@ -102,7 +102,7 @@ def calendario(request,id=None):
         return HttpResponse(simplejson.dumps(var), mimetype='application/json')
     if not id==None:
         actividad = Agendas.objects.get(pk=id)
-    return render_to_response('agendas/agenda_list.html',locals(),
+    return render_to_response('comunicacion/agendas/agenda_list.html',locals(),
                               context_instance = RequestContext(request))
 
 def calendario_publico(request,id=None):
@@ -130,7 +130,7 @@ def calendario_publico(request,id=None):
 
     if not id==None:
         actividad = Agendas.objects.get(pk=id)
-    return render_to_response('agendas/agenda_list_public.html',locals(),
+    return render_to_response('comunicacion/agendas/agenda_list_public.html',locals(),
                               context_instance = RequestContext(request))
 
 @login_required
@@ -165,5 +165,5 @@ def calendario_full_contraparte(request,id=None):
         actividad = Agendas.objects.get(pk=id)
     contrapartes_sel = Contraparte.objects.filter(id__in=request.session['p'])
     contrapartes_otras = Contraparte.objects.exclude(id__in=request.session['p'])
-    return render_to_response('agendas/agenda_list_full.html',locals(),
+    return render_to_response('comunicacion/agendas/agenda_list_full.html',locals(),
                               context_instance = RequestContext(request))

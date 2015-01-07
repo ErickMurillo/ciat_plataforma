@@ -1,6 +1,4 @@
 from django.conf.urls import *
-from django.views.generic import ListView, DetailView
-from models import Notas
 
 urlpatterns = patterns('comunicacion.notas.views',
     (r'^$', 'index'),

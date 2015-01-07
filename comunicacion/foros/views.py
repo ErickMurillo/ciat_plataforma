@@ -68,7 +68,7 @@ def ver_foro(request, foro_id):
         form3 = DocumentoForm()
         form4 = VideoForm()
         form5 = AudioForm()
-    return render_to_response('foros/ver_foro.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/foros/ver_foro.html', RequestContext(request, locals()))
 
 @login_required
 def comentario_foro(request, aporte_id):

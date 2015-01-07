@@ -21,7 +21,7 @@
 			    </div>
 			    <div class="span7">
 					<div class="btn-group filtrospais">
-						<a href="/notas/crear" class="btn"><i class="icon-plus-sign"></i>Crear nueva nota</a>
+						<a href="{% url 'crear-nota' %}" class="btn"><i class="icon-plus-sign"></i>Crear nueva nota</a>
 					</div>
 			    </div>
 	        </div>
@@ -42,18 +42,18 @@
 				{%if nota.fotos.all.count > 0%}
 				 {%for thumb in nota.fotos.all|slice:"1"%} 
 				 		{% thumbnail thumb.foto "220x160" crop="center" as im %}
-                        	<a href="/notas/{{nota.id}}"><img src="/uploads/{{im}}"></a>
+                        	<a href="{% url 'detalle-notas' nota.id %}"><img src="/uploads/{{im}}"></a>
                       {% endthumbnail %}
 	             {%endfor%}
 	            {%else%}
-	           		   <a href="/notas/{{nota.id}}"><img  src="/files/img/nofoto.png"><a/>
+	           		   <a href="{% url 'detalle-notas' nota.id %}"><img  src="/files/img/nofoto.png"></a>
 	            {%endif%}
 				</div>
 				<div class="span9">
 						<div class="extrainfo">{{nota.fecha}} | {{nota.user.userprofile.contraparte.nombre}}</div>
-						<a href="/notas/ver/{{nota.id}}" class="titulo-medio">{{nota.titulo}}</a><br>
+						<a href="{% url 'comentar-nota' nota.id %}" class="titulo-medio">{{nota.titulo}}</a><br>
 						{{nota.contenido|safe|truncatewords_html:50}} 
-						<a href="/notas/{{nota.id}}" class="boton-blue-leer">Leer más</a>
+						<a href="{% url 'detalle-notas' nota.id %}" class="boton-blue-leer">Leer más</a>
 				</div>
 			</div>
 			<hr>

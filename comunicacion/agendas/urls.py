@@ -2,7 +2,7 @@ from django.conf.urls import *
 from django.views.generic import ListView, DetailView
 from models import Agendas
 
-urlpatterns = patterns('agendas.views',
+urlpatterns = patterns('comunicacion.agendas.views',
     url(r'^$', ListView.as_view(model=Agendas, 
     	                        template_name="agendas/agenda_list.html"),
                                 name="agenda-list"),
