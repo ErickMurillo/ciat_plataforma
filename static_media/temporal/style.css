@@ -768,3 +768,15 @@ background-color: #5d8c3b;
   float: left;
   margin-right: 20px;
 }
+
+/***********Admin***********************/
+.menuadmin{
+	text-align: center !important;
+}
+.menuadmin .fa-3x {
+margin-bottom: 0.2em !important
+}
+.main-menu-admin{
+	background-color: white;
+	border: none;
+}
