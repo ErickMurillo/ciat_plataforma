@@ -15,6 +15,12 @@
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
+
+  		$(".deg135" ).mouseover(function() {
+			$("div.circle-container .mostrar").append("<span>MONITOREO CAMPESINO</span>");
+  		}).mouseout(function() {
+    		$("div.circle-container .mostrar span").remove();
+  		});
  
 	});
 	</script>
@@ -22,6 +28,10 @@
 
 {% block contenido %}
 <style>
+	div.circle-container .mostrar span {
+		color: #700303;
+		font-size: 45px;
+	}
 	.circle-container {
     position: relative;
     width: 45em;
