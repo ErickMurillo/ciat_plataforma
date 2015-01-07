@@ -1,11 +1,31 @@
 {% extends "basegeneral.html" %}
 
+{% block extra_js %}
+	<script type="text/javascript">
+	$(function() {
+
+		$(".deg0" ).mouseover(function() {
+			$("div.circle-container .mostrar").append("<span>PLATAFORMA COMUNICACION</span>");
+  		}).mouseout(function() {
+    		$("div.circle-container .mostrar span").remove();
+  		});
+
+  		$(".deg45" ).mouseover(function() {
+			$("div.circle-container .mostrar").append("<span>ANALISIS ORGANIZACIONAL</span>");
+  		}).mouseout(function() {
+    		$("div.circle-container .mostrar span").remove();
+  		});
+ 
+	});
+	</script>
+{% endblock extra_js %}
+
 {% block contenido %}
 <style>
 	.circle-container {
     position: relative;
-    width: 24em;
-    height: 24em;
+    width: 45em;
+    height: 45em;
     padding: 2.8em;
     /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
     border: dashed 1px;
@@ -15,22 +35,24 @@
 	.circle-container a {
 	    display: block;
 	    position: absolute;
-	    top: 50%; left: 50%;
-	    width: 4em; height: 4em;
+	    top: 50%; 
+	    left: 50%;
+	    width: 7em; 
+	    height: 7em;
 	    margin: -2em;
 	}
 	.circle-container img { display: block; width: 100%; }
-	.deg0 { transform: translate(12em); } /* 12em = half the width of the wrapper */
-	.deg45 { transform: rotate(45deg) translate(12em) rotate(-45deg); }
-	.deg135 { transform: rotate(135deg) translate(12em) rotate(-135deg); }
-	.deg180 { transform: translate(-12em); }
-	.deg225 { transform: rotate(225deg) translate(12em) rotate(-225deg); }
-	.deg315 { transform: rotate(315deg) translate(12em) rotate(-315deg); }
+	.deg0 { transform: translate(21em); } /* 12em = half the width of the wrapper */
+	.deg45 { transform: rotate(45deg) translate(21em) rotate(-45deg); }
+	.deg135 { transform: rotate(135deg) translate(23em) rotate(-135deg); }
+	.deg180 { transform: translate(-24em); }
+	.deg225 { transform: rotate(225deg) translate(24em) rotate(-225deg); }
+	.deg315 { transform: rotate(315deg) translate(22em) rotate(-315deg); }
 
 </style>
 
-	<h1>SISTEMAS DE INFORMACIÓN</h1>
-	<h3>Humidtropics</h3>
+	<h1 class="text-center">SISTEMAS DE INFORMACIÓN</h1>
+	<h3 class="text-center">Humidtropics</h3>
 	<ul>
 		<li><a href="/comunicacion">Comunicacion</a></li>
 		<li><a href="/analisis">Analisis</a></li>
@@ -39,12 +61,12 @@
 	</ul>
 
 	<div class='circle-container'>
-	    
-	    <a href='#' class='deg0'><img src='/static/temporal/img/flickr-2.jpg'></a>
-	    <a href='#' class='deg45'><img src='/static/temporal/img/flickr-3.jpg'></a>
-	    <a href='#' class='deg135'><img src='/static/temporal/img/flickr-4.jpg'></a>
-	    <a href='#' class='deg180'><img src='/static/temporal/img/flickr-5.jpg'></a>
-	    <a href='#' class='deg225'><img src='/static/temporal/img/flickr-6.jpg'></a>
-	    <a href='#' class='deg315'><img src='/static/temporal/img/flickr-7.jpg'></a>
+	    <a href='#' class='center'><div class="mostrar"></div></a>
+	    <a href='/comunicacion' class='deg0'><img src='/static/temporal/img/flickr-2.jpg'class="img-circle"></a>
+	    <a href='/analisis' class='deg45'><img src='/static/temporal/img/flickr-3.jpg'class="img-circle"></a>
+	    <a href='#' class='deg135'><img src='/static/temporal/img/flickr-4.jpg'class="img-circle"></a>
+	    <a href='#' class='deg180'><img src='/static/temporal/img/flickr-5.jpg'class="img-circle"></a>
+	    <a href='#' class='deg225'><img src='/static/temporal/img/flickr-6.jpg'class="img-circle"></a>
+	    <a href='#' class='deg315'><img src='/static/temporal/img/flickr-7.jpg'class="img-circle"></a>
 	</div>
 {% endblock contenido %}
