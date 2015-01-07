@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from .models import *
 from forms import *
-from notas.models import *
-from agendas.models import *
+from comunicacion.notas.models import *
+from comunicacion.agendas.models import *
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -17,7 +17,7 @@ import thread
 import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import simplejson
-from foros.models import Videos, Audios
+from comunicacion.foros.models import Videos, Audios
 
 
 # Create your views here.
@@ -28,27 +28,27 @@ from foros.models import Videos, Audios
 
 def lista_contrapartes_mapa(request):
     contra = Contraparte.objects.filter(tipo=1)
-    return render_to_response('contrapartes/contraparte_list_mapa.html', locals(),
+    return render_to_response('comunicacion/contrapartes/contraparte_list_mapa.html', locals(),
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes(request):
     object_list = Contraparte.objects.all().order_by('nombre')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
     paises = Pais.objects.all()
-    return render_to_response('contrapartes/contraparte_list.html', locals(),
+    return render_to_response('comunicacion/contrapartes/contraparte_list.html', locals(),
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes_pais(request,id):
     object_list = Contraparte.objects.filter(pais__id=id).order_by('nombre')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
     paises = Pais.objects.all()
-    return render_to_response('contrapartes/contraparte_list.html', locals(),
+    return render_to_response('comunicacion/contrapartes/contraparte_list.html', locals(),
                                  context_instance=RequestContext(request))
 
 def detalle_contraparte(request,id):
     contra = get_object_or_404(Contraparte, id=id)
     notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha')
-    return render_to_response('contrapartes/contraparte_detail.html', locals(),
+    return render_to_response('comunicacion/contrapartes/contraparte_detail.html', locals(),
                                  context_instance=RequestContext(request))
 
 @login_required
@@ -62,7 +62,7 @@ def crear_contraparte(request):
             return HttpResponseRedirect('/')
     else:
     	form = ContraparteForms()
-    return render_to_response('contrapartes/crear_contraparte.html', locals(),
+    return render_to_response('comunicacion/contrapartes/crear_contraparte.html', locals(),
     	                         context_instance=RequestContext(request))
 
 @login_required
@@ -85,7 +85,7 @@ def editar_contraparte(request, id):
             return HttpResponseRedirect('%s?shva=ok' % '/foros/perfil/')
     else:
         form = ContraparteForms(instance=contra)
-    return render_to_response('contrapartes/crear_contraparte.html', locals(),
+    return render_to_response('comunicacion/contrapartes/crear_contraparte.html', locals(),
                                  context_instance=RequestContext(request))
 
 # @login_required
@@ -121,7 +121,7 @@ def editar_usuario_perfil(request):
     else:
         form = UserForm(instance=request.user)
         form1 = UserProfileForm(instance=request.user.userprofile)
-    return render_to_response('contrapartes/editar_usuario.html', locals(),
+    return render_to_response('comunicacion/contrapartes/editar_usuario.html', locals(),
                                  context_instance=RequestContext(request))
 
 @login_required
@@ -153,12 +153,12 @@ def enviar_mensaje(request):
 
     else:
         form = MensajeForm()
-    return render_to_response('contrapartes/mensaje.html', locals(),
+    return render_to_response('comunicacion/contrapartes/mensaje.html', locals(),
                                 context_instance=RequestContext(request))
 
 def notify_user_mensaje(mensaje):
     site = Site.objects.get_current()
-    contenido = render_to_string('contrapartes/notify_new_mensaje.html', {
+    contenido = render_to_string('comunicacion/contrapartes/notify_new_mensaje.html', {
                                    'mensajes': mensaje,
                                    'url': '%s/contrapartes/mensaje/ver/' % (site,)
                                     })
@@ -229,7 +229,7 @@ def estadisticas(request):
         audios = len(lista_audios_foros) + len(lista_audios_aporte)
         total[usuario] = (nota,foro,aporte,comentario,documentos,imagenes,videos,audios)
 
-    return render_to_response('privados/estadisticas.html', locals(),
+    return render_to_response('comunicacion/privados/estadisticas.html', locals(),
                                  context_instance=RequestContext(request))
 
 
@@ -264,7 +264,7 @@ def todos_audios(request):
     asociados = Contraparte.objects.filter(tipo=1)
     clave = Tag.objects.all()
 
-    return render_to_response('contrapartes/producciones_audios.html', locals(),
+    return render_to_response('comunicacion/contrapartes/producciones_audios.html', locals(),
                               context_instance=RequestContext(request))
 
 def todos_videos(request):
@@ -283,7 +283,7 @@ def todos_videos(request):
     asociados = Contraparte.objects.filter(tipo=1)
     clave = Tag.objects.all()
 
-    return render_to_response('contrapartes/producciones_videos.html', locals(),
+    return render_to_response('comunicacion/contrapartes/producciones_videos.html', locals(),
                               context_instance = RequestContext(request))
 
 
@@ -324,5 +324,5 @@ def audios_radios(request, id):
     asociados = Contraparte.objects.filter(tipo=1)
     clave = Tag.objects.all()
 
-    return render_to_response('contrapartes/producciones_audios.html', locals(),
+    return render_to_response('comunicacion/contrapartes/producciones_audios.html', locals(),
                               context_instance=RequestContext(request))

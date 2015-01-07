@@ -2,14 +2,14 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import ListView, DetailView
 from models import Foros
 
-urlpatterns = patterns('foros.views',
+urlpatterns = patterns('comunicacion.foros.views',
     #url(r'^$', 'index', name='index'),
     url(r'^$', ListView.as_view(model=Foros, 
-    	                        template_name="foros/foro_list.html"),
+    	                        template_name="comunicacion/foros/foro_list.html"),
     	                        name='foro-list'),
     #url(r'^$', 'lista_foro', name='lista-foro'), 
     url(r'^(?P<pk>\d+)/$', DetailView.as_view(model=Foros, 
-    	                                        template_name='foros/foro_detail.html'),
+    	                                        template_name='comunicacion/foros/foro_detail.html'),
                                                 name='foro-detail'),
     url(r'^crear/$', 'crear_foro', name='crear-foro'),
     url(r'^editar/(?P<id>\d+)/$', 'editar_foro', name='editar-foro'),

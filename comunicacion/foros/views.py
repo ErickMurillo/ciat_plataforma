@@ -15,8 +15,8 @@ from models import *
 from tagging.models import Tag
 from tagging.models import TaggedItem
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
-from agendas.models import *
-from notas.models import *
+from comunicacion.agendas.models import *
+from comunicacion.notas.models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sites.models import Site
 # Create your views here.
@@ -68,7 +68,7 @@ def ver_foro(request, foro_id):
         form3 = DocumentoForm()
         form4 = VideoForm()
         form5 = AudioForm()
-    return render_to_response('foros/ver_foro.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/foros/ver_foro.html', RequestContext(request, locals()))
 
 @login_required
 def comentario_foro(request, aporte_id):
@@ -87,7 +87,7 @@ def comentario_foro(request, aporte_id):
             return HttpResponse('/foros/ver/%d/#cmt%s' % (aporte.foro_id, form.instance.id))
     else:
         form = ComentarioForm()
-    return render_to_response('foros/comentario.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/foros/comentario.html', RequestContext(request, locals()))
 
 @login_required
 def crear_foro(request):
@@ -129,7 +129,7 @@ def crear_foro(request):
         form3 = DocumentoForm()
         form4 = VideoForm()
         form5 = AudioForm()
-    return render_to_response('foros/crear_foro.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/foros/crear_foro.html', RequestContext(request, locals()))
 
 @login_required
 def editar_foro(request, id):
@@ -171,7 +171,7 @@ def editar_foro(request, id):
         form4 = ForoVideoFormSet(instance=foro)
         form5 = ForoAudioFormSet(instance=foro)
 
-    return render_to_response('foros/crear_foro.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/foros/crear_foro.html', RequestContext(request, locals()))
 
 @login_required
 def borrar_foro(request, id):
@@ -203,7 +203,7 @@ def notas_personales(request):
     except EmptyPage:
         notas = paginator.page(paginator.num_pages)
 
-    return render_to_response('privados/notas.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/notas.html', RequestContext(request, locals()))
 
 @login_required
 def agenda_personales(request):
@@ -219,7 +219,7 @@ def agenda_personales(request):
     except EmptyPage:
         agenda = paginator.page(paginator.num_pages)
 
-    return render_to_response('privados/agenda.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/agenda.html', RequestContext(request, locals()))
 
 @login_required
 def documento(request):
@@ -249,7 +249,7 @@ def documento(request):
                 lista.append(item)
         documentos = list(set(lista))
 
-    return render_to_response('privados/documentos.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/documentos.html', RequestContext(request, locals()))
 
 @login_required
 def busqueda_tag(request, tags):
@@ -259,7 +259,7 @@ def busqueda_tag(request, tags):
         for tag in Tag.objects.filter(name=docu.tags_doc):
             tags.append(tag)
     todos = TaggedItem.objects.get_by_model(Documentos, tag_sel.name)
-    return render_to_response('privados/documentos_tag.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/documentos_tag.html', RequestContext(request, locals()))
 
 @login_required
 def multimedia_fotos(request):
@@ -290,7 +290,7 @@ def multimedia_fotos(request):
         #tags.sort(key=operator.itemgetter('count'), reverse=True)
         imagenes = list(set(lista))
 
-    return render_to_response('privados/multimedia_fotos.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/multimedia_fotos.html', RequestContext(request, locals()))
 @login_required
 def multimedia_fotos_tag(request, tags):
     tag_sel = get_object_or_404(Tag, name=tags)
@@ -299,7 +299,7 @@ def multimedia_fotos_tag(request, tags):
         for tag in Tag.objects.filter(name=docu.tags_img):
             tags.append(tag)
     imagenes = TaggedItem.objects.get_by_model(Imagen, tag_sel.name)
-    return render_to_response('privados/multimedia_fotos.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/multimedia_fotos.html', RequestContext(request, locals()))
 
 @login_required
 def multimedia_videos(request):
@@ -330,7 +330,7 @@ def multimedia_videos(request):
         #tags.sort(key=operator.itemgetter('count'), reverse=True)
         videos = list(set(lista))
 
-    return render_to_response('privados/multimedia_videos.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/multimedia_videos.html', RequestContext(request, locals()))
 
 @login_required
 def multimedia_videos_tag(request, tags):
@@ -340,7 +340,7 @@ def multimedia_videos_tag(request, tags):
         for tag in Tag.objects.filter(name=docu.tags_vid):
             tags.append(tag)
     videos = TaggedItem.objects.get_by_model(Videos, tag_sel.name)
-    return render_to_response('privados/multimedia_videos.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/multimedia_videos.html', RequestContext(request, locals()))
 
 @login_required
 def multimedia_videos_sel(request, video):
@@ -349,7 +349,7 @@ def multimedia_videos_sel(request, video):
     for docu in Videos.objects.all():
         for tag in Tag.objects.filter(name=docu.tags_vid):
             tags.append(tag)
-    return render_to_response('privados/multimedia_videos.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/multimedia_videos.html', RequestContext(request, locals()))
 
 @login_required
 def multimedia_audios(request):
@@ -380,7 +380,7 @@ def multimedia_audios(request):
         #tags.sort(key=operator.itemgetter('count'), reverse=True)
         audios = list(set(lista))
 
-    return render_to_response('privados/multimedia_audios.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/multimedia_audios.html', RequestContext(request, locals()))
 
 @login_required
 def multimedia_audios_tag(request, tags):
@@ -390,13 +390,13 @@ def multimedia_audios_tag(request, tags):
         for tag in Tag.objects.filter(name=docu.tags_aud):
             tags.append(tag)
     audios = TaggedItem.objects.get_by_model(Audios, tag_sel.name)
-    return render_to_response('privados/multimedia_audios.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/privados/multimedia_audios.html', RequestContext(request, locals()))
 
 
 def notify_all_foro(foros):
     site = Site.objects.get_current()
     users = User.objects.all() #.exclude(username=foros.contraparte.username)
-    contenido = render_to_string('foros/notify_new_foro.txt', {'foro': foros,
+    contenido = render_to_string('comunicacion/foros/notify_new_foro.txt', {'foro': foros,
                                  'url': '%s/foros/ver/%s' % (site, foros.id),
                                  'url_aporte': '%s/foros/ver/%s/#formaporte' % (site, foros.id),
                                  })
@@ -413,7 +413,7 @@ def notify_all_aporte(aportes):
 
 def notify_user_comentario(comentario):
     site = Site.objects.get_current()
-    contenido = render_to_string('foros/notify_new_comment.txt', {
+    contenido = render_to_string('comunicacion/foros/notify_new_comment.txt', {
                                    'comentario': comentario,
                                    'url': '%s/foros/ver/%s' % (site, comentario.aporte.foro.id)
                                     })
@@ -460,7 +460,7 @@ def editar_aporte(request, aporte_id):
         form4 = AporteVideoFormSet(instance=aporte)
         form5 = AporteAudioFormSet(instance=aporte)
 
-    return render_to_response('foros/editar_aporte.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/foros/editar_aporte.html', RequestContext(request, locals()))
 
 @login_required
 def editar_comentario(request, comen_id):
@@ -478,7 +478,7 @@ def editar_comentario(request, comen_id):
     else:
         form = ComentarioForm(instance=comentario)
 
-    return render_to_response('foros/comentario.html', RequestContext(request, locals()))
+    return render_to_response('comunicacion/foros/comentario.html', RequestContext(request, locals()))
 
 @login_required
 def borrar_aporte(request, id):
