@@ -1,7 +1,7 @@
 from urlparse import parse_qs
 import re
 import urllib
-from django.utils import simplejson
+import json as simplejson
 
 class Provider(object):
 
