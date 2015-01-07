@@ -1,0 +1,351 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+
+{% block contenido %}
+
+ <!--grafico 1 -->
+<div id="sector"></div> 
+
+<!--tabla 1-->
+<h1>Table 3. Project/Initiatives by Organizational Group</h1>
+<div>
+<table class="table">
+    <tr>
+        <td>Organizational Group</td>
+        <td>Number of Projects/Initiatives</td>
+        <td>Median Value</td>
+    </tr>
+    {% for key,value in proyectos.items %}
+        <tr>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+<!--grafico 2 -->
+<div id="proyectos"></div> 
+
+<h1>Table 4. Distribution of Projects/Initiatives by Thematic Area</h1>
+ <div>
+<table class="table">
+    <tr>
+        <td>Thematic Area</td>
+        <td>Number of Projects/Initiatives</td>
+    </tr>
+    {% for key,value in contador_tematica.items %}
+        <tr>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div> 
+
+
+<!-- tabla impactos por organizacion -->
+<h1>Table 5. Number of Impacts by Organizational Group </h1>
+
+ <div>
+<table class="table">
+    <tr>
+        <td>Organizational Group</td>
+        <td>Number of Impacts</td>
+        <td>Median Value</td>
+    </tr>
+    {% for key,value in impacto.items %}
+        <tr>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div> 
+
+
+<!--grafico 3 -->
+<div id="impactos"></div> 
+
+<!-- tabla impactos por tematica pregunta 4-->
+<h1>Table 6. Distribution of Projects/Initiatives by Thematic Area</h1>
+ <div>
+<table class="table">
+    <tr>
+        <td>Thematic Area</td>
+        <td>Number of Impacts</td>
+    </tr>
+    {% for key,value in impactos_tematica.items %}
+        <tr>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div> 
+
+
+<!-- tabla innovaciones por grupos organizacionales pregunta 5-->
+<h1>Table 7. Innovations/Changes by Organizational Group </h1>
+ <div>
+<table class="table">
+    <tr>
+        <td>Organizational Group</td>
+        <td>Number of Innovations/Changes</td>
+        <td>Median Value</td>
+    </tr>
+    {% for key,value in innovacion_contador.items %}
+        <tr>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+<!-- grafico 4 -->
+<div id="innovaciones"></div> 
+
+
+<!-- tabla innovaciones por grupos organizacionales pregunta 5-->
+<h1>Table 8. Distribution of Innovations/Changes by Thematic Area</h1>
+ <div>
+<table class="table">
+    <tr>
+        <td>Thematic Area</td>
+        <td>Number of Innovations/Changes</td>
+    </tr>
+    {% for key,value in tematica_innovacion_5a.items %}
+        <tr>
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!--grafico 4 
+<div id="org" ></div> -->
+
+
+{% endblock contenido %}
+
+
+{% block extra_js%}  
+
+   <!-- +++++++++++++++++++++++++++++++++++++++ grafica 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+<script>
+    $(function () {
+    $('#sector').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: '1. Distribution of Interview Participation by Group'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '% Impactos por Organizacion',
+            data: [
+                    
+        {% for key,value in  contador_sector.items %}
+            ['{{key}}', {{value}}],
+        {% endfor %}
+            ]
+        }]
+    });
+});</script>
+
+<!-- +++++++++++++++++++++++++++++++++++++++ grafica 2 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+<script>
+    $(function () {
+    $('#proyectos').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: '2. Distribution of Projects by Organizational Type'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                    
+        {% for key,value in  proyectos.items %}
+            ['{{key}}', {{value}}],
+        {% endfor %}
+            ]
+        }]
+    });
+});</script>
+
+<!-- +++++++++++++++++++++++++++++++++++++++ grafica 3 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+<script>
+    $(function () {
+    $('#impactos').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Figure 4. Distribution of Impacts by Organizational Type'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                    
+        {% for key,value in  impacto.items %}
+            ['{{key}}', {{value}}],
+        {% endfor %}
+            ]
+        }]
+    });
+});</script>
+
+<!-- +++++++++++++++++++++++++++++++++++++++ grafica 4 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+<script>
+    $(function () {
+    $('#innovaciones').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Figure 6. Distribution of Innovations/Changes across Organizational Group'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+                    
+        {% for key,value in  innovacion_contador.items %}
+            ['{{key}}', {{value}}],
+        {% endfor %}
+            ]
+        }]
+    });
+});</script>
+
+
+<!-- +++++++++++++++++++++++++++++++++++++++ grafica 5 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+// <script>
+//     $(function () {
+//     $('#org').highcharts({
+//         chart: {
+//             plotBackgroundColor: null,
+//             plotBorderWidth: 1,//null,
+//             plotShadow: false
+//         },
+//         title: {
+//             text: 'Figure 8. Distribution of Partner Organizations'
+//         },
+//         tooltip: {
+//             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+//         },
+//         plotOptions: {
+//             pie: {
+//                 allowPointSelect: true,
+//                 cursor: 'pointer',
+//                 dataLabels: {
+//                     enabled: true,
+//                     format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+//                     style: {
+//                         color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+//                     }
+//                 }
+//             }
+//         },
+//         series: [{
+//             type: 'pie',
+//             name: 'Browser share',
+//             data: [
+                    
+//         {% for key,value in  socios_org.items %}
+//             ['{{key}}', {{value}}],
+//         {% endfor %}
+//             ]
+//         }]
+//     });
+// });</script>
+
+{% endblock extra_js%}

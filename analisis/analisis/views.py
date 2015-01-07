@@ -5,7 +5,7 @@ from .models import *
 
 # Create your views here.
 class IndexView(ListView):
-	template_name = 'index.html'
+	template_name = 'analisis/index.html'
 	model = Sector
 
 	def get_context_data(self,**kwargs):

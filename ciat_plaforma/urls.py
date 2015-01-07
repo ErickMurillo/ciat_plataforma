@@ -19,16 +19,21 @@ urlpatterns = patterns('',
                             {'template_name': 'registration/password_change_form.html',
                             'post_change_redirect': '/foros/perfil/'},
                             name='password-change'),
-
+    #urls para comunicacion
     url(r'^comunicacion/', include('comunicacion.notas.urls')),
     url(r'^foros/', include('comunicacion.foros.urls')),
     url(r'^agendas/', include('comunicacion.agendas.urls')),
     url(r'^contrapartes/', include('comunicacion.contrapartes.urls')),
 
+    #urls para analisis organizacional
+    url(r'^analisis/', include('analisis.analisis.urls')),
+    
+    #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
+
 )
 
 urlpatterns += staticfiles_urlpatterns()

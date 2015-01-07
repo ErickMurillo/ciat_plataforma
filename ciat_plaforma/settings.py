@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'analisis.configuracion',
     #apps solo de monitoreo,
     #apps de terceros
+    'smart_selects',
     'sorl.thumbnail',
     'ckeditor',
     'magicembed',
