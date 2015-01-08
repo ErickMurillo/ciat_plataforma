@@ -5,19 +5,19 @@
 	$(function() {
 
 		$(".deg0" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span>PLATAFORMA COMUNICACION</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>PLATAFORMA COMUNICACION</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
   		$(".deg45" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span>ANALISIS ORGANIZACIONAL</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>ANALISIS ORGANIZACIONAL</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
   		$(".deg135" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span>MONITOREO CAMPESINO</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>MONITOREO CAMPESINO</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
@@ -38,7 +38,7 @@
     height: 45em;
     padding: 2.8em;
     /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
-    border: dashed 1px;
+    border: dashed 2px;
     border-radius: 50%;
     margin: 1.75em auto 0;
 	}
@@ -50,6 +50,9 @@
 	    width: 7em; 
 	    height: 7em;
 	    margin: -2em;
+	}
+	.mostrar {
+		margin: -37px 2px 3px -139px;
 	}
 	.circle-container img { display: block; width: 100%; }
 	.deg0 { transform: translate(21em); } /* 12em = half the width of the wrapper */
