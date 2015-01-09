@@ -9,9 +9,6 @@
     <!-- device test end -->
  
     
-    <div id="k-body"><!-- content wrapper -->
-    
-    	<div class="container"><!-- container -->
         {% if request.GET.b == 'borrado' %}
             <div class="alert fade in">
                 Se ha eliminado el foro de forma permanente
@@ -19,23 +16,6 @@
             </div>
         {% endif %}
         
-        	<div class="row"><!-- row -->
-           
-                <div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
-                
-                 <form action="#" id="top-searchform" method="get" role="search">
-                        <div class="input-group">
-                            <input type="text" name="s" id="sitesearch" class="form-control" autocomplete="off" placeholder="Type in keyword(s) then hit Enter on keyboard" />
-                        </div>
-                    </form>
-                    
-                    <div id="bt-toggle-search" class="search-icon text-center"><i class="s-open fa fa-search"></i><i class="s-close fa fa-times"></i></div><!-- toggle search button -->
-                
-                </div><!-- top search end --> 
-            
-                          
-                
-            </div><!-- row end -->
             
             <div class="row no-gutter" style="margin-top: 1em !important"><!-- row -->
 
@@ -45,13 +25,35 @@
                 	
                     <div class="col-padded"><!-- inner custom column -->
 
+<<<<<<< HEAD
             		<div class="btn-group filtrospais col-md-2 col-md-offset-10">
 						<a href="/foros/crear" class="btn add"><i class="icon-plus-sign"></i>Crear nuevo foro</a>
 					</div>
                     
                     {% for foro in object_list %}
+=======
+            		<div class="btn-group filtrospais">
+						<a href="/foros/crear" class="btn"><i class="icon-plus-sign"></i></a>
+					</div>
+                    
+>>>>>>> 6f62c2efb1fd8f37ad9b2a56bb5639c35088b70a
                     	<div class="row gutter"><!-- row -->
+
+                            <div class="col-lg-12 col-md-12">
+                                <a href="/foros/crear" class="btn txt-black pull-right">
+                                <i class="fa fa-plus"></i> Crear nuevo foro</a>
+                                <br>
+                                <hr />
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                    
+                                <h1 class="page-title">Foro</h1><!-- category title -->
+                         
+                            
+                            </div>
                         
+                        {% for foro in object_list %}
                         	<div class="k-article-summary col-lg-12 col-md-12">
                                 
                                 <div class="col-lg-2 col-md-2">
@@ -121,10 +123,6 @@
             
             </div><!-- row end -->
         
-        </div><!-- container end -->
-    
-    </div><!-- content wrapper end -->
-    
 
 {% endblock %}
 
