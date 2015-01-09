@@ -866,3 +866,6 @@ background-color: #3a87ad;
 	display: block;
 	margin-top: 20px;
 }
+.formulario-admin label::after{
+	content: " *";
+}
