@@ -45,9 +45,10 @@
                 	
                     <div class="col-padded"><!-- inner custom column -->
 
-            		<div class="btn-group filtrospais">
-						<a href="/foros/crear" class="btn"><i class="icon-plus-sign"></i>Crear nuevo foro</a>
+            		<div class="btn-group filtrospais col-md-2 col-md-offset-10">
+						<a href="/foros/crear" class="btn add"><i class="icon-plus-sign"></i>Crear nuevo foro</a>
 					</div>
+                    
                     {% for foro in object_list %}
                     	<div class="row gutter"><!-- row -->
                         
@@ -62,24 +63,22 @@
                                     <h1 class="page-title"><a href="{{foro.get_absolute_url}}">{{foro.nombre}}</a></h1>
                                     <div class="news-meta">
                                         <span class="news-meta-date">Jun 12, 2014</span>
-                                        <span class="news-meta-category"><a href="news.html" title="News">News</a></span>
-                                        <span class="news-meta-comments"><a href="#" title="3 comments">3 comments</a></span>
                                     </div>
                                 </div>
                                 
                                 <div class="news-body">
                                     <p>
-                                    {{foro.contenido|safe|truncatewords_html:50}}<a href="#" class="more-link">...Read more</a> 
+                                    {{foro.contenido|safe|truncatewords_html:50}}<a href="#" class="more-link">...Leer más</a> 
                                     </p>
   
                                 </div>
                                     <br>
                                 <table class="table table-striped">
                                 <tr>
-                                    <td><strong>Recepción de aportes <img src="/files/img/group.png"></strong></td>
-                                    <td><strong>Cierre de aportes <img src="/files/img/group_delete.png"></strong></td>
-                                    <td><strong>Foro Skype <img src="/files/img/user_comment.png"></strong></td>
-                                    <td><strong>Entrega de memoria <img src="/files/img/page_edit.png"></strong></td>
+                                    <td><strong>Recepción de aportes <i class="fa fa-users"></i></strong></td>
+                                    <td><strong>Cierre de aportes <i class="fa fa-times"></i></strong></td>
+                                    <td><strong>Foro Skype <i class="fa fa-skype"></i></strong></td>
+                                    <td><strong>Entrega de memoria <i class="fa fa-file-text-o"></i></strong></td>
                                 </tr>
                                 <tr>
                                     <td>{{foro.apertura}}</td>

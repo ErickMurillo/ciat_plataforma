@@ -22,6 +22,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 -------------------------------- */
 
+.event-from{
+	background-color: #5d8c3b !important;
+}
+
 /* ================================================== COMMON STYLES */
 
 /* == font and links == */

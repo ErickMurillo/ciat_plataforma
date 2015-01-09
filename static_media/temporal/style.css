@@ -780,3 +780,27 @@ margin-bottom: 0.2em !important
 	background-color: white;
 	border: none;
 }
+
+.event-from, .event-to{
+	background-color: #5d8c3b !important;
+}
+
+.color{
+	background-color: #e7e6dd;
+	margin-bottom: 3em;
+}
+
+.add{
+	background-color: #5d8c3b
+}
+
+.add:link, .add:visited {
+	color: white;
+}
+.add:hover {
+	color: white;
+}
+
+.space{
+	right: 0  !important;
+}
