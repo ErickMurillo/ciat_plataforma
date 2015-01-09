@@ -45,7 +45,7 @@ class Notas(models.Model):
         return adjunto
 
     def get_absolute_url(self):
-    	return '/notas/%d/' % (self.id,)
+    	return '/comunicacion/%d/' % (self.id,)
     # Para obtener el pais de la noticia
     def pais(self):
         usuario = UserProfile.objects.get(pk=self.user.id)

@@ -1,6 +1,7 @@
 {% extends "baseadmin.html" %}
 
 {% block extra_js %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <link href="/static/temporal/css/fullcalendar.css" rel="stylesheet" type="text/css">
 <link href="/static/temporal/css/cupertino/theme.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/static/temporal/js/fullcalendar.min.js"></script>
@@ -62,6 +63,7 @@
 	  </div>
 	</div>
 </div>
+
 <div class="row body-content">
 	<div class="container">
 		{% if request.GET.shva == 'erase' %}
@@ -76,8 +78,11 @@
                 <a class="close" href="#" data-dismiss="alert">x</a>
             </div>
         {% endif %}
+
+
 		{%if actividad %}
-		<div class="row">
+
+		<!-- <div class="row">
 			<div  {%if actividad.adjunto.all %}class="span8"{%else%} class="span12"{%endif%}>
 				<div class="evento">
 					<div class="fechas">
@@ -85,6 +90,7 @@
 						{%if actividad.final%}
 							→ <span class="badge badge-warning"><i class="icon-calendar icon-white"></i>{{actividad.final|date:"d M"}}</span>
 						{%endif%}
+
 					</div>
 					<div class="titulo-medio">{{actividad.evento}}</div>
 					{{actividad.descripcion|safe}}
@@ -126,36 +132,101 @@
 			</div>
 			{%endif%}
 		</div>
-		<hr>
+		<hr> -->
+			<div class="row">
+		 <div class="events-title-meta clearfix">
+                                    <h1 class="page-title">{{actividad.evento}}</h1>
+                                    <div class="event-meta">
+                                        <span class="event-from btn btn-mini btn-danger">{{actividad.inicio|date:"d M"}}</span>
+                                        <span class="event-divider">hasta</span>
+                                        <span class="event-to btn btn-mini btn-danger">{{actividad.final|date:"d M"}}</span>
+                                        <span class="event-time">16:00 - 21:00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="news-body clearfix">
+                                    <p>
+                                    {{actividad.descripcion|safe}}
+                                    </p>
+                                    
+                                    <hr />
+                                    {% if actividad.user.userprofile.contraparte == request.user.userprofile.contraparte or request.user.is_superuser %}
+						<div class="botones-evento">
+					    <a class="btn btn-mini" href="/agendas/editar/{{actividad.id}}"><i class="icon-pencil"></i>Editar</a>
+					    <a  data-toggle="modal" data-target="#myModal" class="btn btn-mini btn-danger" href=""><i class="icon-trash icon-white"></i>Borrar</a>
+						</div>
+						<div class="clean"></div>
+	                        <div class="modal fade hide" id="myModal">
+	                          <div class="modal-header">
+	                            <a class="close" data-dismiss="modal">×</a>
+	                            <h3>¿Está seguro?</h3>
+	                          </div>
+	                          <div class="modal-body">
+	                            <p>El evento será borrado permanentemente y no podrá ser recuperado</p>
+	                          </div>
+	                          <div class="modal-footer">
+	                            <a href="#" data-dismiss="modal" class="btn">No Borrar</a>
+	                            <a href="/agendas/borrar/{{actividad.id}}" class="btn btn-danger">Borrar Permanentemente</a>
+	                          </div>
+	                        </div>
+	                        <br>  
+					 {% endif %}
+					 {%if actividad.adjunto.all %}
+                                    <div class="row">
+                                     {% for doc in actividad.adjunto.all%}
+                                        <div class="col-md-12 col-lg-8">
+                                              <p class="info-doc">{{doc.nombre_doc}}</p>
+                                        </div>
+                                        <div class="col-md-12 col-lg-4">
+                                        <a href="/uploads/{{doc.adjunto}}" class="btn btn-primary color">
+                                              Descargar
+                                          </a>
+                                        </div>
+                                         {% endfor %}
+                                    </div>
+
+                                    <hr />
+                                    {% endif %}
+                                </div>
 		{%endif%}
+
+		 </div>
+
+		   
+
 		<div class="row">
-			<div class="span9">
+			<div class="col-lg-8 col-md-8">
 				<div id='calendar'></div>
 			</div>
-			<div class="span3">
-				<ul class="nav nav-list well">
-						<li class="nav-header">
-					    OPCIONES DE VISUALIZACIÓN
-					  </li>
-					  	<form  action="/agendas/calendar/" method="POST">{% csrf_token %}
-						 {% for pais in paises %}
+			 <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
+
+                    <div class="col-padded col-shaded"><!-- inner custom column -->
+                    
+                    <h1 class="title-widget">Organizaciones</h1>
+
+                    <form action="/agendas/calendar/" method="POST">
+                    <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="Gum2gg0eEr7vm4EnPvMcylr3KVYjROJ6">
+                    </div>
+                         
+                        {% for pais in paises %}
 						 	<strong>{{pais}}</strong><br>
 						 	{% for contraparte in contrapartes %}
 						 		{% if contraparte.pais.id == pais.id%}
 						 		<div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
 						 		<li>
-									<label class="checkbox"><input type="checkbox" name="contraparte" value="{{contraparte.id}}" >{{contraparte.siglas}}</input></label>
+									<label class="checkbox"><input type="checkbox" name="contraparte" value="{{contraparte.id}}">{{contraparte.siglas}}</input></label>
 								</li>
 						 		{%endif%}
 						 	{% endfor %}
 						 {% endfor %}
-						 <hr>
-						<li>
-						<button type="submit" class="btn">Mostrar</button>
-						</li>
-						</form>
-				</ul>
-			</div>
+                         <hr>
+                      
+                        <button type="submit" class="btn btn-success">Mostrar</button>
+                        
+                        </form>
+                    </div>
+                    
+                    </div><!-- inner custom column end -->
 		</div>
 	</div>
 </div>
