@@ -9,95 +9,178 @@
 </script>
   {%endif%}
   {%endblock%}
-<div class="row" >
-    <div class="encabezado">
-      <div class="container">
-        <div class="row">
-          <div class="span5">
-            <div class="encabezado-title">
-            MENSAJES
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-{%if request.GET.guardado == 'ok'%}
-                        <div class="modal fade hide" id="myModal">
-                          <div class="modal-header">
-                            <a class="close" data-dismiss="modal">×</a>
-                            <h3>Enviado con éxito</h3>
-                          </div>
-                          <div class="modal-body">
-                            <p>Su mensaje ha sido enviado con éxito a todos los destinatarios</p>
-                          </div>
-                          <div class="modal-footer">
-                            <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
-                          </div>
-                        </div>  
-    {%endif%}
-<div class="row body-content">
-	<div class="container">
-		<div class="row">
-			<div class="span6">
-				<div class="alert alert-success">Crear mensaje</div>
-				<div class="well mensajeform">
-					<center><a class='btn btn-info' href="javascript:seleccionar_todo()"><i class="icon-ok icon-white"></i>Seleccionar todos</a></center>
-					<form name='fl' action="." method="post" accept-charset="utf-8">{% csrf_token %}
-						{{form.media}}
-						{{form.user}}<br>
-						<div class="clean"></div><br>
-						{{form.mensaje}}<Br>
-						<input type="submit" class="btn btn-info" name="enviar" value="Enviar">
-					</form>
-				</div>
-			</div>
-			<div class="span6">
-				<div class="alert">Mensajes recibidos</div>
-				<table class="table table-bordered table-condensed table-striped">
-					<tbody>
-						{% for a in mensajes %}
-						<tr>
-							<td>
-								<div style="float:right;margin:10px 10px;"class="opacidad-70">
-								<span class="badge badge-info">Enviado por {{a.usuario}}</span>
-								<span class="badge">{{a.fecha}}</span>
+             <div class="row no-gutter"><!-- row -->
+                
+                <div class="col-lg-7 col-md-7"><!-- doc body wrapper -->
+                	
+                    <div class="col-padded"><!-- inner custom column -->
+                    
+                    	<div class="row gutter"><!-- row -->
+
+                        
+                        	<div class="col-lg-12 col-md-12">
+                    
+                            	<h1 class="page-title">Crear Mensaje</h1><!-- category title -->
+
+                            
+                            </div>
+                        
+                        </div><!-- row end -->
+
+                        <div class="row gutter k-equal-height"><!-- row -->
+                        {%if request.GET.guardado == 'ok'%}
+						   	<div class="modal fade hide" id="myModal">
+						        <div class="modal-header">
+						            <a class="close" data-dismiss="modal">×</a>
+						            <h3>Enviado con éxito</h3>
+						        </div>
+						        <div class="modal-body">
+						            <p>Su mensaje ha sido enviado con éxito a todos los destinatarios</p>
+						        </div>
+						        <div class="modal-footer">
+						            <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
+						        </div>
+						    </div>  
+						{%endif%}
+
+						<br><br>
+
+						<div class="col-lg-12">
+							<div class="col-lg-4">
+								<div class="btn-group" role="group" aria-label="...">
+							  		<div class="input-group">
+								      <span class="input-group-addon">
+								        <input type="checkbox" aria-label="...">
+								      </span>
+										<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#trifinio" aria-expanded="false" aria-controls="trifinio">
+											TRIFINIO
+										</button>
+								    </div>
 								</div>
-								<div class="clean"></div>
-								{{a.mensaje|safe}}
-									
-							</td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+							</div>
 
-				<div class="pagination">
-					<ul>
-				        {% if mensajes.has_previous %}
-				        <li>
-				          <a href="{% url 'enviar-mensaje' %}?page={{ mensajes.previous_page_number }}">
-				            ← Anterior</a>
-				        </li>
-				        {% endif %}
+							<div class="col-lg-4">
+							  	<div class="btn-group" role="group" aria-label="...">
+								    <div class="input-group">
+								      <span class="input-group-addon">
+								        <input type="checkbox" aria-label="...">
+								      </span>
+										<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#nicanorte" aria-expanded="false" aria-controls="nicanorte">
+											NICANORTE
+										</button>
+								    </div>
+								</div>
+							</div><!-- /.row -->
 
-				        <li class="active">
-				            {% for numero in mensajes.paginator.page_range%}
-				            	<a href="{% url 'enviar-mensaje' %}?page={{numero}}">{{numero}}</a>
-				            {%endfor%}
-				        </li>
+							<div class="col-lg-4">
+							  	<div class="btn-group" role="group" aria-label="...">
+								    <div class="input-group">
+								      <span class="input-group-addon">
+								        <input type="checkbox" aria-label="...">
+								      </span>
+										<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#ah-rd" aria-expanded="false" aria-controls="ah-rd">
+											AH-RD
+										</button>
+								    </div>
+								</div>
+							</div><!-- /.row -->
+							<br>
+						<hr>
+						</div>
 
-				        {% if mensajes.has_next %}
-				         <li>
-				         <a href="{% url 'enviar-mensaje' %}?page={{ mensajes.next_page_number }}">
-				                Siguiente →</a>
-				         </li>
-				         {% endif %}
-			    	</ul>
-			    </div>
-			</div>
-		</div>
-	</div>
+						
+
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+							<div class="collapse" id="trifinio">
+						
+							  <div class="page-boder">
+							    Organizaciones de Trifinio
+							    {{form.media}}
+								{{form.user}}
+							  </div>
+							</div>
+
+							<div class="collapse" id="nicanorte">
+
+							  <div class="page-boder">
+							    Organizaciones de Nicanorte
+							    {{form.media}}
+								{{form.user}}
+							  </div>
+							</div>
+
+							<div class="collapse" id="ah-rd">
+
+							  <div class="page-boder">
+							    Organizaciones de AH-RD
+							    {{form.media}}
+								{{form.user}}
+							  </div>
+							</div>
+							<br>
+						</div>
+                        
+						<form name='fl' action="." method="post" accept-charset="utf-8">{% csrf_token %}
+						
+						<br>
+						{{form.mensaje}}
+						<br>
+						<input type="submit" class="btn btn-info" name="enviar" value="Enviar">
+						</form>
+
+                        
+                            
+
+                        </div><!-- row end -->
+
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- doc body wrapper end -->
+
+
+                <div id="k-sidebar" class="col-lg-5 col-md-5"><!-- sidebar wrapper -->
+                	
+                    <div class="col-padded col-shaded"><!-- inner custom column -->
+
+                    <div class="title-widget col-lg-6 col-md-6">Mensajes recibidos</div>
+                    <div class="col-lg-6 col-md-6 ">
+                    	<a class="fa fa-download pull-right descarga-mensaje"> Desacargar Mensajes</a>
+                    </div>
+                    <br>
+					<table class="table table-bordered table-condensed table-striped col-lg-12">
+						<tbody>
+							{% for a in mensajes %}
+								<tr>
+									<td id="mesajes">
+										
+										
+										<span class="badge pull-right">{{a.fecha}}</span>
+										<span class="badge badge-info pull-right">Enviado por {{a.usuario}}</span>
+										<br>
+										<hr>
+										
+										
+										
+										{{a.mensaje|safe}}
+											
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+						
+
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- sidebar wrapper end -->
+                
+            
+            </div><!-- row end --> 
+
+
+
 
 	<script type="text/javascript">
 	function seleccionar_todo(){ 
@@ -106,6 +189,5 @@
          		document.fl.elements[i].checked=1;
 		} 
 </script>
-</div>
 
 {% endblock %}
