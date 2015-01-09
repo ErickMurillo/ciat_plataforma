@@ -84,9 +84,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'ciat_plaforma.urls'
+ROOT_URLCONF = 'ciat_plataforma.urls'
 
-WSGI_APPLICATION = 'ciat_plaforma.wsgi.application'
+WSGI_APPLICATION = 'ciat_plataforma.wsgi.application'
 
 
 # Internationalization
