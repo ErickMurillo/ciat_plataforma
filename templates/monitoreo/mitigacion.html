@@ -1,0 +1,118 @@
+{% extends "base.html"%}
+{%load unslugify %}
+{%block extra_header%}
+<style type="text/css">
+    .mitigariesgos{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
+<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
+<script type="text/javascript">
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Mitigación de Riesgos'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 55,
+                    minPointLength : 1
+                }
+            },
+            series: [{% for key, value in tabla.items %}
+                {
+                    name: '{{key|unslugify}}',
+                    data: [{{value.por_mitigacion}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 13px Verdana, sans-serif'
+                                }
+                                }
+                },
+                {% endfor %}]
+        });
+    });
+</script>
+{%endblock%}
+{% block titulo %}
+Subindicador Mitigación de Riesgos
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+{% endblock%}
+{% block contenido %}
+
+{% include "nav_riesgos.html" %}
+<div class="separador"></div>
+
+<div id="mostrar">
+    {% include "simas/menu.html" %}
+</div>
+
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a> {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/28/"></a>{%endif%}</div>
+
+<div class="contenido">
+<div id="modalidad">
+    <table style="width:100%;">
+        <caption>Mitigación de los Riesgos</caption>
+        <thead>
+            <tr>
+                <th>Preguntas</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.mitigacion|floatformat}}</td>
+                <td>{{value.por_mitigacion|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container"></div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html"%}
+{%load unslugify %}
+{% block titulo %}
+Uso de Semilla
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a></div>
+{% endblock%}
+{% block contenido %}
+<div id="mostrar">
+     {% include "simas/menu.html" %}
+</div>
+
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/14/"></a>{%endif%}</div>
+
+<div class="contenido">
+<div id="modalidad">   
+    <table>
+        <caption>Uso de semilla</caption>
+        <thead>
+            <tr>
+                <th>Cultivo</th>
+                <th>Variedad</th>
+                <th>Frecuencia</th>
+                <th>%</th>
+                <th>Nativos</th>
+                <th>%</th>
+                <th>Introducido</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for k in lista%}
+            <tr>
+                <td>{{k.1|unslugify}}</td>
+                <td>{{k.0|unslugify}}</td>
+                <td>{{k.2|floatformat}}</td>
+                <td>{{k.3|floatformat}}</td>
+                <td>{{k.4|floatformat}}</td>
+                <td>{{k.5|floatformat}}</td>
+                <td>{{k.6|floatformat}}</td>
+                <td>{{k.7|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+    <br></br><br></br>
+</div>
+
+{% endblock %}

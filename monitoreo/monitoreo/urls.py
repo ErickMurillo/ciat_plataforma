@@ -2,8 +2,11 @@
 from django.conf.urls import *
 from django.conf import settings
 from django.views.generic import TemplateView
+from .views import HomePageView
 
 urlpatterns = patterns('monitoreo.monitoreo.views',
+    url(r'^$', HomePageView.as_view(), name='home'),
+    #(r'^$', 'index'),
     (r'^index/$', 'inicio'),
     (r'^ajax/organi/$', 'get_organi'),
     (r'^ajax/munis/$', 'get_munis'),

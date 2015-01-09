@@ -147,19 +147,21 @@ def inicio(request):
             del request.session['duenio']
 
     #dict = {'form': form,'user': request.user,'centinela':centinela}
-    return render_to_response('simas/inicio.html', locals(),
+    return render_to_response('monitoreo/inicio.html', locals(),
                               context_instance=RequestContext(request))
 
 #-------------------------------------------------------------------------------
 
-class index(TemplateView):
+class HomePageView(TemplateView):
     template_name = 'monitoreo/index.html'
 
-    def context_data():
-        familias = Encuesta.objects.all().count()
-        organizacion = Organizaciones.objects.all().count()
-        mujeres = Encuesta.objects.filter(sexo=2).count()
-        hombres = Encuesta.objects.filter(sexo=1).count()
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        context['familias'] = Encuesta.objects.all().count()
+        context['organizacion'] = Organizaciones.objects.all().count()
+        context['mujeres'] = Encuesta.objects.filter(sexo=2).count()
+        context['hombres'] = Encuesta.objects.filter(sexo=1).count()
+
         return context
 
 #-------------------------------------------------------------------------------
@@ -235,7 +237,7 @@ def generales(request):
         nose = Encuesta.objects.filter(recolector=lista)
         lista_recolectores[lista] = nose
 
-    return render_to_response('simas/generales.html', locals(),
+    return render_to_response('monitoreo/generales.html', locals(),
                                context_instance=RequestContext(request))
 
 #Comienzan las salidas del monitoreo simas
@@ -278,7 +280,7 @@ def educacion(request):
                 saca_porcentajes(objeto['f_comunidad'], objeto['num_total'], False)]
         tabla_educacion.append(fila)
 
-    return render_to_response('simas/educacion.html', locals(),
+    return render_to_response('monitoreo/educacion.html', locals(),
                                   context_instance=RequestContext(request))
 
 #Tabla Salud
@@ -342,7 +344,7 @@ def salud(request):
                     ]
         tabla_sitio.append(fila_sitio)
 
-    return render_to_response('simas/salud.html',
+    return render_to_response('monitoreo/salud.html',
                               {'tabla_estado':tabla_estado,
                                'tabla_sitio': tabla_sitio,
                                'num_familias': num_familias},
@@ -371,7 +373,7 @@ def luz(request):
                     saca_porcentajes(resultados, consulta.count(), False)]
             tabla.append(fila)
 
-    return render_to_response('simas/luz.html',
+    return render_to_response('monitoreo/luz.html',
                               {'tabla':tabla, 'num_familias': consulta.count()},
                               context_instance=RequestContext(request))
 
@@ -394,7 +396,7 @@ def agua(request):
 
     #totales = [total['total'], 100, total['cantidad'], 100]
     totales = [consulta.count(), 100]
-    return render_to_response('simas/agua.html',
+    return render_to_response('monitoreo/agua.html',
                               #{'tabla':tabla, 'totales':totales},
                               {'tabla':tabla, 'num_familias': consulta.count()},
                               context_instance=RequestContext(request))
@@ -492,7 +494,7 @@ def fincas(request):
     total_porcentajes = round((por_cero + por_rango1 + por_rango2 + por_rango3 + por_rango4),1)
 
 
-    return render_to_response('simas/fincas.html',
+    return render_to_response('monitoreo/fincas.html',
                               locals(),
                               context_instance=RequestContext(request))
 
@@ -547,7 +549,7 @@ def arboles(request):
                       }
 
 
-    return  render_to_response('simas/arboles.html',
+    return  render_to_response('monitoreo/arboles.html',
                               {'num_familias':num_familias,'maderable':maderable,
                                'forrajero':forrajero,'energetico':energetico,'frutal':frutal,
                                'pro_maderable':pro_maderable,'pro_forrajero':pro_forrajero,
@@ -600,7 +602,7 @@ def animales(request):
                                  animales['venta_libre'],
                                  animales['venta_organizada']])
 
-    return render_to_response('simas/animales.html',
+    return render_to_response('monitoreo/animales.html',
                               {'tabla':tabla, 'totales': totales,
                                'num_familias': consulta.count(),
                                'tabla_produccion': tabla_produccion},
@@ -668,7 +670,7 @@ def gremial(request):
         tabla_capacitacion[key] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}
 
 
-    return render_to_response('simas/gremial.html',
+    return render_to_response('monitoreo/gremial.html',
                                  {'tabla_gremial': tabla_gremial, 'tabla_desde':tabla_desde,
                                  'num_familias': num_familias,'divisor':divisor,'divisor1':divisor1,
                                  'tabla_miembro':tabla_miembro, 'divisor2':divisor2,
@@ -701,7 +703,7 @@ def comunitario(request):
 
 
 
-    return render_to_response('simas/comunitario.html', {'tabla_pertenece':tabla_pertenece,
+    return render_to_response('monitoreo/comunitario.html', {'tabla_pertenece':tabla_pertenece,
                               'divisor':divisor, 'num_familias': num_familias,
                               'uno':uno,'dos':dos,'tres':tres},
                                 context_instance=RequestContext(request) )
@@ -913,7 +915,7 @@ def cultivos(request):
     distribucion_cafe = distribucion(request,5)
     distribucion_cacao = distribucion(request,4)
                                            
-    return render_to_response('simas/cultivos.html',
+    return render_to_response('monitoreo/cultivos.html',
                              locals(),
                              context_instance=RequestContext(request))
 
@@ -1050,7 +1052,7 @@ def ingresos(request):
         pass
     respuesta['total_neto'] = round(respuesta['bruto'] * 0.6,2)
 
-    return render_to_response('simas/ingreso.html',locals(),
+    return render_to_response('monitoreo/ingreso.html',locals(),
                               context_instance=RequestContext(request))
 @session_required
 def ingresos2(request):
@@ -1099,7 +1101,7 @@ def ingresos2(request):
     respuesta['brutoo'] = round((respuesta['ingreso_total'] + respuesta['ingreso_otro']) / num_familias,2)
     respuesta['total_neto'] = round(respuesta['brutoo'] * 0.6,2)
 
-    return render_to_response('simas/ingreso.html',
+    return render_to_response('monitoreo/ingreso.html',
                               {'tabla':tabla,'num_familias':num_familias,'matriz':matriz,
                               'respuesta':respuesta},
                               context_instance=RequestContext(request))
@@ -1190,7 +1192,7 @@ def equipos(request):
         transporte[key] = {'frecuencia':frecuencia,'por_frecuencia':por_frecuencia,
                            'trans':trans,'por_trans':por_trans}
 
-    return render_to_response('simas/equipos.html', {'tabla':tabla,'totales':totales,
+    return render_to_response('monitoreo/equipos.html', {'tabla':tabla,'totales':totales,
                               'num_familias':num_familia,'tabla_infra':tabla_infra,
                               'herramienta':herramienta,'transporte':transporte},
                                context_instance=RequestContext(request))
@@ -1232,7 +1234,7 @@ def ahorro_credito(request):
             'totales_ahorro': totales_ahorro, 'tabla_credito': tabla_credito,
             'num_familias': consulta.count()}
 
-    return render_to_response('simas/ahorro_credito.html', dicc,
+    return render_to_response('monitoreo/ahorro_credito.html', dicc,
                               context_instance=RequestContext(request))
 
 #Tabla seguridad alimentaria
@@ -1297,7 +1299,7 @@ def seguridad_alimentaria(request):
             prot += 1
     lista.append({'Carbohidrato':carbo,'Grasa':gra,'Minerales/Vitamina':mine,'Proteinas':prot})
 
-    return render_to_response('simas/seguridad.html',locals(),
+    return render_to_response('monitoreo/seguridad.html',locals(),
                                context_instance=RequestContext(request))
 
 #tabla opciones de manejo
@@ -1360,7 +1362,7 @@ def opcionesmanejo(request):
                              'por_menor_escala':por_menor_escala,'por_mayor_escala':por_mayor_escala}
 
 
-    return render_to_response('simas/manejo_agro.html',{'tabla':tabla,
+    return render_to_response('monitoreo/manejo_agro.html',{'tabla':tabla,
                               'num_familias':num_familia,'tabla_escala':tabla_escala},
                                context_instance=RequestContext(request))
 
@@ -1393,7 +1395,7 @@ def usosemilla(request):
         tabla[key] = {'key2':key2,'frec':frec,'porce':porce,'nativos':nativos,'introducidos':introducidos,
                       'por_nativos':por_nativos,'por_introducidos':por_introducidos}
 
-    return render_to_response('simas/semilla.html',{'tabla':tabla,'lista':lista,
+    return render_to_response('monitoreo/semilla.html',{'tabla':tabla,'lista':lista,
                               'num_familias':num_familia},
                               context_instance=RequestContext(request))
 
@@ -1482,7 +1484,7 @@ def suelos(request):
         por_materia = saca_porcentajes(materia, num_familia)
         tabla_materia[key] = {'materia':materia,'por_materia':por_materia}
 
-    return render_to_response('simas/suelos.html',{'tabla_textura':tabla_textura,
+    return render_to_response('monitoreo/suelos.html',{'tabla_textura':tabla_textura,
                               'tabla_profundidad':tabla_profundidad,'tabla_densidad':tabla_densidad,
                               'tabla_lombrices':tabla_lombrices,'tabla_pendiente':tabla_pendiente,
                               'tabla_drenaje':tabla_drenaje,'tabla_materia':tabla_materia,
@@ -1539,7 +1541,7 @@ def manejosuelo(request):
         por_obra = saca_porcentajes(obra, num_familia)
         tabla_obra[key] = {'obra':obra,'por_obra':por_obra}
 
-    return render_to_response('simas/manejo_suelo.html',{'tabla_terreno':tabla_terreno,
+    return render_to_response('monitoreo/manejo_suelo.html',{'tabla_terreno':tabla_terreno,
                               'tabla_traccion':tabla_traccion,'tabla_fertilizacion':tabla_fertilizacion,
                               'tabla_obra':tabla_obra,'num_familias':num_familia},
                                context_instance=RequestContext(request))
@@ -1617,7 +1619,7 @@ def vulnerable(request):
     alto_interes = graves(request,13)
     total_alto_interes = suma_graves(request,13)
 
-    return render_to_response('simas/vulnerable.html', locals(),
+    return render_to_response('monitoreo/vulnerable.html', locals(),
                               context_instance=RequestContext(request))
 
 #tabla mitigacion de riesgos
@@ -1636,7 +1638,7 @@ def mitigariesgos(request):
         por_mitigacion = saca_porcentajes(mitigacion, num_familia)
         tabla[key] = {'mitigacion':mitigacion,'por_mitigacion':int(por_mitigacion)}
 
-    return render_to_response('simas/mitigacion.html',{'tabla':tabla,
+    return render_to_response('monitoreo/mitigacion.html',{'tabla':tabla,
                               'num_familias':num_familia},
                                context_instance=RequestContext(request))
 
@@ -2009,7 +2011,7 @@ def familia(request):
        salud, energia, agua.
     '''
     familias = _queryset_filtrado(request).count()
-    return render_to_response('simas/familia.html',
+    return render_to_response('monitoreo/familia.html',
                               {'num_familias':familias},
                               context_instance=RequestContext(request))
 
@@ -2019,7 +2021,7 @@ def organizacion(request):
        como son gremial y comunitaria.
     '''
     familias = _queryset_filtrado(request).count()
-    return render_to_response('simas/organizacion.html',
+    return render_to_response('monitoreo/organizacion.html',
                               {'num_familias':familias},
                               context_instance=RequestContext(request))
 
@@ -2029,7 +2031,7 @@ def riesgo(request):
        en la finca asi como la mitigación de estos.
     '''
     familias = _queryset_filtrado(request).count()
-    return render_to_response('simas/riesgos.html',
+    return render_to_response('monitoreo/riesgos.html',
                               {'num_familias':familias},
                               context_instance=RequestContext(request))
 
@@ -2039,7 +2041,7 @@ def suelo(request):
        del terrreno y manejo del suelo
     '''
     familias = _queryset_filtrado(request).count()
-    return render_to_response('simas/suelo.html',
+    return render_to_response('monitoreo/suelo.html',
                               {'num_familias':familias},
                               context_instance=RequestContext(request))
 
@@ -2049,7 +2051,7 @@ def tenencias(request):
        tenencia de la propiedad, documento legal, tierra etc.
     '''
     familias = _queryset_filtrado(request).count()
-    return render_to_response('simas/tenencia.html',
+    return render_to_response('monitoreo/tenencia.html',
                               {'num_familias':familias},
                               context_instance=RequestContext(request))
 
@@ -2059,7 +2061,7 @@ def tierra(request):
        uso de la tierra, existencia de arboles y reforestacion.
     '''
     familias = _queryset_filtrado(request).count()
-    return render_to_response('simas/tierra.html',
+    return render_to_response('monitoreo/tierra.html',
                               {'num_familias':familias},
                               context_instance=RequestContext(request))
 
@@ -2384,7 +2386,7 @@ def volcar_xls(request, modelo):
 def spss_xls(request, modela):
     varia = modela
     dict = volcar_xls(request, modelo=varia)
-    return write_xls('simas/spss.html', dict, 'spss.xls')
+    return write_xls('monitoreo/spss.html', dict, 'spss.xls')
 
 def write_xls(template_src, context_dict, filename):
     response = render_to_response(template_src, context_dict)
