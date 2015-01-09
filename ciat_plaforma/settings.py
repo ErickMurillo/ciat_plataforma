@@ -46,6 +46,25 @@ INSTALLED_APPS = (
     'analisis.analisis',
     'analisis.configuracion',
     #apps solo de monitoreo,
+    'monitoreo.indicador01',
+    'monitoreo.indicador02',
+    'monitoreo.indicador05',
+    'monitoreo.indicador06',
+    'monitoreo.indicador07',
+    'monitoreo.indicador08',
+    'monitoreo.indicador09',
+    'monitoreo.indicador10',
+    'monitoreo.indicador11',
+    'monitoreo.indicador12',
+    'monitoreo.indicador13',
+    'monitoreo.indicador14',
+    'monitoreo.indicador15',
+    'monitoreo.indicador16',
+    'monitoreo.indicador17',
+    'monitoreo.indicador18',
+    'monitoreo.indicador19',
+    'monitoreo.indicador20',
+    'monitoreo.monitoreo',
     #apps de terceros
     'smart_selects',
     'sorl.thumbnail',
@@ -132,3 +151,5 @@ CKEDITOR_CONFIGS = {
 }
 
 CKEDITOR_JQUERY_URL = 'https://code.jquery.com/jquery-2.1.3.min.js'
+
+NO_DATA_GRAPH_URL = ''

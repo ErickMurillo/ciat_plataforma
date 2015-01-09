@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from monitoreo.simas.models import *
+from monitoreo.monitoreo.models import *
 
 class Maderable(models.Model):
     nombre = models.CharField(max_length=200)

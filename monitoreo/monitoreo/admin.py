@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.contrib import admin
-from monitoreo.simas.models import *
+from monitoreo.monitoreo.models import *
 from monitoreo.indicador01.models import *
 from monitoreo.indicador02.models import *
 from monitoreo.indicador05.models import *

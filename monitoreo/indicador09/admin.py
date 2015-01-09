@@ -1,5 +1,5 @@
 from django.contrib import admin
-from monitoreo.simas.models import *
+from monitoreo.monitoreo.models import *
 from monitoreo.indicador09.models import *
 
 class CultivosAdmin(admin.ModelAdmin):

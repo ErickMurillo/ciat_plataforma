@@ -27,7 +27,10 @@ urlpatterns = patterns('',
 
     #urls para analisis organizacional
     url(r'^analisis/', include('analisis.analisis.urls')),
-    
+
+    #urls para monitoreo
+    url(r'^monitoreo/', include('monitoreo.monitoreo.urls')),
+
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
     url(r'^chaining/', include('smart_selects.urls')),

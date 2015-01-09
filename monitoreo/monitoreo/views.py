@@ -3,13 +3,13 @@ from django.http import Http404, HttpResponse
 from django.template.defaultfilters import slugify
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
-from django.views.generic.simple import direct_to_template
+from django.views.generic import TemplateView
 from django.utils import simplejson
 from django.db.models import Sum, Count, Avg
 from django.core.exceptions import ViewDoesNotExist
 import random
 
-from monitoreo.simas.models import *
+from monitoreo.monitoreo.models import *
 from monitoreo.indicador01.models import *
 from monitoreo.indicador02.models import *
 from monitoreo.indicador05.models import *
@@ -32,8 +32,8 @@ from monitoreo.indicador20.models import *
 from decorators import session_required
 from datetime import date
 import datetime
-from monitoreo.simas.forms import *
-from monitoreo.lugar.models import *
+from monitoreo.monitoreo.forms import *
+from comunicacion.lugar.models import *
 from decimal import Decimal
 from utils import grafos
 from utils import *
@@ -152,13 +152,15 @@ def inicio(request):
 
 #-------------------------------------------------------------------------------
 
-def index(request):
-    familias = Encuesta.objects.all().count()
-    organizacion = Organizaciones.objects.all().count()
-    mujeres = Encuesta.objects.filter(sexo=2).count()
-    hombres = Encuesta.objects.filter(sexo=1).count()
+class index(TemplateView):
+    template_name = 'monitoreo/index.html'
 
-    return direct_to_template(request, 'index.html', locals())
+    def context_data():
+        familias = Encuesta.objects.all().count()
+        organizacion = Organizaciones.objects.all().count()
+        mujeres = Encuesta.objects.filter(sexo=2).count()
+        hombres = Encuesta.objects.filter(sexo=1).count()
+        return context
 
 #-------------------------------------------------------------------------------
 # para presentar listado de zonas
