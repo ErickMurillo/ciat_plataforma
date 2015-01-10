@@ -6,21 +6,21 @@ body{
     font-size: 12px;    
 }
 #header{
-    background: url(/archivos/imagen/fondo_encabezado.png) repeat-x top;
+    background: url(/static/monitoreo/imagen/fondo_encabezado.png) repeat-x top;
     height: 108px;
 }
 #user1{
-    background: url(/archivos/imagen/fondomonitoreo.jpg);
+    background: url(/static/monitoreo/imagen/fondomonitoreo.jpg);
     border-top: 1px #707070 solid;
     
 }
 #user2{
-    background: #fff url(/archivos/imagen/fondomonitoreo.jpg);
+    background: #fff url(/static/monitoreo/imagen/fondomonitoreo.jpg);
     padding-bottom:10px;
 }
 
 #footer{
-    background: #fff url(/archivos/imagen/fondofooter.jpg);
+    background: #fff url(/static/monitoreo/imagen/fondofooter.jpg);
     height: 150px;
     border-top: 1px #071527 solid;
 }
@@ -97,7 +97,7 @@ a:hover{
     border-bottom:#efefef 1px solid;
 }
 .tools .nav a.init{
-    background: url(/archivos/imagen/sprite_menu.png) no-repeat;
+    background: url(/static/monitoreo/imagen/sprite_menu.png) no-repeat;
     width: 82px;
     height: 30px;
    border-bottom-left-radius:5px;
@@ -111,7 +111,7 @@ a:hover{
     background-position: 0 -30px;    
 }
 .tools .nav a.query{
-    background: url(/archivos/imagen/sprite_menu.png) no-repeat;
+    background: url(/static/monitoreo/imagen/sprite_menu.png) no-repeat;
     background-position: -82px 0;
     width: 120px;
     height: 30px;
@@ -120,7 +120,7 @@ a:hover{
     background-position: -82px -30px;
 }
 .tools .nav a.about{
-    background: url(/archivos/imagen/sprite_menu.png) no-repeat;
+    background: url(/static/monitoreo/imagen/sprite_menu.png) no-repeat;
     background-position: -202px 0;
     width: 88px;
     height: 30px;
@@ -140,7 +140,7 @@ a:hover{
     width: 220px;       
 }
 .actualmente .datos{
-    background: url(/archivos/imagen/fondo_actualmente.png) no-repeat;
+    background: url(/static/monitoreo/imagen/fondo_actualmente.png) no-repeat;
     height: 330px;
     margin-top: 8px;    
     margin-bottom: 10px;    
@@ -184,7 +184,7 @@ a:hover{
     color: #fff845;
 }
 .explorar{
-    background: url(/archivos/imagen/explorar.png) no-repeat;
+    background: url(/static/monitoreo/imagen/explorar.png) no-repeat;
     display: block;
     height: 48px;
     width: 248px;
@@ -226,7 +226,7 @@ a:hover{
 }
 .mapa{
     float: left;
-    background: url(/archivos/imagen/fondo_mapa.png) repeat-y;
+    background: url(/static/monitoreo/imagen/fondo_mapa.png) repeat-y;
     width: 508px;    
 }
 .mapa #map_canvas { 
@@ -251,7 +251,7 @@ a:hover{
     line-height: 25px;
 }
 #footer .made{
-    background: url(/archivos/imagen/fondo_desarrollado.png) no-repeat;
+    background: url(/static/monitoreo/imagen/fondo_desarrollado.png) no-repeat;
     width: 226px;
     height: 66px;
     float: right;
@@ -294,7 +294,7 @@ th{
     text-align: left;
     font-weight:bold;
     padding: 10px 5px 4px 12px;
-    background:url(/archivos/imagen/bg_header.png) repeat-x ;
+    background:url(/static/monitoreo/imagen/bg_header.png) repeat-x ;
     vertical-align:middle;
 
 }
@@ -347,7 +347,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
 #indicadores h2{    
     color: #665845;
     padding: 10px 11px 12px 24px;
-    background: #F3EFC4 url(/archivos/imagen/seleccionBarra.png) no-repeat left;
+    background: #F3EFC4 url(/static/monitoreo/imagen/seleccionBarra.png) no-repeat left;
 }
 /* BOTONES DE LOS INDICADORES */
 
@@ -399,7 +399,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
 }
 #titulo{
     padding: 10px 11px 12px 14px;
-    background: #fff url(/archivos/imagen/seleccionBarra.png) repeat-x;
+    background: #fff url(/static/monitoreo/imagen/seleccionBarra.png) repeat-x;
     font-size:18px;
     font-weight:bold;        
     height:20px;
@@ -417,7 +417,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
      background: #222 url(../imagen/fondoform.png) repeat-x;
 }
 input[type='submit']{
-    background: url(/archivos/imagen/boton.png) repeat-x;
+    background: url(/static/monitoreo/imagen/boton.png) repeat-x;
     height: 41px;
     border: none;
     border-top-radius:8px;
@@ -465,10 +465,10 @@ input[type='submit']:hover{
 
 }
 .contenedor_igual_selected {        
-    background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;
+    background: url(/static/monitoreo/imagen/fondosubmenuhover.png) repeat-x;
 }
 #contenedor_igual a:hover {        
-    background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;
+    background: url(/static/monitoreo/imagen/fondosubmenuhover.png) repeat-x;
 }
 .separador_vert2{
     float: left;    
@@ -534,7 +534,7 @@ input[type='submit']:hover{
     float:left;
     display: block;
     text-indent: -9999px;
-    background: url(/archivos/imagen/filtro_sprite.png) no-repeat;
+    background: url(/static/monitoreo/imagen/filtro_sprite.png) no-repeat;
     width: 130px;
     height: 37px;
     margin-right: 10px;
@@ -618,17 +618,17 @@ table.tablesorter {
 table.tablesorter thead tr .header {
 	background-repeat: no-repeat;
 	cursor: pointer;
-    background:#f0f0f0 url(/archivos/imagen/bg.gif) no-repeat center left;
+    background:#f0f0f0 url(/static/monitoreo/imagen/bg.gif) no-repeat center left;
     padding-left:25px !important;
 }
 
 
 table.tablesorter thead tr .headerSortUp {
-    background:#f0f0f0 url(/archivos/imagen/asc.gif) no-repeat center left;
+    background:#f0f0f0 url(/static/monitoreo/imagen/asc.gif) no-repeat center left;
     padding-left:25px !important;
 }
 table.tablesorter thead tr .headerSortDown {
-    background:#f0f0f0 url(/archivos/imagen/desc.gif) no-repeat center left;
+    background:#f0f0f0 url(/static/monitoreo/imagen/desc.gif) no-repeat center left;
     padding-left:25px !important;
 }
 

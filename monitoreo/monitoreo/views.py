@@ -164,6 +164,9 @@ class HomePageView(TemplateView):
 
         return context
 
+class HomePageViewfail(TemplateView):
+    template_name = 'monitoreo/index2.html'
+
 #-------------------------------------------------------------------------------
 # para presentar listado de zonas
 
