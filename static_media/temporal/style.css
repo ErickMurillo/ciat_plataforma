@@ -787,7 +787,7 @@ margin-bottom: 0.2em !important
 }
 
 .color{
-	background-color: #e7e6dd;
+	background-color: rgba( 0, 0, 0, 0.02 );
 	margin-bottom: 3em;
 }
 
@@ -856,6 +856,11 @@ box-shadow: none;
 	 border: 1px solid rgba( 0, 0, 0, 0.05 );
 
 
+}
+
+.aux{
+	background-color: white;
+	padding-bottom: 1.5em;
 }
 .page-boder{
 	border: 1px solid rgba( 0, 0, 0, 0.05 );

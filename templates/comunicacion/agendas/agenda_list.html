@@ -47,7 +47,6 @@
 {% block contenido %}
 
 
-<div class="container">
 
 <div class="row">
 	<div class="encabezado">
@@ -69,28 +68,36 @@
 </div>
 
 
-<div class="row no-gutter col-lg-8 col-md-8 ">
-                
-                <div class="">
+  <div id="k-body"><!-- content wrapper -->
 
+
+        <div class="container"><!-- container -->
+        
+            <div class="row"><!-- row -->            
+                
+            </div><!-- row end -->
+            
+            <div class="row no-gutter col-lg-8 col-md-8"><!-- row -->
+                
+                <div class=""><!-- doc body wrapper -->
+
+                    
                 {% if request.GET.shva == 'erase' %}
             <div class="alert fade in">
                 Se ha eliminado el evento de forma permanente
                 <a class="close" href="#" data-dismiss="alert">x</a>
             </div>
         {% endif %}
-		{% if request.GET.shva == 'editada' %}
+        {% if request.GET.shva == 'editada' %}
             <div class="alert fade in">
                 El evento ha sido editado
                 <a class="close" href="#" data-dismiss="alert">x</a>
             </div>
         {% endif %}
-                	
-                    <div class="col-padded">
                     
-                    	<div class="row gutter">
-                        {%if actividad %}
-                        	<div class="col-lg-12 col-md-12 color">
+                    <div class="col-padded"><!-- inner custom column -->
+                            {%if actividad %}
+                            <div class="col-lg-12 col-md-12 color">
                                 
                                 <div class="events-title-meta clearfix">
                                     <h1 class="page-title">{{actividad.evento}}</h1>
@@ -110,27 +117,27 @@
                                     <hr/>
 
                          {% if actividad.user.userprofile.contraparte == request.user.userprofile.contraparte or request.user.is_superuser %}
-						<div class="botones-evento">
-					    <a class="btn btn-mini" href="/agendas/editar/{{actividad.id}}"><i class="icon-pencil"></i>Editar</a>
-					    <a  data-toggle="modal" data-target="#myModal" class="btn btn-mini btn-danger" href=""><i class="icon-trash icon-white"></i>Borrar</a>
-						</div>
-						<div class="clean"></div>
-	                        <div class="modal fade hide" id="myModal">
-	                          <div class="modal-header">
-	                            <a class="close" data-dismiss="modal">×</a>
-	                            <h3>¿Está seguro?</h3>
-	                          </div>
-	                          <div class="modal-body">
-	                            <p>El evento será borrado permanentemente y no podrá ser recuperado</p>
-	                          </div>
-	                          <div class="modal-footer">
-	                            <a href="#" data-dismiss="modal" class="btn">No Borrar</a>
-	                            <a href="/agendas/borrar/{{actividad.id}}" class="btn btn-danger">Borrar Permanentemente</a>
-	                          </div>
-	                        </div>
-	                        <br>  
-					 {% endif %}
-					 
+                        <div class="botones-evento">
+                        <a class="btn btn-mini" href="/agendas/editar/{{actividad.id}}"><i class="icon-pencil"></i>Editar</a>
+                        <a  data-toggle="modal" data-target="#myModal" class="btn btn-mini btn-danger" href=""><i class="icon-trash icon-white"></i>Borrar</a>
+                        </div>
+                        <div class="clean"></div>
+                            <div class="modal fade hide" id="myModal">
+                              <div class="modal-header">
+                                <a class="close" data-dismiss="modal">×</a>
+                                <h3>¿Está seguro?</h3>
+                              </div>
+                              <div class="modal-body">
+                                <p>El evento será borrado permanentemente y no podrá ser recuperado</p>
+                              </div>
+                              <div class="modal-footer">
+                                <a href="#" data-dismiss="modal" class="btn">No Borrar</a>
+                                <a href="/agendas/borrar/{{actividad.id}}" class="btn btn-danger">Borrar Permanentemente</a>
+                              </div>
+                            </div>
+                            <br>  
+                     {% endif %}
+                     
                                    {%if actividad.adjunto.all %}
                                     <div class="row">
                                      {% for doc in actividad.adjunto.all%}
@@ -153,18 +160,22 @@
 
                                     {%endif%}
 
+                        <div class="row gutter"><!-- row -->
+                        
+                            <div class="col-lg-12 col-md-12">
+
+                                <div id='calendar'></div>
+                                    
+                            </div>
+                            
                             </div>
                         
-                        </div>              
+                        </div><!-- row end -->               
                     
-                    </div>
+                    </div><!-- inner custom column end -->
                     
-                </div>
-<div class="row">
-                 					<div class="calendario col-lg-8 col-md-8">
-                                        <div id='calendar'></div>
-                                    </div>
-
+                </div><!-- doc body wrapper end -->
+                
                 <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
 
                     <div class="col-padded col-shaded"><!-- inner custom column -->
@@ -177,16 +188,16 @@
                     </div>
                          
                         {% for pais in paises %}
-						 	<strong>{{pais}}</strong><br>
-						 	{% for contraparte in contrapartes %}
-						 		{% if contraparte.pais.id == pais.id%}
-						 		<div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
-						 		<li>
-									<label class="checkbox"><input type="checkbox" name="contraparte" value="{{contraparte.id}}">{{contraparte.siglas}}</label>
-								</li>
-						 		{%endif%}
-						 	{% endfor %}
-						 {% endfor %}
+                            <strong>{{pais}}</strong><br>
+                            {% for contraparte in contrapartes %}
+                                {% if contraparte.pais.id == pais.id%}
+                                <div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" name="contraparte" value="{{contraparte.id}}">{{contraparte.siglas}}</label>
+                                </li>
+                                {%endif%}
+                            {% endfor %}
+                         {% endfor %}
                          <hr>
                       
                         <button type="submit" class="btn btn-success">Mostrar</button>
@@ -197,19 +208,11 @@
                     </div><!-- inner custom column end -->
                     
                 </div><!-- sidebar wrapper end -->
-
-                </div>
-
-</div>
+            
+            </div><!-- row end -->
+         
+        </div><!-- container end -->
 {% endblock %}
 
 
-    <!-- 
 
-
-
-
-   
-                
-
-    -->
