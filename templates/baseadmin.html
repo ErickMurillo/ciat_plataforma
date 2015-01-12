@@ -81,28 +81,28 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
                         <li>
                             <i class="fa fa-file-text-o fa-3x"></i>
-                            <a href="/foros/privado/nota">Mis Notas</a>
+                            <a href="/foros/privado/nota" title="">Mis Notas</a>
                         </li>
                         <li>
                             <i class="fa fa-calendar fa-3x"></i>
-                            <a href="/agendas/calendario">Mi Agenda</a>
+                            <a href="/agendas/calendario" title="">Mi Agenda</a>
                         </li>
                         <li>
                             <i class="fa fa-comments-o fa-3x"></i>
-                            <a href="/foros">Foro</a>
+                            <a href="/foros" title="">Foro</a>
                         </li>
                         <li>
                             <i class="fa fa-folder-o fa-3x"></i>
-                            <a href="/foros/privado/documento" class="Pages Collection">Documentos</a>
+                            <a href="/foros/privado/documento" title="">Documentos</a>
 
                         </li>
                         <li>
                             <i class="fa fa-youtube-play fa-3x"></i>
-                            <a href="/foros/privado/multimedia_fotos">Multimedia</a>
+                            <a href="/foros/privado/multimedia_fotos" title="">Multimedia</a>
                         </li>
                         <li>
                          <i class="fa fa-envelope-o fa-3x"></i>
-                            <a href="/contrapartes/mensaje/ver">Mensajes</a>
+                            <a href="/contrapartes/mensaje/ver" title="">Mensajes</a>
                         </li>
                     </ul>
         
@@ -115,8 +115,35 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     </div><!-- container + head wrapper end -->
 
 {% endblock %}
+{% block cuerpoadmin %}
+    <div id="k-body"><!-- content wrapper -->
+    
+        <div class="container"><!-- container -->
+        
+            <div class="row"><!-- row -->
+            
+                <div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
+                
+                    <form action="#" id="top-searchform" method="get" role="search">
+                        <div class="input-group">
+                            <input type="text" name="s" id="sitesearch" class="form-control" autocomplete="off" placeholder="Type in keyword(s) then hit Enter on keyboard" />
+                        </div>
+                    </form>
+                    
+                    <div id="bt-toggle-search" class="search-icon text-center"><i class="s-open fa fa-search"></i><i class="s-close fa fa-times"></i></div><!-- toggle search button -->
+                
+                </div><!-- top search end -->
+                   
+                
+            </div><!-- row end -->
+            <br>
+            {%block contenido%}{%endblock%}
+        
+        </div><!-- container end -->
+    
+    </div><!-- content wrapper end -->
+{% endblock cuerpoadmin %}
 
-{%block contenido%}{%endblock%}
 
 {%block footer%}
     <div id="k-footer"><!-- footer -->
