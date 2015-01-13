@@ -6,6 +6,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
 			$(".alert").alert()
+            $('#myModal').modal('hide');
         });
     </script>
 {% endblock %}
@@ -86,8 +87,23 @@
                                     <div class="news-meta">
                                         <span class="news-meta-date">{{nota.fecha|date:"M t, Y"}}</span>
                                         
-                                        <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
+                                        <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}} | <a href="{% url 'editar-nota' nota.id %}">Editar</a> | <a data-toggle="modal" data-target="#myModal">Borrar</a></span>
                                     </div>
+
+
+                                    <div class="modal fade hide" id="myModal">
+                                      <div class="modal-header">
+                                        <a class="close" data-dismiss="modal">×</a>
+                                        <h3>¿Está seguro?</h3>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p>La nota será borrada permanentemente y no podrá ser recuperada</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <a href="#" data-dismiss="modal" class="btn">No Borrar</a>
+                                        <a href="{% url 'borrar-nota' nota.id %}" class="btn btn-danger">Borrar Permanentemente</a>
+                                      </div>
+                                    </div> 
                                 </div>
                                 
                                 <div class="news-summary">
@@ -102,7 +118,21 @@
                             {% endfor %}
                             
 
-                            
+                           <div class="pagination pull-right">
+                                <span class="step-links">
+                                    {% if notas.has_previous %}
+                                        <a href="?page={{ notas.previous_page_number }}">Anterior</a>
+                                    {% endif %}
+
+                                    <span class="current">
+                                        Paginas {{ notas.number }} de {{ notas.paginator.num_pages }}.
+                                    </span>
+
+                                    {% if notas.has_next %}
+                                        <a href="?page={{ notas.next_page_number }}">Próximos</a>
+                                    {% endif %}
+                                </span>
+                            </div>
 
                         </div><!-- row end -->
                         

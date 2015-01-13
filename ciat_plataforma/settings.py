@@ -153,3 +153,8 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_JQUERY_URL = 'https://code.jquery.com/jquery-2.1.3.min.js'
 
 NO_DATA_GRAPH_URL = ''
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
+)

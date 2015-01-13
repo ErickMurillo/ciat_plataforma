@@ -39,7 +39,7 @@ def lista_notas(request):
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
     paises = Pais.objects.all()
 
-    paginator = Paginator(notas_list, 4)
+    paginator = Paginator(notas_list, 6)
 
     page = request.GET.get('page')
     try:
@@ -48,6 +48,7 @@ def lista_notas(request):
         notas = paginator.page(1)
     except EmptyPage:
         notas = paginator.page(paginator.num_pages)
+    page_obj = notas
 
     return render_to_response('comunicacion/notas/notas_list.html', locals(),
                               context_instance=RequestContext(request))
