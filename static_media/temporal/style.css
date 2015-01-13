@@ -564,8 +564,8 @@ a.list-group-item.active > .badge, .nav-pills > .active > a > .badge { backgroun
 .btn-info:hover,.btn-info:focus { background-color: #5798c1; }
 .btn-warning { background-color: #f5a610; }
 .btn-warning:hover,.btn-warning:focus { background-color: #c8870d; }
-.btn-danger { background-color: #5d8c3b; }
-.btn-danger:hover,.btn-danger:focus { background-color: #9d3426; }
+/*.btn-danger { background-color: #5d8c3b; }
+.btn-danger:hover,.btn-danger:focus { background-color: #9d3426; }*/
 .btn-link { background-color: #FFF; color: #363636 !important; }
 .btn-link:hover,.btn-link:focus { background-color: #FFF; }
 /* == END bootstrap buttons == */
@@ -704,7 +704,7 @@ a.list-group-item.active > .badge, .nav-pills > .active > a > .badge { backgroun
 	padding-bottom: 1em;
 }
 .list-org{
-	margin-left: 10px;
+	
 	list-style: none;
 }
 
@@ -768,8 +768,22 @@ background-color: #5d8c3b;
   float: left;
   margin-right: 20px;
 }
+.logo-contraparte{
+	border-bottom: 10px solid rgba( 0, 0, 0, 0.05 );
+}
+.page-title-contraparte{ 
+	font-size: 18px; 
+	font-weight: 700; 
+	line-height: 36px; 
+	margin-top: 0; 
+	margin-bottom: 0; 
+	
+	color: #898989;
+	margin-left: 0px;
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.05 );
+}
 
-/***********Admin***********************/
+/***********Admin comunicaciones***********************/
 .menuadmin{
 	text-align: center !important;
 }
@@ -780,7 +794,146 @@ margin-bottom: 0.2em !important
 	background-color: white;
 	border: none;
 }
+.add{
+	background-color: #5d8c3b
+}
 
+.add:link, .add:visited {
+	color: white;
+}
+.add:hover {
+	color: white;
+}
+
+.space{
+	right: 0  !important;
+}
+
+.label-pag{
+	font-size: 16px !important;
+}
+#imagenes, #documentos, #videos, #audios label{
+	font-size: 15px !important;
+}
+#id_titulo, #id_evento {
+
+width: 50%;
+height: 40px;
+padding: 7px 10px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+-moz-border-radius: 0;
+-webkit-border-radius: 0;
+border-radius: 0;
+border: 2px solid rgba( 0, 0, 0, 0.1 );
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+box-shadow: none;
+}
+
+#id_nombre_img, #id_tags_img, #id_nombre_doc, #id_tags_doc, #id_nombre_video, #id_url, 
+#id_tags_vid,#id_tags_aud, #id_nombre_audio, #id_apertura, #id_cierre, #id_fecha_skype,
+#id_memoria,#id_nombre,#id_inicio, #id_final   {
+
+width: 30%;
+height: 40px;
+padding: 7px 10px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+-moz-border-radius: 0;
+-webkit-border-radius: 0;
+border-radius: 0;
+border: 2px solid rgba( 0, 0, 0, 0.1 );
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+box-shadow: none;
+}
+.input-group-addon{
+	 border-radius: 0px;
+	 border: 1px solid rgba( 0, 0, 0, 0.05 );
+
+
+}
+
+.aux{
+	background-color: white;
+	padding-bottom: 1.5em;
+}
+.page-boder{
+	border: 1px solid rgba( 0, 0, 0, 0.05 );
+}
+#id_user{
+	list-style: none;
+}
+.badge-info{
+background-color: #3a87ad;
+}
+.badge{
+	margin: 5px;
+	padding: 10px;
+}
+#mesajes{
+	background-color: white;
+}
+.descarga-mensaje{
+	color: #898989;
+	font-size: 13px;
+	font-weight: 300;
+	line-height: 1;
+	text-transform: uppercase;
+	margin: 0 0 40px 0;
+	position: relative;
+	
+}
+.col-shaded a{
+	
+	text-decoration: none;
+	cursor: pointer;
+}
+.formulario-admin label{
+	display: block;
+	margin-top: 20px;
+}
+.formulario-admin label::after{
+	content: " *";
+}
+
+.ong .fa{
+	font-size: 1.5em;
+}
+
+.ong a{
+	color: #777;
+
+}
+.page-title-evento{ 
+	font-size: 18px; 
+	font-weight: 700; 
+	line-height: 36px; 
+	margin-top: 0; 
+	margin-bottom: 0; 
+	
+	color: #898989;
+	margin-left: 0px;
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.05 );
+}
+.event-meta-detalle {
+ margin-top: 5px;
+ margin-left: 0px;
+}
+.news-body-detalle {
+	margin-top: 20px;
+	text-align: justify;
+}
+.botones-evento .fa{
+ font-size: 15px;
+}
 /*----------------Monitoreo-----------------------*/
 .monitoreo-menu{
 	margin-left: 50px;
@@ -975,121 +1128,16 @@ margin-bottom: 20px;
 }
 
 .event-from, .event-to{
-	background-color: #5d8c3b !important;
+	background-color: #777 !important;
 }
 
 .color{
 	background-color: rgba( 0, 0, 0, 0.02 );
 	margin-bottom: 3em;
 }
-
-.add{
-	background-color: #5d8c3b
-}
-
-.add:link, .add:visited {
-	color: white;
-}
-.add:hover {
-	color: white;
-}
-
-.space{
-	right: 0  !important;
-}
-
-.label-pag{
-	font-size: 16px !important;
-}
-#imagenes, #documentos, #videos, #audios label{
-	font-size: 15px !important;
-}
-#id_titulo {
-
-width: 50%;
-height: 40px;
-padding: 7px 10px;
-font-size: 14px;
-line-height: 1.42857143;
-color: #555;
-background-color: #fff;
-background-image: none;
--moz-border-radius: 0;
--webkit-border-radius: 0;
-border-radius: 0;
-border: 2px solid rgba( 0, 0, 0, 0.1 );
--moz-box-shadow: none;
--webkit-box-shadow: none;
-box-shadow: none;
-}
-
-#id_nombre_img, #id_tags_img, #id_nombre_doc, #id_tags_doc, #id_nombre_video, #id_url, 
-#id_tags_vid,#id_tags_aud, #id_nombre_audio, #id_apertura, #id_cierre, #id_fecha_skype,
-#id_memoria,#id_nombre  {
-
-width: 30%;
-height: 40px;
-padding: 7px 10px;
-font-size: 14px;
-line-height: 1.42857143;
-color: #555;
-background-color: #fff;
-background-image: none;
--moz-border-radius: 0;
--webkit-border-radius: 0;
-border-radius: 0;
-border: 2px solid rgba( 0, 0, 0, 0.1 );
--moz-box-shadow: none;
--webkit-box-shadow: none;
-box-shadow: none;
-}
-.input-group-addon{
-	 border-radius: 0px;
-	 border: 1px solid rgba( 0, 0, 0, 0.05 );
-
-
-}
-
-.aux{
-	background-color: white;
-	padding-bottom: 1.5em;
-}
-.page-boder{
-	border: 1px solid rgba( 0, 0, 0, 0.05 );
-}
-#id_user{
-	list-style: none;
-}
-.badge-info{
-background-color: #3a87ad;
-}
-.badge{
-	margin: 5px;
-	padding: 10px;
-}
-#mesajes{
-	background-color: white;
-}
-.descarga-mensaje{
-	color: #898989;
-	font-size: 13px;
-	font-weight: 300;
-	line-height: 1;
-	text-transform: uppercase;
-	margin: 0 0 40px 0;
-	position: relative;
-	
-}
-.col-shaded a{
-	text-align: right;
-	text-decoration: none;
+.fc-event-title{
 	cursor: pointer;
 }
-.formulario-admin label{
-	display: block;
-	margin-top: 20px;
-}
-.formulario-admin label::after{
-	content: " *";
-}
+
+
 

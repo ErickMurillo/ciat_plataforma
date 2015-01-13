@@ -47,69 +47,63 @@
 {% block contenido %}
 
 
-
-<div class="row">
-	<div class="encabezado">
-	  <div class="container">
-		    <div class="row">
-			    <div class="col-md-10">
-			    	<div class="encabezado-title">
-			      		AGENDA DE ACTIVIDADES
-			  		</div>
-			    </div>
-			    <div class="space">
-					<div class="btn-group">
-					  <a class="btn add" href="/agendas/crear"><i class="icon-plus"></i>Agregar Actividad</a>
-					</div>
-			    </div>
-	        </div>
-	  </div>
-	</div>
-</div>
-
-
-  <div id="k-body"><!-- content wrapper -->
-
-
-        <div class="container"><!-- container -->
-        
-            <div class="row"><!-- row -->            
+            <div class="row no-gutter "><!-- row -->
                 
-            </div><!-- row end -->
-            
-            <div class="row no-gutter col-lg-8 col-md-8"><!-- row -->
-                
-                <div class=""><!-- doc body wrapper -->
+                <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
 
                     
-                {% if request.GET.shva == 'erase' %}
-            <div class="alert fade in">
-                Se ha eliminado el evento de forma permanente
-                <a class="close" href="#" data-dismiss="alert">x</a>
-            </div>
-        {% endif %}
-        {% if request.GET.shva == 'editada' %}
-            <div class="alert fade in">
-                El evento ha sido editado
-                <a class="close" href="#" data-dismiss="alert">x</a>
-            </div>
-        {% endif %}
+                            {% if request.GET.shva == 'erase' %}
+                        <div class="alert fade in">
+                            Se ha eliminado el evento de forma permanente
+                            <a class="close" href="#" data-dismiss="alert">x</a>
+                        </div>
+                    {% endif %}
+                    {% if request.GET.shva == 'editada' %}
+                        <div class="alert fade in">
+                            El evento ha sido editado
+                            <a class="close" href="#" data-dismiss="alert">x</a>
+                        </div>
+                    {% endif %}
                     
                     <div class="col-padded"><!-- inner custom column -->
+
+                        <div class="row gutter"><!-- row -->
+
+                            <div class="col-lg-12 col-md-12">
+                                <a href="/agendas/crear" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Agregar Actividad</a>
+                                <br>
+                                <hr />
+                            </div>                        
+                            <div class="col-lg-12 col-md-12">
+                    
+                                <h1 class="page-title">Agenda de Actividades</h1><!-- category title -->
+                            </div>
+                        
+                        </div><!-- row end -->
+                        <br>
+
                             {%if actividad %}
-                            <div class="col-lg-12 col-md-12 color">
+                            <div class="col-lg-12 col-md-12">
                                 
                                 <div class="events-title-meta clearfix">
-                                    <h1 class="page-title">{{actividad.evento}}</h1>
-                                    <div class="event-meta">
+                                    <h1 class="page-title-evento">{{actividad.evento}}</h1>
+                                    <div class="event-meta-detalle">
                                         <span class="event-from">{{actividad.inicio|date:"d M"}}</span>
                                         <span class="event-divider">hasta</span>
                                         <span class="event-to">{{actividad.final|date:"d M"}}</span>
                                         <span class="event-time">16:00 - 21:00</span>
+                                        <div class="botones-evento pull-right">
+                                            <div class="btn-group">
+                                                <a href="/agendas/editar/{{actividad.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
+                                                
+                                                <a href='#modal-borrar' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="news-body clearfix">
+                                <div class="news-body-detalle">
                                     <p>
                                    {{actividad.descripcion|safe}}
                                     </p>
@@ -117,10 +111,7 @@
                                     <hr/>
 
                          {% if actividad.user.userprofile.contraparte == request.user.userprofile.contraparte or request.user.is_superuser %}
-                        <div class="botones-evento">
-                        <a class="btn btn-mini" href="/agendas/editar/{{actividad.id}}"><i class="icon-pencil"></i>Editar</a>
-                        <a  data-toggle="modal" data-target="#myModal" class="btn btn-mini btn-danger" href=""><i class="icon-trash icon-white"></i>Borrar</a>
-                        </div>
+                        
                         <div class="clean"></div>
                             <div class="modal fade hide" id="myModal">
                               <div class="modal-header">
@@ -160,21 +151,21 @@
 
                                     {%endif%}
 
-                        <div class="row gutter"><!-- row -->
+                     
                         
-                            <div class="col-lg-12 col-md-12">
+
 
                                 <div id='calendar'></div>
                                     
-                            </div>
-                            
-                            </div>
+
                         
-                        </div><!-- row end -->               
+                        
+                                     
                     
                     </div><!-- inner custom column end -->
                     
                 </div><!-- doc body wrapper end -->
+
                 
                 <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
 
@@ -208,10 +199,8 @@
                     </div><!-- inner custom column end -->
                     
                 </div><!-- sidebar wrapper end -->
+             </div><!-- row end -->
             
-            </div><!-- row end -->
-         
-        </div><!-- container end -->
 {% endblock %}
 
 
