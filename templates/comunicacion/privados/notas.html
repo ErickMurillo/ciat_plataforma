@@ -116,15 +116,34 @@
                             </div><!-- news mini-wrap end -->
                             
                             {% endfor %}
-                            
+
 
                         </div><!-- row end -->
                         
-                        
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        	<div class="pagination pull-right">
+                                <span class="step-links">
+                                    {% if notas.has_previous %}
+                                        <a href="?page={{ notas.previous_page_number }}">Anterior</a>
+                                    {% endif %}
+
+                                    <span class="current">
+                                        Paginas {{ notas.number }} de {{ notas.paginator.num_pages }}.
+                                    </span>
+
+                                    {% if notas.has_next %}
+                                        <a href="?page={{ notas.next_page_number }}">Próximos</a>
+                                   {% endif %}
+                               </span>
+                            </div>
+                        </div>
                     
                     </div><!-- inner custom column end -->
+
                     
                 </div><!-- doc body wrapper end -->
+
+
             
             </div><!-- row end -->
 

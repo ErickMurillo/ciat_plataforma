@@ -556,9 +556,9 @@ a.list-group-item.active > .badge, .nav-pills > .active > a > .badge { backgroun
 .btn-primary, .btn-default, .btn-success, .btn-info, .btn-warning, .btn-danger, .btn-link { background-image: none; background-repeat: no-repeat; border-color: transparent !important; color: #FFF !important; }
 .btn-default { background-color: #666666; }
 .btn-default:hover, .btn-default:focus { background-color: #333333; }
-.btn-primary { background-color: #ea5644; }
+/*.btn-primary { background-color: #ea5644; }
 .btn-primary:hover,.btn-primary:focus { background-color: #d04c3c; }
-.btn-success { background-color: #35d37d; }
+.btn-success { background-color: #35d37d; }*/
 .btn-success:hover,.btn-success:focus { background-color: #2cae67; }
 .btn-info { background-color: #68b5e6; }
 .btn-info:hover,.btn-info:focus { background-color: #5798c1; }
@@ -836,7 +836,7 @@ box-shadow: none;
 
 #id_nombre_img, #id_tags_img, #id_nombre_doc, #id_tags_doc, #id_nombre_video, #id_url, 
 #id_tags_vid,#id_tags_aud, #id_nombre_audio, #id_apertura, #id_cierre, #id_fecha_skype,
-#id_memoria,#id_nombre,#id_inicio, #id_final   {
+#id_memoria,#id_nombre,#id_inicio, #id_final, #id_foros-imagen-content_type-object_id-0-nombre_img   {
 
 width: 30%;
 height: 40px;
@@ -933,6 +933,42 @@ background-color: #3a87ad;
 }
 .botones-evento .fa{
  font-size: 15px;
+}
+.info-doc{
+	margin-left: 15px;
+}
+.media-form-inline {
+padding: 10px;
+background: #fff;
+border-radius: 5px;
+-ms-border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+-khtml-border-radius: 5px;
+border-radius: 5px;
+-ms-border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+-khtml-border-radius: 5px;
+-webkit-box-shadow: 0px 2px 3px #b3b3b3 #929292;
+-moz-box-shadow: 0px 2px 3px #b3b3b3 #929292;
+box-shadow: 0px 2px 3px #b3b3b3 #929292;
+margin-bottom: 15px;
+border-bottom: #e9e9e9 15px solid;
+}
+.media-form-inline label{
+	display: block;
+	margin-top: 10px;
+}
+.media-form-inline input{
+	display: block;
+	margin-top: 10px;
+}
+.hideclear{
+	display: inline-block !important;
+}
+.id_foros-imagen-content_type-object_id-0-id{
+	display: inline-block;
 }
 /*----------------Monitoreo-----------------------*/
 .monitoreo-menu{

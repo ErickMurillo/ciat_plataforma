@@ -18,67 +18,93 @@
 </script>
 {%endblock%}
 {% block contenido %}
-<div class="row">
-    <div class="encabezado">
-      <div class="container">
-            <div class="row">
-                <div class="span5">
-                    <div class="encabezado-title">
-                        MULTIMEDIA
-                    </div>
-                </div>
-                <div class="span7">
-                </div>
-            </div>
-      </div>
-    </div>
-</div>
-<div class="row body-content">
-	<div class="container">
-		<div class="row">
-			<div class="span12">
-				<div class="tabbable">
-					  <ul class="nav nav-tabs">
-					    <li class="active"><a href="#" ><i class="icon-camera"></i>Imágenes</a></li>
-					    <li><a href="/foros/privado/multimedia_videos/"><i class="icon-film"></i>Videos</a></li>
-					    <li><a href="/foros/privado/multimedia_audios/" ><i class="icon-volume-up"></i>Audios</a></li>
-					  </ul>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="span3">
-				<ul class="nav nav-list well">
-					  <li class="nav-header">
-					    BUSCAR
-					  </li>
-					  <li>
-										<form class="form-search form-inline" action="." method="GET">
-							<div class="input-prepend">
-						 		 <button type="submit" class="btn"><i class="icon-search button-icon"></i></button>
+            <div class="row no-gutter "><!-- row -->
+                
+                <div class="col-lg-9 col-md-9"><!-- doc body wrapper -->
 
-						 	 <input type="text" class=" search-query" style="width:100px; height:18px;" name="q" value="{% if query %} {{query}} {% endif%}" />
-							</div>
-						</form>
-					  </li>
-					  <li class="nav-header">
-					    TAGS
-					  </li>
-				{% for tag in tags %}
-					<li {%if tag == tag_sel%}class="active"{%endif%}><a href="/foros/privado/multimedia_fotos_tag/{{tag}}"><i class="icon-tag"></i>{{tag}}</a></li>
-				{% endfor %}
-				</ul>
-			</div>
-			<div class="span9 multimedia_fotos">
-				{% for a in imagenes %}
-							<a class="imagen-gal fancybox" title="{{a.nombre_img}} <a class='btn btn-info btn-mini' style='float:right' href='/uploads/{{a.foto}}'>Descargar tamaño original</a>" href="{{a.foto.url_640x480}}">
+                    
+                    <div class="col-padded"><!-- inner custom column -->
+
+                        <div class="row gutter"><!-- row -->
+
+                            <div class="col-lg-12 col-md-12">
+                    
+                                <h1 class="page-title">Multimedia</h1><!-- category title -->
+                            </div>
+                        
+                        </div><!-- row end -->
+                        <br>
+						<div class="tabbable">
+						  <ul class="nav nav-tabs">
+						    <li class="active"><a href="#" ><i class="fa fa-picture-o"></i> Imágenes</a></li>
+						    <li><a href="/foros/privado/multimedia_videos/"><i class="fa fa-film"></i> Videos</a></li>
+						    <li><a href="/foros/privado/multimedia_audios/" ><i class="fa fa-volume-up"></i> Audios</a></li>
+						  </ul>
+						</div>
+
+
+						<div class="multimedia_fotos">
+							{% for a in imagenes %}
+								<a class="imagen-gal fancybox" title="{{a.nombre_img}} <a class='btn btn-info btn-mini' style='float:right' href='/uploads/{{a.foto}}'>Descargar tamaño original</a>" href="{{a.foto.url_640x480}}">
+
 									<img src="{{a.foto.url_220x160}}">
-							</a>
-				{% endfor %}
-			</div>
-		</div>
-	</div>
-</div>
+
+								</a>
+							{% endfor %}
+						</div>
+
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- doc body wrapper end -->
+
+                
+                <div id="k-sidebar" class="col-lg-3 col-md-3"><!-- sidebar wrapper -->
+
+                    <div class="col-padded col-shaded"><!-- inner custom column -->
+                    
+                    <h1 class="title-widget">Buscar</h1>
+
+                    <ul class="nav nav-list">
+					  <li>
+						<form class="form-search form-inline" action="." method="GET">
+						<div class="input-group">
+						 
+						  <input type="text" class="form-control search-query" placeholder="Buscar"  name="q" value="{% if query %} {{query}} {% endif%}">
+						  <span class="input-group-btn">
+					        <button class="btn btn-default" type="submit">Go!</button>
+					      </span>
+						</div>
+
+						</form>
+						<br>
+
+					  </li>
+					  <li class="nav-header">TAGS</li>
+
+						{% for tag in tags %}
+							<li {%if tag == tag_sel%}class="active"{%endif%}>
+							<i class="fa fa-tag">&nbsp;
+							<a href="/foros/privado/multimedia_fotos_tag/{{tag}}">{{tag}}</a>
+							</i>
+							
+							</li>
+						{% endfor %}
+
+
+					</ul>
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- sidebar wrapper end -->
+             </div><!-- row end -->
+
+
+
+
+
+
+
 
 
 {% endblock %}
