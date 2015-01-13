@@ -87,7 +87,8 @@
                                     <div class="news-meta">
                                         <span class="news-meta-date">{{nota.fecha|date:"M t, Y"}}</span>
                                         
-                                        <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}} | <a href="{% url 'editar-nota' nota.id %}">Editar</a> | <a data-toggle="modal" data-target="#myModal">Borrar</a></span>
+                                        <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}} | <a href="{% url 'editar-nota' nota.id %}">Editar</a> | <a data-toggle="modal" data-target="#myModal">Borrar</a>
+                                        </span>
                                     </div>
 
 
