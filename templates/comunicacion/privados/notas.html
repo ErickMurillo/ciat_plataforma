@@ -10,6 +10,26 @@
     </script>
 {% endblock %}
 {% block contenido %}
+
+<div class="row">
+	<div class="encabezado">
+	  <div class="container">
+		    <div class="row">
+			    <div class="col-md-10">
+			    	<div class="encabezado-title">
+			    		MIS NOTAS
+			  		</div>
+			    </div>
+			    <div class="space">
+					<div class="btn-group filtrospais">
+						<a href="{% url 'crear-nota' %}" class="btn add"><i class="icon-plus-sign"></i>Crear nueva nota</a>
+					</div>
+			    </div>
+	        </div>
+	  </div>
+	</div>
+</div>
+
             <div class="row no-gutter"><!-- row -->
                 
                 <div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
@@ -18,11 +38,11 @@
                     
                     	<div class="row gutter"><!-- row -->
 
-	                        <div class="col-lg-12 col-md-12">
+	                        <!--<div class="col-lg-12 col-md-12">
 	                        	<a href="{% url 'crear-nota' %}" class="btn txt-black pull-right"><i class="fa fa-plus"></i> Crear nueva nota</a>
 	                            <br>
 	                            <hr />
-	                        </div>
+	                        </div> -->
                         	<div class="col-lg-12 col-md-12">
                     
                             	<h1 class="page-title">Mis Noticias</h1><!-- category title -->
@@ -93,6 +113,7 @@
                 </div><!-- doc body wrapper end -->
             
             </div><!-- row end -->
+
 
 
 
