@@ -64,7 +64,7 @@
                                 
                                 <div class="news-body">
                                     <p>
-                                    {{foro.contenido|safe|truncatewords_html:50}}<a href="#" class="more-link">...Leer más</a> 
+                                    {{foro.contenido|safe|truncatewords_html:50}}<a href="{{foro.get_absolute_url}}" class="more-link">...Leer más</a> 
                                     </p>
   
                                 </div>
