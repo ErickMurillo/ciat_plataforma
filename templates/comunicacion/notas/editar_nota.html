@@ -117,42 +117,50 @@
 		                                    <div role="tabpanel" class="tab-pane active" id="imagenes">
 												<div class="media-form-inline">
 
-													{% for foto in form2 %}
-														<br>
-														{{foto.label_tag}}
-														<br>
-
-														{{foto}}
-													{% endfor %}
+														{% for foto in form2 %}
+														
+															{{foto.label_tag}}
+															{{foto}}
+															<hr>
+														{% endfor %}
 													
 												</div>
 		                                    </div>
 		                                    <div role="tabpanel" class="tab-pane" id="documentos">
-		                                    	{% for docu in form3 %}
-		                                    			<br>
-														{{docu.label_tag}}
-														<br>
-														{{docu}}
-														
-													{% endfor %}
+		                                    	<div class="media-form-inline">
+		                                    		<div class="media-form-inline">
+			                                    		{% for docu in form3 %}
+			                                    			
+															{{docu.label_tag}}
+															
+															{{docu}}
+															
+															<hr>
+														{% endfor %}
+													</div>
+												</div>
 		                                    </div>
 		                                    <div role="tabpanel" class="tab-pane" id="video">
-		                                    	{% for video in form4 %}
-						         					<br>
-						                            {{video.label_tag}}
-						                            <br>
-						                            {{video}}
-
-						                        {% endfor %}
+		                                    	<div class="media-form-inline">
+			                                    	{% for video in form4 %}
+							         					
+							                            {{video.label_tag}}
+							                          
+							                            {{video}}
+														<hr>
+						                       	 	{% endfor %}
+						                       	</div>
 		                                    </div>
 		                                    <div role="tabpanel" class="tab-pane" id="audio">
-		                                    	{% for audio in form5 %}
-						  							<br>
-						                            {{audio.label_tag}}
-						                            <br>
-						                            {{audio}}
-						           
-						                        {% endfor %}
+		                                    	<div class="media-form-inline">
+			                                    	{% for audio in form5 %}
+							  							
+							                            {{audio.label_tag}}
+							                            
+							                            {{audio}}
+							           					<hr>
+							                        {% endfor %}
+						                    	</div>
 		                                    </div>
 		                                    	
 		                                  </div>
