@@ -111,35 +111,40 @@
                                     <hr/>
 
                          {% if actividad.user.userprofile.contraparte == request.user.userprofile.contraparte or request.user.is_superuser %}
-                        
-                        <div class="clean"></div>
-                            <div class="modal fade hide" id="myModal">
-                              <div class="modal-header">
-                                <a class="close" data-dismiss="modal">×</a>
-                                <h3>¿Está seguro?</h3>
-                              </div>
-                              <div class="modal-body">
-                                <p>El evento será borrado permanentemente y no podrá ser recuperado</p>
-                              </div>
-                              <div class="modal-footer">
-                                <a href="#" data-dismiss="modal" class="btn">No Borrar</a>
-                                <a href="/agendas/borrar/{{actividad.id}}" class="btn btn-danger">Borrar Permanentemente</a>
-                              </div>
-                            </div>
-                            <br>  
+
+                                    <div class="modal fade" id="modal-borrar">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>La nota será borrada permanentemente y no podrá ser recuperada</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                                    <a href="/agendas/borrar/{{actividad.id}}" type="button" class="btn btn-danger">
+                                                        Borrar Permanentemente
+                                                    </a>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+   
                      {% endif %}
                      
-                                   {%if actividad.adjunto.all %}
-                                    <div class="row">
-                                     {% for doc in actividad.adjunto.all%}
-                                        <div class="col-md-12 col-lg-8">
-                                              <p class="info-doc">{{doc.nombre_doc}}</p>
-                                        </div>
-                                        <div class="col-md-12 col-lg-4">
-                                        <a href="/uploads/{{doc.adjunto}}" class="btn btn-primary color">
-                                              Descargar
-                                          </a>
-                                        </div>
+                    {%if actividad.adjunto.all %}
+                        <div class="row">
+                            {% for doc in actividad.adjunto.all%}
+                                <div class="col-md-12 col-lg-8">
+                                    <p class="info-doc">{{doc.nombre_doc}}</p>
+                                </div>
+                                <div class="col-md-12 col-lg-4">
+                                    <a href="/uploads/{{doc.adjunto}}" class="btn btn-primary">
+                                        <i class="fa fa-download">&nbsp;</i>Descargar
+                                    </a>
+                                </div>
                                          {% endfor %}
                                     </div>
 
