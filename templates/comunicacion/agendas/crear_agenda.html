@@ -56,7 +56,7 @@
                                         {%if form.errors%}
                                                 <div class="alert alert-error"><b>Favor corregir los siguientes errores</b><br>{{form.errors}}</div>
                                         {%endif%}
-                                        <div class="formulario-admin">
+                                        <div class="formulario-agenda">
                                             {{form.as_p}}
                                         </div>
 
@@ -78,17 +78,17 @@
                                           <div class="tab-content">
 
                                             <div role="tabpanel" class="tab-pane active" id="documentos">
+                                            <div class="media-form-inline">
                                                 {{ form3.management_form }}
                                                     {% for docu in form1 %}
-                                                        <div class="media-form-inline">
-                                                            <br>
+                                                       
                                                             {{docu.label_tag}}
-                                                            <br>
                                                             {{docu}}
-                                                        </div>
+                                                            <hr>
+                                                       
                                                 {% endfor %}
 
-                    
+                                            </div>
                                             </div>
 
 

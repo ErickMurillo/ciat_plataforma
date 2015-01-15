@@ -556,9 +556,9 @@ a.list-group-item.active > .badge, .nav-pills > .active > a > .badge { backgroun
 .btn-primary, .btn-default, .btn-success, .btn-info, .btn-warning, .btn-danger, .btn-link { background-image: none; background-repeat: no-repeat; border-color: transparent !important; color: #FFF !important; }
 .btn-default { background-color: #666666; }
 .btn-default:hover, .btn-default:focus { background-color: #333333; }
-.btn-primary { background-color: #ea5644; }
+/*.btn-primary { background-color: #ea5644; }
 .btn-primary:hover,.btn-primary:focus { background-color: #d04c3c; }
-.btn-success { background-color: #35d37d; }
+.btn-success { background-color: #35d37d; }*/
 .btn-success:hover,.btn-success:focus { background-color: #2cae67; }
 .btn-info { background-color: #68b5e6; }
 .btn-info:hover,.btn-info:focus { background-color: #5798c1; }
@@ -834,9 +834,11 @@ border: 2px solid rgba( 0, 0, 0, 0.1 );
 box-shadow: none;
 }
 
-#id_nombre_img, #id_tags_img, #id_nombre_doc, #id_tags_doc, #id_nombre_video, #id_url, 
-#id_tags_vid,#id_tags_aud, #id_nombre_audio, #id_apertura, #id_cierre, #id_fecha_skype,
-#id_memoria,#id_nombre,#id_inicio, #id_final   {
+
+.media-form-inline input[type='text'],
+.media-form-inline input[type="url"],
+.formulario-agenda input[type='text'],
+.formulario-foro input[type='text']{
 
 width: 30%;
 height: 40px;
@@ -854,6 +856,27 @@ border: 2px solid rgba( 0, 0, 0, 0.1 );
 -webkit-box-shadow: none;
 box-shadow: none;
 }
+.media-form-inline {
+padding: 10px;
+margin-bottom: 15px;
+
+
+}
+.media-form-inline label{
+	display: block;
+	margin-top: 10px;
+}
+.media-form-inline input{
+	display: block;
+	margin-top: 10px;
+	
+
+}
+.id_foros-imagen-content_type-object_id-0-id{
+	display: inline-block;
+}
+
+
 .input-group-addon{
 	 border-radius: 0px;
 	 border: 1px solid rgba( 0, 0, 0, 0.05 );
@@ -896,11 +919,27 @@ background-color: #3a87ad;
 	text-decoration: none;
 	cursor: pointer;
 }
-.formulario-admin label{
+
+.formulario-foro label{
 	display: block;
 	margin-top: 20px;
+	font-weight: 400;
+	line-height: 1;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-size: 16px !important;
 }
-.formulario-admin label::after{
+.formulario-agenda label{
+	margin-top: 20px;
+		font-weight: 400;
+	line-height: 1;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-size: 16px !important;
+}
+
+.formulario-foro label::after,
+.formulario-agenda label::after{
 	content: " *";
 }
 
@@ -934,6 +973,14 @@ background-color: #3a87ad;
 .botones-evento .fa{
  font-size: 15px;
 }
+.info-doc{
+	margin-left: 15px;
+}
+
+.hideclear{
+	display: inline-block !important;
+}
+
 /*----------------Monitoreo-----------------------*/
 .monitoreo-menu{
 	margin-left: 50px;
