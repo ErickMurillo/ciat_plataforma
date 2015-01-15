@@ -981,6 +981,33 @@ background-color: #3a87ad;
 	display: inline-block !important;
 }
 
+
+
+
+
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}
+.avatar-user{
+	margin-bottom: 20px;
+}
+.thumbnail h4{
+	margin-top: 5px !important;
+}
+.thumbnail .fa-mobile{
+	margin-right: 15px;
+	margin-bottom: 10px;
+}
+
+.thumbnail .fa-envelope, .thumbnail .fa-suitcase, .thumbnail .fa-skype{
+	margin-right: 8px;
+	margin-bottom: 10px;
+}
+.thumbnail small{
+	margin-bottom: 10px;
+}
 /*----------------Monitoreo-----------------------*/
 .monitoreo-menu{
 	margin-left: 50px;
