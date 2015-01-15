@@ -121,7 +121,7 @@
 							<br>
 						</div>
                         
-						<form name='fl' action="." method="post" accept-charset="utf-8">{% csrf_token %}
+						<form name='fl' action="{% url 'enviar-mensaje' %}" method="POST" accept-charset="utf-8">{% csrf_token %}
 						
 						<br>
 						{{form.mensaje}}
