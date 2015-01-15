@@ -37,6 +37,471 @@
 
 {% load magicembed_tags %}
 {% block contenido %}
+
+<div id="k-body"><!-- content wrapper -->
+	
+	<div class="container"><!-- container -->
+		
+		<div class="row"><!-- row -->
+			
+			<div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
+				
+				<form action="#" id="top-searchform" method="get" role="search">
+					<div class="input-group">
+						<input type="text" name="s" id="sitesearch" class="form-control" autocomplete="off" placeholder="Type in keyword(s) then hit Enter on keyboard" />
+					</div>
+				</form>
+				
+				<!--<div id="bt-toggle-search" class="search-icon text-center"><i class="s-open fa fa-search"></i><i class="s-close fa fa-times"></i></div> toggle search button -->
+				
+			</div><!-- top search end -->
+			
+			<div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
+				
+				<ol class="breadcrumb">
+					<li><a href="/">Home</a></li>
+					<li><a href="/foros">Foro</a></li>
+					<li class="active">{{discusion.nombre}}</li>
+				</ol>
+				
+			</div><!-- breadcrumbs end -->               
+			
+		</div><!-- row end -->
+		
+		<div class="row no-gutter"><!-- row -->
+			
+			<div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
+				
+				<div class="col-padded"><!-- inner custom column -->
+					
+					<div class="row gutter"><!-- row -->
+						
+						<div class="col-lg-8 col-md-8">
+
+							
+							
+							<div class="news-title-meta">
+								<h1 class="page-title">{{discusion.nombre}}</h1>
+                                    <!-- <div class="news-meta">
+                                        <span class="news-meta-date">{{nota.fecha|date:"M t, Y"}}</span>
+                                        <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
+                                        
+                                        <span class="ong">{{nota.user.userprofile.contraparte.pais.nombre}}</span>
+                                        <span class="news-meta-comments"><a href="#" title="3 comments">3 comentarios</a></span>
+                                      
+                                    </div> -->
+                                </div>
+                                
+                                <div class="news-body">
+                                	<p>
+                                		{{discusion.contenido|safe}}
+                                	</p>
+                                	
+                                </div>
+                                
+                                <!-- <div class="news-tags tagcloud">
+                                 {%for tags in nota.fotos.all %}
+                                    <a href="#" rel="tag">#{{tags.tags_img}}</a>
+                                {%endfor%}
+                            </div> -->
+                            
+                            
+
+                        </div>
+
+                        <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
+                        	
+                        	<div class="col-padded col-shaded"><!-- inner custom column -->
+                        		
+                        		<ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_nav_menu"><!-- widget -->
+                    
+                                <h1 class="title-widget">Información</h1>
+                                
+                                <table class="table table-bordered table-condensed table-striped">
+									<tbody>
+										<tr>
+											<td><i class="fa fa-user"></i></td>
+											<td><b>Creado por</b></td>
+											<td>{{discusion.contraparte}} - {{discusion.contraparte.userprofile.contraparte.siglas}}</td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-calendar"></i></td>
+											<td><b>Fecha de creación</b></td>
+											<td>{{discusion.creacion}}</td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-users"></i></td>
+											<td><b>Apertura</b> </td>
+											<td>{{discusion.apertura}}</td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-times"></i></td>
+											<td><b>Cierre de aportes</b></td>
+											<td>{{discusion.cierre}}</td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-skype"></i></td>
+											<td><b>Reunión skype</b></td>
+											<td>{{discusion.fecha_skype}}</td>
+										</tr>
+										<tr>
+											<td><i class="fa fa-file-text-o"></i></td>
+											<td><b>Memoria</b></td>
+											<td>{{discusion.memoria}}</td>
+										</tr>
+									</tbody>
+								</table>
+                    
+                            </li>
+                            <br>
+                            <li class="widget-container widget_up_events"><!-- widget -->
+                    
+                                
+                                
+                                <ul class="list-unstyled">
+                                {% for evento in  agenda %}
+                                    
+                                
+                                    <li class="up-event-wrap">
+                                
+                                        <h1 class="title-median"><a href="#" title="Annual alumni game">{{evento.evento}}</a></h1>
+                                        
+                                        <div class="up-event-meta clearfix">
+                                            <div class="up-event-date">
+                                                Inicio: {{evento.inicio|date:"M t, Y"}}
+                                            </div>
+                                            <div class="up-event-date">
+                                                Final: {{evento.final|date:"M t, Y"}}
+                                            </div>
+                                        </div>
+                                        
+                                        <p>
+                                        {{evento.descripcion|safe|truncatewords_html:10}}
+                                        <a href="#" class="moretag" title="read more">Ver evento</a> 
+                                        </p>
+                                    
+                                    </li>
+                                {% endfor %}    
+                                    
+                                
+                                </ul>
+                            
+                            </li>
+                            
+                        </ul><!-- widgets end -->
+
+                        	</div><!-- inner custom column end -->
+                        	
+                        </div><!-- sidebar wrapper end -->
+                        
+                    </div><!-- row end -->  
+                    
+                    
+                    
+                    
+                    
+                </div><!-- inner custom column end -->
+                
+            </div><!-- doc body wrapper end -->
+
+            		</div><!-- row end -->  
+                        
+                        <div class=" row-splitter" id="split">
+                        
+                        </div> 
+                        
+        
+
+
+        <div class="row no-gutter"><!-- row -->
+			
+			<div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
+				
+				<div class="col-padded"><!-- inner custom column -->
+					
+					<div class="row gutter"><!-- row -->
+        
+        		
+        		<div id="comments"><!-- comments wrap -->
+        			
+        			<h6>Aportes ( 3 )</h6><!-- comments list title -->
+        			
+        			{% for respuesta in discusion.aportes_set.all %}
+
+        			<div class="row " id="{{respuesta.id}}">
+        				<div class="col-md-1">
+        					<div class="label"><center>Aporte </center></div>
+        					<div class="user-info">{{respuesta.fecha|date:"d M"}}</div>
+        					{%if respuesta.user.userprofile.avatar %}
+        					<img src="{{respuesta.user.userprofile.avatar.url_70x60}}"><br>
+        					{%else%}
+        					<img src="/files/img/avatarpeque.png"><br>
+        					{%endif%}
+        					<small><a class="username" href="" rel="tooltip" title="{{respuesta.user.first_name}} - {{respuesta.user.userprofile.contraparte}}">{{respuesta.user}}</a></small>
+        					{% if respuesta.user == request.user or request.user.is_superuser %}
+        					<div class="btn-group foro-edit">
+        						<a class="btn btn-mini" href="/foros/aporte/editar/{{respuesta.id}}"><i class="icon-pencil"></i></a>
+        						<a class="btn btn-mini" data-toggle="modal" data-target="#myModal"><i class="icon-trash"></i></a>
+        					</div>
+        					{% endif %}
+
+        					<div class="modal fade hide" id="myModal">
+        						<div class="modal-header">
+        							<a class="close" data-dismiss="modal">×</a>
+        							<h3>¿Está seguro?</h3>
+        						</div>
+        						<div class="modal-body">
+        							<p>El aporte será borrado permanentemente y no podrá ser recuperado</p>
+        						</div>
+        						<div class="modal-footer">
+        							<a href="#" data-dismiss="modal" class="btn">No Borrar</a>
+        							<a href="/foros/aporte/borrar/{{respuesta.id}}"class="btn btn-danger">Borrar Permanentemente</a>
+        						</div>
+        					</div>  
+        				</div>
+        				<div class="col-md-7">
+        					{{respuesta.contenido|safe}}
+        					<p>
+        						<a data-fancybox-type="iframe" href="/foros/ver_comentario/{{respuesta.id}}" class="btn btn-mini btn-warning fancybox"><i class="icon-comment icon-white"></i>Comentar</a>
+        					</p>				    
+        					{% for comentario in respuesta.comentarios_set.all %}					
+        					<div class="well" id="cmt{{comentario.id}}">{{comentario.comentario|safe}}
+        						<div class="user-info">
+        							<i>escrito por</i> 
+        							{%if comentario.usuario.userprofile.avatar %}
+        							<img src="{{comentario.usuario.userprofile.avatar.url_70x60}}" width="25" height="25">
+        							{%else%}
+        							<img src="/files/img/avatarpeque.png" width="25" height="25">
+        							{%endif%}
+        							<b><a class="username" href="" rel="tooltip" title="{{comentario.usuario.first_name}} - {{comentario.usuario.userprofile.contraparte}}">{{comentario.usuario.username}}</a></b> - {{comentario.fecha|date:"d M"}}
+        							{% if comentario.usuario == request.user or request.user.is_superuser %}
+        							<div class="btn-group foro-edit" style="float:right;">
+        								<a data-fancybox-type="iframe"  class=" fancybox btn btn-mini" href="/foros/comentario/editar/{{comentario.id}}"><i class="icon-pencil"></i></a>
+        								<a class="btn btn-mini" data-toggle="modal" data-target="#myModalcomment"><i class="icon-trash"></i></a>
+        							</div>
+        							{% endif %}
+			                <!--<div class="modal fade hide" id="">
+			                  <div class="modal-header">
+			                    <a class="close" data-dismiss="modal">×</a>
+			                    <h3>¿Está seguro?</h3>
+			                  </div>
+			                  <div class="modal-body">
+			                    <p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
+			                  </div>
+			                  <div class="modal-footer">
+			                    <a href="#" data-dismiss="modal" class="btn">No Borrar</a>
+			                    <a href="/foros/comentario/borrar/{{comentario.id}}"class="btn btn-danger">Borrar Permanentemente</a>
+			                  </div>
+			              </div> -->
+
+			              <div class="modal fade" id="myModalcomment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			              	<div class="modal-dialog">
+			              		<div class="modal-content">
+			              			<div class="modal-header">
+			              				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			              				<h3 class="modal-title" id="myModalLabel">¿Está seguro?</h3>
+			              			</div>
+			              			<div class="modal-body">
+			              				<p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
+			              			</div>
+			              			<div class="modal-footer">
+			              				<button type="button" class="btn btn-default" data-dismiss="modal">No Borrar</button>
+			              				<a href="/foros/comentario/borrar/{{comentario.id}}"class="btn btn-danger">Borrar Permanentemente</a>
+			              			</div>
+			              		</div>
+			              	</div>
+			              </div>  
+			          </div>
+			      </div>
+			      {% endfor %}
+			  </div>
+			  <div class="col-md-4">
+			  	{%if respuesta.fotos.all%}
+			  	<div class="sidebar-title">Fotos</div>
+			  	<div class="thumbs" style="margin-top:10px">
+			  		{% for img in respuesta.fotos.all%}
+			  		<a class="fancybox" rel="gallery{{respuesta.id}}" title="{{imagen.nombre_img}}" href="{{img.foto.url_640x480}}"><img src="{{img.foto.url_80x80}}" alt="{{imagen.nombre}}" title="{{imagen.nombre}}"></a>
+			  		{% endfor %}
+			  		<div class="clean"></div>
+			  	</div>
+			  	{%endif%}
+			  	{%if respuesta.adjuntos.all %}
+			  	<div class="sidebar-title">Documentos</div>
+			  	<table class="table table-bordered table-condensed doc-sidebar">
+			  		<tbody>
+			  			{% for doc in respuesta.adjuntos.all%}
+			  			<tr>
+			  				<td>{{doc.nombre_doc}}</td>
+			  				<td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+			  			</tr>
+			  			{% endfor %}
+			  		</tbody>
+			  	</table>
+			  	{%endif%}
+			  	{%if respuesta.video.all%}
+			  	<div class="sidebar-title">Videos</div>
+			  	<table class="table  table-bordered table-condensed doc-sidebar">
+			  		<tbody>
+			  			{% for video in respuesta.video.all%}
+			  			<tr>
+			  				<td><a href="" data-toggle="modal" data-target="#myModalresp{{video.id}}"><img src="{{video.url|magicthumbnail}}"></a></td>
+			  			</tr>
+			  			
+			  			
+
+			  			<!-- nuevo Modal -->
+			  			<div class="modal fade" id="myModalresp{{video.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  				<div class="modal-dialog">
+			  					<div class="modal-content">
+			  						<div class="modal-header">
+			  							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  							<h4 class="modal-title" id="myModalLabel">{{video.nombre_video}}</h4>
+			  						</div>
+			  						<div class="modal-body">
+			  							<p>{{ video.url|magicembed:"560x480"}}</p>
+			  						</div>
+			  						<div class="modal-footer">
+			  							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			  						</div>
+			  					</div>
+			  				</div>
+			  			</div> 
+			  			{% endfor %}
+			  		</tbody>
+			  	</table>
+			  	{%endif%}
+			  	{%if respuesta.audio.all%}
+			  	<div class="sidebar-title">Audio</div>
+			  	<table class="table  table-bordered table-condensed doc-sidebar">
+			  		<tbody>
+			  			{% for audio in respuesta.audio.all%}
+			  			<tr>
+			  				<td>{{audio.nombre_audio}}<br>
+			  					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="280" height="20"
+			  					codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+			  					<param name="movie" value="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true" />
+			  					<param name="wmode" value="transparent" />
+			  					<embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true"
+			  					type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+			  				</object>
+			  			</td>
+			  		</tr>
+			  		{% endfor %}
+			  	</tbody>
+			  </table>
+			  {%endif%}
+			</div>
+		</div>
+		<hr>
+		{% endfor %}
+		
+	</div><!-- comments wrap end -->
+	<div class="row body-content" id="formaporte" style="padding-top:0px">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="encabezado-title raya">
+						AGREGAR APORTE A ESTE FORO
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<form  enctype="multipart/form-data" action="." method="post">{% csrf_token %}
+					{{ form.media }}
+					<div class="col-md-12">
+						<div class="well well-e">
+							{%if form.errors%}
+							<div class="alert alert-error"><b>Favor corregir los siguientes errores</b><br>{{form.errors}}</div>
+							{%endif%}
+							{{form.as_p}}
+							<div class="tabbable tabs-left">
+								<ul class="nav nav-tabs nav-tab-media">
+									<li class="active"><a href="#fotos" data-toggle="tab"><i class="icon-camera"></i>Fotos e imágenes</a></li>
+									<li><a href="#documentos" data-toggle="tab"><i class="icon-file"></i>Documentos</a></li>
+									<li><a href="#videos" data-toggle="tab"><i class="icon-film"></i>Videos</a></li>
+									<li><a href="#audios" data-toggle="tab"><i class="icon-volume-up"></i>Audios</a></li>
+								</ul>
+								<div class="tab-content tab-media">
+									<div class="tab-pane active" id="fotos">
+										<span class="label label-warning">FOTOS</span><hr>
+										{{ form2.management_form }}
+										{% for foto in form2 %}
+										<div class="media-form-inline">
+											{{foto.label_tag}}
+											{{foto}}
+										</div>
+										{% endfor %}
+										<hr>
+									</div>
+									<div class="tab-pane" id="documentos">
+										<span class="label label-warning">DOCUMENTOS</span><hr>
+										{{ form3.management_form }}
+										{% for docu in form3 %}
+										<div class="media-form-inline">
+											{{docu.label_tag}}
+											{{docu}}
+										</div>
+										{% endfor %}
+										<hr>
+									</div>
+									<div class="tab-pane" id="videos">
+										<span class="label label-warning">VIDEOS</span><hr>
+										{{ form4.management_form }}
+										{% for video in form4 %}
+										<div class="media-form-inline">
+											{{video.label_tag}}
+											{{video}}
+										</div>
+										{% endfor %}
+										<hr>
+									</div>
+									<div class="tab-pane" id="audios">
+										<span class="label label-warning">AUDIOS</span><hr>
+										{{ form5.management_form }}
+										{% for audio in form5 %}
+										<div class="media-form-inline">
+											{{audio.label_tag}}
+											{{audio}}
+										</div>
+										{% endfor %}
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-12">
+						<div class="alert "><i class="icon-info-sign"></i>
+							Un aporte al foro
+						</div>
+						<div class="well well-e" id="actionbuttons" style="">
+							<input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
+							<a href="/foros" class="btn btn-large">Cerrar</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+</div>
+</div>
+            
+        </div><!-- row end -->
+    </div>
+        
+
+
+
+</div><!-- container end -->
+
+</div><!-- content wrapper end -->
+
+{% endblock %}
+
 <!-- <div class="row">
     <div class="encabezado">
       <div class="container">
@@ -440,469 +905,3 @@
 </div>
 -->
 
-
-
-
-<div id="k-body"><!-- content wrapper -->
-	
-	<div class="container"><!-- container -->
-		
-		<div class="row"><!-- row -->
-			
-			<div id="k-top-search" class="col-lg-12 clearfix"><!-- top search -->
-				
-				<form action="#" id="top-searchform" method="get" role="search">
-					<div class="input-group">
-						<input type="text" name="s" id="sitesearch" class="form-control" autocomplete="off" placeholder="Type in keyword(s) then hit Enter on keyboard" />
-					</div>
-				</form>
-				
-				<!--<div id="bt-toggle-search" class="search-icon text-center"><i class="s-open fa fa-search"></i><i class="s-close fa fa-times"></i></div> toggle search button -->
-				
-			</div><!-- top search end -->
-			
-			<div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
-				
-				<ol class="breadcrumb">
-					<li><a href="/">Home</a></li>
-					<li><a href="/foros">Foro</a></li>
-					<li class="active">{{discusion.nombre}}</li>
-				</ol>
-				
-			</div><!-- breadcrumbs end -->               
-			
-		</div><!-- row end -->
-		
-		<div class="row no-gutter"><!-- row -->
-			
-			<div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
-				
-				<div class="col-padded"><!-- inner custom column -->
-					
-					<div class="row gutter"><!-- row -->
-						
-						<div class="col-lg-8 col-md-8">
-
-							
-							
-							<div class="news-title-meta">
-								<h1 class="page-title">{{discusion.nombre}}</h1>
-                                    <!-- <div class="news-meta">
-                                        <span class="news-meta-date">{{nota.fecha|date:"M t, Y"}}</span>
-                                        <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
-                                        
-                                        <span class="ong">{{nota.user.userprofile.contraparte.pais.nombre}}</span>
-                                        <span class="news-meta-comments"><a href="#" title="3 comments">3 comentarios</a></span>
-                                      
-                                    </div> -->
-                                </div>
-                                
-                                <div class="news-body">
-                                	<p>
-                                		{{discusion.contenido|safe}}
-                                	</p>
-                                	
-                                </div>
-                                
-                                <!-- <div class="news-tags tagcloud">
-                                 {%for tags in nota.fotos.all %}
-                                    <a href="#" rel="tag">#{{tags.tags_img}}</a>
-                                {%endfor%}
-                            </div> -->
-                            
-                            
-
-                        </div>
-
-                        <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
-                        	
-                        	<div class="col-padded col-shaded"><!-- inner custom column -->
-                        		
-                        		<ul class="list-unstyled clear-margins"><!-- widgets -->
-                        
-                            <li class="widget-container widget_nav_menu"><!-- widget -->
-                    
-                                <h1 class="title-widget">Información</h1>
-                                
-                                <table class="table table-bordered table-condensed table-striped">
-									<tbody>
-										<tr>
-											<td><i class="fa fa-user"></i></td>
-											<td><b>Creado por</b></td>
-											<td>{{discusion.contraparte}} - {{discusion.contraparte.userprofile.contraparte.siglas}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-calendar"></i></td>
-											<td><b>Fecha de creación</b></td>
-											<td>{{discusion.creacion}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-users"></i></td>
-											<td><b>Apertura</b> </td>
-											<td>{{discusion.apertura}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-times"></i></td>
-											<td><b>Cierre de aportes</b></td>
-											<td>{{discusion.cierre}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-skype"></i></td>
-											<td><b>Reunión skype</b></td>
-											<td>{{discusion.fecha_skype}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-file-text-o"></i></td>
-											<td><b>Memoria</b></td>
-											<td>{{discusion.memoria}}</td>
-										</tr>
-									</tbody>
-								</table>
-                    
-                            </li>
-                            <br>
-                            <li class="widget-container widget_up_events"><!-- widget -->
-                    
-                                
-                                
-                                <ul class="list-unstyled">
-                                {% for evento in  agenda %}
-                                    
-                                
-                                    <li class="up-event-wrap">
-                                
-                                        <h1 class="title-median"><a href="#" title="Annual alumni game">{{evento.evento}}</a></h1>
-                                        
-                                        <div class="up-event-meta clearfix">
-                                            <div class="up-event-date">
-                                                Inicio: {{evento.inicio|date:"M t, Y"}}
-                                            </div>
-                                            <div class="up-event-date">
-                                                Final: {{evento.final|date:"M t, Y"}}
-                                            </div>
-                                        </div>
-                                        
-                                        <p>
-                                        {{evento.descripcion|safe|truncatewords_html:10}}
-                                        <a href="#" class="moretag" title="read more">Ver evento</a> 
-                                        </p>
-                                    
-                                    </li>
-                                {% endfor %}    
-                                    
-                                
-                                </ul>
-                            
-                            </li>
-                            
-                        </ul><!-- widgets end -->
-
-                        	</div><!-- inner custom column end -->
-                        	
-                        </div><!-- sidebar wrapper end -->
-                        
-                    </div><!-- row end -->  
-                    
-                    
-                    
-                    
-                    
-                </div><!-- inner custom column end -->
-                
-            </div><!-- doc body wrapper end -->
-
-            		</div><!-- row end -->  
-                        
-                        <div class=" row-splitter" id="split">
-                        
-                        </div> 
-                        
-        
-
-
-        <div class="row no-gutter"><!-- row -->
-			
-			<div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
-				
-				<div class="col-padded"><!-- inner custom column -->
-					
-					<div class="row gutter"><!-- row -->
-        
-        		
-        		<div id="comments"><!-- comments wrap -->
-        			
-        			<h6>Aportes ( 3 )</h6><!-- comments list title -->
-        			
-        			{% for respuesta in discusion.aportes_set.all %}
-
-        			<div class="row " id="{{respuesta.id}}">
-        				<div class="col-md-1">
-        					<div class="label"><center>Aporte </center></div>
-        					<div class="user-info">{{respuesta.fecha|date:"d M"}}</div>
-        					{%if respuesta.user.userprofile.avatar %}
-        					<img src="{{respuesta.user.userprofile.avatar.url_70x60}}"><br>
-        					{%else%}
-        					<img src="/files/img/avatarpeque.png"><br>
-        					{%endif%}
-        					<small><a class="username" href="" rel="tooltip" title="{{respuesta.user.first_name}} - {{respuesta.user.userprofile.contraparte}}">{{respuesta.user}}</a></small>
-        					{% if respuesta.user == request.user or request.user.is_superuser %}
-        					<div class="btn-group foro-edit">
-        						<a class="btn btn-mini" href="/foros/aporte/editar/{{respuesta.id}}"><i class="icon-pencil"></i></a>
-        						<a class="btn btn-mini" data-toggle="modal" data-target="#myModal"><i class="icon-trash"></i></a>
-        					</div>
-        					{% endif %}
-
-        					<div class="modal fade hide" id="myModal">
-        						<div class="modal-header">
-        							<a class="close" data-dismiss="modal">×</a>
-        							<h3>¿Está seguro?</h3>
-        						</div>
-        						<div class="modal-body">
-        							<p>El aporte será borrado permanentemente y no podrá ser recuperado</p>
-        						</div>
-        						<div class="modal-footer">
-        							<a href="#" data-dismiss="modal" class="btn">No Borrar</a>
-        							<a href="/foros/aporte/borrar/{{respuesta.id}}"class="btn btn-danger">Borrar Permanentemente</a>
-        						</div>
-        					</div>  
-        				</div>
-        				<div class="col-md-7">
-        					{{respuesta.contenido|safe}}
-        					<p>
-        						<a data-fancybox-type="iframe" href="/foros/ver_comentario/{{respuesta.id}}" class="btn btn-mini btn-warning fancybox"><i class="icon-comment icon-white"></i>Comentar</a>
-        					</p>				    
-        					{% for comentario in respuesta.comentarios_set.all %}					
-        					<div class="well" id="cmt{{comentario.id}}">{{comentario.comentario|safe}}
-        						<div class="user-info">
-        							<i>escrito por</i> 
-        							{%if comentario.usuario.userprofile.avatar %}
-        							<img src="{{comentario.usuario.userprofile.avatar.url_70x60}}" width="25" height="25">
-        							{%else%}
-        							<img src="/files/img/avatarpeque.png" width="25" height="25">
-        							{%endif%}
-        							<b><a class="username" href="" rel="tooltip" title="{{comentario.usuario.first_name}} - {{comentario.usuario.userprofile.contraparte}}">{{comentario.usuario.username}}</a></b> - {{comentario.fecha|date:"d M"}}
-        							{% if comentario.usuario == request.user or request.user.is_superuser %}
-        							<div class="btn-group foro-edit" style="float:right;">
-        								<a data-fancybox-type="iframe"  class=" fancybox btn btn-mini" href="/foros/comentario/editar/{{comentario.id}}"><i class="icon-pencil"></i></a>
-        								<a class="btn btn-mini" data-toggle="modal" data-target="#myModalcomment"><i class="icon-trash"></i></a>
-        							</div>
-        							{% endif %}
-			                <!--<div class="modal fade hide" id="">
-			                  <div class="modal-header">
-			                    <a class="close" data-dismiss="modal">×</a>
-			                    <h3>¿Está seguro?</h3>
-			                  </div>
-			                  <div class="modal-body">
-			                    <p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
-			                  </div>
-			                  <div class="modal-footer">
-			                    <a href="#" data-dismiss="modal" class="btn">No Borrar</a>
-			                    <a href="/foros/comentario/borrar/{{comentario.id}}"class="btn btn-danger">Borrar Permanentemente</a>
-			                  </div>
-			              </div> -->
-
-			              <div class="modal fade" id="myModalcomment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			              	<div class="modal-dialog">
-			              		<div class="modal-content">
-			              			<div class="modal-header">
-			              				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			              				<h3 class="modal-title" id="myModalLabel">¿Está seguro?</h3>
-			              			</div>
-			              			<div class="modal-body">
-			              				<p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
-			              			</div>
-			              			<div class="modal-footer">
-			              				<button type="button" class="btn btn-default" data-dismiss="modal">No Borrar</button>
-			              				<a href="/foros/comentario/borrar/{{comentario.id}}"class="btn btn-danger">Borrar Permanentemente</a>
-			              			</div>
-			              		</div>
-			              	</div>
-			              </div>  
-			          </div>
-			      </div>
-			      {% endfor %}
-			  </div>
-			  <div class="col-md-4">
-			  	{%if respuesta.fotos.all%}
-			  	<div class="sidebar-title">Fotos</div>
-			  	<div class="thumbs" style="margin-top:10px">
-			  		{% for img in respuesta.fotos.all%}
-			  		<a class="fancybox" rel="gallery{{respuesta.id}}" title="{{imagen.nombre_img}}" href="{{img.foto.url_640x480}}"><img src="{{img.foto.url_80x80}}" alt="{{imagen.nombre}}" title="{{imagen.nombre}}"></a>
-			  		{% endfor %}
-			  		<div class="clean"></div>
-			  	</div>
-			  	{%endif%}
-			  	{%if respuesta.adjuntos.all %}
-			  	<div class="sidebar-title">Documentos</div>
-			  	<table class="table table-bordered table-condensed doc-sidebar">
-			  		<tbody>
-			  			{% for doc in respuesta.adjuntos.all%}
-			  			<tr>
-			  				<td>{{doc.nombre_doc}}</td>
-			  				<td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
-			  			</tr>
-			  			{% endfor %}
-			  		</tbody>
-			  	</table>
-			  	{%endif%}
-			  	{%if respuesta.video.all%}
-			  	<div class="sidebar-title">Videos</div>
-			  	<table class="table  table-bordered table-condensed doc-sidebar">
-			  		<tbody>
-			  			{% for video in respuesta.video.all%}
-			  			<tr>
-			  				<td><a href="" data-toggle="modal" data-target="#myModalresp{{video.id}}"><img src="{{video.url|magicthumbnail}}" width="290" height="150"><img src="/files/img/player.png" class="player-icon"></a></td>
-			  			</tr>
-			  			
-			  			
-
-			  			<!-- nuevo Modal -->
-			  			<div class="modal fade" id="myModalresp{{video.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  				<div class="modal-dialog">
-			  					<div class="modal-content">
-			  						<div class="modal-header">
-			  							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  							<h4 class="modal-title" id="myModalLabel">{{video.nombre_video}}</h4>
-			  						</div>
-			  						<div class="modal-body">
-			  							<p>{{ video.url|magicembed:"560x480" }}</p>
-			  						</div>
-			  						<div class="modal-footer">
-			  							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			  						</div>
-			  					</div>
-			  				</div>
-			  			</div> 
-			  			{% endfor %}
-			  		</tbody>
-			  	</table>
-			  	{%endif%}
-			  	{%if respuesta.audio.all%}
-			  	<div class="sidebar-title">Audio</div>
-			  	<table class="table  table-bordered table-condensed doc-sidebar">
-			  		<tbody>
-			  			{% for audio in respuesta.audio.all%}
-			  			<tr>
-			  				<td>{{audio.nombre_audio}}<br>
-			  					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="280" height="20"
-			  					codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
-			  					<param name="movie" value="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true" />
-			  					<param name="wmode" value="transparent" />
-			  					<embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true"
-			  					type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-			  				</object>
-			  			</td>
-			  		</tr>
-			  		{% endfor %}
-			  	</tbody>
-			  </table>
-			  {%endif%}
-			</div>
-		</div>
-		<hr>
-		{% endfor %}
-		
-	</div><!-- comments wrap end -->
-	<div class="row body-content" id="formaporte" style="padding-top:0px">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="encabezado-title raya">
-						AGREGAR APORTE A ESTE FORO
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<form  enctype="multipart/form-data" action="." method="post">{% csrf_token %}
-					{{ form.media }}
-					<div class="col-md-12">
-						<div class="well well-e">
-							{%if form.errors%}
-							<div class="alert alert-error"><b>Favor corregir los siguientes errores</b><br>{{form.errors}}</div>
-							{%endif%}
-							{{form.as_p}}
-							<div class="tabbable tabs-left">
-								<ul class="nav nav-tabs nav-tab-media">
-									<li class="active"><a href="#fotos" data-toggle="tab"><i class="icon-camera"></i>Fotos e imágenes</a></li>
-									<li><a href="#documentos" data-toggle="tab"><i class="icon-file"></i>Documentos</a></li>
-									<li><a href="#videos" data-toggle="tab"><i class="icon-film"></i>Videos</a></li>
-									<li><a href="#audios" data-toggle="tab"><i class="icon-volume-up"></i>Audios</a></li>
-								</ul>
-								<div class="tab-content tab-media">
-									<div class="tab-pane active" id="fotos">
-										<span class="label label-warning">FOTOS</span><hr>
-										{{ form2.management_form }}
-										{% for foto in form2 %}
-										<div class="media-form-inline">
-											{{foto.label_tag}}
-											{{foto}}
-										</div>
-										{% endfor %}
-										<hr>
-									</div>
-									<div class="tab-pane" id="documentos">
-										<span class="label label-warning">DOCUMENTOS</span><hr>
-										{{ form3.management_form }}
-										{% for docu in form3 %}
-										<div class="media-form-inline">
-											{{docu.label_tag}}
-											{{docu}}
-										</div>
-										{% endfor %}
-										<hr>
-									</div>
-									<div class="tab-pane" id="videos">
-										<span class="label label-warning">VIDEOS</span><hr>
-										{{ form4.management_form }}
-										{% for video in form4 %}
-										<div class="media-form-inline">
-											{{video.label_tag}}
-											{{video}}
-										</div>
-										{% endfor %}
-										<hr>
-									</div>
-									<div class="tab-pane" id="audios">
-										<span class="label label-warning">AUDIOS</span><hr>
-										{{ form5.management_form }}
-										{% for audio in form5 %}
-										<div class="media-form-inline">
-											{{audio.label_tag}}
-											{{audio}}
-										</div>
-										{% endfor %}
-										<hr>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-					<div class="col-md-12">
-						<div class="alert "><i class="icon-info-sign"></i>
-							Un aporte al foro
-						</div>
-						<div class="well well-e" id="actionbuttons" style="">
-							<input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
-							<a href="/foros" class="btn btn-large">Cerrar</a>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	
-</div>
-</div>
-            
-        </div><!-- row end -->
-    </div>
-        
-
-
-
-</div><!-- container end -->
-
-</div><!-- content wrapper end -->
-
-{% endblock %}
