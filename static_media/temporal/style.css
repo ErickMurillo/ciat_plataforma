@@ -838,7 +838,9 @@ box-shadow: none;
 .media-form-inline input[type='text'],
 .media-form-inline input[type="url"],
 .formulario-agenda input[type='text'],
-.formulario-foro input[type='text']{
+.formulario-foro input[type='text'],
+.login-panel input[type='text'],
+.login-panel input[type='password']{
 
 width: 30%;
 height: 40px;
@@ -856,11 +858,23 @@ border: 2px solid rgba( 0, 0, 0, 0.1 );
 -webkit-box-shadow: none;
 box-shadow: none;
 }
+.login-panel input[type='text'],
+.login-panel input[type='password']{
+	display: block;
+	width: 90% !important;
+}
+.login-panel label{
+font-size: 16px;
+text-align: center;
+}
 .media-form-inline {
 padding: 10px;
 margin-bottom: 15px;
 
 
+}
+.panel{
+	border-radius: 0px !important;
 }
 .media-form-inline label{
 	display: block;
@@ -1007,6 +1021,13 @@ color: #999;
 }
 .thumbnail small{
 	margin-bottom: 10px;
+}
+.thumbnail{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-right: 10px !important;
+	margin-right: 10px;
+	padding-left: 10px !important;
 }
 /*----------------Monitoreo-----------------------*/
 .monitoreo-menu{
