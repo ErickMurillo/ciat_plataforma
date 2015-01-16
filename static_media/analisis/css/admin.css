@@ -1,8 +1,8 @@
 
-.form-horizontal .inline-related h3 b{
+/*.form-horizontal .inline-related h3 b{
 	display: none !important;
-}
+}*/
 
-.table select{
+#pregunta_9_set-group select{
 	width: auto !important;
 }

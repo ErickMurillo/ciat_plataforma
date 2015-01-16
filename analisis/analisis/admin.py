@@ -43,7 +43,7 @@ class Pregunta_5c_Inline(admin.StackedInline):
 	filter_horizontal = ('papel_1','papel_2')
 	class Media:
 		css = {
-            'all': ('css/admin.css',)
+            'all': ('analisis/css/admin.css',)
         }
 	
 class Pregunta_5d_Inline(admin.StackedInline):
