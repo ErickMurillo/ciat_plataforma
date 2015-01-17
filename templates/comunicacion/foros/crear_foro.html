@@ -37,7 +37,7 @@
                                         {%if form.errors%}
                                                 <div class="alert alert-error"><b>Favor corregir los siguientes errores</b><br>{{form.errors}}</div>
                                         {%endif%}
-                                        <div class="formulario-admin">
+                                        <div class="formulario-foro">
                                             {{form.as_p}}
                                         </div>
 
@@ -69,52 +69,54 @@
                                           <!-- Tab panes -->
                                           <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane active" id="imagenes">
+                                                <div class="media-form-inline">
+                                                    {{ form2.management_form }}
+                                                        {% for foto in form2 %}
 
-                                                {{ form2.management_form }}
-                                                    {% for foto in form2 %}
-                                                        <div class="media-form-inline">
-                                                            <br>
-                                                            {{foto.label_tag}}
-                                                            <br>
-                                                            {{foto}}
-                                                        </div>
-                                                {% endfor %}
-                                                    
+                                                                {{foto.label_tag}}
 
+                                                                {{foto}}
+                                                    {% endfor %}
+                                                        
+                                                </div>
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="documentos">
-                                                {{ form3.management_form }}
-                                                    {% for docu in form3 %}
-                                                        <div class="media-form-inline">
-                                                            <br>
-                                                            {{docu.label_tag}}
-                                                            <br>
-                                                            {{docu}}
-                                                        </div>
-                                                {% endfor %}
+                                                <div class="media-form-inline">
+                                                    {{ form3.management_form }}
+                                                        {% for docu in form3 %}
+                                                        
+                                                            
+                                                                {{docu.label_tag}}
+                                                              
+                                                                {{docu}}
+                                                            
+                                                    {% endfor %}
+                                                </div>
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="video">
-                                                {{ form4.management_form }}
+                                                 <div class="media-form-inline">
+                                                    {{ form4.management_form }}
                                                         {% for video in form4 %}
-                                                        <div class="media-form-inline">
-                                                            <br>
+                                                        
+                                                            
                                                             {{video.label_tag}}
-                                                            <br>
+                                                           
                                                             {{video}}
-                                                        </div>
-                                                        {% endfor %}
+                                                       
+                                                    {% endfor %}
+                                                </div>
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="audio">
-                                                {{ form5.management_form }}
+                                                <div class="media-form-inline">
+                                                    {{ form5.management_form }}
                                                         {% for audio in form5 %}
-                                                        <div class="media-form-inline">
-                                                            <br>
+                                                        
                                                             {{audio.label_tag}}
-                                                            <br>
+                                                          
                                                             {{audio}}
-                                                        </div>
-                                                {% endfor %}
-                                   
+                                                        
+                                                    {% endfor %}
+                                                </div>
                                                
                                             </div>
                                                 

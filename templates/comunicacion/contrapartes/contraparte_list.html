@@ -64,16 +64,31 @@
                             <div class="col-lg-6 col-md-6 contrapartes">
                             {% if contraparte.logo %}
                             {% thumbnail contraparte.logo "180x160" crop="center" as im %}
-                                <img class="center-block img-responsive" src="/uploads/{{im}}" >
+                                <img class="center-block logo-contraparte" src="/uploads/{{im}}" >
                             {% endthumbnail %}
                             {%else%}
                                 <img class="center-block img-responsive" src="http://placehold.it/180x160&text=No Logo">
                             {%endif%}
-                                <h3>{{contraparte.nombre}}</h3>
-                                <p id="siglas">{{contraparte.siglas}}</p>
-                                <p id="descripcion">
+                            <div class="page-title-meta">
+                                    <h1 class="page-title-contraparte"><a href="" title="">
+                                    {{contraparte.nombre}}
+                                    </a></h1>
+                                    <div class="news-meta">
+                                    
+                                        
+                                        <span class="ong">{{contraparte.siglas}}</span>
+                                    </div>
+                            </div>
+                            <div class="news-summary">
+                                    <p>
                                     {{contraparte.generalidades|safe|truncatewords_html:30}}
-                                </p>
+                                    <a href="" title="Leer más" class="moretag">Leer más..</a>
+                                    </p>
+                            </div>
+
+                                
+                                    
+                                
                             </div>
                         {% endfor %}
 
@@ -126,48 +141,4 @@
     
     </div><!-- content wrapper end -->
     
-
-
-
-
-
-<div class="row">
-    <div class="encabezado">
-      <div class="container">
-            <div class="row">
-                <div class="span5">
-                    <div class="encabezado-title">
-                        ASOCIADOS
-                    </div>
-                </div>
-                <div class="span7">
-
-                </div>
-            </div>
-      </div>
-    </div>
-</div>
-<div class="row body-content">
-    <div class="container">
-        <div class="row">
-            <div class="span9">
-            {% for contraparte in object_list %}
-                    <div class='asociado-link'>
-                        <span class="frecuencia" style="right:0;position: relative;">{{contraparte.frecuecia}}</span>
-                        <center><a href="{{contraparte.get_absolute_url}}" >
-                            {% if contraparte.logo %}
-                            <img src="{{contraparte.logo.url_180x160}}" ></a>
-                            {%else%}
-                            <br><br>
-                            {%endif%}
-                            <br><br> 
-                        <a href="{{contraparte.get_absolute_url}}" class="titulo-medio">{{contraparte.nombre}}</a>
-                        </center> 
-                    </div>
-            {% endfor %}
-            </div>
-
-        </div>
-    </div>
-</div>
 {% endblock %}

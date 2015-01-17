@@ -28,64 +28,103 @@
 {% block contenido %}
 
 
-<div class="row">
-    <div class="encabezado">
-      <div class="container">
-            <div class="row">
-                <div class="span5">
-                    <div class="encabezado-title">
-                        CREAR ACTIVIDAD
-                    </div>
-                </div>
-                <div class="span7">
-                </div>
-            </div>
-      </div>
-    </div>
-</div>
-<div class="row body-content">
-        <div class="container">
-                <div class="row">
-                    <form enctype="multipart/form-data" action="." method="post">{% csrf_token %}
-                        {{ form.media }}
-                        <div class="span9">
-                                <div class="well">
+
+<div class="row no-gutter"><!-- row -->
+                
+                <div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
+                    
+                    <div class="col-padded"><!-- inner custom column -->
+                    
+                        <div class="row gutter"><!-- row -->
+
+                        
+                            <div class="col-lg-12 col-md-12">
+                    
+                                <h1 class="page-title">Crear Actividad</h1><!-- category title -->
+                            
+                            </div>
+                        
+                        </div><!-- row end -->
+
+                        <div class="row gutter k-equal-height"><!-- row -->
+                        <br>
+                            <form enctype="multipart/form-data" action="." method="post">{% csrf_token %}
+                        
+                                {{ form.media }}
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="">
                                         {%if form.errors%}
                                                 <div class="alert alert-error"><b>Favor corregir los siguientes errores</b><br>{{form.errors}}</div>
                                         {%endif%}
-                                          {{form.as_p}}
-                                        <div class="tabbable tabs-left">
-                                                <ul class="nav nav-tabs nav-tab-media">
-                                                  <li class="active"><a  href="#documentos" data-toggle="tab"><i class="icon-file"></i>Documentos</a></li>
-                                                </ul>
-                                                <div class="tab-content tab-media">
-                                                  <div class="tab-pane active" id="documentos">
-                                                        <span class="label label-warning">DOCUMENTOS</span><hr>
-                                                        {{ form1.management_form }}
-                                                        {% for docu in form1 %}
-                                                        <div class="media-form-inline">
-                                                                {{docu.label_tag}}
-                                                                {{docu}}
-                                                        </div>
-                                                        {% endfor %}
-                                                        <hr>
-                                                  </div>
-                                                </div>
-                                                <div class="clean"></div> 
+                                        <div class="formulario-agenda">
+                                            {{form.as_p}}
                                         </div>
-                                </div>
-                        </div>
-                        <div class="span3">
-                                <div class="alert "><i class="icon-info-sign"></i>
-                                  Formulario para la creación de actividades
-                                </div>
-                                <div class="well" id="actionbuttons">
-                                <input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
-                                <a href="/agendas/calendario" class="btn btn-large">Cerrar</a>
-                                </div>
-                        </div>
-                        </form>
-                </div>
-        </div>
-</div>
+
+                                          
+
+                                        <div role="tabpanel">
+
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs" role="tablist">
+
+                                                <li role="presentation" class="active">
+                                                    <a href="#documentos" aria-controls="documentos" role="tab" data-toggle="tab">
+                                                    <i class="fa fa-file-pdf-o"></i> Documentos</a>
+                                                </li>
+
+                                            </ul>
+
+                                          <!-- Tab panes -->
+                                          <div class="tab-content">
+
+                                            <div role="tabpanel" class="tab-pane active" id="documentos">
+                                            <div class="media-form-inline">
+                                                {{ form3.management_form }}
+                                                    {% for docu in form1 %}
+                                                       
+                                                            {{docu.label_tag}}
+                                                            {{docu}}
+                                                            <hr>
+                                                       
+                                                {% endfor %}
+
+                                            </div>
+                                            </div>
+
+
+                                                
+                                          </div>
+
+                                        </div>
+
+                                        </div>
+
+
+                                        
+                                    </div>
+                                    <div class="">
+                                        <div class="alert "><i class="icon-info-sign"></i>
+                                            Formulario para la creación de actividades
+                                        </div>
+                                        <div class="" id="">
+                                            <input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
+                                            <a href="/agendas/calendario" class="btn btn-large">Cerrar</a>
+                                        </div>
+                                    </div>
+                                    </form>
+
+                        
+                            
+
+                        </div><!-- row end -->
+        
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- doc body wrapper end -->
+                
+            
+            </div><!-- row end -->
+
+
 {% endblock %}
