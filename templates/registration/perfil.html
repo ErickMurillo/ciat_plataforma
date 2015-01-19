@@ -29,14 +29,63 @@
 
                         <div class="row gutter k-equal-height"><!-- row -->
 
+                            <div class="panel panel-success col-xs-12 col-sm-6 col-md-6">
+                              <div class="panel-heading">
+                                  Perfil de Usuario
+                              </div>
+                              <div class="panel-body">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-sm-6 col-md-6">
+                        
+                                        {% if user.userprofile.avatar %}
+                                            {% thumbnail user.userprofile.avatar "230x230" crop="center" as im %}
+                                            <img class="img-thumbnail" src="/uploads/{{im}}">        
+                                            {% endthumbnail %}
+                                                            
+                                            {% else %}
+                                            <img class="img-thumbnail" src="http://dummyimage.com/200x200/888/fff.jpg&text=No+imagen">
+                                        {% endif %}
 
-        <div class="col-xs-12 col-sm-6 col-md-6 thumbnail">
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6">
+                                        <h4 style="text-transform:uppercase;">{{user.username}}</h4>
+                                        <small><cite >
+                                        {{user.userprofile.contraparte.municipio.nombre}},
+                                        {{user.userprofile.contraparte.pais.nombre}} 
+                                        <i class="glyphicon glyphicon-map-marker">
+                                        </i></cite></small>
+                                        
+                                            <i class="fa fa-envelope"></i>
+                                            {{user.email}}
+                                            <br />
+                                            <i class="fa fa-mobile fa-lg"></i> aqui va el telefono
+                                            <br />
+                                            <i class="fa fa-suitcase"></i>
+                                            {{user.userprofile.contraparte.nombre}}
+                                            <br>
+                                            <i class="fa fa-skype"></i>
+                                            Aqui va skype
+                                            
+                                        <!-- button edicion-->
+                                            <a href="/contrapartes/editar/{{user.userprofile.id}}" class="btn btn-primary fa fa-pencil-square-o" role="button"> Editar Perfil</a>
+
+                                    </div>
+
+                                </div>
+                                
+                              </div>
+                            </div>
+
+
+
+                <div class="col-xs-12 col-sm-6 col-md-6 thumbnail well">
            
                 
                     <div class="col-sm-6 col-md-6">
                         
                         {% if user.userprofile.avatar %}
-                            {% thumbnail user.userprofile.avatar "230x230" crop="center" as im %}
+                            {% thumbnail user.userprofile.contraparte.logo "230x230" crop="center" as im %}
                             <img class="img-thumbnail" src="/uploads/{{im}}">        
                             {% endthumbnail %}
                                             
@@ -46,7 +95,9 @@
                     </div>
 
                     <div class="col-sm-6 col-md-6">
-                        <h4 style="text-transform:uppercase;">{{user.username}}</h4>
+                        <h4 style="text-transform:uppercase;">
+                            {{user.userprofile.contraparte.nombre}}
+                        </h4>
                         <small><cite >
                         {{user.userprofile.contraparte.municipio.nombre}},
                         {{user.userprofile.contraparte.pais.nombre}} 
@@ -65,7 +116,7 @@
                             Aqui va skype
                             
                         <!-- button edicion-->
-                            <a href="#" class="btn btn-primary fa fa-pencil-square-o" role="button"> Editar Perfil</a>
+                            <a href="/contrapartes/editar/{{user.userprofile.contraparte.id}}" class="btn btn-primary fa fa-pencil-square-o" role="button"> Editar Perfil</a>
 
 
                     </div>
@@ -74,45 +125,7 @@
         </div>
 
 
-                        
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <div class="thumbnail">
-                                <div class="col-sm-6 col-md-4" >
-                                    <div class="avatar-user">
-                                        
-                                    
-                                    </div>
-
-                                    
-                                </div>
-                                <div class="caption">
-                                    <h3></h3>
-                                    <p>{{user.email}}</p>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="well">
-                                <div><img src="{{user.userprofile.contraparte.logo.url_70x60}}" /> </div>
-                                <div>{{user.userprofile.contraparte.nombre}}</div>
-                                <div>{{user.userprofile.contraparte.pais.nombre}}</div>
-                                <a href="/contrapartes/editar/{{user.userprofile.contraparte.id}}" class="btn">Editar</a>
-                            </div>
-                            
-                        </div>
-
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="well">
-                                <div><img src="/static/temporal/img/imagenpdf.png" height="70" width="60"/> </div>
-                                <h5>Manual de usuario</h5>
-                                <a href="/static/temporal/manual.pdf" class="btn">Descargar</a>
-                            </div>
-                            
-                        </div>
+                    
 
   
 
