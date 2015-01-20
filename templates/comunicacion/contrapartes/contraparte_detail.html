@@ -1,4 +1,4 @@
-{% extends "baseinterna.html" %}
+{% extends "comunicacion/basecomunicacion.html"%} 
 {% block title %}{{contra.nombre}}{% endblock %}
 {% block extra_js %}
     <script type="text/javascript">
@@ -14,16 +14,17 @@
 {% endblock %}
 {%block titulo%}Asociados en Nicaragua{%endblock%}
 {% block contenido %}
+<div class="container">
 <div class="row">
     <div class="encabezado">
       <div class="container">
             <div class="row">
-                <div class="span5">
+                <div class="col-md-5">
                     <div class="encabezado-title">
                         ASOCIADOS
                     </div>
                 </div>
-                <div class="span7">
+                <div class="col-md-7">
                  <div class="btn-group acciones">
                         {% if request.user.get_profile.contraparte.id == contra.id or request.user.is_superuser %}
                             <a class="btn" href="/contrapartes/editar/{{contra.id}}"><i class="icon-pencil"></i>Editar</a>
@@ -38,7 +39,7 @@
 <div class="row">
     <div class="container">
         <div class="row">
-            <div class="span7">
+            <div class="col-md-7">
                 {% if request.GET.shva == 'ok' %}
                 <div class="alert">
                     La informaci&oacute;n de su contraparte ha sido editada con &eacute;xito!
@@ -47,11 +48,11 @@
                 {% endif %}
                <h1 class="titulo-grande">{{contra.nombre}}</h1>
             </div>
-            <div class="span5">
+            <div class="col-md-5">
             </div>
         </div>
         <div class="row detalle-full">
-            <div class="span7 divisordoble">
+            <div class="col-md-7 divisordoble">
                 <img class="contraparte-detalle-logo"src="{{contra.logo.url_180x160}}" alt="{{contra.nombre}}">
                 <table class="table  table-bordered table-striped table-condensed contraparte-tabla">
                     <tbody>
@@ -94,7 +95,7 @@
                     {{contra.generalidades|safe}}
                  {% endif %}
             </div>
-            <div class="span5 divisordoble">
+            <div class="col-md-5 divisordoble">
                 <div class="sidebar-title">NOTAS</div>
                 <div class="dividerline"></div>
                 {%for nota in notas%}
@@ -111,6 +112,8 @@
             </div>
         </div>
     </div>
+</div>
+
 </div> 
          
 {% endblock %}

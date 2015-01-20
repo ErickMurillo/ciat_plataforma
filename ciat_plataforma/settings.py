@@ -29,7 +29,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = (
     #apps para mejorar el admin
-    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
