@@ -840,7 +840,11 @@ box-shadow: none;
 .formulario-agenda input[type='text'],
 .formulario-foro input[type='text'],
 .login-panel input[type='text'],
-.login-panel input[type='password']{
+.login-panel input[type='password'],
+.editar-usuario input[type='text'],
+.editar-usuario input[type='password'],
+.editar-usuario input[type='text'],
+.editar-usuario input[type='email']{
 
 width: 30%;
 height: 40px;
@@ -858,8 +862,12 @@ border: 2px solid rgba( 0, 0, 0, 0.1 );
 -webkit-box-shadow: none;
 box-shadow: none;
 }
+.editar-usuario a{
+	display: block;
+}
 .login-panel input[type='text'],
-.login-panel input[type='password']{
+.login-panel input[type='password'],
+.login-panel input[type='email']{
 	display: block;
 	width: 90% !important;
 }
@@ -886,6 +894,7 @@ margin-bottom: 15px;
 	
 
 }
+
 .id_foros-imagen-content_type-object_id-0-id{
 	display: inline-block;
 }
@@ -934,7 +943,8 @@ background-color: #3a87ad;
 	cursor: pointer;
 }
 
-.formulario-foro label{
+.formulario-foro label,
+.editar-usuario label{
 	display: block;
 	margin-top: 20px;
 	font-weight: 400;
@@ -945,7 +955,7 @@ background-color: #3a87ad;
 }
 .formulario-agenda label{
 	margin-top: 20px;
-		font-weight: 400;
+	font-weight: 400;
 	line-height: 1;
 	font-size: 12px;
 	text-transform: uppercase;
@@ -953,7 +963,8 @@ background-color: #3a87ad;
 }
 
 .formulario-foro label::after,
-.formulario-agenda label::after{
+.formulario-agenda label::after,
+.editar-usuario label::after{
 	content: " *";
 }
 
@@ -1004,30 +1015,74 @@ display: block;
 line-height: 1.428571429;
 color: #999;
 }
-.avatar-user{
-	margin-bottom: 20px;
-}
-.thumbnail h4{
+
+.data-user h4{
 	margin-top: 5px !important;
+	margin-bottom: 1px !important;
 }
-.thumbnail .fa-mobile{
+.data-user .fa-mobile{
 	margin-right: 15px;
-	margin-bottom: 10px;
+	margin-bottom: 8px;
 }
 
-.thumbnail .fa-envelope, .thumbnail .fa-suitcase, .thumbnail .fa-skype{
+.data-user .fa-envelope, .data-user .fa-suitcase,
+.data-user .fa-skype, .data-user .fa-globe, 
+.data-user .fa-calendar, .data-user .fa-phone, .data-user .fa-users{
 	margin-right: 8px;
+	margin-bottom: 8px;
+	/*border-bottom: 1px solid rgba( 0, 0, 0, 0.05 );
+
+
+	width: 100%;*/
+}
+.data-user small{
 	margin-bottom: 10px;
 }
-.thumbnail small{
-	margin-bottom: 10px;
-}
-.thumbnail{
-	padding-top: 20px;
-	padding-bottom: 20px;
+/*.data-user p{
+border-bottom: 1px solid rgba( 0, 0, 0, 0.05 );
+
+padding-left:10px; 
+	
+}*/
+.avatar-user{
 	padding-right: 10px !important;
-	margin-right: 10px;
-	padding-left: 10px !important;
+}
+.perfil-user{
+	padding-right: 0 !important;
+	padding-left: 0 !important;
+}
+.panel-body{
+	padding: 5px;
+}
+.panel-success>.panel-heading{
+	
+	font-weight: bold;
+}
+.list-group-item{
+	margin-bottom: 0px !important;
+}
+.list-group{
+	margin-left: 20px;
+}
+.badge {
+margin: -5px;
+}
+a.list-group-item.active{
+	text-transform: uppercase;
+	font-weight: bold;
+}
+a.list-group-item{
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+}
+.badge{
+	background-color: #68b5e6;
+	font-size: 14px;
+	font-weight: bold;
+}
+.editar-usuario .btn{
+ width: 30%;
 }
 /*----------------Monitoreo-----------------------*/
 .monitoreo-menu{

@@ -1,46 +1,70 @@
 {% extends "baseadmin.html" %}
 
 {% block contenido %}
-<div class="row">
-    <div class="encabezado">
-      <div class="container">
-            <div class="row">
-                <div class="span5">
-                    <div class="encabezado-title">
-                        EDITAR USUARIO
-                    </div>
-                </div>
-                <div class="span7">
-                </div>
-            </div>
-      </div>
-    </div>
-</div>
-<div class="row body-content">
-	<div class="container">
-		<div class="row">
+<div class="row no-gutter"><!-- row -->
+             <form enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
+   
+                <div class="col-lg-9 col-md-9"><!-- doc body wrapper -->
+                	
+                    <div class="col-padded"><!-- inner custom column -->
+                    
+                    	<div class="row gutter"><!-- row -->
 
-			<form enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
-			<div class="span9">
-							<div class="well">
-				{{ form.media }}
-                {{form.as_p}}
-	            {{form1.as_p}}
-	<br>
-	<a class="fancybox btn" href="/password_change/"><i class="icon-lock"></i>Cambiar contraseña</a>
-</div>
-			</div>
-			<div class="span3">
-				<div class="alert "><i class="icon-info-sign"></i>
-				  Editar información general del usuario
-				</div>
-				<div class="well" id="actionbuttons">
-				<input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
-				<a href="/foros/perfil" class="btn btn-large ">Cerrar</a>
-				</div>
-			</div>
-			</form>
-		</div>
-	</div>
-</div>
+                        
+                        	<div class="col-lg-12 col-md-12">
+                    
+                            	<h1 class="page-title">Editar Usuario</h1><!-- category title -->
+                            
+                            </div>
+                        
+                        </div><!-- row end -->
+
+                        <div class="row gutter k-equal-height"><!-- row -->
+                        <br>
+	
+						<div class="editar-usuario">
+
+							{{ form.media }}
+			                {{form.as_p}}
+				            {{form1.as_p}}
+							<br>
+							<a class="btn btn-success" href="/password_change/">
+							<i class="fa fa-lock"></i>
+								Cambiar contraseña
+							</a>
+
+						</div>
+
+                        </div><!-- row end -->
+
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- doc body wrapper end -->
+
+
+
+
+                <div id="k-sidebar" class="col-lg-3 col-md-3"><!-- sidebar wrapper -->
+                	
+                    <div class="col-padded col-shaded"><!-- inner custom column -->
+
+                    <div class="title-widget">
+                    	
+						Editar información general del usuario
+                    </div>
+
+					<br>
+					<div class="" id="">
+						<input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
+						<a href="/foros/perfil" class="btn btn-large btn-danger">Cerrar</a>
+					</div>
+
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- sidebar wrapper end -->
+            </form>
+            
+            </div><!-- row end -->
+
 {% endblock%}
