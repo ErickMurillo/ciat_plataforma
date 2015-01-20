@@ -15,7 +15,7 @@ add_introspection_rules ([], ["^ckeditor\.fields\.RichTextField"])
 class Notas(models.Model):
     titulo = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
-    fecha = models.DateField('Fecha de publicación', default=datetime.datetime.now())
+    fecha = models.DateField('Fecha de publicación', auto_now_add=True)
     contenido = RichTextField()
     fotos = generic.GenericRelation(Imagen)
     adjuntos = generic.GenericRelation(Documentos)
