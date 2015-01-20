@@ -88,10 +88,9 @@
                 <div class="col-lg-7 col-md-7">
                     <div class="btn-group paises ">
                         <button type="button" class="btn txt-black" disabled="disabled">Filtrar por:</button>
-                        
-                        <a type="button" class="btn btn-default" href="">Trifinio</a>
-                        <a type="button" class="btn btn-default" href="">Nicanorte</a>
-                        <a type="button" class="btn btn-default" href="">Haiti-Dominicana</a>
+                        {% for pais in paises %}
+                          <a type="button" class="btn btn-default" href="{% url 'filtrar-index' pais.id %}">{{pais}}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

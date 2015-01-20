@@ -63,9 +63,9 @@
                         </li>
                         <li>
                             {% if request.user.is_authenticated %}
-                                <a href="/foros/perfil/" title="Administración">Bienvenido {{request.user}}</a>
+                                <a href="/foros/perfil/" title="Administración">Ir a Perfil</a>
                             {%else%}
-                                <a href="/accounts/login" class="" title="Entra">Inicio de Sesion</a>
+                                <a href="/accounts/login" class="" title="Entra">Inicio de Sesión</a>
                             {% endif %}
                             
                         </li>
@@ -102,7 +102,7 @@
                                 
                                 <ul>
                                 	<li><a href="#" title="menu item">Analisis Organizacional</a></li>
-                                    <li><a href="#" title="menu item">Monitoreo de las familias Audio</a></li>
+                                    <li><a href="#" title="menu item">Monitoreo de las familias</a></li>
                                     <li><a href="#" title="menu item">Monitoreo de las mujeres</a></li>
                                     <li><a href="#" title="menu item">Productos y procesos</a></li>
                                     <li><a href="#" title="menu item">Mapeo de actores</a></li>
