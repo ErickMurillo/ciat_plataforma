@@ -82,7 +82,7 @@
                             <div class="news-summary">
                                     <p>
                                     {{contraparte.generalidades|safe|truncatewords_html:30}}
-                                    <a href="" title="Leer más" class="moretag">Leer más..</a>
+                                    <a href="{% url 'detalle-contraparte' contraparte.id %}" title="Leer más" class="moretag">Leer más..</a>
                                     </p>
                             </div>
 

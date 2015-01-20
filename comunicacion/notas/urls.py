@@ -1,7 +1,8 @@
 from django.conf.urls import *
 
 urlpatterns = patterns('comunicacion.notas.views',
-    (r'^$', 'index'),
+    url(r'^$', 'index'),
+    url(r'^index-filtrado/(?P<pais_id>\d+)/$', 'index_filtrado', name='filtrar-index'),
     url(r'^notas/$', 'lista_notas', name="notas_list"),
     url(r'^pais/(?P<id>\d+)/$', 'lista_notas_pais', name="notas-list-pais"),
     url(r'^ver/(?P<id>\d+)/$', 'comentar_nota', name='comentar-nota'),

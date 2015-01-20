@@ -95,7 +95,17 @@ def lista_notas_pais(request,id):
 
 def index(request):
     notasslide = Notas.objects.all().order_by('-fecha','-id')
-    evento = Agendas.objects.filter(publico=True).order_by('-inicio')[:3]
+    paises = Pais.objects.all()
+    contrapartes = Contraparte.objects.all()
+    audio = Audios.objects.order_by('-id')[:1]
+    documentos = Documentos.objects.order_by('-id')[:2]
+    video = Videos.objects.order_by('-id')[:1]
+
+    return render_to_response('comunicacion/index.html', locals(),
+                              context_instance=RequestContext(request))
+
+def index_filtrado(request, pais_id):
+    notasslide = Notas.objects.filter(user__userprofile__contraparte__pais__id=pais_id).order_by('-fecha','-id')
     paises = Pais.objects.all()
     contrapartes = Contraparte.objects.all()
     audio = Audios.objects.order_by('-id')[:1]
