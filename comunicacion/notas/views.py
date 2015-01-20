@@ -97,7 +97,6 @@ def index(request):
     notasslide = Notas.objects.all().order_by('-fecha','-id')
     evento = Agendas.objects.filter(publico=True).order_by('-inicio')[:3]
     paises = Pais.objects.all()
-    # contrapartes = Contraparte.objects.filter(tipo=1)
     contrapartes = Contraparte.objects.all()
     audio = Audios.objects.order_by('-id')[:1]
     documentos = Documentos.objects.order_by('-id')[:2]

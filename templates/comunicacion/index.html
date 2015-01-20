@@ -268,57 +268,21 @@
         
         </div><!-- container end -->
     
-    </div><!-- content wrapper end -->
+    </div><!-- content wrapper end 300x150-->
 
     <div class="sliderorg">
-      <div class="slide">
-      <img src="http://placehold.it/300x150&text=FooBar1">
-      <h3>SIMAS</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
+      {% for contra in contrapartes %}
+        {% thumbnail contra.logo "300x250" as im %}
+            <div class="slide"><img src="/uploads/{{im}}">
+        {% endthumbnail %}
+        <h3>{{contra.siglas}}</h3>
+        <li><a href="{{contra.sitio_web}}"><i class="fa fa-globe fa-lg"></a></i></li>
+        <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
+        <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
+        <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
+        <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
       </div>
-
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar2">
-      <h3>AMARC</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
-      </div>
-
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar3">
-      <h3>SIGLAS</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
-      </div>
-
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar4">
-       <h3>SIGLAS</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
-      </div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar5">
-        <h3>SIGLAS</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
-      </div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar6"></div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar7"></div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar8"></div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar9"></div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar10"></div>
+      {% endfor %}
+      
     </div>
 {%endblock%}
