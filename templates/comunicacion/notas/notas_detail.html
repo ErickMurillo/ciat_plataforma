@@ -28,7 +28,7 @@
               <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
                 
                   <ol class="breadcrumb">
-                        <li><a href="/">Home</a></li>
+                        <li><a href="/">Inicio</a></li>
                         <li><a href="{% url 'notas_list' %}">Noticias</a></li>
                         <li class="active">{{nota.titulo}}</li>
                   </ol>
@@ -62,7 +62,7 @@
                                 <div class="news-title-meta">
                                     <h1 class="page-title">{{nota.titulo}}</h1>
                                     <div class="news-meta">
-                                        <span class="news-meta-date">{{nota.fecha|date:"M t, Y"}}</span>
+                                        <span class="news-meta-date">{{nota.fecha|date:"M j, Y"}}</span>
                                         <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
                                         
                                         <span class="ong">{{nota.user.userprofile.contraparte.pais.nombre}}</span>

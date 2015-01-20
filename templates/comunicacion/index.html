@@ -21,7 +21,6 @@
               <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
                 
                   <ol class="breadcrumb">
-                      <li><a href="#">CIAT</a></li>
                         <li class="active">Inicio</li>
                     </ol>
                     
@@ -48,7 +47,7 @@
                                 {%if nota.fotos.all.count > 0%}
                                  {%for thumb in nota.fotos.all|slice:"1"%} 
                                     {% thumbnail thumb.foto "1150x400" crop="center" as im %}
-                                      <a href="/notas/{{nota.id}}"><img src="/uploads/{{im}}"></a>
+                                      <a href="{% url 'detalle-notas' nota.id %}"><img src="/uploads/{{im}}"></a>
                                       {% endthumbnail %}
                                     {%endfor%}
                                 {%else%}
@@ -61,7 +60,7 @@
                                             {{nota.contenido|safe|truncatewords_html:10}}
                                         </p>
                                         <p>
-                                            <a href="/notas/{{nota.id}}" class="btn btn-sm btn-danger" title="Button">LEER MÁS</a>
+                                            <a href="{% url 'detalle-notas' nota.id %}" class="btn btn-sm btn-danger" title="Button">LEER MÁS</a>
                                         </p>
                                     </div>
                                 </div>
@@ -92,7 +91,7 @@
                         
                         <a type="button" class="btn btn-default" href="">Trifinio</a>
                         <a type="button" class="btn btn-default" href="">Nicanorte</a>
-                        <a type="button" class="btn btn-default" href="">AH-RD</a>
+                        <a type="button" class="btn btn-default" href="">Haiti-Dominicana</a>
                     </div>
                 </div>
             </div>
@@ -117,10 +116,10 @@
                                 
                                     <li class="recent-news-wrap">
                                 
-                                        <h1 class="title-median"><a href="#" title="">{{nota.titulo}}</a></h1>
+                                        <h1 class="title-median"><a href="{% url 'detalle-notas' nota.id %}" title="">{{nota.titulo}}</a></h1>
                                         
                                         <div class="recent-news-meta">
-                                            <div class="recent-news-date">{{nota.fecha|date:"M t, Y"}}</div>
+                                            <div class="recent-news-date">{{nota.fecha|date:"M j, Y"}}</div>
                                         </div>
                                         
                                         <div class="recent-news-content clearfix">
@@ -128,17 +127,17 @@
                                             {%if nota.fotos.all.count > 0%}
                                              {%for thumb in nota.fotos.all|slice:"1"%} 
                                                 {% thumbnail thumb.foto "90x90" crop="center" as im %}
-                                                  <a href="/notas/{{nota.id}}" title="{{nota.titulo}}"><img src="/uploads/{{im}}" class="attachment-thumbnail wp-post-image"></a>
+                                                  <a href="{% url 'detalle-notas' nota.id %}" title="{{nota.titulo}}"><img src="/uploads/{{im}}" class="attachment-thumbnail wp-post-image"></a>
                                                   {% endthumbnail %}
                                                 {%endfor%}
                                             {%else%}
-                                                 <a href="/notas/{{nota.id}}"><img  src="/files/img/nofoto.png"><a/>
+                                                 <a href="{% url 'detalle-notas' nota.id %}"><img  src="/files/img/nofoto.png"><a/>
                                             {%endif%}
                                             </figure>
                                             <div class="recent-news-text">
                                                 <p>
                                                 {{nota.contenido|safe|truncatewords_html:10}}
-                                                <a href="/notas/{{nota.id}}" class="moretag" title="">Leer más..</a> 
+                                                <a href="{% url 'detalle-notas' nota.id %}" class="moretag" title="">Leer más..</a> 
                                                 </p>
                                             </div>
                                         </div>
@@ -178,7 +177,7 @@
                                         <h1 class="title-median"><a href="#" title="">{{nota.titulo}}</a></h1>
                                         
                                         <div class="recent-news-meta">
-                                            <div class="recent-news-date">{{nota.fecha|date:"M t, Y"}}</div>
+                                            <div class="recent-news-date">{{nota.fecha|date:"M j, Y"}}</div>
                                         </div>
                                         
                                         <div class="recent-news-content clearfix">
@@ -186,17 +185,17 @@
                                                 {%if nota.fotos.all.count > 0%}
                                                  {%for thumb in nota.fotos.all|slice:"1"%} 
                                                     {% thumbnail thumb.foto "90x90" crop="center" as im %}
-                                                      <a href="/notas/{{nota.id}}" title="{{nota.titulo}}"><img src="/uploads/{{im}}" class="attachment-thumbnail wp-post-image"></a>
+                                                      <a href="{% url 'detalle-notas' nota.id %}" title="{{nota.titulo}}"><img src="/uploads/{{im}}" class="attachment-thumbnail wp-post-image"></a>
                                                       {% endthumbnail %}
                                                     {%endfor%}
                                                 {%else%}
-                                                     <a href="/notas/{{nota.id}}"><img  src="/files/img/nofoto.png"><a/>
+                                                     <a href="{% url 'detalle-notas' nota.id %}"><img  src="/files/img/nofoto.png"><a/>
                                                 {%endif%}
                                             </figure>
                                             <div class="recent-news-text">
                                                 <p>
                                                 {{nota.contenido|safe|truncatewords_html:10}}
-                                                <a href="/notas/{{nota.id}}" class="moretag" title="Leer mas">Leer más..</a> 
+                                                <a href="{% url 'detalle-notas' nota.id %}" class="moretag" title="Leer mas">Leer más..</a> 
                                                 </p>
                                             </div>
                                         </div>
@@ -269,57 +268,21 @@
         
         </div><!-- container end -->
     
-    </div><!-- content wrapper end -->
+    </div><!-- content wrapper end 300x150-->
 
     <div class="sliderorg">
-      <div class="slide">
-      <img src="http://placehold.it/300x150&text=FooBar1">
-      <h3>SIMAS</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
+      {% for contra in contrapartes %}
+        {% thumbnail contra.logo "300x250" as im %}
+            <div class="slide"><img src="/uploads/{{im}}">
+        {% endthumbnail %}
+        <h3>{{contra.siglas}}</h3>
+        <li><a href="{{contra.sitio_web}}"><i class="fa fa-globe fa-lg"></a></i></li>
+        <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
+        <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
+        <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
+        <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
       </div>
-
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar2">
-      <h3>AMARC</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
-      </div>
-
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar3">
-      <h3>SIGLAS</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
-      </div>
-
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar4">
-       <h3>SIGLAS</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
-      </div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar5">
-        <h3>SIGLAS</h3>
-      <li><a href="#"><i class="fa fa-globe fa-lg"></a></i></li>
-      <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-      <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
-      </div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar6"></div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar7"></div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar8"></div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar9"></div>
-      <div class="slide"><img src="http://placehold.it/300x150&text=FooBar10"></div>
+      {% endfor %}
+      
     </div>
 {%endblock%}

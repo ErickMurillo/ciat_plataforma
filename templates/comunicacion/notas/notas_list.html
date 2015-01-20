@@ -85,7 +85,7 @@
                                 <div class="page-title-meta">
                                     <h1 class="page-title"><a href="{% url 'detalle-notas' nota.id %}" title="">{{nota.titulo}}</a></h1>
                                     <div class="news-meta">
-                                        <span class="news-meta-date">{{nota.fecha|date:"M t, Y"}}</span>
+                                        <span class="news-meta-date">{{nota.fecha|date:"M j, Y"}}</span>
                                         
                                         <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
                                     </div>
