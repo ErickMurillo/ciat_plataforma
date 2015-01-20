@@ -272,7 +272,7 @@
 
     <div class="sliderorg">
       {% for contra in contrapartes %}
-        {% thumbnail contra.logo "300x250" crop="100% top" as im %}
+        {% thumbnail contra.logo "300x250" as im %}
             <div class="slide"><img src="/uploads/{{im}}">
         {% endthumbnail %}
         <h3>{{contra.siglas}}</h3>
