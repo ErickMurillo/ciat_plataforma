@@ -53,6 +53,25 @@ def lista_notas(request):
     return render_to_response('comunicacion/notas/notas_list.html', locals(),
                               context_instance=RequestContext(request))
 
+def lista_notas_contraparte(request,id):
+    notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha','-id')
+    agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
+    paises = Pais.objects.all()
+
+    paginator = Paginator(notas, 6)
+
+    page = request.GET.get('page')
+    try:
+        notas = paginator.page(page)
+    except PageNotAnInteger:
+        notas = paginator.page(1)
+    except EmptyPage:
+        notas = paginator.page(paginator.num_pages)
+    page_obj = notas
+
+    return render_to_response('comunicacion/notas/notas_list.html', locals(),
+                              context_instance=RequestContext(request))
+
 def detalle_notas(request, id):
     nota = get_object_or_404(Notas, id=id)
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]

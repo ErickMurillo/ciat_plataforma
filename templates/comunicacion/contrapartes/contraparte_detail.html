@@ -14,7 +14,7 @@
 {% endblock %}
 {%block titulo%}Asociados en Nicaragua{%endblock%}
 {% block contenido %}
-<div class="container">
+<!--<div class="container">
 <div class="row">
     <div class="encabezado">
       <div class="container">
@@ -34,9 +34,9 @@
             </div>
       </div>
     </div>
-</div>
+</div>-->
 
-<div class="row">
+<!-- <div class="row">
     <div class="container">
         <div class="row">
             <div class="col-md-7">
@@ -114,6 +114,188 @@
     </div>
 </div>
 
-</div> 
+</div> -->
+
+ <div id="k-body"><!-- content wrapper -->
+    
+        <div class="container"><!-- container -->
+        
+            <div class="row"><!-- row -->
+            
+                <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
+                
+                    <ol class="breadcrumb">
+                        <li><a href="index-2.html">Home</a></li>
+                        <li><a href="news.html">Contrapartes</a></li>
+                        <li class="active">{{contra.nombre}}</li>
+                    </ol>
+                    
+                </div><!-- breadcrumbs end -->               
+                
+            </div><!-- row end -->
+            
+            <div class="row no-gutter"><!-- row -->
+                
+                <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
+                    
+                    <div class="col-padded"><!-- inner custom column -->
+                    
+                        <div class="row gutter"><!-- row -->
+                        
+                            <div class="col-lg-12 col-md-12">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-4 col-md-4">
+                                        <figure class="news-featured-image">
+                                        {% if contra.logo %}
+                                                <img src="/uploads/{{contra.logo}}" alt="Featured image 4" class="" />
+                                                {% else %}
+                                                <img src="http://placehold.it/350x3 50&text=No Image">
+                                            {% endif %}    
+                                            
+                                        </figure>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8">
+                                    {% if contra.pais %}
+                                        <div class="ong-meta">
+                                            <span class=""><strong>Pais</strong></span>
+                                            <span class="btn">{{contra.pais}}</span>
+                                        </div>
+                                    {% endif %}
+                                        
+                                        {% if contra.fundacion %}
+                                             <div class="ong-meta">
+                                            <span class=""><strong>Año de fundación</strong></span>
+                                            <span class="btn">{{contra.fundacion}}</span>
+                                        </div>
+                                        {% endif %}
+                                       {% if contra.contacto %}
+                                           <div class="ong-meta">
+                                            <span class=""><strong>Contacto</strong></span>
+                                            <span class="btn">{{contra.contacto}}</span>
+                                        </div>
+                                       {% endif %}
+                                        {% if contra.telefono %}
+                                             <div class="ong-meta">
+                                            <span class=""><strong>Teléfono</strong></span>
+                                            <span class="btn">{{contra.telefono}}</span>
+                                        </div>
+                                        {% endif %}
+                                       {% if contra.sitio_web %}
+                                           <div class="ong-meta">
+                                            <span class=""><strong>Sitio Web</strong></span>
+                                            <span class="btn"><a href="{{contra.sitio_web}}" target="_blank">{{contra.sitio_web}}</a></span>
+                                        </div>
+                                       {% endif %}
+                                        
+                                    </div>
+                                </div>
+
+                                {% if contra.temas %}
+                                     <div class="news-title-meta">
+                                    <h1 class="ong-title">Temas</h1>
+                                    <hr>
+                                </div>
+                                
+                                <div class="news-body">
+                                    <p>{{contra.temas|safe}}</p>
+                                    
+                                </div>
+                                {% endif %}
+                               
+                                    
+                                    {% if contra.generalidades %}
+                                         <div class="news-title-meta">
+                                    <h1 class="ong-title">Generalidades</h1>
+                                    <hr>
+                                </div>
+                                
+                                <div class="news-body">
+                                    <p>{{contra.generalidades|safe}}</p>
+                                    
+                                </div>
+                                    {% endif %}
+                               
+
+                            
+                            </div>
+                        
+                        </div><!-- row end -->                         
+               
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- doc body wrapper end -->
+                
+                <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
+                    
+                    <div class="col-padded col-shaded"><!-- inner custom column -->
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_nav_menu"><!-- widget -->
+                    
+                    
+                                <h1 class="title-widget">Notas</h1>
+                             
+                                <ul>
+                                {%for nota in notas%}
+                                    <li><a href="/notas/{{nota.id}}" title="menu item">{{nota.titulo}}</a></li>
+                                {% endfor %}
+                                    
+                                    
+                                    
+                                </ul>
+                    
+                            </li>
+                            
+                             <br>
+                            <li class="widget-container widget_up_events"><!-- widget -->
+                                
+                                <h1 class="title-widget">Eventos</h1>
+                                
+                                <ul class="list-unstyled">
+                                
+                                    {% for agenda in agendas  %}
+                                        <li class="up-event-wrap">
+                                
+                                        <h1 class="title-median">{{agenda.evento}}</h1>
+
+                                            
+                                        <div class="up-event-meta clearfix">
+                                           <span class="event-from">{{agenda.inicio|date:"d M"}}</span>
+                                        <span class="event-divider">hasta</span>
+                                        <span class="event-to">{{agenda.final|date:"d M"}}</span>
+                                        </div>
+                                        
+                                        <p>
+                                        {{agenda.descripcion|safe}} 
+                                        </p>
+                                    
+                                    </li>
+                                    {% endfor %}
+                                    
+                                    
+                                  
+                                
+                                </ul>
+                            
+                            </li>
+                             
+                        </ul><!-- widgets end -->
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- sidebar wrapper end -->
+            
+            </div><!-- row end -->
+        
+        </div><!-- container end -->
+    
+    </div><!-- content wrapper end -->
+    
+
          
 {% endblock %}
+
+
+   

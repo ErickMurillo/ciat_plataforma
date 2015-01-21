@@ -102,12 +102,36 @@
                                 </div>
                                 <hr />
                             </div>
-                    
-
+                   
 
 
                     	<div class="row gutter"><!-- row -->
-                        
+                         
+                            {%if actividad %}
+
+                                
+                                <div class="events-title-meta clearfix">
+                                    <h1 class="page-title-evento">{{actividad.evento}}</h1>
+                                    <div class="event-meta-detalle">
+                                        <span class="event-from">{{actividad.inicio|date:"d M"}}</span>
+                                        <span class="event-divider">hasta</span>
+                                        <span class="event-to">{{actividad.final|date:"d M"}}</span>
+                                      
+                                        <div class="botones-evento pull-right">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="news-body-detalle">
+                                    <p>
+                                   {{actividad.descripcion|safe}}
+                                    </p>
+                                    
+                                    <hr/>
+
+                 
+                     {% endif %}
                         	<div class="col-lg-12 col-md-12">
 
                                 <div id='calendar'></div>

@@ -272,15 +272,21 @@
 
     <div class="sliderorg">
       {% for contra in contrapartes %}
-        {% thumbnail contra.logo "300x250" as im %}
-            <div class="slide"><img src="/uploads/{{im}}">
-        {% endthumbnail %}
+      <div class="slide">
+          {% if contra.logo %}
+              {% thumbnail contra.logo "300x250" as im %}
+                <img src="/uploads/{{im}}">
+            {% endthumbnail %}
+          {% else %}
+        <img src="http://placehold.it/300x250&text=No Image">
+      {% endif %}
+        
         <h3>{{contra.siglas}}</h3>
         <li><a href="{{contra.sitio_web}}"><i class="fa fa-globe fa-lg"></a></i></li>
-        <li> <a href=""><i class="fa fa-info-circle fa-lg"></i></a></li>
+        <li> <a href="{% url 'detalle-contraparte' contra.id %}"><i class="fa fa-info-circle fa-lg"></i></a></li>
         <li> <a href=""><i class="fa fa fa-envelope fa-lg"></i></a></li>
-        <li> <a href=""><i class="fa fa fa-file-o fa-lg"></i></a></li>
-        <li> <a href=""><i class="fa fa-calendar fa-lg"></i></a></li>
+        <li> <a href="{% url 'notas_list_contraparte' contra.id %}"><i class="fa fa fa-file-o fa-lg"></i></a></li>
+        <li> <a href="/agendas/eventos"><i class="fa fa-calendar fa-lg"></i></a></li>
       </div>
       {% endfor %}
       

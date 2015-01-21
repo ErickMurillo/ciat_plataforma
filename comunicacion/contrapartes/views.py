@@ -48,6 +48,7 @@ def lista_contrapartes_pais(request,id):
 def detalle_contraparte(request,id):
     contra = get_object_or_404(Contraparte, id=id)
     notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha')
+    agendas = Agendas.objects.filter(user__userprofile__contraparte__id=id).order_by('-inicio')
     return render_to_response('comunicacion/contrapartes/contraparte_detail.html', locals(),
                                  context_instance=RequestContext(request))
 

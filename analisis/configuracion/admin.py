@@ -6,7 +6,6 @@ from .models import	*
 admin.site.register(Organizacion)
 admin.site.register(Sector)
 admin.site.register(Status_Legal)
-admin.site.register(Estado)
 admin.site.register(Ubicacion)
 admin.site.register(Socio)
 admin.site.register(Tema)

@@ -6,6 +6,11 @@ from comunicacion.lugar.models import *
 
 # Create your models here.
 
+ALCANCE_CHOICES = (
+    ('nacinal','Nacional'),
+    ('territorial','Territorial'),
+    )
+
 class Entrevista(models.Model):
 	nombre = models.CharField(max_length=200)
 	posicion = models.CharField(max_length=200)
@@ -15,6 +20,7 @@ class Entrevista(models.Model):
 	telefono = models.IntegerField()
 	fecha = models.DateField()
 	slug = models.SlugField(editable=False)
+	alcance = models.CharField(max_length=50,choices=ALCANCE_CHOICES)
 
 	def __unicode__(self):
 		return self.nombre
@@ -24,10 +30,14 @@ class Entrevista(models.Model):
 			self.slug = slugify(self.nombre)
 		super(Entrevista, self).save(*args, **kwargs)
 
+ESTADO_CHOICES = (
+	('Activo','Activo'),
+	('Finalizado','Finalizado')
+	)
 
 class Pregunta_1(models.Model):
 	proyecto = models.CharField(max_length=250, verbose_name='Proyecto(s) e iniciativa(s)')
-	estado = models.ForeignKey(Estado)
+	estado = models.CharField(max_length=50,choices=ESTADO_CHOICES)
 	ubicacion = models.ManyToManyField(Ubicacion)
 	socio = models.ManyToManyField(Socio,verbose_name='Socios')
 	tema = models.ManyToManyField(Tema,verbose_name='Temas')
@@ -38,25 +48,25 @@ class Pregunta_1(models.Model):
 		return self.proyecto
 
 	class Meta:
-		verbose_name = 'pregunta 1'
-		verbose_name_plural = 'pregunta 1'
+		verbose_name = 'Proyectos e iniciativas'
+		verbose_name_plural = 'Proyectos e iniciativas que ha llegado su organización en los ultimos 5 años'
 
 PREGUNTA2_CHOICES = (
-    ('numero tecnicos','Numero de Tecnicos'),
-    ('numero promotores ','Numero de Promotores '),
-    ('numero invetigadores','Numero de Invetigadores'),
-    ('numero decisores','Numero de Decisores'),
+    ('tecnicos','Tecnicos'),
+    ('promotores ','Promotores '),
+    ('invetigadores','Invetigadores'),
+    ('decisores','Decisores'),
     )
 
 class Pregunta_2(models.Model):
 	seleccion = models.CharField(max_length=50,choices=PREGUNTA2_CHOICES)
-	hombre = models.IntegerField()
-	mujer = models.IntegerField()
+	hombre = models.IntegerField(verbose_name='Hombre(s)')
+	mujer = models.IntegerField(verbose_name='Mujer(es)')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'pregunta 2'
-		verbose_name_plural = 'pregunta 2'
+		verbose_name = 'Recursos humanos'
+		verbose_name_plural = 'Recursos humanos que tiene su organización'
 
 
 class Pregunta_3(models.Model):
