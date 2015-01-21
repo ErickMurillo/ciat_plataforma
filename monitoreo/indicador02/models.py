@@ -106,3 +106,21 @@ class OrganizacionComunitaria(models.Model):
 #-------------------------------------------------------------------------------
 
 #UPDATE indicador02_organizaciongremial SET miembro_gremial = 1 WHERE miembro_gremial = 2;
+
+class OngLocales(models.Model):
+    nombre = models.CharField('Nombre', max_length=50)
+
+    def __unicode__(self):
+        return self.nombre
+
+class OrganizacionOng(models.Model):
+    numero = models.IntegerField('¿Cuántas ONGs están activas en la localidad o comunidad')
+    cuales = models.ManyToManyField(OngLocales, 
+                                    verbose_name="¿Cuáles son?",
+                                    related_name='cuales')
+    cual_organizacion = models.ManyToManyField(OngLocales, 
+                                    verbose_name="¿Cuáles son?",
+                                    related_name='organizacion')
+
+    class Meta:
+        verbose_name_plural = 'Organización no gubernamental (ONG)'

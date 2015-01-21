@@ -44,18 +44,45 @@ class Organizaciones(models.Model):
 
 CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
 CHOICE_OPCION = ((1,'Si'),(2,'No')) # Este choice se utilizara en toda la aplicacion que necesite si o no
+CHOICE_RANGO = (
+                (1, '18 - 25'),
+                (2, '26 - 45'),
+                (3, '26 - 65'),
+                (4, 'Más de 65')
+            )
+CHOICE_NIVEL_EDUCATIVO = (
+                (1, 'No sabe leer o escribir'),
+                (2, 'Primaria Incompleta'),
+                (3, 'Primaria Completa'),
+                (4, 'Secundaria Incompleta'),
+                (5, 'Bachiller'),
+                (6, 'Universitario'),
+            )
+
+class Productor(models.Model):
+    nombre = models.CharField('Nombre de entrevistado/a', max_length=200)
+    cedula = models.CharField('cedula de entrevistado', max_length=200, null=True, blank=True)
+    sexo = models.IntegerField(choices=CHOICE_SEXO)
+    edad = models.IntegerField(choices=CHOICE_RANGO)
+    finca = models.CharField('Nombre de Finca', max_length=200)
+    municipio = models.ForeignKey(Municipio)
+    comunidad = models.ForeignKey(Comunidad)
+    organizacion = models.ManyToManyField(Organizaciones, related_name ="org")
+    jefe = models.IntegerField(choices=CHOICE_OPCION)
+    nivel_educacion = models.IntegerField(choices=CHOICE_NIVEL_EDUCATIVO)
+    
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = "Productor/as"
 
 class Encuesta(models.Model):
     ''' Esta es la parte de la encuesta donde van los demas
     '''
     fecha = models.DateField()
     recolector = models.ForeignKey(Recolector)
-    nombre = models.CharField('Nombre de entrevistado/a', max_length=200)
-    cedula = models.CharField('cedula de entrevistado', max_length=200, null=True, blank=True)
-    finca = models.CharField('Nombre de Finca', max_length=200)
-    comunidad = models.ForeignKey(Comunidad)
-    sexo = models.IntegerField(choices=CHOICE_SEXO)
-    organizacion = models.ManyToManyField(Organizaciones, related_name ="org")
+    productor = models.ForeignKey(Productor)
     user = models.ForeignKey(User)
     
     #campos ocultos para querys
@@ -101,6 +128,30 @@ class Tenencia(models.Model):
     def __unicode__(self):
         return u'%s' % self.get_parcela_display()
 
+class TenenciaEntrevistada(models.Model):
+    ''' Modelo tipo de tenencia de la propiedad
+    '''
+    parcela = models.IntegerField('Parcela (tierra)', choices=CHOICE_TENENCIA)
+    solar = models.IntegerField('Solar (dónde está la vivienda)', choices=CHOICE_TENENCIA)
+    dueno = models.IntegerField('Documento legal de la propiedad, a nombre de quien', choices=CHOICE_DUENO)
+    encuesta = models.ForeignKey(Encuesta)
+    
+    def __unicode__(self):
+        return u'%s' % self.get_parcela_display()
+
+#-----------------------------------------------------------
+CHOICE_TENENCIA_SOLAR = (
+                    (1,"Hombre"),
+                    (2,"Mujer"),
+                    (3,"Mancomunado"),
+                    (4,"Parientes"),
+                    (5,"Colectivo"),
+                    (6,"No hay")
+                )
+class CasaSolar(models.Model):
+    casa = models.IntegerField('La casa y el solar son', choices=CHOICE_TENENCIA)
+    tenencia = models.IntegerField('Tenencia de solar', choices=CHOICE_TENENCIA)
+    dueno = models.IntegerField('Documento legal de la propiedad, a nombre de quien', choices=CHOICE_DUENO)
 #-------------------------------------------------------------------------------
 
 
