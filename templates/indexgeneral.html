@@ -3,21 +3,38 @@
 {% block extra_js %}
 	<script type="text/javascript">
 	$(function() {
-
-		$(".deg0" ).mouseover(function() {
+		$(".deg315" ).mouseover(function() {
 			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>PLATAFORMA COMUNICACION</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
-  		$(".deg45" ).mouseover(function() {
+		$(".deg0" ).mouseover(function() {
 			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>ANALISIS ORGANIZACIONAL</span>");
+  		}).mouseout(function() {
+    		$("div.circle-container .mostrar span").remove();
+  		});
+
+  		$(".deg45" ).mouseover(function() {
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>PRODUCTOS Y PROCESOS</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
   		$(".deg135" ).mouseover(function() {
 			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>MONITOREO CAMPESINO</span>");
+  		}).mouseout(function() {
+    		$("div.circle-container .mostrar span").remove();
+  		});
+
+  		$(".deg180" ).mouseover(function() {
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>MONITOREO MUJERES</span>");
+  		}).mouseout(function() {
+    		$("div.circle-container .mostrar span").remove();
+  		});
+
+  		$(".deg225" ).mouseover(function() {
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>MAPEO DE ACTORES</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
@@ -29,8 +46,10 @@
 {% block contenido %}
 <style>
 	div.circle-container .mostrar span {
-		color: #700303;
+		color: #5d8c3b;
 		font-size: 45px;
+		font-weight: bold;
+		
 	}
 	.circle-container {
     position: relative;
@@ -39,6 +58,7 @@
     padding: 2.8em;
     /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
     border: dashed 2px;
+    border-color: #5d8c3b;
     border-radius: 50%;
     margin: 1.75em auto 0;
 	}
@@ -50,9 +70,13 @@
 	    width: 7em; 
 	    height: 7em;
 	    margin: -2em;
+	    text-align: center;
+
 	}
 	.mostrar {
-		margin: -37px 2px 3px -139px;
+		margin: -30px 2px 3px -150px;
+		width: 400px;
+		height: 250px;
 	}
 	.circle-container img { display: block; width: 100%; }
 	.deg0 { transform: translate(21em); } /* 12em = half the width of the wrapper */
@@ -66,20 +90,14 @@
 
 	<h1 class="text-center">SISTEMAS DE INFORMACIÓN</h1>
 	<h3 class="text-center">Humidtropics</h3>
-	<ul>
-		<li><a href="/comunicacion">Comunicacion</a></li>
-		<li><a href="/analisis">Analisis</a></li>
-		<li><a href="/monitoreo">Monitoreo</a></li>
-		<li><a href="#">Otro</a></li>
-	</ul>
 
 	<div class='circle-container'>
 	    <a href='#' class='center'><div class="mostrar"></div></a>
-	    <a href='/comunicacion' class='deg0'><img src='/static/temporal/img/flickr-2.jpg'class="img-circle"></a>
-	    <a href='/analisis' class='deg45'><img src='/static/temporal/img/flickr-3.jpg'class="img-circle"></a>
-	    <a href='/monitoreo' class='deg135'><img src='/static/temporal/img/flickr-4.jpg'class="img-circle"></a>
-	    <a href='#' class='deg180'><img src='/static/temporal/img/flickr-5.jpg'class="img-circle"></a>
-	    <a href='#' class='deg225'><img src='/static/temporal/img/flickr-6.jpg'class="img-circle"></a>
-	    <a href='#' class='deg315'><img src='/static/temporal/img/flickr-7.jpg'class="img-circle"></a>
+	    <a href='/analisis' class='deg0'><i class="fa fa-bar-chart-o circle"></i></a>
+	    <a href='#' class='deg45'><i class="fa fa-link circle"></i></a>
+	    <a href='/monitoreo' class='deg135'><i class="fa fa-area-chart circle"></i></a>
+	    <a href='#' class='deg180'><i class="fa fa-female circle"></i></a>
+	    <a href='#' class='deg225'><i class="fa fa-map-marker circle"></i></a>
+	    <a href='/comunicacion' class='deg315'><i class="fa fa-bullhorn circle"></i></a>
 	</div>
 {% endblock contenido %}
