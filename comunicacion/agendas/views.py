@@ -167,3 +167,4 @@ def calendario_full_contraparte(request,id=None):
     contrapartes_otras = Contraparte.objects.exclude(id__in=request.session['p'])
     return render_to_response('comunicacion/agendas/agenda_list_full.html',locals(),
                               context_instance = RequestContext(request))
+

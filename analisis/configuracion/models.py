@@ -58,11 +58,6 @@ class Organizacion(models.Model):
 		verbose_name = 'Organización'
 		verbose_name_plural = 'Organizaciones'
 
-class Estado(models.Model):
-	estado = models.CharField(max_length=50)
-
-	def __unicode__(self):
-		return self.estado
 
 class Ubicacion(models.Model):
 	ubicacion = models.CharField(max_length=50)
