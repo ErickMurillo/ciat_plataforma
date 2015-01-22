@@ -146,8 +146,13 @@ class DetalleCasaInline(admin.TabularInline):
     max_num = 1
     can_delete = True
     
-class PropiedadesInline(admin.TabularInline):
-    model = Propiedades
+class PropiedaEquipoInline(admin.TabularInline):
+    model = PropiedadEquipo
+    extra = 1
+    can_delete = True
+
+class PropiedaInfraestructuraInline(admin.TabularInline):
+    model = PropiedadInfraestructura
     extra = 1
     can_delete = True
     
@@ -211,7 +216,7 @@ class EncuestaAdmin(admin.ModelAdmin):
                ReforestacionInline, AnimalesFincaInline, CultivosFincaInline,
                OpcionesManejoInline, SemillaInline, SueloInline, ManejoSueloInline,
                IngresoFamiliarInline, OtrosIngresosInline, TipoCasaInline,
-               DetalleCasaInline, PropiedadesInline, HerramientasInline,
+               DetalleCasaInline, PropiedaEquipoInline, PropiedaInfraestructuraInline,HerramientasInline,
                TransporteInline, AhorroInline, CreditoInline, SeguridadInline,
                VulnerableInline, RiesgosInline,
                ]

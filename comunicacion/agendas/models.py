@@ -14,10 +14,14 @@ add_introspection_rules ([], ["^ckeditor\.fields\.RichTextField"])
 class Agendas(models.Model):
     evento = models.CharField(max_length=200)
     descripcion = RichTextField()
+    contacto = models.CharField('Persona de contacto', max_length=250)
+    lugar = models.CharField('Lugar del evento', max_length=250)
+    correo = models.EmailField('correo para contactar')
     inicio = models.DateField('Fecha de Inicio')
     final = models.DateField('Fecha de Finalización')
     publico = models.BooleanField()
     adjunto = generic.GenericRelation(Documentos)
+    
     user = models.ForeignKey(User)
 
     class Meta:
