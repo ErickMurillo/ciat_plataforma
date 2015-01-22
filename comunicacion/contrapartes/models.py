@@ -46,7 +46,6 @@ class Pais(models.Model):
 class Contraparte(models.Model):
     nombre = models.CharField(max_length=200)
     siglas = models.CharField("Siglas o nombre corto",help_text="Siglas o nombre corto de la oganización",max_length=200,blank=True, null=True)
-    frecuecia = models.CharField('Frecuencia',max_length=50, null=True, blank=True)
     logo = ImageField(upload_to=get_file_path,null=True, blank=True)
     fileDir = 'contrapartes/logos/'
     pais = models.ForeignKey(Pais)

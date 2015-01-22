@@ -415,7 +415,7 @@ def notify_all_foro(foros):
 def notify_all_aporte(aportes):
     site = Site.objects.get_current()
     users = User.objects.all() #.exclude(username=foros.contraparte.username)
-    contenido = render_to_string('foros/notify_new_aporte.txt', {'aporte': aportes,
+    contenido = render_to_string('comunicacion/foros/notify_new_aporte.txt', {'aporte': aportes,
                                  #'url': '%s/foros/ver/%s' % (site, foros.id),
                                  'url_aporte': '%s/foros/ver/%s/#%s' % (site, aportes.foro.id, aportes.id),
                                  })

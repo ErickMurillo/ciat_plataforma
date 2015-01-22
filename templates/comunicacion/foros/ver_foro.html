@@ -36,6 +36,8 @@
 {% endblock %}
 
 {% load magicembed_tags %}
+{% load thumbnail %}
+
 {% block contenido %}
 
 <div id="k-body"><!-- content wrapper -->
@@ -226,7 +228,7 @@
         		
         		<div id="comments"><!-- comments wrap -->
         			
-        			<h6>Aportes ( 3 )</h6><!-- comments list title -->
+        			<h6>Aportes</h6><!-- comments list title url_70x60-->
         			
         			{% for respuesta in discusion.aportes_set.all %}
 
@@ -235,9 +237,11 @@
         					<div class="label"><center>Aporte </center></div>
         					<div class="user-info">{{respuesta.fecha|date:"d M"}}</div>
         					{%if respuesta.user.userprofile.avatar %}
-        					<img src="{{respuesta.user.userprofile.avatar.url_70x60}}"><br>
+        					{% thumbnail user.userprofile.avatar "70x60" as im %}
+                            	<img class="img-thumbnail" src="/uploads/{{im}}">        
+                            {% endthumbnail %}
         					{%else%}
-        					<img src="/files/img/avatarpeque.png"><br>
+        					<img src="/static/temporal/img/avatarpeque.png"><br>
         					{%endif%}
         					<small><a class="username" href="" rel="tooltip" title="{{respuesta.user.first_name}} - {{respuesta.user.userprofile.contraparte}}">{{respuesta.user}}</a></small>
         					{% if respuesta.user == request.user or request.user.is_superuser %}
@@ -322,7 +326,9 @@
 			  	<div class="sidebar-title">Fotos</div>
 			  	<div class="thumbs" style="margin-top:10px">
 			  		{% for img in respuesta.fotos.all%}
-			  		<a class="fancybox" rel="gallery{{respuesta.id}}" title="{{imagen.nombre_img}}" href="{{img.foto.url_640x480}}"><img src="{{img.foto.url_80x80}}" alt="{{imagen.nombre}}" title="{{imagen.nombre}}"></a>
+			  		{% thumbnail img.foto "640x480" as im %}
+			  			<a class="fancybox" rel="gallery{{respuesta.id}}" title="{{im.nombre_img}}" href="/uploads/{{img.foto}}"><img src="/uploads/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a>
+					{% endthumbnail%}
 			  		{% endfor %}
 			  		<div class="clean"></div>
 			  	</div>
@@ -346,7 +352,7 @@
 			  		<tbody>
 			  			{% for video in respuesta.video.all%}
 			  			<tr>
-			  				<td><a href="" data-toggle="modal" data-target="#myModalresp{{video.id}}"><img src="{{video.url|magicthumbnail}}"></a></td>
+			  				<td><a href="" data-toggle="modal" data-target="#myModalresp{{video.id}}"><img src="{{video.url}}"></a></td>
 			  			</tr>
 			  			
 			  			
@@ -360,7 +366,7 @@
 			  							<h4 class="modal-title" id="myModalLabel">{{video.nombre_video}}</h4>
 			  						</div>
 			  						<div class="modal-body">
-			  							<p>{{ video.url|magicembed:"560x480"}}</p>
+			  							<p>{{ video.url}}</p>
 			  						</div>
 			  						<div class="modal-footer">
 			  							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
