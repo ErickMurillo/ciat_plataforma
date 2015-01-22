@@ -4,7 +4,9 @@ from models import Foros
 
 urlpatterns = patterns('comunicacion.foros.views',
     #url(r'^$', 'index', name='index'),
-    url(r'^$', ListView.as_view(model=Foros, 
+    url(r'^$', ListView.as_view(model=Foros,
+                                queryset=Foros.objects.all(),
+                                paginate_by='4', 
     	                        template_name="comunicacion/foros/foro_list.html"),
     	                        name='foro-list'),
     #url(r'^$', 'lista_foro', name='lista-foro'), 

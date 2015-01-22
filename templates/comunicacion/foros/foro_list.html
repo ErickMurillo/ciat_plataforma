@@ -54,7 +54,7 @@
                                 <div class="news-title-meta">
                                     <h1 class="page-title"><a href="{{foro.get_absolute_url}}">{{foro.nombre}}</a></h1>
                                     <div class="news-meta">
-                                        <span class="news-meta-date">Jun 12, 2014</span>
+                                        <span class="news-meta-date">{{foro.creacion}}</span>
                                     </div>
                                 </div>
                                 
@@ -91,15 +91,8 @@
                         
                         	<div class="col-lg-12">
                         
-                                <ul class="pagination pull-right"><!-- pagination -->
-                                    <li class="disabled"><a href="#">Prev</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">Next</a></li>
-                                </ul><!-- pagination end -->
+                               {% load paginador %}
+                                {% render_paginator 2 3 %}
                             
                             </div>
                             
