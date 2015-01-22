@@ -35,12 +35,9 @@ class AnimalesFinca(models.Model):
     ''' Modelo animales en la finca
     '''
     animales = models.ForeignKey(Animales)
-    cantidad = models.FloatField()
-    produccion = models.ForeignKey(ProductoAnimal)
-    total_produccion = models.IntegerField('Total producion por año', null=True)
-    consumo = models.FloatField('Consumo')
-    venta_libre = models.FloatField('Venta libre')
-    venta_organizada = models.FloatField('Venta organizada')
+    cantidad = models.FloatField('Cantidad en la finca')
+    cantidad_mujer = models.FloatField('Cantidad de la persona entrevistada')
+
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
@@ -48,7 +45,39 @@ class AnimalesFinca(models.Model):
     
     class Meta:
         verbose_name_plural = "Animales en la finca"
-        #app_label = "Indicador 08 Produccion y animales en la finca"
-        #db_table = "simas_animalesfinca"
-
+       
 #-------------------------------------------------------------------------------
+class ProduccionAnimal(models.Model):
+    ''' Modelo animales en la finca
+    '''
+    produccion = models.ForeignKey(ProductoAnimal)
+    total_produccion = models.IntegerField('Total producion por año', null=True)
+    consumo = models.FloatField('Consumo por año')
+    venta_libre = models.FloatField('Venta libre')
+    venta_organizada = models.FloatField('Venta organizada')
+
+    encuesta = models.ForeignKey(Encuesta)
+    
+    def __unicode__(self):
+        return u'%s' % self.animales.nombre
+    
+    class Meta:
+        verbose_name_plural = "Produccion animal finca"
+
+#---------------------------------------------------------------------------------
+class ProduccionAnimalEntrevistada(models.Model):
+    ''' Modelo animales en la finca
+    '''
+    produccion = models.ForeignKey(ProductoAnimal)
+    total_produccion = models.IntegerField('Total producion por año', null=True)
+    consumo = models.FloatField('Consumo por año')
+    venta_libre = models.FloatField('Venta libre')
+    venta_organizada = models.FloatField('Venta organizada')
+
+    encuesta = models.ForeignKey(Encuesta)
+    
+    def __unicode__(self):
+        return u'%s' % self.animales.nombre
+    
+    class Meta:
+        verbose_name_plural = "Produccion animal entrevistada"

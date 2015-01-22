@@ -53,7 +53,28 @@ class Credito(models.Model):
     
     class Meta:
         verbose_name_plural = "Credito"
-        #app_label = "Indicador 17 Credito"
-        #db_table = "simas_credito"
 
 #-------------------------------------------------------------------------------
+
+class CreditoEntrevista(models.Model):
+    ''' Modelo de credito
+    '''
+    recibe = models.IntegerField('Recibe Crédito', choices= CHOICE_OPCION,
+                                 null=True, blank=True)
+    desde = models.IntegerField('Desde cuando', choices= CHOICE_DESDE,
+                                 null=True, blank=True)
+    quien_credito = models.ManyToManyField(DaCredito, verbose_name="De quien recibe credito",
+                                           null=True, blank=True)
+    ocupa_credito = models.ManyToManyField(OcupaCredito, verbose_name="Para que ocupa el credito",
+                                           null=True, blank=True)
+    satisfaccion = models.IntegerField('Satisfacción de la demanda de crédito',
+                                       choices= CHOICE_SATISFACCION, blank=True, null=True)
+    dia = models.IntegerField('Esta al dia con su Crédito', choices=CHOICE_OPCION,
+                              null=True, blank=True)
+    encuesta = models.ForeignKey(Encuesta)
+    
+    def __unicode__(self):
+        return u'%s' % self.get_recibe_display()
+    
+    class Meta:
+        verbose_name_plural = "Credito entrevistada"

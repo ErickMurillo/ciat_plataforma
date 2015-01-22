@@ -140,18 +140,31 @@ class TenenciaEntrevistada(models.Model):
         return u'%s' % self.get_parcela_display()
 
 #-----------------------------------------------------------
-CHOICE_TENENCIA_SOLAR = (
-                    (1,"Hombre"),
-                    (2,"Mujer"),
-                    (3,"Mancomunado"),
-                    (4,"Parientes"),
-                    (5,"Colectivo"),
-                    (6,"No hay")
+CHOICE_CASA_SOLAR = (
+                    (1,"Propios (con o sin documento)"),
+                    (2,"De su esposo/a"),
+                    (3,"De su padres o suegros"),
+                    (4,"Compartidos con los padres o suegros"),
+                    (5,"Compartidos con familiares"),
+                    (6,"Compartidos con otra familia"),
+                    (7,"Alquilados"),
                 )
+CHOICE_TENENCIA_SOLAR = (
+                    (1,"Escritura pública"),
+                    (2,"Promesa de venta"),
+                    (3,"Testamento o Herencia"),
+                    (4,"Título de reforma Agraria"),
+                    (5,"Escritura posesoria"),
+                    (6,"Sin documento"),
+                )
+CHOICE_DUENO_CASA_SOLAR = ((1,"Hombre"),(2,"Mujer"),(3,"Mancomunado"))
+
 class CasaSolar(models.Model):
-    casa = models.IntegerField('La casa y el solar son', choices=CHOICE_TENENCIA)
-    tenencia = models.IntegerField('Tenencia de solar', choices=CHOICE_TENENCIA)
-    dueno = models.IntegerField('Documento legal de la propiedad, a nombre de quien', choices=CHOICE_DUENO)
+    casa = models.IntegerField('La casa y el solar son', choices=CHOICE_CASA_SOLAR)
+    tenencia = models.IntegerField('Tenencia de solar', choices=CHOICE_TENENCIA_SOLAR)
+    dueno = models.IntegerField('Documento legal de la propiedad, a nombre de quien', choices=CHOICE_DUENO_CASA_SOLAR)
+
+    
 #-------------------------------------------------------------------------------
 
 

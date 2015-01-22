@@ -15,8 +15,6 @@ class Fuentes(models.Model):
 
     class Meta:
         verbose_name_plural = "Otros-Ingreso - Fuentes"
-        #app_label = "Indicador 14 Otros Ingresos"
-        #db_table = "simas_fuentes"
 
 class TipoTrabajo(models.Model):
     nombre = models.CharField(max_length=200)
@@ -26,8 +24,6 @@ class TipoTrabajo(models.Model):
 
     class Meta:
         verbose_name_plural = "Otro-Ingreso - TipoTrabajo"
-        #app_label = "Indicador 14 Otros Ingresos"
-        #db_table = "simas_tipotrabajo"
 
 class OtrosIngresos(models.Model):
     '''Otros ingresos
@@ -44,7 +40,5 @@ class OtrosIngresos(models.Model):
     
     class Meta:
         verbose_name_plural = "Otros Ingresos"
-        #app_label = "Indicador 14 Otros Ingresos"
-        #db_table = "simas_otrosingresos"
 
 #-------------------------------------------------------------------------------

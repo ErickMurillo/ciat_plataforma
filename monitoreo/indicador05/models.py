@@ -29,3 +29,12 @@ class UsoTierra(models.Model):
         return u'%s' % self.tierra.nombre
 
 #-------------------------------------------------------------------------------
+class UsoTierraEntrevistada(models.Model):
+    ''' Uso de tierra
+    '''
+    tierra = models.ForeignKey(Uso, verbose_name="Uso de Tierra")
+    area = models.FloatField('Área en Mz')
+    encuesta = models.ForeignKey(Encuesta)
+    
+    def __unicode__(self):
+        return u'%s' % self.tierra.nombre

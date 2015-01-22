@@ -215,9 +215,9 @@ class EncuestaAdmin(admin.ModelAdmin):
                TransporteInline, AhorroInline, CreditoInline, SeguridadInline,
                VulnerableInline, RiesgosInline,
                ]
-    list_display = ('nombre', 'finca', 'comunidad')
-    list_filter = ['comunidad', 'organizacion']
-    search_fields = ['nombre', 'comunidad__nombre', 'organizacion__nombre']
+    list_display = ('fecha', 'productor',)
+    #list_filter = ['productor__comunidad__nombre', 'productor__organizacion__nombre']
+    #search_fields = ['productor__nombre', 'productor__comunidad__nombre', 'productor__organizacion__nombre']
     date_hierarchy = 'fecha'
                
 admin.site.register(Encuesta, EncuestaAdmin)

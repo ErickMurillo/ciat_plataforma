@@ -190,17 +190,12 @@ def perfil(request):
     aportes = Aportes.objects.filter(user_id=request.user.id).count()
     eventos = Agendas.objects.filter(user_id=request.user.id).count()
 
-    #noticiasC = 0
-    #comentariosC = 0
-    #forosC = 0
-    #aportesC = 0
-    #eventosC = 0
-    for obj in Contraparte.objects.all():
-        noticiasC = Notas.objects.filter(user__userprofile__contraparte=obj).count()
-        comentariosC = ComentarioNotas.objects.filter(user__userprofile__contraparte=obj).count()
-        forosC = Foros.objects.filter(contraparte__userprofile__contraparte=obj).count()
-        aportesC = Aportes.objects.filter(user__userprofile__contraparte=obj).count()
-        eventosC = Agendas.objects.filter(user__userprofile__contraparte=obj).count()
+    
+    noticiasC = Notas.objects.filter(user__userprofile__contraparte=request.user.userprofile.contraparte).count()
+    comentariosC = ComentarioNotas.objects.filter(user__userprofile__contraparte=request.user.userprofile.contraparte).count()
+    forosC = Foros.objects.filter(contraparte__userprofile__contraparte=request.user.userprofile.contraparte).count()
+    aportesC = Aportes.objects.filter(user__userprofile__contraparte=request.user.userprofile.contraparte).count()
+    eventosC = Agendas.objects.filter(user__userprofile__contraparte=request.user.userprofile.contraparte).count()
 
     return render_to_response('registration/perfil.html', RequestContext(request, locals()))
 

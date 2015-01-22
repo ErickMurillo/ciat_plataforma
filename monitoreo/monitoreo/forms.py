@@ -16,7 +16,7 @@ def fecha_choice():
     return list(set(years))
 
 def departamentos():   
-    foo = Encuesta.objects.all().order_by('comunidad__municipio__departamento__nombre').distinct().values_list('comunidad__municipio__departamento__id', flat=True)
+    foo = Encuesta.objects.all().order_by('productor__comunidad__municipio__departamento__nombre').distinct().values_list('productor__comunidad__municipio__departamento__id', flat=True)
     return Departamento.objects.filter(id__in=foo)
 
 class MonitoreoForm(forms.Form):

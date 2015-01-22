@@ -46,7 +46,8 @@ class IngresoFamiliar(models.Model):
     cantidad = models.FloatField('Cantidad vendida en el año pasado',null=True, blank=True)
     precio = models.FloatField('Precio de venta por unidad',null=True, blank=True)
     quien_vendio = models.IntegerField('¿A quien vendio?', choices=CHOICE_VENDIO,null=True, blank=True)
-    maneja_negocio = models.IntegerField('¿Quién maneja el negocio', choices=CHOICE_MANEJA,null=True, blank=True)
+    maneja_negocio = models.IntegerField('¿Quién maneja el ingreso', choices=CHOICE_MANEJA,null=True, blank=True)
+    
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
@@ -54,7 +55,22 @@ class IngresoFamiliar(models.Model):
     
     class Meta:
         verbose_name_plural = "Ingreso Familiar"
-        #app_label = "Indicador 13 Ingreso Familiar"
-        #db_table = "simas_ingresofamiliar"
 
 #-------------------------------------------------------------------------------
+
+class IngresoEntrevistada(models.Model):
+    ''' Modelo Ingreso familiar. venta de rubros
+    '''
+    rubro = models.ForeignKey(Rubros)
+    cantidad = models.FloatField('Cantidad vendida en el año pasado',null=True, blank=True)
+    precio = models.FloatField('Precio de venta por unidad',null=True, blank=True)
+    quien_vendio = models.IntegerField('¿A quien vendio?', choices=CHOICE_VENDIO,null=True, blank=True)
+    maneja_negocio = models.IntegerField('¿Quién maneja el ingreso', choices=CHOICE_MANEJA,null=True, blank=True)
+
+    encuesta = models.ForeignKey(Encuesta)
+    
+    def __unicode__(self):
+        return u'%s' % self.rubro.nombre
+    
+    class Meta:
+        verbose_name_plural = "Ingreso Familiar"
