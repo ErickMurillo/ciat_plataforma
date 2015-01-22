@@ -140,7 +140,7 @@
                             <div class="panel panel-success col-xs-12 col-sm-6 col-md-6">
 
                               <div class="panel-heading" style="text-transform:uppercase;">
-                                  Perfil de {{request.user.userprofile.contraparte.nombre}}
+                                  Perfil de Contraparte
                               </div>
 
                               <div class="panel-body">
@@ -161,7 +161,7 @@
 
                                     <div class="col-sm-6 col-md-6 data-user">
                                         <h4 style="text-transform:uppercase;">
-                                            {{user.userprofile.contraparte.nombre}}
+                                            {{user.userprofile.contraparte.siglas}}
                                         </h4>
                                         <small><cite >
                                         {{user.userprofile.contraparte.municipio.nombre}},
@@ -195,7 +195,7 @@
                             <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                                     <div class="list-group">
                                         <a href="#" class="list-group-item active">
-                                            Estadísticas de {{request.user.userprofile.contraparte.nombre}}
+                                            Estadísticas de {{request.user.userprofile.contraparte.siglas}}
                                         </a>
                                         <a href="#" class="list-group-item">
                                             <span class="badge fa fa-file-text-o"> {{noticiasC}}</span>

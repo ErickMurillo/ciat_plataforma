@@ -1,4 +1,5 @@
 {% extends "comunicacion/basecomunicacion.html"%} 
+{% load thumbnail %}
 {% block title %}{{contra.nombre}}{% endblock %}
 {% block extra_js %}
     <script type="text/javascript">
@@ -147,9 +148,11 @@
                                     <div class="col-lg-4 col-md-4">
                                         <figure class="news-featured-image">
                                         {% if contra.logo %}
-                                                <img src="/uploads/{{contra.logo}}" alt="Featured image 4" class="" />
+                                            {% thumbnail contra.logo "220x220" crop="center" as im %}
+                                                <img class="center-block" src="/uploads/{{im}}" alt="Featured image 4" class="" />
+                                            {% endthumbnail %}
                                                 {% else %}
-                                                <img src="http://placehold.it/350x3 50&text=No Image">
+                                                <img class="center-block" src="http://placehold.it/220x220&text=No Image">
                                             {% endif %}    
                                             
                                         </figure>

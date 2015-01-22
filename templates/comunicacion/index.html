@@ -247,9 +247,11 @@
                               <a href="/uploads/{{obj.adjunto}}" class="custom-button {% if forloop.counter == 1 %}cb-green{%else%}cb-gray{%endif%}" title="{{obj.nombre_doc}}">
                                   <i class="custom-button-icon fa fa-file"></i>
                                     <span class="custom-button-wrap">
-                                      <span class="custom-button-title">{{obj.nombre_doc}}</span>
-                                        <span class="custom-button-tagline">{{obj.tags_doc}}</span>
-                                        <i class="custom-button-tagline fa fa-cloud-download"> <a href="/uploads/{{obj.adjunto}}">Descargar</a></i>
+
+                                    <span class="custom-button-title">{{obj.nombre_doc}}</span>
+                                    <span class="custom-button-tagline" >{{obj.tags_doc}}</span>
+                                    <span class="fa fa-cloud-download custom-button-tagline"> Descargar</span>
+
                                     </span>
                                     <em></em>
                                 </a>
