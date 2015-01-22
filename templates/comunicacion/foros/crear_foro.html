@@ -1,10 +1,24 @@
 {% extends "baseadmin.html"%}
 
 {% block extra_js %}
-<link href="/files/css/jquery.autocomplete.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="/files/js/autocompletejs/jquery.autocomplete.js"></script>
+<link href="/static/temporal/css/jquery.autocomplete.css" rel="stylesheet" type="text/css">
+<link href="/static/temporal/css/datepicker3.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/temporal/js/autocompletejs/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="/static/temporal/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/static/temporal/js/locales/bootstrap-datepicker.es.js"></script>
 
-
+<script type="text/javascript">
+$(function() {
+  $("#id_apertura , #id_cierre , #id_fecha_skype , #id_memoria, #id_inicio, #id_final").datepicker({ 
+      dateFormat: 'dd/mm/yy',
+      todayBtn: "linked",
+      language: "es",
+      todayHighlight: true,
+ 
+    });
+});
+</script>
+ 
 {% endblock %}
 
 {% block contenido%}
