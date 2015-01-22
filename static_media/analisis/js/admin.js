@@ -1,0 +1,5 @@
+function activa(){ 
+
+	alert	
+
+} 
