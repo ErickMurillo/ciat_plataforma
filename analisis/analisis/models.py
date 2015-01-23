@@ -106,7 +106,8 @@ class Pregunta_5a(models.Model):
 		verbose_name_plural = 'Ha participado su organización en alguna innovación productiva u organizacional en la región'
 
 class Pregunta_5c(models.Model):
-	organizacion_1 = models.ForeignKey(Organizacion,verbose_name='Organizacion')
+	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
+	organizacion = models.ForeignKey(Organizacion,verbose_name='Organizacion')
 	papel_1 = models.ManyToManyField(Papel,verbose_name='Papel')
 	entrevistado = models.ForeignKey(Entrevista)
 
@@ -124,6 +125,7 @@ class Pregunta_5d(models.Model):
 		verbose_name_plural = 'Principales limitaciones que afectaron el éxito de estas innovaciones'
 
 class Pregunta_5e(models.Model):
+	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
 	fuente_1 = models.CharField(max_length=200, verbose_name='Fuente de aprendizaje de Innovación')
 	categoria_fuente_1 = models.ManyToManyField(Categoria_Fuente,verbose_name='Categoria de Fuente')
 	entrevistado = models.ForeignKey(Entrevista)
@@ -144,6 +146,7 @@ class Pregunta_6a(models.Model):
 		verbose_name_plural = 'Innovaciones en las que le gustaria trabajar a su organización en los proximas 5-10 años'
 
 class Pregunta_6c(models.Model):
+	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
 	organizacion_1_6c = models.ForeignKey(Organizacion,verbose_name='Organizacion')
 	papel_1_6c = models.ManyToManyField(Papel,verbose_name='Papel')
 	entrevistado = models.ForeignKey(Entrevista)
@@ -154,7 +157,7 @@ class Pregunta_6c(models.Model):
 
 
 class Pregunta_6d(models.Model):
-	innovacion_1 = models.CharField(max_length=200,verbose_name='Innovación')
+	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
 	categoria_1 = models.ManyToManyField(Categoria,verbose_name='Categorias')
 	entrevistado = models.ForeignKey(Entrevista)
 
@@ -163,6 +166,7 @@ class Pregunta_6d(models.Model):
 		verbose_name_plural = 'Posibles limitaciones para llevar a cabo estos cambios en la región'
 
 class Pregunta_6e(models.Model):
+	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
 	conocimiento_1 = models.CharField(max_length=200, verbose_name='Conocimiento clave faltante para Innovacion')
 	categoria_innovacion_1 = models.ForeignKey(Categoria_Innovacion,verbose_name='Categoria de Innovación')
 	categoria_conocimiento_1 = models.ManyToManyField(Categoria_Conocimiento,verbose_name='Categoria de Conocimiento')
