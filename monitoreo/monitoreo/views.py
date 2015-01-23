@@ -159,8 +159,8 @@ class HomePageView(TemplateView):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['familias'] = Encuesta.objects.all().count()
         context['organizacion'] = Organizaciones.objects.all().count()
-        context['mujeres'] = Encuesta.objects.filter(sexo=2).count()
-        context['hombres'] = Encuesta.objects.filter(sexo=1).count()
+        context['mujeres'] = Encuesta.objects.filter(productor__sexo=2).count()
+        context['hombres'] = Encuesta.objects.filter(productor__sexo=1).count()
 
         return context
 

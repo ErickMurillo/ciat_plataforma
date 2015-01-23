@@ -64,6 +64,13 @@ class OrganizacionComunitariaInline(admin.TabularInline):
     extra = 1
     max_num = 1
     can_delete = True
+
+class OrganizacionOngInline(admin.TabularInline):
+    model = OrganizacionOng
+    fields = ['numero', 'cuales', 'cual_organizacion']
+    extra = 1
+    max_num = 1
+    can_delete = True
     
 class TenenciaInline(admin.TabularInline):
     model = Tenencia
@@ -200,6 +207,10 @@ class EncuestaAdmin(admin.ModelAdmin):
             return Encuesta.objects.all()
         return Encuesta.objects.filter(user=request.user)
 
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.save()
+
 #    def get_form(self, request, obj=None, ** kwargs):
 #        if request.user.is_superuser:
 #            form = super(EncuestaAdmin, self).get_form(self, request, ** kwargs)
@@ -207,12 +218,11 @@ class EncuestaAdmin(admin.ModelAdmin):
 #            form = super(EncuestaAdmin, self).get_form(self, request, ** kwargs)
 #            form.base_fields['user'].queryset = User.objects.filter(pk=request.user.pk)
 #        return form
-        
-    save_on_top = True
-    actions_on_top = True
+    fields = [('fecha','recolector',),'productor',]
+    exclude = ('user',)
     inlines = [EducacionInline, SaludInline, EnergiaInline, CocinaInline,
                AguaInline, OrganizacionGremialInline, OrganizacionComunitariaInline,
-               TenenciaInline, UsoTierraInline, ExistenciaArbolesInline,
+               OrganizacionOngInline, TenenciaInline, UsoTierraInline, ExistenciaArbolesInline,
                ReforestacionInline, AnimalesFincaInline, CultivosFincaInline,
                OpcionesManejoInline, SemillaInline, SueloInline, ManejoSueloInline,
                IngresoFamiliarInline, OtrosIngresosInline, TipoCasaInline,

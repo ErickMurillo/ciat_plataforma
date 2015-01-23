@@ -17,4 +17,5 @@ class NotasAdmin(admin.ModelAdmin):
     inlines = [ImagenInline, DocumentosInline, ]
 
 
+admin.site.register(Temas)
 admin.site.register(Notas, NotasAdmin)
