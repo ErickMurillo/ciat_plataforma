@@ -385,13 +385,7 @@
 			  			{% for audio in respuesta.audio.all%}
 			  			<tr>
 			  				<td>{{audio.nombre_audio}}<br>
-			  					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="280" height="20"
-			  					codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
-			  					<param name="movie" value="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true" />
-			  					<param name="wmode" value="transparent" />
-			  					<embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true"
-			  					type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-			  				</object>
+			  					<audio class="center-block" width="100%" src="/uploads/{{audio.audio}}" type="audio/mp3" controls="controls"></audio>
 			  			</td>
 			  		</tr>
 			  		{% endfor %}

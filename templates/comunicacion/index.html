@@ -4,6 +4,8 @@
 
 {% block extra_js%}{%endblock%}
 
+{% load magicembed_tags %}
+
 {%block contenido%}
     <div id="k-body"><!-- content wrapper -->
     
@@ -223,7 +225,8 @@
                               <h1 class="title-widget">Último Vídeo</h1>
                               {% for obj in video %}
                                 <div class="embed-responsive embed-responsive-16by9">
-                                  <iframe class="embed-responsive-item center-block" src="{{obj.url}}" frameborder="0" allowfullscreen></iframe>
+                                <p>{{ obj.url|magicembed:"300x200"}}</p>
+                                  
                                 </div>
                               {%endfor%}
                                 
