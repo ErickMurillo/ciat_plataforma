@@ -55,7 +55,7 @@ class ProduccionAnimal(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
-        return u'%s' % self.animales.nombre
+        return u'%s' % self.produccion.nombre
     
     class Meta:
         verbose_name_plural = "Produccion animal finca"
@@ -73,7 +73,7 @@ class ProduccionAnimalEntrevistada(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
-        return u'%s' % self.animales.nombre
+        return u'%s' % self.produccion.nombre
     
     class Meta:
         verbose_name_plural = "Produccion animal entrevistada"

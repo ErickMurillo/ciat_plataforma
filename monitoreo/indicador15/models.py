@@ -83,8 +83,6 @@ class PropiedadEquipo(models.Model):
     '''
     equipo = models.ForeignKey(Equipos, null=True, blank=True)
     cantidad_equipo = models.IntegerField(null=True, blank=True)
-    infraestructura = models.ForeignKey(Infraestructuras, null=True, blank=True)
-    cantidad_infra = models.IntegerField('Cantidad', null=True, blank=True)
     encuesta = models.ForeignKey(Encuesta)
     
     #def __unicode__(self):
@@ -160,8 +158,7 @@ class PropiedadEquipoEntrevista(models.Model):
     '''
     equipo = models.ForeignKey(Equipos, null=True, blank=True)
     cantidad_equipo = models.IntegerField(null=True, blank=True)
-    infraestructura = models.ForeignKey(Infraestructuras, null=True, blank=True)
-    cantidad_infra = models.IntegerField('Cantidad', null=True, blank=True)
+   
     encuesta = models.ForeignKey(Encuesta)
     
     #def __unicode__(self):
