@@ -66,7 +66,7 @@
                                         <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
                                         
                                         <span class="ong">{{nota.user.userprofile.contraparte.pais.nombre}}</span>
-                                        <span class="news-meta-comments"><a href="#" title="3 comments">{{nota.comentarionotas_set.all|length}} comentarios</a></span>
+                                        <span class="news-meta-comments"><a href="#" title="3 comments">{{nota.comentarionotas_set.all|length}} comentario(s)</a></span>
                                       
                                     </div>
                                 </div>
@@ -113,13 +113,13 @@
                                                 <div class="comment-avatar"><!-- author avatar -->
 
                                                 {%if comentario.user.userprofile.avatar %}
-                                                {% thumbnail comentario.user.userprofile.avatar "70x60" as im %}
-                                                    <img class="avatar avatar-50 photo" src="/uploads/{{im}}" >
+                                                {% thumbnail comentario.user.userprofile.avatar "60x60" as im %}
+                                                    <img class="photo" src="/uploads/{{im}}" >
                                                 {% endthumbnail %}
 
                                                 {%else%}
 
-                                                    <img class="avatar 70x60avatar-50 photo" src="/static/temporal/img/avatarpeque.png" />
+                                                    <img class="avatar photo" src="/static/comunicacion/img/avatarpeque.png" />
 
                                                 {%endif%}
 
@@ -130,13 +130,13 @@
                                                 
                                                     <div class="comment-author"><!-- author start -->
 
-                                                        <cite class="fn">{{comentario.user.first_name}} - {{comentario.user.userprofile.contraparte}}<span class="label">autor</span></cite>
+                                                        <cite class="fn">{{comentario.user.first_name}}  {{comentario.user.last_name}}</cite>
 
                                                     </div><!-- author end -->
                                     
                                                     <div class="comment-meta commentmetadata"><!-- comment meta-->
                                                         <time datetime="">{{comentario.fecha|date:"M j, Y"}}</time>
-                                                        <a href="#" class="comment-reply-link"></a>                   
+                                                        <a href="#" class="commet-contra">{{comentario.user.userprofile.contraparte.siglas}}</a>                   
                                                     </div><!-- comment meta end -->
                                                     
                                                     <div class="comment-body"><!-- comment text -->
