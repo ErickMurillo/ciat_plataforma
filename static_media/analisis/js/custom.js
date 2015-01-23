@@ -1,7 +1,7 @@
 
 
 (function($){
-   $(document).change(function(){
+   $(document).ready(function(){
    	var prio = $(".dynamic-pregunta_5a_set select")
    	var priox = $('#pregunta_5a_set-group .add-row a')
       prio.click(function (e) {
@@ -10,8 +10,6 @@
         };
     });
    });
-
-   
 })(jQuery || django.jQuery);
 
 

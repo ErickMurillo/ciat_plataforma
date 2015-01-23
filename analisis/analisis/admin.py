@@ -2,6 +2,8 @@
 from django.contrib import admin
 from .models import	*
 from django.forms import CheckboxSelectMultiple
+from .forms import Pregunta_5aForm
+
 
 # Register your models here.
 class Pregunta_1_Inline(admin.TabularInline):
@@ -38,14 +40,16 @@ class Pregunta_4_Inline(admin.TabularInline):
 
 class Pregunta_5a_Inline(admin.TabularInline):
 	model = Pregunta_5a
+	form = Pregunta_5aForm
 	max_num = 10
 	extra = 1
 	can_delete = False
 	formfield_overrides = {
-        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
-    }
-	class Media:
-		js = ('analisis/js/custom.js',)
+		models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+	}
+
+	# class Media:
+	# 	js = ('analisis/js/custom.js',)
 	# 	css = {
  #            'all': ('analisis/css/admin.css',)
  #        }
