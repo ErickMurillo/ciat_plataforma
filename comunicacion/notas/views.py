@@ -199,6 +199,7 @@ def editar_nota(request, id):
     	if form.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid() and form5.is_valid():
             nota.titulo = request.POST['titulo']
             nota.contenido = request.POST['contenido']
+            nota.tema = request.POST['tema']
             nota.fecha = datetime.datetime.now()
             nota.user = request.user
             nota.save()
