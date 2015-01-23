@@ -84,14 +84,7 @@
 							
 							<div class="news-title-meta">
 								<h1 class="page-title">{{discusion.nombre}}</h1>
-                                    <!-- <div class="news-meta">
-                                        <span class="news-meta-date">{{nota.fecha|date:"M t, Y"}}</span>
-                                        <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
-                                        
-                                        <span class="ong">{{nota.user.userprofile.contraparte.pais.nombre}}</span>
-                                        <span class="news-meta-comments"><a href="#" title="3 comments">3 comentarios</a></span>
-                                      
-                                    </div> -->
+
                                 </div>
                                 
                                 <div class="news-body">
@@ -226,180 +219,241 @@
 					<div class="row gutter"><!-- row -->
         
         		
-        		<div id="comments"><!-- comments wrap -->
-        			
-        			<h6>Aportes</h6><!-- comments list title url_70x60-->
-        			
-        			{% for respuesta in discusion.aportes_set.all %}
 
-        			<div class="row " id="{{respuesta.id}}">
-        				<div class="col-md-1">
-        					<div class="label"><center>Aporte </center></div>
-        					<div class="user-info">{{respuesta.fecha|date:"d M"}}</div>
-        					{%if respuesta.user.userprofile.avatar %}
-        					{% thumbnail user.userprofile.avatar "70x60" as im %}
-                            	<img class="img-thumbnail" src="/uploads/{{im}}">        
+                                            
+        			<h6 class="page-title">Aportes</h6>
+        			<br>
+        			{% for respuesta in discusion.aportes_set.all %}
+        			
+        			
+        			
+        			<div  class="row" id="{{respuesta.id}}">
+        			<!--Columna de avatar-->
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+
+                    		{%if respuesta.user.userprofile.avatar %}
+        					{% thumbnail user.userprofile.avatar "150x150" as im %}
+                            	<img class="" src="/uploads/{{im}}">        
                             {% endthumbnail %}
         					{%else%}
         					<img src="/static/temporal/img/avatarpeque.png"><br>
         					{%endif%}
-        					<small><a class="username" href="" rel="tooltip" title="{{respuesta.user.first_name}} - {{respuesta.user.userprofile.contraparte}}">{{respuesta.user}}</a></small>
-        					{% if respuesta.user == request.user or request.user.is_superuser %}
-        					<div class="btn-group foro-edit">
-        						<a class="btn btn-mini" href="/foros/aporte/editar/{{respuesta.id}}"><i class="icon-pencil"></i></a>
-        						<a class="btn btn-mini" data-toggle="modal" data-target="#myModal"><i class="icon-trash"></i></a>
-        					</div>
-        					{% endif %}
 
-        					<div class="modal fade hide" id="myModal">
-        						<div class="modal-header">
-        							<a class="close" data-dismiss="modal">×</a>
-        							<h3>¿Está seguro?</h3>
-        						</div>
-        						<div class="modal-body">
-        							<p>El aporte será borrado permanentemente y no podrá ser recuperado</p>
-        						</div>
-        						<div class="modal-footer">
-        							<a href="#" data-dismiss="modal" class="btn">No Borrar</a>
-        							<a href="/foros/aporte/borrar/{{respuesta.id}}"class="btn btn-danger">Borrar Permanentemente</a>
-        						</div>
-        					</div>  
-        				</div>
-        				<div class="col-md-7">
-        					{{respuesta.contenido|safe}}
-        					<p>
-        						<a data-fancybox-type="iframe" href="/foros/ver_comentario/{{respuesta.id}}" class="btn btn-mini btn-warning fancybox"><i class="icon-comment icon-white"></i>Comentar</a>
-        					</p>				    
-        					{% for comentario in respuesta.comentarios_set.all %}					
-        					<div class="well" id="cmt{{comentario.id}}">{{comentario.comentario|safe}}
-        						<div class="user-info">
-        							<i>escrito por</i> 
+                        	<div class="botones-evento boton-aporte">
+	                            <div class="btn-group">
+	                                <a href="/foros/aporte/editar/{{respuesta.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
+	                                                
+	                                <a href='#modal-borrar' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+
+	                            </div>
+                           	</div>
+                        </div>
+
+                        <!--Columna de aportes y comentarios-->
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        	<div class="comment-content-wrap"><!-- comment content wrap -->
+                                                
+	                            <div class="comment-author"><!-- author start -->
+	                                <cite class="fn">
+	                                {{respuesta.user.first_name}} {{respuesta.user.last_name}}
+	                                </cite>
+	                            </div><!-- author end -->
+	                                    
+	                            <div class="comment-meta commentmetadata"><!-- comment meta-->
+
+	                                <a href="#"><time datetime="">{{respuesta.fecha|date:"M j, Y"}}</time></a>
+
+	                                <a href="#" class="commet-contra">{{respuesta.user.userprofile.contraparte.siglas}}</a>
+
+	                                <a data-fancybox-type="iframe" href="/foros/ver_comentario/{{respuesta.id}}" class="comment-reply-link fancybox"><i class="fa fa-reply"></i> &nbsp; Responder</a>                   
+	                            </div><!-- comment meta end -->
+	                                                    
+	                            <div class="comment-body"><!-- comment text -->
+	                                <p>
+	                                {{respuesta.contenido|safe}}
+	                                </p>
+	                            </div><!-- comment text end -->
+
+                        	</div><!-- comment content wrap end -->
+
+
+
+                        	<!--Respuesta a aportes-->
+                        	{% for comentario in respuesta.comentarios_set.all %}
+                        	<div class=" well comment-content-wrap"><!-- comment content wrap -->
+                                                
+	                            <div class="comment-author"><!-- author start -->
+	                                <i>escrito por</i> 
         							{%if comentario.usuario.userprofile.avatar %}
-        							<img src="{{comentario.usuario.userprofile.avatar.url_70x60}}" width="25" height="25">
-        							{%else%}
-        							<img src="/files/img/avatarpeque.png" width="25" height="25">
-        							{%endif%}
-        							<b><a class="username" href="" rel="tooltip" title="{{comentario.usuario.first_name}} - {{comentario.usuario.userprofile.contraparte}}">{{comentario.usuario.username}}</a></b> - {{comentario.fecha|date:"d M"}}
-        							{% if comentario.usuario == request.user or request.user.is_superuser %}
-        							<div class="btn-group foro-edit" style="float:right;">
-        								<a data-fancybox-type="iframe"  class=" fancybox btn btn-mini" href="/foros/comentario/editar/{{comentario.id}}"><i class="icon-pencil"></i></a>
-        								<a class="btn btn-mini" data-toggle="modal" data-target="#myModalcomment"><i class="icon-trash"></i></a>
-        							</div>
-        							{% endif %}
-			                <!--<div class="modal fade hide" id="">
-			                  <div class="modal-header">
-			                    <a class="close" data-dismiss="modal">×</a>
-			                    <h3>¿Está seguro?</h3>
-			                  </div>
-			                  <div class="modal-body">
-			                    <p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
-			                  </div>
-			                  <div class="modal-footer">
-			                    <a href="#" data-dismiss="modal" class="btn">No Borrar</a>
-			                    <a href="/foros/comentario/borrar/{{comentario.id}}"class="btn btn-danger">Borrar Permanentemente</a>
-			                  </div>
-			              </div> -->
+		        					{% thumbnail user.userprofile.avatar "25x25" as im %}
+		                            	<img class="" src="/uploads/{{im}}">        
+		                            {% endthumbnail %}
+		        					{%else%}
+		        					<img src="/static/temporal/img/avatarpeque.png"><br>
+		        					{%endif%}
 
-			              <div class="modal fade" id="myModalcomment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			              	<div class="modal-dialog">
-			              		<div class="modal-content">
-			              			<div class="modal-header">
-			              				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			              				<h3 class="modal-title" id="myModalLabel">¿Está seguro?</h3>
-			              			</div>
-			              			<div class="modal-body">
-			              				<p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
-			              			</div>
-			              			<div class="modal-footer">
-			              				<button type="button" class="btn btn-default" data-dismiss="modal">No Borrar</button>
-			              				<a href="/foros/comentario/borrar/{{comentario.id}}"class="btn btn-danger">Borrar Permanentemente</a>
-			              			</div>
-			              		</div>
-			              	</div>
-			              </div>  
-			          </div>
-			      </div>
-			      {% endfor %}
-			  </div>
-			  <div class="col-md-4">
-			  	{%if respuesta.fotos.all%}
-			  	<div class="sidebar-title">Fotos</div>
-			  	<div class="thumbs" style="margin-top:10px">
-			  		{% for img in respuesta.fotos.all%}
-			  		{% thumbnail img.foto "640x480" as im %}
-			  			<a class="fancybox" rel="gallery{{respuesta.id}}" title="{{im.nombre_img}}" href="/uploads/{{img.foto}}"><img src="/uploads/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a>
-					{% endthumbnail%}
-			  		{% endfor %}
-			  		<div class="clean"></div>
-			  	</div>
-			  	{%endif%}
-			  	{%if respuesta.adjuntos.all %}
-			  	<div class="sidebar-title">Documentos</div>
-			  	<table class="table table-bordered table-condensed doc-sidebar">
-			  		<tbody>
-			  			{% for doc in respuesta.adjuntos.all%}
-			  			<tr>
-			  				<td>{{doc.nombre_doc}}</td>
-			  				<td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
-			  			</tr>
-			  			{% endfor %}
-			  		</tbody>
-			  	</table>
-			  	{%endif%}
-			  	{%if respuesta.video.all%}
-			  	<div class="sidebar-title">Videos</div>
-			  	<table class="table  table-bordered table-condensed doc-sidebar">
-			  		<tbody>
-			  			{% for video in respuesta.video.all%}
-			  			<tr>
-			  				<td><a href="" data-toggle="modal" data-target="#myModalresp{{video.id}}"><img src="{{video.url|magicthumbnail}}"></a></td>
-			  			</tr>
-			  			
-			  			
+        							<b>
+        							<a class="username" href="" rel="tooltip" title="{{comentario.usuario.first_name}} - {{comentario.usuario.userprofile.contraparte}}">
+        							{{comentario.usuario.username}}
+        							</a>
+        							</b>
+        						{% if comentario.usuario == request.user or request.user.is_superuser %}
+	                            </div><!-- author end -->
+	                                    
+	                            <div class="comment-meta commentmetadata"><!-- comment meta-->
 
-			  			<!-- nuevo Modal -->
-			  			<div class="modal fade" id="myModalresp{{video.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  				<div class="modal-dialog">
-			  					<div class="modal-content">
-			  						<div class="modal-header">
-			  							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  							<h4 class="modal-title" id="myModalLabel">{{video.nombre_video}}</h4>
-			  						</div>
-			  						<div class="modal-body">
-			  							<p>{{ video.url|magicembed:"550x400"}}</p>
-			  						</div>
-			  						<div class="modal-footer">
-			  							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			  						</div>
-			  					</div>
-			  				</div>
-			  			</div> 
-			  			{% endfor %}
-			  		</tbody>
-			  	</table>
-			  	{%endif%}
-			  	{%if respuesta.audio.all%}
-			  	<div class="sidebar-title">Audio</div>
-			  	<table class="table  table-bordered table-condensed doc-sidebar">
-			  		<tbody>
-			  			{% for audio in respuesta.audio.all%}
-			  			<tr>
-			  				<td>{{audio.nombre_audio}}<br>
-			  					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="280" height="20"
-			  					codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
-			  					<param name="movie" value="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true" />
-			  					<param name="wmode" value="transparent" />
-			  					<embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true"
-			  					type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-			  				</object>
-			  			</td>
-			  		</tr>
-			  		{% endfor %}
-			  	</tbody>
-			  </table>
-			  {%endif%}
-			</div>
-		</div>
+	                                <a href="#"><time datetime="">{{comentario.fecha|date:"M j, Y"}}</time></a>
+
+	                                <a href="#" class="commet-contra">{{comentario.usuario.userprofile.contraparte.siglas}}</a>
+
+	                                                  
+	                            </div><!-- comment meta end -->
+	                                                    
+	                            <div class="comment-body"><!-- comment text -->
+	                                <p>
+	                                {{comentario.comentario|safe}}
+	                                </p>
+	                            <div class="botones-evento pull-right boton-comment">
+		                            <div class="btn-group">
+		                                <a href="/foros/comentario/editar/{{comentario.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
+		                                                
+		                                <a href='#modal-comment' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+								
+		                         	</div>
+	                        	</div>
+	                        	<br>
+	                        	{% endif %} 
+	                            </div><!-- comment text end -->
+                                                     
+                        	</div><!-- comment content wrap end -->	
+
+			      		{% endfor %}
+                        </div>
+
+                        <!--Columna de documento, audio y videos-->
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+                        {%if respuesta.fotos.all%}
+						  	<div class="sidebar-title">Fotos</div>
+						  	<div class="thumbs" style="margin-top:10px">
+						  		{% for img in respuesta.fotos.all%}
+						  		{% thumbnail img.foto "640x480" as im %}
+						  			<a class="fancybox" rel="gallery{{respuesta.id}}" title="{{im.nombre_img}}" href="/uploads/{{img.foto}}"><img src="/uploads/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a>
+								{% endthumbnail%}
+						  		{% endfor %}
+						  		<div class="clean"></div>
+						  	</div>
+						  	{%endif%}
+						  	{%if respuesta.adjuntos.all %}
+						  	<div class="sidebar-title">Documentos</div>
+						  	<table class="table table-bordered table-condensed doc-sidebar">
+						  		<tbody>
+						  			{% for doc in respuesta.adjuntos.all%}
+						  			<tr>
+						  				<td>{{doc.nombre_doc}}</td>
+						  				<td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+						  			</tr>
+						  			{% endfor %}
+						  		</tbody>
+						  	</table>
+						  	{%endif%}
+						  	{%if respuesta.video.all%}
+						  	<div class="sidebar-title">Videos</div>
+						  	<table class="table  table-bordered table-condensed doc-sidebar">
+						  		<tbody>
+						  			{% for video in respuesta.video.all%}
+						  			<tr>
+						  				<td><a href="" data-toggle="modal" data-target="#myModalresp{{video.id}}"><img src="{{video.url|magicthumbnail}}"></a></td>
+						  			</tr>
+						  			<!-- nuevo Modal -->
+						  			<div class="modal fade" id="myModalresp{{video.id}}" tabindex="" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  				<div class="modal-dialog modal-comunicacion">
+						  					<div class="modal-content">
+						  						<div class="modal-header">
+						  							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						  							<h4 class="modal-title" id="myModalLabel">{{video.nombre_video}}</h4>
+						  						</div>
+						  						<div class="modal-body">
+						  							<p>{{ video.url|magicembed:"550x400"}}</p>
+						  						</div>
+						  						<div class="modal-footer">
+						  							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						  						</div>
+						  					</div>
+						  				</div>
+						  			</div> 
+						  			{% endfor %}
+						  		</tbody>
+						  	</table>
+						  	{%endif%}
+						  	{%if respuesta.audio.all%}
+						  	<div class="sidebar-title">Audio</div>
+						  	<table class="table  table-bordered table-condensed doc-sidebar">
+						  		<tbody>
+						  			{% for audio in respuesta.audio.all%}
+						  			<tr>
+						  				<td>{{audio.nombre_audio}}<br>
+						  					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="280" height="20"
+						  					codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+						  					<param name="movie" value="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true" />
+						  					<param name="wmode" value="transparent" />
+						  					<embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true"
+						  					type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+						  				</object>
+						  			</td>
+						  		</tr>
+						  		{% endfor %}
+						  	</tbody>
+						  </table>
+						  {%endif%}
+
+
+                        </div>                            
+                        
+                                                    
+                    </div>
+
+                    <!--Modal de Aporte-->
+                    <div class="modal fade" id="modal-borrar">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p>El aporte será borrado permanentemente y no podrá ser recuperado HDFSDFSDFSD</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                    <a href="/foros/aporte/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
+                                        Borrar Permanentemente
+                                    </a>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+
+					<!--Modal de comentario-->
+                    <div class="modal fade" id="modal-comment">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                    <a href="/foros/comentario/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
+                                        Borrar Permanentemente
+                                    </a>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
 		<hr>
 		{% endfor %}
 		

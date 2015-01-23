@@ -44,7 +44,7 @@
 				<div class="span9">
 						<div class="extrainfo">Inicio: {{nota.inicio}}  | final: {{nota.final}} | Usuario: {{nota.user.username}}</div>
 						<a href="{{nota.get_absolute_url}}" class="titulo-medio">{{nota.evento}}</a><br>
-						{{nota.descripcion|safe|truncatewords_html:50}}</a><br>
+						{{nota.descripcion|safe|truncatewords_html:50}}<br>
 						<br>
 						<a href="{{nota.get_absolute_url}}" class="btn btn-success btn-mini">Leer más</a>
 				</div>

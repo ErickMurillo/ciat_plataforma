@@ -343,7 +343,7 @@ li.widget-container:not(:first-child) { margin-top: 10px; }
 .commentlist, .children { list-style: none outside none; margin: 0; padding: 0; }
 .comment { position: relative; font-size: 14px; line-height: 26px; }
 .comment-avatar { float: left; margin: 0 20px 0 0; }
-.comment-content-wrap { margin-left: 70px; }
+.comment-content-wrap {  }
 .comment-author cite, .comment-author cite a { font-weight: 400; color: #363636; }
 .comment-meta { margin-bottom: 5px; font-size: 12px; }
 .comment-body { line-height: 24px; font-size: 14px; margin-bottom: 20px; padding-bottom: 5px; }
@@ -1087,6 +1087,38 @@ a.list-group-item{
 #id_comentario{
 	resize:none;
 	width: 100%;
+}
+.modal-comunicacion{
+	padding-top: 0px !important;
+}
+
+.modal-comunicacion .modal-title{
+	color: #393939;
+}
+.comment-meta{
+	border-bottom: 1px solid rgba( 0, 0, 0, 0.05 );
+}
+.comment-meta time{
+	border-right: 1px solid rgba( 0, 0, 0, 0.05 );
+	padding-right: 5px;
+}
+.commet-contra{
+	padding-left: 5px;
+}
+.comment-body p{
+	text-align: justify;
+}
+.boton-aporte{
+	margin-top: 5px;
+}
+.boton-comment{
+margin-top: 10px;
+}
+.widget-container table{
+	font-size: 14px;
+}
+.news-body{
+	text-align: justify;
 }
 /*----------------Monitoreo-----------------------*/
 .monitoreo-menu{
