@@ -352,7 +352,7 @@
 			  		<tbody>
 			  			{% for video in respuesta.video.all%}
 			  			<tr>
-			  				<td><a href="" data-toggle="modal" data-target="#myModalresp{{video.id}}"><img src="{{video.url}}"></a></td>
+			  				<td><a href="" data-toggle="modal" data-target="#myModalresp{{video.id}}"><img src="{{video.url|magicthumbnail}}"></a></td>
 			  			</tr>
 			  			
 			  			
@@ -366,7 +366,7 @@
 			  							<h4 class="modal-title" id="myModalLabel">{{video.nombre_video}}</h4>
 			  						</div>
 			  						<div class="modal-body">
-			  							<p>{{ video.url}}</p>
+			  							<p>{{ video.url|magicembed:"550x400"}}</p>
 			  						</div>
 			  						<div class="modal-footer">
 			  							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
