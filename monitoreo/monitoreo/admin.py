@@ -311,6 +311,7 @@ admin.site.register(Encuesta, EncuestaAdmin)
 #-------------------------------------------
 
 admin.site.register(Recolector)
+admin.site.register(Productor)
 admin.site.register(Organizaciones)
 admin.site.register(PreguntaEnergia)
 admin.site.register(Fuente)
