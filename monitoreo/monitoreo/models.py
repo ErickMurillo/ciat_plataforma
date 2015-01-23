@@ -163,7 +163,10 @@ class CasaSolar(models.Model):
     casa = models.IntegerField('La casa y el solar son', choices=CHOICE_CASA_SOLAR)
     tenencia = models.IntegerField('Tenencia de solar', choices=CHOICE_TENENCIA_SOLAR)
     dueno = models.IntegerField('Documento legal de la propiedad, a nombre de quien', choices=CHOICE_DUENO_CASA_SOLAR)
+    encuesta = models.ForeignKey(Encuesta)
 
+    class Meta:
+        verbose_name_plural = "Casa y solar"
     
 #-------------------------------------------------------------------------------
 
