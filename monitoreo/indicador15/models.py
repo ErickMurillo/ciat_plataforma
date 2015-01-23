@@ -91,7 +91,7 @@ class PropiedadEquipo(models.Model):
     #    return self.equipo.nombre
     
     class Meta:
-        verbose_name_plural = "Propiedad Equipos"
+        verbose_name_plural = "Equipos familiar"
 
 class PropiedadInfraestructura(models.Model):
     '''Modelo propiedades
@@ -104,7 +104,7 @@ class PropiedadInfraestructura(models.Model):
     #    return self.equipo.nombre
     
     class Meta:
-        verbose_name_plural = "Propiedad Infraestructura"
+        verbose_name_plural = "Infraestructura familiar"
 
 
 class NombreHerramienta(models.Model):
@@ -128,7 +128,7 @@ class Herramientas(models.Model):
         return self.herramienta.nombre
 
     class Meta:
-        verbose_name_plural = "Herramientas"
+        verbose_name_plural = "Herramientas familiar"
 
 
 class NombreTransporte(models.Model):
@@ -152,7 +152,7 @@ class Transporte(models.Model):
         return u'%s' % self.transporte.nombre
     
     class Meta:
-        verbose_name_plural = "Transporte"
+        verbose_name_plural = "Transporte familiar"
 
 #-------------------para la entrevistada------------------------------------------------------------
 class PropiedadEquipoEntrevista(models.Model):
@@ -207,4 +207,4 @@ class TransporteEntrevista(models.Model):
         return u'%s' % self.transporte.nombre
     
     class Meta:
-        verbose_name_plural = "Transporte"
+        verbose_name_plural = "Transporte entrevistada"

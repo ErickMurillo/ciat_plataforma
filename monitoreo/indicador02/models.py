@@ -121,6 +121,7 @@ class OrganizacionOng(models.Model):
     cual_organizacion = models.ManyToManyField(OngLocales, 
                                     verbose_name="¿Cuáles son?",
                                     related_name='organizacion')
+    encuesta = models.ForeignKey(Encuesta)
 
     class Meta:
         verbose_name_plural = 'Organización no gubernamental (ONG)'

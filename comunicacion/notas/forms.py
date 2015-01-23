@@ -10,7 +10,7 @@ from tagging_autocomplete.widgets import TagAutocomplete
 
 class NotasForms(forms.ModelForm):
     contenido = forms.CharField(widget=CKEditorWidget())
-    titulo = forms.CharField(widget=forms.TextInput(attrs={'class':'span7','rel':"tooltip", 'title':"Tratar de redactar títulos resumidos"}))
+    titulo = forms.CharField(widget=forms.TextInput(attrs={'rel':"tooltip", 'title':"Tratar de redactar títulos resumidos"}))
     class Meta:
     	model = Notas
     	exclude = ('slug','fecha','user',)
