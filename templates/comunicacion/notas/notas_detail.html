@@ -113,12 +113,13 @@
                                                 <div class="comment-avatar"><!-- author avatar -->
 
                                                 {%if comentario.user.userprofile.avatar %}
-
-                                                    <img class="avatar avatar-50 photo" src="{{comentario.user.userprofile.avatar.url_70x60}}" />
+                                                {% thumbnail comentario.user.userprofile.avatar "70x60" as im %}
+                                                    <img class="avatar avatar-50 photo" src="/uploads/{{im}}" >
+                                                {% endthumbnail %}
 
                                                 {%else%}
 
-                                                    <img class="avatar avatar-50 photo" src="/files/img/avatarpeque.png" />
+                                                    <img class="avatar 70x60avatar-50 photo" src="/static/temporal/img/avatarpeque.png" />
 
                                                 {%endif%}
 
@@ -134,7 +135,7 @@
                                                     </div><!-- author end -->
                                     
                                                     <div class="comment-meta commentmetadata"><!-- comment meta-->
-                                                        <time datetime="">{{comentario.fecha|date:"M t, Y"}}</time>
+                                                        <time datetime="">{{comentario.fecha|date:"M j, Y"}}</time>
                                                         <a href="#" class="comment-reply-link"></a>                   
                                                     </div><!-- comment meta end -->
                                                     
