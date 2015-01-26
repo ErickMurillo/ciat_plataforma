@@ -66,7 +66,11 @@
                                         <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
                                         
                                         <span class="ong">{{nota.user.userprofile.contraparte.pais.nombre}}</span>
+<<<<<<< HEAD
                                         <!--<span class="news-meta-comments"><a href="#" title="3 comments">3 comentarios</a></span> -->
+=======
+                                        <span class="news-meta-comments"><a href="#" title="3 comments">{{nota.comentarionotas_set.all|length}} comentario(s)</a></span>
+>>>>>>> b29e97e8c163b7514825be3b771e7541b1d0e5ca
                                       
                                     </div>
                                 </div>
@@ -163,7 +167,7 @@
                             
                               <div id="comments"><!-- comments wrap -->
                                 
-                                  <h6 class="remove-margin-top">Comentarios ( 3 )</h6><!-- comments list title -->
+                                  <h6 class="remove-margin-top">Comentarios ( {{nota.comentarionotas_set.all|length}} )</h6><!-- comments list title -->
                                     
                                     <ol class="commentlist"><!-- comments list -->
                                             
@@ -176,12 +180,13 @@
                                                 <div class="comment-avatar"><!-- author avatar -->
 
                                                 {%if comentario.user.userprofile.avatar %}
-
-                                                    <img class="avatar avatar-50 photo" src="{{comentario.user.userprofile.avatar.url_70x60}}" />
+                                                {% thumbnail comentario.user.userprofile.avatar "60x60" as im %}
+                                                    <img class="photo" src="/uploads/{{im}}" >
+                                                {% endthumbnail %}
 
                                                 {%else%}
 
-                                                    <img class="avatar avatar-50 photo" src="/files/img/avatarpeque.png" />
+                                                    <img class="avatar photo" src="/static/comunicacion/img/avatarpeque.png" />
 
                                                 {%endif%}
 
@@ -192,13 +197,13 @@
                                                 
                                                     <div class="comment-author"><!-- author start -->
 
-                                                        <cite class="fn">{{comentario.user.first_name}} - {{comentario.user.userprofile.contraparte}}<span class="label">autor</span></cite>
+                                                        <cite class="fn">{{comentario.user.first_name}}  {{comentario.user.last_name}}</cite>
 
                                                     </div><!-- author end -->
                                     
                                                     <div class="comment-meta commentmetadata"><!-- comment meta-->
-                                                        <time datetime="">{{comentario.fecha|date:"M t, Y"}}</time>
-                                                        <a href="#" class="comment-reply-link"><i class="fa fa-reply"></i> &nbsp; Responder</a>                   
+                                                        <time datetime="">{{comentario.fecha|date:"M j, Y"}}</time>
+                                                        <a href="#" class="commet-contra">{{comentario.user.userprofile.contraparte.siglas}}</a>                   
                                                     </div><!-- comment meta end -->
                                                     
                                                     <div class="comment-body"><!-- comment text -->

@@ -73,4 +73,4 @@ class IngresoEntrevistada(models.Model):
         return u'%s' % self.rubro.nombre
     
     class Meta:
-        verbose_name_plural = "Ingreso Familiar"
+        verbose_name_plural = "Ingreso Entrevistada"

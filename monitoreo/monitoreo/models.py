@@ -68,7 +68,7 @@ class Productor(models.Model):
     municipio = models.ForeignKey(Municipio)
     comunidad = models.ForeignKey(Comunidad)
     organizacion = models.ManyToManyField(Organizaciones, related_name ="org")
-    jefe = models.IntegerField(choices=CHOICE_OPCION)
+    jefe = models.IntegerField(choices=CHOICE_OPCION, verbose_name='Jefe de familia')
     nivel_educacion = models.IntegerField(choices=CHOICE_NIVEL_EDUCATIVO)
     
     def __unicode__(self):
@@ -93,7 +93,7 @@ class Encuesta(models.Model):
         super(Encuesta, self).save()
     
     def __unicode__(self):
-        return self.nombre
+        return self.productor.nombre
         
     class Meta:
         verbose_name_plural = "Encuesta"
@@ -163,7 +163,10 @@ class CasaSolar(models.Model):
     casa = models.IntegerField('La casa y el solar son', choices=CHOICE_CASA_SOLAR)
     tenencia = models.IntegerField('Tenencia de solar', choices=CHOICE_TENENCIA_SOLAR)
     dueno = models.IntegerField('Documento legal de la propiedad, a nombre de quien', choices=CHOICE_DUENO_CASA_SOLAR)
+    encuesta = models.ForeignKey(Encuesta)
 
+    class Meta:
+        verbose_name_plural = "Casa y solar"
     
 #-------------------------------------------------------------------------------
 

@@ -77,9 +77,27 @@ class TenenciaInline(admin.TabularInline):
     extra = 1
     max_num = 1
     can_delete = True
+
+class TenenciaMujerInline(admin.TabularInline):
+    model = TenenciaEntrevistada
+    extra = 1
+    max_num = 1
+    can_delete = True
+
+class CasaSolarInline(admin.TabularInline):
+    model = CasaSolar
+    extra = 1
+    max_num = 1
+    can_delete = True
     
 class UsoTierraInline(admin.TabularInline):
     model = UsoTierra
+    extra = 1
+    max_num = 8
+    can_delete = True
+
+class UsoTierraEntrevistaInline(admin.TabularInline):
+    model = UsoTierraEntrevistada
     extra = 1
     max_num = 8
     can_delete = True
@@ -99,6 +117,16 @@ class ReforestacionInline(admin.TabularInline):
     
 class AnimalesFincaInline(admin.TabularInline):
     model = AnimalesFinca
+    extra = 1
+    can_delete = True
+
+class ProduccionFincaInline(admin.TabularInline):
+    model = ProduccionAnimal
+    extra = 1
+    can_delete = True
+
+class ProduccionEntrevistaFincaInline(admin.TabularInline):
+    model = ProduccionAnimalEntrevistada
     extra = 1
     can_delete = True
     
@@ -133,6 +161,11 @@ class ManejoSueloInline(admin.TabularInline):
     
 class IngresoFamiliarInline(admin.TabularInline):
     model = IngresoFamiliar
+    extra = 1
+    can_delete = True
+
+class IngresoFamiliarEntreviInline(admin.TabularInline):
+    model = IngresoEntrevistada
     extra = 1
     can_delete = True
     
@@ -172,14 +205,47 @@ class TransporteInline(admin.TabularInline):
     model = Transporte
     extra = 1
     can_delete = True
+
+class EquipoEntreInline(admin.TabularInline):
+    model = PropiedadEquipoEntrevista
+    extra = 1
+    can_delete = True
+
+class InfraestructuraEntreInline(admin.TabularInline):
+    model = PropiedadInfraestructuraEntrevista
+    extra = 1
+    can_delete = True
+    
+class HerramientasEntreInline(admin.TabularInline):
+    model = HerramientasEntrevista
+    extra = 1
+    can_delete = True
+    
+class TransporteEntreInline(admin.TabularInline):
+    model = TransporteEntrevista
+    extra = 1
+    can_delete = True
     
 class AhorroInline(admin.TabularInline):
     model = Ahorro
     extra = 1
     can_delete = True
+
+class AhorroEntreInline(admin.TabularInline):
+    model = AhorroEntrevista
+    extra = 1
+    can_delete = True
     
 class CreditoInline(admin.TabularInline):
     model = Credito
+    fields = ['recibe','desde','quien_credito','ocupa_credito',
+              'satisfaccion','dia']
+    extra = 1
+    max_num = 1
+    can_delete = True
+
+class CreditoEntreInline(admin.TabularInline):
+    model = CreditoEntrevista
     fields = ['recibe','desde','quien_credito','ocupa_credito',
               'satisfaccion','dia']
     extra = 1
@@ -222,12 +288,17 @@ class EncuestaAdmin(admin.ModelAdmin):
     exclude = ('user',)
     inlines = [EducacionInline, SaludInline, EnergiaInline, CocinaInline,
                AguaInline, OrganizacionGremialInline, OrganizacionComunitariaInline,
-               OrganizacionOngInline, TenenciaInline, UsoTierraInline, ExistenciaArbolesInline,
-               ReforestacionInline, AnimalesFincaInline, CultivosFincaInline,
-               OpcionesManejoInline, SemillaInline, SueloInline, ManejoSueloInline,
-               IngresoFamiliarInline, OtrosIngresosInline, TipoCasaInline,
-               DetalleCasaInline, PropiedaEquipoInline, PropiedaInfraestructuraInline,HerramientasInline,
-               TransporteInline, AhorroInline, CreditoInline, SeguridadInline,
+               OrganizacionOngInline, TenenciaInline, TenenciaMujerInline, CasaSolarInline,
+               UsoTierraInline, UsoTierraEntrevistaInline, ExistenciaArbolesInline,
+               ReforestacionInline, AnimalesFincaInline, ProduccionFincaInline, 
+               ProduccionEntrevistaFincaInline,
+               CultivosFincaInline,OpcionesManejoInline, SemillaInline, SueloInline, 
+               ManejoSueloInline,IngresoFamiliarInline, IngresoFamiliarEntreviInline, 
+               OtrosIngresosInline, TipoCasaInline,
+               DetalleCasaInline, PropiedaEquipoInline, PropiedaInfraestructuraInline,
+               HerramientasInline,TransporteInline, EquipoEntreInline, InfraestructuraEntreInline,
+               HerramientasEntreInline, TransporteEntreInline, 
+               AhorroInline, AhorroEntreInline, CreditoInline, CreditoEntreInline, SeguridadInline,
                VulnerableInline, RiesgosInline,
                ]
     list_display = ('fecha', 'productor',)
@@ -240,12 +311,14 @@ admin.site.register(Encuesta, EncuestaAdmin)
 #-------------------------------------------
 
 admin.site.register(Recolector)
+admin.site.register(Productor)
 admin.site.register(Organizaciones)
 admin.site.register(PreguntaEnergia)
 admin.site.register(Fuente)
 admin.site.register(Tratamiento)
 admin.site.register(Disponibilidad)
 admin.site.register(OrgGremiales)
+admin.site.register(OngLocales)
 admin.site.register(BeneficiosObtenido)
 admin.site.register(SerMiembro)
 admin.site.register(OrgComunitarias)
@@ -259,7 +332,7 @@ admin.site.register(Frutal)
 admin.site.register(Actividad)
 admin.site.register(Animales)
 admin.site.register(ProductoAnimal)
-#admin.site.register(Cultivos)
+admin.site.register(ProduccionAnimal)
 admin.site.register(ManejoAgro)
 admin.site.register(CultivosVariedad)
 admin.site.register(Variedades)

@@ -85,7 +85,7 @@ def detalle_notas(request, id):
             form_uncommited.nota = nota
             form_uncommited.save()
 
-        return HttpResponseRedirect('/notas/%d/#cmt%d' % (nota.id,form.instance.id) )
+        return HttpResponseRedirect('/comunicacion/%d/#cmt%d' % (nota.id,form.instance.id) )
 
     else:
         form = ComentarioForm()
@@ -227,7 +227,7 @@ def borrar_nota(request, id):
     if nota.user == request.user or request.user.is_superuser:
         nota.delete()
         #return redirect('/notas')
-        return HttpResponseRedirect('/notas/?shva=erase')
+        return HttpResponseRedirect('/foros/privado/nota/?shva=erase')
     else:
         return redirect('/')
 
@@ -253,7 +253,7 @@ def comentar_nota(request, id):
             form_uncommited.nota = nota
             form_uncommited.save()
 
-        return HttpResponseRedirect('/notas/ver/%d' % nota.id)
+        return HttpResponseRedirect('/comunicacion/%d' % nota.id)
 
     else:
         form = ComentarioForm()

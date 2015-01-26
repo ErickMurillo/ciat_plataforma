@@ -15,8 +15,6 @@ class Actividad(models.Model):
 
     class Meta:
         verbose_name_plural = "Actividades de reforestacion"
-        #app_label = "Indicador 07 Reforestacion"
-        #db_table = "simas_actividad"
 
 class Reforestacion(models.Model):
     ''' reforestacion
@@ -30,7 +28,4 @@ class Reforestacion(models.Model):
     
     class Meta:
         verbose_name_plural = "Reforestacion"
-        #app_label = "Indicador 07 Reforestacion"
-        #db_table = "simas_reforestacion"
-
 #-------------------------------------------------------------------------------

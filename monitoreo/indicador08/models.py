@@ -15,8 +15,6 @@ class Animales(models.Model):
 
     class Meta:
         verbose_name_plural = "Finca - Animales"
-        #app_label = "Indicador 08 Produccion y animales en la finca"
-        #db_table = "simas_animales"
 
 class ProductoAnimal(models.Model):
     nombre = models.CharField(max_length=100)
@@ -27,8 +25,6 @@ class ProductoAnimal(models.Model):
 
     class Meta:
         verbose_name_plural = "Finca - Producto"
-        #app_label = "Indicador 08 Produccion y animales en la finca"
-        #db_table = "simas_productoanimal"
 
 
 class AnimalesFinca(models.Model):
@@ -59,7 +55,7 @@ class ProduccionAnimal(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
-        return u'%s' % self.animales.nombre
+        return u'%s' % self.produccion.nombre
     
     class Meta:
         verbose_name_plural = "Produccion animal finca"
@@ -77,7 +73,7 @@ class ProduccionAnimalEntrevistada(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
-        return u'%s' % self.animales.nombre
+        return u'%s' % self.produccion.nombre
     
     class Meta:
         verbose_name_plural = "Produccion animal entrevistada"
