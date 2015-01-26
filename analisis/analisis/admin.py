@@ -48,8 +48,8 @@ class Pregunta_5a_Inline(admin.TabularInline):
 		models.ManyToManyField: {'widget': CheckboxSelectMultiple},
 	}
 
-	# class Media:
-	# 	js = ('analisis/js/custom.js',)
+	class Media:
+		js = ('analisis/js/custom.js',)
 	# 	css = {
  #            'all': ('analisis/css/admin.css',)
  #        }
