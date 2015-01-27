@@ -1,0 +1,49 @@
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_nav_menu"><!-- widget -->
+                    
+                                <h1 class="title-widget">Últimas Noticias</h1>
+                                
+                                <ul>
+                                {% for nota in notas_relacionadas|slice:":6"  %}
+                                    <li><a href="{% url 'detalle-notas' nota.id %}" title="menu item">{{nota.titulo}}</a></li>
+                                {% endfor %}  
+                                </ul>
+                    
+                            </li>
+                            <br>
+                            <li class="widget-container widget_up_events"><!-- widget -->
+                    
+                                <h1 class="title-widget">Próximos Eventos</h1>
+                                
+                                <ul class="list-unstyled">
+                                {% for evento in agenda %}
+                                    
+                                
+                                    <li class="up-event-wrap">
+                                
+                                        <h1 class="title-median"><a href="#" title="Annual alumni game">{{evento.evento}}</a></h1>
+                                        
+                                        <div class="up-event-meta clearfix">
+                                            <div class="up-event-date">
+                                                Inicio: {{evento.inicio|date:"M j, Y"}}
+                                            </div>
+                                            <div class="up-event-date">
+                                                Final: {{evento.final|date:"M j, Y"}}
+                                            </div>
+                                        </div>
+                                        
+                                        <p>
+                                        {{evento.descripcion|safe|truncatewords_html:10}}
+                                        <a href="#" class="moretag" title="read more">Ver evento</a> 
+                                        </p>
+                                    
+                                    </li>
+                                {% endfor %}    
+                                    
+                                
+                                </ul>
+                            
+                            </li>
+                            
+                        </ul><!-- widgets end -->

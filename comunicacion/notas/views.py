@@ -75,7 +75,9 @@ def lista_notas_contraparte(request,id):
 def detalle_notas(request, id):
     nota = get_object_or_404(Notas, id=id)
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
-
+    
+    notas_relacionadas = Notas.objects.filter(temas__in=[tema for tema in nota.temas.all()]).exclude(id=nota.id)
+    
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
 
@@ -147,6 +149,7 @@ def crear_nota(request):
             form_uncommited = form.save(commit=False)
             form_uncommited.user = request.user
             form_uncommited.save()
+            form.save_m2m()
             if form2.cleaned_data['nombre_img'] != '':
                 form2_uncommited = form2.save(commit=False)
                 form2_uncommited.content_object = form_uncommited
@@ -201,7 +204,7 @@ def editar_nota(request, id):
             form_uncommited.fecha = datetime.datetime.now()
             form_uncommited.user = request.user
             form_uncommited.save()
-            form_uncommited.save_m2m()
+            form.save_m2m()
             #salvando inline
             form2.save()
             form3.save()
