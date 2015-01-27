@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from comunicacion.lugar.models import Comunidad, Departamento, Municipio
-from django.conf import settings
-from comunicacion.utils import get_file_path 
 from django.contrib.auth.models import User
-from sorl.thumbnail import ImageField
+from mapeo.models import Persona
 
 # Create your models here.
 class Recolector(models.Model):
@@ -18,29 +15,6 @@ class Recolector(models.Model):
 
     class Meta:
         verbose_name_plural = "Recolector"
-
-CHOICE_ZONA = ((1,'Seca'),(2,'Alta'))
-
-class Organizaciones(models.Model):
-    nombre = models.CharField(max_length=200)
-    telefono = models.IntegerField(null=True, blank=True)
-    fax = models.IntegerField(null=True, blank=True)
-    celular = models.IntegerField(null=True, blank=True)
-    direccion = models.TextField(null=True, blank=True)
-    correo_electronico = models.EmailField(null=True, blank=True)
-    departamento = models.ForeignKey(Departamento, null=True, blank=True)
-    logo = ImageField(upload_to=get_file_path, null=True, blank=True)
-    sitio_web = models.URLField(null=True, blank=True)
-    descripcion = models.TextField(null=True, blank=True)
-    zona = models.IntegerField(choices=CHOICE_ZONA)
-    fileDir = 'attachments/logos'
-
-    def __unicode__(self):
-        return self.nombre
-#        return '%s - %s' % (self.departamento.nombre, self.nombre)
-
-    class Meta:
-        verbose_name_plural = "Organizaciones"
 
 CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
 CHOICE_OPCION = ((1,'Si'),(2,'No')) # Este choice se utilizara en toda la aplicacion que necesite si o no
@@ -59,30 +33,18 @@ CHOICE_NIVEL_EDUCATIVO = (
                 (6, 'Universitario'),
             )
 
-class Productor(models.Model):
-    nombre = models.CharField('Nombre de entrevistado/a', max_length=200)
-    cedula = models.CharField('cedula de entrevistado', max_length=200, null=True, blank=True)
-    sexo = models.IntegerField(choices=CHOICE_SEXO)
-    edad = models.IntegerField(choices=CHOICE_RANGO)
-    finca = models.CharField('Nombre de Finca', max_length=200)
-    municipio = models.ForeignKey(Municipio)
-    comunidad = models.ForeignKey(Comunidad)
-    organizacion = models.ManyToManyField(Organizaciones, related_name ="org")
-    jefe = models.IntegerField(choices=CHOICE_OPCION, verbose_name='Jefe de familia')
-    nivel_educacion = models.IntegerField(choices=CHOICE_NIVEL_EDUCATIVO)
-    
-    def __unicode__(self):
-        return self.nombre
-
-    class Meta:
-        verbose_name_plural = "Productor/as"
+CHOICE_2_TIPOS = ((1,'Linea Base'),(2,'Entrevista Mujer'))
 
 class Encuesta(models.Model):
     ''' Esta es la parte de la encuesta donde van los demas
     '''
     fecha = models.DateField()
     recolector = models.ForeignKey(Recolector)
-    productor = models.ForeignKey(Productor)
+    productor = models.ForeignKey(Persona, verbose_name='Entrevistado')
+    jefe = models.IntegerField(choices=CHOICE_OPCION, verbose_name='Esta persona es jefe de la casa')
+    tipo_encuesta = models.IntegerField(choices=CHOICE_2_TIPOS, default=2)
+
+
     user = models.ForeignKey(User)
     
     #campos ocultos para querys

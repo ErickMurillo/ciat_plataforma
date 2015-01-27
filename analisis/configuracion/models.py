@@ -5,6 +5,36 @@ from smart_selects.db_fields import ChainedForeignKey
 from comunicacion.lugar.models import *
 
 # Create your models here.
+class AreaAccion(models.Model):
+	nombre = models.CharField(max_length=250)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = 'Area de Acción'
+		verbose_name_plural = 'Area de Acción'
+
+class SitioAccion(models.Model):
+	nombre = models.CharField(max_length=250)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = 'Sitio de Acción'
+		verbose_name_plural = 'Sitio de Acción'
+
+class Plataforma(models.Model):
+	nombre = models.CharField(max_length=250)
+
+	def __unicode__(self):
+		return self.nombre
+
+	class Meta:
+		verbose_name = 'Plataforma'
+		verbose_name_plural = 'Plataforma'
+
 
 class Status_Legal(models.Model):
 	nombre = models.CharField(max_length=200)

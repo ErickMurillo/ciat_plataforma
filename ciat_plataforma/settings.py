@@ -67,6 +67,8 @@ INSTALLED_APPS = (
     'monitoreo.indicador19',
     'monitoreo.indicador20',
     'monitoreo.monitoreo',
+    #apps solo de mapeo
+    'mapeo',
     #apps de terceros
     'smart_selects',
     'sorl.thumbnail',
@@ -74,6 +76,7 @@ INSTALLED_APPS = (
     'magicembed',
     'tagging',
     'tagging_autocomplete',
+    'selectable',
 
 )
 
@@ -106,6 +109,7 @@ USE_L10N = True
 USE_TZ = True
 
 SITE_ID = 1
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
