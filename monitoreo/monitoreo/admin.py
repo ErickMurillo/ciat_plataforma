@@ -303,10 +303,14 @@ class EncuestaAdmin(admin.ModelAdmin):
                AhorroInline, AhorroEntreInline, CreditoInline, CreditoEntreInline, SeguridadInline,
                VulnerableInline, RiesgosInline,
                ]
-    list_display = ('fecha', 'productor',)
-    #list_filter = ['productor__comunidad__nombre', 'productor__organizacion__nombre']
-    #search_fields = ['productor__nombre', 'productor__comunidad__nombre', 'productor__organizacion__nombre']
+    list_display = ('fecha', 'productor', 'tipo_encuesta',)
+    list_filter = ('tipo_encuesta',)
+    search_fields = ('productor__nombre', 'productor__comunidad__nombre',)
     date_hierarchy = 'fecha'
+
+    class Media:
+        js = ('monitoreo/js/encuesta.js',)
+        
                
 admin.site.register(Encuesta, EncuestaAdmin)
 
