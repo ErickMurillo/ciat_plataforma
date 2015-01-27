@@ -6,6 +6,7 @@ from comunicacion.utils import get_file_path
 from sorl.thumbnail import ImageField
 from ckeditor.fields import RichTextField
 from smart_selects.db_fields import ChainedForeignKey
+from analisis.configuracion.models import Sector, AreaAccion, SitioAccion, Plataforma
 
 # Create your models here.
 from comunicacion.contrapartes.widgets import ColorPickerWidget
@@ -19,23 +20,20 @@ class ColorField(models.CharField):
         kwargs['widget'] = ColorPickerWidget
         return super(ColorField, self).formfield(**kwargs)
 
-
-CHOICE_LISTA = (
-        (1, "NICANORTE"),
-        (2, "TRIFINIO"),
-        (3, "HAITI/DOMINICANA")
-    )
-
 class Organizaciones(models.Model):
     nombre = models.CharField(max_length=200)
     siglas = models.CharField("Siglas o nombre corto",
                                 help_text="Siglas o nombre corto de la oganización",
                                 max_length=200, blank=True, null=True)
-    pertenece = models.IntegerField(choices=CHOICE_LISTA)
+    area_accion = models.ForeignKey(AreaAccion)
+    sitio_accion = models.ForeignKey(SitioAccion)
+    plataforma = models.ForeignKey(Plataforma)
+    sector = models.ForeignKey(Sector)
     telefono = models.IntegerField(null=True, blank=True)
     fax = models.CharField(max_length=50, null=True, blank=True)
     logo = ImageField(upload_to=get_file_path, null=True, blank=True)
     direccion = models.TextField(null=True, blank=True)
+
     pais = models.ForeignKey(Pais)
     departamento = ChainedForeignKey(
                                 Departamento,
@@ -52,7 +50,7 @@ class Organizaciones(models.Model):
                                  blank=True, null=True)
     temas = RichTextField(blank=True, null=True)
     generalidades = RichTextField(blank=True, null=True)
-    contacto = models.CharField(max_length=200, blank=True, null=True)
+    contacto = models.CharField('Persona de contacto', max_length=200, blank=True, null=True)
     correo_electronico = models.EmailField(null=True, blank=True)
     telefono = models.CharField(max_length=200, blank=True, null=True)
     sitio_web = models.URLField(blank=True, null=True)

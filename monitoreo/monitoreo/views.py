@@ -4,7 +4,7 @@ from django.template.defaultfilters import slugify
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.views.generic import TemplateView
-from django.utils import simplejson
+import json as simplejson
 from django.db.models import Sum, Count, Avg
 from django.core.exceptions import ViewDoesNotExist
 import random

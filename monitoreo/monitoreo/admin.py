@@ -304,8 +304,8 @@ class EncuestaAdmin(admin.ModelAdmin):
                VulnerableInline, RiesgosInline,
                ]
     list_display = ('fecha', 'productor', 'tipo_encuesta',)
-    list_filter = ('tipo_encuesta',)
-    search_fields = ('productor__nombre', 'productor__comunidad__nombre',)
+    list_filter = ('tipo_encuesta', 'productor__pais',)
+    search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha'
 
     class Media:
