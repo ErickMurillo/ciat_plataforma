@@ -67,6 +67,8 @@ INSTALLED_APPS = (
     'monitoreo.indicador19',
     'monitoreo.indicador20',
     'monitoreo.monitoreo',
+    #apps solo de mapeo
+    'mapeo',
     #apps de terceros
     'smart_selects',
     'sorl.thumbnail',

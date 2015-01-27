@@ -1,6 +1,4 @@
 from django.conf.urls import *
-from django.views.generic import ListView, DetailView
-from models import Contraparte
 
 urlpatterns = patterns('comunicacion.contrapartes.views',
     url(r'^$', 'lista_contrapartes', name="contraparte-list"),

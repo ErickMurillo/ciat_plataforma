@@ -19,7 +19,7 @@ from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 from django.views.generic import TemplateView
 from comunicacion.foros.models import Documentos, Videos
-
+from mapeo.models import Organizaciones
 # Create your views here.
 
 def logout_page(request):
@@ -115,7 +115,7 @@ def lista_notas_pais(request,id):
 def index(request):
     notasslide = Notas.objects.all().order_by('-fecha','-id')
     paises = Pais.objects.all()
-    contrapartes = Contraparte.objects.all()
+    contrapartes = Organizaciones.objects.all()
     audio = Audios.objects.order_by('-id')[:1]
     documentos = Documentos.objects.order_by('-id')[:2]
     video = Videos.objects.order_by('-id')[:1]
@@ -126,7 +126,7 @@ def index(request):
 def index_filtrado(request, pais_id):
     notasslide = Notas.objects.filter(user__userprofile__contraparte__pais__id=pais_id).order_by('-fecha','-id')
     paises = Pais.objects.all()
-    contrapartes = Contraparte.objects.all()
+    contrapartes = Organizaciones.objects.all()
     audio = Audios.objects.order_by('-id')[:1]
     documentos = Documentos.objects.order_by('-id')[:2]
     video = Videos.objects.order_by('-id')[:1]
