@@ -3,6 +3,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from analisis.configuracion.models  import *
 from comunicacion.lugar.models import *
+from mapeo.models import *
 
 # Create your models here.
 
@@ -15,13 +16,13 @@ class Entrevista(models.Model):
 	nombre = models.CharField(max_length=200)
 	posicion = models.CharField(max_length=200)
 	email = models.EmailField()
-	organizacion = models.ForeignKey(Organizacion)
+	organizacion = models.ForeignKey(Organizaciones)
 	departamento = models.ForeignKey(Departamento)
 	telefono = models.IntegerField()
 	fecha = models.DateField()
 	slug = models.SlugField(editable=False)
 	alcance = models.CharField(max_length=50,choices=ALCANCE_CHOICES)
-	tipo_estudio = models.CharField(max_length=200)
+	tipo_estudio = models.ForeignKey(Tipo_Estudio)
 
 	def __unicode__(self):
 		return self.nombre
@@ -90,7 +91,7 @@ class Pregunta_4(models.Model):
 
 PRIORITIZADO_CHOICES = (
 	(1,'Si'),
-	(2,'No')
+	(0,'No')
 	)
 
 class Pregunta_5a(models.Model):
@@ -101,13 +102,16 @@ class Pregunta_5a(models.Model):
 	prioritizado = models.IntegerField(choices=PRIORITIZADO_CHOICES)
 	entrevistado = models.ForeignKey(Entrevista)
 
+	def __unicode__(self):
+		return self.innovacion
+
 	class Meta:
 		verbose_name = 'Innovación productiva u organizacional'
 		verbose_name_plural = 'Ha participado su organización en alguna innovación productiva u organizacional en la región'
 
 class Pregunta_5c(models.Model):
-	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
-	organizacion = models.ForeignKey(Organizacion,verbose_name='Organizacion')
+	innovacion = models.ForeignKey(Pregunta_5a,verbose_name='Innovación')
+	organizacion = models.ForeignKey(Organizaciones,verbose_name='Organizacion')
 	papel_1 = models.ManyToManyField(Papel,verbose_name='Papel')
 	entrevistado = models.ForeignKey(Entrevista)
 
@@ -116,7 +120,7 @@ class Pregunta_5c(models.Model):
 		verbose_name_plural = 'Papel que juega su organización y otros socios en relación a cada innovacion'
 
 class Pregunta_5d(models.Model):
-	innovacion_1 = models.CharField(max_length=200,verbose_name='Innovación')
+	innovacion_1 = models.ForeignKey(Pregunta_5a,verbose_name='Innovación')
 	categoria_1 = models.ManyToManyField(Categoria,verbose_name='Categorias')
 	entrevistado = models.ForeignKey(Entrevista)
 
@@ -125,7 +129,7 @@ class Pregunta_5d(models.Model):
 		verbose_name_plural = 'Principales limitaciones que afectaron el éxito de estas innovaciones'
 
 class Pregunta_5e(models.Model):
-	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
+	innovacion = models.ForeignKey(Pregunta_5a,verbose_name='Innovación')
 	fuente_1 = models.CharField(max_length=200, verbose_name='Fuente de aprendizaje de Innovación')
 	categoria_fuente_1 = models.ManyToManyField(Categoria_Fuente,verbose_name='Categoria de Fuente')
 	entrevistado = models.ForeignKey(Entrevista)
@@ -141,14 +145,17 @@ class Pregunta_6a(models.Model):
 	prioritizado = models.IntegerField(choices=PRIORITIZADO_CHOICES)
 	entrevistado = models.ForeignKey(Entrevista)
 
+	def __unicode__(self):
+		return self.innovacion
+		
 	class Meta:
 		verbose_name = 'Innovaciones'
 		verbose_name_plural = 'Innovaciones en las que le gustaria trabajar a su organización en los proximas 5-10 años'
 
 class Pregunta_6c(models.Model):
-	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
-	organizacion_1_6c = models.ForeignKey(Organizacion,verbose_name='Organizacion')
-	papel_1_6c = models.ManyToManyField(Papel,verbose_name='Papel')
+	innovacion = models.ForeignKey(Pregunta_6a,verbose_name='Innovación')
+	organizacion = models.ForeignKey(Organizaciones,verbose_name='Organizacion')
+	papel = models.ManyToManyField(Papel,verbose_name='Papel')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -157,7 +164,7 @@ class Pregunta_6c(models.Model):
 
 
 class Pregunta_6d(models.Model):
-	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
+	innovacion = models.ForeignKey(Pregunta_6a,verbose_name='Innovación')
 	categoria_1 = models.ManyToManyField(Categoria,verbose_name='Categorias')
 	entrevistado = models.ForeignKey(Entrevista)
 
@@ -166,7 +173,7 @@ class Pregunta_6d(models.Model):
 		verbose_name_plural = 'Posibles limitaciones para llevar a cabo estos cambios en la región'
 
 class Pregunta_6e(models.Model):
-	innovacion = models.CharField(max_length=200,verbose_name='Innovación')
+	innovacion = models.ForeignKey(Pregunta_6a,verbose_name='Innovación')
 	conocimiento_1 = models.CharField(max_length=200, verbose_name='Conocimiento clave faltante para Innovacion')
 	categoria_innovacion_1 = models.ForeignKey(Categoria_Innovacion,verbose_name='Categoria de Innovación')
 	categoria_conocimiento_1 = models.ManyToManyField(Categoria_Conocimiento,verbose_name='Categoria de Conocimiento')
@@ -211,7 +218,7 @@ PROFUNDIDAD_CHOICES = (
     )
 
 class Pregunta_8(models.Model):
-	organizacion = models.ForeignKey(Organizacion,verbose_name='Organizacion')
+	organizacion = models.ForeignKey(Organizaciones,verbose_name='Organizacion')
 	territorio = models.CharField(max_length=50,choices=TERRITORIO_CHOICES,verbose_name='Dentro o Afuera del Territorio')
 	periodo = models.CharField(max_length=50,choices=PERIODO_CHOICES,verbose_name='Periodo de relación')
 	profundidad = models.CharField(max_length=50,choices=PROFUNDIDAD_CHOICES,verbose_name='Profundidad de relación')

@@ -3,7 +3,6 @@ from .models import	*
 
 # Register your models here.
 
-admin.site.register(Organizacion)
 admin.site.register(Sector)
 admin.site.register(Status_Legal)
 admin.site.register(Ubicacion)
