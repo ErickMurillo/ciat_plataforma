@@ -132,7 +132,7 @@
                                                   {% endthumbnail %}
                                                 {%endfor%}
                                             {%else%}
-                                                 <a href="{% url 'detalle-notas' nota.id %}"><img  src="/files/img/nofoto.png"><a/>
+                                                 <a href="{% url 'detalle-notas' nota.id %}"><img  src="/files/img/nofoto.png"></a>
                                             {%endif%}
                                             </figure>
                                             <div class="recent-news-text">
@@ -279,10 +279,10 @@
       <div class="slide">
           {% if contra.logo %}
               {% thumbnail contra.logo "300x250" as im %}
-                <img src="/uploads/{{im}}">
+                <img class="center-block" src="/uploads/{{im}}">
             {% endthumbnail %}
           {% else %}
-        <img src="http://placehold.it/300x250&text=No Image">
+        <img class="center-block" src="http://placehold.it/300x250&text=No Image">
       {% endif %}
         
         <h3>{{contra.siglas}}</h3>
@@ -292,7 +292,9 @@
         <li> <a href="{% url 'notas_list_contraparte' contra.id %}"><i class="fa fa fa-file-o fa-lg"></i></a></li>
         <li> <a href="/agendas/eventos"><i class="fa fa-calendar fa-lg"></i></a></li>
       </div>
+
       {% endfor %}
       
     </div>
+    <br>
 {%endblock%}
