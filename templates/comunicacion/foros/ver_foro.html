@@ -143,6 +143,23 @@
                                 
                                 
                                 <div>
+                                {%if discusion.fotos.all%}
+                                        <div class="sidebar-title">Fotos</div>
+                                        <table class="table  table-bordered table-condensed doc-sidebar">
+                                        <tbody>
+                                            
+                                            <tr>
+                                            {% for img in discusion.fotos.all%}
+                                            {% thumbnail img.foto "340x280" as im %}
+                                                <td><center> <a class="fancybox" rel="gallery{{im.id}}" title="{{im.nombre_img}}" href="/uploads/{{img.foto}}"><img src="/uploads/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a></center></td>
+                                                {% endthumbnail%}
+                                            {% endfor %}
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                        
+                                        {%endif%}
                                 	{%if discusion.documentos.all%}
                                 	<div class="sidebar-title">Documentos</div>
                                 	<table class="table  table-bordered table-condensed doc-sidebar">
@@ -156,6 +173,7 @@
                                 		</tbody>
                                 	</table>
                                 	{%endif%}
+                                     
                                 	{%if discusion.video.all%}
                                 	<div class="sidebar-title">Videos</div>
                                 	<table class="table table-bordered table-condensed doc-sidebar">
