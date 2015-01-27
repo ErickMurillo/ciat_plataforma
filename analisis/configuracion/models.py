@@ -57,36 +57,36 @@ class Sector(models.Model):
 		verbose_name_plural = 'Sectores'
 
 		
-class Organizacion(models.Model):
-	nombre = models.CharField(max_length=200)
-	status_legal = models.ForeignKey(Status_Legal)
-	anno_fundacion = models.DateField(verbose_name='Año de fundación')
-	dueno = models.CharField(verbose_name='Dueño, Presidente, Director',max_length=200)
-	numero_activistas = models.IntegerField(verbose_name='Numero de activistas o miembros')
-	direccion = models.CharField(max_length=200)
-	departamento = models.ForeignKey(Departamento)
-	municipio = ChainedForeignKey(
-								Municipio,
-	 							chained_field="departamento", 
-	 					 		chained_model_field="departamento",
-	 					 		show_all=False, auto_choose=True)
-	telefono = models.IntegerField()
-	fax = models.IntegerField()
-	email = models.EmailField()
-	sector = models.ForeignKey(Sector)
-	slug = models.SlugField(editable=False)
+# class Organizacion(models.Model):
+# 	nombre = models.CharField(max_length=200)
+# 	status_legal = models.ForeignKey(Status_Legal)
+# 	anno_fundacion = models.DateField(verbose_name='Año de fundación')
+# 	dueno = models.CharField(verbose_name='Dueño, Presidente, Director',max_length=200)
+# 	numero_activistas = models.IntegerField(verbose_name='Numero de activistas o miembros')
+# 	direccion = models.CharField(max_length=200)
+# 	departamento = models.ForeignKey(Departamento)
+# 	municipio = ChainedForeignKey(
+# 								Municipio,
+# 	 							chained_field="departamento", 
+# 	 					 		chained_model_field="departamento",
+# 	 					 		show_all=False, auto_choose=True)
+# 	telefono = models.IntegerField()
+# 	fax = models.IntegerField()
+# 	email = models.EmailField()
+# 	sector = models.ForeignKey(Sector)
+# 	slug = models.SlugField(editable=False)
 
-	def __unicode__(self):
-		return self.nombre
+# 	def __unicode__(self):
+# 		return self.nombre
 
-	def save(self, *args, **kwargs):
-		if not  self.id:
-			self.slug = slugify(self.nombre)
-		super(Organizacion, self).save(*args, **kwargs)
+# 	def save(self, *args, **kwargs):
+# 		if not  self.id:
+# 			self.slug = slugify(self.nombre)
+# 		super(Organizacion, self).save(*args, **kwargs)
 
-	class Meta:
-		verbose_name = 'Organización'
-		verbose_name_plural = 'Organizaciones'
+# 	class Meta:
+# 		verbose_name = 'Organización'
+# 		verbose_name_plural = 'Organizaciones'
 
 
 class Ubicacion(models.Model):
