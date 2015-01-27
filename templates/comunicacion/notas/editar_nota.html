@@ -1,6 +1,13 @@
 {% extends "baseadmin.html" %}
 {%block extra_js%}
-<script type="text/javascript" src="/files/js/autocompletejs/jquery.autocomplete.js"></script>
+<link href="/static/comunicacion/css/jquery.autocomplete.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/comunicacion/js/autocompletejs/jquery.autocomplete.js"></script>
+<link href="/static/comunicacion/css/chosen.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/comunicacion/js/chosen.jquery.js"></script>
+
+<script>
+	$("#id_temas").chosen({width: "55%",}); 
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
 		$('input').tooltip({'placement':'right'});
@@ -85,6 +92,16 @@
 										<br>
 
 										{{form.contenido}}
+										<br>
+										<br>
+										<label for="contenido" class="label-pag">
+											{{form.temas.label}}
+											<span class="required">*</span>
+										</label>
+										<br>
+										<br>
+
+										{{form.temas}}
 										<hr>
 
 										<div role="tabpanel">

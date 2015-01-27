@@ -1,9 +1,13 @@
 {% extends "baseadmin.html" %}
 {%block extra_js%}
-<link href="/files/css/jquery.autocomplete.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="/files/js/autocompletejs/jquery.autocomplete.js"></script>
+<link href="/static/comunicacion/css/jquery.autocomplete.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/comunicacion/js/autocompletejs/jquery.autocomplete.js"></script>
+<link href="/static/comunicacion/css/chosen.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/comunicacion/js/chosen.jquery.js"></script>
 
-
+<script>
+	$("#id_temas").chosen({width: "55%",}); 
+</script>
 
 {%endblock%}
 {% block contenido %}

@@ -178,10 +178,10 @@ def crear_nota(request):
 @login_required
 def editar_nota(request, id):
     nota = get_object_or_404(Notas, id=id)
-    NotaFormSet = generic_inlineformset_factory(Imagen, extra=5, max_num=5)
-    Nota2FormSet = generic_inlineformset_factory(Documentos, extra=5, max_num=5)
-    NotavideoFormSet = generic_inlineformset_factory(Videos, extra=5, max_num=5)
-    NotaAudioFormSet = generic_inlineformset_factory(Audios, extra=5, max_num=5)
+    NotaFormSet = generic_inlineformset_factory(Imagen, extra=3, max_num=3)
+    Nota2FormSet = generic_inlineformset_factory(Documentos, extra=3, max_num=3)
+    NotavideoFormSet = generic_inlineformset_factory(Videos, extra=3, max_num=3)
+    NotaAudioFormSet = generic_inlineformset_factory(Audios, extra=3, max_num=3)
     form2 = NotaFormSet(instance=nota)
     form3 = Nota2FormSet(instance=nota)
     form4 = NotavideoFormSet(instance=nota)
@@ -197,12 +197,11 @@ def editar_nota(request, id):
         form4 = NotavideoFormSet(data=request.POST, files=request.FILES, instance=nota)
         form5 = NotaAudioFormSet(data=request.POST, files=request.FILES, instance=nota)
     	if form.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid() and form5.is_valid():
-            nota.titulo = request.POST['titulo']
-            nota.contenido = request.POST['contenido']
-            nota.tema = request.POST['tema']
-            nota.fecha = datetime.datetime.now()
-            nota.user = request.user
-            nota.save()
+            form_uncommited = form.save(commit=False)
+            form_uncommited.fecha = datetime.datetime.now()
+            form_uncommited.user = request.user
+            form_uncommited.save()
+            form_uncommited.save_m2m()
             #salvando inline
             form2.save()
             form3.save()

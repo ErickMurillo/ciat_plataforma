@@ -22,7 +22,7 @@ class Notas(models.Model):
     slug = models.SlugField(max_length=200)
     fecha = models.DateField('Fecha de publicación', auto_now_add=True)
     contenido = RichTextField()
-    temas = models.ForeignKey(Temas)
+    temas = models.ManyToManyField(Temas)
     fotos = generic.GenericRelation(Imagen)
     adjuntos = generic.GenericRelation(Documentos)
     video = generic.GenericRelation(Videos)
