@@ -55,7 +55,7 @@
                                       {% endthumbnail %}
                                  {%endfor%}
                                 {%else%}
-                                    <a href="#"><img  src="/files/img/nofoto.png" class="img-responsive"></a>
+                                    <a href="#"><img  src="http://dummyimage.com/335x200/888/fff.jpg&text=No+imagen" class="img-responsive"></a>
                                 {%endif%}  
                                 </figure>
                                 
@@ -66,7 +66,11 @@
                                         <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
                                         
                                         <span class="ong">{{nota.user.userprofile.contraparte.pais.nombre}}</span>
+
+                                        <!--<span class="news-meta-comments"><a href="#" title="3 comments">3 comentarios</a></span> -->
+
                                         <span class="news-meta-comments"><a href="#" title="3 comments">{{nota.comentarionotas_set.all|length}} comentario(s)</a></span>
+
                                       
                                     </div>
                                 </div>
@@ -83,6 +87,69 @@
                                     <a href="#" rel="tag">#{{tags.tags_img}}</a>
                                 {%endfor%}
                                 </div>
+
+                                 <div>
+                                    {%if nota.documentos.all%}
+                                    <div class="sidebar-title">Documentos</div>
+                                    <table class="table  table-bordered table-condensed doc-sidebar">
+                                        <tbody>
+                                            {% for doc in discusion.documentos.all%}
+                                            <tr>
+                                                <td>{{doc.nombre_doc}}</td>
+                                                <td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {%endif%}
+                                    {%if nota.video.all%}
+                                    <div class="sidebar-title">Videos</div>
+                                    <table class="table table-bordered table-condensed doc-sidebar">
+                                        <tbody>
+                                            {% for video in nota.video.all%}
+                                            <tr>
+                                                <td><a data-toggle="modal" data-target="#myModalvideo{{video.id}}" href="#"><img  src="{{video.url|magicthumbnail}}" width="290" height="150">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        
+
+                                        <div class="modal fade" id="myModalvideo{{video.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title" id="myModalLabel">{{video.nombre_video}}</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>{{ video.url|magicembed:"550x400"}}</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>   
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {%endif%}
+                                {%if nota.audio.all%}
+                                <div class="sidebar-title">Audio</div>
+                                <table class="table  table-bordered table-condensed doc-sidebar">
+                                    <tbody>
+                                        {% for audio in nota.audio.all%}
+                                        <tr>
+                                            <td>{{audio.nombre_audio}}<br>
+                                                <audio class="center-block" src="/uploads/{{audio.audio}}" type="audio/mp3" controls="controls">    
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {%endif%}
+                            </div>
                             
                                
 

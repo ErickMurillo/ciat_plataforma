@@ -81,9 +81,56 @@
 						<div class="col-lg-8 col-md-8">
 
 							
+
+							
+
+
+
+
+
 							
 							<div class="news-title-meta">
+								<div class="botones-evento pull-right">
+									<div class="btn-group">
+										<a href="/foros/editar/{{discusion.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
+										
+										<a href="#modal-borrar" data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+
+									</div>
+								</div>
+
+								<!-- Small modal -->
+
+								<div class="modal fade" id="modal-borrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="myModalLabel">¿Está seguro?</h4>
+											</div>
+											<div class="modal-body">
+												<p>El foro y todos sus aportes serán borrados permanentemente y no podrán ser recuperados</p>
+											</div>
+											<div class="modal-footer">
+												<a href="#" data-dismiss="modal" data-dismiss="modal" class="btn btn-default">No Borrar</a>
+												<a href="/foros/borrar/{{discusion.id}}" class="btn btn-danger">Borrar Permanentemente</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
 								<h1 class="page-title">{{discusion.nombre}}</h1>
+
+                                    <!-- <div class="news-meta">
+                                        <span class="news-meta-date">{{nota.fecha|date:"M t, Y"}}</span>
+                                        <span class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</span>
+                                        
+                                        <span class="ong">{{nota.user.userprofile.contraparte.pais.nombre}}</span>
+                                        <span class="news-meta-comments"><a href="#" title="3 comments">3 comentarios</a></span>
+                                      
+                                    </div> -->
+
+
 
                                 </div>
                                 
@@ -94,12 +141,87 @@
                                 	
                                 </div>
                                 
-                                <!-- <div class="news-tags tagcloud">
-                                 {%for tags in nota.fotos.all %}
-                                    <a href="#" rel="tag">#{{tags.tags_img}}</a>
-                                {%endfor%}
-                            </div> -->
-                            
+                                
+                                <div>
+                                {%if discusion.fotos.all%}
+                                        <div class="sidebar-title">Fotos</div>
+                                        <table class="table  table-bordered table-condensed doc-sidebar">
+                                        <tbody>
+                                            
+                                            <tr>
+                                            {% for img in discusion.fotos.all%}
+                                            {% thumbnail img.foto "340x280" as im %}
+                                                <td><center> <a class="fancybox" rel="gallery{{im.id}}" title="{{im.nombre_img}}" href="/uploads/{{img.foto}}"><img src="/uploads/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a></center></td>
+                                                {% endthumbnail%}
+                                            {% endfor %}
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                        
+                                        {%endif%}
+                                	{%if discusion.documentos.all%}
+                                	<div class="sidebar-title">Documentos</div>
+                                	<table class="table  table-bordered table-condensed doc-sidebar">
+                                		<tbody>
+                                			{% for doc in discusion.documentos.all%}
+                                			<tr>
+                                				<td>{{doc.nombre_doc}}</td>
+                                				<td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+                                			</tr>
+                                			{% endfor %}
+                                		</tbody>
+                                	</table>
+                                	{%endif%}
+                                     
+                                	{%if discusion.video.all%}
+                                	<div class="sidebar-title">Videos</div>
+                                	<table class="table table-bordered table-condensed doc-sidebar">
+                                		<tbody>
+                                			{% for video in discusion.video.all%}
+                                			<tr>
+                                				<td><a data-toggle="modal" data-target="#myModalvideo{{video.id}}" href="#"><img  src="{{video.url|magicthumbnail}}" width="290" height="150">
+                                				</a>
+                                			</td>
+                                		</tr>
+                                		
+
+                                		<div class="modal fade" id="myModalvideo{{video.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                			<div class="modal-dialog">
+                                				<div class="modal-content">
+                                					<div class="modal-header">
+                                						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                						<h4 class="modal-title" id="myModalLabel">{{video.nombre_video}}</h4>
+                                					</div>
+                                					<div class="modal-body">
+                                						<p>{{ video.url|magicembed:"550x400"}}</p>
+                                					</div>
+                                					<div class="modal-footer">
+                                						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                					</div>
+                                				</div>
+                                			</div>
+                                		</div>   
+                                		{% endfor %}
+                                	</tbody>
+                                </table>
+                                {%endif%}
+                                {%if discusion.audio.all%}
+                                <div class="sidebar-title">Audio</div>
+                                <table class="table  table-bordered table-condensed doc-sidebar">
+                                	<tbody>
+                                		{% for audio in discusion.audio.all%}
+                                		<tr>
+                                			<td>{{audio.nombre_audio}}<br>
+                                				<audio class="center-block" width="100%" src="/uploads/{{audio.audio}}" type="audio/mp3" controls="controls">    
+                                				</audio>
+                                			</td>
+                                		</tr>
+                                		{% endfor %}
+                                	</tbody>
+                                </table>
+                                {%endif%}
+                            </div>
                             
 
                         </div>
@@ -109,83 +231,83 @@
                         	<div class="col-padded col-shaded"><!-- inner custom column -->
                         		
                         		<ul class="list-unstyled clear-margins"><!-- widgets -->
-                        
-                            <li class="widget-container widget_nav_menu"><!-- widget -->
-                    
-                                <h1 class="title-widget">Información</h1>
-                                
-                                <table class="table table-bordered table-condensed table-striped">
-									<tbody>
-										<tr>
-											<td><i class="fa fa-user"></i></td>
-											<td><b>Creado por</b></td>
-											<td>{{discusion.contraparte}} - {{discusion.contraparte.userprofile.contraparte.siglas}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-calendar"></i></td>
-											<td><b>Fecha de creación</b></td>
-											<td>{{discusion.creacion}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-users"></i></td>
-											<td><b>Apertura</b> </td>
-											<td>{{discusion.apertura}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-times"></i></td>
-											<td><b>Cierre de aportes</b></td>
-											<td>{{discusion.cierre}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-skype"></i></td>
-											<td><b>Reunión skype</b></td>
-											<td>{{discusion.fecha_skype}}</td>
-										</tr>
-										<tr>
-											<td><i class="fa fa-file-text-o"></i></td>
-											<td><b>Memoria</b></td>
-											<td>{{discusion.memoria}}</td>
-										</tr>
-									</tbody>
-								</table>
-                    
-                            </li>
-                            <br>
-                            <li class="widget-container widget_up_events"><!-- widget -->
-                    
-                                
-                                
-                                <ul class="list-unstyled">
-                                {% for evento in  agenda %}
-                                    
-                                
-                                    <li class="up-event-wrap">
-                                
-                                        <h1 class="title-median"><a href="#" title="Annual alumni game">{{evento.evento}}</a></h1>
-                                        
-                                        <div class="up-event-meta clearfix">
-                                            <div class="up-event-date">
-                                                Inicio: {{evento.inicio|date:"M t, Y"}}
-                                            </div>
-                                            <div class="up-event-date">
-                                                Final: {{evento.final|date:"M t, Y"}}
-                                            </div>
-                                        </div>
-                                        
-                                        <p>
-                                        {{evento.descripcion|safe|truncatewords_html:10}}
-                                        <a href="#" class="moretag" title="read more">Ver evento</a> 
-                                        </p>
-                                    
-                                    </li>
-                                {% endfor %}    
-                                    
-                                
-                                </ul>
-                            
-                            </li>
-                            
-                        </ul><!-- widgets end -->
+                        			
+                        			<li class="widget-container widget_nav_menu"><!-- widget -->
+                        				
+                        				<h1 class="title-widget">Información</h1>
+                        				
+                        				<table class="table table-bordered table-condensed table-striped">
+                        					<tbody>
+                        						<tr>
+                        							<td><i class="fa fa-user"></i></td>
+                        							<td><b>Creado por</b></td>
+                        							<td>{{discusion.contraparte}} - {{discusion.contraparte.userprofile.contraparte.siglas}}</td>
+                        						</tr>
+                        						<tr>
+                        							<td><i class="fa fa-calendar"></i></td>
+                        							<td><b>Fecha de creación</b></td>
+                        							<td>{{discusion.creacion}}</td>
+                        						</tr>
+                        						<tr>
+                        							<td><i class="fa fa-users"></i></td>
+                        							<td><b>Apertura</b> </td>
+                        							<td>{{discusion.apertura}}</td>
+                        						</tr>
+                        						<tr>
+                        							<td><i class="fa fa-times"></i></td>
+                        							<td><b>Cierre de aportes</b></td>
+                        							<td>{{discusion.cierre}}</td>
+                        						</tr>
+                        						<tr>
+                        							<td><i class="fa fa-skype"></i></td>
+                        							<td><b>Reunión skype</b></td>
+                        							<td>{{discusion.fecha_skype}}</td>
+                        						</tr>
+                        						<tr>
+                        							<td><i class="fa fa-file-text-o"></i></td>
+                        							<td><b>Memoria</b></td>
+                        							<td>{{discusion.memoria}}</td>
+                        						</tr>
+                        					</tbody>
+                        				</table>
+                        				
+                        			</li>
+                        			<br>
+                        			<li class="widget-container widget_up_events"><!-- widget -->
+                        				
+                        				
+                        				
+                        				<ul class="list-unstyled">
+                        					{% for evento in  agenda %}
+                        					
+                        					
+                        					<li class="up-event-wrap">
+                        						
+                        						<h1 class="title-median"><a href="#" title="Annual alumni game">{{evento.evento}}</a></h1>
+                        						
+                        						<div class="up-event-meta clearfix">
+                        							<div class="up-event-date">
+                        								Inicio: {{evento.inicio|date:"M t, Y"}}
+                        							</div>
+                        							<div class="up-event-date">
+                        								Final: {{evento.final|date:"M t, Y"}}
+                        							</div>
+                        						</div>
+                        						
+                        						<p>
+                        							{{evento.descripcion|safe|truncatewords_html:10}}
+                        							<a href="#" class="moretag" title="read more">Ver evento</a> 
+                        						</p>
+                        						
+                        					</li>
+                        					{% endfor %}    
+                        					
+                        					
+                        				</ul>
+                        				
+                        			</li>
+                        			
+                        		</ul><!-- widgets end -->
 
                         	</div><!-- inner custom column end -->
                         	
@@ -201,26 +323,27 @@
                 
             </div><!-- doc body wrapper end -->
 
-            		</div><!-- row end -->  
-                        
-                        <div class=" row-splitter" id="split">
-                        
-                        </div> 
-                        
+        </div><!-- row end -->  
+        
+        <div class=" row-splitter" id="split">
+        	
+        </div> 
+        
         
 
 
         <div class="row no-gutter"><!-- row -->
-			
-			<div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
-				
-				<div class="col-padded"><!-- inner custom column -->
-					
-					<div class="row gutter"><!-- row -->
-        
+        	
+        	<div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
         		
 
-                                            
+        		<div class="col-padded"><!-- inner custom column -->
+        			
+        			<div class="row gutter"><!-- row -->
+        				
+        				
+        				<div id="comments"><!-- comments wrap -->
+        		                
         			<h6 class="page-title">Aportes</h6>
         			<br>
         			{% for respuesta in discusion.aportes_set.all %}
@@ -236,7 +359,7 @@
                             	<img class="" src="/uploads/{{im}}">        
                             {% endthumbnail %}
         					{%else%}
-        					<img src="/static/temporal/img/avatarpeque.png"><br>
+        					<img src="/static/comunicacion/img/avatarpeque.png"><br>
         					{%endif%}
 
                         	<div class="botones-evento boton-aporte">
@@ -289,7 +412,7 @@
 		                            	<img class="" src="/uploads/{{im}}">        
 		                            {% endthumbnail %}
 		        					{%else%}
-		        					<img src="/static/temporal/img/avatarpeque.png"><br>
+		        					<img src="/static/comunicacion/img/avatarpeque.png"><br>
 		        					{%endif%}
 
         							<b>
@@ -458,105 +581,106 @@
 		{% endfor %}
 		
 	</div><!-- comments wrap end -->
-	<div class="row body-content" id="formaporte" style="padding-top:0px">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="encabezado-title raya">
-						AGREGAR APORTE A ESTE FORO
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<form  enctype="multipart/form-data" action="." method="post">{% csrf_token %}
-					{{ form.media }}
-					<div class="col-md-12">
-						<div class="well well-e">
-							{%if form.errors%}
-							<div class="alert alert-error"><b>Favor corregir los siguientes errores</b><br>{{form.errors}}</div>
-							{%endif%}
-							{{form.as_p}}
-							<div class="tabbable tabs-left">
-								<ul class="nav nav-tabs nav-tab-media">
-									<li class="active"><a href="#fotos" data-toggle="tab"><i class="icon-camera"></i>Fotos e imágenes</a></li>
-									<li><a href="#documentos" data-toggle="tab"><i class="icon-file"></i>Documentos</a></li>
-									<li><a href="#videos" data-toggle="tab"><i class="icon-film"></i>Videos</a></li>
-									<li><a href="#audios" data-toggle="tab"><i class="icon-volume-up"></i>Audios</a></li>
-								</ul>
-								<div class="tab-content tab-media">
-									<div class="tab-pane active" id="fotos">
-										<span class="label label-warning">FOTOS</span><hr>
-										{{ form2.management_form }}
-										{% for foto in form2 %}
-										<div class="media-form-inline">
-											{{foto.label_tag}}
-											{{foto}}
-										</div>
-										{% endfor %}
-										<hr>
-									</div>
-									<div class="tab-pane" id="documentos">
-										<span class="label label-warning">DOCUMENTOS</span><hr>
-										{{ form3.management_form }}
-										{% for docu in form3 %}
-										<div class="media-form-inline">
-											{{docu.label_tag}}
-											{{docu}}
-										</div>
-										{% endfor %}
-										<hr>
-									</div>
-									<div class="tab-pane" id="videos">
-										<span class="label label-warning">VIDEOS</span><hr>
-										{{ form4.management_form }}
-										{% for video in form4 %}
-										<div class="media-form-inline">
-											{{video.label_tag}}
-											{{video}}
-										</div>
-										{% endfor %}
-										<hr>
-									</div>
-									<div class="tab-pane" id="audios">
-										<span class="label label-warning">AUDIOS</span><hr>
-										{{ form5.management_form }}
-										{% for audio in form5 %}
-										<div class="media-form-inline">
-											{{audio.label_tag}}
-											{{audio}}
-										</div>
-										{% endfor %}
-										<hr>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-					<div class="col-md-12">
-						<div class="alert "><i class="icon-info-sign"></i>
-							Un aporte al foro
-						</div>
-						<div class="well well-e" id="actionbuttons" style="">
-							<input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
-							<a href="/foros" class="btn btn-large">Cerrar</a>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 	
-</div>
-</div>
-            
-        </div><!-- row end -->
-    </div>
+        				<div class="row body-content" id="formaporte" style="padding-top:0px">
+        					<div class="container">
+        						<div class="row">
+        							<div class="col-md-12">
+        								<div class="encabezado-title raya">
+        									AGREGAR APORTE A ESTE FORO
+        								</div>
+        							</div>
+        						</div>
+        						<div class="row">
+        							<form  enctype="multipart/form-data" action="." method="post">{% csrf_token %}
+        								{{ form.media }}
+        								<div class="col-md-12">
+        									<div class="well well-e">
+        										{%if form.errors%}
+        										<div class="alert alert-error"><b>Favor corregir los siguientes errores</b><br>{{form.errors}}</div>
+        										{%endif%}
+        										{{form.as_p}}
+        										<div class="tabbable tabs-left">
+        											<ul class="nav nav-tabs nav-tab-media">
+        												<li class="active"><a href="#fotos" data-toggle="tab"><i class="icon-camera"></i>Fotos e imágenes</a></li>
+        												<li><a href="#documentos" data-toggle="tab"><i class="icon-file"></i>Documentos</a></li>
+        												<li><a href="#videos" data-toggle="tab"><i class="icon-film"></i>Videos</a></li>
+        												<li><a href="#audios" data-toggle="tab"><i class="icon-volume-up"></i>Audios</a></li>
+        											</ul>
+        											<div class="tab-content tab-media">
+        												<div class="tab-pane active" id="fotos">
+        													<span class="label label-warning">FOTOS</span><hr>
+        													{{ form2.management_form }}
+        													{% for foto in form2 %}
+        													<div class="media-form-inline">
+        														{{foto.label_tag}}
+        														{{foto}}
+        													</div>
+        													{% endfor %}
+        													<hr>
+        												</div>
+        												<div class="tab-pane" id="documentos">
+        													<span class="label label-warning">DOCUMENTOS</span><hr>
+        													{{ form3.management_form }}
+        													{% for docu in form3 %}
+        													<div class="media-form-inline">
+        														{{docu.label_tag}}
+        														{{docu}}
+        													</div>
+        													{% endfor %}
+        													<hr>
+        												</div>
+        												<div class="tab-pane" id="videos">
+        													<span class="label label-warning">VIDEOS</span><hr>
+        													{{ form4.management_form }}
+        													{% for video in form4 %}
+        													<div class="media-form-inline">
+        														{{video.label_tag}}
+        														{{video}}
+        													</div>
+        													{% endfor %}
+        													<hr>
+        												</div>
+        												<div class="tab-pane" id="audios">
+        													<span class="label label-warning">AUDIOS</span><hr>
+        													{{ form5.management_form }}
+        													{% for audio in form5 %}
+        													<div class="media-form-inline">
+        														{{audio.label_tag}}
+        														{{audio}}
+        													</div>
+        													{% endfor %}
+        													<hr>
+        												</div>
+        											</div>
+        										</div>
+        									</div>
+
+        								</div>
+        								<div class="col-md-12">
+        									<div class="alert "><i class="icon-info-sign"></i>
+        										Un aporte al foro
+        									</div>
+        									<div class="well well-e" id="actionbuttons" style="">
+        										<input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
+        										<a href="/foros" class="btn btn-large">Cerrar</a>
+        									</div>
+        								</div>
+        							</form>
+        						</div>
+        					</div>
+        				</div>
+        				
+        			</div>
+        		</div>
+        		
+        	</div><!-- row end -->
+        </div>
         
 
 
 
-</div><!-- container end -->
+    </div><!-- container end -->
 
 </div><!-- content wrapper end -->
 
