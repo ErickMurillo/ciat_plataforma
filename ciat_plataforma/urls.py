@@ -33,6 +33,7 @@ urlpatterns = patterns('',
 
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^selectable/', include('selectable.urls')),
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),

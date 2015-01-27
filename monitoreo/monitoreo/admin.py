@@ -20,6 +20,7 @@ from monitoreo.indicador17.models import *
 from monitoreo.indicador18.models import *
 from monitoreo.indicador19.models import *
 from monitoreo.indicador20.models import *
+from .forms import ProductorAdminForm
 
 class EducacionInline(admin.TabularInline):
     model = Educacion
@@ -268,6 +269,7 @@ class RiesgosInline(admin.TabularInline):
     can_delete = True
    
 class EncuestaAdmin(admin.ModelAdmin):
+    form = ProductorAdminForm
     def queryset(self, request):
         if request.user.is_superuser:
             return Encuesta.objects.all()
@@ -284,7 +286,7 @@ class EncuestaAdmin(admin.ModelAdmin):
 #            form = super(EncuestaAdmin, self).get_form(self, request, ** kwargs)
 #            form.base_fields['user'].queryset = User.objects.filter(pk=request.user.pk)
 #        return form
-    fields = [('fecha','recolector',),'productor',]
+    fields = [('fecha','recolector',),('productor','jefe', 'tipo_encuesta'),]
     exclude = ('user',)
     inlines = [EducacionInline, SaludInline, EnergiaInline, CocinaInline,
                AguaInline, OrganizacionGremialInline, OrganizacionComunitariaInline,

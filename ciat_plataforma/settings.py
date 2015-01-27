@@ -76,6 +76,7 @@ INSTALLED_APPS = (
     'magicembed',
     'tagging',
     'tagging_autocomplete',
+    'selectable',
 
 )
 

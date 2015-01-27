@@ -5,6 +5,7 @@ from comunicacion.lugar.models import Comunidad, Departamento, Municipio, Pais
 from comunicacion.utils import get_file_path
 from sorl.thumbnail import ImageField
 from ckeditor.fields import RichTextField
+from smart_selects.db_fields import ChainedForeignKey
 
 # Create your models here.
 from comunicacion.contrapartes.widgets import ColorPickerWidget
@@ -36,8 +37,16 @@ class Organizaciones(models.Model):
     logo = ImageField(upload_to=get_file_path, null=True, blank=True)
     direccion = models.TextField(null=True, blank=True)
     pais = models.ForeignKey(Pais)
-    departamento = models.ForeignKey(Departamento)
-    municipio = models.ForeignKey(Municipio)
+    departamento = ChainedForeignKey(
+                                Departamento,
+                                chained_field="pais", 
+                                chained_model_field="pais",
+                                show_all=False, auto_choose=True)
+    municipio = ChainedForeignKey(
+                                Municipio,
+                                chained_field="departamento", 
+                                chained_model_field="departamento",
+                                show_all=False, auto_choose=True)
     fundacion = models.CharField('Año de fundación', 
                                  max_length=200, 
                                  blank=True, null=True)
@@ -84,9 +93,21 @@ class Persona(models.Model):
     edad = models.IntegerField(choices=CHOICE_RANGO)
     finca = models.CharField('Nombre de Finca', max_length=200, null=True, blank=True)
     pais = models.ForeignKey(Pais)
-    departamento = models.ForeignKey(Departamento)
-    municipio = models.ForeignKey(Municipio)
-    comunidad = models.ForeignKey(Comunidad)
+    departamento = ChainedForeignKey(
+                                Departamento,
+                                chained_field="pais", 
+                                chained_model_field="pais",
+                                show_all=False, auto_choose=True)
+    municipio = ChainedForeignKey(
+                                Municipio,
+                                chained_field="departamento", 
+                                chained_model_field="departamento",
+                                show_all=False, auto_choose=True)
+    comunidad = ChainedForeignKey(
+                                Comunidad,
+                                chained_field="municipio", 
+                                chained_model_field="municipio",
+                                show_all=False, auto_choose=True)
     organizacion = models.ManyToManyField(Organizaciones, related_name ="org", 
                                         verbose_name='Organizaciones que lo apoyan')
     nivel_educacion = models.IntegerField(choices=CHOICE_NIVEL_EDUCATIVO)

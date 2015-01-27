@@ -40,7 +40,7 @@ class Encuesta(models.Model):
     '''
     fecha = models.DateField()
     recolector = models.ForeignKey(Recolector)
-    productor = models.ForeignKey(Persona)
+    productor = models.ForeignKey(Persona, verbose_name='Entrevistado')
     jefe = models.IntegerField(choices=CHOICE_OPCION, verbose_name='Esta persona es jefe de la casa')
     tipo_encuesta = models.IntegerField(choices=CHOICE_2_TIPOS)
 

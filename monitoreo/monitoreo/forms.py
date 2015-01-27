@@ -3,6 +3,17 @@ from django import forms
 from monitoreo.monitoreo.models import *
 from comunicacion.lugar.models import *
 from mapeo.models import Organizaciones
+from lookups import *
+import selectable.forms as selectable
+
+
+class ProductorAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = Encuesta
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+        }
 
 CHOICE_OPCION_F = (('','----'),(1,'Si'),(2,'No'))
 CHOICE_DESDE_F = (('','----'),(1,"Menos de 5 año"),(2,"Mas de 5 años"))
