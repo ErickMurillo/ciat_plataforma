@@ -23,189 +23,180 @@
 			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 			monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
             contentHeight: 350,
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: ''
-			},
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+            },
             buttonText: {   
                 today: 'Hoy',
                 month: 'Mes',
                 day: 'Día',
                 week: 'Semana'
             },
-			eventClick: function(calEvent, jsEvent, view) {
+            eventClick: function(calEvent, jsEvent, view) {
                 window.location = '/agendas/calendario/' + calEvent.id;
-                },
-			editable: false,
-			events: "/agendas/calendario/"
+            },
+            editable: false,
+            events: "/agendas/calendario/"
 
-		});	
-	});
+        });	
+});
 </script>
 {%endblock%}
 {% block contenido %}
 
 
-            <div class="row no-gutter "><!-- row -->
-                
-                <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
+<div class="row no-gutter "><!-- row -->
 
-                    
-                            {% if request.GET.shva == 'erase' %}
-                        <div class="alert fade in">
-                            Se ha eliminado el evento de forma permanente
-                            <a class="close" href="#" data-dismiss="alert">x</a>
-                        </div>
-                    {% endif %}
-                    {% if request.GET.shva == 'editada' %}
-                        <div class="alert fade in">
-                            El evento ha sido editado
-                            <a class="close" href="#" data-dismiss="alert">x</a>
-                        </div>
-                    {% endif %}
-                    
-                    <div class="col-padded"><!-- inner custom column -->
+    <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
 
-                        <div class="row gutter"><!-- row -->
 
-                            <div class="col-lg-12 col-md-12">
-                                <a href="/agendas/crear" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Agregar Actividad</a>
-                                <br>
-                                <hr />
-                            </div>                        
-                            <div class="col-lg-12 col-md-12">
-                    
-                                <h1 class="page-title">Agenda de Actividades</h1><!-- category title -->
+        {% if request.GET.shva == 'erase' %}
+        <div class="alert fade in">
+            Se ha eliminado el evento de forma permanente
+            <a class="close" href="#" data-dismiss="alert">x</a>
+        </div>
+        {% endif %}
+        {% if request.GET.shva == 'editada' %}
+        <div class="alert fade in">
+            El evento ha sido editado
+            <a class="close" href="#" data-dismiss="alert">x</a>
+        </div>
+        {% endif %}
+
+        <div class="col-padded"><!-- inner custom column -->
+
+            <div class="row gutter"><!-- row -->
+
+                <div class="col-lg-12 col-md-12">
+                    <a href="/agendas/crear" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Agregar Actividad</a>
+                    <br>
+                    <hr />
+                </div>                        
+                <div class="col-lg-12 col-md-12">
+
+                    <h1 class="page-title">Agenda de Actividades</h1><!-- category title -->
+                </div>
+
+            </div><!-- row end -->
+            <br>
+
+            {%if actividad %}
+            <div class="col-lg-12 col-md-12">
+
+                <div class="events-title-meta clearfix">
+                    <h1 class="page-title-evento">{{actividad.evento}}</h1>
+                    <div class="event-meta-detalle">
+                        <span class="event-from">{{actividad.inicio|date:"d M"}}</span>
+                        <span class="event-divider">hasta</span>
+                        <span class="event-to">{{actividad.final|date:"d M"}}</span>
+
+                        <div class="botones-evento pull-right">
+                            <div class="btn-group">
+                                <a href="/agendas/editar/{{actividad.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
+
+                                <a href='#modal-borrar' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+
                             </div>
-                        
-                        </div><!-- row end -->
-                        <br>
-
-                            {%if actividad %}
-                            <div class="col-lg-12 col-md-12">
-                                
-                                <div class="events-title-meta clearfix">
-                                    <h1 class="page-title-evento">{{actividad.evento}}</h1>
-                                    <div class="event-meta-detalle">
-                                        <span class="event-from">{{actividad.inicio|date:"d M"}}</span>
-                                        <span class="event-divider">hasta</span>
-                                        <span class="event-to">{{actividad.final|date:"d M"}}</span>
-                                        
-                                        <div class="botones-evento pull-right">
-                                            <div class="btn-group">
-                                                <a href="/agendas/editar/{{actividad.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
-                                                
-                                                <a href='#modal-borrar' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="news-body-detalle">
-                                    <p>
-                                   {{actividad.descripcion|safe}}
-                                    </p>
-                                    
-                                    <hr/>
-
-                         {% if actividad.user.userprofile.contraparte == request.user.userprofile.contraparte or request.user.is_superuser %}
-
-                                    <div class="modal fade" id="modal-borrar">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>La nota será borrada permanentemente y no podrá ser recuperada</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-                                                    <a href="/agendas/borrar/{{actividad.id}}" type="button" class="btn btn-danger">
-                                                        Borrar Permanentemente
-                                                    </a>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal-dialog -->
-                                    </div><!-- /.modal -->
-   
-                     {% endif %}
-                     
-                    {%if actividad.adjunto.all %}
-                        <div class="row">
-                            {% for doc in actividad.adjunto.all%}
-                                <div class="col-md-12 col-lg-8">
-                                    <p class="info-doc">{{doc.nombre_doc}}</p>
-                                </div>
-                                <div class="col-md-12 col-lg-4">
-                                    <a href="/uploads/{{doc.adjunto}}" class="btn btn-primary">
-                                        <i class="fa fa-download">&nbsp;</i>Descargar
-                                    </a>
-                                </div>
-                                         {% endfor %}
-                                    </div>
-
-                                    <hr />
-                                    {% endif %}
-                                </div>
-
-                                    </div>
-
-                                    {%endif%}
-
-                     
-                        
-
-
-                                <div id='calendar'></div>
-                                    
-
-                        
-                        
-                                     
-                    
-                    </div><!-- inner custom column end -->
-                    
-                </div><!-- doc body wrapper end -->
-
-                
-                <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
-
-                    <div class="col-padded col-shaded"><!-- inner custom column -->
-                    
-                    <h1 class="title-widget">Organizaciones</h1>
-
-                    <ul class="list-org">
-                        <form action="/agendas/calendar/" method="POST">
-                    <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="Gum2gg0eEr7vm4EnPvMcylr3KVYjROJ6">
+                        </div>
                     </div>
-                         
-                        {% for pais in paises %}
-                            <strong>{{pais}}</strong><br>
-                            {% for contraparte in contrapartes %}
-                                {% if contraparte.pais.id == pais.id%}
-                                <div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
-                                <li>
-                                    <label class="checkbox"><input type="checkbox" name="contraparte" value="{{contraparte.id}}">{{contraparte.siglas}}</label>
-                                </li>
-                                {%endif%}
-                            {% endfor %}
-                         {% endfor %}
-                         <hr>
-                      
-                        <button type="submit" class="btn btn-success">Mostrar</button>
-                        
-                        </form>
-                    </ul>
-                    
-                    </div><!-- inner custom column end -->
-                    
-                </div><!-- sidebar wrapper end -->
-             </div><!-- row end -->
-            
+                </div>
+
+                <div class="news-body-detalle">
+                    <p>
+                     {{actividad.descripcion|safe}}
+                 </p>
+
+                 <hr/>
+
+                 {% if actividad.user.userprofile.contraparte == request.user.userprofile.contraparte or request.user.is_superuser %}
+
+                 <div class="modal fade" id="modal-borrar">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p>La nota será borrada permanentemente y no podrá ser recuperada</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                <a href="/agendas/borrar/{{actividad.id}}" type="button" class="btn btn-danger">
+                                    Borrar Permanentemente
+                                </a>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+                {% endif %}
+
+                {%if actividad.adjunto.all %}
+                <div class="row">
+                    {% for doc in actividad.adjunto.all%}
+                    <div class="col-md-12 col-lg-8">
+                        <p class="info-doc">{{doc.nombre_doc}}</p>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <a href="/uploads/{{doc.adjunto}}" class="btn btn-primary">
+                            <i class="fa fa-download">&nbsp;</i>Descargar
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <hr />
+                {% endif %}
+            </div>
+
+        </div>
+
+        {%endif%}
+
+        <div id='calendar'></div>
+
+    </div><!-- inner custom column end -->
+
+</div><!-- doc body wrapper end -->
+
+
+<div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
+
+    <div class="col-padded col-shaded"><!-- inner custom column -->
+
+        <h1 class="title-widget">Organizaciones</h1>
+
+        <ul class="list-org">
+            <form action="/agendas/calendar/" method="POST">
+                <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="Gum2gg0eEr7vm4EnPvMcylr3KVYjROJ6">
+                </div>
+
+                {% for pais in paises %}
+                <strong>{{pais}}</strong><br>
+                {% for contraparte in contrapartes %}
+                {% if contraparte.pais.id == pais.id%}
+                <div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
+                <li>
+                    <label class="checkbox"><input type="checkbox" name="contraparte" value="{{contraparte.id}}">{{contraparte.siglas}}</label>
+                </li>
+                {%endif%}
+                {% endfor %}
+                {% endfor %}
+                <hr>
+
+                <button type="submit" class="btn btn-success">Mostrar</button>
+
+            </form>
+        </ul>
+
+    </div><!-- inner custom column end -->
+
+</div><!-- sidebar wrapper end -->
+</div><!-- row end -->
+
 {% endblock %}
 
 

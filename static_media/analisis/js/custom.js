@@ -13,15 +13,12 @@
 
 
 (function($){
-
+	count = 0;
 	$(document).ready(function(){
 
 	 var gu = $(".submit-row input[name$='_continue']");
 	 gu.addClass('guardar');
-
-	});
-
-   $(document).on('click','#id_pregunta_5a_set-0-prioritizado',function(){
+	 $(document).on('click','#id_pregunta_5a_set-0-prioritizado',function(){
 	var prio = $('#id_pregunta_5a_set-0-prioritizado')
 	if (prio.val() == '1') {
 		$('.guardar').click()
@@ -29,10 +26,25 @@
 	};
 });
 
-   $(document).on('click','#id_pregunta_5a_set-1-prioritizado',function(){
-	var prio1 = $("#id_pregunta_5a_set-1-prioritizado")
-	if (prio1.val() == '1') {
-		alert('guardar 2')
-	};
-});
+	});
+
+	   $(document).on('click','#pregunta_5a_set-group .add-row',function(){
+			count++;
+			alert($count)
+		});
+
+//    $(document).on('click','#id_pregunta_5a_set-0-prioritizado',function(){
+// 	var prio = $('#id_pregunta_5a_set-0-prioritizado')
+// 	if (prio.val() == '1') {
+// 		$('.guardar').click()
+
+// 	};
+// });
+
+//    $(document).on('click','#id_pregunta_5a_set-1-prioritizado',function(){
+// 	var prio1 = $("#id_pregunta_5a_set-1-prioritizado")
+// 	if (prio1.val() == '1') {
+// 		$('.guardar').click()
+// 	};
+// });
 })(jQuery || django.jQuery);
