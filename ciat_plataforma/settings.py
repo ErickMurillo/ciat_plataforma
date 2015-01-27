@@ -110,6 +110,7 @@ USE_TZ = True
 
 SITE_ID = 1
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 

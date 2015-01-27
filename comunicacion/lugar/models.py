@@ -18,7 +18,8 @@ class Departamento(models.Model):
     pais = models.ForeignKey(Pais)
     nombre = models.CharField(max_length=30, unique=True)
     slug = models.SlugField(unique=True, null=True, help_text="Usado como url unica(autorellenado)")
-    extension = models.DecimalField("Extension Territorials", max_digits=10, decimal_places=2, null=True)
+    extension = models.DecimalField("Extension Territorials", max_digits=10, decimal_places=2, 
+                                    null=True, blank=True)
 
     def __unicode__(self):
         return self.nombre
