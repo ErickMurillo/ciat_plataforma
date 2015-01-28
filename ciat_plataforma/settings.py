@@ -17,12 +17,7 @@ from local_settings import *
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'xz^@^p+q0mku0dpdb&046qt6e4r=*zkxh0er(5l*x5u3x3kq+@'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = ['*']
 
 
 # Application definition
