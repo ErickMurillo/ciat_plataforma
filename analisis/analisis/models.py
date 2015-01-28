@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from analisis.configuracion.models  import *
 from comunicacion.lugar.models import *
 from mapeo.models import *
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -23,6 +24,7 @@ class Entrevista(models.Model):
 	slug = models.SlugField(editable=False)
 	alcance = models.CharField(max_length=50,choices=ALCANCE_CHOICES)
 	tipo_estudio = models.ForeignKey(Tipo_Estudio)
+	usuario = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.nombre
@@ -115,13 +117,14 @@ class Pregunta_5c(models.Model):
 	papel_1 = models.ManyToManyField(Papel,verbose_name='Papel')
 	entrevistado = models.ForeignKey(Entrevista)
 
+
 	class Meta:
 		verbose_name = 'Papel que juega su organización'
 		verbose_name_plural = 'Papel que juega su organización y otros socios en relación a cada innovacion'
 
 class Pregunta_5d(models.Model):
-	innovacion_1 = models.ForeignKey(Pregunta_5a,verbose_name='Innovación')
-	categoria_1 = models.ManyToManyField(Categoria,verbose_name='Categorias')
+	innovacion = models.ForeignKey(Pregunta_5a,verbose_name='Innovación')
+	categoria = models.ManyToManyField(Categoria,verbose_name='Categorias')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -130,8 +133,8 @@ class Pregunta_5d(models.Model):
 
 class Pregunta_5e(models.Model):
 	innovacion = models.ForeignKey(Pregunta_5a,verbose_name='Innovación')
-	fuente_1 = models.CharField(max_length=200, verbose_name='Fuente de aprendizaje de Innovación')
-	categoria_fuente_1 = models.ManyToManyField(Categoria_Fuente,verbose_name='Categoria de Fuente')
+	fuente = models.CharField(max_length=200, verbose_name='Fuente de aprendizaje de Innovación')
+	categoria_fuente = models.ManyToManyField(Categoria_Fuente,verbose_name='Categoria de Fuente')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -165,7 +168,7 @@ class Pregunta_6c(models.Model):
 
 class Pregunta_6d(models.Model):
 	innovacion = models.ForeignKey(Pregunta_6a,verbose_name='Innovación')
-	categoria_1 = models.ManyToManyField(Categoria,verbose_name='Categorias')
+	categoria = models.ManyToManyField(Categoria,verbose_name='Categorias')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -174,9 +177,9 @@ class Pregunta_6d(models.Model):
 
 class Pregunta_6e(models.Model):
 	innovacion = models.ForeignKey(Pregunta_6a,verbose_name='Innovación')
-	conocimiento_1 = models.CharField(max_length=200, verbose_name='Conocimiento clave faltante para Innovacion')
-	categoria_innovacion_1 = models.ForeignKey(Categoria_Innovacion,verbose_name='Categoria de Innovación')
-	categoria_conocimiento_1 = models.ManyToManyField(Categoria_Conocimiento,verbose_name='Categoria de Conocimiento')
+	conocimient = models.CharField(max_length=200, verbose_name='Conocimiento clave faltante para Innovacion')
+	categoria_innovacio = models.ForeignKey(Categoria_Innovacion,verbose_name='Categoria de Innovación')
+	categoria_conocimient = models.ManyToManyField(Categoria_Conocimiento,verbose_name='Categoria de Conocimiento')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
