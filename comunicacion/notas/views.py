@@ -200,11 +200,11 @@ def editar_nota(request, id):
         form4 = NotavideoFormSet(data=request.POST, files=request.FILES, instance=nota)
         form5 = NotaAudioFormSet(data=request.POST, files=request.FILES, instance=nota)
     	if form.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid() and form5.is_valid():
-            form_uncommited = form.save(commit=False)
-            form_uncommited.fecha = datetime.datetime.now()
-            form_uncommited.user = request.user
-            form_uncommited.save()
-            form.save_m2m()
+            nota.titulo = request.POST['titulo']
+            nota.contenido = request.POST['contenido']
+            nota.fecha = datetime.datetime.now()
+            nota.user = request.user
+            nota.save()
             #salvando inline
             form2.save()
             form3.save()

@@ -61,7 +61,7 @@
 			<div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
 				
 				<ol class="breadcrumb">
-					<li><a href="/">Home</a></li>
+					<li><a href="/">Inicio</a></li>
 					<li><a href="/foros">Foro</a></li>
 					<li class="active">{{discusion.nombre}}</li>
 				</ol>
@@ -85,14 +85,14 @@
 									<div class="btn-group">
 										<a href="/foros/editar/{{discusion.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
 										
-										<a href="#modal-borrar" data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+										<a href="#modal-borrar-foro-{{discusion.id}}" data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
 
 									</div>
 								</div>
 
 								<!-- Small modal -->
 
-								<div class="modal fade" id="modal-borrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal fade" id="modal-borrar-foro-{{discusion.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -100,7 +100,7 @@
 												<h4 class="modal-title" id="myModalLabel">¿Está seguro?</h4>
 											</div>
 											<div class="modal-body">
-												<p>El foro y todos sus aportes serán borrados permanentemente y no podrán ser recuperados</p>
+												<p>El foro <strong>{{discusion.nombre}}</strong> y todos sus aportes serán borrados permanentemente y no podrán ser recuperados</p>
 											</div>
 											<div class="modal-footer">
 												<a href="#" data-dismiss="modal" data-dismiss="modal" class="btn btn-default">No Borrar</a>
@@ -357,11 +357,33 @@
 	                            <div class="btn-group">
 	                                <a href="/foros/aporte/editar/{{respuesta.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
 	                                                
-	                                <a href='#modal-borrar' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+	                                <a href='#modal-borrar-aporte-{{respuesta.id}}' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
 
 	                            </div>
                            	</div>
                         </div>
+
+                             <!--Modal de Aporte-->
+                            <div class="modal fade" id="modal-borrar-aporte-{{respuesta.id}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>El aporte del usuario <strong>{{respuesta.user.first_name}} {{respuesta.user.last_name}}</strong> será borrado permanentemente y no podrá ser recuperado</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                            <a href="/foros/aporte/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
+                                                Borrar Permanentemente
+                                            </a>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
 
                         <!--Columna de aportes y comentarios-->
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -431,7 +453,7 @@
 		                            <div class="btn-group">
 		                                <a href="/foros/comentario/editar/{{comentario.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
 		                                                
-		                                <a href='#modal-comment' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+		                                <a href='#modal-comment-{{comentario.id}}' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
 								
 		                         	</div>
 	                        	</div>
@@ -440,6 +462,28 @@
 	                            </div><!-- comment text end -->
                                                      
                         	</div><!-- comment content wrap end -->	
+
+                            <!--Modal de comentario-->
+                            <div class="modal fade" id="modal-comment-{{comentario.id}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                            <a href="/foros/comentario/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
+                                                Borrar Permanentemente
+                                            </a>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
 
 			      		{% endfor %}
                         </div>
@@ -526,48 +570,6 @@
                         
                                                     
                     </div>
-
-                    <!--Modal de Aporte-->
-                    <div class="modal fade" id="modal-borrar">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p>El aporte será borrado permanentemente y no podrá ser recuperado HDFSDFSDFSD</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-                                    <a href="/foros/aporte/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
-                                        Borrar Permanentemente
-                                    </a>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-
-					<!--Modal de comentario-->
-                    <div class="modal fade" id="modal-comment">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-                                    <a href="/foros/comentario/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
-                                        Borrar Permanentemente
-                                    </a>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
 		<hr>
 		{% endfor %}
 		
