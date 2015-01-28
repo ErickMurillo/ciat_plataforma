@@ -134,8 +134,8 @@
 		                                  <div class="tab-content">
 		                                    <div role="tabpanel" class="tab-pane active" id="imagenes">
 												<div class="media-form-inline">
-
-														{% for foto in form2 %}
+														{{ form2.management_form }}
+														{% for foto in form2.forms %}
 														
 															{{foto.label_tag}}
 															{{foto}}
@@ -147,7 +147,8 @@
 		                                    <div role="tabpanel" class="tab-pane" id="documentos">
 		                                    	<div class="media-form-inline">
 		                                    		<div class="media-form-inline">
-			                                    		{% for docu in form3 %}
+		                                    			{{ form3.management_form }}
+			                                    		{% for docu in form3.forms %}
 			                                    			
 															{{docu.label_tag}}
 															
@@ -160,6 +161,7 @@
 		                                    </div>
 		                                    <div role="tabpanel" class="tab-pane" id="video">
 		                                    	<div class="media-form-inline">
+		                                    		{{ form4.management_form }}
 			                                    	{% for video in form4 %}
 							         					
 							                            {{video.label_tag}}
@@ -171,6 +173,7 @@
 		                                    </div>
 		                                    <div role="tabpanel" class="tab-pane" id="audio">
 		                                    	<div class="media-form-inline">
+		                                    		{{ form5.management_form }}
 			                                    	{% for audio in form5 %}
 							  							
 							                            {{audio.label_tag}}
