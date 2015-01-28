@@ -2,6 +2,7 @@
 {% load thumbnail %}
 {%block contenido%}
 
+{% if user.userprofile %}
 
 <div class="row no-gutter"><!-- row -->
                 
@@ -232,6 +233,11 @@
             
             </div><!-- row end --> 
 
+{% else %}
+
+ <p><strong>Usted no tiene un perfil asignado, Solicitelo a su administrador</strong></p>
+
+{% endif %}
 
 
 {%endblock%}

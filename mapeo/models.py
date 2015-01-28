@@ -10,6 +10,9 @@ from analisis.configuracion.models import Sector, AreaAccion, SitioAccion, Plata
 
 # Create your models here.
 from comunicacion.contrapartes.widgets import ColorPickerWidget
+from south.modelsinspector import add_introspection_rules
+
+add_introspection_rules ([], ["^mapeo\.models\.ColorField"])
 
 class ColorField(models.CharField):
     def __init__(self, *args, **kwargs):

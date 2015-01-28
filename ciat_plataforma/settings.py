@@ -37,17 +37,31 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    #apps de terceros
+    'smart_selects',
+    'sorl.thumbnail',
+    'ckeditor',
+    'magicembed',
+    'tagging',
+    'tagging_autocomplete',
+    'selectable',
+    'south',
+
+    'comunicacion.lugar',
+    #apps solo de mapeo
+    'analisis.configuracion',
+    'mapeo',
+    #apps solo de analisis
+    'analisis.analisis',
     #apps solo de comunicion
-    'comunicacion.aliados',
+    #'comunicacion.aliados',
     'comunicacion.contrapartes',
     'comunicacion.foros',
     'comunicacion.agendas',
     'comunicacion.notas',
-    'comunicacion.lugar',
-    #apps solo de analisis
-    'analisis.analisis',
-    'analisis.configuracion',
+    
     #apps solo de monitoreo,
+    'monitoreo.monitoreo',
     'monitoreo.indicador01',
     'monitoreo.indicador02',
     'monitoreo.indicador05',
@@ -66,17 +80,8 @@ INSTALLED_APPS = (
     'monitoreo.indicador18',
     'monitoreo.indicador19',
     'monitoreo.indicador20',
-    'monitoreo.monitoreo',
-    #apps solo de mapeo
-    'mapeo',
-    #apps de terceros
-    'smart_selects',
-    'sorl.thumbnail',
-    'ckeditor',
-    'magicembed',
-    'tagging',
-    'tagging_autocomplete',
-    'selectable',
+    
+
 
 )
 
