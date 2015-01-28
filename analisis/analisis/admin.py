@@ -2,7 +2,7 @@
 from django.contrib import admin
 from .models import	*
 from django.forms import CheckboxSelectMultiple
-from .forms import Pregunta_5aForm
+from .forms import *
 
 
 # Register your models here.
@@ -15,11 +15,13 @@ class Pregunta_1_Inline(admin.TabularInline):
     }
 	extra = 1
 	max_num = 20
+	can_delete = True
 
 class Pregunta_2_Inline(admin.TabularInline):
 	model = Pregunta_2
 	extra = 1
 	max_num = 4
+	can_delete = True
 
 class Pregunta_3_Inline(admin.TabularInline):
 	model = Pregunta_3 
@@ -33,7 +35,7 @@ class Pregunta_4_Inline(admin.TabularInline):
 	model = Pregunta_4
 	max_num = 10
 	extra = 1
-	can_delete = False
+	can_delete = True
 	formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
@@ -43,7 +45,7 @@ class Pregunta_5a_Inline(admin.TabularInline):
 	form = Pregunta_5aForm
 	max_num = 10
 	extra = 1
-	can_delete = False
+	can_delete = True
 	formfield_overrides = {
 		models.ManyToManyField: {'widget': CheckboxSelectMultiple},
 	}
@@ -56,6 +58,7 @@ class Pregunta_5a_Inline(admin.TabularInline):
 
 class Pregunta_5c_Inline(admin.TabularInline):
 	model = Pregunta_5c
+	form = Pregunta_5cForm
 	max_num = 2
 	can_delete = False
 	formfield_overrides = {
@@ -64,6 +67,7 @@ class Pregunta_5c_Inline(admin.TabularInline):
 	
 class Pregunta_5d_Inline(admin.TabularInline):
 	model = Pregunta_5d
+	form = Pregunta_5dForm
 	max_num = 2
 	extra = 2
 	can_delete = False
@@ -73,6 +77,7 @@ class Pregunta_5d_Inline(admin.TabularInline):
 
 class Pregunta_5e_Inline(admin.TabularInline):
 	model = Pregunta_5e
+	form = Pregunta_5eForm
 	max_num = 2
 	extra = 2
 	can_delete = False
@@ -84,7 +89,7 @@ class Pregunta_6a_Inline(admin.TabularInline):
 	model = Pregunta_6a
 	max_num = 10
 	extra = 1
-	can_delete = False
+	can_delete = True
 	formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
@@ -121,6 +126,7 @@ class Pregunta_7a_Inline(admin.TabularInline):
 	model = Pregunta_7a
 	extra = 1
 	max_num = 10
+	can_delete = True
 	formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
@@ -137,7 +143,7 @@ class Pregunta_8_Inline(admin.TabularInline):
 	model = Pregunta_8
 	max_num = 10
 	extra = 1
-	can_delete = False
+	can_delete = True
 	fields = (('organizacion','territorio'),('periodo','profundidad'),('tema'))	
 	formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
@@ -167,6 +173,20 @@ class EntrevistaAdmin(admin.ModelAdmin):
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
 			   Pregunta_6a_Inline, Pregunta_6c_Inline,Pregunta_6d_Inline,Pregunta_6e_Inline,
 			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
+
+	def save_model(self, request, obj, form, change):
+		instance = form.save(commit=False)
+		if instance.id is None:
+			instance.usuario = request.user
+			instance.save()
+		return instance
+
+
+	def get_queryset(self, request):
+		qs = super(EntrevistaAdmin, self).queryset(request)
+		if request.user.is_superuser:
+			return qs
+		return qs.filter(usuario=request.user)
 
 admin.site.register(Entrevista,EntrevistaAdmin)
 
