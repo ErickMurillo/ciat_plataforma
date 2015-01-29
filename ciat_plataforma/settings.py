@@ -114,7 +114,7 @@ SITE_ID = 1
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static_media/media/')
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 STATIC_URL = '/static/'
@@ -146,7 +146,7 @@ LOGIN_REDIRECT_URL = '/foros/perfil'
 
 CKEDITOR_MEDIA_PREFIX = '/media/ckeditor/'
 
-CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'static_media/uploads/')
+CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'static_media/media/')
 
 CKEDITOR_RESTRICT_BY_USER = True
 

@@ -43,7 +43,7 @@
                         
                                         {% if user.userprofile.avatar %}
                                             {% thumbnail user.userprofile.avatar "220x220" crop="center" as im %}
-                                            <img class="img-thumbnail" src="/uploads/{{im}}">        
+                                            <img class="img-thumbnail" src="/media/{{im}}">        
                                             {% endthumbnail %}
                                                             
                                             {% else %}
@@ -151,7 +151,7 @@
                         
                                         {% if user.userprofile.avatar %}
                                             {% thumbnail user.userprofile.contraparte.logo "220x220" crop="center" as im %}
-                                            <img class="img-thumbnail" src="/uploads/{{im}}">        
+                                            <img class="img-thumbnail" src="/media/{{im}}">        
                                             {% endthumbnail %}
                                                             
                                             {% else %}

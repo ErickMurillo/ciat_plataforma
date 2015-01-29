@@ -49,7 +49,7 @@
                                 {%if nota.fotos.all.count > 0%}
                                  {%for thumb in nota.fotos.all|slice:"1"%} 
                                     {% thumbnail thumb.foto "1150x400" crop="center" as im %}
-                                      <a href="{% url 'detalle-notas' nota.id %}"><img src="/uploads/{{im}}"></a>
+                                      <a href="{% url 'detalle-notas' nota.id %}"><img src="/media/{{im}}"></a>
                                       {% endthumbnail %}
                                     {%endfor%}
                                 {%else%}
@@ -128,7 +128,7 @@
                                             {%if nota.fotos.all.count > 0%}
                                              {%for thumb in nota.fotos.all|slice:"1"%} 
                                                 {% thumbnail thumb.foto "90x90" crop="center" as im %}
-                                                  <a href="{% url 'detalle-notas' nota.id %}" title="{{nota.titulo}}"><img src="/uploads/{{im}}" class="attachment-thumbnail wp-post-image"></a>
+                                                  <a href="{% url 'detalle-notas' nota.id %}" title="{{nota.titulo}}"><img src="/media/{{im}}" class="attachment-thumbnail wp-post-image"></a>
                                                   {% endthumbnail %}
                                                 {%endfor%}
                                             {%else%}
@@ -237,7 +237,7 @@
 
                                 <div class="audio">
                                 {% for obj in audio %}
-                                  <audio class="center-block" width="100%" src="/uploads/{{obj.audio}}" type="audio/mp3" controls="controls">    
+                                  <audio class="center-block" width="100%" src="/media/{{obj.audio}}" type="audio/mp3" controls="controls">    
                                     </audio>
                                 {% endfor %}
                                 </div>
@@ -247,7 +247,7 @@
                             
                                 <h1 class="title-widget">Último Documentos</h1>
                               {% for obj in documentos %} 
-                              <a href="/uploads/{{obj.adjunto}}" class="custom-button {% if forloop.counter == 1 %}cb-green{%else%}cb-gray{%endif%}" title="{{obj.nombre_doc}}">
+                              <a href="/media/{{obj.adjunto}}" class="custom-button {% if forloop.counter == 1 %}cb-green{%else%}cb-gray{%endif%}" title="{{obj.nombre_doc}}">
                                   <i class="custom-button-icon fa fa-file"></i>
                                     <span class="custom-button-wrap">
 
@@ -279,7 +279,7 @@
       <div class="slide">
           {% if contra.logo %}
               {% thumbnail contra.logo "300x250" as im %}
-                <img class="center-block" src="/uploads/{{im}}">
+                <img class="center-block" src="/media/{{im}}">
             {% endthumbnail %}
           {% else %}
         <img class="center-block" src="http://placehold.it/300x250&text=No Image">

@@ -51,7 +51,7 @@
                                 {%if nota.fotos.all.count > 0%}
                                  {%for thumb in nota.fotos.all|slice:"1"%} 
                                         {% thumbnail thumb.foto "700x350" crop="center" as im %}
-                                            <a href="#"><img src="/uploads/{{im}}" class="img-responsive" ></a>
+                                            <a href="#"><img src="/media/{{im}}" class="img-responsive" ></a>
                                       {% endthumbnail %}
                                  {%endfor%}
                                 {%else%}
@@ -96,7 +96,7 @@
                                             {% for doc in discusion.documentos.all%}
                                             <tr>
                                                 <td>{{doc.nombre_doc}}</td>
-                                                <td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+                                                <td><center><a href="/media/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
@@ -141,7 +141,7 @@
                                         {% for audio in nota.audio.all%}
                                         <tr>
                                             <td>{{audio.nombre_audio}}<br>
-                                                <audio class="center-block" src="/uploads/{{audio.audio}}" type="audio/mp3" controls="controls">    
+                                                <audio class="center-block" src="/media/{{audio.audio}}" type="audio/mp3" controls="controls">    
                                                 </audio>
                                             </td>
                                         </tr>
@@ -181,7 +181,7 @@
 
                                                 {%if comentario.user.userprofile.avatar %}
                                                 {% thumbnail comentario.user.userprofile.avatar "60x60" as im %}
-                                                    <img class="photo" src="/uploads/{{im}}" >
+                                                    <img class="photo" src="/media/{{im}}" >
                                                 {% endthumbnail %}
 
                                                 {%else%}
