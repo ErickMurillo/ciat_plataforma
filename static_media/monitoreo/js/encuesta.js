@@ -6,6 +6,8 @@
 		
 		if (valor_tipo1 === '1' ) {
 				$('#organizacionong_set-group').hide();
+				$('#tenenciaentrevistada_set-group').hide();
+				$('#usotierraentrevistada_set-group').hide();
 				$('#produccionanimalentrevistada_set-group').hide();
 				$('#ingresoentrevistada_set-group').hide();
 				$('#propiedadequipoentrevista_set-group').hide();
@@ -20,6 +22,8 @@
 			var valor_tipo = $('#id_tipo_encuesta').val();
 			if (valor_tipo === '2' ) {
 				$('#organizacionong_set-group').show();
+				$('#tenenciaentrevistada_set-group').show();
+				$('#usotierraentrevistada_set-group').show();
 				$('#produccionanimalentrevistada_set-group').show();
 				$('#ingresoentrevistada_set-group').show();
 				$('#propiedadequipoentrevista_set-group').show();
@@ -31,6 +35,8 @@
 
 			}else{
 				$('#organizacionong_set-group').hide();
+				$('#tenenciaentrevistada_set-group').hide()
+				$('#usotierraentrevistada_set-group').hide();
 				$('#produccionanimalentrevistada_set-group').hide();
 				$('#ingresoentrevistada_set-group').hide();
 				$('#propiedadequipoentrevista_set-group').hide();

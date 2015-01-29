@@ -71,19 +71,22 @@ CHOICE_DESDE = ((1,'Menos de 5 años'),(2,'Más de 5 años'),(3,'No utilizar'))
 
 # Indicador 3 y 4. Tipo de tenencia de parcela y solar y Documento legal de la propiedad, a nombre de quién
 
-CHOICE_TENENCIA = ((1,"Propia con escritura pública"),(2,"Propia por herencia"),
-                   (3,"Propias con promesa de venta"),(4,"Propias con titulo de reforma agraria"),
-                   (5,"Arrendada"),(6,"Sin documento"),(7,"Escritura posesoria"),(8,"No tiene"))
+CHOICE_TENENCIA_1 = ((1,"Tierra propia (con o sin documento)"),(2,"Tierra mediaría"),
+                   (3,"Tierra prestada"),(4,"Tierra colectiva"),
+                   (5,"Tierra arrendada"),(6,"Tierra familiar"),(7,"Sin acceso a tierra"),)
                    
-                   
+CHOICE_TENENCIA_2 = ((1,"Escritura pública"),(2,"Título de reforma Agraria"),
+                   (3,"Promesa de venta"),(4,"Escritura posesoria"),
+                   (5,"Testamento o Herencia"),(6,"Sin documento"),)
+               
 CHOICE_DUENO = ((1,"Hombre"),(2,"Mujer"),(3,"Mancomunado"),(4,"Parientes"),
                 (5,"Colectivo"),(6,"No hay"))
 
 class Tenencia(models.Model):
     ''' Modelo tipo de tenencia de la propiedad
     '''
-    parcela = models.IntegerField('Acceso a la tierra (Familia)', choices=CHOICE_TENENCIA)
-    solar = models.IntegerField('Tenencia de tierra familiar', choices=CHOICE_TENENCIA)
+    parcela = models.IntegerField('Acceso a la tierra (Familia)', choices=CHOICE_TENENCIA_1)
+    solar = models.IntegerField('Tenencia de tierra familiar', choices=CHOICE_TENENCIA_2)
     dueno = models.IntegerField('Documento de la tierra familiar a nombre de quién', choices=CHOICE_DUENO)
     encuesta = models.ForeignKey(Encuesta)
     
@@ -93,8 +96,8 @@ class Tenencia(models.Model):
 class TenenciaEntrevistada(models.Model):
     ''' Modelo tipo de tenencia de la propiedad
     '''
-    parcela = models.IntegerField('Acceso a la tierra (de la persona entrevistada)', choices=CHOICE_TENENCIA)
-    solar = models.IntegerField('Tenencia de tierra de la persona entrevistada', choices=CHOICE_TENENCIA)
+    parcela = models.IntegerField('Acceso a la tierra (de la persona entrevistada)', choices=CHOICE_TENENCIA_1)
+    solar = models.IntegerField('Tenencia de tierra de la persona entrevistada', choices=CHOICE_TENENCIA_2)
     dueno = models.IntegerField('Documento de la tierra de la persona entrevistas a nombre de quién', choices=CHOICE_DUENO)
     encuesta = models.ForeignKey(Encuesta)
     
