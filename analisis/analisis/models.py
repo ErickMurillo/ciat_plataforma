@@ -5,6 +5,8 @@ from analisis.configuracion.models  import *
 from comunicacion.lugar.models import *
 from mapeo.models import *
 from django.contrib.auth.models import User
+from smart_selects.db_fields import ChainedForeignKey
+from smart_selects.db_fields import GroupedForeignKey
 
 # Create your models here.
 
@@ -18,7 +20,12 @@ class Entrevista(models.Model):
 	posicion = models.CharField(max_length=200)
 	email = models.EmailField()
 	organizacion = models.ForeignKey(Organizaciones)
-	departamento = models.ForeignKey(Departamento)
+	pais = models.ForeignKey(Pais)
+	departamento = ChainedForeignKey(
+								Departamento,
+	 							chained_field="pais", 
+	 					 		chained_model_field="pais",
+	 					 		show_all=False, auto_choose=True)
 	telefono = models.IntegerField()
 	fecha = models.DateField()
 	slug = models.SlugField(editable=False)
@@ -42,7 +49,7 @@ ESTADO_CHOICES = (
 class Pregunta_1(models.Model):
 	proyecto = models.CharField(max_length=250, verbose_name='Proyecto(s) e iniciativa(s)')
 	estado = models.CharField(max_length=50,choices=ESTADO_CHOICES)
-	ubicacion = models.ManyToManyField(Ubicacion)
+	ubicacion =  models.ManyToManyField(Municipio)
 	socio = models.ManyToManyField(Socio,verbose_name='Socios')
 	tema = models.ManyToManyField(Tema,verbose_name='Temas')
 	slug = models.SlugField(editable=False)
