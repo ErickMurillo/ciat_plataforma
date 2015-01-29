@@ -186,11 +186,11 @@
                                                 {%if nota.fotos.all.count > 0%}
                                                  {%for thumb in nota.fotos.all|slice:"1"%} 
                                                     {% thumbnail thumb.foto "90x90" crop="center" as im %}
-                                                      <a href="{% url 'detalle-notas' nota.id %}" title="{{nota.titulo}}"><img src="/uploads/{{im}}" class="attachment-thumbnail wp-post-image"></a>
+                                                      <a href="{% url 'detalle-notas' nota.id %}" title="{{nota.titulo}}"><img src="/media/{{im}}" class="attachment-thumbnail wp-post-image"></a>
                                                       {% endthumbnail %}
                                                     {%endfor%}
                                                 {%else%}
-                                                     <a href="{% url 'detalle-notas' nota.id %}"><img  src="/files/img/nofoto.png"><a/>
+                                                     <a href="{% url 'detalle-notas' nota.id %}"><img  src="/static/comunicacion/img/nofoto.png"><a/>
                                                 {%endif%}
                                             </figure>
                                             <div class="recent-news-text">
