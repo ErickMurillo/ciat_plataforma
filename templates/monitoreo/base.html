@@ -8,12 +8,10 @@
     <link rel="shortcut icon" href="img/logo.jpg" />
     <!-- Styles -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css"><!-- Google web fonts -->
-    <link href="/static/temporal/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"><!-- font-awesome -->
-    <link href="/static/temporal/js/dropdown-menu/dropdown-menu.css" rel="stylesheet" type="text/css"><!-- dropdown-menu -->
-    <link href="/static/temporal/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!-- Bootstrap -->
-    <link href="/static/temporal/js/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css"><!-- Fancybox -->
-    <link href="/static/temporal/js/audioplayer/audioplayer.css" rel="stylesheet" type="text/css"><!-- Audioplayer -->
-    <link href="/static/temporal/style.css" rel="stylesheet" type="text/css"><!-- theme styles -->
+    <link href="/static/general/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"><!-- font-awesome -->
+    <link href="/static/monitoreo/js/dropdown-menu/dropdown-menu.css" rel="stylesheet" type="text/css"><!-- dropdown-menu -->
+    <link href="/static/general/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!-- Bootstrap -->
+    <link href="/static/monitoreo/css/style.css" rel="stylesheet" type="text/css"><!-- theme styles -->
     <link rel="stylesheet" href="/static/monitoreo/css/bootstrap-multiselect.css">
 
   </head>
@@ -34,7 +32,7 @@
                 
                     <h1 class="k-logo">
                         <a href="/monitoreo" title="Home Page">
-                            <img src="/static/temporal/img/site-logo.jpg" alt="Site Logo" class="img-responsive" />
+                            <img src="/static/monitoreo/img/site-logo.jpg" alt="Site Logo" class="img-responsive" />
                         </a>
                     </h1>
                     
@@ -116,14 +114,14 @@
                         
                             <li class="widget-container widget_nav_menu"><!-- widgets list -->
                     
-                                <h1 class="title-widget">Useful links</h1>
+                                <h1 class="title-widget">Links de interes</h1>
                                 
-                                <ul>
-                                    <li><a href="#" title="menu item">Placement Exam Schedule</a></li>
-                                    <li><a href="#" title="menu item">Superintendent's Hearing Audio</a></li>
-                                    <li><a href="#" title="menu item">Budget Central</a></li>
-                                    <li><a href="#" title="menu item">Job Opportunities - Application</a></li>
-                                    <li><a href="#" title="menu item">College Acceptances as of May 12</a></li>
+                                 <ul>
+                                    <li><a href="/analisis/" title="menu item">Analisis Organizacional</a></li>
+                                    <li><a href="#" title="menu item">Monitoreo campesino</a></li>
+                                    <li><a href="/comunicacion" title="menu item">Plataforma de comunicación</a></li>
+                                    <li><a href="#" title="menu item">Productos y procesos</a></li>
+                                    <li><a href="#" title="menu item">Mapeo de actores</a></li>
                                 </ul>
                     
                             </li>
@@ -187,22 +185,6 @@
                     
                         <ul class="list-unstyled clear-margins"><!-- widgets -->
                         
-                            <li class="widget-container widget_sofa_flickr"><!-- widgets list -->
-                    
-                                <h1 class="title-widget">Flickr Stream</h1>
-                                
-                                 <ul class="k-flickr-photos list-unstyled">
-                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-1.jpg" alt="Photo 1" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-2.jpg" alt="Photo 2" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-3.jpg" alt="Photo 3" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-4.jpg" alt="Photo 4" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-5.jpg" alt="Photo 5" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-6.jpg" alt="Photo 6" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-7.jpg" alt="Photo 7" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/temporal/img/flickr-8.jpg" alt="Photo 8" /></a></li>
-                                </ul>
-                    
-                            </li>
                             
                         </ul> 
                         
@@ -225,7 +207,7 @@
                 <div class="col-lg-12">
                 
                     <p class="copy-text text-inverse">
-                    &copy; 2015 Buntington Public Schools. All rights reserved.
+                    &copy; 2015 Elaborado por <a href="http://www.simas.org.ni" target="_blank">SIMAS</a> con el Framework <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
                     </p>
                 
                 </div>
@@ -237,159 +219,19 @@
     </div><!-- subfooter end -->
 
     <!-- jQuery -->
-    <script src="/static/temporal/jQuery/jquery-2.1.1.min.js"></script>
-    <script src="/static/temporal/jQuery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/general/js/jQuery/jquery-2.1.1.min.js"></script>
+    <script src="/static/general/js/jQuery/jquery-migrate-1.2.1.min.js"></script>
     
     <!-- Bootstrap -->
-    <script src="/static/temporal/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/general/bootstrap/js/bootstrap.min.js"></script>
     
     <!-- Drop-down -->
-    <script src="/static/temporal/js/dropdown-menu/dropdown-menu.js"></script>
-    
-    <!-- Fancybox -->
-    <script src="/static/temporal/js/fancybox/jquery.fancybox.pack.js"></script>
-    <script src="/static/temporal/js/fancybox/jquery.fancybox-media.js"></script><!-- Fancybox media -->
-    
-    <!-- Responsive videos -->
-    <script src="/static/temporal/js/jquery.fitvids.js"></script>
-    
+    <script src="/static/monitoreo/js/dropdown-menu/dropdown-menu.js"></script>  
     <!-- Theme -->
-    <script src="/static/temporal/js/theme.js"></script>
+    <script src="/static/monitoreo/js/theme.js"></script>
     <script src="/static/monitoreo/js/bootstrap-multiselect.js"></script>
 
     {%block extra_js%}{%endblock%}
     
   </body>
 </html>
-
-
-
-
-
-<!--
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-        <meta http-equiv="Pragma" content="no-cache">
-        <meta http-equiv="Expires" content="0">
-
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{%block title%}Sistema de Informaci&oacute;n Monitoreo Zona Alta y Seca{%endblock%}</title>
-        <link href="/static/monitoreo/css/style.css" rel="stylesheet" type="text/css" media="all" title=""/>
-        <link href="/static/monitoreo/css/colorbox.css" rel="stylesheet" type="text/css" media="all" title=""/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>        
-        <script src="/static/monitoreo/js/jquery.colorbox-min.js"></script>
-        <script src="/static/monitoreo/js/table.exporting.js"></script>
-        <script type="text/javascript" src="/static/monitoreo/js/jquery.cookie.js"></script>
-        <script type="text/javascript">
-            var flag = true;
-            $(document).ready(function(){
-                $('#mas').click(function(){
-                    if(flag==true){
-                        $('#mostrar').slideDown('slow');
-                        $('#estado').html('<img src="/static/monitoreo/imagen/more.png"/>');
-                        flag = false;
-                    }else if (flag==false){
-                        $('#mostrar').slideUp('slow');
-                        $('#estado').html('<img src="/static/monitoreo/imagen/menos.png"/>');
-                        flag = true;
-                    }
-                    return false;
-                });
-            });
-        </script>
-        
-        <script type="text/javascript">
-		$(document).ready(function(){
-			$(".example5").colorbox();
-			
-		});
-	</script>
-	{# {%block extra_header%}{%endblock%} #}
-    </head>
-    <body>
-        <div id="header">
-            <div class="wrapper">
-                <div class="top">
-                    <div class="titulo">SISTEMA DE INFORMACIÓN Y MONITOREO</div>
-                    <div class="entrar_link">
-                        <img src="/static/monitoreo/imagen/entrar.png" alt="Entrar">
-                        <a href="/admin/">Entrar</a> | <a href="/static/monitoreo/manualdeUsuarioMonitoreoSIMAS.pdf">Descargar Manual de Usuario</a>
-                        {% if user.is_authenticated %}
-                            | <a href="/consulta_xls/">Exporta excel BD</a>
-                        {% endif %}
-                    </div>
-                    <div class="clean"></div>
-                </div>
-                <div class="tools">
-                    <div class="subtitulo">
-                        Organizaciones de Zona Seca y Zona Alta <br>
-                        de Nicaragua
-                    </div>
-                    <div class="nav">
-                        <a href="/monitoreo" class="init">Inicio</a>
-                        <a href="{% url 'index' %}" class="query">Consulta</a>
-                        <a href="{% url 'ayuda' %}" class="about example5">Acerca</a>
-                    </div>
-                    <div class="clean"></div>
-                </div>
-            </div>
-        </div>
-        <div class="clean"></div>
-        <div id="user1">
-            <div class="wrapper">
-                {% block filtros %}
-                <div id="filtros">
-                    <a href="/index/" class="cambiar_consulta">Variables</a>
-                    <img src="/archivos/imagen/separador.png" alt="separador" class="separador_vert">
-                    <div class="filtros_seleccionados_text">Filtros <br>seleccionados</div>                    
-                    {%if num_familias%}<span class="variables_filtro"><b>Familias</b>{{num_familias}}</span>{%endif%}
-                    {%if request.session.fecha%}
-                    <span class="variables_filtro"><b>Año</b>{%for x in request.session.fecha%}{{x}}, {%endfor%}</span>{%endif%}
-                    {%if request.session.departamento%}
-                    <span class="variables_filtro"><b>Departamento</b>{%for a in request.session.departamento.all %}{{a}}, {%endfor%}</span>{%endif%}
-                    {%if request.session.organizacion%}
-                    <span class="variables_filtro"><b>Organización</b>{%for b in request.session.organizacion.all %}{{b}}, {%endfor%}</span>{%endif%}
-                    {%if request.session.municipio%}
-                    <span class="variables_filtro"><b>Municipio</b>{%for c in request.session.municipio.all %}{{c}}, {%endfor%}</span>{%endif%}
-                    {%if request.session.comunidad%}
-                    <span class="variables_filtro"><b>Comunidad</b>{%for d in request.session.comunidad.all %}{{d}}, {%endfor%}</span>{%endif%}
-                    {%if request.session.socio%}<span class="variables_filtro"><b>Socio</b>{%if request.session.socio = '1'%}Si{%else%}No{%endif%}</span>{%endif%}
-                    {%if request.session.desde%}<span class="variables_filtro"><b>Años de socio</b>{%if request.session.desde = '1'%}Menos de 5 {%else%}Mas de 5 {%endif%}</span>{%endif%}
-                    {%if request.session.duenio%}<span class="variables_filtro"><b>Tipo Dueño</b>{%if request.session.duenio = '1'%}Hombre{%endif%}{%if request.session.duenio = '2'%}Mujer{%endif%}{%if request.session.duenio = '3'%}Mancomunado{%endif%}{%if request.session.duenio = '4'%}Parientes{%endif%}{%if request.session.duenio = '5'%}Colectivo{%endif%}{%if request.session.duenio = '6'%}No hay{%endif%}</span>{%endif%}
-                    
-                    <div class="clean"></div><br>
-                </div>
-                {% endblock %}
-                {% block index %}{% endblock %}
-            </div>
-        </div>
-        <div id="user2">
-            <div class="wrapper1">
-                <div id="titulo">
-                    {% block titulo %}{% endblock %}
-                </div>
-               {# {% block contenido %}{% endblock %} #}
-            </div>
-        </div>
-        <div id="footer">
-            <div class="wrapper">
-                <div class="organizaciones">
-                    <span class="title">Organizaciones de:</span><br>
-                    <span class="zonas">Zona Alta &nbsp; | ADEES</span>
-                    <span class="zonas">Zona Seca &nbsp; | </span>
-                </div>
-                <div class="made">
-                    <div class="developed">
-                        Desarrollado por <a href="http://simas.org.ni">SIMAS</a><br>
-                        Plataforma <a href="http://djangoproject.com">Django</a>
-                    </div>
-                </div>
-                <div class="clean"></div>                
-            </div>
-        </div>
-    </body>
-</html>
--->
