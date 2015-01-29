@@ -18,6 +18,7 @@ import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import simplejson
 from comunicacion.foros.models import Videos, Audios
+from mapeo.models import Organizaciones
 
 
 # Create your views here.
@@ -27,26 +28,26 @@ from comunicacion.foros.models import Videos, Audios
 #                                 context_instance=RequestContext(request))
 
 def lista_contrapartes_mapa(request):
-    contra = Contraparte.objects.filter(tipo=1)
+    contra = Organizaciones.objects.filter(tipo=1)
     return render_to_response('comunicacion/contrapartes/contraparte_list_mapa.html', locals(),
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes(request):
-    object_list = Contraparte.objects.all().order_by('nombre')
+    object_list = Organizaciones.objects.all().order_by('nombre')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
     paises = Pais.objects.all()
     return render_to_response('comunicacion/contrapartes/contraparte_list.html', locals(),
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes_pais(request,id):
-    object_list = Contraparte.objects.filter(pais__id=id).order_by('nombre')
+    object_list = Organizaciones.objects.filter(pais__id=id).order_by('nombre')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
     paises = Pais.objects.all()
     return render_to_response('comunicacion/contrapartes/contraparte_list.html', locals(),
                                  context_instance=RequestContext(request))
 
 def detalle_contraparte(request,id):
-    contra = get_object_or_404(Contraparte, id=id)
+    contra = get_object_or_404(Organizaciones, id=id)
     notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha')
     agendas = Agendas.objects.filter(user__userprofile__contraparte__id=id).order_by('-inicio')
     return render_to_response('comunicacion/contrapartes/contraparte_detail.html', locals(),
@@ -68,7 +69,7 @@ def crear_contraparte(request):
 
 @login_required
 def editar_contraparte(request, id):
-    contra = get_object_or_404(Contraparte, id=id)
+    contra = get_object_or_404(Organizaciones, id=id)
     user_ids = UserProfile.objects.filter(contraparte__id=contra.id).values_list('user__id', flat=True)
 
     if not request.user.id in user_ids:
@@ -237,7 +238,7 @@ def estadisticas(request):
 def datos_mapa(request):
     if request.is_ajax():
         lista = []
-        for objeto in Contraparte.objects.filter(tipo=1):
+        for objeto in Organizaciones.objects.filter(tipo=1):
             dicc = dict(nombre=objeto.nombre,
                         id=objeto.id,
                         lon=float(objeto.municipio.longitud), 
@@ -289,13 +290,13 @@ def todos_videos(request):
 
 
 def lista_aliados(request):
-    object_list = Contraparte.objects.filter(tipo=2)
+    object_list = Organizaciones.objects.filter(tipo=2)
 
     return render_to_response('aliados/aliado_list.html', locals(),
                             context_instance = RequestContext(request))
 
 def detalle_aliados(request,id):
-    contra = get_object_or_404(Contraparte, id=id)
+    contra = get_object_or_404(Organizaciones, id=id)
     notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha')
     return render_to_response('aliados/aliado_detail.html', locals(),
                                  context_instance=RequestContext(request))
@@ -322,7 +323,7 @@ def audios_radios(request, id):
     except EmptyPage:
         audios = paginator.page(paginator.num_pages)
 
-    asociados = Contraparte.objects.filter(tipo=1)
+    asociados = Organizaciones.objects.filter(tipo=1)
     clave = Tag.objects.all()
 
     return render_to_response('comunicacion/contrapartes/producciones_audios.html', locals(),
