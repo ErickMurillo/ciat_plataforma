@@ -82,9 +82,9 @@ CHOICE_DUENO = ((1,"Hombre"),(2,"Mujer"),(3,"Mancomunado"),(4,"Parientes"),
 class Tenencia(models.Model):
     ''' Modelo tipo de tenencia de la propiedad
     '''
-    parcela = models.IntegerField('Parcela (tierra)', choices=CHOICE_TENENCIA)
-    solar = models.IntegerField('Solar (dónde está la vivienda)', choices=CHOICE_TENENCIA)
-    dueno = models.IntegerField('Documento legal de la propiedad, a nombre de quien', choices=CHOICE_DUENO)
+    parcela = models.IntegerField('Acceso a la tierra (Familia)', choices=CHOICE_TENENCIA)
+    solar = models.IntegerField('Tenencia de tierra familiar', choices=CHOICE_TENENCIA)
+    dueno = models.IntegerField('Documento de la tierra familiar a nombre de quién', choices=CHOICE_DUENO)
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
@@ -93,9 +93,9 @@ class Tenencia(models.Model):
 class TenenciaEntrevistada(models.Model):
     ''' Modelo tipo de tenencia de la propiedad
     '''
-    parcela = models.IntegerField('Parcela (tierra)', choices=CHOICE_TENENCIA)
-    solar = models.IntegerField('Solar (dónde está la vivienda)', choices=CHOICE_TENENCIA)
-    dueno = models.IntegerField('Documento legal de la propiedad, a nombre de quien', choices=CHOICE_DUENO)
+    parcela = models.IntegerField('Acceso a la tierra (de la persona entrevistada)', choices=CHOICE_TENENCIA)
+    solar = models.IntegerField('Tenencia de tierra de la persona entrevistada', choices=CHOICE_TENENCIA)
+    dueno = models.IntegerField('Documento de la tierra de la persona entrevistas a nombre de quién', choices=CHOICE_DUENO)
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
