@@ -90,15 +90,9 @@
                             <div class="col-lg-12 col-md-12">
                                 <div class="btn-group paises ">
                                   <button type="button" class="btn txt-black" disabled="disabled">Filtar por:</button>
-                                  <button type="button" class="btn btn-default">
-                                  Trifinio
-                                  </button>
-                                  <button type="button" class="btn btn-default">
-                                  Nicanorte
-                                  </button>
-                                  <button type="button" class="btn btn-default">
-                                  AH-RD
-                                  </button>
+                                   {% for pais in paises %}
+                                      <a type="button" class="btn btn-default" href="#">{{pais}}</a>
+                                    {% endfor %}
                                 </div>
                                 <hr />
                             </div>

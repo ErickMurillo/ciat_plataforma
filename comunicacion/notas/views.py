@@ -20,6 +20,7 @@ from django.contrib.sites.models import Site
 from django.views.generic import TemplateView
 from comunicacion.foros.models import Documentos, Videos
 from mapeo.models import Organizaciones
+from analisis.configuracion.models import SitioAccion
 # Create your views here.
 
 def logout_page(request):
@@ -37,7 +38,7 @@ def logout_page(request):
 def lista_notas(request):
     notas_list = Notas.objects.all().order_by('-fecha','-id')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
-    paises = Pais.objects.all()
+    paises = SitioAccion.objects.all()
 
     paginator = Paginator(notas_list, 6)
 
@@ -56,7 +57,7 @@ def lista_notas(request):
 def lista_notas_contraparte(request,id):
     notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha','-id')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
-    paises = Pais.objects.all()
+    paises = SitioAccion.objects.all()
 
     paginator = Paginator(notas, 6)
 
@@ -97,8 +98,8 @@ def detalle_notas(request, id):
 
 def lista_notas_pais(request,id):
     notas_list = Notas.objects.filter(user__userprofile__contraparte__pais__id=id).order_by('-fecha','-id')
-    paises = Pais.objects.all()
-    pais_selecto = Pais.objects.get(pk=id)
+    paises = SitioAccion.objects.all()
+    pais_selecto = SitioAccion.objects.get(pk=id)
 
     paginator = Paginator(notas_list, 4)
 
@@ -116,7 +117,7 @@ def lista_notas_pais(request,id):
 
 def index(request):
     notasslide = Notas.objects.all().order_by('-fecha','-id')
-    paises = Pais.objects.all()
+    paises = SitioAccion.objects.all()
     contrapartes = Organizaciones.objects.all()
     audio = Audios.objects.order_by('-id')[:1]
     documentos = Documentos.objects.order_by('-id')[:2]
@@ -127,7 +128,7 @@ def index(request):
 
 def index_filtrado(request, pais_id):
     notasslide = Notas.objects.filter(user__userprofile__contraparte__pais__id=pais_id).order_by('-fecha','-id')
-    paises = Pais.objects.all()
+    paises = SitioAccion.objects.all()
     contrapartes = Organizaciones.objects.all()
     audio = Audios.objects.order_by('-id')[:1]
     documentos = Documentos.objects.order_by('-id')[:2]
@@ -240,7 +241,7 @@ def notify_all_notas(notas):
                                  'url': '%s/notas/%s' % (site, notas.id),
                                  #'url_aporte': '%s/foros/ver/%s/#aporte' % (site, foros.id),
                                  })
-    send_mail('Nueva Nota en AMARC', contenido, 'amarc@amarcnicaragua.org', [user.email for user in users if user.email])
+    send_mail('Nueva Nota Humidtropic', contenido, 'crocha09.09@gmail.com', [user.email for user in users if user.email])
 
 @login_required
 def comentar_nota(request, id):

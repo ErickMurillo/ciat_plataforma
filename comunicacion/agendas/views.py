@@ -12,6 +12,7 @@ from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.utils import simplejson
 import datetime
 from mapeo.models import Organizaciones
+from analisis.configuracion.models import SitioAccion
 # Create your views here.
 
 @login_required
@@ -106,8 +107,8 @@ def calendario(request,id=None):
                               context_instance = RequestContext(request))
 
 def calendario_publico(request,id=None):
-    paises = Pais.objects.all()
-    contrapartes = Contraparte.objects.all()
+    paises = SitioAccion.objects.all()
+    contrapartes = Organizaciones.objects.all()
     if request.is_ajax():
         start = datetime.datetime.fromtimestamp(float(request.GET['start']))
         end = datetime.datetime.fromtimestamp(float(request.GET['end']))

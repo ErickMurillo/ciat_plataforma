@@ -1,5 +1,5 @@
-El usuario {{nota.user}} ha publicado una nueva Nota en
-la plataforma AMARC
+El usuario {{nota.user}} ha publicado una nueva Nota en 
+el sistema de información Humidtropic
 
 
 Fecha: {{nota.fecha|date:"D d M Y"}}
@@ -7,4 +7,4 @@ Titulo: {{nota.titulo}}
 Haga click al enlace de abajo para ver la Nota: 
 http://{{url}}
 
-AMARC
+Humidtropic

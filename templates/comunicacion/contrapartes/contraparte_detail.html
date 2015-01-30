@@ -126,7 +126,7 @@
                 <div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
                 
                     <ol class="breadcrumb">
-                        <li><a href="index-2.html">Home</a></li>
+                        <li><a href="index-2.html">Inicio</a></li>
                         <li><a href="news.html">Contrapartes</a></li>
                         <li class="active">{{contra.nombre}}</li>
                     </ol>
@@ -149,7 +149,7 @@
                                         <figure class="news-featured-image">
                                         {% if contra.logo %}
                                             {% thumbnail contra.logo "220x220" crop="center" as im %}
-                                                <img class="center-block" src="/uploads/{{im}}" alt="Featured image 4" class="" />
+                                                <img class="center-block" src="/media/{{im}}" alt="Featured image 4" class="" />
                                             {% endthumbnail %}
                                                 {% else %}
                                                 <img class="center-block" src="http://placehold.it/220x220&text=No Image">
