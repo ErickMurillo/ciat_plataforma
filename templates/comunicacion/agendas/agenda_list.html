@@ -102,6 +102,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="detalle-event">
+                                   
+                                    <span class=""> Contacto : {{actividad.contacto}}</span>
+                                    <span class=""> Correo : {{actividad.correo}}</span>
+                                    <span class=""> Lugar : {{actividad.lugar}}</span>
+                                </div>
                                 
                                 <div class="news-body-detalle">
                                     <p>
@@ -120,7 +126,7 @@
                                                     <h3 class="modal-title txt-black">¿Está seguro?</h3>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>La nota será borrada permanentemente y no podrá ser recuperada</p>
+                                                    <p>El evento será borrado permanentemente y no podrá ser recuperado</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
@@ -188,7 +194,7 @@
                             {% for contraparte in contrapartes %}
                                 {% if contraparte.pais.id == pais.id%}
                                 <div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
-                                <li>
+                                <li class="check-leyenda">
                                     <label class="checkbox"><input type="checkbox" name="contraparte" value="{{contraparte.id}}">{{contraparte.siglas}}</label>
                                 </li>
                                 {%endif%}

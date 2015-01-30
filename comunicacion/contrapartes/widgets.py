@@ -10,12 +10,12 @@ class ColorPickerWidget(forms.TextInput):
     class Media:
         css = {
             'all': (
-                settings.STATIC_URL + 'css/colorPicker.css',
+                settings.STATIC_URL + 'comunicacion/css/colorpicker.css',
             )
         }
         js = (
           
-            settings.STATIC_URL + 'js/jquery.colorPicker.js',
+            settings.STATIC_URL + 'comunicacion/js/colorpicker.js',
         )
 
     def __init__(self, language=None, attrs=None):

@@ -41,6 +41,9 @@
 		});	
 	});
 </script>
+<style>
+	
+</style>
 {%endblock%}
 {% block contenido %}
 <div class="row">
@@ -142,23 +145,25 @@
 
 						 	{% for contraparte in contrapartes_sel %}
 						 		{% if contraparte.pais.id == pais.id%}
-						 		<div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
+						 		<div class="leyenda" style ="background:{{contraparte.font_color}}"></div>
+						 		<div class="check-leyenda">
 								<label class="checkbox">
 								<input type="checkbox" name="contraparte" value="{{contraparte.id}}" checked>
 								{{contraparte}}	
 								</label>
+								</div>
 						 		{%endif%}
 						 	{% endfor %}
 
-						 	{% for contraparte in contrapartes_otras %}
+						 	<!--{% for contraparte in contrapartes_otras %}
 						 		{% if contraparte.pais.id == pais.id%}
-						 		<div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
+						 		<div class="leyenda" style ="background:{{contraparte.font_color}}"></div>
 								<label class="checkbox">
 								<input type="checkbox" name="contraparte" value="{{contraparte.id}}">
 								{{contraparte.siglas}}
 								</label>
 						 		{%endif%}
-						 	{% endfor %}
+						 	{% endfor %}-->
 
 						 {% endfor %}
 						 <hr>
