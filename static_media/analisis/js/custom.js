@@ -26,6 +26,10 @@
 		$('.guardar').click()
 	});
 
+	$(document).on('click','#id_tipo_estudio',function(){
+		$('.guardar').click()
+	});
+
 	// $(document).on('click','#id_pregunta_5a_set-0-prioritizado',function(){
 	// 	var prio = $('#id_pregunta_5a_set-1-prioritizado')
 	// 	if (prio.val() == '1') {

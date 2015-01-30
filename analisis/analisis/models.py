@@ -309,7 +309,8 @@ TIPO_ESTUDIO_CHOICES = (
 
 class Pregunta_11(models.Model):
 	sobre = models.IntegerField(choices=SOBRE_CHOICES)
-	tipo_estudio = models.IntegerField(verbose_name='Tipo de estudio',choices=TIPO_ESTUDIO_CHOICES)
+	#tipo_estudio = models.IntegerField(verbose_name='Tipo de estudio',choices=TIPO_ESTUDIO_CHOICES)
+	tipo_estudio1 = models.IntegerField(verbose_name='Tipo de estudio',choices=TIPO_ESTUDIO_CHOICES)
 	calendario = models.IntegerField(verbose_name='Año')
 	disponibilidad = models.CharField(max_length=100,choices=DISPONIBILIDAD_CHOICES)
 	entrevistado = models.ForeignKey(Entrevista)

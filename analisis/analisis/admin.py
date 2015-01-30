@@ -9,13 +9,30 @@ from comunicacion.lugar.models import *
 # Register your models here.
 class Pregunta_1_Inline(admin.TabularInline):
 	model = Pregunta_1
-	max_num = 1
 	can_delete = False
+	extra = 1
+	can_delete = True
 	formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
-	extra = 1
-	can_delete = True
+
+	def formfield_for_manytomany(self, db_field, request, **kwargs):
+		urlactual=request.get_full_path()
+		urlactual=urlactual.split('/')
+		if urlactual[4]!='add':
+				_identrevista=int(urlactual[4])
+		try:
+			a = Entrevista.objects.get(id=_identrevista)
+			if db_field.name == 'ubicacion':	
+				if urlactual[4]!='add':
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
+				else:
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
+		except Exception, e:
+			pass
+		
+		return super(Pregunta_1_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
+	
 
 
 class Pregunta_2_Inline(admin.TabularInline):

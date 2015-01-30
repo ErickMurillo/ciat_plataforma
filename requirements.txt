@@ -8,5 +8,6 @@ django-smart-selects==1.0.9
 django-suit==0.2.12
 django-tagging==0.3.4
 django-tagging-autocomplete==0.4.2
+psycopg2==2.5.4
 sorl-thumbnail==12.2
 wsgiref==0.1.2
