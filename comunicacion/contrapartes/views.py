@@ -133,7 +133,7 @@ def enviar_mensaje(request):
     mensaje = Mensajero.objects.filter(user=request.user).order_by('-id')
     sitio_accion = SitioAccion.objects.all()
     organizaciones = Organizaciones.objects.all()
-
+    usuarios = User.objects.all()
 
     paginator = Paginator(mensaje, 5)
     page = request.GET.get('page')
