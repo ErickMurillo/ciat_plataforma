@@ -13,17 +13,24 @@ class Pregunta_5aForm(forms.ModelForm):
     	widgets = {'prioritizado': forms.Select(attrs={'class':'select-evt'})}
 
 
-class Pregunta_5cForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(Pregunta_5cForm, self).__init__(*args, **kwargs)
-        self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1')
+class Pregunta_6aForm(forms.ModelForm):
 
-class Pregunta_5dForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(Pregunta_5dForm, self).__init__(*args, **kwargs)
-        self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1')
+    class Meta:
+    	model = Pregunta_6a
+    	widgets = {'prioritizado': forms.Select(attrs={'class':'select-evt'})}
 
-class Pregunta_5eForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(Pregunta_5eForm, self).__init__(*args, **kwargs)
-        self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1')
+# class Pregunta_5cForm(forms.ModelForm):
+#     def __init__(self,*args, **kwargs):
+#         super(Pregunta_5cForm, self).__init__(*args, **kwargs)
+#         self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk='1')
+
+
+# class Pregunta_5dForm(forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         super(Pregunta_5dForm, self).__init__(*args, **kwargs)
+#         self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1')
+
+# class Pregunta_5eForm(forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         super(Pregunta_5eForm, self).__init__(*args, **kwargs)
+#         self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1')

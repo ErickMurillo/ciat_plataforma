@@ -16,26 +16,27 @@
 
 	$(document).ready(function(){
 
-	 var gu = $(".submit-row input[name$='_continue']");
-	 gu.addClass('guardar');
-
+		var gu = $(".submit-row input[name$='_continue']");
+		gu.addClass('guardar');
 	});
 
 
-   $(document).on('click','#id_pregunta_5a_set-0-prioritizado',function(){
-	var prio = $('#id_pregunta_5a_set-0-prioritizado')
-	if (prio.val() == '1') {
+	$(document).on('click','.select-evt',function(){
+		//var id = $('.select-evt').attr('id')
 		$('.guardar').click()
+	});
 
-	};
-});
+	$(document).on('click','#id_tipo_estudio',function(){
+		$('.guardar').click()
+	});
 
-//    $(document).on('click','#id_pregunta_5a_set-1-prioritizado',function(){
-// 	var prio1 = $("#id_pregunta_5a_set-1-prioritizado")
-// 	if (prio1.val() == '1') {
-// 		$('.guardar').click()
-// 	};
-// });
+	// $(document).on('click','#id_pregunta_5a_set-0-prioritizado',function(){
+	// 	var prio = $('#id_pregunta_5a_set-1-prioritizado')
+	// 	if (prio.val() == '1') {
+	// 		$('.guardar').click()
+
+	// 	};
+	// });
 
 
 })(jQuery || django.jQuery);

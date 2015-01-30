@@ -1,10 +1,12 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
 
-{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+{% block title %}{{ title }} | {% trans 'Administración CIAT Plataforma' %}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name">Administración</h1>
+
+<h1 id="site-name">Administración CIAT Plataforma</h1>
+
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
@@ -13,4 +15,5 @@
 	{% load selectable_tags %}
     {% include_ui_theme %}
     {% include_jquery_libs %}
+
 {% endblock %}
