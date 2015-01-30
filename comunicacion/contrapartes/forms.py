@@ -1,14 +1,11 @@
 # -*- coding: UTF-8 -*-
-from django.db import models
 from django.forms import ModelForm
 from models import *
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 from django.contrib.auth.models import User
-from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
-from django.forms.widgets import RadioSelect, CheckboxSelectMultiple
-from django.forms.extras.widgets import SelectDateWidget
 from comunicacion.contrapartes.widgets import ColorPickerWidget
+from mapeo.models import Organizaciones
 
 class ContraparteForms(forms.ModelForm):
     temas = forms.CharField(widget=CKEditorWidget())
@@ -23,7 +20,7 @@ class ContraparteForms(forms.ModelForm):
     font_color = forms.CharField(required=False, widget=ColorPickerWidget, label="Color")
 
     class Meta:
-        model = Contraparte
+        model = Organizaciones
         exclude = ('user',)
 
 class UserForm(ModelForm):

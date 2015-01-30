@@ -1,6 +1,14 @@
 {% extends "baseadmin.html" %}
 {%block extra_js%}
+<link href="/static/comunicacion/css/jquery.autocomplete.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/static/comunicacion/js/autocompletejs/jquery.autocomplete.js"></script>
+<link href="/static/comunicacion/css/chosen.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/static/comunicacion/js/chosen.jquery.js"></script>
+
+<script  type="text/javascript">
+	$("#id_temas").chosen({width: "55%",}); 
+</script>
+
 <script type="text/javascript">
     $(document).ready(function(){
 		$('input').tooltip({'placement':'right'});
@@ -22,7 +30,7 @@
 	    	}
 	    }); 
 
-	    $('a[href^="/uploads/fotos"]').each(function(index, item){
+	    $('a[href^="/media/fotos"]').each(function(index, item){
 	    	$(item).html('');
 	    	$(item).append('<img src="'+$(item).attr('href')+'" width="60" height="60">');
 	    });
@@ -85,6 +93,16 @@
 										<br>
 
 										{{form.contenido}}
+										<br>
+										<br>
+										<label for="contenido" class="label-pag">
+											{{form.temas.label}}
+											<span class="required">*</span>
+										</label>
+										<br>
+										<br>
+
+										{{form.temas}}
 										<hr>
 
 										<div role="tabpanel">
@@ -116,8 +134,8 @@
 		                                  <div class="tab-content">
 		                                    <div role="tabpanel" class="tab-pane active" id="imagenes">
 												<div class="media-form-inline">
-
-														{% for foto in form2 %}
+														{{ form2.management_form }}
+														{% for foto in form2.forms %}
 														
 															{{foto.label_tag}}
 															{{foto}}
@@ -129,7 +147,8 @@
 		                                    <div role="tabpanel" class="tab-pane" id="documentos">
 		                                    	<div class="media-form-inline">
 		                                    		<div class="media-form-inline">
-			                                    		{% for docu in form3 %}
+		                                    			{{ form3.management_form }}
+			                                    		{% for docu in form3.forms %}
 			                                    			
 															{{docu.label_tag}}
 															
@@ -142,6 +161,7 @@
 		                                    </div>
 		                                    <div role="tabpanel" class="tab-pane" id="video">
 		                                    	<div class="media-form-inline">
+		                                    		{{ form4.management_form }}
 			                                    	{% for video in form4 %}
 							         					
 							                            {{video.label_tag}}
@@ -153,6 +173,7 @@
 		                                    </div>
 		                                    <div role="tabpanel" class="tab-pane" id="audio">
 		                                    	<div class="media-form-inline">
+		                                    		{{ form5.management_form }}
 			                                    	{% for audio in form5 %}
 							  							
 							                            {{audio.label_tag}}

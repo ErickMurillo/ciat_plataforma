@@ -64,7 +64,7 @@
                             <div class="col-lg-6 col-md-6 contrapartes">
                             {% if contraparte.logo %}
                             {% thumbnail contraparte.logo "180x160" as im %}
-                                <img class="center-block logo-contraparte" src="/uploads/{{im}}" >
+                                <img class="center-block logo-contraparte" src="/media/{{im}}" >
                             {% endthumbnail %}
                             {%else%}
                                 <img class="center-block img-responsive" src="http://placehold.it/180x160&text=No Logo">

@@ -61,7 +61,7 @@
 			<div class="k-breadcrumbs col-lg-12 clearfix"><!-- breadcrumbs -->
 				
 				<ol class="breadcrumb">
-					<li><a href="/">Home</a></li>
+					<li><a href="/">Inicio</a></li>
 					<li><a href="/foros">Foro</a></li>
 					<li class="active">{{discusion.nombre}}</li>
 				</ol>
@@ -80,28 +80,19 @@
 						
 						<div class="col-lg-8 col-md-8">
 
-							
-
-							
-
-
-
-
-
-							
 							<div class="news-title-meta">
 								<div class="botones-evento pull-right">
 									<div class="btn-group">
 										<a href="/foros/editar/{{discusion.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
 										
-										<a href="#modal-borrar" data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+										<a href="#modal-borrar-foro-{{discusion.id}}" data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
 
 									</div>
 								</div>
 
 								<!-- Small modal -->
 
-								<div class="modal fade" id="modal-borrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal fade" id="modal-borrar-foro-{{discusion.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -109,7 +100,7 @@
 												<h4 class="modal-title" id="myModalLabel">¿Está seguro?</h4>
 											</div>
 											<div class="modal-body">
-												<p>El foro y todos sus aportes serán borrados permanentemente y no podrán ser recuperados</p>
+												<p>El foro <strong>{{discusion.nombre}}</strong> y todos sus aportes serán borrados permanentemente y no podrán ser recuperados</p>
 											</div>
 											<div class="modal-footer">
 												<a href="#" data-dismiss="modal" data-dismiss="modal" class="btn btn-default">No Borrar</a>
@@ -151,7 +142,7 @@
                                             <tr>
                                             {% for img in discusion.fotos.all%}
                                             {% thumbnail img.foto "340x280" as im %}
-                                                <td><center> <a class="fancybox" rel="gallery{{im.id}}" title="{{im.nombre_img}}" href="/uploads/{{img.foto}}"><img src="/uploads/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a></center></td>
+                                                <td><center> <a class="fancybox" rel="gallery{{im.id}}" title="{{im.nombre_img}}" href="/media/{{img.foto}}"><img src="/media/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a></center></td>
                                                 {% endthumbnail%}
                                             {% endfor %}
                                             </tr>
@@ -167,7 +158,7 @@
                                 			{% for doc in discusion.documentos.all%}
                                 			<tr>
                                 				<td>{{doc.nombre_doc}}</td>
-                                				<td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+                                				<td><center><a href="/media/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
                                 			</tr>
                                 			{% endfor %}
                                 		</tbody>
@@ -213,7 +204,7 @@
                                 		{% for audio in discusion.audio.all%}
                                 		<tr>
                                 			<td>{{audio.nombre_audio}}<br>
-                                				<audio class="center-block" width="100%" src="/uploads/{{audio.audio}}" type="audio/mp3" controls="controls">    
+                                				<audio class="center-block" width="100%" src="/media/{{audio.audio}}" type="audio/mp3" controls="controls">    
                                 				</audio>
                                 			</td>
                                 		</tr>
@@ -356,7 +347,7 @@
 
                     		{%if respuesta.user.userprofile.avatar %}
         					{% thumbnail user.userprofile.avatar "150x150" as im %}
-                            	<img class="" src="/uploads/{{im}}">        
+                            	<img class="" src="/media/{{im}}">        
                             {% endthumbnail %}
         					{%else%}
         					<img src="/static/comunicacion/img/avatarpeque.png"><br>
@@ -366,11 +357,33 @@
 	                            <div class="btn-group">
 	                                <a href="/foros/aporte/editar/{{respuesta.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
 	                                                
-	                                <a href='#modal-borrar' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+	                                <a href='#modal-borrar-aporte-{{respuesta.id}}' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
 
 	                            </div>
                            	</div>
                         </div>
+
+                             <!--Modal de Aporte-->
+                            <div class="modal fade" id="modal-borrar-aporte-{{respuesta.id}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>El aporte del usuario <strong>{{respuesta.user.first_name}} {{respuesta.user.last_name}}</strong> será borrado permanentemente y no podrá ser recuperado</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                            <a href="/foros/aporte/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
+                                                Borrar Permanentemente
+                                            </a>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
 
                         <!--Columna de aportes y comentarios-->
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -409,7 +422,7 @@
 	                                <i>escrito por</i> 
         							{%if comentario.usuario.userprofile.avatar %}
 		        					{% thumbnail user.userprofile.avatar "25x25" as im %}
-		                            	<img class="" src="/uploads/{{im}}">        
+		                            	<img class="" src="/media/{{im}}">        
 		                            {% endthumbnail %}
 		        					{%else%}
 		        					<img src="/static/comunicacion/img/avatarpeque.png"><br>
@@ -440,7 +453,7 @@
 		                            <div class="btn-group">
 		                                <a href="/foros/comentario/editar/{{comentario.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
 		                                                
-		                                <a href='#modal-comment' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+		                                <a href='#modal-comment-{{comentario.id}}' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
 								
 		                         	</div>
 	                        	</div>
@@ -449,6 +462,28 @@
 	                            </div><!-- comment text end -->
                                                      
                         	</div><!-- comment content wrap end -->	
+
+                            <!--Modal de comentario-->
+                            <div class="modal fade" id="modal-comment-{{comentario.id}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                            <a href="/foros/comentario/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
+                                                Borrar Permanentemente
+                                            </a>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
 
 			      		{% endfor %}
                         </div>
@@ -461,7 +496,7 @@
 						  	<div class="thumbs" style="margin-top:10px">
 						  		{% for img in respuesta.fotos.all%}
 						  		{% thumbnail img.foto "640x480" as im %}
-						  			<a class="fancybox" rel="gallery{{respuesta.id}}" title="{{im.nombre_img}}" href="/uploads/{{img.foto}}"><img src="/uploads/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a>
+						  			<a class="fancybox" rel="gallery{{respuesta.id}}" title="{{im.nombre_img}}" href="/media/{{img.foto}}"><img src="/media/{{im}}" alt="{{im.nombre}}" title="{{im.nombre}}"></a>
 								{% endthumbnail%}
 						  		{% endfor %}
 						  		<div class="clean"></div>
@@ -474,7 +509,7 @@
 						  			{% for doc in respuesta.adjuntos.all%}
 						  			<tr>
 						  				<td>{{doc.nombre_doc}}</td>
-						  				<td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+						  				<td><center><a href="/media/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
 						  			</tr>
 						  			{% endfor %}
 						  		</tbody>
@@ -518,9 +553,9 @@
 						  				<td>{{audio.nombre_audio}}<br>
 						  					<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="280" height="20"
 						  					codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
-						  					<param name="movie" value="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true" />
+						  					<param name="movie" value="/files/js/singlemp3player.swf?file=/media/{{audio.audio}}&showDownload=true" />
 						  					<param name="wmode" value="transparent" />
-						  					<embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true"
+						  					<embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/media/{{audio.audio}}&showDownload=true"
 						  					type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
 						  				</object>
 						  			</td>
@@ -535,48 +570,6 @@
                         
                                                     
                     </div>
-
-                    <!--Modal de Aporte-->
-                    <div class="modal fade" id="modal-borrar">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p>El aporte será borrado permanentemente y no podrá ser recuperado HDFSDFSDFSD</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-                                    <a href="/foros/aporte/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
-                                        Borrar Permanentemente
-                                    </a>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-
-					<!--Modal de comentario-->
-                    <div class="modal fade" id="modal-comment">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p>El comentario será borrado permanentemente y no podrá ser recuperado</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
-                                    <a href="/foros/comentario/borrar/{{respuesta.id}}" type="button" class="btn btn-danger">
-                                        Borrar Permanentemente
-                                    </a>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
 		<hr>
 		{% endfor %}
 		
@@ -788,7 +781,7 @@
 	                    {% for doc in discusion.documentos.all%}
 	                    <tr>
 	                        <td>{{doc.nombre_doc}}</td>
-	                        <td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+	                        <td><center><a href="/media/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
 	                    </tr>
 	                    {% endfor %}
 	                  </tbody>
@@ -829,9 +822,9 @@
 	                    	<td>{{audio.nombre_audio}}<br>
 								<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="280" height="20"
 								    codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
-								    <param name="movie" value="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true" />
+								    <param name="movie" value="/files/js/singlemp3player.swf?file=/media/{{audio.audio}}&showDownload=true" />
 								    <param name="wmode" value="transparent" />
-								    <embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true"
+								    <embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/media/{{audio.audio}}&showDownload=true"
 								    type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
 								</object>
 	                    	</td>
@@ -941,7 +934,7 @@
 	                    {% for doc in respuesta.adjuntos.all%}
 	                    <tr>
 	                        <td>{{doc.nombre_doc}}</td>
-	                        <td><center><a href="/uploads/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
+	                        <td><center><a href="/media/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
 	                    </tr>
 	                    {% endfor %}
 	                  </tbody>
@@ -980,9 +973,9 @@
 	                    	<td>{{audio.nombre_audio}}<br>
 								<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="280" height="20"
 								    codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
-								    <param name="movie" value="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true" />
+								    <param name="movie" value="/files/js/singlemp3player.swf?file=/media/{{audio.audio}}&showDownload=true" />
 								    <param name="wmode" value="transparent" />
-								    <embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/uploads/{{audio.audio}}&showDownload=true"
+								    <embed wmode="transparent" width="280" height="20" src="/files/js/singlemp3player.swf?file=/media/{{audio.audio}}&showDownload=true"
 								    type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
 								</object>
 	                    	</td>

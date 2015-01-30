@@ -20,6 +20,7 @@ from monitoreo.indicador17.models import *
 from monitoreo.indicador18.models import *
 from monitoreo.indicador19.models import *
 from monitoreo.indicador20.models import *
+from .forms import ProductorAdminForm
 
 class EducacionInline(admin.TabularInline):
     model = Educacion
@@ -268,6 +269,7 @@ class RiesgosInline(admin.TabularInline):
     can_delete = True
    
 class EncuestaAdmin(admin.ModelAdmin):
+    form = ProductorAdminForm
     def queryset(self, request):
         if request.user.is_superuser:
             return Encuesta.objects.all()
@@ -284,7 +286,7 @@ class EncuestaAdmin(admin.ModelAdmin):
 #            form = super(EncuestaAdmin, self).get_form(self, request, ** kwargs)
 #            form.base_fields['user'].queryset = User.objects.filter(pk=request.user.pk)
 #        return form
-    fields = [('fecha','recolector',),'productor',]
+    fields = [('fecha','recolector',),('productor','jefe', 'tipo_encuesta'),]
     exclude = ('user',)
     inlines = [EducacionInline, SaludInline, EnergiaInline, CocinaInline,
                AguaInline, OrganizacionGremialInline, OrganizacionComunitariaInline,
@@ -301,18 +303,20 @@ class EncuestaAdmin(admin.ModelAdmin):
                AhorroInline, AhorroEntreInline, CreditoInline, CreditoEntreInline, SeguridadInline,
                VulnerableInline, RiesgosInline,
                ]
-    list_display = ('fecha', 'productor',)
-    #list_filter = ['productor__comunidad__nombre', 'productor__organizacion__nombre']
-    #search_fields = ['productor__nombre', 'productor__comunidad__nombre', 'productor__organizacion__nombre']
+    list_display = ('fecha', 'productor', 'tipo_encuesta',)
+    list_filter = ('tipo_encuesta', 'productor__pais',)
+    search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha'
+
+    class Media:
+        js = ('monitoreo/js/encuesta.js',)
+        
                
 admin.site.register(Encuesta, EncuestaAdmin)
 
 #-------------------------------------------
 
 admin.site.register(Recolector)
-admin.site.register(Productor)
-admin.site.register(Organizaciones)
 admin.site.register(PreguntaEnergia)
 admin.site.register(Fuente)
 admin.site.register(Tratamiento)

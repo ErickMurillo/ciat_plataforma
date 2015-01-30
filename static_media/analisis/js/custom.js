@@ -21,6 +21,7 @@
 
 	});
 
+
    $(document).on('click','#id_pregunta_5a_set-0-prioritizado',function(){
 	var prio = $('#id_pregunta_5a_set-0-prioritizado')
 	if (prio.val() == '1') {
@@ -29,10 +30,12 @@
 	};
 });
 
-   $(document).on('click','#id_pregunta_5a_set-1-prioritizado',function(){
-	var prio1 = $("#id_pregunta_5a_set-1-prioritizado")
-	if (prio1.val() == '1') {
-		alert('guardar 2')
-	};
-});
+//    $(document).on('click','#id_pregunta_5a_set-1-prioritizado',function(){
+// 	var prio1 = $("#id_pregunta_5a_set-1-prioritizado")
+// 	if (prio1.val() == '1') {
+// 		$('.guardar').click()
+// 	};
+// });
+
+
 })(jQuery || django.jQuery);

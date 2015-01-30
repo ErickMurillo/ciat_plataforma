@@ -19,7 +19,8 @@ from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 from django.views.generic import TemplateView
 from comunicacion.foros.models import Documentos, Videos
-
+from mapeo.models import Organizaciones
+from analisis.configuracion.models import SitioAccion
 # Create your views here.
 
 def logout_page(request):
@@ -37,7 +38,7 @@ def logout_page(request):
 def lista_notas(request):
     notas_list = Notas.objects.all().order_by('-fecha','-id')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
-    paises = Pais.objects.all()
+    paises = SitioAccion.objects.all()
 
     paginator = Paginator(notas_list, 6)
 
@@ -56,7 +57,7 @@ def lista_notas(request):
 def lista_notas_contraparte(request,id):
     notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha','-id')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
-    paises = Pais.objects.all()
+    paises = SitioAccion.objects.all()
 
     paginator = Paginator(notas, 6)
 
@@ -75,7 +76,9 @@ def lista_notas_contraparte(request,id):
 def detalle_notas(request, id):
     nota = get_object_or_404(Notas, id=id)
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
-
+    
+    notas_relacionadas = Notas.objects.filter(temas__in=[tema for tema in nota.temas.all()]).exclude(id=nota.id)
+    
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
 
@@ -95,8 +98,8 @@ def detalle_notas(request, id):
 
 def lista_notas_pais(request,id):
     notas_list = Notas.objects.filter(user__userprofile__contraparte__pais__id=id).order_by('-fecha','-id')
-    paises = Pais.objects.all()
-    pais_selecto = Pais.objects.get(pk=id)
+    paises = SitioAccion.objects.all()
+    pais_selecto = SitioAccion.objects.get(pk=id)
 
     paginator = Paginator(notas_list, 4)
 
@@ -114,8 +117,8 @@ def lista_notas_pais(request,id):
 
 def index(request):
     notasslide = Notas.objects.all().order_by('-fecha','-id')
-    paises = Pais.objects.all()
-    contrapartes = Contraparte.objects.all()
+    paises = SitioAccion.objects.all()
+    contrapartes = Organizaciones.objects.all()
     audio = Audios.objects.order_by('-id')[:1]
     documentos = Documentos.objects.order_by('-id')[:2]
     video = Videos.objects.order_by('-id')[:1]
@@ -125,8 +128,8 @@ def index(request):
 
 def index_filtrado(request, pais_id):
     notasslide = Notas.objects.filter(user__userprofile__contraparte__pais__id=pais_id).order_by('-fecha','-id')
-    paises = Pais.objects.all()
-    contrapartes = Contraparte.objects.all()
+    paises = SitioAccion.objects.all()
+    contrapartes = Organizaciones.objects.all()
     audio = Audios.objects.order_by('-id')[:1]
     documentos = Documentos.objects.order_by('-id')[:2]
     video = Videos.objects.order_by('-id')[:1]
@@ -147,6 +150,7 @@ def crear_nota(request):
             form_uncommited = form.save(commit=False)
             form_uncommited.user = request.user
             form_uncommited.save()
+            form.save_m2m()
             if form2.cleaned_data['nombre_img'] != '':
                 form2_uncommited = form2.save(commit=False)
                 form2_uncommited.content_object = form_uncommited
@@ -178,10 +182,10 @@ def crear_nota(request):
 @login_required
 def editar_nota(request, id):
     nota = get_object_or_404(Notas, id=id)
-    NotaFormSet = generic_inlineformset_factory(Imagen, extra=5, max_num=5)
-    Nota2FormSet = generic_inlineformset_factory(Documentos, extra=5, max_num=5)
-    NotavideoFormSet = generic_inlineformset_factory(Videos, extra=5, max_num=5)
-    NotaAudioFormSet = generic_inlineformset_factory(Audios, extra=5, max_num=5)
+    NotaFormSet = generic_inlineformset_factory(Imagen, extra=3, max_num=3)
+    Nota2FormSet = generic_inlineformset_factory(Documentos, extra=3, max_num=3)
+    NotavideoFormSet = generic_inlineformset_factory(Videos, extra=3, max_num=3)
+    NotaAudioFormSet = generic_inlineformset_factory(Audios, extra=3, max_num=3)
     form2 = NotaFormSet(instance=nota)
     form3 = Nota2FormSet(instance=nota)
     form4 = NotavideoFormSet(instance=nota)
@@ -199,7 +203,6 @@ def editar_nota(request, id):
     	if form.is_valid() and form2.is_valid() and form3.is_valid() and form4.is_valid() and form5.is_valid():
             nota.titulo = request.POST['titulo']
             nota.contenido = request.POST['contenido']
-            nota.tema = request.POST['tema']
             nota.fecha = datetime.datetime.now()
             nota.user = request.user
             nota.save()
@@ -238,7 +241,7 @@ def notify_all_notas(notas):
                                  'url': '%s/notas/%s' % (site, notas.id),
                                  #'url_aporte': '%s/foros/ver/%s/#aporte' % (site, foros.id),
                                  })
-    send_mail('Nueva Nota en AMARC', contenido, 'amarc@amarcnicaragua.org', [user.email for user in users if user.email])
+    send_mail('Nueva Nota Humidtropic', contenido, 'crocha09.09@gmail.com', [user.email for user in users if user.email])
 
 @login_required
 def comentar_nota(request, id):

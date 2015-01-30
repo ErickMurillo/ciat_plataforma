@@ -65,3 +65,4 @@ CACHE
 *.bd
 *.sql
 *.DS_Store
+media/

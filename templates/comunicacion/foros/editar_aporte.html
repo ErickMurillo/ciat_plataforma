@@ -22,7 +22,7 @@
                 }
             }); 
 
-            $('a[href^="/uploads/fotos"]').each(function(index, item){
+            $('a[href^="/media/fotos"]').each(function(index, item){
                 $(item).html('');
                 $(item).append('<img src="'+$(item).attr('href')+'" width="60" height="60">');
             });

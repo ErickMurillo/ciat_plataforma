@@ -33,6 +33,7 @@ urlpatterns = patterns('',
 
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^selectable/', include('selectable.urls')),
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
@@ -43,5 +44,5 @@ urlpatterns += staticfiles_urlpatterns()
 
 if DEBUG:
     urlpatterns += patterns('',
-                (r'^uploads/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
+                (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
                 )

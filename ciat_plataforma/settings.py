@@ -17,12 +17,7 @@ from local_settings import *
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'xz^@^p+q0mku0dpdb&046qt6e4r=*zkxh0er(5l*x5u3x3kq+@'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,17 +32,31 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    #apps de terceros
+    'smart_selects',
+    'sorl.thumbnail',
+    'ckeditor',
+    'magicembed',
+    'tagging',
+    'tagging_autocomplete',
+    'selectable',
+    'south',
+
+    'comunicacion.lugar',
+    #apps solo de mapeo
+    'analisis.configuracion',
+    'mapeo',
+    #apps solo de analisis
+    'analisis.analisis',
     #apps solo de comunicion
-    'comunicacion.aliados',
+    #'comunicacion.aliados',
     'comunicacion.contrapartes',
     'comunicacion.foros',
     'comunicacion.agendas',
     'comunicacion.notas',
-    'comunicacion.lugar',
-    #apps solo de analisis
-    'analisis.analisis',
-    'analisis.configuracion',
+    
     #apps solo de monitoreo,
+    'monitoreo.monitoreo',
     'monitoreo.indicador01',
     'monitoreo.indicador02',
     'monitoreo.indicador05',
@@ -66,14 +75,8 @@ INSTALLED_APPS = (
     'monitoreo.indicador18',
     'monitoreo.indicador19',
     'monitoreo.indicador20',
-    'monitoreo.monitoreo',
-    #apps de terceros
-    'smart_selects',
-    'sorl.thumbnail',
-    'ckeditor',
-    'magicembed',
-    'tagging',
-    'tagging_autocomplete',
+    
+
 
 )
 
@@ -107,10 +110,11 @@ USE_TZ = True
 
 SITE_ID = 1
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static_media/media/')
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 STATIC_URL = '/static/'
@@ -142,7 +146,7 @@ LOGIN_REDIRECT_URL = '/foros/perfil'
 
 CKEDITOR_MEDIA_PREFIX = '/media/ckeditor/'
 
-CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'static_media/uploads/')
+CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'static_media/media/')
 
 CKEDITOR_RESTRICT_BY_USER = True
 

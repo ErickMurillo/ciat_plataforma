@@ -2,16 +2,12 @@
                         
                             <li class="widget-container widget_nav_menu"><!-- widget -->
                     
-                                <h1 class="title-widget">Noticias mas Descatacas</h1>
+                                <h1 class="title-widget">Últimas Noticias</h1>
                                 
                                 <ul>
-                                    <li><a href="news.html" title="menu item">Fiestas Pratias en Camoapa</a></li>
-                                    <li><a href="news.html" title="menu item">El Salvador en Nicaragua</a></li>
-                                    <li><a href="news.html" title="menu item">Panama en Nicaragua</a></li>
-                                    <li><a href="news.html" title="menu item">Fiestas Patrias en Camoapa</a></li>
-                                    <li><a href="news.html" title="menu item">Panama en Nicaragua</a></li>
-                                    <li><a href="news.html" title="menu item">Fiestas Patrias en Camoapa</a></li>
-                                    
+                                {% for nota in notas|slice:"2:7"  %}
+                                    <li><a href="{% url 'detalle-notas' nota.id %}" title="menu item">{{nota.titulo}}</a></li>
+                                {% endfor %}  
                                 </ul>
                     
                             </li>

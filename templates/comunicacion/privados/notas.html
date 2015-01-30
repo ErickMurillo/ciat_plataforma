@@ -56,7 +56,7 @@
                                     {%if nota.fotos.all.count > 0%}
                                  {%for thumb in nota.fotos.all|slice:"1"%} 
                                         {% thumbnail thumb.foto "335x200" crop="center" as im %}
-                                            <a href="{% url 'detalle-notas' nota.id %}"><img src="/uploads/{{im}}" class="img-responsive" ></a>
+                                            <a href="{% url 'detalle-notas' nota.id %}"><img src="/media/{{im}}" class="img-responsive" ></a>
                                       {% endthumbnail %}
                                  {%endfor%}
                                 {%else%}
@@ -79,12 +79,12 @@
                                         </span>
 
                                         <span class="ong">
-                                        	<a href='#modal-borrar' data-toggle="modal" class="fa fa-trash-o"></a>
+                                        	<a href='#modal-borrar-{{nota.id}}' data-toggle="modal" class="fa fa-trash-o"></a>
 
                                         </span>
                                     </div>
 
-									<div class="modal fade" id="modal-borrar">
+									<div class="modal fade" id="modal-borrar-{{nota.id}}">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -92,7 +92,7 @@
 													<h3 class="modal-title txt-black">¿Está seguro?</h3>
 												</div>
 												<div class="modal-body">
-													<p>La nota será borrada permanentemente y no podrá ser recuperada</p>
+													<p>La nota <strong>{{nota.titulo}}</strong> será borrada permanentemente y no podrá ser recuperada</p>
 												</div>
 												<div class="modal-footer">
 													<a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>

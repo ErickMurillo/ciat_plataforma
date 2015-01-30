@@ -11,7 +11,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.generic import generic_inlineformset_factory
 from django.utils import simplejson
 import datetime
-from django.template.defaultfilters import escape
+from mapeo.models import Organizaciones
+from analisis.configuracion.models import SitioAccion
 # Create your views here.
 
 @login_required
@@ -79,7 +80,7 @@ def borrar_agenda(request, id):
 @login_required
 def calendario(request,id=None):
     paises = Pais.objects.all()
-    contrapartes = Contraparte.objects.all()
+    contrapartes = Organizaciones.objects.all()
 
     if request.is_ajax():
         start = datetime.datetime.fromtimestamp(float(request.GET['start']))
@@ -106,8 +107,8 @@ def calendario(request,id=None):
                               context_instance = RequestContext(request))
 
 def calendario_publico(request,id=None):
-    paises = Pais.objects.all()
-    contrapartes = Contraparte.objects.all()
+    paises = SitioAccion.objects.all()
+    contrapartes = Organizaciones.objects.all()
     if request.is_ajax():
         start = datetime.datetime.fromtimestamp(float(request.GET['start']))
         end = datetime.datetime.fromtimestamp(float(request.GET['end']))
@@ -163,8 +164,8 @@ def calendario_full_contraparte(request,id=None):
         return HttpResponse(simplejson.dumps(var), mimetype='application/json')
     if not id==None:
         actividad = Agendas.objects.get(pk=id)
-    contrapartes_sel = Contraparte.objects.filter(id__in=request.session['p'])
-    contrapartes_otras = Contraparte.objects.exclude(id__in=request.session['p'])
+    contrapartes_sel = Organizaciones.objects.filter(id__in=request.session['p'])
+    contrapartes_otras = Organizaciones.objects.exclude(id__in=request.session['p'])
     return render_to_response('comunicacion/agendas/agenda_list_full.html',locals(),
                               context_instance = RequestContext(request))
 
