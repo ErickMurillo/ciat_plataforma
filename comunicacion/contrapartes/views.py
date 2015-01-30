@@ -126,9 +126,15 @@ def editar_usuario_perfil(request):
     return render_to_response('comunicacion/contrapartes/editar_usuario.html', locals(),
                                  context_instance=RequestContext(request))
 
+from analisis.configuracion.models import SitioAccion
+
 @login_required
 def enviar_mensaje(request):
     mensaje = Mensajero.objects.filter(user=request.user).order_by('-id')
+    sitio_accion = SitioAccion.objects.all()
+    organizaciones = Organizaciones.objects.all()
+
+
     paginator = Paginator(mensaje, 5)
     page = request.GET.get('page')
     try:
