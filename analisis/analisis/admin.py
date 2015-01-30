@@ -15,7 +15,6 @@ class Pregunta_1_Inline(admin.TabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 	extra = 1
-	max_num = 20
 	can_delete = True
 
 
@@ -35,7 +34,6 @@ class Pregunta_3_Inline(admin.TabularInline):
 
 class Pregunta_4_Inline(admin.TabularInline):
 	model = Pregunta_4
-	max_num = 10
 	extra = 1
 	can_delete = True
 	formfield_overrides = {
@@ -193,7 +191,6 @@ class Pregunta_6e_Inline(admin.TabularInline):
 class Pregunta_7a_Inline(admin.TabularInline):
 	model = Pregunta_7a
 	extra = 1
-	max_num = 10
 	can_delete = True
 	formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
@@ -209,7 +206,6 @@ class Pregunta_7b_Inline(admin.TabularInline):
 
 class Pregunta_8_Inline(admin.TabularInline):
 	model = Pregunta_8
-	max_num = 10
 	extra = 1
 	can_delete = True
 	fields = (('organizacion','territorio'),('periodo','profundidad'),('tema'))	

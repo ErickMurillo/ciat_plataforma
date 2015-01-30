@@ -18,8 +18,6 @@
 
 		var gu = $(".submit-row input[name$='_continue']");
 		gu.addClass('guardar');
-
-
 	});
 
 

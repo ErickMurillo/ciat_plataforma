@@ -72,7 +72,7 @@ PREGUNTA2_CHOICES = (
 class Pregunta_2(models.Model):
 	seleccion = models.CharField(max_length=50,choices=PREGUNTA2_CHOICES,verbose_name='Cargos')
 	hombre = models.IntegerField(verbose_name='Número de Hombre(s)')
-	mujer = models.IntegerField(verbose_name='Número de 	Mujer(es)')
+	mujer = models.IntegerField(verbose_name='Número de Mujer(es)')
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -297,9 +297,19 @@ DISPONIBILIDAD_CHOICES = (
 	('base de datos','Base de datos'),
 	('sistema en linea','Sistema en línea'),
 	)
+
+TIPO_ESTUDIO_CHOICES = (
+	(1,'Estudio linea base'),
+	(2,'Estudio de impacto'),
+	(3,'Diagnóstico de datos'),
+	(4,'Estudio de casos'),
+	(5,'Tesis'),
+	(6,'Otros'),
+	)
+
 class Pregunta_11(models.Model):
 	sobre = models.IntegerField(choices=SOBRE_CHOICES)
-	tipo_estudio = models.ForeignKey(Tipo_Estudio,verbose_name='Tipo de estudio')
+	tipo_estudio = models.IntegerField(verbose_name='Tipo de estudio',choices=TIPO_ESTUDIO_CHOICES)
 	calendario = models.IntegerField(verbose_name='Año')
 	disponibilidad = models.CharField(max_length=100,choices=DISPONIBILIDAD_CHOICES)
 	entrevistado = models.ForeignKey(Entrevista)
