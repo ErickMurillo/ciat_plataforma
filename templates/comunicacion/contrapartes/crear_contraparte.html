@@ -1,123 +1,105 @@
 {% extends "baseadmin.html" %}
 {%block extra_js%}
+
+
 <script type="text/javascript">
     $(document).ready(function(){
 		$('input').tooltip({'placement':'right'})
 	});
 </script>
 
-<script type="text/javascript">
-	$(function() {
-		$elem = $('#actionbuttons');
-		
-		// detectar el scroll de la ventana y fixear el elemento
-	    $(window).bind('scroll', function() {
-	    	var windowTop = $(this).scrollTop();
-	    	if(windowTop>=310){
-	    		$elem.addClass('fixed');
-	    	}else{
-	    		// volver elemento a su lugar
-	    		$elem.removeClass('fixed');
-	    	}
-	    }); 
 
-	    //para definir el alto de las tabs igual a su contenido
-	    var alto = $('.tab-content').height();
-	    $('.nav-tab-media').height(alto);
-	});
-</script>
 {%endblock%}
 {% block contenido %}
-<div class="row">
-    <div class="encabezado">
-      <div class="container">
-            <div class="row">
-                <div class="span5">
-                    <div class="encabezado-title">
-                        CONTRAPARTES : <b>EDITAR</b>
-                    </div>
+<div class="row no-gutter"><!-- row -->
+                
+    <div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
+                    
+        <div class="col-padded"><!-- inner custom column -->
+                    
+            <div class="row gutter"><!-- row -->
+
+                        
+                <div class="col-lg-12 col-md-12">
+                    
+                    <h1 class="page-title">EDITAR CONTRAPARTES</h1><!-- category title -->
+                            
                 </div>
-                <div class="span7">
-                </div>
-            </div>
-      </div>
-    </div>
-</div>
-<div class="row body-content crear-contraparte">
-	<div class="container">
-		<div class="row">
+                        
+            </div><!-- row end -->
+
+            <div class="row gutter k-equal-height"><!-- row -->
+                <br>
 			<form enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
 					{{ form.media }}
-			<div class="span9">
-				<div class="well">
+			
+				<div class="formulario-contraparte">
 					{%if form.errors%}
 						<div class="alert alert-error"><b>Favor corregir los siguientes errores</b><br>{{form.errors}}</div>
 					{%endif%}
+
 					<label class="control-label">{{form.nombre.label}}</label>
 					{{form.nombre}}
-					<hr>
+					<br>
 					<label class="control-label">{{form.siglas.label}}</label>
 					{{form.siglas}}
-					<hr>
-					<label class="control-label">{{form.frecuecia.label}}</label>
-					{{form.frecuecia}}
-					<hr>
+					
 					<label class="control-label">{{form.tipo.label}}</label>
 					{{form.tipo}}
-					<hr>
+			
 					<label class="control-label">{{form.pais.label}}</label>
 					{{form.pais}}
-					<hr>
+					
 					<label class="control-label">{{form.municipio.label}}</label>
 					{{form.municipio}}
-					<hr>
+				
 					<label class="control-label">{{form.logo.label}}</label>
 					<span class="file">
 					{{form.logo}}
 					</span>
-					<hr>
+					<br>
 					<label class="control-label">{{form.fundacion.label}}</label>
 					{{form.fundacion}}
-					<hr>
+					
 					<div class="form-inline">
 						<div class="input-append">
 							<label class="control-label">{{form.contacto.label}}</label>
-							{{form.contacto}}<span class="add-on"><img src="/files/img/icon/user_green.png"></span>
+							{{form.contacto}}
 						</div>
 					</div>
 					<div class="form-inline">
 						<div class="input-append">
 							<label class="control-label">Tel</label>
-							{{form.telefono}}<span class="add-on"><img src="/files/img/icon/telephone.png"></span>
+							{{form.telefono}}
 						</div>
 					</div>
 					<div class="clean"></div>
-					<hr>
+					
 					<div class="form-inline">
 						<div class="input-append">
 							<label class="control-label">{{form.sitio_web.label}}</label>
-							{{form.sitio_web}}<span class="add-on"><img src="/files/img/icon/link.png"></span>
+							{{form.sitio_web}}
 						</div>
 					</div>
 					<div class="form-inline">
 						<div class="input-append">
 							<label class="control-label">RSS</label>
-							{{form.rss}}<span class="add-on"><img src="/files/img/icon/rss.png"></span>
+							{{form.rss}}
 						</div>
 					</div>
 					<div class="clean"></div>
-					<hr>
+					<br>
 					<label class="control-label">{{form.temas.label}}</label>
 					{{form.temas}}
-					<hr>
+					<br>
 					<label class="control-label">{{form.generalidades.label}}</label>
 					{{form.generalidades}}
-					<hr>
+					<br>
 					<label class="control-label">{{form.font_color.label}}</label>
 					{{form.font_color}}
-					<hr>
+					<br>
 				</div>
-			</div>
+			
 			<div class="span3">
 				<div class="alert "><i class="icon-info-sign"></i>
 				  Esta es la información general de la contraparte que se presenta en la parte pública
@@ -128,7 +110,18 @@
 				</div>
 			</div>
 			</form>
-		</div>
-	</div>
-</div>
+
+                        
+                            
+
+            </div><!-- row end -->
+        
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- doc body wrapper end -->
+                
+            
+</div><!-- row end -->
+
 {% endblock %}

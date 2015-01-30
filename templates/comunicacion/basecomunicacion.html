@@ -7,7 +7,7 @@
 
     <title>{%block title%}Humidtropics Comunicaciones{%endblock%}</title>
 
-    <link rel="shortcut icon" href="/static/temporal/img/logo.jpg" />
+    <link rel="shortcut icon" href="/static/general/img/logo.jpg" />
     <!-- Styles -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css"><!-- Google web fonts -->
     <link href="/static/general/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"><!-- font-awesome -->
@@ -240,24 +240,7 @@
     <script src="/static/comunicacion/js/theme.js"></script>
     
 
-    <!-- bxSlider Javascript file -->
-    <script src="/static/comunicacion/js/bxslider/jquery.bxslider.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-          $('.sliderorg').bxSlider({
-            slideWidth: 300,
-            minSlides: 2,
-            maxSlides: 4,
-            moveSlides: 1,
-            slideMargin: 10,
-            auto: true,
-            autoHover:true,
-            preventDefaultSwipeX:false,
-            pager:false
-           
-          });
-        });
-    </script>
+
    {% block extra_js %}{% endblock extra_js %}
   </body>
 </html>

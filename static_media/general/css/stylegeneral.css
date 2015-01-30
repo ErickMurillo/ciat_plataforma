@@ -64,3 +64,7 @@ i.fa.circle {
 .deg0:hover, .deg45:hover, .deg135:hover, .deg180:hover, .deg225:hover, .deg315:hover{
 	border-color: #008040;
 }
+.encabezado {
+  border-bottom: 5px solid #008040; 
+  outline: 5px solid #006833;
+}

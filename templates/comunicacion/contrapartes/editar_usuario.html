@@ -4,7 +4,7 @@
 <div class="row no-gutter"><!-- row -->
              <form enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
    
-                <div class="col-lg-9 col-md-9"><!-- doc body wrapper -->
+                <div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
                 	
                     <div class="col-padded"><!-- inner custom column -->
                     
@@ -42,29 +42,18 @@
                     
                 </div><!-- doc body wrapper end -->
 
-
-
-
-                <div id="k-sidebar" class="col-lg-3 col-md-3"><!-- sidebar wrapper -->
-                	
-                    <div class="col-padded col-shaded"><!-- inner custom column -->
-
-                    <div class="title-widget">
-                    	
-						Editar información general del usuario
-                    </div>
-
-					<br>
-					<div class="" id="">
-						<input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
-						<a href="/foros/perfil" class="btn btn-large btn-danger">Cerrar</a>
-					</div>
-
-                    </div><!-- inner custom column end -->
-                    
-                </div><!-- sidebar wrapper end -->
+                
+                <br>
+                <div class="">
+                        
+                    Editar información general del usuario
+                </div>
+                <br>
+                
+                <div class="" id="">
+                    <input class="btn btn-large btn-info " style="" type="submit" id="submitfoo" value="Guardar" />
+                    <a href="/foros/perfil" class="btn btn-large btn-danger">Cerrar</a>
+                </div>
             </form>
-            
-            </div><!-- row end -->
-
+</div>
 {% endblock%}

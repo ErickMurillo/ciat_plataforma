@@ -27,15 +27,16 @@
 </script>
 <script type="text/javascript">
 $(function() {
-  $("#id_inicio, #id_final").datepicker({ 
-      dateFormat: 'dd/mm/yy',
-      todayBtn: "linked",
-      language: "es",
-      todayHighlight: true,
- 
+    $('#id_inicio, #id_final').datepicker({
+        format: "dd/mm/yy",
+        todayBtn: "linked",
+        language: "es",
+        todayHighlight: true
     });
 });
+
 </script>
+
 {% endblock %}
 
 {% block contenido %}
