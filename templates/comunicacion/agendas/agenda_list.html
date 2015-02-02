@@ -1,6 +1,7 @@
 {% extends "baseadmin.html" %}
 
 {% block extra_js %}
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54c12638567a3f7f" async="async"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <link href="/static/comunicacion/css/fullcalendar.css" rel="stylesheet" type="text/css">
 
@@ -143,6 +144,7 @@
                     {%if actividad.adjunto.all %}
                         <div class="row">
                             {% for doc in actividad.adjunto.all%}
+                            <div class="col-md-12 col-lg-12">
                                 <div class="col-md-12 col-lg-8">
                                     <p class="info-doc">{{doc.nombre_doc}}</p>
                                 </div>
@@ -151,10 +153,18 @@
                                         <i class="fa fa-download">&nbsp;</i>Descargar
                                     </a>
                                 </div>
+                            </div>
+                                
                                          {% endfor %}
-                                    </div>
+                        </div>
+                        <hr />
+                        <div class="col-md-12 col-lg-12">
+                            <div class="addthis_native_toolbox"></div>
+                        </div>
+                        <br>
+                        <hr />
 
-                                    <hr />
+                                    
                                     {% endif %}
                                 </div>
 
