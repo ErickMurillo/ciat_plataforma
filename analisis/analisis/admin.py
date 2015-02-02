@@ -20,16 +20,15 @@ class Pregunta_1_Inline(admin.TabularInline):
 		urlactual=request.get_full_path()
 		urlactual=urlactual.split('/')
 		if urlactual[4]!='add':
-				_identrevista=int(urlactual[4])
-		try:
-			a = Entrevista.objects.get(id=_identrevista)
-			if db_field.name == 'ubicacion':	
-				if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
+			try:
+				a = Entrevista.objects.get(id=_identrevista)
+				if db_field.name == 'ubicacion':	
 					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
-				else:
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
-		except Exception, e:
-			pass
+			except Exception, e:
+				pass
+		else:
+			kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
 		
 		return super(Pregunta_1_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
 	
@@ -65,6 +64,23 @@ class Pregunta_5a_Inline(admin.TabularInline):
 	formfield_overrides = {
 		models.ManyToManyField: {'widget': CheckboxSelectMultiple},
 	}
+
+	def formfield_for_manytomany(self, db_field, request, **kwargs):
+		urlactual=request.get_full_path()
+		urlactual=urlactual.split('/')
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
+			try:
+				a = Entrevista.objects.get(id=_identrevista)
+				if db_field.name == 'ubicacion':	
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
+			except Exception, e:
+				pass
+		else:
+			kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
+		
+		return super(Pregunta_5a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
+	
 
 	class Media:
 		js = ('analisis/js/custom.js',)
@@ -143,6 +159,24 @@ class Pregunta_6a_Inline(admin.TabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
+	def formfield_for_manytomany(self, db_field, request, **kwargs):
+		urlactual=request.get_full_path()
+		urlactual=urlactual.split('/')
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
+			try:
+				a = Entrevista.objects.get(id=_identrevista)
+				if db_field.name == 'ubicacion':	
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
+			except Exception, e:
+				pass
+		else:
+			kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
+		
+		return super(Pregunta_6a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
+	
+
+
 class Pregunta_6c_Inline(admin.TabularInline):
 	model = Pregunta_6c
 	max_num = 2
@@ -213,6 +247,22 @@ class Pregunta_7a_Inline(admin.TabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
+	def formfield_for_manytomany(self, db_field, request, **kwargs):
+		urlactual=request.get_full_path()
+		urlactual=urlactual.split('/')
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
+			try:
+				a = Entrevista.objects.get(id=_identrevista)
+				if db_field.name == 'ubicacion':	
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
+			except Exception, e:
+				pass
+		else:
+			kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
+		
+		return super(Pregunta_7a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
+
 class Pregunta_7b_Inline(admin.TabularInline):
 	model = Pregunta_7b
 	max_num = 1
@@ -255,19 +305,19 @@ class EntrevistaAdmin(admin.ModelAdmin):
 			   Pregunta_6a_Inline, Pregunta_6c_Inline,Pregunta_6d_Inline,Pregunta_6e_Inline,
 			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
 
-	def save_model(self, request, obj, form, change):
-		instance = form.save(commit=False)
-		if instance.id is None:
-			instance.usuario = request.user
-			instance.save()
-		return instance
+	# def save_model(self, request, obj, form, change):
+	# 	instance = form.save(commit=False)
+	# 	if instance.id is None:
+	# 		instance.usuario = request.user
+	# 		instance.save()
+	# 	return instance
 
 
-	def get_queryset(self, request):
-		qs = super(EntrevistaAdmin, self).queryset(request)
-		if request.user.is_superuser:
-			return qs
-		return qs.filter(usuario=request.user)
+	# def get_queryset(self, request):
+	# 	qs = super(EntrevistaAdmin, self).queryset(request)
+	# 	if request.user.is_superuser:
+	# 		return qs
+	# 	return qs.filter(usuario=request.user)
 
 admin.site.register(Entrevista,EntrevistaAdmin)
 

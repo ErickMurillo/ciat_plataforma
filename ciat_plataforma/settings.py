@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'tagging_autocomplete',
     'selectable',
     'south',
+    'rosetta',
 
     'comunicacion.lugar',
     #apps solo de mapeo
@@ -166,3 +167,6 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
 )
+
+
+

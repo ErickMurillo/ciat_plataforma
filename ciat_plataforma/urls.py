@@ -6,6 +6,9 @@ from settings import *
 from django.contrib import admin
 admin.autodiscover()
 
+from django.conf import settings
+
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'ciat_plaforma.views.home', name='home'),
@@ -37,6 +40,7 @@ urlpatterns = patterns('',
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
+    url(r'^rosetta/', include('rosetta.urls')),
 
 )
 
