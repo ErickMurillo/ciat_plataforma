@@ -84,7 +84,7 @@
 								    		{% for a in usuarios %}
 											{% if a.userprofile.contraparte.id == organizacion.id %}
 											<ul>
-												<li>{{a.email}}</li>
+												<li><label for="id_user_{{a.id}}"><input type="checkbox" name="user" value="{{a.id}}" id="id_user_{{a.id}}" />{{a.email}}</label></li>
 											</ul>	
 											{% endif %}
 										{% endfor %}
