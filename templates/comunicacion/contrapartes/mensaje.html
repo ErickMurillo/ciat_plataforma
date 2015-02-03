@@ -1,6 +1,7 @@
 {% extends "baseadmin.html" %}
-{% block contenido %}
-  {%block extra_js%}
+
+{%block extra_js%}
+
 {%if request.GET.guardado == 'ok'%}
 <script type="text/javascript">
   $(document).ready(function(){
@@ -8,7 +9,19 @@
 });
 </script>
   {%endif%}
-  {%endblock%}
+
+<script type="text/javascript">
+	function seleccionar_todo(){ 
+   		for (i=0;i<document.fl.elements.length;i++) 
+      		if(document.fl.elements[i].type == "checkbox")	
+         		document.fl.elements[i].checked=1;
+		} 
+</script>
+
+{%endblock%}
+
+{% block contenido %}
+
              <div class="row no-gutter"><!-- row -->
                 
                 <div class="col-lg-7 col-md-7"><!-- doc body wrapper -->
@@ -55,7 +68,7 @@
 								<div class="btn-group" role="group" aria-label="...">
 							  		<div class="input-group">
 								      <span class="input-group-addon">
-								        <input type="checkbox" aria-label="...">
+								        <a href="javascript:seleccionar_todo()"><i class="fa fa-check-square-o"></i></a>
 								      </span>
 										<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#{{sitio}}" aria-expanded="false" aria-controls="{{sitio}}">
 											{{sitio}}
