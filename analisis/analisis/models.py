@@ -21,11 +21,12 @@ class Entrevista(models.Model):
 	email = models.EmailField()
 	organizacion = models.ForeignKey(Organizaciones)
 	pais = models.ForeignKey(Pais)
-	departamento = ChainedForeignKey(
-								Departamento,
-	 							chained_field="pais", 
-	 					 		chained_model_field="pais",
-	 					 		show_all=False, auto_choose=True)
+	departamento = models.ForeignKey(Departamento)
+	# departamento = ChainedForeignKey(
+	# 							Departamento,
+	#  							chained_field="pais", 
+	#  					 		chained_model_field="pais",
+	#  					 		show_all=False, auto_choose=True)
 	telefono = models.IntegerField()
 	fecha = models.DateField()
 	slug = models.SlugField(editable=False)
@@ -105,7 +106,7 @@ PRIORITIZADO_CHOICES = (
 
 class Pregunta_5a(models.Model):
 	innovacion = models.CharField(max_length=250, verbose_name='Innovación(es)')
-	ubicacion = models.ManyToManyField(Ubicacion)
+	ubicacion =  models.ManyToManyField(Municipio)
 	socio = models.ManyToManyField(Socio)
 	tema = models.ManyToManyField(Tema)
 	prioritizado = models.IntegerField(choices=PRIORITIZADO_CHOICES)
@@ -150,7 +151,7 @@ class Pregunta_5e(models.Model):
 
 class Pregunta_6a(models.Model):
 	innovacion = models.CharField(max_length=200, verbose_name='Innovación(es)')
-	ubicacion =  models.ManyToManyField(Ubicacion)
+	ubicacion =  models.ManyToManyField(Municipio)
 	tema = models.ManyToManyField(Tema)
 	prioritizado = models.IntegerField(choices=PRIORITIZADO_CHOICES)
 	entrevistado = models.ForeignKey(Entrevista)
@@ -194,7 +195,7 @@ class Pregunta_6e(models.Model):
 		#verbose_name_plural = 'Informacion necesaria o calve para la realización de las innovaciones'
 
 class Pregunta_7a(models.Model):
-	ubicacion = models.ManyToManyField(Ubicacion)
+	ubicacion =  models.ManyToManyField(Municipio)
 	seleccion = models.ManyToManyField(Seleccion_7a)
 	entrevistado = models.ForeignKey(Entrevista)
 
