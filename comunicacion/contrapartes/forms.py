@@ -6,6 +6,7 @@ from ckeditor.widgets import CKEditorWidget
 from django.contrib.auth.models import User
 from comunicacion.contrapartes.widgets import ColorPickerWidget
 from mapeo.models import Organizaciones
+from analisis.configuracion.models import AreaAccion, SitioAccion, Plataforma
 
 class ContraparteForms(forms.ModelForm):
     temas = forms.CharField(widget=CKEditorWidget())
@@ -18,6 +19,10 @@ class ContraparteForms(forms.ModelForm):
     sitio_web = forms.URLField(required=False,widget=forms.TextInput(attrs={'rel':"tooltip", 'title':"Con este formato http://www.dominio.com "}))
     rss = forms.CharField(required=False,widget=forms.TextInput(attrs={'rel':"tooltip", 'title':"Dirección rss de contenido sindicado"}))
     font_color = forms.CharField(required=False, widget=ColorPickerWidget, label="Color")
+    area_accion = forms.ModelChoiceField(queryset=AreaAccion.objects.all())
+    sitio_accion = forms.ModelChoiceField(queryset=SitioAccion.objects.all())
+    plataforma= forms.ModelChoiceField(queryset=Plataforma.objects.all())
+
 
     class Meta:
         model = Organizaciones

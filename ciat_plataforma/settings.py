@@ -101,6 +101,13 @@ WSGI_APPLICATION = 'ciat_plataforma.wsgi.application'
 
 LANGUAGE_CODE = 'es-ni'
 
+from django.utils.translation import ugettext_lazy as _
+
+LANGUAGES = (
+                ('en', _('English')),
+                ('es', _('Spanish')),
+            )
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -119,6 +126,10 @@ MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.environ.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 STATIC_URL = '/static/'
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+)
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static_media"),
