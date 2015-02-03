@@ -3,6 +3,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from smart_selects.db_fields import ChainedForeignKey
 from comunicacion.lugar.models import *
+from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 class AreaAccion(models.Model):
@@ -12,8 +13,8 @@ class AreaAccion(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Area de Acción'
-		verbose_name_plural = 'Area de Acción'
+		verbose_name = _(u'Area de Acción')
+		verbose_name_plural = _(u'Areas de Acción')
 
 class SitioAccion(models.Model):
 	nombre = models.CharField(max_length=250)
@@ -22,8 +23,8 @@ class SitioAccion(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Sitio de Acción'
-		verbose_name_plural = 'Sitio de Acción'
+		verbose_name = _(u'Sitio de Acción')
+		verbose_name_plural = _(u'Sitios de Acción')
 
 class Plataforma(models.Model):
 	nombre = models.CharField(max_length=250)
@@ -32,8 +33,8 @@ class Plataforma(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Plataforma'
-		verbose_name_plural = 'Plataforma'
+		verbose_name = _(u'Plataforma')
+		verbose_name_plural = _(u'Plataformas')
 
 
 class Status_Legal(models.Model):
@@ -43,8 +44,8 @@ class Status_Legal(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Status Legal'
-		verbose_name_plural = 'Status Legal'
+		verbose_name = _(u'Status Legal')
+		verbose_name_plural = _(u'Status Legal')
 
 class Sector(models.Model):
 	nombre  = models.CharField(max_length=200)
@@ -53,8 +54,8 @@ class Sector(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Sector'
-		verbose_name_plural = 'Sectores'
+		verbose_name = _(u'Sector')
+		verbose_name_plural = _(u'Sectores')
 
 		
 # class Organizacion(models.Model):
@@ -96,8 +97,8 @@ class Ubicacion(models.Model):
 		return self.ubicacion
 
 	class Meta:
-		verbose_name = 'Ubicación'
-		verbose_name_plural = 'Ubicaciones'
+		verbose_name = _(u'Ubicación')
+		verbose_name_plural = _(u'Ubicaciones')
 
 class Socio(models.Model):
 	socio = models.CharField(max_length=100)
@@ -106,13 +107,13 @@ class Socio(models.Model):
 		return self.socio
 
 class Tema(models.Model):
-	tema = models.CharField(max_length=200)
+	tema = models.CharField(_(u'Tema'),max_length=200)
 
 	def __unicode__(self):
 		return self.tema
 
 class Grupo(models.Model):
-	nombre = models.CharField(max_length=100)
+	nombre = models.CharField(_(u'Grupo'),max_length=100)
 
 	def __unicode__(self):
 		return self.nombre
@@ -124,8 +125,8 @@ class Grupo_Beneficiario(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Grupo Beneficiario'
-		verbose_name_plural = 'Grupos Beneficiarios'
+		verbose_name = _(u'Grupo Beneficiario')
+		verbose_name_plural = _(u'Grupos Beneficiarios')
 
 class Papel(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -134,8 +135,8 @@ class Papel(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Papel'
-		verbose_name_plural = 'Papeles'
+		verbose_name = _(u'Papel')
+		verbose_name_plural = _(u'Papeles')
 
 class Categoria(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -144,14 +145,14 @@ class Categoria(models.Model):
 		return self.nombre
 
 class Categoria_Innovacion(models.Model):
-	nombre = models.CharField(max_length=100)
+	nombre = models.CharField(_(u'Nombre'),max_length=100)
 
 	def __unicode__(self):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Categoria de Innovación'
-		verbose_name_plural = 'Categorias de Innovación'
+		verbose_name = _(u'Categoria de Innovación')
+		verbose_name_plural = _(u'Categorias de Innovación')
 
 class Categoria_Conocimiento(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -160,8 +161,8 @@ class Categoria_Conocimiento(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Categoria de Conocimiento'
-		verbose_name_plural = 'Categorias de Conocimiento'
+		verbose_name = _(u'Categoria de Conocimiento')
+		verbose_name_plural = _(u'Categorias de Conocimiento')
 
 class Categoria_Fuente(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -170,8 +171,8 @@ class Categoria_Fuente(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Categoria de Fuente'
-		verbose_name_plural = 'Categorias de Fuente'
+		verbose_name = _(u'Categoria de Fuente')
+		verbose_name_plural = _(u'Categorias de Fuente')
 
 class Seleccion_7a(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -180,8 +181,8 @@ class Seleccion_7a(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Selección pregunta 7a'
-		verbose_name_plural = 'Selecciones pregunta 7a'
+		verbose_name = _(u'Selección pregunta 7a')
+		verbose_name_plural = _(u'Selecciones pregunta 7a')
 
 class Seleccion_7b(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -190,8 +191,8 @@ class Seleccion_7b(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Selección pregunta 7b'
-		verbose_name_plural = 'Selecciones pregunta 7b'
+		verbose_name = _(u'Selección pregunta 7b')
+		verbose_name_plural = _(u'Selecciones pregunta 7b')
 
 
 class Tipo_Estudio(models.Model):
@@ -201,8 +202,8 @@ class Tipo_Estudio(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Tipo de estudio'
-		verbose_name_plural = 'Tipos de estudios'
+		verbose_name = _(u'Tipo de estudio')
+		verbose_name_plural = _(u'Tipos de estudios')
 
 class Tema_Relacion(models.Model):
 	nombre = models.CharField(max_length=100)
@@ -211,5 +212,5 @@ class Tema_Relacion(models.Model):
 		return self.nombre
 
 	class Meta:
-		verbose_name = 'Tipo de Relación'
-		verbose_name_plural = 'Tipos de Relación'
+		verbose_name = _(u'Tipo de Relación')
+		verbose_name_plural = _(u'Tipos de Relación')

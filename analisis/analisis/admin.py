@@ -275,7 +275,7 @@ class Pregunta_8_Inline(admin.TabularInline):
 	model = Pregunta_8
 	extra = 1
 	can_delete = True
-	fields = (('organizacion','territorio'),('periodo','profundidad'),('tema'))	
+	fields = (('organizacion','territorio1'),('periodo1','profundidad1'),('tema'))	
 	formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
@@ -298,7 +298,7 @@ class Pregunta_11_Inline(admin.TabularInline):
 
 class EntrevistaAdmin(admin.ModelAdmin):
 	fieldsets = [
-		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha','alcance','tipo_estudio'))}),
+		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha','alcance1','tipo_estudio'))}),
 	]
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
