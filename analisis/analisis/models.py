@@ -42,6 +42,8 @@ class Entrevista(models.Model):
 			self.slug = slugify(self.nombre)
 		super(Entrevista, self).save(*args, **kwargs)
 
+
+
 ESTADO_CHOICES = (
 	('Activo','Activo'),
 	('Finalizado','Finalizado')
