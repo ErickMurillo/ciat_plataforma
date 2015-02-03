@@ -1,0 +1,397 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-03 14:57-0600\n"
+"PO-Revision-Date: 2015-02-03 21:05+0000\n"
+"Last-Translator:   <carlos@simas.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
+
+#: analisis/analisis/models.py:14
+msgid "Nacional"
+msgstr "National"
+
+#: analisis/analisis/models.py:15
+msgid "Territorial"
+msgstr ""
+
+#: analisis/analisis/models.py:19
+msgid "Nombre"
+msgstr "Name"
+
+#: analisis/analisis/models.py:20
+msgid "Posicion"
+msgstr "Position"
+
+#: analisis/analisis/models.py:21
+msgid "Correo"
+msgstr "Email"
+
+#: analisis/analisis/models.py:22 analisis/analisis/models.py:123
+#: analisis/analisis/models.py:167 analisis/analisis/models.py:231
+msgid "Organizacion"
+msgstr ""
+
+#: analisis/analisis/models.py:23
+msgid "Pais"
+msgstr "Country"
+
+#: analisis/analisis/models.py:29
+msgid "Telefono"
+msgstr "Phone"
+
+#: analisis/analisis/models.py:30
+msgid "Fecha"
+msgstr "Date"
+
+#: analisis/analisis/models.py:32
+msgid "Alcance"
+msgstr ""
+
+#: analisis/analisis/models.py:33 analisis/analisis/models.py:319
+msgid "Tipo de estudio"
+msgstr ""
+
+#: analisis/analisis/models.py:45
+msgid "Activo"
+msgstr "Active"
+
+#: analisis/analisis/models.py:46
+msgid "Finalizado"
+msgstr "Finish"
+
+#: analisis/analisis/models.py:50
+msgid "Proyecto(s) e iniciativa(s)"
+msgstr ""
+
+#: analisis/analisis/models.py:51
+msgid "Estado"
+msgstr ""
+
+#: analisis/analisis/models.py:52
+msgid "Municipio"
+msgstr ""
+
+#: analisis/analisis/models.py:53
+msgid "Socios"
+msgstr ""
+
+#: analisis/analisis/models.py:54 analisis/analisis/models.py:94
+#: analisis/analisis/models.py:110 analisis/analisis/models.py:154
+#: analisis/analisis/models.py:277
+msgid "Temas"
+msgstr "Themes"
+
+#: analisis/analisis/models.py:66
+msgid "Tecnicos"
+msgstr ""
+
+#: analisis/analisis/models.py:67
+msgid "Promotores "
+msgstr ""
+
+#: analisis/analisis/models.py:68
+msgid "Invetigadores"
+msgstr ""
+
+#: analisis/analisis/models.py:69
+msgid "Decisores"
+msgstr ""
+
+#: analisis/analisis/models.py:73
+msgid "Cargos"
+msgstr ""
+
+#: analisis/analisis/models.py:74
+msgid "Numero de Hombre(s)"
+msgstr ""
+
+#: analisis/analisis/models.py:75
+msgid "Numero de Mujer(es)"
+msgstr ""
+
+#: analisis/analisis/models.py:84
+msgid "Grupos"
+msgstr ""
+
+#: analisis/analisis/models.py:92
+msgid "Impacto(s)"
+msgstr ""
+
+#: analisis/analisis/models.py:93
+msgid "Grupos beneficiarios principales de este impacto"
+msgstr ""
+
+#: analisis/analisis/models.py:102
+msgid "Si"
+msgstr ""
+
+#: analisis/analisis/models.py:103
+msgid "No"
+msgstr ""
+
+#: analisis/analisis/models.py:107 analisis/analisis/models.py:152
+msgid "Innovacion(es)"
+msgstr ""
+
+#: analisis/analisis/models.py:108
+msgid "ubicacion"
+msgstr ""
+
+#: analisis/analisis/models.py:109
+msgid "socio"
+msgstr ""
+
+#: analisis/analisis/models.py:111 analisis/analisis/models.py:155
+msgid "Prioritizado"
+msgstr ""
+
+#: analisis/analisis/models.py:122 analisis/analisis/models.py:133
+#: analisis/analisis/models.py:142 analisis/analisis/models.py:166
+#: analisis/analisis/models.py:177 analisis/analisis/models.py:186
+msgid "Innovacion"
+msgstr ""
+
+#: analisis/analisis/models.py:124 analisis/analisis/models.py:168
+msgid "Papel"
+msgstr ""
+
+#: analisis/analisis/models.py:134 analisis/analisis/models.py:178
+msgid "Categorias"
+msgstr ""
+
+#: analisis/analisis/models.py:143
+msgid "Fuente de aprendizaje de Innovacion"
+msgstr ""
+
+#: analisis/analisis/models.py:144
+msgid "Categoria de Fuente"
+msgstr ""
+
+#: analisis/analisis/models.py:153 analisis/analisis/models.py:197
+msgid "Ubicacion"
+msgstr ""
+
+#: analisis/analisis/models.py:187
+msgid "Conocimiento clave faltante para Innovacion"
+msgstr ""
+
+#: analisis/analisis/models.py:188
+msgid "Categoria de Innovacion"
+msgstr ""
+
+#: analisis/analisis/models.py:189
+msgid "Categoria de Conocimiento"
+msgstr ""
+
+#: analisis/analisis/models.py:198 analisis/analisis/models.py:206
+msgid "Seleccion"
+msgstr ""
+
+#: analisis/analisis/models.py:214
+msgid "Dentro"
+msgstr ""
+
+#: analisis/analisis/models.py:215
+msgid "Afuera"
+msgstr ""
+
+#: analisis/analisis/models.py:219
+msgid "Reciente"
+msgstr ""
+
+#: analisis/analisis/models.py:220
+msgid "Mediano"
+msgstr ""
+
+#: analisis/analisis/models.py:221
+msgid "Largo"
+msgstr ""
+
+#: analisis/analisis/models.py:225
+msgid "Esporádica"
+msgstr ""
+
+#: analisis/analisis/models.py:226
+msgid "Fortuita"
+msgstr ""
+
+#: analisis/analisis/models.py:227
+msgid "Estratégica"
+msgstr ""
+
+#: analisis/analisis/models.py:233
+msgid "Dentro o Afuera del Territorio"
+msgstr ""
+
+#: analisis/analisis/models.py:235
+msgid "Periodo de relacion"
+msgstr ""
+
+#: analisis/analisis/models.py:237
+msgid "Profundidad de relacion"
+msgstr ""
+
+#: analisis/analisis/models.py:239
+msgid "Razón o temas de la relacion"
+msgstr ""
+
+#: analisis/analisis/models.py:248
+msgid "Mayor y sostenible, Intensificación ecológica"
+msgstr ""
+
+#: analisis/analisis/models.py:249
+msgid "Manejo sostenible de los recursos naturales de las fincas y cuencas"
+msgstr ""
+
+#: analisis/analisis/models.py:250
+msgid "Mejorar la comercialización y acceso a mercados juntos"
+msgstr ""
+
+#: analisis/analisis/models.py:251
+msgid "Aumento de ingreso y reduccion de pobreza"
+msgstr ""
+
+#: analisis/analisis/models.py:252
+msgid "Mejorada de Seguridad alimentaria y nutrición"
+msgstr ""
+
+#: analisis/analisis/models.py:253
+msgid "Empoderamiento de las mujeres y jóvenes"
+msgstr ""
+
+#: analisis/analisis/models.py:254
+msgid "Innovación local e innovación a través  de políticas e instituciones"
+msgstr ""
+
+#: analisis/analisis/models.py:258
+msgid "Alta"
+msgstr ""
+
+#: analisis/analisis/models.py:259
+msgid "Baja"
+msgstr ""
+
+#: analisis/analisis/models.py:260
+msgid "Media"
+msgstr ""
+
+#: analisis/analisis/models.py:264
+msgid "Facilitador"
+msgstr ""
+
+#: analisis/analisis/models.py:265
+msgid "Neutro"
+msgstr ""
+
+#: analisis/analisis/models.py:266
+msgid "Bloqueador"
+msgstr ""
+
+#: analisis/analisis/models.py:279
+msgid "Prioridad Organizacional"
+msgstr ""
+
+#: analisis/analisis/models.py:281
+msgid "Papel de la organizacion en el territorio"
+msgstr ""
+
+#: analisis/analisis/models.py:282 analisis/analisis/models.py:283
+msgid "Escala de valor: 1 (debilidad) hasta 5 (fuerte)"
+msgstr ""
+
+#: analisis/analisis/models.py:291
+msgid "Situación de las fincas (producción y biodivarsidad)"
+msgstr ""
+
+#: analisis/analisis/models.py:292
+msgid "Situación de los recursos naturales y manejo de ellos"
+msgstr ""
+
+#: analisis/analisis/models.py:293
+msgid "Situación de comerzialización y acceso a mercados"
+msgstr ""
+
+#: analisis/analisis/models.py:294
+msgid ""
+"Situación de organización de las comunidades y capacidad de aprendizaje"
+msgstr ""
+
+#: analisis/analisis/models.py:295
+msgid "Situación de equidad de género y generacional"
+msgstr ""
+
+#: analisis/analisis/models.py:296
+msgid "Situación de seguridad alimentaria y nutricional"
+msgstr ""
+
+#: analisis/analisis/models.py:297
+msgid "Situación de ingreso familiar y pobreza"
+msgstr ""
+
+#: analisis/analisis/models.py:301
+msgid "Informé técnico"
+msgstr ""
+
+#: analisis/analisis/models.py:302
+msgid "Informé ejecutivo"
+msgstr ""
+
+#: analisis/analisis/models.py:303
+msgid "Base de datos"
+msgstr ""
+
+#: analisis/analisis/models.py:304
+msgid "Sistema en línea"
+msgstr ""
+
+#: analisis/analisis/models.py:308
+msgid "Estudio linea base"
+msgstr ""
+
+#: analisis/analisis/models.py:309
+msgid "Estudio de impacto"
+msgstr ""
+
+#: analisis/analisis/models.py:310
+msgid "Diagnóstico de datos"
+msgstr ""
+
+#: analisis/analisis/models.py:311
+msgid "Estudio de casos"
+msgstr ""
+
+#: analisis/analisis/models.py:312
+msgid "Tesis"
+msgstr ""
+
+#: analisis/analisis/models.py:313
+msgid "Otros"
+msgstr ""
+
+#: analisis/analisis/models.py:320
+msgid "Año"
+msgstr ""
+
+#: ciat_plataforma/settings.py:107
+msgid "English"
+msgstr ""
+
+#: ciat_plataforma/settings.py:108
+msgid "Spanish"
+msgstr ""
+
+#: templates/admin/base_site.html:4
+msgid "Administración CIAT Plataforma"
+msgstr ""
