@@ -3,7 +3,41 @@
 {% load magicembed_tags %}
 {% load thumbnail %}
 
-{% block extra_js%}{%endblock%}
+{% block extra_js%}
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54c12638567a3f7f" async="async"></script>
+
+    <meta property="og:title" content="{{nota.titulo}}" />
+    
+
+    
+        {%for thumb in nota.fotos.all|slice:"1"%} 
+            {% thumbnail thumb.foto "700x350" crop="center" as im %}
+            <meta property="og:image" content="/media/{{im}}">
+            {% endthumbnail %}
+        {%endfor%}
+
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:description" content="{{nota.contenido|safe}}" />
+    <meta property="og:url" content="{% url 'notas_list' %}" />
+    <meta property="og:locale:alternate" content="es_NI" />
+
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@CIAT_">
+    <meta name="twitter:creator" content="@simasnicaragua">
+    <meta name="twitter:title" content="{{nota.titulo}}">
+    <meta name="twitter:description" content="{{nota.contenido|safe}}">
+    
+        {%for thumb in nota.fotos.all|slice:"1"%} 
+            {% thumbnail thumb.foto "700x350" crop="center" as im %}
+            <meta name="twitter:image:src" content="/media/{{im}}">
+            {% endthumbnail %}
+        {%endfor%}
+    
+    <meta name="twitter:url" content="{% url 'notas_list' %}" />
+
+{%endblock%}
 
 {% block contenido %}
 
@@ -86,6 +120,10 @@
                                  {%for tags in nota.fotos.all %}
                                     <a href="#" rel="tag">#{{tags.tags_img}}</a>
                                 {%endfor%}
+                                </div>
+
+                                <div class="shared-social">
+                                    <div class="addthis_native_toolbox"></div>
                                 </div>
 
                                  <div>
