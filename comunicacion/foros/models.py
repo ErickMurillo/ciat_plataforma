@@ -10,6 +10,7 @@ import datetime
 from south.modelsinspector import add_introspection_rules
 from ckeditor.fields import RichTextField
 from sorl.thumbnail import ImageField
+from analisis.configuracion.models import SitioAccion
 
 add_introspection_rules ([], ["^ckeditor\.fields\.RichTextField"])
 add_introspection_rules ([], ["^tagging_autocomplete\.models\.TagAutocompleteField"])
@@ -93,6 +94,7 @@ class Foros(models.Model):
     fecha_skype = models.DateField('Propuesta de reunión skype')
     memoria = models.DateField('Propuesta entrega de memoria')
     contenido = RichTextField()
+    sitio_accion = models.ForeignKey(SitioAccion)
     contraparte = models.ForeignKey(User)
     documentos = generic.GenericRelation(Documentos)
     fotos = generic.GenericRelation(Imagen)

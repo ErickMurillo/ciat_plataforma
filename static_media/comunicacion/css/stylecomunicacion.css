@@ -1207,3 +1207,8 @@ padding-left: 0px !important;
 .org-collapse:hover{
 	cursor: pointer;
 }
+.fondosiglas {
+	color: #5d8c3b;
+	font-weight: bold;
+	border-bottom: #cacaca 1px solid;
+}

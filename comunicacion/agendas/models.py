@@ -6,6 +6,7 @@ from django.contrib.contenttypes import generic
 from django.contrib.auth.models import User
 from south.modelsinspector import add_introspection_rules
 from ckeditor.fields import RichTextField
+from analisis.configuracion.models import SitioAccion
 
 add_introspection_rules ([], ["^ckeditor\.fields\.RichTextField"])
 
@@ -20,6 +21,7 @@ class Agendas(models.Model):
     inicio = models.DateField('Fecha de Inicio')
     final = models.DateField('Fecha de Finalización')
     publico = models.BooleanField()
+    sitio_accion = models.ForeignKey(SitioAccion)
     adjunto = generic.GenericRelation(Documentos)
     
     user = models.ForeignKey(User)

@@ -119,7 +119,7 @@ $(document).ready(function() {
 								    {% if organizacion.sitio_accion.id == sitio.id %}
 								    	<ul>
 								    		<li class="org-collapse" data-toggle="collapse" href="#{{organizacion.siglas}}" aria-expanded="false">
-								    			{{organizacion.siglas}}
+								    			<span class="fondosiglas"><i class="fa fa-arrow-circle-o-right"></i>{{organizacion.siglas}}</span>
 								    		</li>
 								    		{% for a in usuarios %}
 											{% if a.userprofile.contraparte.id == organizacion.id %}
@@ -199,12 +199,12 @@ $(document).ready(function() {
 
 
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	function seleccionar_todo(){ 
    		for (i=0;i<document.fl.elements.length;i++) 
       		if(document.fl.elements[i].type == "checkbox")	
          		document.fl.elements[i].checked=1;
 		} 
-</script>
+	</script> -->
 
 {% endblock %}

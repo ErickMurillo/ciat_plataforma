@@ -7,6 +7,7 @@ from comunicacion.foros.models import *
 from django.template.defaultfilters import slugify
 from south.modelsinspector import add_introspection_rules
 from ckeditor.fields import RichTextField
+from analisis.configuracion.models import SitioAccion
 
 add_introspection_rules ([], ["^ckeditor\.fields\.RichTextField"])
 
@@ -23,6 +24,7 @@ class Notas(models.Model):
     fecha = models.DateField('Fecha de publicación', auto_now_add=True)
     contenido = RichTextField()
     temas = models.ManyToManyField(Temas)
+    sitio_accion = models.ForeignKey(SitioAccion)
     fotos = generic.GenericRelation(Imagen)
     adjuntos = generic.GenericRelation(Documentos)
     video = generic.GenericRelation(Videos)

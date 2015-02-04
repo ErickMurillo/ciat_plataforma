@@ -17,9 +17,15 @@ class Cultivos(models.Model):
     class Meta:
         verbose_name_plural = "CultivosFinca-Cultivos"
         ordering = ['nombre']
-        #app_label = "Indicador 09 cultivos en la finca"
-        #db_table = "simas_cultivos"
 
+CHOICES_QUIEN = (
+                    (1, 'Hombre'),
+                    (2, 'Mujer'),
+                    (3, 'Ambos'),
+                    (4, 'Hijas'),
+                    (5, 'Hijos'),
+                    (6, 'Otros'),
+                )
 
 class CultivosFinca(models.Model):
     ''' indicador cultivos en la finca
@@ -30,6 +36,9 @@ class CultivosFinca(models.Model):
     consumo = models.FloatField('Consumo por año')
     venta_libre = models.FloatField('Venta libre por año')
     venta_organizada = models.FloatField('Venta organizada por año')
+    quien = models.IntegerField(choices=CHOICES_QUIEN, 
+                                verbose_name='Quien maneja el cultivo', 
+                                null=True, blank=True)      
     encuesta = models.ForeignKey(Encuesta)
     
     #campo oculto para calcular la productividad
@@ -47,8 +56,7 @@ class CultivosFinca(models.Model):
     
     class Meta:
         verbose_name_plural = "Cultivos en la finca"
-        #app_label = "Indicador 09 cultivos en la finca"
-        #db_table = "simas_cultivosfinca"
+        
     def nombre_encuestado(self):
         nombre_encuesta = Encuesta.objects.filter(id=self.encuesta.id).values_list('nombre', 'id')
         #return '<a href="%s">%s</a>' % (nombre_encuesta[0][1],nombre_encuesta[0][0])
