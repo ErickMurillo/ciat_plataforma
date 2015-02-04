@@ -279,7 +279,7 @@ li.widget-container:not(:first-child) { margin-top: 10px; }
 .up-event-meta { margin-bottom: 15px; }
 .up-event-meta div:not(:last-child) { border-right: 1px solid rgba( 0, 0, 0, 0.05 ); }
 .up-event-meta div:first-child { padding-left: 0; }
-.up-event-date { float: left; font-size: 13px; font-weight: 700; color: #16a990; text-transform: uppercase; padding: 5px 15px; border-top: 1px solid rgba( 0, 0, 0, 0.05 ); border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
+.up-event-date { float: left; font-size: 11px; font-weight: 700; color: #16a990; text-transform: uppercase; padding: 5px 15px; border-top: 1px solid rgba( 0, 0, 0, 0.05 ); border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
 .up-event-time { float: left; font-size: 13px; font-weight: 400; padding: 5px 15px; border-top: 1px solid rgba( 0, 0, 0, 0.05 ); border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
 .widget-container .up-event-wrap p { font-size: 14px; line-height: 24px; margin-bottom: 0; }
 .up-event-wrapper { margin-top: 40px; }
@@ -934,7 +934,7 @@ background-color: #3a87ad;
 }
 .descarga-mensaje{
 	color: #898989;
-	font-size: 13px;
+	font-size: 11px;
 	font-weight: 300;
 	line-height: 1;
 	text-transform: uppercase;
@@ -1086,7 +1086,7 @@ a.list-group-item{
 }
 .badge{
 	background-color: #68b5e6;
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: bold;
 }
 .editar-usuario .btn{
@@ -1194,4 +1194,16 @@ padding-left: 0px !important;
 }
 .fb-like {
 	margin-right: 25px;
+}
+.page-boder ul li{
+ list-style: none;
+}
+.page-boder input{
+	margin-right: 10px;
+}
+.page-boder label{
+	text-transform: none;
+}
+.org-collapse:hover{
+	cursor: pointer;
 }

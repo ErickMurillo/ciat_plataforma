@@ -9,7 +9,7 @@
 });
 </script>
   {%endif%}
-
+<!--
 <script type="text/javascript">
 	function seleccionar_todo(){ 
    		for (i=0;i<document.fl.elements.length;i++) 
@@ -17,7 +17,27 @@
          		document.fl.elements[i].checked=1;
 		} 
 </script>
+-->
 
+
+<script type="text/javascript">
+{% for sitio in sitio_accion %}
+$(document).ready(function() {
+    $('#selecctall_{{sitio.id}}').click(function(event) {  //on click 
+        if(this.checked) { // check select status
+            $('.checkbox_{{sitio.id}}').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"               
+            });
+        }else{
+            $('.checkbox_{{sitio.id}}').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+            });         
+        }
+    });
+    
+});
+{% endfor %}
+</script>
 {%endblock%}
 
 {% block contenido %}
@@ -66,10 +86,15 @@
 						{% for sitio in sitio_accion %}
 							<div class="col-lg-4 boton-msn">
 								<div class="btn-group" role="group" aria-label="...">
-							  		<div class="input-group">
-								      <span class="input-group-addon">
+							  		<div class="input-group ">
+							  		<span class="input-group-addon">
+							  		
+							  		<input type="checkbox" id="selecctall_{{sitio.id}}" class="checkbox_{{sitio.id}}" aria-label="">
+
+							  		</span>
+								      <!--<span class="input-group-addon">
 								        <a href="javascript:seleccionar_todo()"><i class="fa fa-check-square-o"></i></a>
-								      </span>
+								      </span>-->
 										<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#{{sitio}}" aria-expanded="false" aria-controls="{{sitio}}">
 											{{sitio}}
 										</button>
@@ -93,11 +118,13 @@
 							    {% for organizacion in organizaciones %}
 								    {% if organizacion.sitio_accion.id == sitio.id %}
 								    	<ul>
-								    		<li>{{organizacion.siglas}}</li>
+								    		<li class="org-collapse" data-toggle="collapse" href="#{{organizacion.siglas}}" aria-expanded="false">
+								    			{{organizacion.siglas}}
+								    		</li>
 								    		{% for a in usuarios %}
 											{% if a.userprofile.contraparte.id == organizacion.id %}
-											<ul>
-												<li><label for="id_user_{{a.id}}"><input type="checkbox" name="user" value="{{a.id}}" id="id_user_{{a.id}}" />{{a.email}}</label></li>
+											<ul class="collapse" id="{{organizacion.siglas}}">
+												<li><label for="id_user_{{a.id}}"><input type="checkbox" name="user" value="{{a.id}}" id="id_user_{{a.id}}" class="checkbox_{{sitio.id}}" />{{a.email}}</label></li>
 											</ul>	
 											{% endif %}
 										{% endfor %}
