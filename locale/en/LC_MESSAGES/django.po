@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-03 16:41-0600\n"
-"PO-Revision-Date: 2015-02-03 22:41+0000\n"
+"PO-Revision-Date: 2015-02-04 16:16+0000\n"
 "Last-Translator:   <erick@mail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -136,11 +136,11 @@ msgstr ""
 
 #: analisis/analisis/models.py:104
 msgid "Si"
-msgstr ""
+msgstr "Yes"
 
 #: analisis/analisis/models.py:105
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: analisis/analisis/models.py:109 analisis/analisis/models.py:154
 msgid "Innovacion(es)"

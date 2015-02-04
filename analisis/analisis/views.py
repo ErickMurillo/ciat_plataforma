@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import *
+from mapeo.models import *
 
 # Create your views here.
 class IndexView(ListView):
@@ -10,11 +11,11 @@ class IndexView(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(IndexView, self).get_context_data(**kwargs)
-		contador_org = Organizacion.objects.count()
+		contador_org = Organizaciones.objects.count()
 
 		sector = {}
 		for x in Sector.objects.all():
-			cont_org = Organizacion.objects.filter(sector=x).count()
+			cont_org = Organizaciones.objects.filter(sector=x).count()
 			sector[x.nombre] = cont_org
 		context['contador_sector'] = sector
 
@@ -26,7 +27,7 @@ class IndexView(ListView):
 		
 		prueba = {}
 		for i in Sector.objects.all():
-			conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i).count()
+			conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i)
 			prueba[i.nombre] = conteo
 		context['proyectos'] = prueba
 			
