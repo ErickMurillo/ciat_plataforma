@@ -3,88 +3,15 @@
 {% load staticfiles%}
 
 {%block extra_js%}
-<script type="text/javascript">
-    $(document).ready(function() {
+<!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script> -->
 
-        $('#id_fecha').multiselect({
-            buttonClass: 'btn btn-moni center',
-            nSelectedText: ' - Elementos Selecioanados!',
-            allSelectedText: 'Todo Seleccionado',
-            includeSelectAllOption: true,
-             buttonContainer: '<div class="btn-group" id="anos-container"></div>',
-             selectedClass: 'multiselect-selected',
-            nonSelectedText: 'Seleccione Elementos'
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
 
-        });
-
-        $('#id_departamento').multiselect({
-            buttonClass: 'btn btn-moni',
-            enableFiltering: true,
-            nSelectedText: ' - Elementos Selecioanados!',
-            allSelectedText: 'Todo Seleccionado',
-            includeSelectAllOption: true,
-             buttonContainer: '<div class="btn-group" id="dpto-container"></div>',
-             selectedClass: 'multiselect-selected',
-            nonSelectedText: 'Seleccione Elementos'
-        });
-        $('#id_organizacion').multiselect({
-            buttonClass: 'btn btn-moni',
-            enableFiltering: true,
-            nSelectedText: ' - Elementos Selecioanados!',
-            allSelectedText: 'Todo Seleccionado',
-            includeSelectAllOption: true,
-             buttonContainer: '<div class="btn-group" id="orga-container"></div>',
-             selectedClass: 'multiselect-selected',
-            nonSelectedText: 'Seleccione Elementos'
-        });
-        $('#id_municipio').multiselect({
-            buttonClass: 'btn btn-moni',
-            enableFiltering: true,
-            nSelectedText: ' - Elementos Selecioanados!',
-            allSelectedText: 'Todo Seleccionado',
-            includeSelectAllOption: true,
-             buttonContainer: '<div class="btn-group" id="municipio-container"></div>',
-             selectedClass: 'multiselect-selected',
-            nonSelectedText: 'Seleccione Elementos'
-        });
-        $('#id_comunidad').multiselect({
-            buttonClass: 'btn btn-moni',
-            enableFiltering: true,
-            nSelectedText: ' - Elementos Selecioanados!',
-            allSelectedText: 'Todo Seleccionado',
-            includeSelectAllOption: true,
-            buttonContainer: '<div class="btn-group" id="comunidad-container"></div>',
-            selectedClass: 'multiselect-selected',
-            nonSelectedText: 'Seleccione Elementos'
-        });
-    });
-
-    </script>
-
-    <script type="text/javascript">
-        $('#id_socio').multiselect({
-            enableFiltering: true,
-            nSelectedText: ' - Elementos Selecioanados!',
-            buttonClass: 'btn btn-moni'
-        });
-        $('#id_desde').multiselect({
-            enableFiltering: true,
-            nSelectedText: ' - Elementos Selecioanados!',
-            buttonClass: 'btn btn-moni'
-        });
-        $('#id_dueno').multiselect({
-            enableFiltering: true,
-            nSelectedText: ' - Elementos Selecioanados!',
-            buttonClass: 'btn btn-moni'
-        });
-    </script>
-
-<!--
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
-<script src="static/monitoreo/js/jquery.multiselect.min.js" type="text/javascript"></script>
-<script src="static/monitoreo/js/jquery.multiselect.filter.js" type="text/javascript"></script>
-<link href="static/monitoreo/css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
+<script src="/static/monitoreo/js/jquery.multiselect.min.js" type="text/javascript"></script>
+<script src="/static/monitoreo/js/jquery.multiselect.filter.js" type="text/javascript"></script>
+<link href="/static/monitoreo/css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
     var organizacion;
     var comunidad;
@@ -165,7 +92,7 @@
                     return this.value;
                 }).get();
                 if(selectos.length!=0){
-                    $.getJSON('/ajax/comunies/?ids='+selectos.join(","), function(data){
+                    $.getJSON('/monitoreo/ajax/comunies/?ids='+selectos.join(","), function(data){
                         $('#id_comunidad').html('');
                         if(data){
                             $.each(data, function(i, item){
@@ -187,9 +114,9 @@
     });
     function filtrarMunicipio(selectos, opcion){
         if (opcion == 1){
-            var url = '/ajax/munis/?ids='+selectos.join(",");
+            var url = '/monitoreo/ajax/munis/?ids='+selectos.join(",");
         }else{
-            var url = '/ajax/munis/?org_ids='+selectos.join(",");
+            var url = '/monitoreo/ajax/munis/?org_ids='+selectos.join(",");
         }
         $.getJSON(url, function(data){
             $('#id_municipio').html('');
@@ -210,11 +137,11 @@
     }
 
     function filtrarOrganizacion(selectos){
-        $.getJSON('/ajax/organi/?ids='+selectos.join(","), function(data){
+        $.getJSON('/monitoreo/ajax/organi/?ids='+selectos.join(","), function(data){
             $("#id_organizacion").html('');
             if(data){
                 $.each(data, function(i, item){
-                    $('<option></option>').val(item.id).html(item.nombre).appendTo(organizacion)
+                    $('<option></option>').val(item.id).html(item.siglas).appendTo(organizacion)
                 });
                 organizacion.multiselect('refresh');
                 organizacion.multiselect("enable");

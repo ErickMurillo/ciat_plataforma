@@ -1,4 +1,4 @@
-{% extends "base.html"%}
+{% extends "monitoreo/base.html"%}
 {%load unslugify %}
 {% block titulo %}
 Uso de Semilla
@@ -6,7 +6,7 @@ Uso de Semilla
 {% endblock%}
 {% block contenido %}
 <div id="mostrar">
-     {% include "simas/menu.html" %}
+     {% include "monitoreo/menu.html" %}
 </div>
 
 <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/14/"></a>{%endif%}</div>

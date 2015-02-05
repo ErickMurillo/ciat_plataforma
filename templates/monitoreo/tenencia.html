@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "monitoreo/base.html" %}
 
 {% block title %}Monitoreo - Tenencia{% endblock %}
 {%block titulo%}
@@ -6,10 +6,9 @@ Tenencia
 <div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
 {%endblock%}
 {% block contenido %}
-
-                        <div id="contenedor_igual">
-                            <a href="/tenencias" class="educacion">Tenencia</a>
-                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-                        </div>
-                        <div class="separador"></div>
+    <div id="contenedor_igual">
+        <a href="/tenencias" class="educacion">Tenencia</a>
+         <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+    </div>
+    <div class="separador"></div>
 {% endblock %}

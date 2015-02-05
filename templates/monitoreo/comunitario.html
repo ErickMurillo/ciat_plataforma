@@ -1,4 +1,4 @@
-{% extends "base.html"%}
+{% extends "monitoreo/base.html"%}
 {%load unslugify %}
 {% block titulo %}
 Organización &raquo; Subindicador Organización Comunitaria
@@ -37,11 +37,11 @@ Organización &raquo; Subindicador Organización Comunitaria
 {%endblock%}
 
 {%block contenido%}
-{% include "nav_org.html" %}
+{% include "monitoreo/nav_org.html" %}
 <div class="separador"></div>
 
 <div id="mostrar">
-    {% include "simas/menu.html" %}
+    {% include "monitoreo/menu.html" %}
 </div>
 
 <div id="sidebar">

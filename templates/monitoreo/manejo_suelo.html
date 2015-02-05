@@ -1,4 +1,4 @@
-{% extends "base.html"%}
+{% extends "monitoreo/base.html"%}
 {%load unslugify %}
 {% block titulo %}
 Suelo &raquo; Subindicador Manejo del Suelo
@@ -48,11 +48,11 @@ Suelo &raquo; Subindicador Manejo del Suelo
 </script>
 {%endblock%}
 {% block contenido %}
-{% include "nav_suelo.html" %}
+{% include "monitoreo/nav_suelo.html" %}
 <div class="separador"></div>
 
 <div id="mostrar">
-    {% include "simas/menu.html" %}
+    {% include "monitoreo/menu.html" %}
 </div>
 
 <div id="sidebar">

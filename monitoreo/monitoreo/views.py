@@ -63,15 +63,15 @@ def _queryset_filtrado(request):
     if request.session['departamento']:
         if not request.session['municipio']:
             municipios = Municipio.objects.filter(departamento__in=request.session['departamento'])
-            params['comunidad__municipio__in'] = municipios
+            params['productor__comunidad__municipio__in'] = municipios
         else:
             if request.session['comunidad']:
-                params['comunidad__in'] = request.session['comunidad']
+                params['productor__comunidad__in'] = request.session['comunidad']
             else:
-                params['comunidad__municipio__in'] = request.session['municipio']
+                params['productor__comunidad__municipio__in'] = request.session['municipio']
 
     if request.session['organizacion']:
-        params['organizacion__in'] = request.session['organizacion']
+        params['productor__organizacion__in'] = request.session['organizacion']
 
 #        if 'departamento' in request.session:
 #            #incluye municipio y comunidad
@@ -2491,7 +2491,7 @@ def get_organi(request):
 #    print 'MMMMMMMMM'
 #    print orgs_id_list
 #    organizaciones = Organizaciones.objects.filter(pk__in=orgs_id_list).order_by('nombre').values('id', 'nombre')
-    organizaciones = Organizaciones.objects.filter(departamento__id__in = lista).order_by('nombre').values('id', 'nombre')
+    organizaciones = Organizaciones.objects.filter(departamento__id__in = lista).order_by('nombre').values('id', 'siglas')
 
 
     return HttpResponse(simplejson.dumps(list(organizaciones)), mimetype='application/json')

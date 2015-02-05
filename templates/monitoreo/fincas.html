@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "monitoreo/base.html" %}
 {%load unslugify %}
 {%block titulo%}
 Tierra &raquo; Subindicador Uso de tierra
@@ -171,11 +171,11 @@ function Grafo5(){
 {%endblock%}
 
 {% block contenido %}
-{% include "nav_tierra.html" %}
+{% include "monitoreo/nav_tierra.html" %}
 <div class="separador"></div>
 
 <div id="mostrar">
-    {% include "simas/menu.html" %}
+    {% include "monitoreo/menu.html" %}
 </div>
 
 <div id="sidebar">
