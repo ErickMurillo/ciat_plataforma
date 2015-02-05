@@ -3,17 +3,19 @@
 
 {% block contenido %}
 
+
+<!--******************************************************************************************* -->
  <!--grafico 1 -->
 <div id="sector"></div> 
 
 <!--tabla 1-->
-<h1>Table 3. Project/Initiatives by Organizational Group</h1>
+<h1>Table 3. Proyectos/Iniciativas por Grupo Organizacional</h1>
 <div>
 <table class="table">
     <tr>
-        <td>Organizational Group</td>
-        <td>Number of Projects/Initiatives</td>
-        <td>Median Value</td>
+        <td>Grupo Organizacional</td>
+        <td>Número de Proyectos/Iniciativas</td>
+        <td>Valor de la Mediana</td>
     </tr>
     {% for key,value in proyectos.items %}
         <tr>
@@ -31,12 +33,12 @@
 <!--grafico 2 -->
 <div id="proyectos"></div> 
 
-<h1>Table 4. Distribution of Projects/Initiatives by Thematic Area</h1>
+<h1>Table 4. Distribución de Proyectos/Iniciativas por Temáticas</h1>
  <div>
 <table class="table">
     <tr>
-        <td>Thematic Area</td>
-        <td>Number of Projects/Initiatives</td>
+        <td>Temáticas</td>
+        <td>Número de Proyectos/Iniciativas</td>
     </tr>
     {% for key,value in contador_tematica.items %}
         <tr>
@@ -49,14 +51,14 @@
 
 
 <!-- tabla impactos por organizacion -->
-<h1>Table 5. Number of Impacts by Organizational Group </h1>
+<h1>Table 5. Numero de Impactos por Grupo Organizacional</h1>
 
  <div>
 <table class="table">
     <tr>
-        <td>Organizational Group</td>
-        <td>Number of Impacts</td>
-        <td>Median Value</td>
+        <td>Grupo Organizacional</td>
+        <td>Número de Impactos</td>
+        <td>Valor de la Mediana</td>
     </tr>
     {% for key,value in impacto.items %}
         <tr>
@@ -72,12 +74,12 @@
 <div id="impactos"></div> 
 
 <!-- tabla impactos por tematica pregunta 4-->
-<h1>Table 6. Distribution of Projects/Initiatives by Thematic Area</h1>
+<h1>Table 6. Distribución de Proyectos/Iniciativas por Temáticas</h1>
  <div>
 <table class="table">
     <tr>
-        <td>Thematic Area</td>
-        <td>Number of Impacts</td>
+        <td>Temáticas</td>
+        <td>Número de Impactos</td>
     </tr>
     {% for key,value in impactos_tematica.items %}
         <tr>
@@ -90,13 +92,13 @@
 
 
 <!-- tabla innovaciones por grupos organizacionales pregunta 5-->
-<h1>Table 7. Innovations/Changes by Organizational Group </h1>
+<h1>Table 7. Innovaciones/Cambios por Grupo Organizacional</h1>
  <div>
 <table class="table">
     <tr>
-        <td>Organizational Group</td>
-        <td>Number of Innovations/Changes</td>
-        <td>Median Value</td>
+        <td>Grupo Organizacional</td>
+        <td>Número</td>
+        <td>Valor de la Mediana</td>
     </tr>
     {% for key,value in innovacion_contador.items %}
         <tr>
@@ -114,12 +116,12 @@
 
 
 <!-- tabla innovaciones por grupos organizacionales pregunta 5-->
-<h1>Table 8. Distribution of Innovations/Changes by Thematic Area</h1>
+<h1>Table 8. Distribución de Innovaciones/Cambios por Temáticas</h1>
  <div>
 <table class="table">
     <tr>
-        <td>Thematic Area</td>
-        <td>Number of Innovations/Changes</td>
+        <td>Temáticas</td>
+        <td>Número de Innovaciones/Cambios</td>
     </tr>
     {% for key,value in tematica_innovacion_5a.items %}
         <tr>
@@ -150,7 +152,7 @@
             plotShadow: false
         },
         title: {
-            text: '1. Distribution of Interview Participation by Group'
+            text: '1. Distribución de la Participación en la Entrevista por Sector'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -170,7 +172,7 @@
         },
         series: [{
             type: 'pie',
-            name: '% Impactos por Organizacion',
+            name: '% Participacion',
             data: [
                     
         {% for key,value in  contador_sector.items %}
@@ -192,7 +194,7 @@
             plotShadow: false
         },
         title: {
-            text: '2. Distribution of Projects by Organizational Type'
+            text: '2. Distribución de Projectos por Tipo de Organización'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -234,7 +236,7 @@
             plotShadow: false
         },
         title: {
-            text: 'Figure 4. Distribution of Impacts by Organizational Type'
+            text: 'Figure 4. Distribución de Impactos por Tipo de Organización'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -275,7 +277,7 @@
             plotShadow: false
         },
         title: {
-            text: 'Figure 6. Distribution of Innovations/Changes across Organizational Group'
+            text: 'Figure 6. Distribución de Innovaciones/Cambios a través de los Grupos Organizacionales'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

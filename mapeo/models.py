@@ -27,7 +27,7 @@ class Organizaciones(models.Model):
     nombre = models.CharField(max_length=200)
     siglas = models.CharField("Siglas o nombre corto",
                                 help_text="Siglas o nombre corto de la oganización",
-                                max_length=200, blank=True, null=True)
+                                max_length=200)
     area_accion = models.ForeignKey(AreaAccion)
     sitio_accion = models.ForeignKey(SitioAccion)
     plataforma = models.ForeignKey(Plataforma)
@@ -68,7 +68,7 @@ class Organizaciones(models.Model):
         ordering = ['nombre',]
 
     def __unicode__(self):
-        return self.nombre
+        return self.siglas
 
 CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
 CHOICE_RANGO = (

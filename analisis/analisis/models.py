@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from smart_selects.db_fields import ChainedForeignKey
 from smart_selects.db_fields import GroupedForeignKey
 from django.utils.translation import ugettext_lazy as _
+
 # Create your models here.
 
 ALCANCE_CHOICES = (
