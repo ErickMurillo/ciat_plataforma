@@ -1,5 +1,6 @@
 {% extends "analisis/baseanalisis.html" %}
 {%load staticfiles%}
+{% load i18n %}
 
 {% block contenido %}
 
@@ -9,13 +10,13 @@
 <div id="sector"></div> 
 
 <!--tabla 1-->
-<h1>Table 3. Proyectos/Iniciativas por Grupo Organizacional</h1>
+<h1>{% trans "Tabla 3. Proyectos/Iniciativas por Grupo Organizacional" %}</h1>
 <div>
 <table class="table">
     <tr>
-        <td>Grupo Organizacional</td>
-        <td>Número de Proyectos/Iniciativas</td>
-        <td>Valor de la Mediana</td>
+        <td>{% trans "Grupo Organizacional" %}</td>
+        <td>{% trans "Número de Proyectos/Iniciativas" %}</td>
+        <td>{% trans "Valor de la Mediana" %}</td>
     </tr>
     {% for key,value in proyectos.items %}
         <tr>
@@ -33,12 +34,12 @@
 <!--grafico 2 -->
 <div id="proyectos"></div> 
 
-<h1>Table 4. Distribución de Proyectos/Iniciativas por Temáticas</h1>
+<h1>{% trans "Tabla 4. Distribución de Proyectos/Iniciativas por Temáticas" %}</h1>
  <div>
 <table class="table">
     <tr>
-        <td>Temáticas</td>
-        <td>Número de Proyectos/Iniciativas</td>
+        <td>{% trans "Temáticas" %}</td>
+        <td>{% trans "Número de Proyectos/Iniciativas" %}</td>
     </tr>
     {% for key,value in contador_tematica.items %}
         <tr>
@@ -51,7 +52,7 @@
 
 
 <!-- tabla impactos por organizacion -->
-<h1>Table 5. Numero de Impactos por Grupo Organizacional</h1>
+<h1>{% trans "Tabla 5. Numero de Impactos por Grupo Organizacional" %}</h1>
 
  <div>
 <table class="table">
