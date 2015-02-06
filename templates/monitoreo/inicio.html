@@ -270,7 +270,9 @@
                             </div>
                             <hr>
 
-                                    
+                            {%if centinela = 1 %}
+                            {% include "monitoreo/menu.html" %}        
+                            {%endif%}    
                     
                             </li>
                             
@@ -280,11 +282,8 @@
                     </div><!-- inner custom column end -->
                     
                 </div><!-- sidebar wrapper end -->
-                    {%if centinela = 1 %}
-                    {% include "monitoreo/menu.html" %}        
-                    {%endif%}
-                    <div style="height: 5px;"></div>
-            </div><!-- row end -->
+                   
+</div><!-- row end -->
 
 {% endblock %}
 <!--
