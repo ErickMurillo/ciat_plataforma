@@ -1,6 +1,26 @@
-<div id="contenedor_igual">
-    <a href="monitoreo/educacion?v={{request.session.crce}}" class="educacion">Educación</a>
-    <a href="monitoreo/salud?v={{request.session.crce}}" class="salud">Salud</a>
-    <a href="monitoreo/luz?v={{request.session.crce}}"class="luz">Energia</a>
-    <a href="monitoreo/agua?v={{request.session.crce}}"class="agua">Agua de consumo</a>
+<div class="menu-subindicador">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="/monitoreo/educacion?v={{request.session.crce}}" class="educacion">Educación</a></li>
+				<li><a href="/monitoreo/salud?v={{request.session.crce}}" class="salud">Salud</a></li>
+				<li><a href="/monitoreo/luz?v={{request.session.crce}}"class="luz">Energia</a></li>
+				<li><a href="/monitoreo/agua?v={{request.session.crce}}"class="agua">Agua de consumo</a></li>
+            </ul>
+            
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
 </div>
