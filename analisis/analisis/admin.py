@@ -297,8 +297,18 @@ class Pregunta_11_Inline(admin.TabularInline):
 	can_delete = False
 
 class EntrevistaAdmin(admin.ModelAdmin):
+	def queryset(self, request):
+		if request.user.is_superuser:
+			return Entrevista.objects.all()
+		return Entrevista.objects.filter(usuario=request.user)
+
+	def save_model(self, request, obj, form, change):
+		obj.usuario = request.user
+		obj.save()
+
+	exclude = ('usuario',)
 	fieldsets = [
-		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha','alcance1','tipo_estudio','usuario'))}),
+		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha','alcance1','tipo_estudio',))}),
 	]
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
