@@ -316,20 +316,5 @@ class EntrevistaAdmin(admin.ModelAdmin):
 			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
 
 
-			   
-	# def save_model(self, request, obj, form, change):
-	# 	instance = form.save(commit=False)
-	# 	if instance.id is None:
-	# 		instance.usuario = request.user
-	# 		instance.save()
-	# 	return instance
-
-
-	# def get_queryset(self, request):
-	# 	qs = super(EntrevistaAdmin, self).queryset(request)
-	# 	if request.user.is_superuser:
-	# 		return qs
-	# 	return qs.filter(usuario=request.user)
-
 admin.site.register(Entrevista,EntrevistaAdmin)
 
