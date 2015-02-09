@@ -3,7 +3,7 @@
 /* == font and links == */
 body { font-family: 'Open Sans', 'Myriad Pro', 'Helvetica',  sans-serif; font-size: 16px; font-weight: 300; line-height: 26px; color: #777; }
 /*a { -webkit-transition: 0.2s ease-in-out all; -moz-transition: 0.2s ease-in-out all; -o-transition: 0.2s ease-in-out all; transition: 0.2s ease-in-out all; }*/
-a:link, a:visited { color: #5d8c3b; text-decoration: none; }
+a:link, a:visited { color: #fff; text-decoration: none; }
 a:hover, a:focus { color: #111; outline: none; }
 a.moretag { font-size: 12px; text-transform: uppercase; }
 /* == END font and links == */
@@ -952,4 +952,9 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 margin-bottom: 20px;
+}
+
+.graficos_widget a {
+	display: block;
+	color: #5d8c3b;
 }
