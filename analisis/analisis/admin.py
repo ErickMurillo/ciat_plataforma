@@ -297,29 +297,24 @@ class Pregunta_11_Inline(admin.TabularInline):
 	can_delete = False
 
 class EntrevistaAdmin(admin.ModelAdmin):
+	def queryset(self, request):
+		if request.user.is_superuser:
+			return Entrevista.objects.all()
+		return Entrevista.objects.filter(usuario=request.user)
+
+	def save_model(self, request, obj, form, change):
+		obj.usuario = request.user
+		obj.save()
+
+	exclude = ('usuario',)
 	fieldsets = [
-		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha','alcance1','tipo_estudio','usuario'))}),
+		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha','alcance1','tipo_estudio',))}),
 	]
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
 			   Pregunta_6a_Inline, Pregunta_6c_Inline,Pregunta_6d_Inline,Pregunta_6e_Inline,
 			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
 
-
-			   
-	# def save_model(self, request, obj, form, change):
-	# 	instance = form.save(commit=False)
-	# 	if instance.id is None:
-	# 		instance.usuario = request.user
-	# 		instance.save()
-	# 	return instance
-
-
-	# def get_queryset(self, request):
-	# 	qs = super(EntrevistaAdmin, self).queryset(request)
-	# 	if request.user.is_superuser:
-	# 		return qs
-	# 	return qs.filter(usuario=request.user)
 
 admin.site.register(Entrevista,EntrevistaAdmin)
 
