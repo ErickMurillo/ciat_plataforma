@@ -1,11 +1,9 @@
 {% extends "monitoreo/base.html"%}
+
 {% load humanize %}
-{% block titulo %}
-Ingresos
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
-{% endblock %}
 {%load unslugify %}
-{% block extra_header %}
+
+{% block extra_js %}
 <script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
 <script src="{{MEDIA_URL}}js/jquery.tablesorter.min.js"></script>
