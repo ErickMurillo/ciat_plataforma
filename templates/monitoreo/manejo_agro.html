@@ -1,10 +1,81 @@
 {% extends "monitoreo/base.html"%}
+
 {%load unslugify %}
-{% block titulo %}
-Opciones de Manejo Agroecológico
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a></div>
-{% endblock%}
+
+{%block extra_js%}
+<link href="{{STATIC_URL}}monitoreo/css/dataTables.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{{STATIC_URL}}monitoreo/js/highcharts.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}monitoreo/js/exporting.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}monitoreo/js/dataTables.js"></script>
+<script type="text/javascript">
+    var flag = true;
+    $(document).ready(function(){
+        $('#mas').click(function(){
+            if(flag==true){
+                $('.botonera').slideDown('slow');
+                $('#estado').html('<span class="glyphicon glyphicon-arrow-up"></span>');
+                flag = false;
+            }else if (flag==false){
+                $('.botonera').slideUp('slow');
+                $('#estado').html('<span class="glyphicon glyphicon-arrow-down"></span>');
+                flag = true;
+            }
+            return false;
+            });
+
+        $('#example').dataTable( {
+            "language": {
+                "search": "Buscar:"
+            },
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+            });
+         $('#example1').dataTable( {
+            "language": {
+                "search": "Buscar:"
+            },
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+            });
+      
+        });
+    </script>
+{%endblock%}
+
 {% block contenido %}
+<div class="slide-indicadores">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                
+                <li><a href="">Familia >> Subindicador Opciones de Manejo</a></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li id="mas" class=" btnindicador">
+                    <a href="">
+                        <span id="estado">
+                        <span class="glyphicon glyphicon-arrow-down"></span>
+                        </span> Cambiar de Indicador
+                    </a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</div>
 
 <div id="mostrar">
      {% include "monitoreo/menu.html" %}
@@ -14,7 +85,7 @@ Opciones de Manejo Agroecológico
 
 <div class="contenido">
 <div id="modalidad">
-    <table>
+    <table id="example" class="display" cellspacing="0" width="50%">
         <caption>Nivel de conocimiento</caption>
         <thead>
             <tr>
@@ -40,13 +111,13 @@ Opciones de Manejo Agroecológico
                 <td>{{value.algo|floatformat}}</td>
                 <td>{{value.por_algo|floatformat}}</td>
                 <td>{{value.bastante|floatformat}}</td>
-                <td>{{value.por_bastante|floatformat}}
+                <td>{{value.por_bastante|floatformat}}</td>
             </tr>
             {%endfor%}
         </tbody>
     </table>
     <br></br>
-     <table>
+     <table id="example1" class="display" cellspacing="0" width="50%">
         <caption>Ha experimentado</caption>
         <thead>
             <tr>

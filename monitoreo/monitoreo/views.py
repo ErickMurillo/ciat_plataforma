@@ -1122,18 +1122,18 @@ def equipos(request):
     tabla = {}
     totales = {}
 
-    totales['numero'] = a.aggregate(numero=Count('propiedades__equipo'))['numero']
+    totales['numero'] = a.aggregate(numero=Count('propiedadequipo__equipo'))['numero']
     totales['porciento_equipo'] = 100
-    totales['cantidad_equipo'] = a.aggregate(cantidad=Sum('propiedades__cantidad_equipo'))['cantidad']
+    totales['cantidad_equipo'] = a.aggregate(cantidad=Sum('propiedadequipo__cantidad_equipo'))['cantidad']
     totales['porciento_cantidad'] = 100
 
     for i in Equipos.objects.all():
         key = slugify(i.nombre).replace('-','_')
-        query = a.filter(propiedades__equipo = i)
+        query = a.filter(propiedadequipo__equipo = i)
         frecuencia = query.count()
         por_equipo = saca_porcentajes(frecuencia, num_familia)
-        equipo = query.aggregate(equipo=Sum('propiedades__cantidad_equipo'))['equipo']
-        cantidad_pro = query.aggregate(cantidad_pro=Avg('propiedades__cantidad_equipo'))['cantidad_pro']
+        equipo = query.aggregate(equipo=Sum('propiedadequipo__cantidad_equipo'))['equipo']
+        cantidad_pro = query.aggregate(cantidad_pro=Avg('propiedadequipo__cantidad_equipo'))['cantidad_pro']
         tabla[key] = {'frecuencia':frecuencia, 'por_equipo':por_equipo,
                       'equipo':equipo,'cantidad_pro':cantidad_pro}
 
@@ -1141,18 +1141,18 @@ def equipos(request):
     tabla_infra = {}
     totales_infra = {}
 
-    totales_infra['numero'] = a.aggregate(numero=Count('propiedades__infraestructura'))['numero']
+    totales_infra['numero'] = a.aggregate(numero=Count('propiedadinfraestructura__infraestructura'))['numero']
     totales_infra['porciento_infra'] = 100
-    totales_infra['cantidad_infra'] = a.aggregate(cantidad_infra=Sum('propiedades__cantidad_infra'))['cantidad_infra']
+    totales_infra['cantidad_infra'] = a.aggregate(cantidad_infra=Sum('propiedadinfraestructura__cantidad_infra'))['cantidad_infra']
     totales_infra['por_cantidad_infra'] = 100
 
     for j in Infraestructuras.objects.all():
         key = slugify(j.nombre).replace('-','_')
-        query = a.filter(propiedades__infraestructura = j)
+        query = a.filter(propiedadinfraestructura__infraestructura = j)
         frecuencia = query.count()
         por_frecuencia = saca_porcentajes(frecuencia, num_familia)
-        infraestructura = query.aggregate(infraestructura=Sum('propiedades__cantidad_infra'))['infraestructura']
-        infraestructura_pro = query.aggregate(infraestructura_pro=Avg('propiedades__cantidad_infra'))['infraestructura_pro']
+        infraestructura = query.aggregate(infraestructura=Sum('propiedadinfraestructura__cantidad_infra'))['infraestructura']
+        infraestructura_pro = query.aggregate(infraestructura_pro=Avg('propiedadinfraestructura__cantidad_infra'))['infraestructura_pro']
         tabla_infra[key] = {'frecuencia':frecuencia, 'por_frecuencia':por_frecuencia,
                              'infraestructura':infraestructura,
                              'infraestructura_pro':infraestructura_pro}
