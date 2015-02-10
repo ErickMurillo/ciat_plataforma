@@ -67,21 +67,22 @@
                                 <img class="center-block logo-contraparte" src="/media/{{im}}" >
                             {% endthumbnail %}
                             {%else%}
-                                <img class="center-block img-responsive" src="http://placehold.it/180x160&text=No Logo">
+                                <img class="center-block" src="http://placehold.it/180x160&text=No Logo">
                             {%endif%}
                             <div class="page-title-meta">
                                     <h1 class="page-title-contraparte"><a href="" title="">
-                                    {{contraparte.nombre}}
+                                    {{contraparte.siglas}}
                                     </a></h1>
                                     <div class="news-meta">
                                     
                                         
-                                        <span class="ong">{{contraparte.siglas}}</span>
+                                        <span class="ong">{{contraparte.sitio_accion}}</span>
+                                        <span class="ong">{{contraparte.plataforma}}</span>
                                     </div>
                             </div>
                             <div class="news-summary">
                                     <p>
-                                    {{contraparte.generalidades|safe|truncatewords_html:30}}
+                                    
                                     <a href="{% url 'detalle-contraparte' contraparte.id %}" title="Leer más" class="moretag">Leer más..</a>
                                     </p>
                             </div>

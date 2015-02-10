@@ -27,7 +27,7 @@ h1 > i, h2 > i, h3 > i, h4 > i, h5 > i, h6 > i { margin-right: 10px; }
 .page-title { font-size: 28px; font-weight: 700; line-height: 36px; margin-top: 0; margin-bottom: 0; padding-bottom: 15px; border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
 .title-widget { color: #898989; font-size: 13px; font-weight: 300; line-height: 1; text-transform: uppercase; margin: 0 0 40px 0; position: relative; }
 .title-widget:before { content: ""; position: absolute; left: -30px; top: -2px; height: 18px; width: 5px; background-color: #5d8c3b; }
-.title-median { color: #636363; font-size: 15px; font-weight: 700; line-height: 20px; text-transform: uppercase; margin: 0 0 15px 0; }
+.title-median { color: #636363; font-size: 14px; font-weight: 700; line-height: 20px; margin: 0 0 15px 0; }
 .title-titan { color: #898989; font-size: 20px; font-weight: 800; text-transform: uppercase; margin: 0 0 15px 0; }
 .title-giant { font-size: 40px; font-weight: 800; margin: 20px 0; letter-spacing: -0.05em; }
 h1 a:link, h1 a:visited, h2 a:link, h2 a:visited, h3 a:link, h3 a:visited, h4 a:link, h4 a:visited, h5 a:link, h5 a:visited, h6 a:link, h6 a:visited, 
@@ -40,8 +40,8 @@ h1 a:hover, h1 a:focus, h2 a:hover, h2 a:focus, h3 a:hover, h3 a:focus, h4 a:hov
 /* == custom buttons == */
 .custom-button { display: block; position: relative; overflow: hidden; padding: 15px 20px; margin: 20px 0; -webkit-transition: 0.25s ease-in-out all; -moz-transition: 0.15s ease-in-out all; -o-transition: 0.15s ease-in-out all; transition: 0.15s ease-in-out all; }
 .custom-button-wrap { display: block; margin-left: 30px; }
-.custom-button-icon { display: block; float: left; font-size: 20px; line-height: 24px; }
-.custom-button-title { display: block; font-size: 20px; font-weight: 700; color: #fff7e3; line-height: 20px; letter-spacing: -.02em; text-transform: uppercase; }
+.custom-button-icon { display: block; float: left; font-size: 15px; line-height: 24px; }
+.custom-button-title { display: block; font-size: 15px; font-weight: 700; color: #fff7e3; line-height: 20px; letter-spacing: -.02em; text-transform: uppercase; }
 .custom-button-tagline { display: block; font-size: 12px; line-height: 16px; font-weight: 400; margin-top: 5px; }
 .custom-button-icon, .custom-button-tagline { color: #000; opacity: 0.5; }
 .custom-button:hover { -moz-border-radius: 0 0 20px 0; -webkit-border-radius: 0 0 20px 0; border-radius: 0 0 20px 0; }
@@ -317,13 +317,13 @@ li.widget-container:not(:first-child) { margin-top: 10px; }
 .recent-news-thumb img { width: 90px; }
 .recent-news-text { margin-left: 110px; }
 .widget_recent_news .title-median { margin-bottom: 0; }
-.widget-container .recent-news-date { font-size: 12px; line-height: 14px; margin: 8px 0 15px 0; padding: 0 0 15px 0; border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
+.widget-container .recent-news-date { font-size: 12px; line-height: 14px; margin: 8px 0 15px 0; padding: 0 0 5px 0; border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
 .widget-container .recent-news-text p { font-size: 14px; line-height: 24px; margin: -4px 0 0 0; }
 .news-no-summary .recent-news-date { padding: 0; margin: 0 0 10px; border: none; }
 .news-no-summary .recent-news-thumb img { width: 70px; }
 .news-no-summary .recent-news-text { margin-left: 90px; }
 
-.news-mini-wrap .page-title { font-size: 18px; line-height: 22px; }
+.news-mini-wrap .page-title { font-size: 15px; line-height: 22px; }
 .news-featured-image { margin-bottom: 25px; border-bottom: 10px solid rgba( 0, 0, 0, 0.05 ); }
 .news-mini-wrap .news-featured-image { margin-bottom: 15px; }
 .news-meta { margin-top: 5px; }
@@ -1158,6 +1158,9 @@ text-align: center;
 }
 .fc-event:hover{
 	cursor: pointer;
+}
+.fc-event-title{
+	font-size: 12px !important;
 }
 .admin-logo img{
  max-width: 190px;
