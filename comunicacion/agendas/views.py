@@ -136,8 +136,8 @@ def calendario_publico(request,id=None):
 
     if not id==None:
         actividad = Agendas.objects.get(pk=id)
-    contrapartes_sel = Organizaciones.objects.filter(id__in=request.session['p'])
-    contrapartes_otras = Organizaciones.objects.exclude(id__in=request.session['p'])
+    #contrapartes_sel = Organizaciones.objects.filter(id__in=request.session['p'])
+    #contrapartes_otras = Organizaciones.objects.exclude(id__in=request.session['p'])
     return render_to_response('comunicacion/agendas/agenda_list_public.html',locals(),
                               context_instance = RequestContext(request))
 
