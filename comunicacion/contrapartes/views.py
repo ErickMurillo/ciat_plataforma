@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.contrib.auth import logout
+from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from .models import *
@@ -10,16 +9,14 @@ from forms import *
 from comunicacion.notas.models import *
 from comunicacion.agendas.models import *
 from django.contrib.sites.models import Site
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-import operator
 import thread
-import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import simplejson
 from comunicacion.foros.models import Videos, Audios
 from mapeo.models import Organizaciones
-
+from analisis.configuracion.models import SitioAccion, Plataforma
 
 # Create your views here.
 #def contrapartes_index(request):
@@ -35,21 +32,21 @@ def lista_contrapartes_mapa(request):
 def lista_contrapartes(request):
     object_list = Organizaciones.objects.all().order_by('nombre')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
-    paises = Pais.objects.all()
+    paises = SitioAccion.objects.all()
     return render_to_response('comunicacion/contrapartes/contraparte_list.html', locals(),
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes_pais(request,id):
-    object_list = Organizaciones.objects.filter(pais__id=id).order_by('nombre')
+    object_list = Organizaciones.objects.filter(sitio_accion__id=id).order_by('nombre')
     agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
-    paises = Pais.objects.all()
+    paises = SitioAccion.objects.all()
     return render_to_response('comunicacion/contrapartes/contraparte_list.html', locals(),
                                  context_instance=RequestContext(request))
 
 def detalle_contraparte(request,id):
     contra = get_object_or_404(Organizaciones, id=id)
-    notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha')
-    agendas = Agendas.objects.filter(user__userprofile__contraparte__id=id).order_by('-inicio')
+    notas = Notas.objects.filter(sitio_accion__id=id).order_by('-fecha')
+    agendas = Agendas.objects.filter(sitio_accion__id=id).order_by('-inicio')
     return render_to_response('comunicacion/contrapartes/contraparte_detail.html', locals(),
                                  context_instance=RequestContext(request))
 
@@ -126,14 +123,32 @@ def editar_usuario_perfil(request):
     return render_to_response('comunicacion/contrapartes/editar_usuario.html', locals(),
                                  context_instance=RequestContext(request))
 
-from analisis.configuracion.models import SitioAccion
-
 @login_required
 def enviar_mensaje(request):
     mensaje = Mensajero.objects.filter(user=request.user).order_by('-id')
     sitio_accion = SitioAccion.objects.all()
+    plataformas = Plataforma.objects.all()
     organizaciones = Organizaciones.objects.all()
     usuarios = User.objects.all()
+
+    dic_plataforma = {}
+    lista1 = []
+    for sitio in sitio_accion:
+        dic_plataforma[sitio] = {}
+        for plata in plataformas:
+            dic_plataforma[sitio][plata] = {}
+            for org in organizaciones:
+                if org.plataforma == plata and org.sitio_accion == sitio:
+                    dic_plataforma[sitio][plata] = org
+    
+
+    print "aca va lo que necesito"
+    for k,v in dic_plataforma.items():
+        print "la llave %s -- y su valor es %s \n" % (k,v)
+
+    print "ah0ra son las organizaciones"
+    for obj in organizaciones:
+        print "su org. es: %s y su plataforma es: %s y su sitio: %s " % (obj.nombre, obj.plataforma, obj.sitio_accion)
 
     paginator = Paginator(mensaje, 5)
     page = request.GET.get('page')

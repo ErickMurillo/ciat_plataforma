@@ -13,6 +13,7 @@ from django.utils import simplejson
 import datetime
 from mapeo.models import Organizaciones
 from analisis.configuracion.models import SitioAccion
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 @login_required
@@ -78,6 +79,7 @@ def borrar_agenda(request, id):
         return redirect('/')
 
 @login_required
+@csrf_exempt
 def calendario(request,id=None):
     paises = Pais.objects.all()
     contrapartes = Organizaciones.objects.all()
@@ -103,9 +105,12 @@ def calendario(request,id=None):
         return HttpResponse(simplejson.dumps(var), mimetype='application/json')
     if not id==None:
         actividad = Agendas.objects.get(pk=id)
+    contrapartes_sel = Organizaciones.objects.filter(id__in=request.session['p'])
+    contrapartes_otras = Organizaciones.objects.exclude(id__in=request.session['p'])
     return render_to_response('comunicacion/agendas/agenda_list.html',locals(),
                               context_instance = RequestContext(request))
 
+@csrf_exempt
 def calendario_publico(request,id=None):
     paises = SitioAccion.objects.all()
     contrapartes = Organizaciones.objects.all()
@@ -131,12 +136,16 @@ def calendario_publico(request,id=None):
 
     if not id==None:
         actividad = Agendas.objects.get(pk=id)
+    contrapartes_sel = Organizaciones.objects.filter(id__in=request.session['p'])
+    contrapartes_otras = Organizaciones.objects.exclude(id__in=request.session['p'])
     return render_to_response('comunicacion/agendas/agenda_list_public.html',locals(),
                               context_instance = RequestContext(request))
 
 @login_required
+@csrf_exempt
 def calendario_full_contraparte(request,id=None):
     paises = Pais.objects.all()
+    contrapartes = Organizaciones.objects.all()
     if request.method == 'POST':
         request.session['p'] = request.POST.getlist('contraparte')
         

@@ -242,7 +242,7 @@
                              
                                 <ul>
                                 {%for nota in notas%}
-                                    <li><a href="/notas/{{nota.id}}" title="menu item">{{nota.titulo}}</a></li>
+                                    <li><a href="{% url 'detalle-notas' nota.id %}" title="menu item">{{nota.titulo}}</a></li>
                                 {% endfor %}
                                     
                                     
@@ -275,10 +275,7 @@
                                         </p>
                                     
                                     </li>
-                                    {% endfor %}
-                                    
-                                    
-                                  
+                                    {% endfor %}  
                                 
                                 </ul>
                             
