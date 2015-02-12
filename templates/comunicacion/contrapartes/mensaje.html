@@ -111,15 +111,16 @@ $(document).ready(function() {
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<form name='fl' action="." method="POST" accept-charset="utf-8">{% csrf_token %}
 
-						{% for sitio in  sitio_accion %}	
+						{% for sitio, v in  dic_plataforma.items %}	
 							<div class="collapse" id="{{sitio}}">
 							  <div class="page-boder">
 							    Organizaciones de {{sitio}}
+							    {% for plata in plataformas %}
 							    {% for organizacion in organizaciones %}
-								    {% if organizacion.sitio_accion.id == sitio.id %}
+								    {% if organizacion.sitio_accion.id == sitio.id and organizacion.plataforma == plata%}
 								    	<ul>
 								    		<li class="org-collapse" data-toggle="collapse" href="#{{organizacion.siglas}}" aria-expanded="false">
-								    			<span class="fondosiglas"><i class="fa fa-arrow-circle-o-right"></i>{{organizacion.siglas}}</span>
+								    			<span class="fondosiglas"><i class="fa fa-arrow-circle-o-right"></i>{{plata}}</span>
 								    		</li>
 								    		{% for a in usuarios %}
 											{% if a.userprofile.contraparte.id == organizacion.id %}
@@ -131,6 +132,7 @@ $(document).ready(function() {
 								    	</ul>
 
 									{%endif%}
+								{% endfor %}
 								{% endfor %}
 							  </div>
 							</div>
@@ -150,7 +152,12 @@ $(document).ready(function() {
                             
 
                         </div><!-- row end -->
-
+						{% for k, v in  dic_plataforma.items %}
+							{{k}} <br>
+							{% for llave, valor in v.items %}
+								{{llave}} -- {{valor}} <br>
+							{% endfor %}
+						{% endfor %}
                     
                     </div><!-- inner custom column end -->
                     
