@@ -97,7 +97,7 @@ def detalle_notas(request, id):
                                  context_instance=RequestContext(request))  
 
 def lista_notas_pais(request,id):
-    notas_list = Notas.objects.filter(user__userprofile__contraparte__pais__id=id).order_by('-fecha','-id')
+    notas_list = Notas.objects.filter(sitio_accion__id=id).order_by('-fecha','-id')
     paises = SitioAccion.objects.all()
     pais_selecto = SitioAccion.objects.get(pk=id)
 
@@ -127,7 +127,7 @@ def index(request):
                               context_instance=RequestContext(request))
 
 def index_filtrado(request, pais_id):
-    notasslide = Notas.objects.filter(user__userprofile__contraparte__pais__id=pais_id).order_by('-fecha','-id')
+    notasslide = Notas.objects.filter(sitio_accion__id=pais_id).order_by('-fecha','-id')
     paises = SitioAccion.objects.all()
     contrapartes = Organizaciones.objects.all()
     audio = Audios.objects.order_by('-id')[:1]

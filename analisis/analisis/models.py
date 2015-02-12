@@ -62,8 +62,8 @@ class Pregunta_1(models.Model):
 		return self.proyecto
 
 	class Meta:
-		verbose_name = 'Proyectos e iniciativas'
-		verbose_name_plural = 'Proyectos e iniciativas que ha llegado su organización en los ultimos 5 años'
+		verbose_name = _(u'Proyectos e iniciativas')
+		verbose_name_plural = _(u'Proyectos e iniciativas que ha llegado su organización en los ultimos 5 años')
 
 PREGUNTA2_CHOICES = (
     (1,_(u'Tecnicos')),
@@ -79,8 +79,8 @@ class Pregunta_2(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Recursos humanos'
-		verbose_name_plural = 'Recursos humanos que tiene su organización'
+		verbose_name = _(u'Recursos humanos')
+		verbose_name_plural = _(u'Recursos humanos que tiene su organización')
 
 
 class Pregunta_3(models.Model):
@@ -88,8 +88,8 @@ class Pregunta_3(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'A que grupos beneficia su organización'
-		verbose_name_plural = 'A que grupos beneficia su organización'
+		verbose_name = _(u'A que grupos beneficia su organización')
+		verbose_name_plural = _(u'A que grupos beneficia su organización')
 
 class Pregunta_4(models.Model):
 	impacto = models.CharField(max_length=250, verbose_name=_(u'Impacto(s)'))
@@ -98,8 +98,8 @@ class Pregunta_4(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Impactos Organizacionales'
-		verbose_name_plural = 'Tipos de impactos organizacionales que ha hecho su organización en los ultimos 5 años'
+		verbose_name = _(u'Impactos Organizacionales')
+		verbose_name_plural = _(u'Tipos de impactos organizacionales que ha hecho su organización en los ultimos 5 años')
 
 PRIORITIZADO_CHOICES = (
 	(1,_(u'Si')),
@@ -118,8 +118,8 @@ class Pregunta_5a(models.Model):
 		return self.innovacion
 
 	class Meta:
-		verbose_name = 'Innovación productiva u organizacional'
-		verbose_name_plural = 'Ha participado su organización en alguna innovación productiva u organizacional en la región'
+		verbose_name = _(u'Innovación productiva u organizacional')
+		verbose_name_plural = _(u'Ha participado su organización en alguna innovación productiva u organizacional en la región')
 
 class Pregunta_5c(models.Model):
 	innovacion = models.ForeignKey(Pregunta_5a,verbose_name=_(u'Innovacion'))

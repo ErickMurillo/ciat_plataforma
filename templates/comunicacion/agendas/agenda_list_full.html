@@ -1,7 +1,8 @@
 {% extends "baseadmin.html" %}
 {% block extra_js %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <link href="/static/comunicacion/css/fullcalendar.css" rel="stylesheet" type="text/css">
-<link href="/static/comunicacion/css/cupertino/theme.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript" src="/static/comunicacion/js/fullcalendar.min.js"></script>
 <script type='text/javascript'>
 	$(document).ready(function() {
@@ -46,138 +47,178 @@
 </style>
 {%endblock%}
 {% block contenido %}
-<div class="row">
-	<div class="encabezado">
-	  <div class="container">
-		    <div class="row">
-			    <div class="span5">
-			    	<div class="encabezado-title">
-			      		AGENDA DE ACTIVIDADES
-			  		</div>
-			    </div>
-			    <div class="span7">
-					<div class="btn-group filtrospais">
-					  <a class="btn"href="/agendas/crear"><i class="icon-plus"></i>Agregar Actividad</a>
-					</div>
-			    </div>
-	        </div>
-	  </div>
-	</div>
-</div>
-<div class="row body-content">
-	<div class="container ">
- 		{% if request.GET.shva == 'erase' %}
-            <div class="alert fade in">
-                Se ha eliminado el evento de forma permanente
-                <a class="close" href="#" data-dismiss="alert">x</a>
-            </div>
-        {% endif %}
-		{% if request.GET.shva == 'editada' %}
-            <div class="alert fade in">
-                El evento ha sido editado
-                <a class="close" href="#" data-dismiss="alert">x</a>
-            </div>
-        {% endif %}
-		{%if actividad %}
-		<div class="row">
-			<div  {%if actividad.adjunto.all %}class="span8"{%else%} class="span12"{%endif%}>
-				<div class="evento">
-					<div class="fechas">
-						<span class="badge badge-warning"><i class="icon-calendar icon-white"></i>{{actividad.inicio|date:"d M"}}</span>
-						{%if actividad.final%}
-							→ <span class="badge badge-warning"><i class="icon-calendar icon-white"></i>{{actividad.final|date:"d M"}}</span>
-						{%endif%}
-					</div>
-					<div class="titulo-medio">{{actividad.evento}}</div>
-					{{actividad.descripcion|safe}}
-					{% if actividad.user == request.user or request.user.is_superuser %}
-						<div class="botones-evento">
-					    <a class="btn btn-mini" href="/agendas/editar/{{actividad.id}}"><i class="icon-pencil"></i>Editar</a>
-					    <a  data-toggle="modal" data-target="#myModal" class="btn btn-mini btn-danger" href=""><i class="icon-trash icon-white"></i>Borrar</a>
-						</div>
-						<div class="clean"></div>
-	                        <div class="modal fade hide" id="myModal">
-	                          <div class="modal-header">
-	                            <a class="close" data-dismiss="modal">×</a>
-	                            <h3>¿Está seguro?</h3>
-	                          </div>
-	                          <div class="modal-body">
-	                            <p>El evento será borrado permanentemente y no podrá ser recuperado</p>
-	                          </div>
-	                          <div class="modal-footer">
-	                            <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
-	                            <a href="/agendas/borrar/{{actividad.id}}" class="btn btn-danger">Borrar permanentemente</a>
-	                          </div>
-	                        </div>  
-					 {% endif %}
-				</div>
-			</div>
-			{%if actividad.adjunto.all %}
-			<div class="span4">				
-				<div class="sidebar-title">Documentos</div>
-                <table class="table  table-bordered table-condensed doc-sidebar">
-                  <tbody>
-                    {% for doc in actividad.adjunto.all%}
-                    <tr>
-                        <td>{{doc.nombre_doc}}</td>
-                        <td><center><a href="/media/{{doc.adjunto}}" class=" btn btn-info btn-mini dropdown-toggle"><i class="icon-download-alt icon-white"></i>Descargar</a></center></td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-			</div>
-			{%endif%}
-		</div>
-		<hr>
-		{%endif%}
-		<div class="row">
-			<div class="span9">
-				<div id='calendar'></div>
-			</div>
-			<div class="span3">
-				<ul class="nav nav-list well">
-						<li class="nav-header">
-					    OPCIONES DE VISUALIZACIÓN
-					  </li>
-					  	<form  action="/agendas/calendar/" method="POST">{% csrf_token %}
-						 {% for pais in paises %}
-						 	<strong>{{pais}}</strong><br>
+<div class="row no-gutter "><!-- row -->
+                
+                <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
 
-						 	{% for contraparte in contrapartes_sel %}
-						 		{% if contraparte.pais.id == pais.id%}
-<<<<<<< HEAD
-						 		<div class="leyenda"style ="background:#{{contraparte.font_color}}"></div>
-=======
-						 		<div class="leyenda" style ="background:{{contraparte.font_color}}"></div>
-						 		<div class="check-leyenda">
->>>>>>> 5f2edf7d2a2868986051da97df27da61e909e3ca
-								<label class="checkbox">
-								<input type="checkbox" name="contraparte" value="{{contraparte.id}}" checked>
-								{{contraparte}}	
-								</label>
-								</div>
-						 		{%endif%}
-						 	{% endfor %}
+                    
+                            {% if request.GET.shva == 'erase' %}
+                        <div class="alert fade in">
+                            Se ha eliminado el evento de forma permanente
+                            <a class="close" href="#" data-dismiss="alert">x</a>
+                        </div>
+                    {% endif %}
+                    {% if request.GET.shva == 'editada' %}
+                        <div class="alert fade in">
+                            El evento ha sido editado
+                            <a class="close" href="#" data-dismiss="alert">x</a>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="col-padded"><!-- inner custom column -->
 
-						 	<!--{% for contraparte in contrapartes_otras %}
-						 		{% if contraparte.pais.id == pais.id%}
-						 		<div class="leyenda" style ="background:{{contraparte.font_color}}"></div>
-								<label class="checkbox">
-								<input type="checkbox" name="contraparte" value="{{contraparte.id}}">
-								{{contraparte.siglas}}
-								</label>
-						 		{%endif%}
-						 	{% endfor %}-->
+                        <div class="row gutter"><!-- row -->
 
-						 {% endfor %}
-						 <hr>
-						<li>
-						<button type="submit" class="btn">Mostrar</button>
-						</li>
-						</form>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
+                            <div class="col-lg-12 col-md-12">
+                                <a href="/agendas/crear" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Agregar Actividad</a>
+                                <br>
+                                <hr />
+                            </div>                        
+                            <div class="col-lg-12 col-md-12">
+                    
+                                <h1 class="page-title">Agenda de Actividades</h1><!-- category title -->
+                            </div>
+                        
+                        </div><!-- row end -->
+                        <br>
+
+                            {%if actividad %}
+                            <div class="col-lg-12 col-md-12">
+                                
+                                <div class="events-title-meta clearfix">
+                                    <h1 class="page-title-evento">{{actividad.evento}}</h1>
+                                    <div class="event-meta-detalle">
+                                        <span class="event-from">{{actividad.inicio|date:"d M"}}</span>
+                                        <span class="event-divider">hasta</span>
+                                        <span class="event-to">{{actividad.final|date:"d M"}}</span>
+                                        
+                                        <div class="botones-evento pull-right">
+                                            <div class="btn-group">
+                                                <a href="/agendas/editar/{{actividad.id}}" class="fa fa-pencil-square-o btn btn-success"></a>
+                                                
+                                                <a href='#modal-borrar' data-toggle="modal" class="fa fa-trash-o btn btn-danger"></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="detalle-event">
+                                   
+                                    <span class=""> Contacto : {{actividad.contacto}}</span>
+                                    <span class=""> Correo : {{actividad.correo}}</span>
+                                    <span class=""> Lugar : {{actividad.lugar}}</span>
+                                </div>
+                                
+                                <div class="news-body-detalle">
+                                    <p>
+                                   {{actividad.descripcion|safe}}
+                                    </p>
+                                    
+                                    <hr/>
+
+                                    {% if actividad.user.userprofile.contraparte == request.user.userprofile.contraparte or request.user.is_superuser %}
+
+                                    <div class="modal fade" id="modal-borrar">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h3 class="modal-title txt-black">¿Está seguro?</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>El evento será borrado permanentemente y no podrá ser recuperado</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+                                                    <a href="/agendas/borrar/{{actividad.id}}" type="button" class="btn btn-danger">
+                                                        Borrar Permanentemente
+                                                    </a>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+   
+                                    {% endif %}
+                     
+                                    {%if actividad.adjunto.all %}
+                                    <div class="row">
+                                        {% for doc in actividad.adjunto.all%}
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="col-md-12 col-lg-8">
+                                                <p class="info-doc">{{doc.nombre_doc}}</p>
+                                            </div>
+                                            <div class="col-md-12 col-lg-4">
+                                                <a href="/uploads/{{doc.adjunto}}" class="btn btn-primary">
+                                                    <i class="fa fa-download">&nbsp;</i>Descargar
+                                                </a>
+                                            </div>
+                                        </div>
+                                
+                                    </div>
+                                    {% endfor %}
+                                    <hr />
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="addthis_native_toolbox"></div>
+                                    </div>
+                                    <br>
+                                    <hr />
+
+                                    
+                                    {% endif %}
+                                </div>
+
+                                    </div>
+
+                                    {%endif%}
+
+                     
+                        
+
+                            <div class="col-lg-12 col-md-12">
+                                <div id='calendar'></div>
+                            </div>
+                                    
+
+                        
+                        
+                                     
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- doc body wrapper end -->
+
+                
+                <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
+
+                    <div class="col-padded col-shaded"><!-- inner custom column -->
+                    
+                    <h1 class="title-widget">Organizaciones</h1>
+
+                    <ul class="list-org">
+                        <form action="/agendas/calendar/" method="POST">
+                    <div style="display:none"><input type="hidden" name="csrfmiddlewaretoken" value="Gum2gg0eEr7vm4EnPvMcylr3KVYjROJ6">
+                    </div>
+                         
+                        {% for pais in paises %}
+                            <strong>{{pais}}</strong><br>
+                            {% for contraparte in contrapartes %}
+                                {% if contraparte.pais.id == pais.id%}
+                                <div class="leyenda"style ="background:{{contraparte.font_color}}"></div>
+                                <li class="check-leyenda">
+                                    <label class="checkbox"><input type="checkbox" name="contraparte" value="{{contraparte.id}}">{{contraparte.siglas}}</label>
+                                </li>
+                                {%endif%}
+                            {% endfor %}
+                         {% endfor %}
+                         <hr>
+                      
+                        <button type="submit" class="btn btn-success">Mostrar</button>
+                        
+                        </form>
+                    </ul>
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- sidebar wrapper end -->
+             </div><!-- row end -->
 {% endblock %}

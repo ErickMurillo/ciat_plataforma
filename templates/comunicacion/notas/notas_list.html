@@ -104,8 +104,22 @@
 
                         </div><!-- row end -->
                         
-                          {% load paginador %}
-                          {% render_paginator 2 3 %}
+                         <div class="pagination">
+                            <span class="step-links">
+                                {% if notas.has_previous %}
+                                    <a href="?page={{ notas.previous_page_number }}">Anterior</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Pagina {{ notas.number }} de {{ notas.paginator.num_pages }}.
+                                </span>
+
+                                {% if notas.has_next %}
+                                    <a href="?page={{ notas.next_page_number }}">Siguiente</a>
+                                {% endif %}
+                            </span>
+                        </div>
+                          
                         
                     
                     </div><!-- inner custom column end -->

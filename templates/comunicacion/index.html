@@ -298,7 +298,8 @@
 
     <div class="sliderorg ">
       {% for contra in contrapartes %}
-      <div class="slide thumbnail">
+      <div class="slide thumbnail" style="height=1000px !important">
+      <div id="slidecontraparte">
           {% if contra.logo %}
               {% thumbnail contra.logo "200x150" as im %}
                 <img class="center-block" src="/media/{{im}}">
@@ -306,7 +307,7 @@
           {% else %}
         <img class="center-block " src="http://placehold.it/200x150&text=No Image">
       {% endif %}
-        
+        </div>
         <h3>{{contra.siglas}}</h3>
         <li><a href="{{contra.sitio_web}}"><i class="fa fa-globe fa-lg"></a></i></li>
         <li> <a href="{% url 'detalle-contraparte' contra.id %}"><i class="fa fa-info-circle fa-lg"></i></a></li>

@@ -2,395 +2,398 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-03 16:41-0600\n"
+"POT-Creation-Date: 2015-02-05 11:59-0600\n"
 "PO-Revision-Date: 2015-02-04 16:16+0000\n"
 "Last-Translator:   <erick@mail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: analisis/analisis/models.py:14
+#: analisis/analisis/models.py:15
 msgid "Nacional"
 msgstr "National"
 
-#: analisis/analisis/models.py:15
+#: analisis/analisis/models.py:16
 msgid "Territorial"
 msgstr ""
 
-#: analisis/analisis/models.py:19 analisis/configuracion/models.py:148
+#: analisis/analisis/models.py:20 analisis/configuracion/models.py:148
 msgid "Nombre"
 msgstr "Name"
 
-#: analisis/analisis/models.py:20
+#: analisis/analisis/models.py:21
 msgid "Posicion"
 msgstr "Position"
 
-#: analisis/analisis/models.py:21
+#: analisis/analisis/models.py:22
 msgid "Correo"
 msgstr "Email"
 
-#: analisis/analisis/models.py:22 analisis/analisis/models.py:125
-#: analisis/analisis/models.py:169 analisis/analisis/models.py:233
+#: analisis/analisis/models.py:23 analisis/analisis/models.py:126
+#: analisis/analisis/models.py:170 analisis/analisis/models.py:234
 msgid "Organizacion"
 msgstr ""
 
-#: analisis/analisis/models.py:23
+#: analisis/analisis/models.py:24
 msgid "Pais"
 msgstr "Country"
 
-#: analisis/analisis/models.py:29
+#: analisis/analisis/models.py:30
 msgid "Telefono"
 msgstr "Phone"
 
-#: analisis/analisis/models.py:30
+#: analisis/analisis/models.py:31
 msgid "Fecha"
 msgstr "Date"
 
-#: analisis/analisis/models.py:32
+#: analisis/analisis/models.py:33
 msgid "Alcance"
 msgstr ""
 
-#: analisis/analisis/models.py:33 analisis/analisis/models.py:316
+#: analisis/analisis/models.py:34 analisis/analisis/models.py:317
 #: analisis/configuracion/models.py:205
 msgid "Tipo de estudio"
 msgstr ""
 
-#: analisis/analisis/models.py:47
+#: analisis/analisis/models.py:48
 msgid "Activo"
 msgstr "Active"
 
-#: analisis/analisis/models.py:48
+#: analisis/analisis/models.py:49
 msgid "Finalizado"
 msgstr "Finish"
 
-#: analisis/analisis/models.py:52
+#: analisis/analisis/models.py:53
 msgid "Proyecto(s) e iniciativa(s)"
 msgstr ""
 
-#: analisis/analisis/models.py:53
+#: analisis/analisis/models.py:54
 msgid "Estado"
 msgstr ""
 
-#: analisis/analisis/models.py:54
+#: analisis/analisis/models.py:55
 msgid "Municipio"
 msgstr ""
 
-#: analisis/analisis/models.py:55
+#: analisis/analisis/models.py:56
 msgid "Socios"
 msgstr ""
 
-#: analisis/analisis/models.py:56 analisis/analisis/models.py:96
-#: analisis/analisis/models.py:112 analisis/analisis/models.py:156
-#: analisis/analisis/models.py:276
+#: analisis/analisis/models.py:57 analisis/analisis/models.py:97
+#: analisis/analisis/models.py:113 analisis/analisis/models.py:157
+#: analisis/analisis/models.py:277
 msgid "Temas"
 msgstr "Themes"
 
-#: analisis/analisis/models.py:68
-msgid "Tecnicos"
+#: analisis/analisis/models.py:65
+msgid "Proyectos e iniciativas"
 msgstr ""
 
 #: analisis/analisis/models.py:69
-msgid "Promotores "
+msgid "Tecnicos"
 msgstr ""
 
 #: analisis/analisis/models.py:70
-msgid "Invetigadores"
+msgid "Promotores "
 msgstr ""
 
 #: analisis/analisis/models.py:71
+msgid "Invetigadores"
+msgstr ""
+
+#: analisis/analisis/models.py:72
 msgid "Decisores"
 msgstr ""
 
-#: analisis/analisis/models.py:75
+#: analisis/analisis/models.py:76
 msgid "Cargos"
 msgstr ""
 
-#: analisis/analisis/models.py:76
+#: analisis/analisis/models.py:77
 msgid "Numero de Hombre(s)"
 msgstr ""
 
-#: analisis/analisis/models.py:77
+#: analisis/analisis/models.py:78
 msgid "Numero de Mujer(es)"
 msgstr ""
 
-#: analisis/analisis/models.py:86
+#: analisis/analisis/models.py:87
 msgid "Grupos"
 msgstr ""
 
-#: analisis/analisis/models.py:94
+#: analisis/analisis/models.py:95
 msgid "Impacto(s)"
 msgstr ""
 
-#: analisis/analisis/models.py:95
+#: analisis/analisis/models.py:96
 msgid "Grupos beneficiarios principales de este impacto"
 msgstr ""
 
-#: analisis/analisis/models.py:104
+#: analisis/analisis/models.py:105
 msgid "Si"
 msgstr "Yes"
 
-#: analisis/analisis/models.py:105
+#: analisis/analisis/models.py:106
 msgid "No"
 msgstr "No"
 
-#: analisis/analisis/models.py:109 analisis/analisis/models.py:154
+#: analisis/analisis/models.py:110 analisis/analisis/models.py:155
 msgid "Innovacion(es)"
 msgstr ""
 
-#: analisis/analisis/models.py:110
+#: analisis/analisis/models.py:111
 msgid "ubicacion"
 msgstr ""
 
-#: analisis/analisis/models.py:111
+#: analisis/analisis/models.py:112
 msgid "socio"
 msgstr ""
 
-#: analisis/analisis/models.py:113 analisis/analisis/models.py:157
+#: analisis/analisis/models.py:114 analisis/analisis/models.py:158
 msgid "Prioritizado"
 msgstr ""
 
-#: analisis/analisis/models.py:124 analisis/analisis/models.py:135
-#: analisis/analisis/models.py:144 analisis/analisis/models.py:168
-#: analisis/analisis/models.py:179 analisis/analisis/models.py:188
+#: analisis/analisis/models.py:125 analisis/analisis/models.py:136
+#: analisis/analisis/models.py:145 analisis/analisis/models.py:169
+#: analisis/analisis/models.py:180 analisis/analisis/models.py:189
 msgid "Innovacion"
 msgstr ""
 
-#: analisis/analisis/models.py:126 analisis/analisis/models.py:170
+#: analisis/analisis/models.py:127 analisis/analisis/models.py:171
 #: analisis/configuracion/models.py:138
 msgid "Papel"
 msgstr ""
 
-#: analisis/analisis/models.py:136 analisis/analisis/models.py:180
+#: analisis/analisis/models.py:137 analisis/analisis/models.py:181
 msgid "Categorias"
 msgstr ""
 
-#: analisis/analisis/models.py:145
+#: analisis/analisis/models.py:146
 msgid "Fuente de aprendizaje de Innovacion"
 msgstr ""
 
-#: analisis/analisis/models.py:146 analisis/configuracion/models.py:174
+#: analisis/analisis/models.py:147 analisis/configuracion/models.py:174
 msgid "Categoria de Fuente"
 msgstr ""
 
-#: analisis/analisis/models.py:155 analisis/analisis/models.py:199
+#: analisis/analisis/models.py:156 analisis/analisis/models.py:200
 msgid "Ubicacion"
 msgstr ""
 
-#: analisis/analisis/models.py:189
+#: analisis/analisis/models.py:190
 msgid "Conocimiento clave faltante para Innovacion"
 msgstr ""
 
-#: analisis/analisis/models.py:190
+#: analisis/analisis/models.py:191
 msgid "Categoria de Innovacion"
 msgstr ""
 
-#: analisis/analisis/models.py:191 analisis/configuracion/models.py:164
+#: analisis/analisis/models.py:192 analisis/configuracion/models.py:164
 msgid "Categoria de Conocimiento"
 msgstr ""
 
-#: analisis/analisis/models.py:200 analisis/analisis/models.py:208
+#: analisis/analisis/models.py:201 analisis/analisis/models.py:209
 msgid "Seleccion"
 msgstr ""
 
-#: analisis/analisis/models.py:216
+#: analisis/analisis/models.py:217
 msgid "Dentro"
 msgstr ""
 
-#: analisis/analisis/models.py:217
+#: analisis/analisis/models.py:218
 msgid "Afuera"
 msgstr ""
 
-#: analisis/analisis/models.py:221
+#: analisis/analisis/models.py:222
 msgid "Reciente"
 msgstr ""
 
-#: analisis/analisis/models.py:222
+#: analisis/analisis/models.py:223
 msgid "Mediano"
 msgstr ""
 
-#: analisis/analisis/models.py:223
+#: analisis/analisis/models.py:224
 msgid "Largo"
 msgstr ""
 
-#: analisis/analisis/models.py:227
+#: analisis/analisis/models.py:228
 msgid "Esporádica"
 msgstr ""
 
-#: analisis/analisis/models.py:228
+#: analisis/analisis/models.py:229
 msgid "Fortuita"
 msgstr ""
 
-#: analisis/analisis/models.py:229
+#: analisis/analisis/models.py:230
 msgid "Estratégica"
 msgstr ""
 
-#: analisis/analisis/models.py:234
+#: analisis/analisis/models.py:235
 msgid "Dentro o Afuera del Territorio"
 msgstr ""
 
-#: analisis/analisis/models.py:235
+#: analisis/analisis/models.py:236
 msgid "Periodo de relacion"
 msgstr ""
 
-#: analisis/analisis/models.py:236
+#: analisis/analisis/models.py:237
 msgid "Profundidad de relacion"
 msgstr ""
 
-#: analisis/analisis/models.py:238
+#: analisis/analisis/models.py:239
 msgid "Razón o temas de la relacion"
 msgstr ""
 
-#: analisis/analisis/models.py:247
+#: analisis/analisis/models.py:248
 msgid "Mayor y sostenible, Intensificación ecológica"
 msgstr ""
 
-#: analisis/analisis/models.py:248
+#: analisis/analisis/models.py:249
 msgid "Manejo sostenible de los recursos naturales de las fincas y cuencas"
 msgstr ""
 
-#: analisis/analisis/models.py:249
+#: analisis/analisis/models.py:250
 msgid "Mejorar la comercialización y acceso a mercados juntos"
 msgstr ""
 
-#: analisis/analisis/models.py:250
+#: analisis/analisis/models.py:251
 msgid "Aumento de ingreso y reduccion de pobreza"
 msgstr ""
 
-#: analisis/analisis/models.py:251
+#: analisis/analisis/models.py:252
 msgid "Mejorada de Seguridad alimentaria y nutrición"
 msgstr ""
 
-#: analisis/analisis/models.py:252
+#: analisis/analisis/models.py:253
 msgid "Empoderamiento de las mujeres y jóvenes"
 msgstr ""
 
-#: analisis/analisis/models.py:253
+#: analisis/analisis/models.py:254
 msgid "Innovación local e innovación a través  de políticas e instituciones"
 msgstr ""
 
-#: analisis/analisis/models.py:257
+#: analisis/analisis/models.py:258
 msgid "Alta"
 msgstr ""
 
-#: analisis/analisis/models.py:258
+#: analisis/analisis/models.py:259
 msgid "Baja"
 msgstr ""
 
-#: analisis/analisis/models.py:259
+#: analisis/analisis/models.py:260
 msgid "Media"
 msgstr ""
 
-#: analisis/analisis/models.py:263
+#: analisis/analisis/models.py:264
 msgid "Facilitador"
 msgstr ""
 
-#: analisis/analisis/models.py:264
+#: analisis/analisis/models.py:265
 msgid "Neutro"
 msgstr ""
 
-#: analisis/analisis/models.py:265
+#: analisis/analisis/models.py:266
 msgid "Bloqueador"
 msgstr ""
 
-#: analisis/analisis/models.py:277
+#: analisis/analisis/models.py:278
 msgid "Prioridad Organizacional"
 msgstr ""
 
-#: analisis/analisis/models.py:278
+#: analisis/analisis/models.py:279
 msgid "Papel de la organizacion en el territorio"
 msgstr ""
 
-#: analisis/analisis/models.py:279 analisis/analisis/models.py:280
+#: analisis/analisis/models.py:280 analisis/analisis/models.py:281
 msgid "Escala de valor: 1 (debilidad) hasta 5 (fuerte)"
 msgstr ""
 
-#: analisis/analisis/models.py:288
+#: analisis/analisis/models.py:289
 msgid "Situación de las fincas (producción y biodivarsidad)"
 msgstr ""
 
-#: analisis/analisis/models.py:289
+#: analisis/analisis/models.py:290
 msgid "Situación de los recursos naturales y manejo de ellos"
 msgstr ""
 
-#: analisis/analisis/models.py:290
+#: analisis/analisis/models.py:291
 msgid "Situación de comerzialización y acceso a mercados"
 msgstr ""
 
-#: analisis/analisis/models.py:291
-msgid ""
-"Situación de organización de las comunidades y capacidad de aprendizaje"
-msgstr ""
-
 #: analisis/analisis/models.py:292
-msgid "Situación de equidad de género y generacional"
+msgid "Situación de organización de las comunidades y capacidad de aprendizaje"
 msgstr ""
 
 #: analisis/analisis/models.py:293
-msgid "Situación de seguridad alimentaria y nutricional"
+msgid "Situación de equidad de género y generacional"
 msgstr ""
 
 #: analisis/analisis/models.py:294
+msgid "Situación de seguridad alimentaria y nutricional"
+msgstr ""
+
+#: analisis/analisis/models.py:295
 msgid "Situación de ingreso familiar y pobreza"
 msgstr ""
 
-#: analisis/analisis/models.py:298
+#: analisis/analisis/models.py:299
 msgid "Informé técnico"
 msgstr ""
 
-#: analisis/analisis/models.py:299
+#: analisis/analisis/models.py:300
 msgid "Informé ejecutivo"
 msgstr ""
 
-#: analisis/analisis/models.py:300
+#: analisis/analisis/models.py:301
 msgid "Base de datos"
 msgstr ""
 
-#: analisis/analisis/models.py:301
+#: analisis/analisis/models.py:302
 msgid "Sistema en línea"
 msgstr ""
 
-#: analisis/analisis/models.py:305
+#: analisis/analisis/models.py:306
 msgid "Estudio linea base"
 msgstr ""
 
-#: analisis/analisis/models.py:306
+#: analisis/analisis/models.py:307
 msgid "Estudio de impacto"
 msgstr ""
 
-#: analisis/analisis/models.py:307
+#: analisis/analisis/models.py:308
 msgid "Diagnóstico de datos"
 msgstr ""
 
-#: analisis/analisis/models.py:308
+#: analisis/analisis/models.py:309
 msgid "Estudio de casos"
 msgstr ""
 
-#: analisis/analisis/models.py:309
+#: analisis/analisis/models.py:310
 msgid "Tesis"
 msgstr ""
 
-#: analisis/analisis/models.py:310
+#: analisis/analisis/models.py:311
 msgid "Otros"
 msgstr ""
 
-#: analisis/analisis/models.py:314
+#: analisis/analisis/models.py:315
 msgid "Sobre"
 msgstr ""
 
-#: analisis/analisis/models.py:317
+#: analisis/analisis/models.py:318
 msgid "Año"
 msgstr ""
 
-#: analisis/analisis/models.py:318
+#: analisis/analisis/models.py:319
 msgid "Disponibilidad"
 msgstr ""
 
@@ -503,14 +506,42 @@ msgstr ""
 msgid "Tipos de Relación"
 msgstr ""
 
-#: ciat_plataforma/settings.py:107
+#: ciat_plataforma/settings.py:108
 msgid "English"
 msgstr ""
 
-#: ciat_plataforma/settings.py:108
+#: ciat_plataforma/settings.py:109
 msgid "Spanish"
 msgstr ""
 
 #: templates/admin/base_site.html:4
 msgid "Administración CIAT Plataforma"
+msgstr ""
+
+#: templates/analisis/index.html:13
+msgid "Tabla 3. Proyectos/Iniciativas por Grupo Organizacional"
+msgstr ""
+
+#: templates/analisis/index.html:17
+msgid "Grupo Organizacional"
+msgstr ""
+
+#: templates/analisis/index.html:18 templates/analisis/index.html.py:42
+msgid "Número de Proyectos/Iniciativas"
+msgstr ""
+
+#: templates/analisis/index.html:19
+msgid "Valor de la Mediana"
+msgstr ""
+
+#: templates/analisis/index.html:37
+msgid "Tabla 4. Distribución de Proyectos/Iniciativas por Temáticas"
+msgstr ""
+
+#: templates/analisis/index.html:41
+msgid "Temáticas"
+msgstr ""
+
+#: templates/analisis/index.html:55
+msgid "Tabla 5. Numero de Impactos por Grupo Organizacional"
 msgstr ""
