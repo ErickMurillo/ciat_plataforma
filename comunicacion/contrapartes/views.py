@@ -131,24 +131,24 @@ def enviar_mensaje(request):
     organizaciones = Organizaciones.objects.all()
     usuarios = User.objects.all()
 
-    dic_plataforma = {}
-    lista1 = []
-    for sitio in sitio_accion:
-        dic_plataforma[sitio] = {}
-        for plata in plataformas:
-            dic_plataforma[sitio][plata] = {}
-            for org in organizaciones:
-                if org.plataforma == plata and org.sitio_accion == sitio:
-                    dic_plataforma[sitio][plata] = org
+    # dic_plataforma = {}
+    # lista1 = []
+    # for sitio in sitio_accion:
+    #     dic_plataforma[sitio] = {}
+    #     for plata in plataformas:
+    #         dic_plataforma[sitio][plata] = {}
+    #         for org in organizaciones:
+    #             if org.plataforma == plata and org.sitio_accion == sitio:
+    #                 dic_plataforma[sitio][plata] = org
     
 
-    print "aca va lo que necesito"
-    for k,v in dic_plataforma.items():
-        print "la llave %s -- y su valor es %s \n" % (k,v)
+    # print "aca va lo que necesito"
+    # for k,v in dic_plataforma.items():
+    #     print "la llave %s -- y su valor es %s \n" % (k,v)
 
-    print "ah0ra son las organizaciones"
-    for obj in organizaciones:
-        print "su org. es: %s y su plataforma es: %s y su sitio: %s " % (obj.nombre, obj.plataforma, obj.sitio_accion)
+    # print "ah0ra son las organizaciones"
+    # for obj in organizaciones:
+    #     print "su org. es: %s y su plataforma es: %s y su sitio: %s " % (obj.nombre, obj.plataforma, obj.sitio_accion)
 
     paginator = Paginator(mensaje, 5)
     page = request.GET.get('page')
