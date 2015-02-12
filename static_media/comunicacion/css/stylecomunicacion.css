@@ -4,7 +4,7 @@ body { font-family: 'Open Sans', 'Myriad Pro', 'Helvetica',  sans-serif; font-si
 /*a { -webkit-transition: 0.2s ease-in-out all; -moz-transition: 0.2s ease-in-out all; -o-transition: 0.2s ease-in-out all; transition: 0.2s ease-in-out all; }*/
 a:link, a:visited { color: #5d8c3b; text-decoration: none; }
 a:hover, a:focus { color: #111; outline: none; }
-a.moretag { font-size: 12px; text-transform: uppercase; }
+a.moretag { font-size: 12px; }
 /* == END font and links == */
 .audio{
 	margin-top: 10px;
@@ -24,7 +24,7 @@ h4 { font-size: 20px; line-height: 26px; }
 h5 { font-size: 18px; line-height: 24px; }
 h6 { font-size: 16px; line-height: 20px; text-transform: uppercase; }
 h1 > i, h2 > i, h3 > i, h4 > i, h5 > i, h6 > i { margin-right: 10px; }
-.page-title { font-size: 28px; font-weight: 700; line-height: 36px; margin-top: 0; margin-bottom: 0; padding-bottom: 15px; border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
+.page-title { font-size: 18px; font-weight: 700; line-height: 36px; margin-top: 0; margin-bottom: 0; padding-bottom: 15px; border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
 .title-widget { color: #898989; font-size: 13px; font-weight: 300; line-height: 1; text-transform: uppercase; margin: 0 0 40px 0; position: relative; }
 .title-widget:before { content: ""; position: absolute; left: -30px; top: -2px; height: 18px; width: 5px; background-color: #5d8c3b; }
 .title-median { color: #636363; font-size: 14px; font-weight: 700; line-height: 20px; margin: 0 0 15px 0; }
@@ -260,7 +260,7 @@ span.alter-menu-icon { display: block; width: 24px; height: 24px; background: ur
 /* == widgets global == */
 li.widget-container:not(:first-child) { margin-top: 10px; }
 .widget_archive ul, .widget_categories ul, .widget_pages ul, .widget_meta ul, .widget_nav_menu ul { padding-left: 0; list-style: none outside none; }
-.widget_archive ul li, .widget_categories ul li, .widget_pages ul li, .widget_meta ul li, .widget_nav_menu ul li { font-size: 13px; line-height: 20px; font-weight: 700; text-transform: uppercase; padding-left: 15px; position: relative; }
+.widget_archive ul li, .widget_categories ul li, .widget_pages ul li, .widget_meta ul li, .widget_nav_menu ul li { font-size: 13px; line-height: 20px; font-weight: 700; padding-left: 15px; position: relative; }
 .widget_archive ul li:before, .widget_categories ul li:before, .widget_pages ul li:before, .widget_meta ul li:before, .widget_nav_menu ul li:before { content: ""; position: absolute; width: 3px; height: 3px; left: 0; top: 7px; background-color: rgba( 0, 0, 0, 0.3 ); }
 .widget_archive ul li:not(:last-child), .widget_categories ul li:not(:last-child), .widget_pages ul li:not(:last-child), .widget_meta ul li:not(:last-child), .widget_nav_menu ul li:not(:last-child) { border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); margin-bottom: 7px; padding-bottom: 7px; }
 .widget_archive ul li a, .widget_categories ul li a, .widget_pages ul li a, .widget_meta ul li a, .widget_nav_menu ul li a { display: block; }
@@ -279,8 +279,8 @@ li.widget-container:not(:first-child) { margin-top: 10px; }
 .up-event-meta { margin-bottom: 15px; }
 .up-event-meta div:not(:last-child) { border-right: 1px solid rgba( 0, 0, 0, 0.05 ); }
 .up-event-meta div:first-child { padding-left: 0; }
-.up-event-date { float: left; font-size: 11px; font-weight: 700; color: #16a990; text-transform: uppercase; padding: 5px 15px; border-top: 1px solid rgba( 0, 0, 0, 0.05 ); border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
-.up-event-time { float: left; font-size: 13px; font-weight: 400; padding: 5px 15px; border-top: 1px solid rgba( 0, 0, 0, 0.05 ); border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
+.up-event-date { float: left; font-size: 10px; font-weight: 700; color: #16a990; text-transform: uppercase; padding: 5px 15px; border-top: 1px solid rgba( 0, 0, 0, 0.05 ); border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
+.up-event-time { float: left; font-size: 10px; font-weight: 400; padding: 5px 15px; border-top: 1px solid rgba( 0, 0, 0, 0.05 ); border-bottom: 1px solid rgba( 0, 0, 0, 0.05 ); }
 .widget-container .up-event-wrap p { font-size: 14px; line-height: 24px; margin-bottom: 0; }
 .up-event-wrapper { margin-top: 40px; }
 .up-event-wrapper:last-child p { margin-bottom: 0; }
@@ -700,7 +700,7 @@ a.list-group-item.active > .badge, .nav-pills > .active > a > .badge { backgroun
 
 .sliderorg .slide li{
 	display: inline-block;
-	padding-left: 2em;
+	padding-left: 1.2em;
 	padding-bottom: 1em;
 }
 .list-org{
