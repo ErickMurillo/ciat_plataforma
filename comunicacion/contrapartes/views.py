@@ -142,6 +142,7 @@ def enviar_mensaje(request):
 
     print dic_plataforma.items()
 
+
     paginator = Paginator(mensaje, 5)
     page = request.GET.get('page')
     try:
