@@ -157,8 +157,13 @@
                                             </figure>
                                             <div class="recent-news-text">
                                                 <p>
-                                                {{nota.contenido|safe|truncatewords_html:10}}
-                                                <a href="{% url 'detalle-notas' nota.id %}" class="moretag" title="">Leer más..</a> 
+                                                Pais: 
+                                                {{nota.user.userprofile.contraparte.pais.nombre}}
+                                                <br>
+                                                Plataforma: {{nota.user.userprofile.contraparte.plataforma.nombre}}
+
+                                                <br>
+                                                <a href="{% url 'detalle-notas' nota.id %}" class="moretag" title="">Ver noticia..</a> 
                                                 </p>
                                             </div>
                                         </div>
@@ -217,8 +222,13 @@
                                             </figure>
                                             <div class="recent-news-text">
                                                 <p>
-                                                {{nota.contenido|safe|truncatewords_html:10}}
-                                                <a href="{% url 'detalle-notas' nota.id %}" class="moretag" title="Leer mas">Leer más..</a> 
+                                                Pais: 
+                                                {{nota.user.userprofile.contraparte.pais.nombre}}
+                                                <br>
+                                                Plataforma: {{nota.user.userprofile.contraparte.plataforma.nombre}}
+
+                                                <br>
+                                                <a href="{% url 'detalle-notas' nota.id %}" class="moretag" title="">Ver noticia..</a> 
                                                 </p>
                                             </div>
                                         </div>

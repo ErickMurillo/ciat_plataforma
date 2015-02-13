@@ -1216,5 +1216,24 @@ padding-left: 0px !important;
 	border-bottom: #cacaca 1px solid;
 }
 #slidecontraparte {
-	height: 250px !important;
+	height: 200px !important;
+}
+.table-event td{
+	font-size: 13px !important;
+	color: black !important;
+}
+.table-event th{
+	background-color:#5d8c3b;
+	color: white;
+	text-align: center; 
+}
+div#event_filter {
+	padding-bottom: 20px;
+}
+table.dataTable thead th, table.dataTable thead td{
+	border-bottom: 1px solid #ddd !important;
+}
+
+table.dataTable.no-footer {
+	border-bottom: 1px solid #ddd !important;
 }

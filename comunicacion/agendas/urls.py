@@ -16,6 +16,7 @@ urlpatterns = patterns('comunicacion.agendas.views',
     url(r'^calendario/(?P<id>\d+)/$', 'calendario', name='calendario'),
     url(r'^eventos/(?P<id>\d+)/$', 'calendario_publico', name='calendario_publico'),
     url(r'^eventos/$', 'calendario_publico', name='calendario_publico'),
-    url(r'^calendar/$', 'calendario_full_contraparte', name='calendario-full-contraparte'),
+    url(r'^lista/$', 'calendario_list', name='lista-eventos'),
     url(r'^calendar/(?P<id>\d+)/$', 'calendario_full_contraparte', name='calendario-full-contraparte'),
+
     )

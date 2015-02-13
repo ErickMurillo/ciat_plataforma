@@ -81,9 +81,9 @@
                 
             </div><!-- row end -->
             
-            <div class="row no-gutter col-lg-8 col-md-8"><!-- row -->
+            <div class="row no-gutter "><!-- row -->
                 
-                <div class=""><!-- doc body wrapper -->
+                <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
 
 
                 	
@@ -155,42 +155,46 @@
                         </div><!-- row end -->               
                     
                     </div><!-- inner custom column end -->
+
+
+
+                    <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
+
+                        <div class="col-padded col-shaded"><!-- inner custom column -->
+                        
+                        <h1 class="title-widget">Organizaciones</h1>
+
+                        <ul class="nav nav-list">
+
+                             {% for pais in paises %}
+                                <li class="nav-header" style="margin-bottom:5px">
+                                {{pais}}
+                                </li>
+
+                                {% for contraparte in contrapartes %}
+                                    {% if contraparte.pais.id == pais.id%}
+
+                                    <div class="leyenda" style ="margin-right:5px;background:{{contraparte.font_color}}">
+                                        
+                                    </div>
+
+                                    <li class="title-widget-org">
+                                        <a href="/contrapartes/{{contraparte.id}}">{{contraparte.siglas}}</a>
+                                    </li>
+                                    <div class="clean" style="margin-bottom:5px"></div>
+                                    {%endif%}
+                                {% endfor %}
+                            {% endfor %}
+                            
+                        </ul>
+                        
+                        </div><!-- inner custom column end -->
+                    
+                    </div><!-- sidebar wrapper end -->
                     
                 </div><!-- doc body wrapper end -->
                 
-                <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
 
-                    <div class="col-padded col-shaded"><!-- inner custom column -->
-                    
-                    <h1 class="title-widget">Organizaciones</h1>
-
-                    <ul class="nav nav-list">
-
-						 {% for pais in paises %}
-							<li class="nav-header" style="margin-bottom:5px">
-					    	{{pais}}
-					  		</li>
-
-						 	{% for contraparte in contrapartes %}
-						 		{% if contraparte.pais.id == pais.id%}
-
-						 		<div class="leyenda" style ="margin-right:5px;background:{{contraparte.font_color}}">
-						 			
-						 		</div>
-
-						 		<li class="title-widget-org">
-									<a href="/contrapartes/{{contraparte.id}}">{{contraparte.siglas}}</a>
-								</li>
-								<div class="clean" style="margin-bottom:5px"></div>
-						 		{%endif%}
-						 	{% endfor %}
-						{% endfor %}
-						
-					</ul>
-                    
-                    </div><!-- inner custom column end -->
-                    
-                </div><!-- sidebar wrapper end -->
             
             </div><!-- row end -->
          

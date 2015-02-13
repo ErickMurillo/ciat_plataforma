@@ -11,5 +11,5 @@ urlpatterns = patterns('comunicacion.notas.views',
     url(r'^crear/$', 'crear_nota', name="crear-nota"),
     url(r'^editar/(?P<id>\d+)/$', 'editar_nota', name='editar-nota'),
     url(r'^borrar/(?P<id>\d+)/$', 'borrar_nota', name='borrar-nota'),
-    #url(r'^nuevobase/$', HomeView.as_view()),
+
     )

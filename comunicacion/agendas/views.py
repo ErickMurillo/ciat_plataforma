@@ -109,6 +109,13 @@ def calendario(request,id=None):
     #contrapartes_otras = Organizaciones.objects.exclude(id__in=request.session['p'])
     return render_to_response('comunicacion/agendas/agenda_list.html',locals(),
                               context_instance = RequestContext(request))
+@csrf_exempt
+def calendario_list(request):
+
+    actividad = Agendas.objects.all
+
+    return render_to_response('comunicacion/agendas/agenda_list_full.html',locals(),
+                              context_instance = RequestContext(request))
 
 @csrf_exempt
 def calendario_publico(request,id=None):
