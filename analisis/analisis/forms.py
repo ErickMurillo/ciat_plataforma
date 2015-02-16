@@ -19,6 +19,9 @@ class Pregunta_6aForm(forms.ModelForm):
     	model = Pregunta_6a
     	widgets = {'prioritizado': forms.Select(attrs={'class':'select-evt'})}
 
+
+
+
 # class Pregunta_5cForm(forms.ModelForm):
 #     def __init__(self,*args, **kwargs):
 #         super(Pregunta_5cForm, self).__init__(*args, **kwargs)

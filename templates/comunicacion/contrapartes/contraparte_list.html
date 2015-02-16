@@ -61,10 +61,10 @@
                         <div class="row gutter k-equal-height"><!-- row -->
 
                         {% for contraparte in object_list %}
-                            <div class="col-lg-6 col-md-6 contrapartes">
+                            <div class="col-lg-6 col-md-6 contrapartes" style="height=1000px !important" >
                             {% if contraparte.logo %}
                             {% thumbnail contraparte.logo "180x160" as im %}
-                                <img class="center-block logo-contraparte" src="/media/{{im}}" >
+                                <img class="center-block logo-contraparte" src="/media/{{im}}" style="height: 180px;">
                             {% endthumbnail %}
                             {%else%}
                                 <img class="center-block" src="http://placehold.it/180x160&text=No Logo">

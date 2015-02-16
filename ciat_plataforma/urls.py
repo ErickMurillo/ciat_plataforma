@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from settings import *
 
+
 from django.contrib import admin
 admin.autodiscover()
 

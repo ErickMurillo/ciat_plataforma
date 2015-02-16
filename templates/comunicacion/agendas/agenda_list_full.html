@@ -145,12 +145,9 @@
 
 						 	{% for contraparte in contrapartes_sel %}
 						 		{% if contraparte.pais.id == pais.id%}
-<<<<<<< HEAD
+
 						 		<div class="leyenda"style ="background:#{{contraparte.font_color}}"></div>
-=======
-						 		<div class="leyenda" style ="background:{{contraparte.font_color}}"></div>
 						 		<div class="check-leyenda">
->>>>>>> 5f2edf7d2a2868986051da97df27da61e909e3ca
 								<label class="checkbox">
 								<input type="checkbox" name="contraparte" value="{{contraparte.id}}" checked>
 								{{contraparte}}	
