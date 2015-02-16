@@ -37,7 +37,7 @@
 <script type="text/javascript">
     var activo = 0; 
     function click_callback(id){
-        $.getJSON('/grafo/ahorro-credito/' + id, function(data) {
+        $.getJSON('/monitoreo/grafo/ahorro-credito/' + id, function(data) {
             if (activo!= id){
                 $("#grafo").html('<img src="' + data.url + '" />');
                 activo = id;

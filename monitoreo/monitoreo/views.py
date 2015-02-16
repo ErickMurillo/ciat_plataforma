@@ -593,7 +593,7 @@ def animales(request):
                       animales['cantidad'], animal_familia])
         
 
-    for animal in ProduccionAnimal.objects.all():
+    for animal in ProductoAnimal.objects.all():
         query = consulta.filter(produccionanimal__produccion = animal)
         numero = query.distinct().count()
         try:
@@ -603,14 +603,13 @@ def animales(request):
             continue
 
         porcentaje_num = saca_porcentajes(numero, totales['numero'], False)
-        animales = query.aggregate(
+        animales = query.aggregate(total_produccion = Sum('produccionanimal__total_produccion'),
                                    venta_libre = Sum('produccionanimal__venta_libre'),
                                    venta_organizada = Sum('produccionanimal__venta_organizada'),
-                                   total_produccion = Sum('produccionanimal__total_produccion'),
                                    consumo = Sum('produccionanimal__consumo'))
         
         tabla_produccion.append([
-                                 producto.nombre, producto.unidad,
+                                 animal.nombre, animal.unidad,
                                  animales['total_produccion'],
                                  animales['consumo'],
                                  animales['venta_libre'],

@@ -22,8 +22,9 @@ class Pregunta_1_Inline(admin.TabularInline):
 			_identrevista=int(urlactual[4])
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
+
 				if db_field.name == 'ubicacion':	
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
 			except Exception, e:
 				pass
 		else:
