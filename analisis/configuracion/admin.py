@@ -5,11 +5,11 @@ from .models import	*
 
 admin.site.register(Sector)
 admin.site.register(Status_Legal)
-admin.site.register(Ubicacion)
+#admin.site.register(Ubicacion)
 admin.site.register(Socio)
 admin.site.register(Tema)
 admin.site.register(Grupo)
-admin.site.register(Grupo_Beneficiario)
+#admin.site.register(Grupo_Beneficiario)
 admin.site.register(Papel)
 admin.site.register(Categoria)
 admin.site.register(Categoria_Innovacion)

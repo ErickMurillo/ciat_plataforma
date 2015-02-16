@@ -1,7 +1,8 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import *
 from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from settings import *
+from ajax_select import urls as ajax_select_urls
 
 
 from django.contrib import admin
@@ -42,6 +43,7 @@ urlpatterns = patterns('',
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^rosetta/', include('rosetta.urls')),
+    url(r'^admin/lookups/', include(ajax_select_urls)),
 
 )
 

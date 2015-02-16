@@ -5,7 +5,6 @@ from django.forms import CheckboxSelectMultiple
 from .forms import *
 from comunicacion.lugar.models import *
 
-
 # Register your models here.
 class Pregunta_1_Inline(admin.TabularInline):
 	model = Pregunta_1
@@ -314,7 +313,6 @@ class EntrevistaAdmin(admin.ModelAdmin):
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
 			   Pregunta_6a_Inline, Pregunta_6c_Inline,Pregunta_6d_Inline,Pregunta_6e_Inline,
 			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
-
 
 admin.site.register(Entrevista,EntrevistaAdmin)
 
