@@ -53,7 +53,6 @@ $(function () {
                                     <th>Lugar</th>
                                     <th width="20%">Contacto</th>
                                     
-                                    
 
                                 </tr>
                             </thead>
@@ -80,8 +79,19 @@ $(function () {
                         </table>
                                     
 
-                        
-                        
+						 	{% for contraparte in contrapartes_sel %}
+						 		{% if contraparte.pais.id == pais.id%}
+
+						 		<div class="leyenda"style ="background:#{{contraparte.font_color}}"></div>
+						 		<div class="check-leyenda">
+								<label class="checkbox">
+								<input type="checkbox" name="contraparte" value="{{contraparte.id}}" checked>
+								{{contraparte}}	
+								</label>
+								</div>
+						 		{%endif%}
+						 	{% endfor %}
+               
                                      
                     
                     </div><!-- inner custom column end -->

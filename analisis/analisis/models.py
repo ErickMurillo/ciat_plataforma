@@ -22,11 +22,7 @@ class Entrevista(models.Model):
 	email = models.EmailField(_(u'Correo'))
 	organizacion = models.ForeignKey(Organizaciones, verbose_name= _(u'Organizacion'))
 	pais = models.ForeignKey(Pais, verbose_name= _(u'Pais'))
-	departamento = ChainedForeignKey(
-								Departamento,
-	 							chained_field="pais", 
-	 					 		chained_model_field="pais",
-	 					 		show_all=False, auto_choose=True)
+	departamento = models.ManyToManyField(Departamento)
 	telefono = models.IntegerField(_(u'Telefono'))
 	fecha = models.DateField(_(u'Fecha'))
 	slug = models.SlugField(editable=False)
