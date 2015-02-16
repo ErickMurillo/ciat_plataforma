@@ -579,18 +579,11 @@ def animales(request):
     for animal in Animales.objects.all():
         query = consulta.filter(animalesfinca__animales = animal)
         numero = query.distinct().count()
-        try:
-            producto = AnimalesFinca.objects.filter(animales = animal)[0].produccion
-        except:
-            #el animal no tiene producto aún
-            continue
+        
 
         porcentaje_num = saca_porcentajes(numero, totales['numero'], False)
         animales = query.aggregate(cantidad = Sum('animalesfinca__cantidad'),
-                                   venta_libre = Sum('animalesfinca__venta_libre'),
-                                   venta_organizada = Sum('animalesfinca__venta_organizada'),
-                                   total_produccion = Sum('animalesfinca__total_produccion'),
-                                   consumo = Sum('animalesfinca__consumo'))
+                                   )
         try:
             animal_familia = float(animales['cantidad'])/float(numero)
         except:
@@ -598,7 +591,25 @@ def animales(request):
         animal_familia = "%.2f" % animal_familia
         tabla.append([animal.nombre, numero, porcentaje_num,
                       animales['cantidad'], animal_familia])
-        tabla_produccion.append([animal.nombre, animales['cantidad'],
+        
+
+    for animal in ProduccionAnimal.objects.all():
+        query = consulta.filter(produccionanimal__produccion = animal)
+        numero = query.distinct().count()
+        try:
+            producto = ProduccionAnimal.objects.filter(produccion = animal)
+        except:
+            #el animal no tiene producto aún
+            continue
+
+        porcentaje_num = saca_porcentajes(numero, totales['numero'], False)
+        animales = query.aggregate(
+                                   venta_libre = Sum('produccionanimal__venta_libre'),
+                                   venta_organizada = Sum('produccionanimal__venta_organizada'),
+                                   total_produccion = Sum('produccionanimal__total_produccion'),
+                                   consumo = Sum('produccionanimal__consumo'))
+        
+        tabla_produccion.append([
                                  producto.nombre, producto.unidad,
                                  animales['total_produccion'],
                                  animales['consumo'],
@@ -1722,14 +1733,14 @@ def fincas_grafos(request, tipo):
     data = []
     legends = []
     if tipo == 'tenencia':
-        for opcion in CHOICE_TENENCIA:
+        for opcion in CHOICE_TENENCIA_1:
             data.append(consulta.filter(tenencia__parcela=opcion[0]).count())
             legends.append(opcion[1])
         return grafos.make_graph(data, legends,
                 'Tenencia de las parcelas', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'solares':
-        for opcion in CHOICE_TENENCIA:
+        for opcion in CHOICE_TENENCIA_2:
             data.append(consulta.filter(tenencia__solar=opcion[0]).count())
             legends.append(opcion[1])
         return grafos.make_graph(data, legends,
