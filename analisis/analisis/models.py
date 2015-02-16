@@ -49,7 +49,7 @@ class Pregunta_1(models.Model):
 	proyecto = models.CharField(max_length=250, verbose_name= _(u'Proyecto(s) e iniciativa(s)'))
 	estado1 = models.IntegerField(_(u'Estado'),choices=ESTADO_CHOICES)
 	ubicacion =  models.ManyToManyField(Municipio, verbose_name=_(u'Municipio'))
-	socio = models.ManyToManyField(Socio,verbose_name=_(u'Socios'))
+	socio = models.ManyToManyField(Organizaciones,verbose_name=_(u'Socios'))
 	tema = models.ManyToManyField(Tema,verbose_name=_(u'Temas'))
 	slug = models.SlugField(editable=False)
 	entrevistado = models.ForeignKey(Entrevista)
@@ -105,7 +105,7 @@ PRIORITIZADO_CHOICES = (
 class Pregunta_5a(models.Model):
 	innovacion = models.CharField(max_length=250, verbose_name=_(u'Innovacion(es)'))
 	ubicacion =  models.ManyToManyField(Municipio, verbose_name=_(u'ubicacion'))
-	socio = models.ManyToManyField(Socio, verbose_name=_(u'socio'))
+	socio = models.ManyToManyField(Organizaciones, verbose_name=_(u'socio'))
 	tema = models.ManyToManyField(Tema, verbose_name=_(u'Temas'))
 	prioritizado = models.IntegerField(choices=PRIORITIZADO_CHOICES, verbose_name=_(u'Prioritizado'))
 	entrevistado = models.ForeignKey(Entrevista)

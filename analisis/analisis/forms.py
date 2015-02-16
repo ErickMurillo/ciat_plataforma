@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
-
 from django.db import models
 from models import *
 from django import forms
 from django.forms import ModelForm
+from ajax_select import make_ajax_field
 
 class Pregunta_5aForm(forms.ModelForm):
     #prioritizado = forms.IntegerField(widget=forms.Select(attrs={'class':'select-evt'}))
@@ -18,8 +18,6 @@ class Pregunta_6aForm(forms.ModelForm):
     class Meta:
     	model = Pregunta_6a
     	widgets = {'prioritizado': forms.Select(attrs={'class':'select-evt'})}
-
-
 
 
 # class Pregunta_5cForm(forms.ModelForm):
