@@ -51,11 +51,6 @@ def _get_view(request, vista):
 #-------------------------------------------------------------------------------
 
 def _queryset_filtrado(request):
-    '''metodo para obtener el queryset de encuesta
-    segun los filtros del formulario que son pasados
-    por la variable de sesion'''
-    #anio = int(request.session['fecha'])
-    #diccionario de parametros del queryset
     params = {}
     if 'fecha' in request.session:
         params['year__in'] = request.session['fecha']
@@ -72,19 +67,6 @@ def _queryset_filtrado(request):
 
     if request.session['organizacion']:
         params['productor__organizacion__in'] = request.session['organizacion']
-
-#        if 'departamento' in request.session:
-#            #incluye municipio y comunidad
-#            if request.session['municipio']:
-#                if 'comunidad' in request.session:
-#                    params['comunidad'] = request.session['comunidad']
-#                else:
-#                    params['comunidad__municipio'] = request.session['municipio']
-#            else:
-#                params['comunidad__municipio__departamento'] = request.session['departamento']
-
-#        if 'organizacion' in request.session:
-#            params['organizacion'] = request.session['organizacion']
 
     if 'socio' in request.session:
         params['organizaciongremial__socio'] = request.session['socio']
@@ -146,7 +128,6 @@ def inicio(request):
             del request.session['desde']
             del request.session['duenio']
 
-    #dict = {'form': form,'user': request.user,'centinela':centinela}
     return render_to_response('monitoreo/inicio.html', locals(),
                               context_instance=RequestContext(request))
 
@@ -166,12 +147,6 @@ class HomePageView(TemplateView):
 
 class HomePageViewfail(TemplateView):
     template_name = 'monitoreo/index2.html'
-
-#-------------------------------------------------------------------------------
-# para presentar listado de zonas
-
-#def listado_zonas(request,zona):
-#    organizaciones = Organizaciones.objects.filter(organizacion__zona=zona)
 
 #-------------------------------------------------------------------------------
 
