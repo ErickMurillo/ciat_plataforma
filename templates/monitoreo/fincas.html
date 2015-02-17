@@ -50,25 +50,20 @@
             }
         });
     }
-    $(document).ready(function() {
-        $("#grafico1").click(function(){
-            $("#grafico1").addClass('enlace_seleccionado');
-            $("#grafico2").removeClass('enlace_seleccionado');
-            $("#grafico3").removeClass('enlace_seleccionado');
+    //estos son los graficos para entrevistada
+    var activo_entre = 0; 
+    function click_callback_entre(id){
+        $.getJSON('/monitoreo/grafo/fincas/entre/' + id, function(data) {
+            if (activo_entre!= id){
+                $("#grafo_entre").html('<img src="' + data.url + '" />');
+                activo_entre = id;
+            }else{
+                $("#grafo_entre").html('');
+                activo_entre = 0;
+            }
         });
-    
-        $("#grafico2").click(function(){
-            $("#grafico2").addClass('enlace_seleccionado');
-            $("#grafico1").removeClass('enlace_seleccionado');
-            $("#grafico3").removeClass('enlace_seleccionado');
-        });
-
-        $("#grafico3").click(function(){
-            $("#grafico3").addClass('enlace_seleccionado');
-            $("#grafico1").removeClass('enlace_seleccionado');
-            $("#grafico2").removeClass('enlace_seleccionado');
-        });
-    });
+    }
+ 
 </script>
 
 <script type="text/javascript">
@@ -227,7 +222,6 @@ function Grafo5(){
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
-
 </div>
 {% include "monitoreo/nav_tierra.html" %}
 <div class="separador"></div>
@@ -236,18 +230,29 @@ function Grafo5(){
     {% include "monitoreo/menu.html" %}
 </div>
 
-<div id="sidebar">
-    <div class="graficos_widget">
-        <h1>Gráficos</h1>
-        <a href="#" id="grafico1" onCLick="click_callback('tenencia')">Tenencia de las Parcelas</a>
-        <a href="#" id="grafico2" onCLick="click_callback('solares')">Tenencia de los solares</a>
-        <a href="#" id="grafico3" onCLick="click_callback('propietario')">Dueño de la Propiedad</a>
-        <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
-	    <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
-    </div>
-</div>
+<div role="tabpanel">
 
-<div id="grafo"></div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Uso de tierra familia</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Uso de tierra entrevistada</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+        <div id="sidebar">
+            <div class="graficos_widget">
+                <h1>Gráficos</h1>
+                <a href="#" id="grafico1" onCLick="click_callback('tenencia')">Tenencia de las Parcelas</a>
+                <a href="#" id="grafico2" onCLick="click_callback('solares')">Tenencia de los solares</a>
+                <a href="#" id="grafico3" onCLick="click_callback('propietario')">Dueño de la Propiedad</a>
+                <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
+                <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
+            </div>
+        </div>
+
+        <div id="grafo"></div>
 
 <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/8/"></a>{%endif%} </div>
 
@@ -301,35 +306,35 @@ function Grafo5(){
         </thead>
         <tbody>
             <tr>
-			    <td>0 Mz</td>
-			    <td>{{cero}}</td>
-			    <td>{{por_cero}}</td>
+                <td>0 Mz</td>
+                <td>{{cero}}</td>
+                <td>{{por_cero}}</td>
 
-		    </tr>
-		    <tr>
-			    <td>1 -- 10 Mz</td>
-			    <td>{{rango1}}</td>
-			    <td>{{por_rango1}}</td>
+            </tr>
+            <tr>
+                <td>1 -- 10 Mz</td>
+                <td>{{rango1}}</td>
+                <td>{{por_rango1}}</td>
 
-		    </tr>
-		    <tr>
-			    <td>11 -- 25 Mz</td>
-			    <td>{{rango2}}</td>
-			    <td>{{por_rango2}}</td>
+            </tr>
+            <tr>
+                <td>11 -- 25 Mz</td>
+                <td>{{rango2}}</td>
+                <td>{{por_rango2}}</td>
 
-		    </tr>
-		    <tr>
-			    <td>26 -- 50 Mz</td>
-			    <td>{{rango3}}</td>
-			    <td>{{por_rango3}}</td>
+            </tr>
+            <tr>
+                <td>26 -- 50 Mz</td>
+                <td>{{rango3}}</td>
+                <td>{{por_rango3}}</td>
 
-		    </tr>
-		    <tr>
-			    <td>Más de 50 Mz</td>
-			    <td>{{rango4}}</td>
-			    <td>{{por_rango4}}</td>
+            </tr>
+            <tr>
+                <td>Más de 50 Mz</td>
+                <td>{{rango4}}</td>
+                <td>{{por_rango4}}</td>
 
-		    </tr>
+            </tr>
             <tr>
                 <th>Rangos Total</th>
                 <th>{{total_rangos}}</th>
@@ -341,5 +346,119 @@ function Grafo5(){
 </div>
 <div id="container" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
 
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+                <div id="sidebar">
+            <div class="graficos_widget">
+                <h1>Gráficos de entrevistada</h1>
+                <a href="#" id="grafico1" onCLick="click_callback_entre('tenencia')">Tenencia de las Parcelas</a>
+                <a href="#" id="grafico2" onCLick="click_callback_entre('solares')">Tenencia de los solares</a>
+                <a href="#" id="grafico3" onCLick="click_callback_entre('propietario')">Dueño de la Propiedad</a>
+                <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
+                <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
+            </div>
+        </div>
+
+        <div id="grafo_entre"></div>
+
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/8/"></a>{%endif%} </div>
+
+<div class="contenido">
+<div id="modalidad">
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <caption>Uso de Tierra de la entrevistada</caption>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Número</th>
+                <th>%</th>
+                <th>Manzanas</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.porcentaje_num|floatformat}}</td>
+                <td>{{value.manzanas|floatformat}}</td>
+                <td>{{value.porcentaje_mz|floatformat}}</td>
+            </tr>
+            {%endfor%}
+            <tr>
+                    <th>Area Total</th>
+                    <th></th>
+                    <th></th>
+                    <th>{{totales_entre.manzanas}}</th>
+                    <th>{{totales_entre.porcentaje_manzana}}</th>
+                </tr>
+        </tbody>
+    </table>
+     <table id="example" class="display" cellspacing="0" width="100%">
+    <br>
+        <tr>
+        <th>Promedio Mz: {{totales_entre.promedio_manzana}}</th>
+        </tr>
+    </table>
+    
+    <br>
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Rangos</th>
+                <th>Frecuencias</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0 Mz</td>
+                <td>{{cero_entre}}</td>
+                <td>{{por_cero_entre}}</td>
+
+            </tr>
+            <tr>
+                <td>1 -- 10 Mz</td>
+                <td>{{rango1_entre}}</td>
+                <td>{{por_rango1_entre}}</td>
+
+            </tr>
+            <tr>
+                <td>11 -- 25 Mz</td>
+                <td>{{rango2_entre}}</td>
+                <td>{{por_rango2_entre}}</td>
+
+            </tr>
+            <tr>
+                <td>26 -- 50 Mz</td>
+                <td>{{rango3_entre}}</td>
+                <td>{{por_rango3_entre}}</td>
+
+            </tr>
+            <tr>
+                <td>Más de 50 Mz</td>
+                <td>{{rango4_entre}}</td>
+                <td>{{por_rango4_entre}}</td>
+
+            </tr>
+            <tr>
+                <th>Rangos Total</th>
+                <th>{{total_rangos_entre}}</th>
+                <th>{{total_porcentajes_entre}}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div id="container_entre" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
+
+
+
+
+    </div>
+  </div>
+
+</div>
 
 {% endblock %}

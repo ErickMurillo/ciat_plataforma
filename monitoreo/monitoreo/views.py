@@ -407,20 +407,6 @@ def fincas(request):
     totales['manzanas'] = round(total_manzana,0)
     totales['promedio_manzana'] = round(totales['manzanas'] / consulta.count(),2)
 
-#    totales['numero'] = consulta.count()
-#    totales['porcentaje_num'] = 100
-#    totales['manzanas'] = consulta.aggregate(area=Sum('usotierra__area'))['area']
-#    totales['porcentaje_mz'] = 100
-
-#    for uso in Uso.objects.all().exclude(id=1):
-#        key = slugify(uso.nombre).replace('-', '_')
-#        query = consulta.filter(usotierra__tierra = uso)
-#        numero = query.count()
-#        porcentaje_num = saca_porcentajes(numero, totales['numero'])
-#        manzanas = query.aggregate(area = Sum('usotierra__area'))['area']
-#        porcentaje_mz = saca_porcentajes(manzanas, totales['manzanas'])
-#        tabla[key] = {'numero': numero, 'porcentaje_num': porcentaje_num,
-#                      'manzanas': manzanas, 'porcentaje_mz': porcentaje_mz}
     for uso in Uso.objects.exclude(id=1):
         key = slugify(uso.nombre).replace('-', '_')
         query = consulta.filter(usotierra__tierra = uso)
@@ -471,6 +457,78 @@ def fincas(request):
     por_rango4 = round(saca_porcentajes(rango4,total_rangos),2)
     total_porcentajes = round((por_cero + por_rango1 + por_rango2 + por_rango3 + por_rango4),1)
 
+    #Esta es las salidas para entrevistada
+    tabla_entre = {}
+    totales_entre = {}
+
+    suma_entre = 0
+    total_manzana_entre = 0
+    por_num_entre = 0
+    por_man_entre = 0
+
+    for total in Uso.objects.exclude(id=1):
+        conteo = consulta.filter(usotierraentrevistada__tierra = total)
+        suma_entre += conteo.count()
+        man = conteo.aggregate(area = Sum('usotierraentrevistada__area'))['area']
+        try:
+            total_manzana_entre += man
+        except:
+            pass
+
+    totales_entre['numero'] = suma_entre
+    totales_entre['manzanas'] = round(total_manzana_entre,0)
+    totales_entre['promedio_manzana'] = round(totales_entre['manzanas'] / consulta.count(),2)
+
+    for uso in Uso.objects.exclude(id=1):
+        key = slugify(uso.nombre).replace('-', '_')
+        query = consulta.filter(usotierraentrevistada__tierra = uso)
+        numero = query.count()
+        porcentaje_num = saca_porcentajes(numero, num_familias)
+        por_num_entre += porcentaje_num
+        try:
+            manzanas = query.aggregate(area = Sum('usotierraentrevistada__area'))['area']
+        except:
+            manzanas = 0
+        porcentaje_mz = saca_porcentajes(manzanas, totales_entre['manzanas'])
+        por_man_entre += porcentaje_mz
+
+        tabla_entre[key] = {'numero': int(numero), 
+                      'porcentaje_num': int(porcentaje_num),
+                      'manzanas': manzanas, 
+                      'porcentaje_mz': int(porcentaje_mz)}
+
+    totales_entre['porcentaje_numero'] = por_num
+    totales_entre['porcentaje_manzana'] = round(por_man_entre,2)
+    #calculando los promedios
+    lista_entre = []
+    cero_entre = 0
+    rango1_entre = 0
+    rango2_entre = 0
+    rango3_entre = 0
+    rango4_entre = 0
+    for x in consulta:
+        query = UsoTierra.objects.filter(encuesta=x, tierra=1).aggregate(AreaSuma=Sum('area'))
+        lista_entre.append([x.id,query])
+
+    for nose in lista_entre:
+        if nose[1]['AreaSuma'] == 0:
+            cero_entre += 1
+        if nose[1]['AreaSuma'] >= 0.1 and  nose[1]['AreaSuma'] <= 10:
+            rango1_entre += 1
+        if nose[1]['AreaSuma'] >= 11 and nose[1]['AreaSuma'] <= 25:
+            rango2_entre += 1
+        if nose[1]['AreaSuma'] >= 26 and nose[1]['AreaSuma'] <= 50:
+            rango3_entre += 1
+        if nose[1]['AreaSuma'] >=51:
+            rango4_entre += 1
+    total_rangos_entre = cero_entre + rango1_entre + rango2_entre + rango3_entre + rango4_entre
+    por_cero_entre = round(saca_porcentajes(cero_entre,total_rangos_entre),2)
+    por_rango1_entre = round(saca_porcentajes(rango1_entre,total_rangos_entre),2)
+    por_rango2_entre = round(saca_porcentajes(rango2_entre,total_rangos_entre),2)
+    por_rango3_entre = round(saca_porcentajes(rango3_entre,total_rangos_entre),2)
+    por_rango4_entre = round(saca_porcentajes(rango4_entre,total_rangos_entre),2)
+    total_porcentajes_entre = round((por_cero_entre + por_rango1_entre + por_rango2_entre + por_rango3_entre + por_rango4_entre),1)
+    
 
     return render_to_response('monitoreo/fincas.html',
                               locals(),
@@ -1723,6 +1781,37 @@ def fincas_grafos(request, tipo):
     elif tipo == 'propietario':
         for opcion in CHOICE_DUENO:
             data.append(consulta.filter(tenencia__dueno=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends,
+                'Dueño de propiedad', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    else:
+        raise Http404
+
+@session_required
+def fincas_grafos_entrevistada(request, tipo):
+    '''Tipo puede ser: tenencia, solares, propietario'''
+    consulta = _queryset_filtrado(request)
+    #CHOICE_TENENCIA, CHOICE_DUENO
+    data = []
+    legends = []
+    if tipo == 'tenencia':
+        for opcion in CHOICE_TENENCIA_1:
+            data.append(consulta.filter(tenenciaentrevistada__parcela=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends,
+                'Tenencia de las parcelas', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'solares':
+        for opcion in CHOICE_TENENCIA_2:
+            data.append(consulta.filter(tenenciaentrevistada__solar=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends,
+                'Tenencia de los solares', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'propietario':
+        for opcion in CHOICE_DUENO:
+            data.append(consulta.filter(tenenciaentrevistada__dueno=opcion[0]).count())
             legends.append(opcion[1])
         return grafos.make_graph(data, legends,
                 'Dueño de propiedad', return_json = True,
