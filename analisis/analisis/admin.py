@@ -73,7 +73,7 @@ class Pregunta_5a_Inline(admin.TabularInline):
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
 				if db_field.name == 'ubicacion':	
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
 			except Exception, e:
 				pass
 		else:
@@ -167,7 +167,7 @@ class Pregunta_6a_Inline(admin.TabularInline):
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
 				if db_field.name == 'ubicacion':	
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
 			except Exception, e:
 				pass
 		else:
@@ -255,7 +255,7 @@ class Pregunta_7a_Inline(admin.TabularInline):
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
 				if db_field.name == 'ubicacion':	
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id=a.departamento.id)
+					kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
 			except Exception, e:
 				pass
 		else:
@@ -307,6 +307,9 @@ class EntrevistaAdmin(admin.ModelAdmin):
 		obj.save()
 
 	exclude = ('usuario',)
+	formfield_overrides = {
+        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    }
 	fieldsets = [
 		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha','alcance1','tipo_estudio',))}),
 	]
@@ -314,6 +317,22 @@ class EntrevistaAdmin(admin.ModelAdmin):
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
 			   Pregunta_6a_Inline, Pregunta_6c_Inline,Pregunta_6d_Inline,Pregunta_6e_Inline,
 			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
+
+	def formfield_for_manytomany(self, db_field, request, **kwargs):
+		urlactual=request.get_full_path()
+		urlactual=urlactual.split('/')
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
+			try:
+				a = Entrevista.objects.get(id=_identrevista)
+				if db_field.name == 'departamento':	
+					kwargs["queryset"] = Departamento.objects.filter(pais=a.pais)
+			except Exception, e:
+				pass
+		else:
+			kwargs["queryset"] = Departamento.objects.filter(pais__id='0')
+		return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
+
 
 admin.site.register(Entrevista,EntrevistaAdmin)
 
