@@ -167,7 +167,7 @@
                         <ul class="nav nav-list">
 
                              {% for pais in paises %}
-                                <li class="nav-header" style="margin-bottom:5px">
+                                <li class="nav-header plataforma-title" style="margin-bottom:5px">
                                 {{pais}}
                                 </li>
 
@@ -179,7 +179,7 @@
                                     </div>
 
                                     <li class="title-widget-org">
-                                        <a href="/contrapartes/{{contraparte.id}}">{{contraparte.siglas}}</a>
+                                        <p>{{contraparte.siglas}}</p>
                                     </li>
                                     <div class="clean" style="margin-bottom:5px"></div>
                                     {%endif%}
