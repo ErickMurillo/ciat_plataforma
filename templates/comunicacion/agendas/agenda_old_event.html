@@ -1,0 +1,102 @@
+{% extends "baseadmin.html" %}
+{% block extra_js %}
+<link rel="stylesheet" href="/static/comunicacion/css/dataTables.css" type="text/css"/>
+<script type="text/javascript" src="/static/comunicacion/js/dataTables.js"></script>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+</script>
+
+    <script type="text/javascript" language="javascript" class="init">
+
+        $(document).ready(function() {
+            $('#event').dataTable( {
+                "language": {
+                    "search": "Buscar:"
+                },
+                "paging":   false,
+                "ordering": false,
+                "info":     false
+            } );
+        } );
+
+    </script>
+
+{%endblock%}
+{% block contenido %}
+<div class="row no-gutter "><!-- row -->
+                
+                <div class="col-lg-12 col-md-12"><!-- doc body wrapper -->
+                    
+                    <div class="col-padded"><!-- inner custom column -->
+
+                        <div class="row gutter"><!-- row -->
+
+                       
+                            <div class="col-lg-12 col-md-12">
+                    
+                                <h1 class="page-title">Lista de Actividades</h1><!-- category title -->
+                            </div>
+                        
+                        </div><!-- row end -->
+                        <br>
+                        
+                        <table id="event" class="table-event table  table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th width="30%">Evento</th>
+                                    <th>Contraparte</th>
+                                    <th>Inicio</th>
+                                    <th>Final</th>
+                                    <th>Lugar</th>
+                                    <th width="20%">Contacto</th>
+                                    
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for act in actividad  %}
+                                    
+                                    <tr>
+                                        <td>{{act.evento}}</td>
+                                        <td>{{act.user.userprofile.contraparte.siglas}}</td>
+                                        <td>{{act.inicio|date:"d/m/Y"}}</td>
+                                        <td>{{act.final|date:"d/m/Y"}}</td>
+                                        <td>{{act.lugar}}</td>
+                                        <td>
+                                            <p data-toggle="tooltip" data-placement="top" title="{{act.correo}}">
+                                                {{act.contacto}}
+                                            </p>
+                                        </td>
+                                        
+                                            
+                                        </tr>
+                                    
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                                    
+
+						 	{% for contraparte in contrapartes_sel %}
+						 		{% if contraparte.pais.id == pais.id%}
+
+						 		<div class="leyenda"style ="background:#{{contraparte.font_color}}"></div>
+						 		<div class="check-leyenda">
+								<label class="checkbox">
+								<input type="checkbox" name="contraparte" value="{{contraparte.id}}" checked>
+								{{contraparte}}	
+								</label>
+								</div>
+						 		{%endif%}
+						 	{% endfor %}
+               
+                                     
+                    
+                    </div><!-- inner custom column end -->
+                    
+                </div><!-- doc body wrapper end -->
+
+             </div><!-- row end -->
+{% endblock %}
