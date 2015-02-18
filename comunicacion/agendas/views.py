@@ -143,8 +143,41 @@ def calendario_publico(request,id=None):
 
     if not id==None:
         actividad = Agendas.objects.get(pk=id)
-    #contrapartes_sel = Organizaciones.objects.filter(id__in=request.session['p'])
-    #contrapartes_otras = Organizaciones.objects.exclude(id__in=request.session['p'])
+    
+    return render_to_response('comunicacion/agendas/agenda_list_public.html',locals(),
+                              context_instance = RequestContext(request))
+
+@csrf_exempt
+def calendario_publico_sitio(request,id_sitio=None):
+    paises = SitioAccion.objects.all()
+    contrapartes = Organizaciones.objects.filter(sitio_accion__id=id_sitio)
+
+    if request.is_ajax():
+        start = datetime.datetime.fromtimestamp(float(request.GET['start']))
+        end = datetime.datetime.fromtimestamp(float(request.GET['end']))
+        fecha1 = datetime.date(start.year, start.month, start.day)
+        fecha2 = datetime.date(end.year, end.month, end.day)
+        
+        eventos = Agendas.objects.filter(inicio__range=(fecha1, fecha2),
+                                        publico=True,
+                                        sitio_accion__id=id_sitio)
+        print "CARLOS PENSA POR FAVOR"
+        var = []        
+        for evento in eventos:
+            d = {
+                 'id': str(evento.id),
+                 'title': u'%s' % (evento.evento), 
+                 'start':str(evento.inicio), 
+                 'end':str(evento.final), 
+                 'allDay': True,
+                 'color':str(evento.user.userprofile.contraparte.font_color),
+                 }
+            var.append(d)
+        return HttpResponse(simplejson.dumps(var), mimetype='application/json')
+
+    #if not id==None:
+    #    actividad = Agendas.objects.get(pk=id)
+    
     return render_to_response('comunicacion/agendas/agenda_list_public.html',locals(),
                               context_instance = RequestContext(request))
 
