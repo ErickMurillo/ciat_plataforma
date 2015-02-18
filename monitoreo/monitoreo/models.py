@@ -93,6 +93,9 @@ class Tenencia(models.Model):
     def __unicode__(self):
         return u'%s' % self.get_parcela_display()
 
+    class Meta:
+        verbose_name_plural = "Tenecia de la familia"
+
 class TenenciaEntrevistada(models.Model):
     ''' Modelo tipo de tenencia de la propiedad
     '''
@@ -103,6 +106,9 @@ class TenenciaEntrevistada(models.Model):
     
     def __unicode__(self):
         return u'%s' % self.get_parcela_display()
+
+    class Meta:
+        verbose_name_plural = "Tenencia entrevistada"
 
 #-----------------------------------------------------------
 CHOICE_CASA_SOLAR = (

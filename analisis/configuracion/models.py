@@ -18,7 +18,7 @@ class AreaAccion(models.Model):
 
 class SitioAccion(models.Model):
 	nombre = models.CharField(max_length=250)
-
+	area_accion = models.ForeignKey(AreaAccion)
 	def __unicode__(self):
 		return self.nombre
 
@@ -28,6 +28,7 @@ class SitioAccion(models.Model):
 
 class Plataforma(models.Model):
 	nombre = models.CharField(max_length=250)
+	sitio_accion = models.ForeignKey(SitioAccion)
 
 	def __unicode__(self):
 		return self.nombre

@@ -47,7 +47,7 @@
 </script>
 {%endblock%}
 {%block titulo%}Calendario de eventos{%endblock%}
-{%block descriptitulo%}Actividades programadas de las asociadas y organizaciones aliadas de AMARC-Nicaragua{%endblock%}
+
 {% block contenido %}
 
     <div id="k-body"><!-- content wrapper -->
@@ -92,7 +92,7 @@
                                 <div class="btn-group paises ">
                                   <button type="button" class="btn txt-black" disabled="disabled">Filtar por:</button>
                                    {% for pais in paises %}
-                                      <a type="button" class="btn btn-default" href="#">{{pais}}</a>
+                                      <a type="button" class="btn btn-default" href="{% url 'calendario_publico_sitio' pais.id %}">{{pais}}</a>
                                     {% endfor %}
                                 </div>
                                 <hr />
@@ -166,25 +166,22 @@
 
                         <ul class="nav nav-list">
 
-                             {% for pais in paises %}
-                                <li class="nav-header" style="margin-bottom:5px">
-                                {{pais}}
-                                </li>
+                             
 
                                 {% for contraparte in contrapartes %}
-                                    {% if contraparte.pais.id == pais.id%}
+                                    
 
                                     <div class="leyenda" style ="margin-right:5px;background:{{contraparte.font_color}}">
                                         
                                     </div>
 
                                     <li class="title-widget-org">
-                                        <a href="/contrapartes/{{contraparte.id}}">{{contraparte.siglas}}</a>
+                                        <p>{{contraparte.siglas}}</p>
                                     </li>
                                     <div class="clean" style="margin-bottom:5px"></div>
-                                    {%endif%}
+                                    
                                 {% endfor %}
-                            {% endfor %}
+                            
                             
                         </ul>
                         
