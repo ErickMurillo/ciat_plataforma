@@ -151,7 +151,8 @@ def calendario_publico(request,id=None):
 def calendario_publico_sitio(request,id_sitio=None):
     paises = SitioAccion.objects.all()
     contrapartes = Organizaciones.objects.filter(sitio_accion__id=id_sitio)
-    if request.method == 'POST':
+
+    if request.is_ajax():
         start = datetime.datetime.fromtimestamp(float(request.GET['start']))
         end = datetime.datetime.fromtimestamp(float(request.GET['end']))
         fecha1 = datetime.date(start.year, start.month, start.day)
@@ -160,7 +161,7 @@ def calendario_publico_sitio(request,id_sitio=None):
         eventos = Agendas.objects.filter(inicio__range=(fecha1, fecha2),
                                         publico=True,
                                         sitio_accion__id=id_sitio)
-        print "puta entra aca"
+        print "CARLOS PENSA POR FAVOR"
         var = []        
         for evento in eventos:
             d = {

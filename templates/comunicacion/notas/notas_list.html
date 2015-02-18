@@ -87,7 +87,7 @@
                                     <div class="news-meta">
                                         <span class="news-meta-date">{{nota.fecha|date:"M j, Y"}}</span>
                                         
-                                        <a href="#" class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</a>
+                                        <a href="{% url 'notas_list_usuario' nota.user.id %}" class="ong">{{nota.user.first_name}} {{nota.user.last_name}}</a>
                                     </div>
                                 </div>
                                 

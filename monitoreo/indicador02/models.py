@@ -119,7 +119,7 @@ class OrganizacionOng(models.Model):
                                     verbose_name="¿Cuáles son?",
                                     related_name='cuales')
     cual_organizacion = models.ManyToManyField(OngLocales, 
-                                    verbose_name="¿Cuáles son?",
+                                    verbose_name="¿De las cuáles usted o su familia ha sido beneficiaria? ",
                                     related_name='organizacion')
     encuesta = models.ForeignKey(Encuesta)
 

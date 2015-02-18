@@ -37,7 +37,7 @@ def logout_page(request):
 
 def lista_notas(request):
     notas_list = Notas.objects.all().order_by('-fecha','-id')
-    agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')[1:4]
     paises = SitioAccion.objects.all()
 
     paginator = Paginator(notas_list, 6)
@@ -56,7 +56,26 @@ def lista_notas(request):
 
 def lista_notas_contraparte(request,id):
     notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha','-id')
-    agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')[1:4]
+    paises = SitioAccion.objects.all()
+
+    paginator = Paginator(notas, 6)
+
+    page = request.GET.get('page')
+    try:
+        notas = paginator.page(page)
+    except PageNotAnInteger:
+        notas = paginator.page(1)
+    except EmptyPage:
+        notas = paginator.page(paginator.num_pages)
+    page_obj = notas
+
+    return render_to_response('comunicacion/notas/notas_list.html', locals(),
+                              context_instance=RequestContext(request))
+
+def lista_notas_usuario(request,id):
+    notas = Notas.objects.filter(user__id=id).order_by('-fecha','-id')
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')[1:4]
     paises = SitioAccion.objects.all()
 
     paginator = Paginator(notas, 6)
@@ -75,7 +94,7 @@ def lista_notas_contraparte(request,id):
 
 def detalle_notas(request, id):
     nota = get_object_or_404(Notas, id=id)
-    agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')[1:4]
     
     notas_relacionadas = Notas.objects.filter(temas__in=[tema for tema in nota.temas.all()]).exclude(id=nota.id)
     
