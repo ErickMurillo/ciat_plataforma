@@ -187,11 +187,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     )
 
-# define the lookup channels in use on the site
-AJAX_LOOKUP_CHANNELS = {
-    #  simple: search Person.objects.filter(name__icontains=q)
-    #'person'  : {'model': 'example.person', 'search_field': 'name'},
-    # define a custom lookup channel
-    #'song'   : ('example.lookups', 'SongLookup')
-}
 
