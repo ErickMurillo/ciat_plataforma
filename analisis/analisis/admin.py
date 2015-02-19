@@ -319,12 +319,12 @@ class EntrevistaAdmin(admin.ModelAdmin):
 			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
 
 
-	def formfield_for_manytomany(self, db_field, request, **kwargs):
-		urlactual=request.get_full_path()
-		urlactual=urlactual.split('/')
-		if urlactual[4]=='add':
-			kwargs["queryset"] = Departamento.objects.filter(pais='0')
-		return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
+	# def formfield_for_manytomany(self, db_field, request, **kwargs):
+	# 	urlactual=request.get_full_path()
+	# 	urlactual=urlactual.split('/')
+	# 	if urlactual[4]=='add':
+	# 		kwargs["queryset"] = Departamento.objects.filter(pais='0')
+	# 	return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
 
 	# def formfield_for_manytomany(self, db_field, request, **kwargs):
@@ -338,8 +338,8 @@ class EntrevistaAdmin(admin.ModelAdmin):
 	# 				kwargs["queryset"] = Departamento.objects.filter(pais=a.pais)
 	# 		except Exception, e:
 	# 			pass
-	# 	else:
-	# 		kwargs["queryset"] = Departamento.objects.filter(pais='0')
+	# 	# else:
+	# 	# 	kwargs["queryset"] = Departamento.objects.filter(pais='0')
 	# 	return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
 
