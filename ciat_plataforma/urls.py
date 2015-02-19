@@ -2,7 +2,7 @@ from django.conf.urls import *
 from django.views.generic import TemplateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from settings import *
-from ajax_select import urls as ajax_select_urls
+from analisis.analisis.views import BusquedaPaisView
 
 
 from django.contrib import admin
@@ -32,6 +32,7 @@ urlpatterns = patterns('',
 
     #urls para analisis organizacional
     url(r'^analisis/', include('analisis.analisis.urls')),
+    url(r'^admin/pais/$', BusquedaPaisView.as_view()),
 
     #urls para monitoreo
     url(r'^monitoreo/', include('monitoreo.monitoreo.urls')),
@@ -43,7 +44,6 @@ urlpatterns = patterns('',
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     url(r'^rosetta/', include('rosetta.urls')),
-    url(r'^admin/lookups/', include(ajax_select_urls)),
 
 )
 
