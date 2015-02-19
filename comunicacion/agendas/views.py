@@ -114,7 +114,7 @@ def calendario_list(request):
 
     actividad = Agendas.objects.all
 
-    return render_to_response('comunicacion/agendas/agenda_list_full.html',locals(),
+    return render_to_response('comunicacion/agendas/agenda_old_event.html',locals(),
                               context_instance = RequestContext(request))
 
 @csrf_exempt
