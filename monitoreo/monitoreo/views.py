@@ -648,10 +648,57 @@ def animales(request):
                                  animales['venta_libre'],
                                  animales['venta_organizada']])
 
+    #salidas de animal mujer entrevistada
+    tabla_entre = []
+    tabla_produccion_entre = []
+    totales_entre = {}
+
+    totales_entre['numero'] = consulta.count()
+    totales_entre['porcentaje_num'] = 100
+    totales_entre['animales'] = consulta.aggregate(cantidad=Sum('animalesfinca__cantidad_mujer'))['cantidad']
+    totales_entre['porcentaje_animal'] = 100
+
+    for animal in Animales.objects.all():
+        query = consulta.filter(animalesfinca__animales = animal)
+        numero = query.distinct().count()
+        
+
+        porcentaje_num = saca_porcentajes(numero, totales_entre['numero'], False)
+        animales = query.aggregate(cantidad = Sum('animalesfinca__cantidad_mujer'),
+                                   )
+        try:
+            animal_familia = float(animales['cantidad'])/float(numero)
+        except:
+            animal_familia = 0
+        animal_familia = "%.2f" % animal_familia
+        tabla_entre.append([animal.nombre, numero, porcentaje_num,
+                      animales['cantidad'], animal_familia])
+        
+
+    for animal in ProductoAnimal.objects.all():
+        query = consulta.filter(produccionanimalentrevistada__produccion = animal)
+        numero = query.distinct().count()
+        try:
+            producto = ProduccionAnimalEntrevistada.objects.filter(produccion = animal)
+        except:
+            #el animal no tiene producto aún
+            continue
+
+        porcentaje_num = saca_porcentajes(numero, totales_entre['numero'], False)
+        animales = query.aggregate(total_produccion = Sum('produccionanimalentrevistada__total_produccion'),
+                                   venta_libre = Sum('produccionanimalentrevistada__venta_libre'),
+                                   venta_organizada = Sum('produccionanimalentrevistada__venta_organizada'),
+                                   consumo = Sum('produccionanimalentrevistada__consumo'))
+        
+        tabla_produccion_entre.append([
+                                 animal.nombre, animal.unidad,
+                                 animales['total_produccion'],
+                                 animales['consumo'],
+                                 animales['venta_libre'],
+                                 animales['venta_organizada']])
+
     return render_to_response('monitoreo/animales.html',
-                              {'tabla':tabla, 'totales': totales,
-                               'num_familias': consulta.count(),
-                               'tabla_produccion': tabla_produccion},
+                              locals(),
                               context_instance=RequestContext(request))
 
 
@@ -1275,6 +1322,8 @@ def ahorro_credito(request):
     ''' ahorro y credito'''
     #ahorro
     consulta = _queryset_filtrado(request)
+    num_familias = consulta.count()
+
     tabla_ahorro = []
     totales_ahorro = {}
 
@@ -1302,11 +1351,35 @@ def ahorro_credito(request):
     tabla_credito['mas'] = [mas, saca_porcentajes(mas, totales_credito['numero'])]
     tabla_credito['al_dia'] = [al_dia, saca_porcentajes(al_dia, totales_credito['numero'])]
 
-    dicc = {'tabla_ahorro':tabla_ahorro, 'columnas_ahorro': columnas_ahorro,
-            'totales_ahorro': totales_ahorro, 'tabla_credito': tabla_credito,
-            'num_familias': consulta.count()}
+    #salidas para entrevistada
+    tabla_ahorro_entre = []
+    totales_ahorro = {}
 
-    return render_to_response('monitoreo/ahorro_credito.html', dicc,
+    columnas_ahorro_entre = ['Si', '%']
+
+    for pregunta in AhorroPregunta.objects.all():
+        #opciones solo si
+        subquery = consulta.filter(ahorro__ahorro = pregunta, ahorro__respuesta = 1).count()
+        tabla_ahorro_entre.append([pregunta.nombre, subquery, saca_porcentajes(subquery, consulta.count(), False)])
+
+    #credito
+    tabla_credito_entre= {}
+    totales_credito_entre= {}
+
+    totales_credito_entre['numero'] = consulta.count()
+    totales_credito_entre['porcentaje_num'] = 100
+
+    recibe = consulta.filter(credito__recibe = 1).count()
+    menos = consulta.filter(credito__desde = 1).count()
+    mas = consulta.filter(credito__desde = 2).count()
+    al_dia = consulta.filter(credito__dia= 1).count()
+
+    tabla_credito_entre['recibe'] = [recibe, saca_porcentajes(recibe, totales_credito_entre['numero'])]
+    tabla_credito_entre['menos'] = [menos, saca_porcentajes(menos, totales_credito_entre['numero'])]
+    tabla_credito_entre['mas'] = [mas, saca_porcentajes(mas, totales_credito_entre['numero'])]
+    tabla_credito_entre['al_dia'] = [al_dia, saca_porcentajes(al_dia, totales_credito_entre['numero'])]
+
+    return render_to_response('monitoreo/ahorro_credito.html', locals(),
                               context_instance=RequestContext(request))
 
 #Tabla seguridad alimentaria
