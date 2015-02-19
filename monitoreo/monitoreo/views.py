@@ -754,6 +754,32 @@ def comunitario(request):
                               'uno':uno,'dos':dos,'tres':tres},
                                 context_instance=RequestContext(request) )
 
+#tabla sobre organismo no gubernamenta
+@session_required
+def org_ong(request):
+    ''' tablas organización no gubermental '''
+    #***********Variables***************
+    a = _queryset_filtrado(request)
+    num_familias = a.count()
+    #***********************************
+
+    #rangos
+    uno = a.filter(organizacionong__numero__range=(1,5)).count()
+    dos = a.filter(organizacionong__numero__range=(6,10)).count()
+    tres = a.filter(organizacionong__numero__gt=11).count()
+
+    tabla_pertenece = {}
+    divisor = a.filter(organizacionong__in=[1,2]).count()
+    for t in OngLocales.objects.all():
+        query = a.filter(organizacionong__cuales = t )
+        frecuencia = query.aggregate(frecuencia=Count('organizacionong__cuales'))['frecuencia']
+        porcentaje = saca_porcentajes(frecuencia,divisor)
+        tabla_pertenece[t] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}
+
+    return render_to_response('monitoreo/org_data.html', {'tabla_pertenece':tabla_pertenece,
+                              'divisor':divisor, 'num_familias': num_familias,
+                              'uno':uno,'dos':dos,'tres':tres},
+                                context_instance=RequestContext(request) )
 #Tabla Cultivos
 def grafo_generic(request, producto):
     #******Variables***************
@@ -2495,6 +2521,7 @@ VALID_VIEWS = {
         'vulnerable': vulnerable,
         'manejosuelo': manejosuelo,
         'comunitario' : comunitario,
+        'ong': org_ong,
         'organizacion': organizacion,
         'mitigariesgos': mitigariesgos,
         'ahorro_credito': ahorro_credito,
