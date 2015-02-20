@@ -327,20 +327,20 @@ class EntrevistaAdmin(admin.ModelAdmin):
 	# 	return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
 
-	# def formfield_for_manytomany(self, db_field, request, **kwargs):
-	# 	urlactual=request.get_full_path()
-	# 	urlactual=urlactual.split('/')
-	# 	if urlactual[4]!='add':
-	# 		_identrevista=int(urlactual[4])
-	# 		try:
-	# 			a = Entrevista.objects.get(id=_identrevista)
-	# 			if db_field.name == 'departamento':	
-	# 				kwargs["queryset"] = Departamento.objects.filter(pais=a.pais)
-	# 		except Exception, e:
-	# 			pass
-	# 	# else:
-	# 	# 	kwargs["queryset"] = Departamento.objects.filter(pais='0')
-	# 	return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
+	def formfield_for_manytomany(self, db_field, request, **kwargs):
+		urlactual=request.get_full_path()
+		urlactual=urlactual.split('/')
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
+			try:
+				a = Entrevista.objects.get(id=_identrevista)
+				if db_field.name == 'departamento':	
+					kwargs["queryset"] = Departamento.objects.filter(pais=a.pais)
+			except Exception, e:
+				pass
+		# else:
+		# 	kwargs["queryset"] = Departamento.objects.filter(pais='0')
+		return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
 
 admin.site.register(Entrevista,EntrevistaAdmin)
