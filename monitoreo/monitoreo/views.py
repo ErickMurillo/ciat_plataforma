@@ -2164,6 +2164,46 @@ def ahorro_credito_grafos(request, tipo):
     else:
         raise Http404
 
+@session_required
+def ahorro_credito_grafos_entre(request, tipo):
+    '''Tipo puede ser: ahorro, uso, origen, satisfaccion'''
+    consulta = _queryset_filtrado(request)
+    data = []
+    legends = []
+    if tipo == 'ahorro': #ahorra a nombre de quien
+        #choice_ahorro (5, hombre), (6, mujeres), (7,ambos)
+        for numero in (5, 6, 7):
+            #FIX: numero de la pregunta hardcored
+            dato = consulta.filter(ahorroentrevista__ahorro=5, ahorroentrevista__respuesta = numero).count()
+            data.append(dato)
+            legends.append(CHOICE_AHORRO[numero - 1][1])
+        return grafos.make_graph(data, legends,
+                'A nombre de quien ahorra', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'origen': #de donde viene el credito
+        for origen in DaCredito.objects.all():
+            data.append(consulta.filter(creditoentrevista__quien_credito= origen).count())
+            legends.append(origen.nombre)
+        return grafos.make_graph(data, legends,
+                'Origen del Crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'satisfaccion':
+        for opcion in CHOICE_SATISFACCION:
+            data.append(consulta.filter(creditoentrevista__satisfaccion=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends,
+                'Nivel de satisfacción con el crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'uso':
+        for uso in OcupaCredito.objects.all():
+            data.append(consulta.filter(creditoentrevista__ocupa_credito = uso).count())
+            legends.append(uso.nombre)
+        return grafos.make_graph(data, legends,
+                'Uso del Crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    else:
+        raise Http404
+
 #Los puntos en el mapa
 
 def obtener_lista(request):
