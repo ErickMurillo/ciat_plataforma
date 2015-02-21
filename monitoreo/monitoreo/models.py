@@ -82,16 +82,43 @@ CHOICE_TENENCIA_2 = ((1,"Escritura pública"),(2,"Título de reforma Agraria"),
 CHOICE_DUENO = ((1,"Hombre"),(2,"Mujer"),(3,"Mancomunado"),(4,"Parientes"),
                 (5,"Colectivo"),(6,"No hay"))
 
+class TenenciaFamilia(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = "Opciones de acceso a tierra"
+
+class TenenciaEntre(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = "Opciones tenecia de tierra"
+
+class OpcionesDueno(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = "Opciones de documento de la tierra"
+
 class Tenencia(models.Model):
     ''' Modelo tipo de tenencia de la propiedad
     '''
-    parcela = models.IntegerField('Acceso a la tierra (Familia)', choices=CHOICE_TENENCIA_1)
-    solar = models.IntegerField('Tenencia de tierra familiar', choices=CHOICE_TENENCIA_2)
-    dueno = models.IntegerField('Documento de la tierra familiar a nombre de quién', choices=CHOICE_DUENO)
+    parcela = models.ManyToManyField(TenenciaFamilia, verbose_name='Acceso a la tierra (Familia)')
+    solar = models.ManyToManyField(TenenciaEntre, verbose_name='Tenencia de tierra familiar')
+    dueno = models.ManyToManyField(OpcionesDueno, verbose_name='Documento de la tierra familiar a nombre de quién')
     encuesta = models.ForeignKey(Encuesta)
     
-    def __unicode__(self):
-        return u'%s' % self.get_parcela_display()
+    #def __unicode__(self):
+    #    return u'%s' % self.get_parcela_display()
 
     class Meta:
         verbose_name_plural = "Tenecia de la familia"
@@ -99,13 +126,13 @@ class Tenencia(models.Model):
 class TenenciaEntrevistada(models.Model):
     ''' Modelo tipo de tenencia de la propiedad
     '''
-    parcela = models.IntegerField('Acceso a la tierra (de la persona entrevistada)', choices=CHOICE_TENENCIA_1)
-    solar = models.IntegerField('Tenencia de tierra de la persona entrevistada', choices=CHOICE_TENENCIA_2)
-    dueno = models.IntegerField('Documento de la tierra de la persona entrevistas a nombre de quién', choices=CHOICE_DUENO)
+    parcela = models.ManyToManyField(TenenciaFamilia, verbose_name='Acceso a la tierra (de la persona entrevistada)')
+    solar = models.ManyToManyField(TenenciaEntre, verbose_name='Tenencia de tierra de la persona entrevistada')
+    dueno = models.ManyToManyField(OpcionesDueno, verbose_name='Documento de la tierra de la persona entrevistas a nombre de quién')
     encuesta = models.ForeignKey(Encuesta)
     
-    def __unicode__(self):
-        return u'%s' % self.get_parcela_display()
+    #def __unicode__(self):
+    #    return u'%s' % self.get_parcela_display()
 
     class Meta:
         verbose_name_plural = "Tenencia entrevistada"
@@ -127,6 +154,7 @@ CHOICE_TENENCIA_SOLAR = (
                     (4,"Título de reforma Agraria"),
                     (5,"Escritura posesoria"),
                     (6,"Sin documento"),
+                    (7,"No aplica"),
                 )
 CHOICE_DUENO_CASA_SOLAR = ((1,"Hombre"),(2,"Mujer"),(3,"Mancomunado"))
 

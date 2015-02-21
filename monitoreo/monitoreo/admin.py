@@ -309,6 +309,9 @@ class EncuestaAdmin(admin.ModelAdmin):
     date_hierarchy = 'fecha'
 
     class Media:
+        css = {
+           'all': ('monitoreo/css/adminmoni.css',)
+       }
         js = ('monitoreo/js/encuesta.js',)
         
                
@@ -367,3 +370,6 @@ admin.site.register(Fenomeno)
 admin.site.register(Graves)
 admin.site.register(AhorroPregunta)
 admin.site.register(TipoCocina)
+admin.site.register(TenenciaFamilia)
+admin.site.register(TenenciaEntre)
+admin.site.register(OpcionesDueno)
