@@ -507,7 +507,7 @@ def fincas(request):
     rango3_entre = 0
     rango4_entre = 0
     for x in consulta:
-        query = UsoTierra.objects.filter(encuesta=x, tierra=1).aggregate(AreaSuma=Sum('area'))
+        query = UsoTierraEntrevistada.objects.filter(encuesta=x, tierra=1).aggregate(AreaSuma=Sum('area'))
         lista_entre.append([x.id,query])
 
     for nose in lista_entre:
