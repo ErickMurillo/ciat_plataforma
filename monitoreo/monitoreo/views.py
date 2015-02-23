@@ -1353,13 +1353,13 @@ def ahorro_credito(request):
 
     #salidas para entrevistada
     tabla_ahorro_entre = []
-    totales_ahorro = {}
+    totales_ahorro_entre = {}
 
     columnas_ahorro_entre = ['Si', '%']
 
     for pregunta in AhorroPregunta.objects.all():
         #opciones solo si
-        subquery = consulta.filter(ahorro__ahorro = pregunta, ahorro__respuesta = 1).count()
+        subquery = consulta.filter(ahorroentrevista__ahorro = pregunta, ahorroentrevista__respuesta = 1).count()
         tabla_ahorro_entre.append([pregunta.nombre, subquery, saca_porcentajes(subquery, consulta.count(), False)])
 
     #credito
@@ -1369,10 +1369,10 @@ def ahorro_credito(request):
     totales_credito_entre['numero'] = consulta.count()
     totales_credito_entre['porcentaje_num'] = 100
 
-    recibe = consulta.filter(credito__recibe = 1).count()
-    menos = consulta.filter(credito__desde = 1).count()
-    mas = consulta.filter(credito__desde = 2).count()
-    al_dia = consulta.filter(credito__dia= 1).count()
+    recibe = consulta.filter(creditoentrevista__recibe = 1).count()
+    menos = consulta.filter(creditoentrevista__desde = 1).count()
+    mas = consulta.filter(creditoentrevista__desde = 2).count()
+    al_dia = consulta.filter(creditoentrevista__dia= 1).count()
 
     tabla_credito_entre['recibe'] = [recibe, saca_porcentajes(recibe, totales_credito_entre['numero'])]
     tabla_credito_entre['menos'] = [menos, saca_porcentajes(menos, totales_credito_entre['numero'])]
