@@ -25,6 +25,7 @@ CHOICES_QUIEN = (
                     (4, 'Hijas'),
                     (5, 'Hijos'),
                     (6, 'Otros'),
+                    (7, 'Familiares'),
                 )
 
 class CultivosFinca(models.Model):

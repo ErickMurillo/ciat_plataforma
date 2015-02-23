@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView,TemplateView
 from .models import *
 from mapeo.models import *
+from django.core import serializers
+from django.http import HttpResponse
 
 # Create your views here.
 class IndexView(ListView):
@@ -57,4 +59,10 @@ class IndexView(ListView):
 
 		return context
 
-		
+class BusquedaPaisView(TemplateView):
+	 
+	def get(self, request, *args, **kwargs):
+		id_pais = request.GET['id']
+		departamento = Departamento.objects.filter(pais__id=id_pais)
+		data = serializers.serialize('json',departamento,fields=('nombre',))
+		return HttpResponse(data,mimetype='application/json')

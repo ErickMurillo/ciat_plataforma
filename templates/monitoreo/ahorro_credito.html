@@ -47,36 +47,23 @@
             }
         });
     }
-    $(document).ready(function() {
-        $("#grafico1").click(function(){
-            $("#grafico1").addClass('enlace_seleccionado');
-            $("#grafico2").removeClass('enlace_seleccionado');
-            $("#grafico3").removeClass('enlace_seleccionado');
-            $("#grafico4").removeClass('enlace_seleccionado');
-        });
-    
-        $("#grafico2").click(function(){
-            $("#grafico2").addClass('enlace_seleccionado');
-            $("#grafico1").removeClass('enlace_seleccionado');
-            $("#grafico3").removeClass('enlace_seleccionado');
-            $("#grafico4").removeClass('enlace_seleccionado');
-        });
 
-        $("#grafico3").click(function(){
-            $("#grafico3").addClass('enlace_seleccionado');
-            $("#grafico1").removeClass('enlace_seleccionado');
-            $("#grafico2").removeClass('enlace_seleccionado');
-            $("#grafico4").removeClass('enlace_seleccionado');
+    var activo_entre = 0; 
+    function click_callback_entre(id){
+        $.getJSON('/monitoreo/grafo/ahorro-credito/entre/' + id, function(data) {
+            if (activo_entre!= id){
+                $("#grafo_entre").html('<img src="' + data.url + '" />');
+                activo_entre = id;
+            }else{
+                $("#grafo_entre").html('');
+                activo_entre = 0;
+            }
         });
-        $("#grafico4").click(function(){
-            $("#grafico4").addClass('enlace_seleccionado');
-            $("#grafico1").removeClass('enlace_seleccionado');
-            $("#grafico2").removeClass('enlace_seleccionado');
-            $("#grafico3").removeClass('enlace_seleccionado');
-        });
-    });
+    }
+    
 </script>
 {%endblock%}
+
 {% block contenido %}
 <div class="slide-indicadores">
     <nav class="navbar navbar-default" role="navigation">
@@ -117,6 +104,18 @@
      {% include "monitoreo/menu.html" %}
 </div>
 
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Ahorro y crédito familia</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ahorro y crédito de la entrevistada</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+
     <div class="graficos_widget">
         <h1>Graficos</h1>
         <a id="grafico1" href="#" onCLick="click_callback('ahorro')">Ahorro</a>
@@ -125,11 +124,10 @@
         <a id="grafico4" href="#" onCLick="click_callback('uso')">Uso del crédito</a>
     </div>
     
-<div id="grafo"></div>
+    <div id="grafo"></div>
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/24/"></a> {%endif%}</div>
-
-<div class="contenido">
+    <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/24/"></a> {%endif%}</div>
+    <div class="contenido">
 <div id="modalidad">
     <table>
         <caption>Los Ahorro</caption>
@@ -187,17 +185,84 @@
     </table>
 </div>
 </div>
-<script>
-    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-    // ademas que ordene por defecto las filas 0,0 y 2,1
-    $(document).ready(function()
-    {
-        //$("#table_example").tablesorter();
-        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    }
-); 
-</script>
 
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+
+    <div class="graficos_widget">
+        <h1>Graficos de la entrevistada</h1>
+        <a id="grafico1" href="#" onCLick="click_callback_entre('ahorro')">Ahorro</a>
+        <a id="grafico2" href="#" onCLick="click_callback_entre('origen')">Origen del Crédito</a>
+        <a id="grafico3" href="#" onCLick="click_callback_entre('satisfaccion')">Satisfacción con el crédito</a>
+        <a id="grafico4" href="#" onCLick="click_callback_entre('uso')">Uso del crédito</a>
+    </div>
+    
+    <div id="grafo_entre"></div>
+
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/24/"></a> {%endif%}</div>
+
+<div class="contenido">
+<div id="modalidad">
+    <table>
+        <caption>Los Ahorro de la entrevistada</caption>
+        <thead>
+            <tr>
+                <th>Pregunta</th>
+                <th>Sí</th>
+                <th>Porcentaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for fila in tabla_ahorro_entre%}
+            <tr>
+                {%for celda in fila %}
+                <td>{{celda}}</td>
+                {%endfor%}
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+
+    <table width=510>
+        <caption>Los créditos de la entevistada</caption>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Número</th>
+                <th>Porcentaje</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>Recibe Crédito</td>
+            {%for celda in tabla_credito_entre.recibe%}
+            <td>{{celda|floatformat}}</td>
+            {%endfor%}
+        </tr>
+        <tr>
+            <td>Recibe Crédito hace menos de 5 años</td>
+            {%for celda in tabla_credito_entre.menos%}
+            <td>{{celda|floatformat}}</td>
+            {%endfor%}
+        </tr>
+        <tr>
+            <td>Recibe Crédito hace más de 5 años</td>
+            {%for celda in tabla_credito_entre.mas%}
+            <td>{{celda|floatformat}}</td>
+            {%endfor%}
+        </tr>
+        <tr>
+            <td>Está al día con su crédito</td>
+            {%for celda in tabla_credito_entre.al_dia%}
+            <td>{{celda|floatformat}}</td>
+            {%endfor%}
+        </tr>
+    </table>
+</div>
+</div>
+    
+    </div>
+  </div>
+
+</div>
 
 {% endblock %}

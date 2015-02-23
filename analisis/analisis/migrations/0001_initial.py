@@ -15,21 +15,30 @@ class Migration(SchemaMigration):
             ('posicion', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
             ('organizacion', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mapeo.Organizaciones'])),
-            ('departamento', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lugar.Departamento'])),
+            ('pais', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lugar.Pais'])),
             ('telefono', self.gf('django.db.models.fields.IntegerField')()),
             ('fecha', self.gf('django.db.models.fields.DateField')()),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
-            ('alcance', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('alcance1', self.gf('django.db.models.fields.IntegerField')()),
             ('tipo_estudio', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['configuracion.Tipo_Estudio'])),
             ('usuario', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
         ))
         db.send_create_signal(u'analisis', ['Entrevista'])
 
+        # Adding M2M table for field departamento on 'Entrevista'
+        m2m_table_name = db.shorten_name(u'analisis_entrevista_departamento')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('entrevista', models.ForeignKey(orm[u'analisis.entrevista'], null=False)),
+            ('departamento', models.ForeignKey(orm[u'lugar.departamento'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['entrevista_id', 'departamento_id'])
+
         # Adding model 'Pregunta_1'
         db.create_table(u'analisis_pregunta_1', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('proyecto', self.gf('django.db.models.fields.CharField')(max_length=250)),
-            ('estado', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('estado1', self.gf('django.db.models.fields.IntegerField')()),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
             ('entrevistado', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['analisis.Entrevista'])),
         ))
@@ -40,18 +49,18 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('pregunta_1', models.ForeignKey(orm[u'analisis.pregunta_1'], null=False)),
-            ('ubicacion', models.ForeignKey(orm[u'configuracion.ubicacion'], null=False))
+            ('municipio', models.ForeignKey(orm[u'lugar.municipio'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['pregunta_1_id', 'ubicacion_id'])
+        db.create_unique(m2m_table_name, ['pregunta_1_id', 'municipio_id'])
 
         # Adding M2M table for field socio on 'Pregunta_1'
         m2m_table_name = db.shorten_name(u'analisis_pregunta_1_socio')
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('pregunta_1', models.ForeignKey(orm[u'analisis.pregunta_1'], null=False)),
-            ('socio', models.ForeignKey(orm[u'configuracion.socio'], null=False))
+            ('organizaciones', models.ForeignKey(orm[u'mapeo.organizaciones'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['pregunta_1_id', 'socio_id'])
+        db.create_unique(m2m_table_name, ['pregunta_1_id', 'organizaciones_id'])
 
         # Adding M2M table for field tema on 'Pregunta_1'
         m2m_table_name = db.shorten_name(u'analisis_pregunta_1_tema')
@@ -65,7 +74,7 @@ class Migration(SchemaMigration):
         # Adding model 'Pregunta_2'
         db.create_table(u'analisis_pregunta_2', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('seleccion', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('seleccion1', self.gf('django.db.models.fields.IntegerField')()),
             ('hombre', self.gf('django.db.models.fields.IntegerField')()),
             ('mujer', self.gf('django.db.models.fields.IntegerField')()),
             ('entrevistado', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['analisis.Entrevista'])),
@@ -128,18 +137,18 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('pregunta_5a', models.ForeignKey(orm[u'analisis.pregunta_5a'], null=False)),
-            ('ubicacion', models.ForeignKey(orm[u'configuracion.ubicacion'], null=False))
+            ('municipio', models.ForeignKey(orm[u'lugar.municipio'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['pregunta_5a_id', 'ubicacion_id'])
+        db.create_unique(m2m_table_name, ['pregunta_5a_id', 'municipio_id'])
 
         # Adding M2M table for field socio on 'Pregunta_5a'
         m2m_table_name = db.shorten_name(u'analisis_pregunta_5a_socio')
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('pregunta_5a', models.ForeignKey(orm[u'analisis.pregunta_5a'], null=False)),
-            ('socio', models.ForeignKey(orm[u'configuracion.socio'], null=False))
+            ('organizaciones', models.ForeignKey(orm[u'mapeo.organizaciones'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['pregunta_5a_id', 'socio_id'])
+        db.create_unique(m2m_table_name, ['pregunta_5a_id', 'organizaciones_id'])
 
         # Adding M2M table for field tema on 'Pregunta_5a'
         m2m_table_name = db.shorten_name(u'analisis_pregunta_5a_tema')
@@ -217,9 +226,9 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('pregunta_6a', models.ForeignKey(orm[u'analisis.pregunta_6a'], null=False)),
-            ('ubicacion', models.ForeignKey(orm[u'configuracion.ubicacion'], null=False))
+            ('municipio', models.ForeignKey(orm[u'lugar.municipio'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['pregunta_6a_id', 'ubicacion_id'])
+        db.create_unique(m2m_table_name, ['pregunta_6a_id', 'municipio_id'])
 
         # Adding M2M table for field tema on 'Pregunta_6a'
         m2m_table_name = db.shorten_name(u'analisis_pregunta_6a_tema')
@@ -296,9 +305,9 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('pregunta_7a', models.ForeignKey(orm[u'analisis.pregunta_7a'], null=False)),
-            ('ubicacion', models.ForeignKey(orm[u'configuracion.ubicacion'], null=False))
+            ('municipio', models.ForeignKey(orm[u'lugar.municipio'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['pregunta_7a_id', 'ubicacion_id'])
+        db.create_unique(m2m_table_name, ['pregunta_7a_id', 'municipio_id'])
 
         # Adding M2M table for field seleccion on 'Pregunta_7a'
         m2m_table_name = db.shorten_name(u'analisis_pregunta_7a_seleccion')
@@ -329,9 +338,9 @@ class Migration(SchemaMigration):
         db.create_table(u'analisis_pregunta_8', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('organizacion', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['mapeo.Organizaciones'])),
-            ('territorio', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('periodo', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('profundidad', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('territorio1', self.gf('django.db.models.fields.IntegerField')()),
+            ('periodo1', self.gf('django.db.models.fields.IntegerField')()),
+            ('profundidad1', self.gf('django.db.models.fields.IntegerField')()),
             ('entrevistado', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['analisis.Entrevista'])),
         ))
         db.send_create_signal(u'analisis', ['Pregunta_8'])
@@ -349,8 +358,8 @@ class Migration(SchemaMigration):
         db.create_table(u'analisis_pregunta_9', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('tema', self.gf('django.db.models.fields.IntegerField')()),
-            ('prioridad', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('papel', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('prioridad1', self.gf('django.db.models.fields.IntegerField')()),
+            ('papel1', self.gf('django.db.models.fields.IntegerField')()),
             ('conocimiento', self.gf('django.db.models.fields.IntegerField')()),
             ('experiencia', self.gf('django.db.models.fields.IntegerField')()),
             ('entrevistado', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['analisis.Entrevista'])),
@@ -361,9 +370,9 @@ class Migration(SchemaMigration):
         db.create_table(u'analisis_pregunta_11', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('sobre', self.gf('django.db.models.fields.IntegerField')()),
-            ('tipo_estudio', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['configuracion.Tipo_Estudio'])),
+            ('tipo_estudio1', self.gf('django.db.models.fields.IntegerField')()),
             ('calendario', self.gf('django.db.models.fields.IntegerField')()),
-            ('disponibilidad', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('disponibilidad1', self.gf('django.db.models.fields.IntegerField')()),
             ('entrevistado', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['analisis.Entrevista'])),
         ))
         db.send_create_signal(u'analisis', ['Pregunta_11'])
@@ -372,6 +381,9 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Deleting model 'Entrevista'
         db.delete_table(u'analisis_entrevista')
+
+        # Removing M2M table for field departamento on 'Entrevista'
+        db.delete_table(db.shorten_name(u'analisis_entrevista_departamento'))
 
         # Deleting model 'Pregunta_1'
         db.delete_table(u'analisis_pregunta_1')
@@ -491,13 +503,14 @@ class Migration(SchemaMigration):
     models = {
         u'analisis.entrevista': {
             'Meta': {'object_name': 'Entrevista'},
-            'alcance': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'departamento': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['lugar.Departamento']"}),
+            'alcance1': ('django.db.models.fields.IntegerField', [], {}),
+            'departamento': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['lugar.Departamento']", 'symmetrical': 'False'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'fecha': ('django.db.models.fields.DateField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'organizacion': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['mapeo.Organizaciones']"}),
+            'pais': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['lugar.Pais']"}),
             'posicion': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
             'telefono': ('django.db.models.fields.IntegerField', [], {}),
@@ -507,22 +520,22 @@ class Migration(SchemaMigration):
         u'analisis.pregunta_1': {
             'Meta': {'object_name': 'Pregunta_1'},
             'entrevistado': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['analisis.Entrevista']"}),
-            'estado': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'estado1': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'proyecto': ('django.db.models.fields.CharField', [], {'max_length': '250'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
-            'socio': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Socio']", 'symmetrical': 'False'}),
+            'socio': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['mapeo.Organizaciones']", 'symmetrical': 'False'}),
             'tema': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Tema']", 'symmetrical': 'False'}),
-            'ubicacion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Ubicacion']", 'symmetrical': 'False'})
+            'ubicacion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['lugar.Municipio']", 'symmetrical': 'False'})
         },
         u'analisis.pregunta_11': {
             'Meta': {'object_name': 'Pregunta_11'},
             'calendario': ('django.db.models.fields.IntegerField', [], {}),
-            'disponibilidad': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'disponibilidad1': ('django.db.models.fields.IntegerField', [], {}),
             'entrevistado': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['analisis.Entrevista']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'sobre': ('django.db.models.fields.IntegerField', [], {}),
-            'tipo_estudio': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['configuracion.Tipo_Estudio']"})
+            'tipo_estudio1': ('django.db.models.fields.IntegerField', [], {})
         },
         u'analisis.pregunta_2': {
             'Meta': {'object_name': 'Pregunta_2'},
@@ -530,7 +543,7 @@ class Migration(SchemaMigration):
             'hombre': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'mujer': ('django.db.models.fields.IntegerField', [], {}),
-            'seleccion': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+            'seleccion1': ('django.db.models.fields.IntegerField', [], {})
         },
         u'analisis.pregunta_3': {
             'Meta': {'object_name': 'Pregunta_3'},
@@ -552,9 +565,9 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'innovacion': ('django.db.models.fields.CharField', [], {'max_length': '250'}),
             'prioritizado': ('django.db.models.fields.IntegerField', [], {}),
-            'socio': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Socio']", 'symmetrical': 'False'}),
+            'socio': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['mapeo.Organizaciones']", 'symmetrical': 'False'}),
             'tema': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Tema']", 'symmetrical': 'False'}),
-            'ubicacion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Ubicacion']", 'symmetrical': 'False'})
+            'ubicacion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['lugar.Municipio']", 'symmetrical': 'False'})
         },
         u'analisis.pregunta_5c': {
             'Meta': {'object_name': 'Pregunta_5c'},
@@ -586,7 +599,7 @@ class Migration(SchemaMigration):
             'innovacion': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'prioritizado': ('django.db.models.fields.IntegerField', [], {}),
             'tema': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Tema']", 'symmetrical': 'False'}),
-            'ubicacion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Ubicacion']", 'symmetrical': 'False'})
+            'ubicacion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['lugar.Municipio']", 'symmetrical': 'False'})
         },
         u'analisis.pregunta_6c': {
             'Meta': {'object_name': 'Pregunta_6c'},
@@ -617,7 +630,7 @@ class Migration(SchemaMigration):
             'entrevistado': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['analisis.Entrevista']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'seleccion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Seleccion_7a']", 'symmetrical': 'False'}),
-            'ubicacion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Ubicacion']", 'symmetrical': 'False'})
+            'ubicacion': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['lugar.Municipio']", 'symmetrical': 'False'})
         },
         u'analisis.pregunta_7b': {
             'Meta': {'object_name': 'Pregunta_7b'},
@@ -630,10 +643,10 @@ class Migration(SchemaMigration):
             'entrevistado': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['analisis.Entrevista']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'organizacion': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['mapeo.Organizaciones']"}),
-            'periodo': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'profundidad': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'periodo1': ('django.db.models.fields.IntegerField', [], {}),
+            'profundidad1': ('django.db.models.fields.IntegerField', [], {}),
             'tema': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['configuracion.Tema_Relacion']", 'symmetrical': 'False'}),
-            'territorio': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+            'territorio1': ('django.db.models.fields.IntegerField', [], {})
         },
         u'analisis.pregunta_9': {
             'Meta': {'object_name': 'Pregunta_9'},
@@ -641,8 +654,8 @@ class Migration(SchemaMigration):
             'entrevistado': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['analisis.Entrevista']"}),
             'experiencia': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'papel': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'prioridad': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'papel1': ('django.db.models.fields.IntegerField', [], {}),
+            'prioridad1': ('django.db.models.fields.IntegerField', [], {}),
             'tema': ('django.db.models.fields.IntegerField', [], {})
         },
         u'auth.group': {
@@ -663,7 +676,7 @@ class Migration(SchemaMigration):
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
+            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -671,7 +684,7 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
+            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
         u'configuracion.areaaccion': {
@@ -712,7 +725,8 @@ class Migration(SchemaMigration):
         u'configuracion.plataforma': {
             'Meta': {'object_name': 'Plataforma'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre': ('django.db.models.fields.CharField', [], {'max_length': '250'})
+            'nombre': ('django.db.models.fields.CharField', [], {'max_length': '250'}),
+            'sitio_accion': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['configuracion.SitioAccion']"})
         },
         u'configuracion.sector': {
             'Meta': {'object_name': 'Sector'},
@@ -731,13 +745,9 @@ class Migration(SchemaMigration):
         },
         u'configuracion.sitioaccion': {
             'Meta': {'object_name': 'SitioAccion'},
+            'area_accion': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['configuracion.AreaAccion']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '250'})
-        },
-        u'configuracion.socio': {
-            'Meta': {'object_name': 'Socio'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'socio': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'configuracion.tema': {
             'Meta': {'object_name': 'Tema'},
@@ -753,11 +763,6 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Tipo_Estudio'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'configuracion.ubicacion': {
-            'Meta': {'object_name': 'Ubicacion'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ubicacion': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -809,7 +814,7 @@ class Migration(SchemaMigration):
             'plataforma': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['configuracion.Plataforma']"}),
             'rss': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'sector': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['configuracion.Sector']"}),
-            'siglas': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'siglas': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'sitio_accion': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['configuracion.SitioAccion']"}),
             'sitio_web': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'telefono': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),

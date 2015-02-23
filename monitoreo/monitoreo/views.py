@@ -648,10 +648,57 @@ def animales(request):
                                  animales['venta_libre'],
                                  animales['venta_organizada']])
 
+    #salidas de animal mujer entrevistada
+    tabla_entre = []
+    tabla_produccion_entre = []
+    totales_entre = {}
+
+    totales_entre['numero'] = consulta.count()
+    totales_entre['porcentaje_num'] = 100
+    totales_entre['animales'] = consulta.aggregate(cantidad=Sum('animalesfinca__cantidad_mujer'))['cantidad']
+    totales_entre['porcentaje_animal'] = 100
+
+    for animal in Animales.objects.all():
+        query = consulta.filter(animalesfinca__animales = animal)
+        numero = query.distinct().count()
+        
+
+        porcentaje_num = saca_porcentajes(numero, totales_entre['numero'], False)
+        animales = query.aggregate(cantidad = Sum('animalesfinca__cantidad_mujer'),
+                                   )
+        try:
+            animal_familia = float(animales['cantidad'])/float(numero)
+        except:
+            animal_familia = 0
+        animal_familia = "%.2f" % animal_familia
+        tabla_entre.append([animal.nombre, numero, porcentaje_num,
+                      animales['cantidad'], animal_familia])
+        
+
+    for animal in ProductoAnimal.objects.all():
+        query = consulta.filter(produccionanimalentrevistada__produccion = animal)
+        numero = query.distinct().count()
+        try:
+            producto = ProduccionAnimalEntrevistada.objects.filter(produccion = animal)
+        except:
+            #el animal no tiene producto aún
+            continue
+
+        porcentaje_num = saca_porcentajes(numero, totales_entre['numero'], False)
+        animales = query.aggregate(total_produccion = Sum('produccionanimalentrevistada__total_produccion'),
+                                   venta_libre = Sum('produccionanimalentrevistada__venta_libre'),
+                                   venta_organizada = Sum('produccionanimalentrevistada__venta_organizada'),
+                                   consumo = Sum('produccionanimalentrevistada__consumo'))
+        
+        tabla_produccion_entre.append([
+                                 animal.nombre, animal.unidad,
+                                 animales['total_produccion'],
+                                 animales['consumo'],
+                                 animales['venta_libre'],
+                                 animales['venta_organizada']])
+
     return render_to_response('monitoreo/animales.html',
-                              {'tabla':tabla, 'totales': totales,
-                               'num_familias': consulta.count(),
-                               'tabla_produccion': tabla_produccion},
+                              locals(),
                               context_instance=RequestContext(request))
 
 
@@ -754,6 +801,32 @@ def comunitario(request):
                               'uno':uno,'dos':dos,'tres':tres},
                                 context_instance=RequestContext(request) )
 
+#tabla sobre organismo no gubernamenta
+@session_required
+def org_ong(request):
+    ''' tablas organización no gubermental '''
+    #***********Variables***************
+    a = _queryset_filtrado(request)
+    num_familias = a.count()
+    #***********************************
+
+    #rangos
+    uno = a.filter(organizacionong__numero__range=(1,5)).count()
+    dos = a.filter(organizacionong__numero__range=(6,10)).count()
+    tres = a.filter(organizacionong__numero__gt=11).count()
+
+    tabla_pertenece = {}
+    divisor = a.filter(organizacionong__in=[1,2]).count()
+    for t in OngLocales.objects.all():
+        query = a.filter(organizacionong__cuales = t )
+        frecuencia = query.aggregate(frecuencia=Count('organizacionong__cuales'))['frecuencia']
+        porcentaje = saca_porcentajes(frecuencia,divisor)
+        tabla_pertenece[t] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}
+
+    return render_to_response('monitoreo/org_data.html', {'tabla_pertenece':tabla_pertenece,
+                              'divisor':divisor, 'num_familias': num_familias,
+                              'uno':uno,'dos':dos,'tres':tres},
+                                context_instance=RequestContext(request) )
 #Tabla Cultivos
 def grafo_generic(request, producto):
     #******Variables***************
@@ -1249,6 +1322,8 @@ def ahorro_credito(request):
     ''' ahorro y credito'''
     #ahorro
     consulta = _queryset_filtrado(request)
+    num_familias = consulta.count()
+
     tabla_ahorro = []
     totales_ahorro = {}
 
@@ -1276,11 +1351,35 @@ def ahorro_credito(request):
     tabla_credito['mas'] = [mas, saca_porcentajes(mas, totales_credito['numero'])]
     tabla_credito['al_dia'] = [al_dia, saca_porcentajes(al_dia, totales_credito['numero'])]
 
-    dicc = {'tabla_ahorro':tabla_ahorro, 'columnas_ahorro': columnas_ahorro,
-            'totales_ahorro': totales_ahorro, 'tabla_credito': tabla_credito,
-            'num_familias': consulta.count()}
+    #salidas para entrevistada
+    tabla_ahorro_entre = []
+    totales_ahorro = {}
 
-    return render_to_response('monitoreo/ahorro_credito.html', dicc,
+    columnas_ahorro_entre = ['Si', '%']
+
+    for pregunta in AhorroPregunta.objects.all():
+        #opciones solo si
+        subquery = consulta.filter(ahorro__ahorro = pregunta, ahorro__respuesta = 1).count()
+        tabla_ahorro_entre.append([pregunta.nombre, subquery, saca_porcentajes(subquery, consulta.count(), False)])
+
+    #credito
+    tabla_credito_entre= {}
+    totales_credito_entre= {}
+
+    totales_credito_entre['numero'] = consulta.count()
+    totales_credito_entre['porcentaje_num'] = 100
+
+    recibe = consulta.filter(credito__recibe = 1).count()
+    menos = consulta.filter(credito__desde = 1).count()
+    mas = consulta.filter(credito__desde = 2).count()
+    al_dia = consulta.filter(credito__dia= 1).count()
+
+    tabla_credito_entre['recibe'] = [recibe, saca_porcentajes(recibe, totales_credito_entre['numero'])]
+    tabla_credito_entre['menos'] = [menos, saca_porcentajes(menos, totales_credito_entre['numero'])]
+    tabla_credito_entre['mas'] = [mas, saca_porcentajes(mas, totales_credito_entre['numero'])]
+    tabla_credito_entre['al_dia'] = [al_dia, saca_porcentajes(al_dia, totales_credito_entre['numero'])]
+
+    return render_to_response('monitoreo/ahorro_credito.html', locals(),
                               context_instance=RequestContext(request))
 
 #Tabla seguridad alimentaria
@@ -2065,6 +2164,46 @@ def ahorro_credito_grafos(request, tipo):
     else:
         raise Http404
 
+@session_required
+def ahorro_credito_grafos_entre(request, tipo):
+    '''Tipo puede ser: ahorro, uso, origen, satisfaccion'''
+    consulta = _queryset_filtrado(request)
+    data = []
+    legends = []
+    if tipo == 'ahorro': #ahorra a nombre de quien
+        #choice_ahorro (5, hombre), (6, mujeres), (7,ambos)
+        for numero in (5, 6, 7):
+            #FIX: numero de la pregunta hardcored
+            dato = consulta.filter(ahorroentrevista__ahorro=5, ahorroentrevista__respuesta = numero).count()
+            data.append(dato)
+            legends.append(CHOICE_AHORRO[numero - 1][1])
+        return grafos.make_graph(data, legends,
+                'A nombre de quien ahorra', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'origen': #de donde viene el credito
+        for origen in DaCredito.objects.all():
+            data.append(consulta.filter(creditoentrevista__quien_credito= origen).count())
+            legends.append(origen.nombre)
+        return grafos.make_graph(data, legends,
+                'Origen del Crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'satisfaccion':
+        for opcion in CHOICE_SATISFACCION:
+            data.append(consulta.filter(creditoentrevista__satisfaccion=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends,
+                'Nivel de satisfacción con el crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'uso':
+        for uso in OcupaCredito.objects.all():
+            data.append(consulta.filter(creditoentrevista__ocupa_credito = uso).count())
+            legends.append(uso.nombre)
+        return grafos.make_graph(data, legends,
+                'Uso del Crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    else:
+        raise Http404
+
 #Los puntos en el mapa
 
 def obtener_lista(request):
@@ -2495,6 +2634,7 @@ VALID_VIEWS = {
         'vulnerable': vulnerable,
         'manejosuelo': manejosuelo,
         'comunitario' : comunitario,
+        'ong': org_ong,
         'organizacion': organizacion,
         'mitigariesgos': mitigariesgos,
         'ahorro_credito': ahorro_credito,
