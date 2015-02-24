@@ -29,9 +29,7 @@ class Educacion(models.Model):
         
     class Meta:
         verbose_name_plural = "Educacion"
-        #app_label = " Indicador 01 Educacion"
-        #db_table = "simas_educacion"
-
+        
 #-------------------------------------------------------------------------------
 
 CHOICE_SALUD = ((1,'Si'),(2,'No'),(3,'No sabe'))
@@ -54,9 +52,7 @@ class Salud(models.Model):
         
     class Meta:
         verbose_name_plural = "Salud"
-        #app_label = "Indicador 01 Salud"
-        #db_table = "simas_salud"
-
+       
 #-------------------------------------------------------------------------------
 
 class PreguntaEnergia(models.Model):
@@ -67,8 +63,6 @@ class PreguntaEnergia(models.Model):
 
     class Meta:
         verbose_name_plural = "Pregunta sobre energia"
-        #app_label = "Indicador 01 Energia"
-        #db_table = "simas_preguntaenergia"
 
 class Energia(models.Model):
     ''' 1.3 energia
@@ -79,8 +73,6 @@ class Energia(models.Model):
     
     class Meta:
         verbose_name_plural = "Energia"
-        #app_label = "Indicador 01 Energia"
-        #db_table = "simas_energia"
 
 class TipoCocina(models.Model):
     nombre = models.CharField(max_length=200)
@@ -106,8 +98,6 @@ class Fuente(models.Model):
 
     class Meta:
         verbose_name_plural = "Fuentes de consumo de agua"
-        #app_label = "Indicador 01 Agua"
-        #db_table = "simas_fuente"
 
 class Tratamiento(models.Model):
     nombre = models.CharField(max_length=200)
@@ -117,8 +107,6 @@ class Tratamiento(models.Model):
 
     class Meta:
         verbose_name_plural = "Tratamiento de agua de consumo"
-        #app_label = "Indicador 01 Agua"
-        #db_table = "simas_tratamiento"
 
 class Disponibilidad(models.Model):
     nombre = models.CharField(max_length=200)
@@ -128,20 +116,20 @@ class Disponibilidad(models.Model):
 
     class Meta:
         verbose_name_plural = "Disponibilidad de agua para consumo"
-        #app_label = "Indicador 01 Agua"
-        #db_table = "simas_disponibilidad"
 
 class Agua(models.Model):
     ''' 1.4 Agua de consumo
     '''
     fuente = models.ManyToManyField(Fuente, verbose_name="Fuente de consumo de agua")
     trata = models.ManyToManyField(Tratamiento, verbose_name="¿Cómo se trata el agua para consumo")
-    disponible = models.ManyToManyField(Disponibilidad, verbose_name="Disponibilidad de agua para consumo")
+    disponible = models.ManyToManyField(Disponibilidad, 
+                                verbose_name="Disponibilidad de agua para consumo invierno")
+    disponible_vera = models.ManyToManyField(Disponibilidad, 
+                                verbose_name="Disponibilidad de agua para consumo verano", 
+                                related_name='verano', null=True, blank=True)
     encuesta = models.ForeignKey(Encuesta)
     
     class Meta:
         verbose_name_plural = "Agua"
-        #app_label = "Indicador 01 Agua"
-        #db_table = "simas_agua"
 
 #-------------------------------------------------------------------------------

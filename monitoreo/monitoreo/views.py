@@ -507,7 +507,7 @@ def fincas(request):
     rango3_entre = 0
     rango4_entre = 0
     for x in consulta:
-        query = UsoTierra.objects.filter(encuesta=x, tierra=1).aggregate(AreaSuma=Sum('area'))
+        query = UsoTierraEntrevistada.objects.filter(encuesta=x, tierra=1).aggregate(AreaSuma=Sum('area'))
         lista_entre.append([x.id,query])
 
     for nose in lista_entre:
@@ -1353,13 +1353,13 @@ def ahorro_credito(request):
 
     #salidas para entrevistada
     tabla_ahorro_entre = []
-    totales_ahorro = {}
+    totales_ahorro_entre = {}
 
     columnas_ahorro_entre = ['Si', '%']
 
     for pregunta in AhorroPregunta.objects.all():
         #opciones solo si
-        subquery = consulta.filter(ahorro__ahorro = pregunta, ahorro__respuesta = 1).count()
+        subquery = consulta.filter(ahorroentrevista__ahorro = pregunta, ahorroentrevista__respuesta = 1).count()
         tabla_ahorro_entre.append([pregunta.nombre, subquery, saca_porcentajes(subquery, consulta.count(), False)])
 
     #credito
@@ -1369,10 +1369,10 @@ def ahorro_credito(request):
     totales_credito_entre['numero'] = consulta.count()
     totales_credito_entre['porcentaje_num'] = 100
 
-    recibe = consulta.filter(credito__recibe = 1).count()
-    menos = consulta.filter(credito__desde = 1).count()
-    mas = consulta.filter(credito__desde = 2).count()
-    al_dia = consulta.filter(credito__dia= 1).count()
+    recibe = consulta.filter(creditoentrevista__recibe = 1).count()
+    menos = consulta.filter(creditoentrevista__desde = 1).count()
+    mas = consulta.filter(creditoentrevista__desde = 2).count()
+    al_dia = consulta.filter(creditoentrevista__dia= 1).count()
 
     tabla_credito_entre['recibe'] = [recibe, saca_porcentajes(recibe, totales_credito_entre['numero'])]
     tabla_credito_entre['menos'] = [menos, saca_porcentajes(menos, totales_credito_entre['numero'])]
@@ -2157,6 +2157,46 @@ def ahorro_credito_grafos(request, tipo):
     elif tipo == 'uso':
         for uso in OcupaCredito.objects.all():
             data.append(consulta.filter(credito__ocupa_credito = uso).count())
+            legends.append(uso.nombre)
+        return grafos.make_graph(data, legends,
+                'Uso del Crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    else:
+        raise Http404
+
+@session_required
+def ahorro_credito_grafos_entre(request, tipo):
+    '''Tipo puede ser: ahorro, uso, origen, satisfaccion'''
+    consulta = _queryset_filtrado(request)
+    data = []
+    legends = []
+    if tipo == 'ahorro': #ahorra a nombre de quien
+        #choice_ahorro (5, hombre), (6, mujeres), (7,ambos)
+        for numero in (5, 6, 7):
+            #FIX: numero de la pregunta hardcored
+            dato = consulta.filter(ahorroentrevista__ahorro=5, ahorroentrevista__respuesta = numero).count()
+            data.append(dato)
+            legends.append(CHOICE_AHORRO[numero - 1][1])
+        return grafos.make_graph(data, legends,
+                'A nombre de quien ahorra', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'origen': #de donde viene el credito
+        for origen in DaCredito.objects.all():
+            data.append(consulta.filter(creditoentrevista__quien_credito= origen).count())
+            legends.append(origen.nombre)
+        return grafos.make_graph(data, legends,
+                'Origen del Crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'satisfaccion':
+        for opcion in CHOICE_SATISFACCION:
+            data.append(consulta.filter(creditoentrevista__satisfaccion=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends,
+                'Nivel de satisfacción con el crédito', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'uso':
+        for uso in OcupaCredito.objects.all():
+            data.append(consulta.filter(creditoentrevista__ocupa_credito = uso).count())
             legends.append(uso.nombre)
         return grafos.make_graph(data, legends,
                 'Uso del Crédito', return_json = True,
