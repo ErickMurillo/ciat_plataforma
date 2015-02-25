@@ -1175,29 +1175,43 @@ function Grafo17(){
      {% include "monitoreo/menu.html" %}
 </div>
 
-<div id="sidebar">
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Cultivos de la familia</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Cultivos de mujer</a></li>
+    <li role="presentation"><a href="#ambos" aria-controls="ambos" role="tab" data-toggle="tab">Cultivos de ambos</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+    <div role="tabpanel" class="tab-pane active" id="home">
+
+      <div id="sidebar">
     <div class="graficos_widget">
         <h1>Gráficos: Dispersión</h1>
         <a href="#" id="grafico" onclick="Grafo();" class="grafo">Maíz</a>
         <a href="#" id="grafico1" onclick="Grafo1();" class="grafo">Frijol</a>
         <a href="#" id="grafico2" onclick="Grafo2();" class="grafo">Plátano</a>
         <a href="#" id="grafico3" onclick="Grafo3();" class="grafo">Guíneo</a>
-	    <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Cáfe</a>
-	    <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Cacao</a>
-	    <h1>Gráficos: Regresión Lineal</h1>
-	    <a href="#" id="grafico6" onclick="Grafo6();" class="grafo">Maíz</a>
+       <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Cáfe</a>
+       <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Cacao</a>
+       <h1>Gráficos: Regresión Lineal</h1>
+       <a href="#" id="grafico6" onclick="Grafo6();" class="grafo">Maíz</a>
         <a href="#" id="grafico7" onclick="Grafo7();" class="grafo">Frijol</a>
         <a href="#" id="grafico8" onclick="Grafo8();" class="grafo">Plátano</a>
         <a href="#" id="grafico9" onclick="Grafo9();" class="grafo">Guíneo</a>
-	    <a href="#" id="grafico10" onclick="Grafo10();" class="grafo">Cáfe</a>
-	    <a href="#" id="grafico11" onclick="Grafo11();" class="grafo">Cacao</a>
-	    <h1>Gráficos: Rangos de la productividad</h1>
-	    <a href="#" id="grafico12" onclick="Grafo12();" class="grafo">Maíz</a>
+       <a href="#" id="grafico10" onclick="Grafo10();" class="grafo">Cáfe</a>
+       <a href="#" id="grafico11" onclick="Grafo11();" class="grafo">Cacao</a>
+       <h1>Gráficos: Rangos de la productividad</h1>
+       <a href="#" id="grafico12" onclick="Grafo12();" class="grafo">Maíz</a>
         <a href="#" id="grafico13" onclick="Grafo13();" class="grafo">Frijol</a>
         <a href="#" id="grafico14" onclick="Grafo14();" class="grafo">Plátano</a>
         <a href="#" id="grafico15" onclick="Grafo15();" class="grafo">Guíneo</a>
-	    <a href="#" id="grafico16" onclick="Grafo16();" class="grafo">Cáfe</a>
-	    <a href="#" id="grafico17" onclick="Grafo17();" class="grafo">Cacao</a>
+       <a href="#" id="grafico16" onclick="Grafo16();" class="grafo">Cáfe</a>
+       <a href="#" id="grafico17" onclick="Grafo17();" class="grafo">Cacao</a>
     </div>
 </div>
 
@@ -1225,7 +1239,7 @@ function Grafo17(){
                 <td>{{a.2}}</td>
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table>
  {%endfor%}
 {%for key, value in frijol.tabla.items%}
@@ -1246,7 +1260,7 @@ function Grafo17(){
                 <td>{{a.2}}</td>
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table>
  {%endfor%}
  {%for key, value in platano.tabla.items%}
@@ -1267,7 +1281,7 @@ function Grafo17(){
                 <td>{{a.2}}</td>
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table>
  {%endfor%}
  {%for key, value in guineo.tabla.items%}
@@ -1288,7 +1302,7 @@ function Grafo17(){
                 <td>{{a.2}}</td>
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table>
  {%endfor%}
  {%for key, value in cafe.tabla.items%}
@@ -1309,7 +1323,7 @@ function Grafo17(){
                 <td>{{a.2}}</td>
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table>
  {%endfor%}
  {%for key, value in cacao.tabla.items%}
@@ -1330,7 +1344,7 @@ function Grafo17(){
                 <td>{{a.2}}</td>
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table>
  {%endfor%}
 {%endif%}
@@ -1360,7 +1374,7 @@ function Grafo17(){
                 <td>{{value.organizada|floatformat}}</td>
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table>
 </div>
 
@@ -1389,8 +1403,22 @@ function Grafo17(){
                 <td>{{value.productividad|floatformat}}</td>
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table> 
-</div>   
-<br></br><br></br><br>
+</div>
+    
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+      <p>Aun en desarrollo</p>
+    </div>
+     <div role="tabpanel" class="tab-pane" id="ambos">
+      <p>Aun en desarrollo</p>
+    </div>
+
+  </div>
+
+</div>
+
+   
+
 {%endblock%}
