@@ -2169,14 +2169,14 @@ def fincas_grafos_entrevistada(request, tipo):
             data.append(consulta.filter(tenenciaentrevistada__parcela=opcion).count())
             legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de las parcelas', return_json = True,
+                'Acceso a tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'solares':
         for opcion in TenenciaEntre.objects.all():
             data.append(consulta.filter(tenenciaentrevistada__solar=opcion[0]).count())
             legends.append(opcion[1])
         return grafos.make_graph(data, legends,
-                'Tenencia de los solares', return_json = True,
+                'Tenencia de la tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'propietario':
         for opcion in OpcionesDueno.objects.all():
