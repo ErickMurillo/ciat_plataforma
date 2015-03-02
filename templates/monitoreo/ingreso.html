@@ -48,25 +48,20 @@
             }
         });
     }
-    $(document).ready(function() {
-        $("#grafico1").click(function(){
-            $("#grafico1").addClass('enlace_seleccionado');
-            $("#grafico2").removeClass('enlace_seleccionado');
-            $("#grafico3").removeClass('enlace_seleccionado');
-        });
-    
-        $("#grafico2").click(function(){
-            $("#grafico2").addClass('enlace_seleccionado');
-            $("#grafico1").removeClass('enlace_seleccionado');
-            $("#grafico3").removeClass('enlace_seleccionado');
-        });
 
-        $("#grafico3").click(function(){
-            $("#grafico3").addClass('enlace_seleccionado');
-            $("#grafico1").removeClass('enlace_seleccionado');
-            $("#grafico2").removeClass('enlace_seleccionado');
+    var activo_entre = 0;
+    function click_callback_entre(id){
+        $.getJSON('/monitoreo/grafo/ingreso/entre/' + id, function(data) {
+            if (activo_entre!= id){
+                $("#grafo_entre").html('<img src="' + data.url + '" />');
+                activo_entre = id;
+            }else{
+                $("#grafo_entre").html('');
+                activo_entre = 0;
+            }
         });
-    });
+    }
+
 </script>
 <script type="text/javascript">
 function Grafo8(){
@@ -295,7 +290,19 @@ function Grafo10(){
      {% include "monitoreo/menu.html" %}
 </div>
 
-<div class="contenido">
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Ingreso de la familia</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ingreso de la entrevistada</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+
+    <div role="tabpanel" class="tab-pane active" id="home">
+        <div class="contenido">
     <div id="sidebar">
         <div class="graficos_widget">
             <h1>Gráficos ingresos</h1>
@@ -339,7 +346,7 @@ function Grafo10(){
                 <td>{{value.cantidad|floatformat}}</td>
                 <td>{{value.precio|floatformat}}</td>
                 <td>{{value.ingreso|floatformat}}</td>
-
+            </tr>
                 {%endfor%}
         </tbody>
         <tr>
@@ -374,7 +381,7 @@ function Grafo10(){
                 <td>{{value.cantidad|floatformat}}</td>
                 <td>{{value.precio|floatformat}}</td>
                 <td>{{value.ingreso|floatformat}}</td>
-
+            </tr>
                 {%endfor%}
         </tbody>
         <tr>
@@ -409,7 +416,7 @@ function Grafo10(){
                 <td>{{value.cantidad|floatformat}}</td>
                 <td>{{value.precio|floatformat}}</td>
                 <td>{{value.ingreso|floatformat}}</td>
-
+            </tr>
                 {%endfor%}
         </tbody>
         <tr>
@@ -444,7 +451,7 @@ function Grafo10(){
                 <td>{{value.cantidad|floatformat}}</td>
                 <td>{{value.precio|floatformat}}</td>
                 <td>{{value.ingreso|floatformat}}</td>
-
+            </tr>
                 {%endfor%}
         </tbody>
         <tr>
@@ -479,7 +486,7 @@ function Grafo10(){
                 <td>{{value.cantidad|floatformat}}</td>
                 <td>{{value.precio|floatformat}}</td>
                 <td>{{value.ingreso|floatformat}}</td>
-
+            </tr>
                 {%endfor%}
         </tbody>
         <tr>
@@ -514,7 +521,7 @@ function Grafo10(){
                 <td>{{value.cantidad|floatformat}}</td>
                 <td>{{value.precio|floatformat}}</td>
                 <td>{{value.ingreso|floatformat}}</td>
-
+            </tr>
                 {%endfor%}
         </tbody>
         <tr>
@@ -549,7 +556,7 @@ function Grafo10(){
                 <td>{{value.cantidad|floatformat}}</td>
                 <td>{{value.precio|floatformat}}</td>
                 <td>{{value.ingreso|floatformat}}</td>
-
+            </tr>
                 {%endfor%}
         </tbody>
         <tr>
@@ -584,7 +591,7 @@ function Grafo10(){
                 <td>{{value.cantidad|floatformat}}</td>
                 <td>{{value.precio|floatformat}}</td>
                 <td>{{value.ingreso|floatformat}}</td>
-
+            </tr>
                 {%endfor%}
         </tbody>
         <tr>
@@ -642,7 +649,7 @@ function Grafo10(){
             <th>{{respuesta.bruto|intcomma}}</th>
         </tr>
     </table>
-    <div class="subindicador">INGRESO  &raquo; Ingreso Neto por familia</</a></div>
+    <div class="subindicador">INGRESO  &raquo; Ingreso Neto por familia</div>
     <table>
         <tr colspan="2">
             <th>INGRESO NETO</th>
@@ -651,12 +658,336 @@ function Grafo10(){
         </tr>
     </table><br><br>
 </div>
-    </div>
-<script type="text/javascript">
-  $(function() {
-    $("table#sortTableExample").tablesorter( {sortList: [[0,0], [1,0]]} );
-    $("table#sortTableExample2").tablesorter( {sortList: [[0,0], [1,0]]} );
-  });
-</script>
 </div>
+    
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+
+        <div class="contenido">
+    <div id="sidebar">
+        <div class="graficos_widget">
+            <h1>Gráficos ingresos entrevistada</h1>
+            <a href="#" id="grafico1" onCLick="click_callback_entre('vendio')">A quién venden?</a>
+            <a href="#" id="grafico2" onCLick="click_callback_entre('maneja')">Quién maneja el negocio?</a>
+            <a href="#" id="grafico3" onCLick="click_callback_entre('ingreso')">Quién tiene los ingresos?</a>
+            <a href="#" id="grafico9" onclick="Grafo8();" class="grafo">Ingreso por sistema</a>
+            <a href="#" id="grafico10" onCLick="Grafo9();" class="grafo">Número de rubro en cada sistema</a>
+            <a href="#" id="grafico11" onCLick="Grafo10();" class="grafo">Ingreso por clase</a>
+        </div>
+    </div>
+    <div id="grafo_entre" style="width:670px;"></div>
+
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/17/"></a>{%endif%}</div>
+
+<div id="modalidad">
+     <table id="sortTableExample" class="tablesorter">
+        <caption>Agroforestales</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in agro_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+            </tr>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_agro_entre|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table id="sortTableExample2" class="tablesorter">
+        <caption>Forestales</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in forestal_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+            </tr>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_forestal_entre|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table id="sortTableExample" class="tablesorter">
+        <caption>Granos básicos</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in grano_basico_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+            </tr>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_basico_entre|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table id="sortTableExample" class="tablesorter">
+        <caption>Ganado mayor</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in ganado_mayor_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+            </tr>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_ganado_entre|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table id="sortTableExample" class="tablesorter">
+        <caption>Animales de patio</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in patio_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+            </tr>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_patio_entre|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table id="sortTableExample" class="tablesorter">
+        <caption>Hortalizas y frutas</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in frutas_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+            </tr>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_fruta_entre|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table id="sortTableExample" class="tablesorter">
+        <caption>Musaceas</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in musaceas_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+            </tr>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_musaceas_entre|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table id="sortTableExample" class="tablesorter">
+        <caption>Raíces y tubérculos</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in raices_entre.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+            </tr>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_raices_entre|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br><br>
+    <table>
+        <th>Ingreso agropecuario: {{respuesta_entre.ingreso|intcomma}}</th>
+    </table>
+
+    <br>
+<div class="subindicador">INGRESO  &raquo; Ingreso Bruto por familia</div>
+    <table>
+        <tr colspan="2">
+            <th>INGRESO BRUTO</th>
+
+            <th>{{respuesta_entre.bruto|intcomma}}</th>
+        </tr>
+    </table>
+    <div class="subindicador">INGRESO  &raquo; Ingreso Neto por familia</div>
+    <table>
+        <tr colspan="2">
+            <th>INGRESO NETO</th>
+
+            <th>{{respuesta_entre.total_neto|intcomma}}</th>
+        </tr>
+    </table><br><br>
+</div>
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
 {%endblock%}

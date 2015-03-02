@@ -507,7 +507,7 @@ def fincas(request):
     rango3_entre = 0
     rango4_entre = 0
     for x in consulta:
-        query = UsoTierra.objects.filter(encuesta=x, tierra=1).aggregate(AreaSuma=Sum('area'))
+        query = UsoTierraEntrevistada.objects.filter(encuesta=x, tierra=1).aggregate(AreaSuma=Sum('area'))
         lista_entre.append([x.id,query])
 
     for nose in lista_entre:
@@ -1033,6 +1033,82 @@ def cultivos(request):
     distribucion_guineo = distribucion(request,9)
     distribucion_cafe = distribucion(request,5)
     distribucion_cacao = distribucion(request,4)
+
+    #-----------------------------------------------------
+    #Tabla de cultivos de la mujer
+    #-----------------------------------------------------
+    
+    tabla_mujer = {}
+    for i in Cultivos.objects.all():
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=2)
+        numero = query.count()
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        consumo = query.aggregate(consumo=Sum('cultivosfinca__consumo'))['consumo']
+        libre = query.aggregate(libre=Sum('cultivosfinca__venta_libre'))['libre']
+        organizada =query.aggregate(organizada=Sum('cultivosfinca__venta_organizada'))['organizada']
+        if numero > 0:
+            tabla_mujer[key] = {'key2':key2,'numero':numero,'totales':totales,
+                           'consumo':consumo,'libre':libre,'organizada':organizada}
+    
+    tabla2_mujer = {}
+    #lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
+    productividad_mujer = 0
+    for i in Cultivos.objects.filter(id__in=lista_pro):
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=2)
+        numero = query.count()
+        area_total = query.aggregate(area_total=Sum('cultivosfinca__area'))['area_total']
+        area_avg = query.aggregate(area_avg=Avg('cultivosfinca__area'))['area_avg']
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        try:
+            productividad_mujer = totales / area_total
+        except:
+            productividad_mujer = 0
+        if numero > 0:
+            tabla2_mujer[key] = {'key2':key2,'numero':numero,'area_total':area_total,
+                       'area_avg':area_avg,'totales':totales,'productividad':productividad_mujer}
+
+    #-----------------------------------------------------
+    #Tabla de cultivos cuando lo maneja ambos
+    #-----------------------------------------------------
+    
+    tabla_ambos = {}
+    for i in Cultivos.objects.all():
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=3)
+        numero = query.count()
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        consumo = query.aggregate(consumo=Sum('cultivosfinca__consumo'))['consumo']
+        libre = query.aggregate(libre=Sum('cultivosfinca__venta_libre'))['libre']
+        organizada =query.aggregate(organizada=Sum('cultivosfinca__venta_organizada'))['organizada']
+        if numero > 0:
+            tabla_ambos[key] = {'key2':key2,'numero':numero,'totales':totales,
+                           'consumo':consumo,'libre':libre,'organizada':organizada}
+    
+    tabla2_ambos = {}
+    #lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
+    productividad_ambos = 0
+    for i in Cultivos.objects.filter(id__in=lista_pro):
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=3)
+        numero = query.count()
+        area_total = query.aggregate(area_total=Sum('cultivosfinca__area'))['area_total']
+        area_avg = query.aggregate(area_avg=Avg('cultivosfinca__area'))['area_avg']
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        try:
+            productividad_ambos = totales / area_total
+        except:
+            productividad_ambos = 0
+        if numero > 0:
+            tabla2_ambos[key] = {'key2':key2,'numero':numero,'area_total':area_total,
+                       'area_avg':area_avg,'totales':totales,'productividad':productividad_ambos}
+
+
                                            
     return render_to_response('monitoreo/cultivos.html',
                              locals(),
@@ -1042,7 +1118,6 @@ def cultivos(request):
 def total_ingreso(request, numero):
     #******Variables***************
     a = _queryset_filtrado(request)
-    num_familias = a.count()
     #******************************
     #*******calculos de las variables ingreso************
     tabla = {}
@@ -1060,6 +1135,26 @@ def total_ingreso(request, numero):
 
     return tabla
 
+def total_ingreso_entre(request, numero):
+    #******Variables***************
+    a = _queryset_filtrado(request)
+    #******************************
+    #*******calculos de las variables ingreso************
+    tabla = {}
+    for i in Rubros.objects.filter(categoria=numero):
+        key = slugify(i.nombre).replace('-','_')
+        key2 = slugify(i.unidad).replace('-','_')
+        query = a.filter(ingresoentrevistada__rubro = i)
+        numero = query.count()
+        cantidad = query.aggregate(cantidad=Sum('ingresoentrevistada__cantidad'))['cantidad']
+        precio = query.aggregate(precio=Avg('ingresoentrevistada__precio'))['precio']
+        ingreso = cantidad * precio if cantidad != None and precio != None else 0
+        if numero > 0:
+            tabla[key] = {'key2':key2,'numero':numero,'cantidad':cantidad,
+                      'precio':precio,'ingreso':ingreso}
+
+    return tabla
+
 @session_required
 def ingresos(request):
     '''tabla de ingresos'''
@@ -1067,6 +1162,7 @@ def ingresos(request):
     a = _queryset_filtrado(request)
     num_familias = a.count()
     #******************************
+    
     #*******calculos de las variables ingreso************
     respuesta = {}
     respuesta['bruto']= 0
@@ -1170,6 +1266,99 @@ def ingresos(request):
     except:
         pass
     respuesta['total_neto'] = round(respuesta['bruto'] * 0.6,2)
+
+    #-------------------------------------------------------------------
+    #
+    #Ingreso de la entrevistada
+    #
+    #--------------------------------------------------------------------
+    
+    respuesta_entre = {}
+    respuesta_entre['bruto']= 0
+    respuesta_entre['ingreso']=0
+    respuesta_entre['ingreso_total']=0
+    respuesta_entre['ingreso_otro']=0
+    respuesta_entre['brutoo'] = 0
+    respuesta_entre['total_neto'] = 0
+    agro_entre = total_ingreso_entre(request,1)
+    forestal_entre = total_ingreso_entre(request,2)
+    grano_basico_entre = total_ingreso_entre(request,3)
+    ganado_mayor_entre = total_ingreso_entre(request,4)
+    patio_entre = total_ingreso_entre(request,5)
+    frutas_entre = total_ingreso_entre(request,6)
+    musaceas_entre = total_ingreso_entre(request,7)
+    raices_entre = total_ingreso_entre(request,8)
+
+    total_agro_entre = 0
+    c_agro_entre = 0
+    for k,v in agro_entre.items():
+        total_agro_entre += round(v['ingreso'],1)
+        if v['numero'] > 0:
+            c_agro_entre += 1
+    total_forestal_entre = 0
+    c_forestal_entre = 0
+    for k,v in forestal_entre.items():
+        total_forestal_entre += round(v['ingreso'],1)
+        if v['numero'] > 0:
+            c_forestal_entre += 1
+    total_basico_entre = 0
+    c_basico_entre = 0
+    for k,v in grano_basico_entre.items():
+        total_basico_entre += round(v['ingreso'],1)
+        if v['numero'] > 0:
+            c_basico_entre += 1
+    total_ganado_entre = 0
+    c_ganado_entre = 0
+    for k,v in ganado_mayor_entre.items():
+        total_ganado_entre += round(v['ingreso'],1)
+        if v['numero'] > 0:
+            c_ganado_entre += 1
+    total_patio_entre = 0
+    c_patio_entre = 0
+    for k,v in patio_entre.items():
+        total_patio_entre += round(v['ingreso'],1)
+        if v['numero'] > 0:
+            c_patio_entre += 1
+    total_fruta_entre = 0
+    c_fruta_entre = 0
+    for k,v in frutas_entre.items():
+        total_fruta_entre += round(v['ingreso'],1)
+        if v['numero'] > 0:
+            c_fruta_entre += 1
+    total_musaceas_entre = 0
+    c_musaceas_entre = 0
+    for k,v in musaceas_entre.items():
+        total_musaceas_entre += round(v['ingreso'],1)
+        if v['numero'] > 0:
+            c_musaceas_entre += 1
+    total_raices_entre = 0
+    c_raices_entre = 0
+    for k,v in raices_entre.items():
+        total_raices_entre += round(v['ingreso'],1)
+        if v['numero'] > 0:
+            c_raices_entre += 1
+
+    respuesta_entre['ingreso'] = total_agro_entre + total_forestal_entre + total_basico_entre + total_ganado_entre + total_patio_entre + total_fruta_entre + total_musaceas_entre + total_raices_entre
+    grafo_entre = []
+    grafo_entre.append({'Agroforestales':int(total_agro_entre),'Forestales':int(total_forestal_entre),
+                  'Granos_basicos':int(total_basico_entre),'Ganado_mayor':int(total_ganado_entre),
+                  'Animales_de_patio':int(total_patio_entre),'Hortalizas_y_frutas':int(total_fruta_entre),
+                  'Musaceas':int(total_musaceas_entre),'Tuberculos_y_raices':int(total_raices_entre)
+                 })
+                 
+    cuantos_entre = []
+    cuantos_entre.append({'Agroforestales':c_agro_entre,'Forestales':c_forestal_entre,'Granos_basicos':c_basico_entre,
+                  'Ganado_mayor':c_ganado_entre,'Animales_de_patio':c_patio_entre,
+                  'Hortalizas_y_frutas':c_fruta_entre,'Musaceas':c_musaceas_entre,
+                  'Tuberculos_y_raices':c_raices_entre})
+
+    #********* calculos de las variables de otros ingresos******
+
+    try:
+        respuesta_entre['bruto'] = round((respuesta_entre['ingreso']) / num_familias,2)
+    except:
+        pass
+    respuesta_entre['total_neto'] = round(respuesta_entre['bruto'] * 0.6,2)
 
     return render_to_response('monitoreo/ingreso.html',locals(),
                               context_instance=RequestContext(request))
@@ -1311,9 +1500,90 @@ def equipos(request):
         transporte[key] = {'frecuencia':frecuencia,'por_frecuencia':por_frecuencia,
                            'trans':trans,'por_trans':por_trans}
 
-    return render_to_response('monitoreo/equipos.html', {'tabla':tabla,'totales':totales,
-                              'num_familias':num_familia,'tabla_infra':tabla_infra,
-                              'herramienta':herramienta,'transporte':transporte},
+    #------------------------------------------------------
+    #
+    #Esta parte representa las tablas para las entrevistadas
+    #
+    #-------------------------------------------------------
+    
+    #********** tabla de equipos *************
+    tabla_entre = {}
+    totales_entre = {}
+
+    totales_entre['numero'] = a.aggregate(numero=Count('propiedadequipoentrevista__equipo'))['numero']
+    totales_entre['porciento_equipo'] = 100
+    totales_entre['cantidad_equipo'] = a.aggregate(cantidad=Sum('propiedadequipoentrevista__cantidad_equipo'))['cantidad']
+    totales_entre['porciento_cantidad'] = 100
+
+    for i in Equipos.objects.all():
+        key = slugify(i.nombre).replace('-','_')
+        query = a.filter(propiedadequipoentrevista__equipo = i)
+        frecuencia = query.count()
+        por_equipo = saca_porcentajes(frecuencia, num_familia)
+        equipo = query.aggregate(equipo=Sum('propiedadequipoentrevista__cantidad_equipo'))['equipo']
+        cantidad_pro = query.aggregate(cantidad_pro=Avg('propiedadequipoentrevista__cantidad_equipo'))['cantidad_pro']
+        tabla_entre[key] = {'frecuencia':frecuencia, 'por_equipo':por_equipo,
+                      'equipo':equipo,'cantidad_pro':cantidad_pro}
+
+    #******** tabla de infraestructura *************
+    tabla_infra_entre = {}
+    totales_infra_entre = {}
+
+    totales_infra_entre['numero'] = a.aggregate(numero=Count('propiedadinfraestructuraentrevista__infraestructura'))['numero']
+    totales_infra_entre['porciento_infra'] = 100
+    totales_infra_entre['cantidad_infra'] = a.aggregate(cantidad_infra=Sum('propiedadinfraestructuraentrevista__cantidad_infra'))['cantidad_infra']
+    totales_infra_entre['por_cantidad_infra'] = 100
+
+    for j in Infraestructuras.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(propiedadinfraestructuraentrevista__infraestructura = j)
+        frecuencia = query.count()
+        por_frecuencia = saca_porcentajes(frecuencia, num_familia)
+        infraestructura = query.aggregate(infraestructura=Sum('propiedadinfraestructuraentrevista__cantidad_infra'))['infraestructura']
+        infraestructura_pro = query.aggregate(infraestructura_pro=Avg('propiedadinfraestructuraentrevista__cantidad_infra'))['infraestructura_pro']
+        tabla_infra_entre[key] = {'frecuencia':frecuencia, 'por_frecuencia':por_frecuencia,
+                             'infraestructura':infraestructura,
+                             'infraestructura_pro':infraestructura_pro}
+
+    #******************* tabla de herramientas ***************************
+    herramienta_entre = {}
+    totales_herramientas_entre = {}
+
+    totales_herramientas_entre['numero'] = a.aggregate(numero=Count('herramientasentrevista__herramienta'))['numero']
+    totales_herramientas_entre['porciento_herra'] = 100
+    totales_herramientas_entre['cantidad_herra'] = a.aggregate(cantidad=Sum('herramientasentrevista__numero'))['cantidad']
+    totales_herramientas_entre['porciento_herra'] = 100
+
+    for k in NombreHerramienta.objects.all():
+        key = slugify(k.nombre).replace('-','_')
+        query = a.filter(herramientasentrevista__herramienta = k)
+        frecuencia = query.count()
+        por_frecuencia = saca_porcentajes(frecuencia, num_familia)
+        herra = query.aggregate(herramientas=Sum('herramientasentrevista__numero'))['herramientas']
+        por_herra = query.aggregate(por_herra=Avg('herramientasentrevista__numero'))['por_herra']
+        herramienta_entre[key] = {'frecuencia':frecuencia, 'por_frecuencia':por_frecuencia,
+                            'herra':herra,'por_herra':por_herra}
+
+    #*************** tabla de transporte ***********************
+    transporte_entre = {}
+    totales_transporte_entre = {}
+
+    totales_transporte_entre['numero'] = a.aggregate(numero=Count('transporteentrevista__transporte'))['numero']
+    totales_transporte_entre['porciento_trans'] = 100
+    totales_transporte_entre['cantidad_trans'] = a.aggregate(cantidad=Sum('transporteentrevista__numero'))['cantidad']
+    totales_transporte_entre['porciento_trans'] = 100
+
+    for m in NombreTransporte.objects.all():
+        key = slugify(m.nombre).replace('-','_')
+        query = a.filter(transporteentrevista__transporte = m)
+        frecuencia = query.count()
+        por_frecuencia = saca_porcentajes(frecuencia, num_familia)
+        trans = query.aggregate(transporte=Sum('transporteentrevista__numero'))['transporte']
+        por_trans = query.aggregate(por_trans=Avg('transporteentrevista__numero'))['por_trans']
+        transporte_entre[key] = {'frecuencia':frecuencia,'por_frecuencia':por_frecuencia,
+                           'trans':trans,'por_trans':por_trans}
+
+    return render_to_response('monitoreo/equipos.html', locals(),
                                context_instance=RequestContext(request))
 
 #Tabla Ahorro
@@ -1353,13 +1623,13 @@ def ahorro_credito(request):
 
     #salidas para entrevistada
     tabla_ahorro_entre = []
-    totales_ahorro = {}
+    totales_ahorro_entre = {}
 
     columnas_ahorro_entre = ['Si', '%']
 
     for pregunta in AhorroPregunta.objects.all():
         #opciones solo si
-        subquery = consulta.filter(ahorro__ahorro = pregunta, ahorro__respuesta = 1).count()
+        subquery = consulta.filter(ahorroentrevista__ahorro = pregunta, ahorroentrevista__respuesta = 1).count()
         tabla_ahorro_entre.append([pregunta.nombre, subquery, saca_porcentajes(subquery, consulta.count(), False)])
 
     #credito
@@ -1369,10 +1639,10 @@ def ahorro_credito(request):
     totales_credito_entre['numero'] = consulta.count()
     totales_credito_entre['porcentaje_num'] = 100
 
-    recibe = consulta.filter(credito__recibe = 1).count()
-    menos = consulta.filter(credito__desde = 1).count()
-    mas = consulta.filter(credito__desde = 2).count()
-    al_dia = consulta.filter(credito__dia= 1).count()
+    recibe = consulta.filter(creditoentrevista__recibe = 1).count()
+    menos = consulta.filter(creditoentrevista__desde = 1).count()
+    mas = consulta.filter(creditoentrevista__desde = 2).count()
+    al_dia = consulta.filter(creditoentrevista__dia= 1).count()
 
     tabla_credito_entre['recibe'] = [recibe, saca_porcentajes(recibe, totales_credito_entre['numero'])]
     tabla_credito_entre['menos'] = [menos, saca_porcentajes(menos, totales_credito_entre['numero'])]
@@ -1864,23 +2134,23 @@ def fincas_grafos(request, tipo):
     data = []
     legends = []
     if tipo == 'tenencia':
-        for opcion in CHOICE_TENENCIA_1:
-            data.append(consulta.filter(tenencia__parcela=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaFamilia.objects.all():
+            data.append(consulta.filter(tenencia__parcela=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de las parcelas', return_json = True,
+                'Acceso de tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'solares':
-        for opcion in CHOICE_TENENCIA_2:
-            data.append(consulta.filter(tenencia__solar=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaEntre.objects.all():
+            data.append(consulta.filter(tenencia__solar=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de los solares', return_json = True,
+                'Tenencia de la tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'propietario':
-        for opcion in CHOICE_DUENO:
-            data.append(consulta.filter(tenencia__dueno=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in OpcionesDueno.objects.all():
+            data.append(consulta.filter(tenencia__dueno=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
                 'Dueño de propiedad', return_json = True,
                 type = grafos.PIE_CHART_3D)
@@ -1895,21 +2165,21 @@ def fincas_grafos_entrevistada(request, tipo):
     data = []
     legends = []
     if tipo == 'tenencia':
-        for opcion in CHOICE_TENENCIA_1:
-            data.append(consulta.filter(tenenciaentrevistada__parcela=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaFamilia.objects.all():
+            data.append(consulta.filter(tenenciaentrevistada__parcela=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de las parcelas', return_json = True,
+                'Acceso a tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'solares':
-        for opcion in CHOICE_TENENCIA_2:
+        for opcion in TenenciaEntre.objects.all():
             data.append(consulta.filter(tenenciaentrevistada__solar=opcion[0]).count())
             legends.append(opcion[1])
         return grafos.make_graph(data, legends,
-                'Tenencia de los solares', return_json = True,
+                'Tenencia de la tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'propietario':
-        for opcion in CHOICE_DUENO:
+        for opcion in OpcionesDueno.objects.all():
             data.append(consulta.filter(tenenciaentrevistada__dueno=opcion[0]).count())
             legends.append(opcion[1])
         return grafos.make_graph(data, legends,
@@ -2067,6 +2337,33 @@ def grafos_ingreso(request, tipo):
 #        message = "Aporte en la finca"
 #        return grafos.make_graph(data, legends, message, multiline = True,
 #                return_json = True, type = grafos.GROUPED_BAR_CHART_V)
+    else:
+        raise Http404
+
+@session_required
+def grafos_ingreso_entre(request, tipo):
+    ''' tabla sobre los ingresos familiares
+    '''
+    #------ varaibles ------
+    consulta = _queryset_filtrado(request)
+    data = []
+    legends = []
+    #-----------------------
+    if tipo == 'vendio':
+        for opcion in CHOICE_VENDIO:
+            data.append(consulta.filter(ingresoentrevistada__quien_vendio=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends,
+                'A quien venden', return_json=True,
+                type=grafos.PIE_CHART_3D)
+    elif tipo == 'maneja':
+        for opcion in CHOICE_MANEJA:
+            data.append(consulta.filter(ingresoentrevistada__maneja_negocio=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends,
+                'Quien maneja negocio', return_json=True,
+                type=grafos.PIE_CHART_3D)
+
     else:
         raise Http404
 
