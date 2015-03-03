@@ -1033,6 +1033,82 @@ def cultivos(request):
     distribucion_guineo = distribucion(request,9)
     distribucion_cafe = distribucion(request,5)
     distribucion_cacao = distribucion(request,4)
+
+    #-----------------------------------------------------
+    #Tabla de cultivos de la mujer
+    #-----------------------------------------------------
+    
+    tabla_mujer = {}
+    for i in Cultivos.objects.all():
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=2)
+        numero = query.count()
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        consumo = query.aggregate(consumo=Sum('cultivosfinca__consumo'))['consumo']
+        libre = query.aggregate(libre=Sum('cultivosfinca__venta_libre'))['libre']
+        organizada =query.aggregate(organizada=Sum('cultivosfinca__venta_organizada'))['organizada']
+        if numero > 0:
+            tabla_mujer[key] = {'key2':key2,'numero':numero,'totales':totales,
+                           'consumo':consumo,'libre':libre,'organizada':organizada}
+    
+    tabla2_mujer = {}
+    #lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
+    productividad_mujer = 0
+    for i in Cultivos.objects.filter(id__in=lista_pro):
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=2)
+        numero = query.count()
+        area_total = query.aggregate(area_total=Sum('cultivosfinca__area'))['area_total']
+        area_avg = query.aggregate(area_avg=Avg('cultivosfinca__area'))['area_avg']
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        try:
+            productividad_mujer = totales / area_total
+        except:
+            productividad_mujer = 0
+        if numero > 0:
+            tabla2_mujer[key] = {'key2':key2,'numero':numero,'area_total':area_total,
+                       'area_avg':area_avg,'totales':totales,'productividad':productividad_mujer}
+
+    #-----------------------------------------------------
+    #Tabla de cultivos cuando lo maneja ambos
+    #-----------------------------------------------------
+    
+    tabla_ambos = {}
+    for i in Cultivos.objects.all():
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=3)
+        numero = query.count()
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        consumo = query.aggregate(consumo=Sum('cultivosfinca__consumo'))['consumo']
+        libre = query.aggregate(libre=Sum('cultivosfinca__venta_libre'))['libre']
+        organizada =query.aggregate(organizada=Sum('cultivosfinca__venta_organizada'))['organizada']
+        if numero > 0:
+            tabla_ambos[key] = {'key2':key2,'numero':numero,'totales':totales,
+                           'consumo':consumo,'libre':libre,'organizada':organizada}
+    
+    tabla2_ambos = {}
+    #lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
+    productividad_ambos = 0
+    for i in Cultivos.objects.filter(id__in=lista_pro):
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=3)
+        numero = query.count()
+        area_total = query.aggregate(area_total=Sum('cultivosfinca__area'))['area_total']
+        area_avg = query.aggregate(area_avg=Avg('cultivosfinca__area'))['area_avg']
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        try:
+            productividad_ambos = totales / area_total
+        except:
+            productividad_ambos = 0
+        if numero > 0:
+            tabla2_ambos[key] = {'key2':key2,'numero':numero,'area_total':area_total,
+                       'area_avg':area_avg,'totales':totales,'productividad':productividad_ambos}
+
+
                                            
     return render_to_response('monitoreo/cultivos.html',
                              locals(),
@@ -2058,23 +2134,23 @@ def fincas_grafos(request, tipo):
     data = []
     legends = []
     if tipo == 'tenencia':
-        for opcion in CHOICE_TENENCIA_1:
-            data.append(consulta.filter(tenencia__parcela=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaFamilia.objects.all():
+            data.append(consulta.filter(tenencia__parcela=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de las parcelas', return_json = True,
+                'Acceso de tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'solares':
-        for opcion in CHOICE_TENENCIA_2:
-            data.append(consulta.filter(tenencia__solar=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaEntre.objects.all():
+            data.append(consulta.filter(tenencia__solar=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de los solares', return_json = True,
+                'Tenencia de la tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'propietario':
-        for opcion in CHOICE_DUENO:
-            data.append(consulta.filter(tenencia__dueno=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in OpcionesDueno.objects.all():
+            data.append(consulta.filter(tenencia__dueno=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
                 'Dueño de propiedad', return_json = True,
                 type = grafos.PIE_CHART_3D)
@@ -2089,21 +2165,21 @@ def fincas_grafos_entrevistada(request, tipo):
     data = []
     legends = []
     if tipo == 'tenencia':
-        for opcion in CHOICE_TENENCIA_1:
-            data.append(consulta.filter(tenenciaentrevistada__parcela=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaFamilia.objects.all():
+            data.append(consulta.filter(tenenciaentrevistada__parcela=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de las parcelas', return_json = True,
+                'Acceso a tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'solares':
-        for opcion in CHOICE_TENENCIA_2:
+        for opcion in TenenciaEntre.objects.all():
             data.append(consulta.filter(tenenciaentrevistada__solar=opcion[0]).count())
             legends.append(opcion[1])
         return grafos.make_graph(data, legends,
-                'Tenencia de los solares', return_json = True,
+                'Tenencia de la tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'propietario':
-        for opcion in CHOICE_DUENO:
+        for opcion in OpcionesDueno.objects.all():
             data.append(consulta.filter(tenenciaentrevistada__dueno=opcion[0]).count())
             legends.append(opcion[1])
         return grafos.make_graph(data, legends,
