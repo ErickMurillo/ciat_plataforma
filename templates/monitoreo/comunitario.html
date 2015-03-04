@@ -71,55 +71,84 @@
 {%endblock%}
 
 {%block contenido%}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button> 
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador Org. Gremial</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
+                    
+            <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                <li class="widget-container "><!-- widget -->
+                    
+                <h1 class="title-monitoreo">Consulta</h1>
+                                
+ 
                 </li>
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button> 
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador Org. Gremial</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
 
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</div>
-{% include "monitoreo/nav_org.html" %}
-<div class="separador"></div>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
 
-<div id="mostrar">
-    {% include "monitoreo/menu.html" %}
-</div>
+                {% include "monitoreo/nav_org.html" %}
+                <div class="separador"></div>
 
-<div id="sidebar">
-    <div class="graficos_widget">
-        <h1>Gráficos Org. Gremial </h1>
-        <a id="grafico1" href="#" onCLick="onCLick=click_callback('beneficiorganizado')">¿Beneficios de estar organizado</a>
-        <a id="grafico2" href="#" onCLick="click_callback('norganizado')">¿Porque no esta organizado?</a>
-        <a id="grafico2" href="#" onCLick="click_callback('comunitario')">¿Organización comunitaria?</a>
+                <div id="mostrar">
+                    {% include "monitoreo/menu.html" %}
+                </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="panel panel-success panel-graficos">
+                              <div class="panel-heading">Gráficos Organización Comunitaria </div>
+                              
+                                <div class="panel-body graficos_widget">
+                                
+                                    <a id="grafico1" href="#" onCLick="onCLick=click_callback('beneficiorganizado')">¿Beneficios de estar organizado</a>
+                                    <a id="grafico2" href="#" onCLick="click_callback('norganizado')">¿Porque no esta organizado?</a>
+                                    <a id="grafico2" href="#" onCLick="click_callback('comunitario')">¿Organización comunitaria?</a>
 
-    </div>
-</div>
 
-<div id="grafo"></div>
+                                </div>
+                              
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div id="grafo"></div>
+                        </div>
+        
+                    </div>
+
+
 
 <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/7/"></a>{%endif%} </div>
 
@@ -183,5 +212,13 @@
     <br>
     <br>
 </div>
-</div>
+</div>            
+                            
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div><!-- sidebar row -->
+
 {% endblock %}

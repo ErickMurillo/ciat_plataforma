@@ -43,100 +43,123 @@
 {% endblock %}
 
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador Salud</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
+                    
+            <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                <li class="widget-container "><!-- widget -->
+                    
+                <h1 class="title-monitoreo">Consulta</h1>
+                                
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                    
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador Salud</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+
+                </div>
+
+                {% include "monitoreo/nav_familia.html" %}
+
+                <div class="separador"></div>
+                <br>
+
+                <div id="mostrar">
+                     {% include "monitoreo/menu.html" %}
+                </div>
+
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/2/"></a>{%endif%}</div>
+                   
+                <div class="contenido">
+                <div id="modalidad">
+                    <table id="example" class="display" cellspacing="0" width="100%">
+                    <caption>Tiene Buena Salud?</caption>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Frecuencia de consulta por edad</th>
+                                <th>%Buena Salud</th>
+                                <th>%Salud Delicada</th>
+                                <th>%Enfermedades Crónica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fila in tabla_estado%}
+                            <tr>
+                                {%for celda in fila%}
+                                <td>{{celda}}</td>
+                                {%endfor%}
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                <br><br>
+                    <table id="example1" class="display" cellspacing="0" width="100%">
+                    <caption>Visita centros de salud</caption>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Frecuencia de consulta por edad</th>
+                                <th>%Visita Centro de Salud</th>
+                                <th>%Visita Médico Privado</th>
+                                <th>%Visita Clínica</th>
+                                <th>Número de veces que no logra atención por año</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fila in tabla_sitio%}
+                            <tr>
+                                {%for celda in fila%}
+                                <td>{{celda}}</td>
+                                {%endfor%}
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+
+                <br><br>   
                 </li>
+                            
+                            
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div>  
 
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
 
-</div>
-
-{% include "monitoreo/nav_familia.html" %}
-
-<div class="separador"></div>
-<br>
-
-<div id="mostrar">
-     {% include "monitoreo/menu.html" %}
-</div>
-
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/2/"></a>{%endif%}</div>
-   
-<div class="contenido">
-<div id="modalidad">
-    <table id="example" class="display" cellspacing="0" width="100%">
-    <caption>Tiene Buena Salud?</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Frecuencia de consulta por edad</th>
-                <th>%Buena Salud</th>
-                <th>%Salud Delicada</th>
-                <th>%Enfermedades Crónica</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for fila in tabla_estado%}
-            <tr>
-                {%for celda in fila%}
-                <td>{{celda}}</td>
-                {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>tbody>
-    </table>
-<br><br>
-    <table id="example1" class="display" cellspacing="0" width="100%">
-    <caption>Visita centros de salud</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Frecuencia de consulta por edad</th>
-                <th>%Visita Centro de Salud</th>
-                <th>%Visita Médico Privado</th>
-                <th>%Visita Clínica</th>
-                <th>Número de veces que no logra atención por año</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for fila in tabla_sitio%}
-            <tr>
-                {%for celda in fila%}
-                <td>{{celda}}</td>
-                {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
-
-<br><br>
 {% endblock %}
