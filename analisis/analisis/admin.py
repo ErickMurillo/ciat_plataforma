@@ -4,6 +4,7 @@ from .models import	*
 from django.forms import CheckboxSelectMultiple
 from .forms import *
 from comunicacion.lugar.models import *
+from nested_inline.admin import NestedStackedInline, NestedModelAdmin, NestedTabularInline
 
 # Register your models here.
 class Pregunta_1_Inline(admin.TabularInline):
@@ -87,15 +88,22 @@ class Pregunta_5a_Inline(admin.TabularInline):
 	# 	css = {
  #            'all': ('analisis/css/admin.css',)
  #        }
-
-class Pregunta_5c_Inline(admin.TabularInline):
-	model = Pregunta_5c
-	# form = Pregunta_5cForm
-	max_num = 2
-	can_delete = False
+class Pregunta_5c_nestedInline(NestedTabularInline):
+	model = Pregunta_5c_nested
+	extra = 1
+	max_num = 5
+	fk_name = 'pregunta_5c'
 	formfield_overrides = {
 		models.ManyToManyField: {'widget': CheckboxSelectMultiple},
 	}
+
+class Pregunta_5c_Inline(NestedTabularInline):
+	model = Pregunta_5c
+	inlines = [Pregunta_5c_nestedInline]
+	# form = Pregunta_5cForm
+	max_num = 2
+	can_delete = False
+	
 
 	def formfield_for_foreignkey(self, db_field, request, **kwargs):
 		if db_field.name == 'innovacion':
@@ -107,7 +115,8 @@ class Pregunta_5c_Inline(admin.TabularInline):
 			else:
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
 		return super(Pregunta_5c_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
-	
+
+
 class Pregunta_5d_Inline(admin.TabularInline):
 	model = Pregunta_5d
 	# form = Pregunta_5dForm
@@ -296,7 +305,7 @@ class Pregunta_11_Inline(admin.TabularInline):
 	max_num = 7
 	can_delete = False
 
-class EntrevistaAdmin(admin.ModelAdmin):
+class EntrevistaAdmin(NestedModelAdmin):
 	def queryset(self, request):
 		if request.user.is_superuser:
 			return Entrevista.objects.all()
@@ -338,10 +347,10 @@ class EntrevistaAdmin(admin.ModelAdmin):
 					kwargs["queryset"] = Departamento.objects.filter(pais=a.pais)
 			except Exception, e:
 				pass
+		return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)	
 		# else:
 		# 	kwargs["queryset"] = Departamento.objects.filter(pais='0')
-		return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
-
+			
 
 admin.site.register(Entrevista,EntrevistaAdmin)
 
