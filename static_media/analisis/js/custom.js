@@ -19,7 +19,15 @@
 
 		var gu = $(".submit-row input[name$='_continue']");
 		gu.addClass('guardar');
+
+		var pathname = window.location.pathname;
+		url = pathname.split("/");
+		if (url[4]=='add') {
+			$('.field-box.field-tipo_estudio').append('<input type="submit" value="Grabar y continuar editando" name="_continue" class="guardar default" id="btn_intro">');
+		};
 	});
+
+
 
 
 	$(document).on('change','.select-evt',function(){
@@ -27,9 +35,11 @@
 		$('.guardar').click()
 	});
 
-	$(document).on('change','#id_tipo_estudio',function(){
-		$('.guardar').click()
-	});
+	// $(document).on('click','#id_tipo_estudio',function(){
+	// 	$('.guardar').click()
+	// });
+
+	
 
 	$(document).ready( function() 
 	{

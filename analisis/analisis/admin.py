@@ -7,7 +7,7 @@ from comunicacion.lugar.models import *
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin, NestedTabularInline
 
 # Register your models here.
-class Pregunta_1_Inline(admin.TabularInline):
+class Pregunta_1_Inline(NestedTabularInline):
 	model = Pregunta_1
 	can_delete = False
 	extra = 1
@@ -35,13 +35,13 @@ class Pregunta_1_Inline(admin.TabularInline):
 	
 
 
-class Pregunta_2_Inline(admin.TabularInline):
+class Pregunta_2_Inline(NestedTabularInline):
 	model = Pregunta_2
 	extra = 1
 	max_num = 4
 	can_delete = True
 
-class Pregunta_3_Inline(admin.TabularInline):
+class Pregunta_3_Inline(NestedTabularInline):
 	model = Pregunta_3 
 	max_num = 1
 	can_delete = False
@@ -49,7 +49,7 @@ class Pregunta_3_Inline(admin.TabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-class Pregunta_4_Inline(admin.TabularInline):
+class Pregunta_4_Inline(NestedTabularInline):
 	model = Pregunta_4
 	extra = 1
 	can_delete = True
@@ -57,7 +57,7 @@ class Pregunta_4_Inline(admin.TabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-class Pregunta_5a_Inline(admin.TabularInline):
+class Pregunta_5a_Inline(NestedTabularInline):
 	model = Pregunta_5a
 	form = Pregunta_5aForm
 	extra = 1
@@ -85,9 +85,9 @@ class Pregunta_5a_Inline(admin.TabularInline):
 
 	class Media:
 		js = ('analisis/js/custom.js',)
-	# 	css = {
- #            'all': ('analisis/css/admin.css',)
- #        }
+		css = {
+            'all': ('analisis/css/admin.css',)
+        }
 class Pregunta_5c_nestedInline(NestedTabularInline):
 	model = Pregunta_5c_nested
 	extra = 1
@@ -117,7 +117,7 @@ class Pregunta_5c_Inline(NestedTabularInline):
 		return super(Pregunta_5c_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
-class Pregunta_5d_Inline(admin.TabularInline):
+class Pregunta_5d_Inline(NestedTabularInline):
 	model = Pregunta_5d
 	# form = Pregunta_5dForm
 	max_num = 2
@@ -138,7 +138,7 @@ class Pregunta_5d_Inline(admin.TabularInline):
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
 		return super(Pregunta_5d_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
-class Pregunta_5e_Inline(admin.TabularInline):
+class Pregunta_5e_Inline(NestedTabularInline):
 	model = Pregunta_5e
 	# form = Pregunta_5eForm
 	max_num = 2
@@ -159,7 +159,7 @@ class Pregunta_5e_Inline(admin.TabularInline):
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
 		return super(Pregunta_5e_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
-class Pregunta_6a_Inline(admin.TabularInline):
+class Pregunta_6a_Inline(NestedTabularInline):
 	model = Pregunta_6a
 	form = Pregunta_6aForm
 	extra = 1
@@ -184,10 +184,18 @@ class Pregunta_6a_Inline(admin.TabularInline):
 		
 		return super(Pregunta_6a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
 	
+class Pregunta_6c_nestedInline(NestedTabularInline):
+	model = Pregunta_6c_nested
+	extra = 1
+	max_num = 5
+	fk_name = 'pregunta_6c'
+	formfield_overrides = {
+		models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+	}
 
-
-class Pregunta_6c_Inline(admin.TabularInline):
+class Pregunta_6c_Inline(NestedTabularInline):
 	model = Pregunta_6c
+	inlines = [Pregunta_6c_nestedInline]
 	max_num = 2
 	extra = 2
 	can_delete = False
@@ -207,7 +215,7 @@ class Pregunta_6c_Inline(admin.TabularInline):
 		return super(Pregunta_6c_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
-class Pregunta_6d_Inline(admin.TabularInline):
+class Pregunta_6d_Inline(NestedTabularInline):
 	model = Pregunta_6d
 	max_num = 2
 	extra = 2
@@ -228,7 +236,7 @@ class Pregunta_6d_Inline(admin.TabularInline):
 		return super(Pregunta_6d_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
-class Pregunta_6e_Inline(admin.TabularInline):
+class Pregunta_6e_Inline(NestedTabularInline):
 	model = Pregunta_6e
 	max_num = 2
 	extra = 2
@@ -248,7 +256,7 @@ class Pregunta_6e_Inline(admin.TabularInline):
 				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
 		return super(Pregunta_6e_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
-class Pregunta_7a_Inline(admin.TabularInline):
+class Pregunta_7a_Inline(NestedTabularInline):
 	model = Pregunta_7a
 	extra = 1
 	can_delete = True
@@ -272,7 +280,7 @@ class Pregunta_7a_Inline(admin.TabularInline):
 		
 		return super(Pregunta_7a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
 
-class Pregunta_7b_Inline(admin.TabularInline):
+class Pregunta_7b_Inline(NestedTabularInline):
 	model = Pregunta_7b
 	max_num = 1
 	can_delete = False
@@ -280,7 +288,7 @@ class Pregunta_7b_Inline(admin.TabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }	
 
-class Pregunta_8_Inline(admin.TabularInline):
+class Pregunta_8_Inline(NestedTabularInline):
 	model = Pregunta_8
 	extra = 1
 	can_delete = True
@@ -289,7 +297,7 @@ class Pregunta_8_Inline(admin.TabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-class Pregunta_9_Inline(admin.TabularInline):
+class Pregunta_9_Inline(NestedTabularInline):
 	model = Pregunta_9
 	extra = 7
 	max_num = 7
@@ -299,7 +307,7 @@ class Pregunta_9_Inline(admin.TabularInline):
 	# 	('Auto-evaluación de la capacidad de la organización', {'fields' : ('conocimiento','experiencia')}),
 	# ]
 
-class Pregunta_11_Inline(admin.TabularInline):
+class Pregunta_11_Inline(NestedTabularInline):
 	model = Pregunta_11
 	extra = 7
 	max_num = 7
@@ -320,7 +328,7 @@ class EntrevistaAdmin(NestedModelAdmin):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 	fieldsets = [
-		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha','alcance1','tipo_estudio',))}),
+		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha1','alcance1','tipo_estudio',))}),
 	]
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,

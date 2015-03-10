@@ -38,7 +38,8 @@ class Entrevista(models.Model):
 	pais = models.ForeignKey(Pais, verbose_name= _(u'Pais'))
 	departamento = models.ManyToManyField(Departamento)
 	telefono = models.IntegerField(_(u'Telefono'))
-	fecha = models.IntegerField(_(u'Fecha'),choices=FECHA_CHOICES)
+	#fecha = models.IntegerField(_(u'Fecha'),choices=FECHA_CHOICES)
+	fecha1 = models.IntegerField(_(u'Fecha'),choices=FECHA_CHOICES)
 	slug = models.SlugField(editable=False)
 	alcance1 = models.IntegerField(_(u'Alcance'),choices=ALCANCE_CHOICES)
 	tipo_estudio = models.ForeignKey(Tipo_Estudio, verbose_name=_(u'Tipo de estudio'))
@@ -159,6 +160,8 @@ class Pregunta_5c_nested(models.Model):
 	class Meta:
 		verbose_name = 'Organización'
 
+	def __unicode__(self):
+		return self.organizacion
 
 class Pregunta_5d(models.Model):
 	innovacion = models.ForeignKey(Pregunta_5a,verbose_name=_(u'Innovacion'))
@@ -201,8 +204,6 @@ class Pregunta_6a(models.Model):
 
 class Pregunta_6c(models.Model):
 	innovacion = models.ForeignKey(Pregunta_6a,verbose_name=_(u'Innovacion'))
-	organizacion = models.ForeignKey(Organizaciones,verbose_name=_(u'Organizacion'))
-	papel = models.ManyToManyField(Papel,verbose_name=_(u'Papel'))
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -211,6 +212,17 @@ class Pregunta_6c(models.Model):
 
 	def __unicode__(self):
 		return self.innovacion
+
+class Pregunta_6c_nested(models.Model):
+	organizacion = models.ForeignKey(Organizaciones,verbose_name=_(u'Organizacion'))
+	papel = models.ManyToManyField(Papel,verbose_name=_(u'Papel'))
+	pregunta_6c = models.ForeignKey(Pregunta_6c)
+
+	class Meta:
+		verbose_name = 'Organización'
+
+	def __unicode__(self):
+		return self.organizacion
 
 class Pregunta_6d(models.Model):
 	innovacion = models.ForeignKey(Pregunta_6a,verbose_name=_(u'Innovacion'))
