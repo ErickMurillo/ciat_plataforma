@@ -2,20 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-02-05 11:59-0600\n"
-"PO-Revision-Date: 2015-02-04 16:16+0000\n"
-"Last-Translator:   <erick@mail.com>\n"
+"PO-Revision-Date: 2015-03-12 19:40+0000\n"
+"Last-Translator: Carlos Rocha <crocha09.09@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
 #: analisis/analisis/models.py:15
@@ -24,7 +24,7 @@ msgstr "National"
 
 #: analisis/analisis/models.py:16
 msgid "Territorial"
-msgstr ""
+msgstr "Territory"
 
 #: analisis/analisis/models.py:20 analisis/configuracion/models.py:148
 msgid "Nombre"
@@ -41,7 +41,7 @@ msgstr "Email"
 #: analisis/analisis/models.py:23 analisis/analisis/models.py:126
 #: analisis/analisis/models.py:170 analisis/analisis/models.py:234
 msgid "Organizacion"
-msgstr ""
+msgstr "Organitation"
 
 #: analisis/analisis/models.py:24
 msgid "Pais"
@@ -330,7 +330,8 @@ msgid "Situación de comerzialización y acceso a mercados"
 msgstr ""
 
 #: analisis/analisis/models.py:292
-msgid "Situación de organización de las comunidades y capacidad de aprendizaje"
+msgid ""
+"Situación de organización de las comunidades y capacidad de aprendizaje"
 msgstr ""
 
 #: analisis/analisis/models.py:293

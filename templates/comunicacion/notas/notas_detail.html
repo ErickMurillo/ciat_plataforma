@@ -113,6 +113,15 @@
                                     <p>
                                     {{nota.contenido|safe}}
                                     </p>
+                                    {% if nota.adjuntos.all %}
+                                    <hr>
+                                    <p>Archivos adjuntos</p>
+                                    <ul>
+                                        {% for archivo in nota.adjuntos.all %}
+                                            <li>{{archivo.nombre_doc}} - <a href="/media/{{archivo.adjunto}}"><i class="fa fa-cloud-download"></i>descargar</a></li>
+                                        {% endfor %}   
+                                    </ul> 
+                                    {% endif %}
                                     
                                 </div>
                                 
