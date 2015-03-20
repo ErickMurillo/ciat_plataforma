@@ -8,9 +8,25 @@
         $('#asociados-menu').addClass('active');
     });
 </script>
+
+    <script type="text/javascript" language="javascript" class="init">
+
+        $(document).ready(function() {
+            $('#listorg').dataTable( {
+                "language": {
+                    "search": "Buscar:"
+                },
+                "paging":   false,
+                "ordering": false,
+                "info":     false
+            } );
+        } );
+
+    </script>
 {%endblock%}
 
 {% block contenido %}
+
 <div id="k-body"><!-- content wrapper -->
     
         <div class="container"><!-- container -->
@@ -57,43 +73,49 @@
                                 </div>
                                 <hr />
                             </div>
+
+                            <div class="col-lg-12 col-md-12">
+                    
+                                <h1 class="page-title">Contrapartes</h1><!-- category title -->
+                                <br>
+                            
+                            </div>
+                        
                         
                         <div class="row gutter k-equal-height"><!-- row -->
 
-                        {% for contraparte in object_list %}
-                            <div class="col-lg-6 col-md-6 contrapartes" style="height=1000px !important" >
-                            {% if contraparte.logo %}
-                            {% thumbnail contraparte.logo "180x160" as im %}
-                                <img class="center-block logo-contraparte" src="/media/{{im}}" style="height: 180px;">
-                            {% endthumbnail %}
-                            {%else%}
-                                <img class="center-block" src="http://placehold.it/180x160&text=No Logo">
-                            {%endif%}
-                            <div class="page-title-meta">
-                                    <h1 class="page-title-contraparte"><a href="" class="title-contraparte">
-                                    {{contraparte.siglas}}
-                                    </a></h1>
-                                    <div class="news-meta">
-                                    
-                                        
-                                        <span class="ong">{{contraparte.sitio_accion}}</span>
-                                        <span class="ong">{{contraparte.plataforma}}</span>
-                                    </div>
-                            </div>
-                            <div class="news-summary">
-                                    <p>
-                                    
-                                    <a href="{% url 'detalle-contraparte' contraparte.id %}" title="Leer más" class="moretag">Leer más..</a>
-                                    </p>
-                            </div>
+                        
 
-                                
+                        <table id="listorg" class="table-event table  table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Siglas</th>
+                                    <th>País</th>
+                                    <th>Plataforma</th>
+                                    <th>Color</th>
+
                                     
-                                
-                            </div>
-                        {% endfor %}
 
-
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contraparte in object_list %}
+                                    
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'detalle-contraparte' contraparte.id %}">{{contraparte.siglas}}
+                                            </a>
+                                            </td>
+                                        <td>{{contraparte.pais}}</td>
+                                        <td>{{contraparte.plataforma}}</td>
+                                        <td><div class="listcolor" style ="background:{{contraparte.font_color}}"></div></td>
+  
+                                    </tr>
+                                    
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                            
                         </div><!-- row end -->
                     
                     </div><!-- inner custom column end -->
@@ -128,5 +150,6 @@
         </div><!-- container end -->
     
     </div><!-- content wrapper end -->
+ 
     
 {% endblock %}

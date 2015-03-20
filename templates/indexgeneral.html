@@ -4,37 +4,47 @@
 	<script type="text/javascript">
 	$(function() {
 		$(".deg315" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>PLATAFORMA COMUNICACION</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Plataforma Comunicación</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
 		$(".deg0" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>ANALISIS ORGANIZACIONAL</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Análisis Organizacional</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
   		$(".deg45" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>PRODUCTOS Y PROCESOS</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Productos Y Procesos</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
   		$(".deg135" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>MONITOREO CAMPESINO</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Monitoreo Campesino</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
   		$(".deg180" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>MONITOREO MUJERES</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Monitoreo Mujeres</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
 
   		$(".deg225" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>MAPEO DE ACTORES</span>");
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Mapeo de Actores</span>");
+  		}).mouseout(function() {
+    		$("div.circle-container .mostrar span").remove();
+  		});
+  		$(".deg90" ).mouseover(function() {
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Publicaciones</span>");
+  		}).mouseout(function() {
+    		$("div.circle-container .mostrar span").remove();
+  		});
+  		$(".deg270" ).mouseover(function() {
+			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Marketing</span>");
   		}).mouseout(function() {
     		$("div.circle-container .mostrar span").remove();
   		});
@@ -46,21 +56,21 @@
 {% block contenido %}
 <style>
 	div.circle-container .mostrar span {
-		color: #5d8c3b;
-		font-size: 45px;
+		color: #ed702b;
+		font-size: 35px;
 		font-weight: bold;
 		
 	}
 	.circle-container {
     position: relative;
-    width: 45em;
-    height: 45em;
+    width: 35em;
+    height: 35em;
     padding: 2.8em;
     /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
-    border: dashed 2px;
+    border: dashed 4px;
     border-color: #5d8c3b;
     border-radius: 50%;
-    margin: 1.75em auto 0;
+    margin: 5em auto 0;
     margin-bottom: 50px;
 	}
 	.circle-container a {
@@ -68,24 +78,26 @@
 	    position: absolute;
 	    top: 50%; 
 	    left: 50%;
-	    width: 7em; 
-	    height: 7em;
+	    width: 6em; 
+	    height: 6em;
 	    margin: -2em;
 	    text-align: center;
 
 	}
 	.mostrar {
-		margin: -30px 2px 3px -150px;
+		margin: -30px 0px 0px -165px;
 		width: 400px;
 		height: 250px;
 	}
 	.circle-container img { display: block; width: 100%; }
-	.deg0 { transform: translate(21em); } /* 12em = half the width of the wrapper */
-	.deg45 { transform: rotate(45deg) translate(21em) rotate(-45deg); }
-	.deg135 { transform: rotate(135deg) translate(23em) rotate(-135deg); }
-	.deg180 { transform: translate(-24em); }
-	.deg225 { transform: rotate(225deg) translate(24em) rotate(-225deg); }
-	.deg315 { transform: rotate(315deg) translate(22em) rotate(-315deg); }
+	.deg0 { transform: translate(16em); } /* 12em = half the width of the wrapper */
+	.deg45 { transform: rotate(45deg) translate(16em) rotate(-45deg); }
+	.deg90 { transform: rotate(90deg) translate(-19em) rotate(-90deg); }
+	.deg135 { transform: rotate(135deg) translate(17em) rotate(-135deg); }
+	.deg180 { transform: translate(-19em); }
+	.deg225 { transform: rotate(225deg) translate(19em) rotate(-225deg); }
+	.deg270 { transform: rotate(270deg) translate(-16em) rotate(-270deg); }
+	.deg315 { transform: rotate(315deg) translate(17em) rotate(-310deg); }
 
 </style>
 
@@ -98,5 +110,7 @@
 	    <a href='/monitoreo' class='deg180'><i class="fa fa-female circle hvr-grow"></i></a>
 	    <a href='#' class='deg225'><i class="fa fa-map-marker circle hvr-grow"></i></a>
 	    <a href='/comunicacion' class='deg315'><i class="fa fa-bullhorn circle hvr-grow"></i></a>
+	    <a href='#' class='deg90'><i class="fa  fa-leanpub circle hvr-grow"></i></a>
+	    <a href='#' class='deg270'><i class="fa fa-line-chart circle hvr-grow"></i></a>
 	</div>
 {% endblock contenido %}
