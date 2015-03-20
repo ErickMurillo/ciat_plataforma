@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'south',
     'rosetta',
     'ajax_select',
+    'nested_inline',
 
     'comunicacion.lugar',
     #apps solo de mapeo
