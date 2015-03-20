@@ -251,6 +251,23 @@
                     <div class="col-padded col-shaded"><!-- inner custom column -->
                     
                         <ul class="list-unstyled clear-margins"><!-- widgets -->
+                            <li class="widget-container"><!-- widget cb-gray-->
+                            
+                                <h1 class="title-widget">Último Documentos</h1>
+                              {% for obj in documentos %} 
+                              <a href="/media/{{obj.adjunto}}" class="custom-button {% if forloop.counter == 1 %}cb-green{%else%}cb-gray{%endif%}" title="{{obj.nombre_doc}}">
+                                  <i class="custom-button-icon fa fa-file"></i>
+                                    <span class="custom-button-wrap">
+
+                                    <span class="custom-button-title">{{obj.nombre_doc}}</span>
+                                    <span class="custom-button-tagline" >{{obj.tags_doc}}</span>
+                                    <span class="fa fa-cloud-download custom-button-tagline"> Descargar</span>
+
+                                    </span>
+                                    <em></em>
+                                </a>
+                             {% endfor %}
+                            </li><!-- widget end -->
                         
                           <li class="widget-container"><!-- widget -->
                             
@@ -275,23 +292,7 @@
                                 </div>
                             </li>
                             <br>
-                            <li class="widget-container"><!-- widget cb-gray-->
-                            
-                                <h1 class="title-widget">Último Documentos</h1>
-                              {% for obj in documentos %} 
-                              <a href="/media/{{obj.adjunto}}" class="custom-button {% if forloop.counter == 1 %}cb-green{%else%}cb-gray{%endif%}" title="{{obj.nombre_doc}}">
-                                  <i class="custom-button-icon fa fa-file"></i>
-                                    <span class="custom-button-wrap">
 
-                                    <span class="custom-button-title">{{obj.nombre_doc}}</span>
-                                    <span class="custom-button-tagline" >{{obj.tags_doc}}</span>
-                                    <span class="fa fa-cloud-download custom-button-tagline"> Descargar</span>
-
-                                    </span>
-                                    <em></em>
-                                </a>
-                             {% endfor %}
-                            </li><!-- widget end -->
                             
                             
                         </ul><!-- widgets end -->
