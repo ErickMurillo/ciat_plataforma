@@ -13,7 +13,7 @@ body{
 }
 .encabezado{
 	
-	background-color: white;
+	background-color: transparent;
 	padding-bottom: 20px;
 	padding-top: 20px;
 }
@@ -26,9 +26,11 @@ body{
 	padding-right: 7%;
 }
 .titulo-general h2{
-	color: #959595;
+	color: white;
 	font-weight: bold;
-	 margin-top: -28px !important;
+	/*margin-top: -28px !important;*/
+	margin-top: -0px !important;
+	margin-left: 9em;
 }
 .circle { 
    width: 100px;
