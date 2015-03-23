@@ -328,7 +328,7 @@ class EntrevistaAdmin(NestedModelAdmin):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 	fieldsets = [
-		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('alcance1','tipo_estudio',))}),
+		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha1','alcance1','tipo_estudio',))}),
 	]
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
