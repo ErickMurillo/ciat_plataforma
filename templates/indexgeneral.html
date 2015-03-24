@@ -2,110 +2,26 @@
 
 {% block extra_js %}
 	<script type="text/javascript">
-	$(function() {
-		$(".deg315" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Plataforma Comunicación</span>");
-  		}).mouseout(function() {
-    		$("div.circle-container .mostrar span").remove();
-  		});
-
-		$(".deg0" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Análisis Organizacional</span>");
-  		}).mouseout(function() {
-    		$("div.circle-container .mostrar span").remove();
-  		});
-
-  		$(".deg45" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Productos Y Procesos</span>");
-  		}).mouseout(function() {
-    		$("div.circle-container .mostrar span").remove();
-  		});
-
-  		$(".deg135" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Monitoreo Campesino</span>");
-  		}).mouseout(function() {
-    		$("div.circle-container .mostrar span").remove();
-  		});
-
-  		$(".deg180" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Monitoreo Mujeres</span>");
-  		}).mouseout(function() {
-    		$("div.circle-container .mostrar span").remove();
-  		});
-
-  		$(".deg225" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Mapeo de Actores</span>");
-  		}).mouseout(function() {
-    		$("div.circle-container .mostrar span").remove();
-  		});
-  		$(".deg90" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Publicaciones</span>");
-  		}).mouseout(function() {
-    		$("div.circle-container .mostrar span").remove();
-  		});
-  		$(".deg270" ).mouseover(function() {
-			$("div.circle-container .mostrar").append("<span class='animated zoomInDown'>Marketing</span>");
-  		}).mouseout(function() {
-    		$("div.circle-container .mostrar span").remove();
-  		});
- 
-	});
+		$(function () {$('#popover-deg315').popover('hide');});
+		$(function () {$('#popover-deg0').popover('hide');});
+		$(function () {$('#popover-deg45').popover('hide');});
+		$(function () {$('#popover-deg270').popover('hide');});
+		$(function () {$('#popover-deg135').popover('hide');});
+		$(function () {$('#popover-deg180').popover('hide');});
+		$(function () {$('#popover-deg225').popover('hide');});
+		$(function () {$('#popover-deg90').popover('hide');});
+		
 	</script>
+
 {% endblock extra_js %}
 
 {% block contenido %}
-<style>
-	div.circle-container .mostrar span {
-		color: #ed702b;
-		font-size: 35px;
-		font-weight: bold;
-		
-	}
-	.circle-container {
-    position: relative;
-    width: 35em;
-    height: 35em;
-    padding: 2.8em;
-    /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
-    border: dashed 4px;
-    border-color: #5d8c3b;
-    border-radius: 50%;
-    /*margin: 5em auto 0;*/
-    margin: 2em auto 0;
-    margin-bottom: 50px;
-	}
-	.circle-container a {
-	    display: block;
-	    position: absolute;
-	    top: 50%; 
-	    left: 50%;
-	    width: 6em; 
-	    height: 6em;
-	    margin: -2em;
-	    text-align: center;
 
-	}
-	.mostrar {
-		margin: -30px 0px 0px -165px;
-		width: 400px;
-		height: 250px;
-	}
-	.circle-container img { display: block; width: 100%; }
-	.deg0 { transform: translate(16em); } /* 12em = half the width of the wrapper */
-	.deg45 { transform: rotate(45deg) translate(16em) rotate(-45deg); }
-	.deg90 { transform: rotate(90deg) translate(-19em) rotate(-90deg); }
-	.deg135 { transform: rotate(135deg) translate(17em) rotate(-135deg); }
-	.deg180 { transform: translate(-19em); }
-	.deg225 { transform: rotate(225deg) translate(19em) rotate(-225deg); }
-	.deg270 { transform: rotate(270deg) translate(-16em) rotate(-270deg); }
-	.deg315 { transform: rotate(315deg) translate(17em) rotate(-310deg); }
-
-</style>
 	<nav class="encabezado container-fluid">
 		<ul class="center-block">
 			{# <li class="logo"><img src="/static/general/img/site-logo.jpg" alt="Site Logo" class="img-responsive"></li> #}
 			<li class="titulo-general">
-				<h2 class="text-center">Alianzas Centro America - Caribe</h2>
+				<h2 class="text-center">Alianzas Centroamérica - Caribe</h2>
 				
 			</li>
 		</ul>
@@ -113,14 +29,38 @@
 	</nav>
 	
 	<div class='circle-container'>
-	    <a href='#' class='center'><div class="mostrar"></div></a>
-	    <a href='/analisis' class='deg0'><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
-	    <a href='#' class='deg45'><i class="fa fa-link circle hvr-grow"></i></a>
-	    <a href='#' class='deg135'><i class="fa fa-area-chart circle hvr-grow"></i></a>
-	    <a href='/monitoreo' class='deg180'><i class="fa fa-female circle hvr-grow"></i></a>
-	    <a href='#' class='deg225'><i class="fa fa-map-marker circle hvr-grow"></i></a>
-	    <a href='/comunicacion' class='deg315'><i class="fa fa-bullhorn circle hvr-grow"></i></a>
-	    <a href='#' class='deg90'><i class="fa  fa-leanpub circle hvr-grow"></i></a>
-	    <a href='#' class='deg270'><i class="fa fa-line-chart circle hvr-grow"></i></a>
+
+	<a class="deg315" href="/comunicacion" id="popover-deg315" data-toggle="popover" data-placement="right" 
+	data-content="Plataforma Comunicación"
+	data-trigger="hover"><i class="fa fa-bullhorn circle hvr-grow"></i></a>
+
+	<a class="deg0" href="/analisis" id="popover-deg0" data-toggle="popover" data-placement="right" 
+	data-content="Análisis Organizacional"
+	data-trigger="hover"><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
+
+	<a class="deg45" href="#" id="popover-deg45" data-toggle="popover" data-placement="right" 
+	data-content="Productos y Procesos"
+	data-trigger="hover"><i class="fa fa-link circle hvr-grow"></i></a>
+
+	<a class="deg270" href="#" id="popover-deg270" data-toggle="popover" data-placement="top" 
+	data-content="Marketing"
+	data-trigger="hover"><i class="fa fa-line-chart circle hvr-grow"></i></a>
+
+	<a class="deg135" href="#" id="popover-deg135" data-toggle="popover" data-placement="left" 
+	data-content="Monitoreo Campesino"
+	data-trigger="hover"><i class="fa fa-area-chart circle hvr-grow"></i></a>
+
+	<a class="deg180" href="/monitoreo" id="popover-deg180" data-toggle="popover" data-placement="left" 
+	data-content="Monitoreo Mujeres"
+	data-trigger="hover"><i class="fa fa-female circle hvr-grow"></i></a>
+
+	<a class="deg225" href="#" id="popover-deg225" data-toggle="popover" data-placement="left" 
+	data-content="Mapeo de Actores"
+	data-trigger="hover"><i class="fa fa-map-marker circle hvr-grow"></i></a>
+
+	<a class="deg90" href="#" id="popover-deg90" data-toggle="popover" data-placement="bottom" 
+	data-content="Publicaciones"
+	data-trigger="hover"><i class="fa  fa-leanpub circle hvr-grow"></i></a>
+  
 	</div>
 {% endblock contenido %}
