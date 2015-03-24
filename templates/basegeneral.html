@@ -10,25 +10,20 @@
 	<!-- font-awesome -->
 </head>
 <body>
-	<nav class="encabezado container-fluid">
-		<ul class="center-block">
-			<li class="logo"><img src="/static/general/img/site-logo.jpg" alt="Site Logo" class="img-responsive"></li>
-			<li class="titulo-general">
-				<h2 class="text-center">Sistema de Información</h2>
-				<h3 class="text-center">Proyecto InsigneaCentro America - Caribe Humidtropics</h3>
-			</li>
-		</ul>
-		
-	</nav>
-	<div class="border-title"></div>
-	<div class="container">
-		<div class="row">
-			{% block contenido %}{% endblock contenido %}
-		</div>
-	</div>
 
+
+	<div class="fondo">
+		<div class="container">
+			<div class="row">
+				{% block contenido %}{% endblock contenido %}
+			</div>
+		</div>
+
+	</div>
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 	{% block extra_js %}{% endblock extra_js %}
 </body>
