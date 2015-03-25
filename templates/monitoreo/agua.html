@@ -296,33 +296,7 @@
                     <div id="mostrar">
                         {% include "monitoreo/menu.html" %}
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                            <div class="panel panel-success panel-graficos">
-                              <div class="panel-heading">Gráficos de Disponibilidad </div>
-                              
-                                <div class="panel-body graficos_widget">
-                                
-                                    <a id="grafico1" href="#" onCLick="disp(1)">Disponibilidad en Río</a>
-                                    <a id="grafico2" href="#" onCLick="disp(2)">Disponibilidad en Ojo de Agua</a>
-                                    <a id="grafico3" href="#" onCLick="disp(3)">Disponibilidad en Quebrada</a>
-                                    <a id="grafico4" href="#" onCLick="disp(4)">Disponibilidad en Agua comunitaria</a>
-                                    <a id="grafico5" href="#" onCLick="disp(5)">Disponibilidad en Pozo Propio</a>
-                                    <a id="grafico6" href="#" onCLick="disp(6)">Disponibilidad en Agua en casa</a>
 
-
-                                </div>
-                              
-                            </div>
-                            
-                        </div>
-
-
-                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                            <div id="grafo"></div>
-                        </div>
-        
-                    </div>
 
                     <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>
                         {% if request.user.is_authenticated %}
@@ -333,31 +307,61 @@
 
                     <div class="contenido">
                      <div id="modalidad">
-                        <table id="example" class="display" cellspacing="0" width="100%">
-                            <caption>Fuentes de agua</caption>
-                            <thead>
-                                <tr>
-                                    <th>Fuente</th>
-                                    <th>Frecuencia</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            {% for fila in tabla%}
-                            <tr>
-                                {%for celda in fila%}
-                                <td>{{celda}}</td>
-                                {%endfor%}
-                            </tr>
-                            {%endfor%}
-                        </table>
+                        
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="panel panel-success panel-graficos">
+                                  <div class="panel-heading">Gráficos de Disponibilidad </div>
+                                  
+                                    <div class="panel-body graficos_widget">
+                                    
+                                        <a id="grafico1" href="#" onCLick="disp(1)">Disponibilidad en Río</a>
+                                        <a id="grafico2" href="#" onCLick="disp(2)">Disponibilidad en Ojo de Agua</a>
+                                        <a id="grafico3" href="#" onCLick="disp(3)">Disponibilidad en Quebrada</a>
+                                        <a id="grafico4" href="#" onCLick="disp(4)">Disponibilidad en Agua comunitaria</a>
+                                        <a id="grafico5" href="#" onCLick="disp(5)">Disponibilidad en Pozo Propio</a>
+                                        <a id="grafico6" href="#" onCLick="disp(6)">Disponibilidad en Agua en casa</a>
+
+
+                                    </div>
+                                  
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                            
+                                <div id="grafo"></div>
+
+                            
+                                <table id="example" class="display" cellspacing="0" width="100%">
+                                    <caption>Fuentes de agua</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Fuente</th>
+                                            <th>Frecuencia</th>
+                                            <th>%</th>
+                                        </tr>
+                                    </thead>
+                                    {% for fila in tabla%}
+                                    <tr>
+                                        {%for celda in fila%}
+                                        <td>{{celda}}</td>
+                                        {%endfor%}
+                                    </tr>
+                                    {%endfor%}
+                                </table>
+                            </div>
+            
+                        </div>
+                        
                      </div>
                         <br>
                         <br>
                         <br>
-                        <br>
-                        <br>
+
                     </div>
-                    <div class="separador"></div>                                
+                             
  
                 </li>
                             
