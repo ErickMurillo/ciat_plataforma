@@ -186,6 +186,126 @@ function Grafo5(){
     });
 }
 
+//graficos de la entrevistada
+function Grafo6(){
+    var chart = new Highcharts.Chart({
+          chart: {
+             renderTo: 'grafo_entre',
+             defaultSeriesType: 'pie',
+             height: 350,
+             width: 520
+          },
+          title: {
+             text: 'Rangos de Manzanas'
+          },
+          tooltip: {
+             formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +' %';
+             }
+          },
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                     enabled: false
+                  },
+                  showInLegend: true
+               },
+               series: {
+                  dataLabels: {
+                      enabled: true,
+                      align: "center",
+                      formatter: function() {
+                          return ''+ this.percentage.toFixed(1) + ' %';
+                      },
+                      color: '#000',
+                      style: {
+                          font: '12px Trebuchet MS, Verdana, sans-serif'
+                      }
+                  }
+              }
+          },
+           series: [{
+             name: 'Rangos de manzanas',
+             data: [
+                ['0 Mz',   {{por_cero_entre}}],
+                ['1 - 10 Mz', {{por_rango1_entre}}],
+                ['11 - 25 Mz', {{por_rango2_entre}}],
+                ['26 - 50 Mz',  {{por_rango3_entre}}],
+                ['más de 50 Mz', {{por_rango4_entre}}]
+             ]
+          }]
+     });
+}
+
+function Grafo7(){
+    var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo_entre',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 520
+        },
+        title: {
+            text: 'Uso de tierra'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            max: 0,
+            categories: [
+                'Opciones'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Cantidad Mz'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +': '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in tabla_entre.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{%if value.manzanas == None%} 0 {%else%} {{value.manzanas}} {%endif%}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+
 </script>
 {%endblock%}
 
@@ -263,8 +383,8 @@ function Grafo5(){
                                   
                                     <div class="panel-body graficos_widget">
                                     
-                                        <a href="#" id="grafico1" onCLick="click_callback('tenencia')">Tenencia de las Parcelas</a>
-                                        <a href="#" id="grafico2" onCLick="click_callback('solares')">Tenencia de los solares</a>
+                                        <a href="#" id="grafico1" onCLick="click_callback('tenencia')">Acceso a la tierra</a>
+                                        <a href="#" id="grafico2" onCLick="click_callback('solares')">Tenencia de tierra</a>
                                         <a href="#" id="grafico3" onCLick="click_callback('propietario')">Dueño de la Propiedad</a>
                                         <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
                                         <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
@@ -384,11 +504,11 @@ function Grafo5(){
                                   
                                     <div class="panel-body graficos_widget">
                                     
-                                        <a href="#" id="grafico1" onCLick="click_callback_entre('tenencia')">Tenencia de las Parcelas</a>
-                                        <a href="#" id="grafico2" onCLick="click_callback_entre('solares')">Tenencia de los solares</a>
+                                        <a href="#" id="grafico1" onCLick="click_callback_entre('tenencia')">Acceso a la tierra</a>
+                                        <a href="#" id="grafico2" onCLick="click_callback_entre('solares')">Tenencia de tierra</a>
                                         <a href="#" id="grafico3" onCLick="click_callback_entre('propietario')">Dueño de la Propiedad</a>
-                                        <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
-                                        <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
+                                        <a href="#" id="grafico6" onclick="Grafo6();" class="grafo">Rangos en Manzanas</a>
+                                        <a href="#" id="grafico7" onclick="Grafo7();" class="grafo">Uso de tierra</a>
 
 
                                     </div>
