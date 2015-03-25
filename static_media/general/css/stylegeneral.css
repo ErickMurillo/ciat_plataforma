@@ -9,28 +9,25 @@ body{
 
 }
 .fondo{
-	background-color: rgba(0,0,0,0.5);
+	background-color: rgba(0,0,0,0.2);
 }
 .encabezado{
 	
-	background-color: transparent;
-	padding-bottom: 20px;
-	padding-top: 20px;
-}
-.encabezado ul li{
-	display: inline-block;
+	background-color:transparent;
 
 }
-.logo{
-	padding-left: 4%;
-	padding-right: 7%;
+
+.titulo img{
+	width: 20%;
+	display: inline-block;
+	margin-right: 4%;
+	margin-left: 8%;
 }
-.titulo-general h2{
-	color: white;
+.titulo h2{
+	color: #ed702b;
 	font-weight: bold;
-	/*margin-top: -28px !important;*/
-	margin-top: -0px !important;
-	margin-left: 9em;
+	display: inline-block;
+
 }
 
 
@@ -44,7 +41,7 @@ body{
     border-color: #5d8c3b;
     border-radius: 50%;
     /*margin: 5em auto 0;*/
-    margin: 2em auto 0;
+    margin: 3em auto 0;
     margin-bottom: 50px;
 	}
 	.circle-container a {
