@@ -803,7 +803,7 @@ color: #898989;
 font-size: 16px;
 line-height: 1;
 text-transform: uppercase;
-margin: 0 0 40px 0;
+margin: 0 0 10px 0;
 position: relative;
 }
 .title-monitoreo:before {
@@ -986,9 +986,15 @@ color: #5d8c3b !important;
 	padding-bottom: 20px;
 }
 
+div#k-sidebar {
+  background-color: white;
+}
 table>caption{
 	font-weight: bold;
 	margin-bottom: 10px;
+}
+.panel-graficos{
+	margin-right: 30px;
 }
 .panel-graficos>.panel-heading{
 	
@@ -997,9 +1003,20 @@ table>caption{
 div#grafo {
 width: 70%;
 margin-left: 15%;
+padding-bottom: 30px;
 }
-
+div#grafo_entre {
+width: 70%;
+margin-left: 15%;
+padding-bottom: 30px;
+}
 .grafico-cultivo{
 	margin-bottom: 100px;
 	margin-left: 7%;
+}
+.navbar-default .navbar-nav>li>a{
+	font-weight: bold;
+}
+.suelos-tablas{
+	margin-bottom: 20px;
 }
