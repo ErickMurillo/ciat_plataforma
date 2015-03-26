@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'ciat_plataforma.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'es-ni'
+LANGUAGE_CODE = 'en'
 
 from django.utils.translation import ugettext_lazy as _
 
