@@ -71,107 +71,129 @@
 {%endblock%}
 
 {%block contenido%}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button> 
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador Org. Gremial</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
+                    
+            <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                <li class="widget-container "><!-- widget -->
+                    
+                <h1 class="title-monitoreo">Consulta</h1>
+                                
+ 
                 </li>
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button> 
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador Organización no Gubernamental</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
 
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</div>
-{% include "monitoreo/nav_org.html" %}
-<div class="separador"></div>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+                {% include "monitoreo/nav_org.html" %}
+                <div class="separador"></div>
 
-<div id="mostrar">
-    {% include "monitoreo/menu.html" %}
-</div>
+                <div id="mostrar">
+                    {% include "monitoreo/menu.html" %}
+                </div>
 
-<div id="grafo"></div>
+                <div id="grafo"></div>
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/7/"></a>{%endif%} </div>
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/7/"></a>{%endif%} </div>
 
-<div class="contenido">
-<div id="modalidad">
-<table id="example" class="display" cellspacing="0" width="100%">
-        <caption>¿Cuántas organizaciones están activas en la localidad o comunidad?</caption>
-        <thead>
-            <tr>
-                <th>Organizaciones</th>
-                <th>Cuantas</th>
-            </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>De uno a cinco (1-5)</td>
-            <td>{{uno}}</td>
-            
-       </tr>
-       <tr>
-            <td>De seis a diez (6-10)</td>
-            <td>{{dos}}</td>
-       </tr>
-       <tr>    
-            <td>De once a más (> 11)</td>
-            <td>{{tres}}</td>
-      </tr>
-       
-       </tbody>
-    </table>
+                <div class="contenido">
+                <div id="modalidad">
+                <table id="example" class="display" cellspacing="0" width="100%">
+                        <caption>¿Cuántas organizaciones están activas en la localidad o comunidad?</caption>
+                        <thead>
+                            <tr>
+                                <th>Organizaciones</th>
+                                <th>Cuantas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>De uno a cinco (1-5)</td>
+                            <td>{{uno}}</td>
+                            
+                       </tr>
+                       <tr>
+                            <td>De seis a diez (6-10)</td>
+                            <td>{{dos}}</td>
+                       </tr>
+                       <tr>    
+                            <td>De once a más (> 11)</td>
+                            <td>{{tres}}</td>
+                      </tr>
+                       
+                       </tbody>
+                    </table>
 
 
 
-<table id="example1" class="display" cellspacing="0" width="100%">
-        <caption>¿Cuales organizaciones?</caption>
-        <thead>
-            <tr>
-                <th>Categoria</th>
-                <th>Frecuencia</th>
-                <th>porcentaje %</th>
-            </tr>
-        </thead>
-        <tbody>
-        <tr>
-            {% for key, value in tabla_pertenece.items %}
-            <td>{{key|unslugify}}</td>
-            <td>{{value.frecuencia|floatformat:2}}</td>
-            <td>{{value.porcentaje|floatformat:2}}</td>
-       </tr>
-            {% endfor %}
-            
-       <tr>
-            <th>TOTAL</th>
-            <th>{{divisor|floatformat:2}}</th>
-            <th>100</th>
-      </tr>
-       
-       </tbody>
-    </table>
+                <table id="example1" class="display" cellspacing="0" width="100%">
+                        <caption>¿Cuales organizaciones?</caption>
+                        <thead>
+                            <tr>
+                                <th>Categoria</th>
+                                <th>Frecuencia</th>
+                                <th>porcentaje %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {% for key, value in tabla_pertenece.items %}
+                            <td>{{key|unslugify}}</td>
+                            <td>{{value.frecuencia|floatformat:2}}</td>
+                            <td>{{value.porcentaje|floatformat:2}}</td>
+                       </tr>
+                            {% endfor %}
+                            
+                       <tr>
+                            <th>TOTAL</th>
+                            <th>{{divisor|floatformat:2}}</th>
+                            <th>100</th>
+                      </tr>
+                       
+                       </tbody>
+                    </table>
 
-    <br>
-    <br>
-</div>
-</div>
+                    <br>
+                    <br>
+                </div>
+                </div>            
+                            
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div><!-- sidebar row -->
+
 {% endblock %}

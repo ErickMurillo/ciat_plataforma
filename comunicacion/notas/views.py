@@ -37,7 +37,7 @@ def logout_page(request):
 
 def lista_notas(request):
     notas_list = Notas.objects.all().order_by('-fecha','-id')
-    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')[1:4]
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
     paises = SitioAccion.objects.all()
 
     paginator = Paginator(notas_list, 6)
@@ -56,7 +56,7 @@ def lista_notas(request):
 
 def lista_notas_contraparte(request,id):
     notas = Notas.objects.filter(user__userprofile__contraparte__id=id).order_by('-fecha','-id')
-    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')[1:4]
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
     paises = SitioAccion.objects.all()
 
     paginator = Paginator(notas, 6)
@@ -75,8 +75,9 @@ def lista_notas_contraparte(request,id):
 
 def lista_notas_usuario(request,id):
     notas = Notas.objects.filter(user__id=id).order_by('-fecha','-id')
-    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')[1:4]
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
     paises = SitioAccion.objects.all()
+    
 
     paginator = Paginator(notas, 6)
 
@@ -94,8 +95,8 @@ def lista_notas_usuario(request,id):
 
 def detalle_notas(request, id):
     nota = get_object_or_404(Notas, id=id)
-    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')[1:4]
-    
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
+
     notas_relacionadas = Notas.objects.filter(temas__in=[tema for tema in nota.temas.all()]).exclude(id=nota.id)
     
     if request.method == 'POST':
@@ -119,6 +120,7 @@ def lista_notas_pais(request,id):
     notas_list = Notas.objects.filter(sitio_accion__id=id).order_by('-fecha','-id')
     paises = SitioAccion.objects.all()
     pais_selecto = SitioAccion.objects.get(pk=id)
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
 
     paginator = Paginator(notas_list, 4)
 

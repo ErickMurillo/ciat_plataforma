@@ -31,22 +31,26 @@ def lista_contrapartes_mapa(request):
 
 def lista_contrapartes(request):
     object_list = Organizaciones.objects.all().order_by('nombre')
-    agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
     paises = SitioAccion.objects.all()
+    notas = Notas.objects.all().order_by('-fecha','-id')
+
     return render_to_response('comunicacion/contrapartes/contraparte_list.html', locals(),
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes_pais(request,id):
     object_list = Organizaciones.objects.filter(sitio_accion__id=id).order_by('nombre')
-    agenda = Agendas.objects.all().order_by('-inicio','-id')[1:4]
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
     paises = SitioAccion.objects.all()
+    notas = Notas.objects.all().order_by('-fecha','-id')
     return render_to_response('comunicacion/contrapartes/contraparte_list.html', locals(),
                                  context_instance=RequestContext(request))
 
 def detalle_contraparte(request,id):
     contra = get_object_or_404(Organizaciones, id=id)
     notas = Notas.objects.filter(sitio_accion__id=id).order_by('-fecha')
-    agendas = Agendas.objects.filter(sitio_accion__id=id).order_by('-inicio')
+    agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
+    notas = Notas.objects.all().order_by('-fecha','-id')
     return render_to_response('comunicacion/contrapartes/contraparte_detail.html', locals(),
                                  context_instance=RequestContext(request))
 

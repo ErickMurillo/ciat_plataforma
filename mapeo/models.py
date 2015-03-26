@@ -42,12 +42,12 @@ class Organizaciones(models.Model):
                                 Departamento,
                                 chained_field="pais", 
                                 chained_model_field="pais",
-                                show_all=False, auto_choose=True)
+                                show_all=False, auto_choose=True,null=True, blank=True)
     municipio = ChainedForeignKey(
                                 Municipio,
                                 chained_field="departamento", 
                                 chained_model_field="departamento",
-                                show_all=False, auto_choose=True)
+                                show_all=False, auto_choose=True,null=True, blank=True)
     fundacion = models.CharField('Año de fundación', 
                                  max_length=200, 
                                  blank=True, null=True)

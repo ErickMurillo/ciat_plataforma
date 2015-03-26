@@ -40,6 +40,46 @@
             "ordering": false,
             "info":     false
             });
+         $('#example2').dataTable( {
+            "language": {
+                "search": "Buscar:"
+            },
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+            });
+         $('#example3').dataTable( {
+            "language": {
+                "search": "Buscar:"
+            },
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+            });
+         $('#example4').dataTable( {
+            "language": {
+                "search": "Buscar:"
+            },
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+            });
+         $('#example5').dataTable( {
+            "language": {
+                "search": "Buscar:"
+            },
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+            });
+         $('#example6').dataTable( {
+            "language": {
+                "search": "Buscar:"
+            },
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+            });
       
         });
     </script>
@@ -89,7 +129,10 @@
 
 <div class="contenido">
 <div id="modalidad">
-    <table  width=500>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    
+    <table id="example" class="display" width=500>
         <caption>¿Cúal es el tipo de textura del suelo?</caption>
         <thead>
             <tr>
@@ -108,8 +151,11 @@
             {%endfor%}
         </tbody>
     </table>
+</div>
 
-    <table  width=500> 
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+    <table  id="example1" class="display"  width="500"> 
         <caption>¿Cúal es la profundidad del suelo?</caption>
         <thead>
             <tr>
@@ -128,8 +174,12 @@
             {%endfor%}
         </tbody>
     </table>
+</div>
+</div>
 
-    <table  width=500>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <table   id="example2" class="display" width="500">
         <caption>¿Cómo es la presencia de lombrice en el suelo?</caption>
         <thead>
             <tr>
@@ -148,8 +198,10 @@
             {%endfor%}
         </tbody>
     </table>
+</div>
 
-    <table  width=500>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <table  id="example3" class="display" width="500">
         <caption>¿Cómo es la densidad de raiz en la capa productiva de suelo?</caption>
         <thead>
             <tr>
@@ -168,8 +220,12 @@
             {%endfor%}
         </tbody>
     </table>
+</div>
+</div>
 
-    <table  width=500>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <table id="example4" class="display" width="500">
         <caption>¿Cúal es la pendiente del terrreno?</caption>
         <thead>
             <tr>
@@ -188,8 +244,9 @@
             {%endfor%}
         </tbody>
     </table>
-
-    <table  width=500>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <table  id="example5" class="display" width="500">
         <caption>¿Cómo es el drenaje del suelo?</caption>
         <thead>
             <tr>
@@ -208,8 +265,11 @@
             {%endfor%}
         </tbody>
     </table>
-
-    <table  width=500>
+</div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <table  id="example6" class="display" width="500">
         <caption>¿Cómo es el contenido de materia orgánica?</caption>
         <thead>
             <tr>
@@ -228,6 +288,8 @@
             {%endfor%}
         </tbody>
     </table>
+</div>
+</div>
 </div>
 </div>
 {% endblock %}

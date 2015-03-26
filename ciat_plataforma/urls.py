@@ -5,6 +5,7 @@ from settings import *
 from analisis.analisis.views import BusquedaPaisView
 
 
+
 from django.contrib import admin
 admin.autodiscover()
 

@@ -186,279 +186,453 @@ function Grafo5(){
     });
 }
 
+//graficos de la entrevistada
+function Grafo6(){
+    var chart = new Highcharts.Chart({
+          chart: {
+             renderTo: 'grafo_entre',
+             defaultSeriesType: 'pie',
+             height: 350,
+             width: 520
+          },
+          title: {
+             text: 'Rangos de Manzanas'
+          },
+          tooltip: {
+             formatter: function() {
+                return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +' %';
+             }
+          },
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                     enabled: false
+                  },
+                  showInLegend: true
+               },
+               series: {
+                  dataLabels: {
+                      enabled: true,
+                      align: "center",
+                      formatter: function() {
+                          return ''+ this.percentage.toFixed(1) + ' %';
+                      },
+                      color: '#000',
+                      style: {
+                          font: '12px Trebuchet MS, Verdana, sans-serif'
+                      }
+                  }
+              }
+          },
+           series: [{
+             name: 'Rangos de manzanas',
+             data: [
+                ['0 Mz',   {{por_cero_entre}}],
+                ['1 - 10 Mz', {{por_rango1_entre}}],
+                ['11 - 25 Mz', {{por_rango2_entre}}],
+                ['26 - 50 Mz',  {{por_rango3_entre}}],
+                ['más de 50 Mz', {{por_rango4_entre}}]
+             ]
+          }]
+     });
+}
+
+function Grafo7(){
+    var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo_entre',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 520
+        },
+        title: {
+            text: 'Uso de tierra'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            max: 0,
+            categories: [
+                'Opciones'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Cantidad Mz'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +': '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in tabla_entre.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{%if value.manzanas == None%} 0 {%else%} {{value.manzanas}} {%endif%}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+
 </script>
 {%endblock%}
 
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador Uso de Tierra</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
+                    
+            <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                <li class="widget-container "><!-- widget -->
+                    
+                <h1 class="title-monitoreo">Consulta</h1>
+                                
+ 
                 </li>
 
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</div>
-{% include "monitoreo/nav_tierra.html" %}
-<div class="separador"></div>
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                    
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador Uso de Tierra</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
 
-<div id="mostrar">
-    {% include "monitoreo/menu.html" %}
-</div>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+                {% include "monitoreo/nav_tierra.html" %}
+                <div class="separador"></div>
 
-<div role="tabpanel">
+                <div id="mostrar">
+                    {% include "monitoreo/menu.html" %}
+                </div>
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Uso de tierra familia</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Uso de tierra entrevistada</a></li>
-  </ul>
+                <div role="tabpanel">
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
-        <div id="sidebar">
-            <div class="graficos_widget">
-                <h1>Gráficos</h1>
-                <a href="#" id="grafico1" onCLick="click_callback('tenencia')">Tenencia de las Parcelas</a>
-                <a href="#" id="grafico2" onCLick="click_callback('solares')">Tenencia de los solares</a>
-                <a href="#" id="grafico3" onCLick="click_callback('propietario')">Dueño de la Propiedad</a>
-                <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
-                <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
-            </div>
-        </div>
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Uso de tierra familia</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Uso de tierra entrevistada</a></li>
+                  </ul>
 
-        <div id="grafo"></div>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+ 
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/8/"></a>{%endif%} </div>
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/8/"></a>{%endif%} </div>
 
-<div class="contenido">
-<div id="modalidad">
-    <table id="example" class="display" cellspacing="0" width="100%">
-        <caption>Uso de Tierra</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Número</th>
-                <th>%</th>
-                <th>Manzanas</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.numero|floatformat}}</td>
-                <td>{{value.porcentaje_num|floatformat}}</td>
-                <td>{{value.manzanas|floatformat}}</td>
-                <td>{{value.porcentaje_mz|floatformat}}</td>
-            </tr>
-            {%endfor%}
-            <tr>
-                    <th>Area Total</th>
-                    <th></th>
-                    <th></th>
-                    <th>{{totales.manzanas}}</th>
-                    <th>{{totales.porcentaje_manzana}}</th>
-                </tr>
-        </tbody>
-    </table>
-     <table id="example" class="display" cellspacing="0" width="100%">
-    <br>
-        <tr>
-        <th>Promedio Mz: {{totales.promedio_manzana}}</th>
-        </tr>
-    </table>
-    
-    <br>
-<table id="example" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Rangos</th>
-                <th>Frecuencias</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>0 Mz</td>
-                <td>{{cero}}</td>
-                <td>{{por_cero}}</td>
+                <div class="contenido">
+                <div id="modalidad">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <div class="panel panel-success panel-graficos">
+                                  <div class="panel-heading">Gráficos</div>
+                                  
+                                    <div class="panel-body graficos_widget">
+                                    
+                                        <a href="#" id="grafico1" onCLick="click_callback('tenencia')">Acceso a la tierra</a>
+                                        <a href="#" id="grafico2" onCLick="click_callback('solares')">Tenencia de tierra</a>
+                                        <a href="#" id="grafico3" onCLick="click_callback('propietario')">Dueño de la Propiedad</a>
+                                        <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
+                                        <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
 
-            </tr>
-            <tr>
-                <td>1 -- 10 Mz</td>
-                <td>{{rango1}}</td>
-                <td>{{por_rango1}}</td>
-
-            </tr>
-            <tr>
-                <td>11 -- 25 Mz</td>
-                <td>{{rango2}}</td>
-                <td>{{por_rango2}}</td>
-
-            </tr>
-            <tr>
-                <td>26 -- 50 Mz</td>
-                <td>{{rango3}}</td>
-                <td>{{por_rango3}}</td>
-
-            </tr>
-            <tr>
-                <td>Más de 50 Mz</td>
-                <td>{{rango4}}</td>
-                <td>{{por_rango4}}</td>
-
-            </tr>
-            <tr>
-                <th>Rangos Total</th>
-                <th>{{total_rangos}}</th>
-                <th>{{total_porcentajes}}</th>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
-<div id="container" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
-
-    </div>
-    <div role="tabpanel" class="tab-pane" id="profile">
-                <div id="sidebar">
-            <div class="graficos_widget">
-                <h1>Gráficos de entrevistada</h1>
-                <a href="#" id="grafico1" onCLick="click_callback_entre('tenencia')">Tenencia de las Parcelas</a>
-                <a href="#" id="grafico2" onCLick="click_callback_entre('solares')">Tenencia de los solares</a>
-                <a href="#" id="grafico3" onCLick="click_callback_entre('propietario')">Dueño de la Propiedad</a>
-                <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
-                <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
-            </div>
-        </div>
-
-        <div id="grafo_entre"></div>
-
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/8/"></a>{%endif%} </div>
-
-<div class="contenido">
-<div id="modalidad">
-    <table id="example" class="display" cellspacing="0" width="100%">
-        <caption>Uso de Tierra de la entrevistada</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Número</th>
-                <th>%</th>
-                <th>Manzanas</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_entre.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.numero|floatformat}}</td>
-                <td>{{value.porcentaje_num|floatformat}}</td>
-                <td>{{value.manzanas|floatformat}}</td>
-                <td>{{value.porcentaje_mz|floatformat}}</td>
-            </tr>
-            {%endfor%}
-            <tr>
-                    <th>Area Total</th>
-                    <th></th>
-                    <th></th>
-                    <th>{{totales_entre.manzanas}}</th>
-                    <th>{{totales_entre.porcentaje_manzana}}</th>
-                </tr>
-        </tbody>
-    </table>
-     <table id="example" class="display" cellspacing="0" width="100%">
-    <br>
-        <tr>
-        <th>Promedio Mz: {{totales_entre.promedio_manzana}}</th>
-        </tr>
-    </table>
-    
-    <br>
-<table id="example" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Rangos</th>
-                <th>Frecuencias</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>0 Mz</td>
-                <td>{{cero_entre}}</td>
-                <td>{{por_cero_entre}}</td>
-
-            </tr>
-            <tr>
-                <td>1 -- 10 Mz</td>
-                <td>{{rango1_entre}}</td>
-                <td>{{por_rango1_entre}}</td>
-
-            </tr>
-            <tr>
-                <td>11 -- 25 Mz</td>
-                <td>{{rango2_entre}}</td>
-                <td>{{por_rango2_entre}}</td>
-
-            </tr>
-            <tr>
-                <td>26 -- 50 Mz</td>
-                <td>{{rango3_entre}}</td>
-                <td>{{por_rango3_entre}}</td>
-
-            </tr>
-            <tr>
-                <td>Más de 50 Mz</td>
-                <td>{{rango4_entre}}</td>
-                <td>{{por_rango4_entre}}</td>
-
-            </tr>
-            <tr>
-                <th>Rangos Total</th>
-                <th>{{total_rangos_entre}}</th>
-                <th>{{total_porcentajes_entre}}</th>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
-<div id="container_entre" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
+                                    </div>
+                                  
+                                </div>
+                                
+                            </div>
 
 
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                <div id="grafo"></div>
+                                <table id="example" class="display" cellspacing="0" width="100%">
+                        <caption>Uso de Tierra</caption>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Número</th>
+                                <th>%</th>
+                                <th>Manzanas</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.numero|floatformat}}</td>
+                                <td>{{value.porcentaje_num|floatformat}}</td>
+                                <td>{{value.manzanas|floatformat}}</td>
+                                <td>{{value.porcentaje_mz|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                            <tr>
+                                    <th>Area Total</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>{{totales.manzanas}}</th>
+                                    <th>{{totales.porcentaje_manzana}}</th>
+                                </tr>
+                        </tbody>
+                    </table>
+                     <table id="example" class="display" cellspacing="0" width="100%">
+                    <br>
+                        <tr>
+                        <th>Promedio Mz: {{totales.promedio_manzana}}</th>
+                        </tr>
+                    </table>
+                    
+                    <br>
+                <table id="example" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Rangos</th>
+                                <th>Frecuencias</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0 Mz</td>
+                                <td>{{cero}}</td>
+                                <td>{{por_cero}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>1 -- 10 Mz</td>
+                                <td>{{rango1}}</td>
+                                <td>{{por_rango1}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>11 -- 25 Mz</td>
+                                <td>{{rango2}}</td>
+                                <td>{{por_rango2}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>26 -- 50 Mz</td>
+                                <td>{{rango3}}</td>
+                                <td>{{por_rango3}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Más de 50 Mz</td>
+                                <td>{{rango4}}</td>
+                                <td>{{por_rango4}}</td>
+
+                            </tr>
+                            <tr>
+                                <th>Rangos Total</th>
+                                <th>{{total_rangos}}</th>
+                                <th>{{total_porcentajes}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                            </div>
+                            
+                        </div>
+                    
+                </div>
+                </div>
+                <div id="container" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/8/"></a>{%endif%} </div>
+
+                <div class="contenido">
+                <div id="modalidad">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <div class="panel panel-success panel-graficos">
+                                  <div class="panel-heading">Gráficos de entrevistada </div>
+                                  
+                                    <div class="panel-body graficos_widget">
+                                    
+                                        <a href="#" id="grafico1" onCLick="click_callback_entre('tenencia')">Acceso a la tierra</a>
+                                        <a href="#" id="grafico2" onCLick="click_callback_entre('solares')">Tenencia de tierra</a>
+                                        <a href="#" id="grafico3" onCLick="click_callback_entre('propietario')">Dueño de la Propiedad</a>
+                                        <a href="#" id="grafico6" onclick="Grafo6();" class="grafo">Rangos en Manzanas</a>
+                                        <a href="#" id="grafico7" onclick="Grafo7();" class="grafo">Uso de tierra</a>
 
 
-    </div>
-  </div>
+                                    </div>
+                                  
+                                </div>
+                                
+                            </div>
 
-</div>
+
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                <div id="grafo_entre"></div>
+                                
+                        <table id="example" class="display" cellspacing="0" width="100%">
+                        <caption>Uso de Tierra de la entrevistada</caption>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Número</th>
+                                <th>%</th>
+                                <th>Manzanas</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_entre.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.numero|floatformat}}</td>
+                                <td>{{value.porcentaje_num|floatformat}}</td>
+                                <td>{{value.manzanas|floatformat}}</td>
+                                <td>{{value.porcentaje_mz|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                            <tr>
+                                    <th>Area Total</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>{{totales_entre.manzanas}}</th>
+                                    <th>{{totales_entre.porcentaje_manzana}}</th>
+                                </tr>
+                        </tbody>
+                    </table>
+                     <table id="example" class="display" cellspacing="0" width="100%">
+                    <br>
+                        <tr>
+                        <th>Promedio Mz: {{totales_entre.promedio_manzana}}</th>
+                        </tr>
+                    </table>
+                    
+                    <br>
+                <table id="example" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Rangos</th>
+                                <th>Frecuencias</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0 Mz</td>
+                                <td>{{cero_entre}}</td>
+                                <td>{{por_cero_entre}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>1 -- 10 Mz</td>
+                                <td>{{rango1_entre}}</td>
+                                <td>{{por_rango1_entre}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>11 -- 25 Mz</td>
+                                <td>{{rango2_entre}}</td>
+                                <td>{{por_rango2_entre}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>26 -- 50 Mz</td>
+                                <td>{{rango3_entre}}</td>
+                                <td>{{por_rango3_entre}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Más de 50 Mz</td>
+                                <td>{{rango4_entre}}</td>
+                                <td>{{por_rango4_entre}}</td>
+
+                            </tr>
+                            <tr>
+                                <th>Rangos Total</th>
+                                <th>{{total_rangos_entre}}</th>
+                                <th>{{total_porcentajes_entre}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                            </div>
+            
+                        </div>
+
+                </div>
+                </div>
+                <div id="container_entre" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
+
+
+
+
+                    </div>
+                  </div>
+
+                </div>
+            
+                            
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div><!-- sidebar row -->
 
 {% endblock %}

@@ -1,8 +1,7 @@
+.module{
+	margin-top: 3em !important;
+}
 
-/*.form-horizontal .inline-related h3 b{
-	display: none !important;
-}*/
-
-#pregunta_9_set-group select{
-	width: auto !important;
+#btn_intro{
+	margin-left: 1.5em !important;
 }

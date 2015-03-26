@@ -2134,23 +2134,23 @@ def fincas_grafos(request, tipo):
     data = []
     legends = []
     if tipo == 'tenencia':
-        for opcion in CHOICE_TENENCIA_1:
-            data.append(consulta.filter(tenencia__parcela=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaFamilia.objects.all():
+            data.append(consulta.filter(tenencia__parcela=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de las parcelas', return_json = True,
+                'Acceso de tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'solares':
-        for opcion in CHOICE_TENENCIA_2:
-            data.append(consulta.filter(tenencia__solar=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaEntre.objects.all():
+            data.append(consulta.filter(tenencia__solar=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de los solares', return_json = True,
+                'Tenencia de la tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'propietario':
-        for opcion in CHOICE_DUENO:
-            data.append(consulta.filter(tenencia__dueno=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in OpcionesDueno.objects.all():
+            data.append(consulta.filter(tenencia__dueno=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
                 'Dueño de propiedad', return_json = True,
                 type = grafos.PIE_CHART_3D)
@@ -2165,23 +2165,23 @@ def fincas_grafos_entrevistada(request, tipo):
     data = []
     legends = []
     if tipo == 'tenencia':
-        for opcion in CHOICE_TENENCIA_1:
-            data.append(consulta.filter(tenenciaentrevistada__parcela=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaFamilia.objects.all():
+            data.append(consulta.filter(tenenciaentrevistada__parcela=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de las parcelas', return_json = True,
+                'Acceso a tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'solares':
-        for opcion in CHOICE_TENENCIA_2:
-            data.append(consulta.filter(tenenciaentrevistada__solar=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in TenenciaEntre.objects.all():
+            data.append(consulta.filter(tenenciaentrevistada__solar=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
-                'Tenencia de los solares', return_json = True,
+                'Tenencia de la tierra', return_json = True,
                 type = grafos.PIE_CHART_3D)
     elif tipo == 'propietario':
-        for opcion in CHOICE_DUENO:
-            data.append(consulta.filter(tenenciaentrevistada__dueno=opcion[0]).count())
-            legends.append(opcion[1])
+        for opcion in OpcionesDueno.objects.all():
+            data.append(consulta.filter(tenenciaentrevistada__dueno=opcion).count())
+            legends.append(opcion)
         return grafos.make_graph(data, legends,
                 'Dueño de propiedad', return_json = True,
                 type = grafos.PIE_CHART_3D)
