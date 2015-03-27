@@ -1,17 +1,42 @@
 {% extends "basegeneral.html" %}
 
 {% block extra_js %}
-	<script type="text/javascript">
-		$(function () {$('#popover-deg315').popover('hide');});
-		$(function () {$('#popover-deg0').popover('hide');});
-		$(function () {$('#popover-deg45').popover('hide');});
-		$(function () {$('#popover-deg270').popover('hide');});
-		$(function () {$('#popover-deg135').popover('hide');});
-		$(function () {$('#popover-deg180').popover('hide');});
-		$(function () {$('#popover-deg225').popover('hide');});
-		$(function () {$('#popover-deg90').popover('hide');});
-		$(function () {$('#popover-centro').popover('hide');});
-		
+
+		<script type="text/javascript">
+	$(function() {
+		$(".deg315" ).mouseover(function() { $("#deg315").toggle(100); }).mouseout(function() { $("#deg315").hide();
+  		});
+
+		$(".deg0" ).mouseover(function() { $("#deg0").toggle(100); }).mouseout(function() { $("#deg0").hide();
+  		});
+
+  		$(".deg45" ).mouseover(function() { $("#deg45").toggle(100); }).mouseout(function() { $("#deg45").hide();
+  		});
+
+  		$(".deg270" ).mouseover(function() { $("#deg270").toggle(100); }).mouseout(function() { $("#deg270").hide();
+  		});
+
+  		$(".deg135" ).mouseover(function() { $("#deg135").toggle(100); }).mouseout(function() { $("#deg135").hide();
+  		});
+
+  		$(".deg180" ).mouseover(function() { $("#deg180").toggle(100); }).mouseout(function() { $("#deg180").hide();
+  		});
+
+  		$(".deg225" ).mouseover(function() { $("#deg225").toggle(100); }).mouseout(function() { $("#deg225").hide();
+  		});
+
+  		$(".deg90" ).mouseover(function() { $("#deg90").toggle(100); }).mouseout(function() { $("#deg90").hide();
+  		});
+
+  		$(".deg-centro" ).mouseover(function() { $("#deg-centro").toggle(100); }).mouseout(function() { $("#deg-centro").hide();
+  		});
+
+
+
+
+
+ 
+	});
 	</script>
 
 {% endblock extra_js %}
@@ -20,7 +45,7 @@
 
 	<nav class="encabezado container-fluid">
 		<div class="titulo">
-			<img src="/static/general/img/CGIAR logo.png" alt="Site Logo" class="img-responsive">
+			
 			
 				<h2 class="text-center">Alianzas Centroamérica - Caribe</h2>
 				
@@ -28,44 +53,89 @@
 		</div>
 		
 	</nav>
+
+	<div class="info col-xs-3 col-sm-3 col-md-3 col-lg-3">
+		<h3>Pellentesque urna dapibus nunc.</h3>
+		<p>
+			Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet, magna augue odio dignissim, porta? Augue, in! Sociis, elementum dictumst ut scelerisque mauris tempor pulvinar non duis nunc sagittis ac porta sagittis magnis natoque! In aenean et dapibus, turpis mattis! Et, hac! Cras, pid et rhoncus, ac amet aenean in proin montes? Phasellus, tristique, augue. Risus. Et porta? Penatibus mid amet, sagittis aliquet, porta urna magna? Nisi, ridiculus vel sed? Placerat nascetur rhoncus dignissim, a mattis? Enim, diam mid nisi porttitor porttitor, vel augue integer vel vel pellentesque porttitor sed. Lacus, ultricies sed phasellus! Elementum nunc porttitor enim, a adipiscing, mid mid risus montes etiam purus.
+		</p>
+	</div>
 	
-	<div class='circle-container'>
+	<div class="circle-container col-xs-5 col-sm-5 col-md-5 col-lg-5">
 
-	<a class="deg315" href="/comunicacion" id="popover-deg315" data-toggle="popover" data-placement="right" 
-	data-content="Plataforma Comunicación"
-	data-trigger="hover"><i class="fa fa-bullhorn circle hvr-grow"></i></a>
+	<a class="deg315" href="/comunicacion" ><i class="fa fa-bullhorn circle hvr-grow"></i></a>
 
-	<a class="deg0" href="/analisis" id="popover-deg0" data-toggle="popover" data-placement="right" 
-	data-content="Análisis Organizacional"
-	data-trigger="hover"><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
+	<a class="deg0" href="/analisis"><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
 
-	<a class="deg45" href="#" id="popover-deg45" data-toggle="popover" data-placement="right" 
-	data-content="Productos y Procesos"
-	data-trigger="hover"><i class="fa fa-link circle hvr-grow"></i></a>
+	<a class="deg45" href="#"><i class="fa fa-link circle hvr-grow"></i></a>
 
-	<a class="deg270" href="#" id="popover-deg270" data-toggle="popover" data-placement="top" 
-	data-content="Marketing"
-	data-trigger="hover"><i class="fa fa-line-chart circle hvr-grow"></i></a>
+	<a class="deg270" href="#"><i class="fa fa-line-chart circle hvr-grow"></i></a>
 
-	<a class="deg135" href="#" id="popover-deg135" data-toggle="popover" data-placement="left" 
-	data-content="Monitoreo Campesino"
-	data-trigger="hover"><i class="fa fa-area-chart circle hvr-grow"></i></a>
+	<a class="deg135" href="#"><i class="fa fa-area-chart circle hvr-grow"></i></a>
 
-	<a class="deg180" href="/monitoreo" id="popover-deg180" data-toggle="popover" data-placement="left" 
-	data-content="Monitoreo Mujeres"
-	data-trigger="hover"><i class="fa fa-female circle hvr-grow"></i></a>
+	<a class="deg180" href="/monitoreo"><i class="fa fa-female circle hvr-grow"></i></a>
 
-	<a class="deg225" href="#" id="popover-deg225" data-toggle="popover" data-placement="left" 
-	data-content="Mapeo de Actores"
-	data-trigger="hover"><i class="fa fa-map-marker circle hvr-grow"></i></a>
+	<a class="deg225" href="#"><i class="fa fa-map-marker circle hvr-grow"></i></a>
 
-	<a class="deg90" href="#" id="popover-deg90" data-toggle="popover" data-placement="bottom" 
-	data-content="Publicaciones"
-	data-trigger="hover"><i class="fa  fa-leanpub circle hvr-grow"></i></a>
+	<a class="deg90" href="#"><i class="fa  fa-leanpub circle hvr-grow"></i></a>
 
-	<a class="deg-centro" href="#" id="popover-centro" data-toggle="popover" data-placement="top" 
-	data-content="Dashboard"
-	data-trigger="hover"><i class="fa  fa-dashboard fa-3x circle-2x hvr-grow"></i></a>
+	<a class="deg-centro" href="#"><i class="fa  fa-dashboard fa-3x circle-2x hvr-grow"></i></a>
   
+	</div>
+	<div class="mostrar col-xs-3 col-sm-3 col-md-3 col-lg-3">
+		<div id="deg315">
+			<h4>Pellentesque urna dapibus nunc. 1</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
+		<div id="deg0">
+			<h4>Pellentesque urna dapibus nunc. 2</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
+		<div id="deg45">
+			<h4>Pellentesque urna dapibus nunc. 3</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
+		<div id="deg270">
+			<h4>Pellentesque urna dapibus nunc. 4</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
+		<div id="deg135">
+			<h4>Pellentesque urna dapibus nunc. 5</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
+		<div id="deg180">
+			<h4>Pellentesque urna dapibus nunc. 6</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
+		<div id="deg225">
+			<h4>Pellentesque urna dapibus nunc. 7</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
+		<div id="deg90">
+			<h4>Pellentesque urna dapibus nunc. 8</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
+		<div id="deg-centro">
+			<h4>Pellentesque urna dapibus nunc. 9</h4>
+			<p>
+				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
+			</p>
+		</div>
 	</div>
 {% endblock contenido %}
