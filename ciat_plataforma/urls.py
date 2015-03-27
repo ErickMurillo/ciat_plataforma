@@ -10,9 +10,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 
 
-urlpatterns = patterns('',
+urlpatterns = i18n_patterns('',
     # Examples:
     # url(r'^$', 'ciat_plaforma.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),

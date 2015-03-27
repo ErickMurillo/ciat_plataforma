@@ -66,3 +66,4 @@ CACHE
 *.sql
 *.DS_Store
 media/
+locale/

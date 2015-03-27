@@ -107,10 +107,10 @@ LANGUAGE_CODE = 'en-us'
 
 from django.utils.translation import ugettext_lazy as _
 
-LANGUAGES = (
-                ('en', _('English')),
-                ('es', _('Spanish')),
-            )
+#LANGUAGES = (
+#                ('en', _('English')),
+#                ('es', _('Spanish')),
+#            )
 
 TIME_ZONE = 'UTC'
 
