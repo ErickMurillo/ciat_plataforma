@@ -5,6 +5,7 @@ from django.forms import CheckboxSelectMultiple
 from .forms import *
 from comunicacion.lugar.models import *
 from nested_inline.admin import NestedStackedInline, NestedModelAdmin, NestedTabularInline
+from django.utils.translation import ugettext_lazy as _
 
 # Register your models here.
 class Pregunta_1_Inline(NestedTabularInline):
@@ -16,22 +17,22 @@ class Pregunta_1_Inline(NestedTabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-	def formfield_for_manytomany(self, db_field, request, **kwargs):
-		urlactual=request.get_full_path()
-		urlactual=urlactual.split('/')
-		if urlactual[4]!='add':
-			_identrevista=int(urlactual[4])
-			try:
-				a = Entrevista.objects.get(id=_identrevista)
+	# def formfield_for_manytomany(self, db_field, request, **kwargs):
+	# 	urlactual=request.get_full_path()
+	# 	urlactual=urlactual.split('/')
+	# 	if urlactual[4]!='add':
+	# 		_identrevista=int(urlactual[4])
+	# 		try:
+	# 			a = Entrevista.objects.get(id=_identrevista)
 
-				if db_field.name == 'ubicacion':	
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
-			except Exception, e:
-				pass
-		else:
-			kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
+	# 			if db_field.name == 'ubicacion':	
+	# 				kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
+	# 		except Exception, e:
+	# 			pass
+	# 	else:
+	# 		kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
 		
-		return super(Pregunta_1_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
+	# 	return super(Pregunta_1_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
 	
 
 
@@ -66,21 +67,21 @@ class Pregunta_5a_Inline(NestedTabularInline):
 		models.ManyToManyField: {'widget': CheckboxSelectMultiple},
 	}
 
-	def formfield_for_manytomany(self, db_field, request, **kwargs):
-		urlactual=request.get_full_path()
-		urlactual=urlactual.split('/')
-		if urlactual[4]!='add':
-			_identrevista=int(urlactual[4])
-			try:
-				a = Entrevista.objects.get(id=_identrevista)
-				if db_field.name == 'ubicacion':	
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
-			except Exception, e:
-				pass
-		else:
-			kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
+	# def formfield_for_manytomany(self, db_field, request, **kwargs):
+	# 	urlactual=request.get_full_path()
+	# 	urlactual=urlactual.split('/')
+	# 	if urlactual[4]!='add':
+	# 		_identrevista=int(urlactual[4])
+	# 		try:
+	# 			a = Entrevista.objects.get(id=_identrevista)
+	# 			if db_field.name == 'ubicacion':	
+	# 				kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
+	# 		except Exception, e:
+	# 			pass
+	# 	else:
+	# 		kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
 		
-		return super(Pregunta_5a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
+	# 	return super(Pregunta_5a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
 	
 
 	class Media:
@@ -105,16 +106,16 @@ class Pregunta_5c_Inline(NestedTabularInline):
 	can_delete = False
 	
 
-	def formfield_for_foreignkey(self, db_field, request, **kwargs):
-		if db_field.name == 'innovacion':
-			urlactual=request.get_full_path()
-			urlactual=urlactual.split('/')
-			if urlactual[4]!='add':
-				_identrevista=int(urlactual[4])
-				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
-			else:
-				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
-		return super(Pregunta_5c_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+	# def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	# 	if db_field.name == 'innovacion':
+	# 		urlactual=request.get_full_path()
+	# 		urlactual=urlactual.split('/')
+	# 		if urlactual[4]!='add':
+	# 			_identrevista=int(urlactual[4])
+	# 			kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
+	# 		else:
+	# 			kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
+	# 	return super(Pregunta_5c_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class Pregunta_5d_Inline(NestedTabularInline):
@@ -127,16 +128,16 @@ class Pregunta_5d_Inline(NestedTabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-	def formfield_for_foreignkey(self, db_field, request, **kwargs):
-		if db_field.name == 'innovacion':
-			urlactual=request.get_full_path()
-			urlactual=urlactual.split('/')
-			if urlactual[4]!='add':
-				_identrevista=int(urlactual[4])
-				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
-			else:
-				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
-		return super(Pregunta_5d_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+	# def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	# 	if db_field.name == 'innovacion':
+	# 		urlactual=request.get_full_path()
+	# 		urlactual=urlactual.split('/')
+	# 		if urlactual[4]!='add':
+	# 			_identrevista=int(urlactual[4])
+	# 			kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
+	# 		else:
+	# 			kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
+	# 	return super(Pregunta_5d_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class Pregunta_5e_Inline(NestedTabularInline):
 	model = Pregunta_5e
@@ -148,16 +149,16 @@ class Pregunta_5e_Inline(NestedTabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-	def formfield_for_foreignkey(self, db_field, request, **kwargs):
-		if db_field.name == 'innovacion':
-			urlactual=request.get_full_path()
-			urlactual=urlactual.split('/')
-			if urlactual[4]!='add':
-				_identrevista=int(urlactual[4])
-				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
-			else:
-				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
-		return super(Pregunta_5e_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+	# def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	# 	if db_field.name == 'innovacion':
+	# 		urlactual=request.get_full_path()
+	# 		urlactual=urlactual.split('/')
+	# 		if urlactual[4]!='add':
+	# 			_identrevista=int(urlactual[4])
+	# 			kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
+	# 		else:
+	# 			kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
+	# 	return super(Pregunta_5e_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class Pregunta_6a_Inline(NestedTabularInline):
 	model = Pregunta_6a
@@ -168,21 +169,21 @@ class Pregunta_6a_Inline(NestedTabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-	def formfield_for_manytomany(self, db_field, request, **kwargs):
-		urlactual=request.get_full_path()
-		urlactual=urlactual.split('/')
-		if urlactual[4]!='add':
-			_identrevista=int(urlactual[4])
-			try:
-				a = Entrevista.objects.get(id=_identrevista)
-				if db_field.name == 'ubicacion':	
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
-			except Exception, e:
-				pass
-		else:
-			kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
+	# def formfield_for_manytomany(self, db_field, request, **kwargs):
+	# 	urlactual=request.get_full_path()
+	# 	urlactual=urlactual.split('/')
+	# 	if urlactual[4]!='add':
+	# 		_identrevista=int(urlactual[4])
+	# 		try:
+	# 			a = Entrevista.objects.get(id=_identrevista)
+	# 			if db_field.name == 'ubicacion':	
+	# 				kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
+	# 		except Exception, e:
+	# 			pass
+	# 	else:
+	# 		kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
 		
-		return super(Pregunta_6a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
+	# 	return super(Pregunta_6a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
 	
 class Pregunta_6c_nestedInline(NestedTabularInline):
 	model = Pregunta_6c_nested
@@ -203,16 +204,16 @@ class Pregunta_6c_Inline(NestedTabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-	def formfield_for_foreignkey(self, db_field, request, **kwargs):
-		if db_field.name == 'innovacion':
-			urlactual=request.get_full_path()
-			urlactual=urlactual.split('/')
-			if urlactual[4]!='add':
-				_identrevista=int(urlactual[4])
-				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
-			else:
-				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
-		return super(Pregunta_6c_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+	# def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	# 	if db_field.name == 'innovacion':
+	# 		urlactual=request.get_full_path()
+	# 		urlactual=urlactual.split('/')
+	# 		if urlactual[4]!='add':
+	# 			_identrevista=int(urlactual[4])
+	# 			kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
+	# 		else:
+	# 			kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
+	# 	return super(Pregunta_6c_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class Pregunta_6d_Inline(NestedTabularInline):
@@ -224,16 +225,16 @@ class Pregunta_6d_Inline(NestedTabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-	def formfield_for_foreignkey(self, db_field, request, **kwargs):
-		if db_field.name == 'innovacion':
-			urlactual=request.get_full_path()
-			urlactual=urlactual.split('/')
-			if urlactual[4]!='add':
-				_identrevista=int(urlactual[4])
-				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
-			else:
-				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
-		return super(Pregunta_6d_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+	# def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	# 	if db_field.name == 'innovacion':
+	# 		urlactual=request.get_full_path()
+	# 		urlactual=urlactual.split('/')
+	# 		if urlactual[4]!='add':
+	# 			_identrevista=int(urlactual[4])
+	# 			kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
+	# 		else:
+	# 			kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
+	# 	return super(Pregunta_6d_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class Pregunta_6e_Inline(NestedTabularInline):
@@ -245,16 +246,16 @@ class Pregunta_6e_Inline(NestedTabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }	
 
-	def formfield_for_foreignkey(self, db_field, request, **kwargs):
-		if db_field.name == 'innovacion':
-			urlactual=request.get_full_path()
-			urlactual=urlactual.split('/')
-			if urlactual[4]!='add':
-				_identrevista=int(urlactual[4])
-				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
-			else:
-				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
-		return super(Pregunta_6e_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+	# def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	# 	if db_field.name == 'innovacion':
+	# 		urlactual=request.get_full_path()
+	# 		urlactual=urlactual.split('/')
+	# 		if urlactual[4]!='add':
+	# 			_identrevista=int(urlactual[4])
+	# 			kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
+	# 		else:
+	# 			kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
+	# 	return super(Pregunta_6e_Inline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class Pregunta_7a_Inline(NestedTabularInline):
 	model = Pregunta_7a
@@ -264,21 +265,21 @@ class Pregunta_7a_Inline(NestedTabularInline):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
-	def formfield_for_manytomany(self, db_field, request, **kwargs):
-		urlactual=request.get_full_path()
-		urlactual=urlactual.split('/')
-		if urlactual[4]!='add':
-			_identrevista=int(urlactual[4])
-			try:
-				a = Entrevista.objects.get(id=_identrevista)
-				if db_field.name == 'ubicacion':	
-					kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
-			except Exception, e:
-				pass
-		else:
-			kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
+	# def formfield_for_manytomany(self, db_field, request, **kwargs):
+	# 	urlactual=request.get_full_path()
+	# 	urlactual=urlactual.split('/')
+	# 	if urlactual[4]!='add':
+	# 		_identrevista=int(urlactual[4])
+	# 		try:
+	# 			a = Entrevista.objects.get(id=_identrevista)
+	# 			if db_field.name == 'ubicacion':	
+	# 				kwargs["queryset"] = Municipio.objects.filter(departamento__id__in=[x.id for x in a.departamento.all()])
+	# 		except Exception, e:
+	# 			pass
+	# 	else:
+	# 		kwargs["queryset"] = Municipio.objects.filter(departamento__id='0')
 		
-		return super(Pregunta_7a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
+	# 	return super(Pregunta_7a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
 
 class Pregunta_7b_Inline(NestedTabularInline):
 	model = Pregunta_7b
@@ -328,7 +329,7 @@ class EntrevistaAdmin(NestedModelAdmin):
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 	fieldsets = [
-		('Información de la persona entrevistada', {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha1','alcance1','tipo_estudio',))}),
+		(_('Informacion de la persona entrevistada'), {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha1','alcance1','tipo_estudio',))}),
 	]
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
@@ -344,18 +345,18 @@ class EntrevistaAdmin(NestedModelAdmin):
 	# 	return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
 
-	def formfield_for_manytomany(self, db_field, request, **kwargs):
-		urlactual=request.get_full_path()
-		urlactual=urlactual.split('/')
-		if urlactual[4]!='add':
-			_identrevista=int(urlactual[4])
-			try:
-				a = Entrevista.objects.get(id=_identrevista)
-				if db_field.name == 'departamento':	
-					kwargs["queryset"] = Departamento.objects.filter(pais=a.pais)
-			except Exception, e:
-				pass
-		return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)	
+	# def formfield_for_manytomany(self, db_field, request, **kwargs):
+	# 	urlactual=request.get_full_path()
+	# 	urlactual=urlactual.split('/')
+	# 	if urlactual[4]!='add':
+	# 		_identrevista=int(urlactual[4])
+	# 		try:
+	# 			a = Entrevista.objects.get(id=_identrevista)
+	# 			if db_field.name == 'departamento':	
+	# 				kwargs["queryset"] = Departamento.objects.filter(pais=a.pais)
+	# 		except Exception, e:
+	# 			pass
+	# 	return super(EntrevistaAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)	
 		# else:
 		# 	kwargs["queryset"] = Departamento.objects.filter(pais='0')
 			
