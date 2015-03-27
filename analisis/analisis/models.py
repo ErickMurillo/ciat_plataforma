@@ -73,8 +73,8 @@ class Pregunta_1(models.Model):
 		return self.proyecto
 
 	class Meta:
-		verbose_name = _('Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 years')
-		verbose_name_plural = _('Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 años')
+		verbose_name = _(u'Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 years')
+		verbose_name_plural = _(u'Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 años')
 
 PREGUNTA2_CHOICES = (
     (1,_(u'Tecnicos')),
@@ -146,19 +146,20 @@ class Pregunta_5c(models.Model):
 
 
 	class Meta:
-		verbose_name = 'Papel que juega su organización'
-		verbose_name_plural = 'Papel que juega su organización y otros socios en relación a cada innovación'
+		verbose_name = _(u'Papel que juega su organización')
+		verbose_name_plural = _(u'Papel que juega su organización y otros socios en relación a cada innovación')
 
 	def __unicode__(self):
 		return self.innovacion
 
 class Pregunta_5c_nested(models.Model):
-	organizacion = models.ForeignKey(Organizaciones,verbose_name=_(u'Organización'))
+	organizacion = models.ForeignKey(Organizaciones,verbose_name=_(u'Organizaciones'))
 	papel_1 = models.ManyToManyField(Papel,verbose_name=_(u'Papel'))
 	pregunta_5c = models.ForeignKey(Pregunta_5c)
 
 	class Meta:
-		verbose_name = 'Organización'
+		verbose_name = _(u'Organizaciones colaborativas de innovación')
+		verbose_name_plural = _(u'Organizaciones colaborativas de innovación')
 
 	def __unicode__(self):
 		return self.organizacion
@@ -169,8 +170,8 @@ class Pregunta_5d(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Limitaciones'
-		verbose_name_plural = 'Principales limitaciones que afectaron el éxito de estas innovaciones'
+		verbose_name = _(u'Limitaciones')
+		verbose_name_plural = _(u'Principales limitaciones que afectaron el éxito de estas innovaciones')
 
 	def __unicode__(self):
 		return self.innovacion
@@ -182,8 +183,8 @@ class Pregunta_5e(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Fuentes de aprendizaje'
-		verbose_name_plural = 'Fuentes mas importantes de aprendizaje y consulta dentro y fuera de la región'
+		verbose_name = _(u'Fuentes de aprendizaje')
+		verbose_name_plural = _(u'Fuentes mas importantes de aprendizaje y consulta dentro y fuera de la región')
 
 	def __unicode__(self):
 		return self.innovacion
@@ -199,27 +200,28 @@ class Pregunta_6a(models.Model):
 		return self.innovacion
 		
 	class Meta:
-		verbose_name = 'Innovaciones'
-		verbose_name_plural = 'Innovaciones en las que le gustaría trabajar a su organización en los proximas 5-10 años'
+		verbose_name = _(u'Innovaciones')
+		verbose_name_plural = _(u'Innovaciones en las que le gustaría trabajar a su organización en los proximas 5-10 años')
 
 class Pregunta_6c(models.Model):
 	innovacion = models.ForeignKey(Pregunta_6a,verbose_name=_(u'Innovación'))
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Socios o colaboradores'
-		verbose_name_plural = 'Socios o colaboradores claves para llevar a cabo las innovaciones'
+		verbose_name = _(u'Socios o colaboradores')
+		verbose_name_plural = _(u'Socios o colaboradores claves para llevar a cabo las innovaciones')
 
 	def __unicode__(self):
 		return self.innovacion
 
 class Pregunta_6c_nested(models.Model):
-	organizacion = models.ForeignKey(Organizaciones,verbose_name=_(u'Organización'))
+	organizacion = models.ForeignKey(Organizaciones,verbose_name=_(u'Organizaciones'))
 	papel = models.ManyToManyField(Papel,verbose_name=_(u'Papel'))
 	pregunta_6c = models.ForeignKey(Pregunta_6c)
 
 	class Meta:
-		verbose_name = 'Organización'
+			verbose_name = _(u'Organizaciones colaborativas de innovación')
+			verbose_name_plural = _(u'Organizaciones colaborativas de innovación')
 
 	def __unicode__(self):
 		return self.organizacion
@@ -230,8 +232,8 @@ class Pregunta_6d(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Posibles limitaciones'
-		verbose_name_plural = 'Posibles limitaciones para llevar a cabo estos cambios en la región'
+		verbose_name = _(u'Posibles limitaciones')
+		verbose_name_plural = _(u'Posibles limitaciones para llevar a cabo estos cambios en la región')
 	
 	def __unicode__(self):
 		return self.innovacion
@@ -244,8 +246,8 @@ class Pregunta_6e(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Información necesaria o clave para la realización de las innovaciones'
-		verbose_name_plural = 'Información necesaria o clave para la realización de las innovaciones'
+		verbose_name = _(u'Información necesaria o clave para la realización de las innovaciones')
+		verbose_name_plural = _(u'Información necesaria o clave para la realización de las innovaciones')
 
 	def __unicode__(self):
 		return self.innovacion
@@ -256,16 +258,16 @@ class Pregunta_7a(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Sitios de campo'
-		verbose_name_plural = 'Sitios de campo donde Humidtropics debería desarrollar actividades con socios locales'
+		verbose_name = _(u'Sitios de campo')
+		verbose_name_plural = _(u'Sitios de campo donde Humidtropics debería desarrollar actividades con socios locales')
 
 class Pregunta_7b(models.Model):
 	seleccion = models.ManyToManyField(Seleccion_7b, verbose_name=_(u'Selección'))
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Papel que podría jugar su organización en los sitios de campo seleccionados/Humidtropics'
-		verbose_name_plural = 'Papel que podría jugar su organización en los sitios de campo seleccionados/Humidtropics'
+		verbose_name = _(u'Papel que podría jugar su organización en los sitios de campo seleccionados/Humidtropics')
+		verbose_name_plural = _(u'Papel que podría jugar su organización en los sitios de campo seleccionados/Humidtropics')
 
 TERRITORIO_CHOICES = (
     (1,_(u'Dentro')),
@@ -294,8 +296,8 @@ class Pregunta_8(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Relación con las organizaciones'
-		verbose_name_plural = 'Relaciones con las organizaciones que radican en los territorios'
+		verbose_name = _(u'Relación con las organizaciones')
+		verbose_name_plural = _(u'Relaciones con las organizaciones que radican en los territorios')
 
 	def __unicode__(self):
 		return self.organizacion
@@ -338,8 +340,8 @@ class Pregunta_9(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Análisis de capacidad de las organizaciones'
-		verbose_name_plural = 'Análisis de capacidad de las organizaciones'
+		verbose_name = _(u'Análisis de capacidad de las organizaciones')
+		verbose_name_plural = _(u'Análisis de capacidad de las organizaciones')
 
 	def __unicode__(self):
 		return self.tema
@@ -380,8 +382,8 @@ class Pregunta_11(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = 'Datos que tiene la organización para análisis de datos secundarios'
-		verbose_name_plural = 'Datos que tiene la organización para análisis de datos secundarios'
+		verbose_name = _(u'Datos que tiene la organización para análisis de datos secundarios')
+		verbose_name_plural = _(u'Datos que tiene la organización para análisis de datos secundarios')
 
 	def __unicode__(self):
 		return self.sobre

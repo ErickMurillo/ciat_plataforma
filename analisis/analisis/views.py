@@ -29,7 +29,7 @@ class IndexView(ListView):
 		
 		prueba = {}
 		for i in Sector.objects.all():
-			conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i)
+			conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i).count()
 			prueba[i.nombre] = conteo
 		context['proyectos'] = prueba
 			
