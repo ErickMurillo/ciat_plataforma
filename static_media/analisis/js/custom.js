@@ -22,7 +22,7 @@
 
 		var pathname = window.location.pathname;
 		url = pathname.split("/");
-		if (url[5]=='add') {
+		if (url[4]=='add') {
 			$('.field-box.field-tipo_estudio').append('<input type="submit" value="Grabar y continuar editando" name="_continue" class="guardar default" id="btn_intro">');
 		};
 	});
@@ -45,7 +45,7 @@
 	{
 		var pathname = window.location.pathname;
 		url = pathname.split("/");
-		if (url[5]=='add') {
+		if (url[4]=='add') {
 	 	//console.log(url[4]);
 	 	$('.field-departamento ul').empty();
 	 };

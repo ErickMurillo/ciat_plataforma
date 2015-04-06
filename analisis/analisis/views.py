@@ -15,6 +15,7 @@ class IndexView(ListView):
 		context = super(IndexView, self).get_context_data(**kwargs)
 		contador_org = Organizaciones.objects.count()
 
+
 		sector = {}
 		for x in Sector.objects.all():
 			cont_org = Organizaciones.objects.filter(sector=x).count()

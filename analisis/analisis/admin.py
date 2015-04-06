@@ -20,8 +20,8 @@ class Pregunta_1_Inline(NestedTabularInline):
 	def formfield_for_manytomany(self, db_field, request, **kwargs):
 		urlactual=request.get_full_path()
 		urlactual=urlactual.split('/')
-		if urlactual[5]!='add':
-			_identrevista=int(urlactual[5])
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
 
@@ -70,8 +70,8 @@ class Pregunta_5a_Inline(NestedTabularInline):
 	def formfield_for_manytomany(self, db_field, request, **kwargs):
 		urlactual=request.get_full_path()
 		urlactual=urlactual.split('/')
-		if urlactual[5]!='add':
-			_identrevista=int(urlactual[5])
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
 				if db_field.name == 'ubicacion':	
@@ -110,8 +110,8 @@ class Pregunta_5c_Inline(NestedTabularInline):
 		if db_field.name == 'innovacion':
 			urlactual=request.get_full_path()
 			urlactual=urlactual.split('/')
-			if urlactual[5]!='add':
-				_identrevista=int(urlactual[5])
+			if urlactual[4]!='add':
+				_identrevista=int(urlactual[4])
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
 			else:
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
@@ -132,8 +132,8 @@ class Pregunta_5d_Inline(NestedTabularInline):
 		if db_field.name == 'innovacion':
 			urlactual=request.get_full_path()
 			urlactual=urlactual.split('/')
-			if urlactual[5]!='add':
-				_identrevista=int(urlactual[5])
+			if urlactual[4]!='add':
+				_identrevista=int(urlactual[4])
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
 			else:
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
@@ -153,8 +153,8 @@ class Pregunta_5e_Inline(NestedTabularInline):
 		if db_field.name == 'innovacion':
 			urlactual=request.get_full_path()
 			urlactual=urlactual.split('/')
-			if urlactual[5]!='add':
-				_identrevista=int(urlactual[5])
+			if urlactual[4]!='add':
+				_identrevista=int(urlactual[4])
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
 			else:
 				kwargs["queryset"] = Pregunta_5a.objects.filter(prioritizado='2')	
@@ -172,8 +172,8 @@ class Pregunta_6a_Inline(NestedTabularInline):
 	def formfield_for_manytomany(self, db_field, request, **kwargs):
 		urlactual=request.get_full_path()
 		urlactual=urlactual.split('/')
-		if urlactual[5]!='add':
-			_identrevista=int(urlactual[5])
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
 				if db_field.name == 'ubicacion':	
@@ -208,8 +208,8 @@ class Pregunta_6c_Inline(NestedTabularInline):
 		if db_field.name == 'innovacion':
 			urlactual=request.get_full_path()
 			urlactual=urlactual.split('/')
-			if urlactual[5]!='add':
-				_identrevista=int(urlactual[5])
+			if urlactual[4]!='add':
+				_identrevista=int(urlactual[4])
 				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
 			else:
 				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
@@ -229,8 +229,8 @@ class Pregunta_6d_Inline(NestedTabularInline):
 		if db_field.name == 'innovacion':
 			urlactual=request.get_full_path()
 			urlactual=urlactual.split('/')
-			if urlactual[5]!='add':
-				_identrevista=int(urlactual[5])
+			if urlactual[4]!='add':
+				_identrevista=int(urlactual[4])
 				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
 			else:
 				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
@@ -250,8 +250,8 @@ class Pregunta_6e_Inline(NestedTabularInline):
 		if db_field.name == 'innovacion':
 			urlactual=request.get_full_path()
 			urlactual=urlactual.split('/')
-			if urlactual[5]!='add':
-				_identrevista=int(urlactual[5])
+			if urlactual[4]!='add':
+				_identrevista=int(urlactual[4])
 				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='1',entrevistado__pk=_identrevista)
 			else:
 				kwargs["queryset"] = Pregunta_6a.objects.filter(prioritizado='2')	
@@ -268,8 +268,8 @@ class Pregunta_7a_Inline(NestedTabularInline):
 	def formfield_for_manytomany(self, db_field, request, **kwargs):
 		urlactual=request.get_full_path()
 		urlactual=urlactual.split('/')
-		if urlactual[5]!='add':
-			_identrevista=int(urlactual[5])
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
 				if db_field.name == 'ubicacion':	
@@ -348,8 +348,8 @@ class EntrevistaAdmin(NestedModelAdmin):
 	def formfield_for_manytomany(self, db_field, request, **kwargs):
 		urlactual=request.get_full_path()
 		urlactual=urlactual.split('/')
-		if urlactual[5]!='add':
-			_identrevista=int(urlactual[5])
+		if urlactual[4]!='add':
+			_identrevista=int(urlactual[4])
 			try:
 				a = Entrevista.objects.get(id=_identrevista)
 				if db_field.name == 'departamento':	
