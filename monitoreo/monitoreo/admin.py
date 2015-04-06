@@ -303,10 +303,15 @@ class EncuestaAdmin(admin.ModelAdmin):
                AhorroInline, AhorroEntreInline, CreditoInline, CreditoEntreInline, SeguridadInline,
                VulnerableInline, RiesgosInline,
                ]
-    list_display = ('fecha', 'productor', 'tipo_encuesta',)
-    list_filter = ('tipo_encuesta', 'productor__pais',)
+    list_display = ('fecha', 'productor', 'tipo_encuesta','jefe','get_municipio')
+    list_filter = ('tipo_encuesta', 'productor__pais','jefe')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha'
+
+    def get_municipio(self, obj):
+        return obj.productor.municipio
+    get_municipio.short_description = 'municipio'
+    get_municipio.admin_order_field = 'productor__municipio'
 
     class Media:
         css = {
