@@ -1,0 +1,16 @@
+{% extends "analisis/baseanalisis.html" %}
+
+{% block contenido %}
+
+	<form action="." method="POST">{% csrf_token %}
+		{{form}}
+		<input type="submit" value="Consultar" class="btn btn-success"/>
+	</form>
+
+	{%if centinela = 1 %}
+        {{ request.session.fecha }} <br>
+		{{ request.session.pais }} <br>
+		{{ request.session.sitio_accion }} <br>
+		{{ request.session.tipo_estudio }} <br>       
+    {%endif%} 
+{% endblock contenido %}
