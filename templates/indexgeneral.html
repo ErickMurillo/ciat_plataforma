@@ -1,43 +1,33 @@
 {% extends "basegeneral.html" %}
 
 {% block extra_js %}
+<script type="text/javascript">
+function mostrar(){
+document.getElementById('oculto').style.display = 'block';}
+</script>
 
-		<script type="text/javascript">
-	$(function() {
-		$(".deg315" ).mouseover(function() { $("#deg315").toggle(100); }).mouseout(function() { $("#deg315").hide();
-  		});
-
-		$(".deg0" ).mouseover(function() { $("#deg0").toggle(100); }).mouseout(function() { $("#deg0").hide();
-  		});
-
-  		$(".deg45" ).mouseover(function() { $("#deg45").toggle(100); }).mouseout(function() { $("#deg45").hide();
-  		});
-
-  		$(".deg270" ).mouseover(function() { $("#deg270").toggle(100); }).mouseout(function() { $("#deg270").hide();
-  		});
-
-  		$(".deg135" ).mouseover(function() { $("#deg135").toggle(100); }).mouseout(function() { $("#deg135").hide();
-  		});
-
-  		$(".deg180" ).mouseover(function() { $("#deg180").toggle(100); }).mouseout(function() { $("#deg180").hide();
-  		});
-
-  		$(".deg225" ).mouseover(function() { $("#deg225").toggle(100); }).mouseout(function() { $("#deg225").hide();
-  		});
-
-  		$(".deg90" ).mouseover(function() { $("#deg90").toggle(100); }).mouseout(function() { $("#deg90").hide();
-  		});
-
-  		$(".deg-centro" ).mouseover(function() { $("#deg-centro").toggle(100); }).mouseout(function() { $("#deg-centro").hide();
-  		});
+<script type="text/javascript">
+function mostrardeg315(){document.getElementById('deg315').style.display = 'block';}
+function ocultardeg315(){document.getElementById('deg315').style.display = 'none';}
+function mostrardeg0(){document.getElementById('deg0').style.display = 'block';}
+function ocultardeg0(){document.getElementById('deg0').style.display = 'none';}
+function mostrardeg45(){document.getElementById('deg45').style.display = 'block';}
+function ocultardeg45(){document.getElementById('deg45').style.display = 'none';}
+function mostrardeg270(){document.getElementById('deg270').style.display = 'block';}
+function ocultardeg270(){document.getElementById('deg270').style.display = 'none';}
+function mostrardeg135(){document.getElementById('deg135').style.display = 'block';}
+function ocultardeg135(){document.getElementById('deg135').style.display = 'none';}
+function mostrardeg180(){document.getElementById('deg180').style.display = 'block';}
+function ocultardeg180(){document.getElementById('deg180').style.display = 'none';}
+function mostrardeg225(){document.getElementById('deg225').style.display = 'block';}
+function ocultardeg225(){document.getElementById('deg225').style.display = 'none';}
+function mostrardeg90(){document.getElementById('deg90').style.display = 'block';}
+function ocultardeg90(){document.getElementById('deg90').style.display = 'none';}
+function mostrardegcentro(){document.getElementById('deg-centro').style.display = 'block';}
+function ocultardegcentro(){document.getElementById('deg-centro').style.display = 'none';}
+</script>
 
 
-
-
-
- 
-	});
-	</script>
 
 {% endblock extra_js %}
 
@@ -63,79 +53,80 @@
 	
 	<div class="circle-container col-xs-5 col-sm-5 col-md-5 col-lg-5">
 
-	<a class="deg315" href="/comunicacion" ><i class="fa fa-bullhorn circle hvr-grow"></i></a>
+	<a class="deg315" onmouseover="mostrardeg315()" onmouseout="ocultardeg315()" href="/comunicacion" ><i class="fa fa-bullhorn circle hvr-grow"></i></a>
 
-	<a class="deg0" href="/analisis"><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
+	<a class="deg0" onmouseover="mostrardeg0()" onmouseout="ocultardeg0()" href="/analisis"><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
 
-	<a class="deg45" href="#"><i class="fa fa-link circle hvr-grow"></i></a>
+	<a class="deg45" onmouseover="mostrardeg45()" onmouseout="ocultardeg45()" href="#"><i class="fa fa-link circle hvr-grow"></i></a>
 
-	<a class="deg270" href="#"><i class="fa fa-line-chart circle hvr-grow"></i></a>
+	<a class="deg270" onmouseover="mostrardeg270()" onmouseout="ocultardeg270()" href="#"><i class="fa fa-line-chart circle hvr-grow"></i></a>
 
-	<a class="deg135" href="#"><i class="fa fa-area-chart circle hvr-grow"></i></a>
+	<a class="deg135" onmouseover="mostrardeg135()" onmouseout="ocultardeg135()" href="#"><i class="fa fa-area-chart circle hvr-grow"></i></a>
 
-	<a class="deg180" href="/monitoreo"><i class="fa fa-female circle hvr-grow"></i></a>
+	<a class="deg180" onmouseover="mostrardeg180()" onmouseout="ocultardeg180()" href="/monitoreo"><i class="fa fa-female circle hvr-grow"></i></a>
 
-	<a class="deg225" href="#"><i class="fa fa-map-marker circle hvr-grow"></i></a>
+	<a class="deg225" onmouseover="mostrardeg225()" onmouseout="ocultardeg225()" href="#"><i class="fa fa-map-marker circle hvr-grow"></i></a>
 
-	<a class="deg90" href="#"><i class="fa  fa-leanpub circle hvr-grow"></i></a>
+	<a class="deg90" onmouseover="mostrardeg90()" onmouseout="ocultardeg90()" href="#"><i class="fa  fa-leanpub circle hvr-grow"></i></a>
 
-	<a class="deg-centro" href="#"><i class="fa  fa-dashboard fa-3x circle-2x hvr-grow"></i></a>
+	<a class="deg-centro" onmouseover="mostrardegcentro()" onmouseout="ocultardegcentro()" href="#"><i class="fa  fa-dashboard fa-3x circle-2x hvr-grow"></i></a>
   
 	</div>
 	<div class="mostrar col-xs-3 col-sm-3 col-md-3 col-lg-3">
-		<div id="deg315">
+		<div id="deg315" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 1</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
-		<div id="deg0">
+		<div id="deg0" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 2</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
-		<div id="deg45">
+		<div id="deg45" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 3</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
-		<div id="deg270">
+		<div id="deg270" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 4</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
-		<div id="deg135">
+		<div id="deg135" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 5</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
-		<div id="deg180">
+		<div id="deg180" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 6</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
-		<div id="deg225">
+		<div id="deg225" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 7</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
-		<div id="deg90">
+		<div id="deg90" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 8</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
-		<div id="deg-centro">
+		<div id="deg-centro" style="display:none;">
 			<h4>Pellentesque urna dapibus nunc. 9</h4>
 			<p>
 				Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet.
 			</p>
 		</div>
 	</div>
+
 {% endblock contenido %}
