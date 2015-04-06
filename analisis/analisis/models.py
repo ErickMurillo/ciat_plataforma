@@ -73,8 +73,8 @@ class Pregunta_1(models.Model):
 		return self.proyecto
 
 	class Meta:
-		verbose_name = _(u'Proyectos e iniciativas')
-		verbose_name_plural = _(u'Proyectos e iniciativas que ha llevado su organización en los ultimos 5 años')
+		verbose_name = _('Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 years')
+		verbose_name_plural = _('Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 años')
 
 PREGUNTA2_CHOICES = (
     (1,_(u'Tecnicos')),

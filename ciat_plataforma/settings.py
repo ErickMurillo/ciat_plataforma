@@ -86,6 +86,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    #'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -104,12 +105,12 @@ WSGI_APPLICATION = 'ciat_plataforma.wsgi.application'
 
 LANGUAGE_CODE = 'es-ni'
 
-from django.utils.translation import ugettext_lazy as _
+#from django.utils.translation import ugettext_lazy as _
 
-LANGUAGES = (
-                ('en', _('English')),
-                ('es', _('Spanish')),
-            )
+#LANGUAGES = (
+#                ('en', _('English')),
+#                ('es', _('Spanish')),
+#            )
 
 TIME_ZONE = 'UTC'
 

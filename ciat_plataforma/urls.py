@@ -9,7 +9,8 @@ from analisis.analisis.views import BusquedaPaisView
 from django.contrib import admin
 admin.autodiscover()
 
-from django.conf import settings
+#from django.conf import settings
+#from django.conf.urls.i18n import i18n_patterns
 
 
 urlpatterns = patterns('',
@@ -44,6 +45,7 @@ urlpatterns = patterns('',
     url(r'^chaining/', include('smart_selects.urls')),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
+    #url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^rosetta/', include('rosetta.urls')),
 
 )
