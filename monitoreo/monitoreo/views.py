@@ -75,7 +75,7 @@ def _queryset_filtrado(request):
         params['organizaciongremial__desde_socio'] = request.session['desde']
 
     if 'duenio' in  request.session:
-        params['tenencia__dueno'] = request.session['duenio']
+        params['jefe'] = request.session['duenio']
 
     unvalid_keys = []
     for key in params:

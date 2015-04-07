@@ -37,4 +37,4 @@ class MonitoreoForm(forms.Form):
     comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
     socio = forms.ChoiceField(choices = CHOICE_OPCION_F , required=False, label="Socio Gremial")
     desde = forms.ChoiceField(choices = CHOICE_DESDE_F , required=False)
-    dueno = forms.ChoiceField(label = 'Dueño', choices = CHOICE_DUENO_F , required=False)
+    dueno = forms.ChoiceField(label = 'Jefe de Familia', choices = CHOICE_OPCION_F , required=False)
