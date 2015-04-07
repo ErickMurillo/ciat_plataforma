@@ -12,7 +12,7 @@ from .forms import *
 def _queryset_filtrado(request):
     params = {}
     if 'fecha' in request.session:
-        params['fecha1'] = request.session['fecha1']
+        params['fecha1'] = request.session['fecha']
 
     if 'pais' in request.session:
         params['pais'] = request.session['pais']
