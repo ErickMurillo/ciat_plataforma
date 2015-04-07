@@ -2,9 +2,9 @@
 
 {% block contenido %}
 
-	<form action="." method="POST">{% csrf_token %}
+	<form action="/analisis/salidas/" method="POST">{% csrf_token %}
 		{{form}}
-		<input type="submit" value="Consultar" class="btn btn-success"/>
+		<input type="submit" value="Consultar" name="consulta" class="btn btn-success"/>
 	</form>
 
 	{%if centinela = 1 %}

@@ -5,37 +5,61 @@
 {% block contenido %}
 
 
-<!--*****************************************salida 1************************************************** -->
+*****************************************salida 1************************************************** 
 <!--grafico 1 -->
 <div id="sector"></div> 
 
-<!--*****************************************salida 2************************************************** -->
+<div>
+    <table class="table">
+      <tbody>
+         {% for key,value in sectores1.items %}
+         <tr>
+            <td>{{key}}</td>
+            <td></td>
+            <td>
+                {% for x in value %}
+                {{x.nombre}}
+                <br>
+                {% endfor %}
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+
+
+</table>
+</div>
+
+*****************************************salida 2************************************************** 
 <!--tabla 1-->
 <h3>Proyectos/Iniciativas de las Organizaciones</h3>
 <div>
     <table class="table">
 
-     <thead>
-      <tr>
-          <th>Grupo Organizacional</th>
-          <th>Número de Organizaciones</th>
-          <th>Número de Proyectos/Iniciativas</th>
-          <th>Número medio de proyectos</th>
-          <th>Valor de la Mediana</th>
-      </tr>
-  </thead>
-  <tbody>
-   {% for key,value in proyectos.items %}
-   <tr>
-    <td>{{key}}</td>
-    <td></td>
-    <td>{{value}}</td>
-    <td></td>
-    <td></td>
-</tr>
+       <thead>
+          <tr>
+              <th>Grupo Organizacional</th>
+              <th>Número de Organizaciones</th>
+              <th>Número de Proyectos/Iniciativas</th>
+              <th>Número medio de proyectos</th>
+              <th>Valor de la Mediana</th>
+          </tr>
+      </thead>
+      <tbody>
+         {% for key,value in proyectos.items %}
+         <tr>
+            <td>{{key}}</td>
+            <td></td>
+            <td>{{value}}</td>
+            <td></td>
+            <td></td>
+        </tr>
 
-{% endfor %}
-</tbody>
+        {% endfor %}
+    </tbody>
 
 
 </table>
@@ -44,7 +68,7 @@
 <!--grafico 2 -->
 <div id="proyectos"></div> 
 
-<!--+++++++++++++++++++++++++++++++++++++Salida 3++++++++++++++++++++++++++++++++++++++++++++++++ -->
++++++++++++++++++++++++++++++++++++++Salida 3++++++++++++++++++++++++++++++++++++++++++++++++ 
 
 
 <h3>Distribución de Proyectos/Iniciativas por Temáticas</h3>
@@ -57,7 +81,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for key,value in contador_tematica.items %}
+            {% for key,value in temas.items %}
             <tr>
                 <td>{{key}}</td>
                 <td>{{value}}</td>
@@ -70,7 +94,7 @@
 <!--grafico 5 -->
 <div id="container"></div>
 
-<!--++++++++++++++++++++++++++++++++++++++++++Salida 4+++++++++++++++++++++++++++++++++++++++++++ -->
+++++++++++++++++++++++++++++++++++++++++++Salida 4+++++++++++++++++++++++++++++++++++++++++++ 
 <!-- tabla impactos por organizacion -->
 <h3> Numero de Impactos por Grupo Organizacional</h3>
 
@@ -79,15 +103,20 @@
         <thead>
             <tr>
                 <th>Grupo Organizacional</th>
+                <th>Número de Organizaciones</th>
                 <th>Número de Impactos</th>
+                <th>Número medio de proyectos</th>
                 <th>Valor de la Mediana</th>
             </tr>
         </thead>
         <tbody>
-            {% for key,value in impacto.items %}
+            {% for key,value in impactos.items %}
             <tr>
                 <td>{{key}}</td>
+                <td></td>
                 <td>{{value}}</td>
+                <td></td>
+                <td></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -98,7 +127,7 @@
 <!--grafico 3 -->
 <div id="impactos"></div> 
 
-<!--++++++++++++++++++++++++++++++++++++++++Salida 5a+++++++++++++++++++++++++++++++++++++++++++++ -->
+++++++++++++++++++++++++++++++++++++++++Salida 5a+++++++++++++++++++++++++++++++++++++++++++++
 
 <!-- tabla impactos por tematica pregunta 4-->
 <h3>Distribución de Proyectos/Iniciativas por Temáticas</h3>
@@ -121,7 +150,7 @@
     </table>
 </div> 
 
-<!--++++++++++++++++++++++++++++++++++++++++Salida 5b+++++++++++++++++++++++++++++++++++++++++++++ -->
+++++++++++++++++++++++++++++++++++++++++Salida 5b+++++++++++++++++++++++++++++++++++++++++++++ 
 
 <h3>Distribución de los impactos generados por las Organizaciones por Grupos Beneficiarios</h3>
 <div>
@@ -138,7 +167,7 @@
                 <td></td>
                 <td></td>
             </tr>
-          
+            
         </tbody>
     </table>
 </div> 
@@ -147,7 +176,7 @@
 <div id="grupos_benef"></div> 
 
 
-<!--+++++++++++++++++++++++++++++++++++++++++++++Salida 6++++++++++++++++++++++++++++++++++++++++ -->
++++++++++++++++++++++++++++++++++++++++++++++Salida 6++++++++++++++++++++++++++++++++++++++++ 
 
 <!-- tabla innovaciones por grupos organizacionales pregunta 5-->
 <h3>Innovaciones/Cambios por Grupo Organizacional</h3>
@@ -176,7 +205,7 @@
 <!-- grafico 4 -->
 <div id="innovaciones"></div> 
 
-<!--+++++++++++++++++++++++++++++++++++++++++Salida 7++++++++++++++++++++++++++++++++++++++++++++ -->
++++++++++++++++++++++++++++++++++++++++++Salida 7++++++++++++++++++++++++++++++++++++++++++++ 
 
 <!-- tabla innovaciones por grupos organizacionales pregunta 5-->
 <h3>Distribución de Innovaciones/Cambios por Temáticas</h3>
@@ -241,7 +270,7 @@
             name: '% Participacion',
             data: [
 
-            {% for key,value in  contador_sector.items %}
+            {% for key,value in sectores.items %}
             ['{{key}}', {{value}}],
             {% endfor %}
             ]
@@ -260,7 +289,7 @@
             plotShadow: false
         },
         title: {
-            text: 'Distribución de Projectos por Tipo de Organización'
+            text: 'Distribución de Proyectos por Tipo de Organización'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -325,7 +354,7 @@
             name: 'Browser share',
             data: [
 
-            {% for key,value in  impacto.items %}
+            {% for key,value in  impactos.items %}
             ['{{key}}', {{value}}],
             {% endfor %}
             ]
