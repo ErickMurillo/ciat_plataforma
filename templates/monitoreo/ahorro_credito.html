@@ -65,236 +65,249 @@
 {%endblock%}
 
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador ahorro y credito</a></li>
-            </ul>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
             
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
-                </li>
-
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-
-</div>
-
-<div id="mostrar">
-     {% include "monitoreo/menu.html" %}
-</div>
-
-<div role="tabpanel">
-
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Ahorro y crédito familia</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ahorro y crédito de la entrevistada</a></li>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="panel panel-success panel-graficos">
-                <div class="panel-heading">Gráficos</div>
-                              
-                <div class="panel-body graficos_widget">
+            <ul class="list-unstyled clear-margins"><!-- widgets --> 
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                    
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
                                 
-                    <a id="grafico1" href="#" onCLick="click_callback('ahorro')">Ahorro</a>
-                    <a id="grafico2" href="#" onCLick="click_callback('origen')">Origen del Crédito</a>
-                    <a id="grafico3" href="#" onCLick="click_callback('satisfaccion')">Satisfacción con el crédito</a>
-                    <a id="grafico4" href="#" onCLick="click_callback('uso')">Uso del crédito</a>
+                                <li><a href="">Familia >> Subindicador ahorro y credito</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+
+                </div>
+
+                <div id="mostrar">
+                     {% include "monitoreo/menu.html" %}
+                </div>
+                <br>
+                <div role="tabpanel">
+
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Ahorro y crédito familia</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ahorro y crédito de la entrevistada</a></li>
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="panel panel-success panel-graficos">
+                                <div class="panel-heading">Gráficos</div>
+                                              
+                                <div class="panel-body graficos_widget">
+                                                
+                                    <a id="grafico1" href="#" onCLick="click_callback('ahorro')">Ahorro</a>
+                                    <a id="grafico2" href="#" onCLick="click_callback('origen')">Origen del Crédito</a>
+                                    <a id="grafico3" href="#" onCLick="click_callback('satisfaccion')">Satisfacción con el crédito</a>
+                                    <a id="grafico4" href="#" onCLick="click_callback('uso')">Uso del crédito</a>
+
+
+                                </div>
+                                              
+                            </div>
+                                            
+                        </div>
+
+
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div id="grafo"></div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <caption>Los Ahorro</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Pregunta</th>
+                                            <th>Sí</th>
+                                            <th>Porcentaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for fila in tabla_ahorro%}
+                                        <tr>
+                                            {%for celda in fila %}
+                                            <td>{{celda}}</td>
+                                            {%endfor%}
+                                        </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <caption>Los créditos</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Número</th>
+                                        <th>Porcentaje</th>
+                                    </tr>
+                                </thead>
+                                <tr>
+                                    <td>Recibe Crédito</td>
+                                    {%for celda in tabla_credito.recibe%}
+                                    <td>{{celda|floatformat}}</td>
+                                    {%endfor%}
+                                </tr>
+                                <tr>
+                                    <td>Recibe Crédito hace menos de 5 años</td>
+                                    {%for celda in tabla_credito.menos%}
+                                    <td>{{celda|floatformat}}</td>
+                                    {%endfor%}
+                                </tr>
+                                <tr>
+                                    <td>Recibe Crédito hace más de 5 años</td>
+                                    {%for celda in tabla_credito.mas%}
+                                    <td>{{celda|floatformat}}</td>
+                                    {%endfor%}
+                                </tr>
+                                <tr>
+                                    <td>Está al día con su crédito</td>
+                                    {%for celda in tabla_credito.al_dia%}
+                                    <td>{{celda|floatformat}}</td>
+                                    {%endfor%}
+                                </tr>
+                            </table>
+                        </div>
+                        
+                    </div>
+
+                    <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/24/"></a> {%endif%}</div>
 
 
                 </div>
-                              
-            </div>
-                            
-        </div>
+
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="panel panel-success panel-graficos">
+                                <div class="panel-heading">Gráficos</div>
+                                              
+                                <div class="panel-body graficos_widget">
+                                                
+                                    <a id="grafico1" href="#" onCLick="click_callback_entre('ahorro')">Ahorro</a>
+                                    <a id="grafico2" href="#" onCLick="click_callback_entre('origen')">Origen del Crédito</a>
+                                    <a id="grafico3" href="#" onCLick="click_callback_entre('satisfaccion')">Satisfacción con el crédito</a>
+                                    <a id="grafico4" href="#" onCLick="click_callback_entre('uso')">Uso del crédito</a>
 
 
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-            <div id="grafo"></div>
-        </div>
-        
-    </div>
+                                </div>
+                                              
+                            </div>
+                                            
+                        </div>
 
-    <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/24/"></a> {%endif%}</div>
-    <div class="contenido">
-<div id="modalidad">
-    <table>
-        <caption>Los Ahorro</caption>
-        <thead>
-            <tr>
-                <th>Pregunta</th>
-                <th>Sí</th>
-                <th>Porcentaje</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for fila in tabla_ahorro%}
-            <tr>
-                {%for celda in fila %}
-                <td>{{celda}}</td>
-                {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
 
-    <table width=510>
-        <caption>Los créditos</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Número</th>
-                <th>Porcentaje</th>
-            </tr>
-        </thead>
-        <tr>
-            <td>Recibe Crédito</td>
-            {%for celda in tabla_credito.recibe%}
-            <td>{{celda|floatformat}}</td>
-            {%endfor%}
-        </tr>
-        <tr>
-            <td>Recibe Crédito hace menos de 5 años</td>
-            {%for celda in tabla_credito.menos%}
-            <td>{{celda|floatformat}}</td>
-            {%endfor%}
-        </tr>
-        <tr>
-            <td>Recibe Crédito hace más de 5 años</td>
-            {%for celda in tabla_credito.mas%}
-            <td>{{celda|floatformat}}</td>
-            {%endfor%}
-        </tr>
-        <tr>
-            <td>Está al día con su crédito</td>
-            {%for celda in tabla_credito.al_dia%}
-            <td>{{celda|floatformat}}</td>
-            {%endfor%}
-        </tr>
-    </table>
-</div>
-</div>
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div id="grafo_entre"></div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <caption>Los Ahorro de la entrevistada</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Pregunta</th>
+                                            <th>Sí</th>
+                                            <th>Porcentaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for fila in tabla_ahorro_entre%}
+                                        <tr>
+                                            {%for celda in fila %}
+                                            <td>{{celda}}</td>
+                                            {%endfor%}
+                                        </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <caption>Los créditos de la entevistada</caption>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Número</th>
+                                            <th>Porcentaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>Recibe Crédito</td>
+                                        {%for celda in tabla_credito_entre.recibe%}
+                                        <td>{{celda|floatformat}}</td>
+                                        {%endfor%}
+                                    </tr>
+                                    <tr>
+                                        <td>Recibe Crédito hace menos de 5 años</td>
+                                        {%for celda in tabla_credito_entre.menos%}
+                                        <td>{{celda|floatformat}}</td>
+                                        {%endfor%}
+                                    </tr>
+                                    <tr>
+                                        <td>Recibe Crédito hace más de 5 años</td>
+                                        {%for celda in tabla_credito_entre.mas%}
+                                        <td>{{celda|floatformat}}</td>
+                                        {%endfor%}
+                                    </tr>
+                                    <tr>
+                                        <td>Está al día con su crédito</td>
+                                        {%for celda in tabla_credito_entre.al_dia%}
+                                        <td>{{celda|floatformat}}</td>
+                                        {%endfor%}
+                                    </tr>
+                                </table>
+                        </div>
+                        
+                    </div>
 
-    </div>
-    <div role="tabpanel" class="tab-pane" id="profile">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="panel panel-success panel-graficos">
-                <div class="panel-heading">Gráficos</div>
-                              
-                <div class="panel-body graficos_widget">
-                                
-                    <a id="grafico1" href="#" onCLick="click_callback_entre('ahorro')">Ahorro</a>
-                    <a id="grafico2" href="#" onCLick="click_callback_entre('origen')">Origen del Crédito</a>
-                    <a id="grafico3" href="#" onCLick="click_callback_entre('satisfaccion')">Satisfacción con el crédito</a>
-                    <a id="grafico4" href="#" onCLick="click_callback_entre('uso')">Uso del crédito</a>
+
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/24/"></a> {%endif%}</div>
+
 
 
                 </div>
-                              
             </div>
-                            
         </div>
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
 
-
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-            <div id="grafo_entre"></div>
-        </div>
-        
-    </div>
-
-
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/24/"></a> {%endif%}</div>
-
-<div class="contenido">
-<div id="modalidad">
-    <table>
-        <caption>Los Ahorro de la entrevistada</caption>
-        <thead>
-            <tr>
-                <th>Pregunta</th>
-                <th>Sí</th>
-                <th>Porcentaje</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for fila in tabla_ahorro_entre%}
-            <tr>
-                {%for celda in fila %}
-                <td>{{celda}}</td>
-                {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-
-    <table width=510>
-        <caption>Los créditos de la entevistada</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Número</th>
-                <th>Porcentaje</th>
-            </tr>
-        </thead>
-        <tr>
-            <td>Recibe Crédito</td>
-            {%for celda in tabla_credito_entre.recibe%}
-            <td>{{celda|floatformat}}</td>
-            {%endfor%}
-        </tr>
-        <tr>
-            <td>Recibe Crédito hace menos de 5 años</td>
-            {%for celda in tabla_credito_entre.menos%}
-            <td>{{celda|floatformat}}</td>
-            {%endfor%}
-        </tr>
-        <tr>
-            <td>Recibe Crédito hace más de 5 años</td>
-            {%for celda in tabla_credito_entre.mas%}
-            <td>{{celda|floatformat}}</td>
-            {%endfor%}
-        </tr>
-        <tr>
-            <td>Está al día con su crédito</td>
-            {%for celda in tabla_credito_entre.al_dia%}
-            <td>{{celda|floatformat}}</td>
-            {%endfor%}
-        </tr>
-    </table>
-</div>
-</div>
-    
-    </div>
-  </div>
-
-</div>
-
+</div><!-- sidebar row -->
 {% endblock %}

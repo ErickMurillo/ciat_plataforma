@@ -45,106 +45,120 @@
 {%endblock%}
 
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador Opciones de Manejo</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</div>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
+                    
+            <ul class="list-unstyled clear-margins"><!-- widgets -->
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador Opciones de Manejo</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
 
-<div id="mostrar">
-     {% include "monitoreo/menu.html" %}
-</div>
+                <div id="mostrar">
+                     {% include "monitoreo/menu.html" %}
+                </div>
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a> {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/13/"></a>{%endif%}</div>
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a> {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/13/"></a>{%endif%}</div>
+                <br>
+                <div class="contenido">
+                 <div class="table-responsive"> 
+                    <table id="example" class="table table-bordered table-hover">
+                        <caption>Nivel de conocimiento</caption>
+                        <thead>
+                            <tr>
+                                <th>uso de manejo agro.</th>
+                                <th>Nada</th>
+                                <th>%</th>
+                                <th>Poco</th>
+                                <th>%</th>
+                                <th>Algo</th>
+                                <th>%</th>
+                                <th>Bastante</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.nada|floatformat}}</td>
+                                <td>{{value.por_nada|floatformat}}</td>
+                                <td>{{value.poco|floatformat}}</td>
+                                <td>{{value.por_poco|floatformat}}</td>
+                                <td>{{value.algo|floatformat}}</td>
+                                <td>{{value.por_algo|floatformat}}</td>
+                                <td>{{value.bastante|floatformat}}</td>
+                                <td>{{value.por_bastante|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive"> 
+                     <table id="example1" class="table table-bordered table-hover">
+                        <caption>Ha experimentado</caption>
+                        <thead>
+                            <tr>
+                                <th>uso de manejo agro.</th>
+                                <th>Menor escala (Si)</th>
+                                
+                                <th>%</th>
+                                <th>Mayor escala (Si)</th>
+                                
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_escala.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.menor_escala|floatformat}}</td>
+                                
+                                <td>{{value.por_menor_escala|floatformat}}</td>
+                                <td>{{value.mayor_escala|floatformat}}</td>
+                               
+                                <td>{{value.por_mayor_escala|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
 
-<div class="contenido">
-<div id="modalidad">
-    <table id="example" class="display" cellspacing="0" width="50%">
-        <caption>Nivel de conocimiento</caption>
-        <thead>
-            <tr>
-                <th>uso de manejo agro.</th>
-                <th>Nada</th>
-                <th>%</th>
-                <th>Poco</th>
-                <th>%</th>
-                <th>Algo</th>
-                <th>%</th>
-                <th>Bastante</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.nada|floatformat}}</td>
-                <td>{{value.por_nada|floatformat}}</td>
-                <td>{{value.poco|floatformat}}</td>
-                <td>{{value.por_poco|floatformat}}</td>
-                <td>{{value.algo|floatformat}}</td>
-                <td>{{value.por_algo|floatformat}}</td>
-                <td>{{value.bastante|floatformat}}</td>
-                <td>{{value.por_bastante|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-    <br></br>
-     <table id="example1" class="display" cellspacing="0" width="50%">
-        <caption>Ha experimentado</caption>
-        <thead>
-            <tr>
-                <th>uso de manejo agro.</th>
-                <th>Menor escala (Si)</th>
-                
-                <th>%</th>
-                <th>Mayor escala (Si)</th>
-                
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_escala.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.menor_escala|floatformat}}</td>
-                
-                <td>{{value.por_menor_escala|floatformat}}</td>
-                <td>{{value.mayor_escala|floatformat}}</td>
-               
-                <td>{{value.por_mayor_escala|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-    <br></br><br></br>
-</div>
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div><!-- sidebar row -->
 {% endblock %}

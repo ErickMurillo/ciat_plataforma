@@ -74,8 +74,12 @@ body{
 	color: #ed702b;
 	padding: 1em;
 	display: none;
-}
+	margin-bottom: 1em;
 
+}
+.mostrar{
+	height: 200px;
+}
 
 .circle { 
    width: 100px;
@@ -129,7 +133,7 @@ width: :218px !important;
 .deg0, .deg45, .deg135, .deg180, .deg225, .deg315, .deg90, .deg270{
 
 	border: 5px solid #c0c0c0;
-	overflow: hidden;
+	
 	background: #fff;
 	-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 	-moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
@@ -150,7 +154,7 @@ width: :218px !important;
 .deg-centro{
 
 	border: 5px solid #c0c0c0;
-	overflow: hidden;
+	
 	background: #fff;
 	-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 	-moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.2);

@@ -168,6 +168,9 @@
                                 
                                 <hr>
                                 <br><br>
+                                {%if centinela = 1 %}
+                                {% include "monitoreo/menu.html" %}        
+                                {%endif%} 
                             <div class=" row consulta-monitoreo">
                             <form action="." method="POST">{% csrf_token %}
 
@@ -252,9 +255,7 @@
                             </div>
                             <hr>
 
-                            {%if centinela = 1 %}
-                            {% include "monitoreo/menu.html" %}        
-                            {%endif%}    
+                               
                     
                             </li>
                             

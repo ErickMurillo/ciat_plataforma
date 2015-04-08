@@ -1018,5 +1018,23 @@ padding-bottom: 30px;
 	font-weight: bold;
 }
 .suelos-tablas{
-	margin-bottom: 20px;
+	margin-bottom: 2em;
 }
+.table-responsive{
+	margin-bottom: 2em;
+}
+th{
+	text-align: center;
+}
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+  color: black;
+border-color: rgba(93, 140, 59, 0.5);
+
+}
+ .table-hover>tbody>tr:hover>th{
+ 	background-color: #5d8c3b;
+ 	color:white;
+ }
+ .valores{
+ 	width: 30% !important;
+ }
