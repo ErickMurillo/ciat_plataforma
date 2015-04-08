@@ -63,56 +63,128 @@ def inicio(request, template='analisis/inicio.html'):
     return render(request, template, locals())
 
 
-class IndexView(ListView):
-	# template_name = 'analisis/index.html'
-	# model = Sector
 
-	def post(self, request, *args,**kwargs):
-		fecha = request.POST['fecha']
-		pais = request.POST['pais']
-		sitio_accion = request.POST['sitio_accion']
-		tipo_estudio = request.POST['tipo_estudio']
+def post(request):
+	fecha = request.POST['fecha']
+	pais = request.POST['pais']
+	sitio_accion = request.POST['sitio_accion']
+	tipo_estudio = request.POST['tipo_estudio']
 
-		template = 'analisis/index.html'
+	template = 'analisis/index.html'
+	
+	#salida 1 : Participacion entrevista por sector
+	sectores = {}
+	for x in Sector.objects.all():
+		cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais,
+												 entrevista__tipo_estudio=tipo_estudio,
+												 entrevista__fecha1=fecha).count()
+		sectores[x.nombre] = cont_organizacion
+
+	sectores1 = {}
+	for x in Sector.objects.all():
+		cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais)
+		sectores1[x.nombre] = cont_organizacion	
+
+	#salida 2: Proyectos/Iniciativas de las Organizaciones
+	tabla = []
+	proyectos = {}
+	valores1 = []
+	valores2 = []
+
+	for choice in Sector.objects.all():
+		query = Pregunta_1.objects.filter(entrevistado__organizacion__sector=choice,
+										   entrevistado__organizacion__sitio_accion=sitio_accion,
+										   entrevistado__organizacion__pais=pais,
+										   entrevistado__fecha1=fecha)
+		cont_organizacion = Organizaciones.objects.filter(sector=choice,sitio_accion=sitio_accion,pais=pais,
+												 entrevista__tipo_estudio=tipo_estudio,
+												 entrevista__fecha1=fecha).count()
+
+		resultados = query.count()
+
+		fila = [choice.nombre,
+				cont_organizacion,
+				resultados,
+				promedio(resultados,cont_organizacion)
+				]
+
+		tabla.append(fila)
+		proyectos[choice.nombre] = promedio(resultados,cont_organizacion)
+
+		valores1.append(cont_organizacion)
+		valores2.append(resultados)
 		
-		sectores = {}
-		for x in Sector.objects.all():
-			cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais,
-													 entrevista__tipo_estudio=tipo_estudio,
-													 entrevista__fecha1=fecha).count()
-			sectores[x.nombre] = cont_organizacion
+	total1 = sumarLista(valores1)
+	total2 = sumarLista(valores2)
 
-		sectores1 = {}
-		for x in Sector.objects.all():
-			cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais)
-			sectores1[x.nombre] = cont_organizacion	
-
-	 	temas = {}
-		for y in Tema.objects.all():
-			contador_pregunta1 = Pregunta_1.objects.filter(tema=y,
-														   entrevistado__organizacion__sitio_accion=sitio_accion,
-														   entrevistado__organizacion__pais=pais,
-														   entrevistado__fecha1=fecha).count()
-			temas[y.tema] = contador_pregunta1
-
-		proyectos = {}
-		for i in Sector.objects.all():
-			conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i,
-											   entrevistado__organizacion__sitio_accion=sitio_accion,
-											   entrevistado__organizacion__pais=pais,
-											   entrevistado__fecha1=fecha).count()
-			proyectos[i.nombre] = conteo
-
-		impactos = {}
-		for imp in Sector.objects.all():
-			preg_4 = Pregunta_4.objects.filter(entrevistado__organizacion__sector=imp,
-											   entrevistado__organizacion__sitio_accion=sitio_accion,
-											   entrevistado__organizacion__pais=pais,
-											   entrevistado__fecha1=fecha).count()
-			impactos[imp.nombre] = preg_4
+	
 
 
-		return render(request, template, locals())
+ 	#salida 3: Distribución de Proyectos/Iniciativas por Temáticas
+	temas = {}	
+	for y in Tema.objects.all():
+		contador_pregunta1 = Pregunta_1.objects.filter(tema=y,
+													   entrevistado__organizacion__sitio_accion=sitio_accion,
+													   entrevistado__organizacion__pais=pais,
+													   entrevistado__fecha1=fecha).count()
+		temas[y.tema] = contador_pregunta1
+
+	
+	#salida 4: Numero de Impactos por Grupo Organizacional
+	impactos = {}
+	for imp in Sector.objects.all():
+		preg_4 = Pregunta_4.objects.filter(entrevistado__organizacion__sector=imp,
+										   entrevistado__organizacion__sitio_accion=sitio_accion,
+										   entrevistado__organizacion__pais=pais,
+										   entrevistado__fecha1=fecha).count()
+		impactos[imp.nombre] = preg_4
+
+
+	return render(request, template, locals())
+
+def sumarLista(lista):
+    sum=0
+    for i in range(0,len(lista)):
+        sum=sum+lista[i]
+ 
+    return sum
+
+
+def promedio(x,y):
+	if y != 0:
+		promedio = x/float(y)
+	else:
+		promedio = 0
+	return '%.1f' % promedio
+
+
+#------- Mediana ------------
+def calcular_promedio(lista):
+    n = len(lista)
+    total_suma = sum(lista)
+    try:
+        return round(total_suma/n, 2)
+    except:
+        return 0 
+
+def calcular_mediana(lista):
+    n = len(lista)
+    lista = sorted(lista)
+    
+    #calcular si lista es odd or even
+    if (n%2) == 1:
+        try:
+            index = (n+1)/2
+        except:
+            index = 0
+        return lista[index-1]
+    else:
+        index_1 = (n/2)
+        index_2 = index_1+1
+        try:
+            return calcular_promedio([lista[index_1-1], lista[index_2-1]])
+        except:
+            return 0
 
 	# def get_context_data(self,**kwargs):
 	# 	context = super(IndexView, self).get_context_data(**kwargs)
