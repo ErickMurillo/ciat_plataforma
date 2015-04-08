@@ -528,252 +528,272 @@ var chart;
 {%endblock%}
 
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador vulnerabilidad</a></li>
-            </ul>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
             
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
-                </li>
+            <ul class="list-unstyled clear-margins"><!-- widgets --> 
 
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                    
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador vulnerabilidad</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
 
-</div>
-{% include "monitoreo/nav_riesgos.html" %}
-<div class="separador"></div>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
 
-<div id="mostrar">
-     {% include "monitoreo/menu.html" %}
-</div>
+                </div>
+                {% include "monitoreo/nav_riesgos.html" %}
+                <div class="separador"></div>
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/27/"></a>{%endif%}</div>
+                <div id="mostrar">
+                     {% include "monitoreo/menu.html" %}
+                </div>
 
-<div class="contenido">
-<div id="modalidad">
-    <table width="100%">
-        <thead>
-        <caption>Fenomenos naturales</caption>
-            <tr>
-                <th>Causa</th>
-                <th>Años con años</th>
-                <th>Cada 5 años</th>
-                <th>Cada 10 años</th>
-                <th>Nunca</th>
-                <th>Total</th>
-               
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Sequía</td>
-                {%for a in sequia%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_sequia}}</td>
-            </tr>
-            <tr>
-                <td>Inundación</td>
-                {%for a in inundacion%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_inundacion}}</td>
-            </tr>
-            <tr>
-                <td>Vientos</td>
-                {%for a in vientos%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_vientos}}</td>
-            </tr>
-            <tr>
-                <td>Deslizamiento</td>
-                {%for a in deslizamiento%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_deslizamiento}}</td>
-            </tr>
-        </tbody>
-</table>
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container"></div>
-</div>
-<br>
-<table width="100%">
-        <thead>
-        <caption>Razones agrícolas</caption>
-            <tr>
-                <th>Causa</th>
-                <th>Años con años</th>
-                <th>Cada 5 años</th>
-                <th>Cada 10 años</th>
-                <th>Nunca</th>
-                <th>Total</th>
-               
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Falta de semilla</td>
-                {%for a in falta_semilla%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_falta_semilla}}</td>
-            </tr>
-            <tr>
-                <td>Mala calidad de semilla</td>
-                {%for a in mala_semilla%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_mala_semilla}}</td>
-            </tr>
-            <tr>
-                <td>Plagas y enfermedades</td>
-                {%for a in plagas%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_plagas}}</td>
-            </tr>
-        </tbody>
-</table>
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container1"></div>
-</div>
-<br>
-<table width="100%">
-        <thead>
-        <caption>Razones de mercados</caption>
-            <tr>
-                <th>Causa</th>
-                <th>Años con años</th>
-                <th>Cada 5 años</th>
-                <th>Cada 10 años</th>
-                <th>Nunca</th>
-                <th>Total</th>
-               
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Bajo precio</td>
-                {%for a in bajo_precio%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_bajo_precio}}</td>
-            </tr>
-            <tr>
-                <td>Falta de venta</td>
-                {%for a in falta_venta%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_falta_venta}}</td>
-            </tr>
-            <tr>
-                <td>Estafa de contrato</td>
-                {%for a in estafa%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_estafa}}</td>
-            </tr>
-            <tr>
-                <td>Falta calidad de producto</td>
-                {%for a in falta_calidad%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_falta_calidad}}</td>
-            </tr>
-        </tbody>
-</table>
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container2"></div>
-</div>
-<br>
-<table width="100%">
-        <thead>
-        <caption>Inversión</caption>
-            <tr>
-                <th>Causa</th>
-                <th>Años con años</th>
-                <th>Cada 5 años</th>
-                <th>Cada 10 años</th>
-                <th>Nunca</th>
-                <th>Total</th>
-               
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Falta de crédito</td>
-                {%for a in falta_credito%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_falta_credito}}</td>
-            </tr>
-            <tr>
-                <td>Altos interés</td>
-                {%for a in alto_interes%}  
-                    <td>
-                        {{a.1}}       
-                    </td>
-                {%endfor%}
-                <td>{{total_alto_interes}}</td>
-            </tr>
-        </tbody>
-</table>
-</div>
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container3"></div>
-    <br></br><br></br>
-</div>
-    
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/27/"></a>{%endif%}</div>
+
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <caption>Fenomenos naturales</caption>
+                            <tr>
+                                <th>Causa</th>
+                                <th>Años con años</th>
+                                <th>Cada 5 años</th>
+                                <th>Cada 10 años</th>
+                                <th>Nunca</th>
+                                <th>Total</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sequía</td>
+                                {%for a in sequia%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_sequia}}</td>
+                            </tr>
+                            <tr>
+                                <td>Inundación</td>
+                                {%for a in inundacion%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_inundacion}}</td>
+                            </tr>
+                            <tr>
+                                <td>Vientos</td>
+                                {%for a in vientos%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_vientos}}</td>
+                            </tr>
+                            <tr>
+                                <td>Deslizamiento</td>
+                                {%for a in deslizamiento%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_deslizamiento}}</td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container"></div>
+                </div>
+                <br>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                        <thead>
+                        <caption>Razones agrícolas</caption>
+                            <tr>
+                                <th>Causa</th>
+                                <th>Años con años</th>
+                                <th>Cada 5 años</th>
+                                <th>Cada 10 años</th>
+                                <th>Nunca</th>
+                                <th>Total</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Falta de semilla</td>
+                                {%for a in falta_semilla%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_falta_semilla}}</td>
+                            </tr>
+                            <tr>
+                                <td>Mala calidad de semilla</td>
+                                {%for a in mala_semilla%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_mala_semilla}}</td>
+                            </tr>
+                            <tr>
+                                <td>Plagas y enfermedades</td>
+                                {%for a in plagas%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_plagas}}</td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container1"></div>
+                </div>
+                <br>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                        <thead>
+                        <caption>Razones de mercados</caption>
+                            <tr>
+                                <th>Causa</th>
+                                <th>Años con años</th>
+                                <th>Cada 5 años</th>
+                                <th>Cada 10 años</th>
+                                <th>Nunca</th>
+                                <th>Total</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bajo precio</td>
+                                {%for a in bajo_precio%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_bajo_precio}}</td>
+                            </tr>
+                            <tr>
+                                <td>Falta de venta</td>
+                                {%for a in falta_venta%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_falta_venta}}</td>
+                            </tr>
+                            <tr>
+                                <td>Estafa de contrato</td>
+                                {%for a in estafa%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_estafa}}</td>
+                            </tr>
+                            <tr>
+                                <td>Falta calidad de producto</td>
+                                {%for a in falta_calidad%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_falta_calidad}}</td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container2"></div>
+                </div>
+                <br>
+                <div class="responsive">
+                <table class="table table-bordered table-hover">
+                        <thead>
+                        <caption>Inversión</caption>
+                            <tr>
+                                <th>Causa</th>
+                                <th>Años con años</th>
+                                <th>Cada 5 años</th>
+                                <th>Cada 10 años</th>
+                                <th>Nunca</th>
+                                <th>Total</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Falta de crédito</td>
+                                {%for a in falta_credito%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_falta_credito}}</td>
+                            </tr>
+                            <tr>
+                                <td>Altos interés</td>
+                                {%for a in alto_interes%}  
+                                    <td>
+                                        {{a.1}}       
+                                    </td>
+                                {%endfor%}
+                                <td>{{total_alto_interes}}</td>
+                            </tr>
+                        </tbody>
+                </table>
+                </div>
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container3"></div>
+                   
+                </div>
+                </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+
+</div><!-- sidebar row -->    
 {% endblock %}

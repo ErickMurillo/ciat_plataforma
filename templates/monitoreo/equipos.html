@@ -52,301 +52,319 @@
 </script>
 {% endblock %}
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador Bienes</a></li>
-            </ul>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
             
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
-                </li>
-
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-
-</div>
-
-<div id="mostrar">
-     {% include "monitoreo/menu.html" %}
-</div>
-
-<div role="tabpanel">
-
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Bienes de la familia</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Bienes de la entrevistada</a></li>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-
-    <div role="tabpanel" class="tab-pane active" id="home">
-
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <div class="panel panel-success panel-graficos">
-                <div class="panel-heading">Gráficos de bienes familia </div>
-                              
-                <div class="panel-body graficos_widget">
+            <ul class="list-unstyled clear-margins"><!-- widgets -->    
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                    
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
                                 
-                    <a id="grafico1" href="#" onCLick="click_callback('tipocasa')">Tipo Casa</a>
-                    <a id="grafico2" href="#" onCLick="click_callback('tipopiso')">Tipo Piso</a>
-                    <a id="grafico3" href="#" onCLick="click_callback('tipotecho')">Tipo Techo</a>
-                    <a id="grafico4" href="#" onCLick="click_callback('ambiente')">Ambientes</a>
-                    <a id="grafico5" href="#" onCLick="click_callback('letrina')">Letrina</a>
-                    <a id="grafico6" href="#" onCLick="click_callback('lavadero')">Lavadero</a>
+                                <li><a href="">Familia >> Subindicador Bienes</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
 
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
 
                 </div>
-                              
+
+                <div id="mostrar">
+                     {% include "monitoreo/menu.html" %}
+                </div>
+
+                <div role="tabpanel">
+
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Bienes de la familia</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Bienes de la entrevistada</a></li>
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+
+                    <div role="tabpanel" class="tab-pane active" id="home">
+
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/21/"></a>{%endif%} </div>
+                 <div id="modalidad">  
+
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="panel panel-success panel-graficos">
+                                <div class="panel-heading">Gráficos de bienes familia </div>
+                                              
+                                <div class="panel-body graficos_widget">
+                                                
+                                    <a id="grafico1" href="#" onCLick="click_callback('tipocasa')">Tipo Casa</a>
+                                    <a id="grafico2" href="#" onCLick="click_callback('tipopiso')">Tipo Piso</a>
+                                    <a id="grafico3" href="#" onCLick="click_callback('tipotecho')">Tipo Techo</a>
+                                    <a id="grafico4" href="#" onCLick="click_callback('ambiente')">Ambientes</a>
+                                    <a id="grafico5" href="#" onCLick="click_callback('letrina')">Letrina</a>
+                                    <a id="grafico6" href="#" onCLick="click_callback('lavadero')">Lavadero</a>
+
+
+                                </div>
+                                              
+                            </div>
+                                            
+                        </div>
+
+
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div id="grafo"></div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <caption>Los Equipos</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>EQUIPOS</th>
+                                            <th>Frecuencia</th>
+                                            <th>%</th>
+                                            <th>Cantidad</th>
+                                            <th>Promedio por familia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for key, value in tabla.items%}
+                                        <tr>
+                                            <td>{{key|unslugify}}</td>
+                                            <td>{{value.frecuencia|floatformat}}</td>
+                                            <td>{{value.por_equipo|floatformat}}</td>
+                                            <td>{{value.equipo|floatformat}}</td>
+                                            <td>{{value.cantidad_pro|floatformat}}</td>
+                                        </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <caption>Las Infraestructuras</caption>
+                                <thead>
+                                    <tr>
+                                        <th>INFRAESTRUCTURA</th>
+                                        <th>FRECUENCIA</th>
+                                        <th>%</th>
+                                        <th>CANTIDAD</th>
+                                        <th>Promedio por familia</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for key, value in tabla_infra.items%}
+                                    <tr>
+                                        <td>{{key|unslugify}}</td>
+                                        <td>{{value.frecuencia|floatformat}}</td>
+                                        <td>{{value.por_frecuencia|floatformat}}</td>
+                                        <td>{{value.infraestructura|floatformat}}</td>
+                                        <td>{{value.infraestructura_pro|floatformat}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>    
+                        </div>
+                        <div class="table-responsive">
+                             <table class="table table-bordered table-hover">
+                                <caption>Las Herramientas {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/22/"></a>{%endif%} </caption>
+                                <thead>
+                                    <tr>
+                                        <th>HERRAMIENTAS</th>
+                                        <th>FRECUENCIA</th>
+                                        <th>%</th>
+                                        <th>CANTIDAD</th>
+                                        <th>Promedio por familia</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for key, value in herramienta.items%}
+                                    <tr>
+                                        <td>{{key|unslugify}}</td>
+                                        <td>{{value.frecuencia|floatformat}}</td>
+                                        <td>{{value.por_frecuencia|floatformat}}</td>
+                                        <td>{{value.herra|floatformat}}</td>
+                                        <td>{{value.por_herra|floatformat}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>   
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <caption>Los Transportes {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/23/"></a>{%endif%} </caption>
+                                <thead>
+                                    <tr>
+                                        <th>TRANSPORTE</th>
+                                        <th>FRECUENCIA</th>
+                                        <th>%</th>
+                                        <th>CANTIDAD</th>
+                                        <th>Promedio por familia</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for key, value in transporte.items%}
+                                    <tr>
+                                        <td>{{key|unslugify}}</td>
+                                        <td>{{value.frecuencia|floatformat}}</td>
+                                        <td>{{value.por_frecuencia|floatformat}}</td>
+                                        <td>{{value.trans|floatformat}}</td>
+                                        <td>{{value.por_trans|floatformat}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>    
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+                    
             </div>
-                            
-        </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
 
+                <div class="contenido">
+                      
+                   
 
-        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-            <div id="grafo"></div>
-        </div>
-        
-    </div>
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/21/"></a>{%endif%} </div>
+                 <div class="table-responsive">   
+                    <table class="table table-bordered table-hover">
+                        <caption>Los Equipos</caption>
+                        <thead>
+                            <tr>
+                                <th>EQUIPOS</th>
+                                <th>Frecuencia</th>
+                                <th>%</th>
+                                <th>Cantidad</th>
+                                <th>Promedio por familia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_entre.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.frecuencia|floatformat}}</td>
+                                <td>{{value.por_equipo|floatformat}}</td>
+                                <td>{{value.equipo|floatformat}}</td>
+                                <td>{{value.cantidad_pro|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive"> 
+                    <table class="table table-bordered table-hover">
+                        <caption>Las Infraestructuras</caption>
+                        <thead>
+                            <tr>
+                                <th>INFRAESTRUCTURA</th>
+                                <th>FRECUENCIA</th>
+                                <th>%</th>
+                                <th>CANTIDAD</th>
+                                <th>Promedio por familia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_infra_entre.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.frecuencia|floatformat}}</td>
+                                <td>{{value.por_frecuencia|floatformat}}</td>
+                                <td>{{value.infraestructura|floatformat}}</td>
+                                <td>{{value.infraestructura_pro|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive"> 
+                    <table class="table table-bordered table-hover">
+                        <caption>Las Herramientas {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/22/"></a>{%endif%} </caption>
+                        <thead>
+                            <tr>
+                                <th>HERRAMIENTAS</th>
+                                <th>FRECUENCIA</th>
+                                <th>%</th>
+                                <th>CANTIDAD</th>
+                                <th>Promedio por familia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in herramienta_entre.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.frecuencia|floatformat}}</td>
+                                <td>{{value.por_frecuencia|floatformat}}</td>
+                                <td>{{value.herra|floatformat}}</td>
+                                <td>{{value.por_herra|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive"> 
+                    <table class="table table-bordered table-hover">
+                        <caption>Los Transportes {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/23/"></a>{%endif%} </caption>
+                        <thead>
+                            <tr>
+                                <th>TRANSPORTE</th>
+                                <th>FRECUENCIA</th>
+                                <th>%</th>
+                                <th>CANTIDAD</th>
+                                <th>Promedio por familia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in transporte_entre.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.frecuencia|floatformat}}</td>
+                                <td>{{value.por_frecuencia|floatformat}}</td>
+                                <td>{{value.trans|floatformat}}</td>
+                                <td>{{value.por_trans|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
 
-    <div class="contenido">
+                    </div>
 
+                  </div>
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/21/"></a>{%endif%} </div>
- <div id="modalidad">   
-    <table>
-        <caption>Los Equipos</caption>
-        <thead>
-            <tr>
-                <th>EQUIPOS</th>
-                <th>Frecuencia</th>
-                <th>%</th>
-                <th>Cantidad</th>
-                <th>Promedio por familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.por_equipo|floatformat}}</td>
-                <td>{{value.equipo|floatformat}}</td>
-                <td>{{value.cantidad_pro|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-
-    <table>
-        <caption>Las Infraestructuras</caption>
-        <thead>
-            <tr>
-                <th>INFRAESTRUCTURA</th>
-                <th>FRECUENCIA</th>
-                <th>%</th>
-                <th>CANTIDAD</th>
-                <th>Promedio por familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_infra.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.por_frecuencia|floatformat}}</td>
-                <td>{{value.infraestructura|floatformat}}</td>
-                <td>{{value.infraestructura_pro|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-
-    <table>
-        <caption>Las Herramientas {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/22/"></a>{%endif%} </caption>
-        <thead>
-            <tr>
-                <th>HERRAMIENTAS</th>
-                <th>FRECUENCIA</th>
-                <th>%</th>
-                <th>CANTIDAD</th>
-                <th>Promedio por familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in herramienta.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.por_frecuencia|floatformat}}</td>
-                <td>{{value.herra|floatformat}}</td>
-                <td>{{value.por_herra|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-
-    <table>
-        <caption>Los Transportes {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/23/"></a>{%endif%} </caption>
-        <thead>
-            <tr>
-                <th>TRANSPORTE</th>
-                <th>FRECUENCIA</th>
-                <th>%</th>
-                <th>CANTIDAD</th>
-                <th>Promedio por familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in transporte.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.por_frecuencia|floatformat}}</td>
-                <td>{{value.trans|floatformat}}</td>
-                <td>{{value.por_trans|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
-
-    
-    </div>
-    <div role="tabpanel" class="tab-pane" id="profile">
-
-<div class="contenido">
-      
-   
-
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/21/"></a>{%endif%} </div>
- <div id="modalidad">   
-    <table>
-        <caption>Los Equipos</caption>
-        <thead>
-            <tr>
-                <th>EQUIPOS</th>
-                <th>Frecuencia</th>
-                <th>%</th>
-                <th>Cantidad</th>
-                <th>Promedio por familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_entre.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.por_equipo|floatformat}}</td>
-                <td>{{value.equipo|floatformat}}</td>
-                <td>{{value.cantidad_pro|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-
-    <table>
-        <caption>Las Infraestructuras</caption>
-        <thead>
-            <tr>
-                <th>INFRAESTRUCTURA</th>
-                <th>FRECUENCIA</th>
-                <th>%</th>
-                <th>CANTIDAD</th>
-                <th>Promedio por familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_infra_entre.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.por_frecuencia|floatformat}}</td>
-                <td>{{value.infraestructura|floatformat}}</td>
-                <td>{{value.infraestructura_pro|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-
-    <table>
-        <caption>Las Herramientas {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/22/"></a>{%endif%} </caption>
-        <thead>
-            <tr>
-                <th>HERRAMIENTAS</th>
-                <th>FRECUENCIA</th>
-                <th>%</th>
-                <th>CANTIDAD</th>
-                <th>Promedio por familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in herramienta_entre.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.por_frecuencia|floatformat}}</td>
-                <td>{{value.herra|floatformat}}</td>
-                <td>{{value.por_herra|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-
-    <table>
-        <caption>Los Transportes {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/23/"></a>{%endif%} </caption>
-        <thead>
-            <tr>
-                <th>TRANSPORTE</th>
-                <th>FRECUENCIA</th>
-                <th>%</th>
-                <th>CANTIDAD</th>
-                <th>Promedio por familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in transporte_entre.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.por_frecuencia|floatformat}}</td>
-                <td>{{value.trans|floatformat}}</td>
-                <td>{{value.por_trans|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
-
-    </div>
-
-  </div>
-
-</div>
-
+                </div>
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div><!-- sidebar row -->
 {% endblock %}

@@ -1173,444 +1173,477 @@ function Grafo17(){
 {%endblock%}
 
 {%block contenido%}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador Cultivos en la finca</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</div>
-<div id="mostrar">
-     {% include "monitoreo/menu.html" %}
-</div>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
+                    
+            <ul class="list-unstyled clear-margins"><!-- widgets -->
+               <div class="slide-indicadores">
+                   <nav class="navbar navbar-default" role="navigation">
+                       <!-- Brand and toggle get grouped for better mobile display -->
+                       <div class="navbar-header">
+                           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                               <span class="sr-only">Toggle navigation</span>
+                               <span class="icon-bar"></span>
+                               <span class="icon-bar"></span>
+                               <span class="icon-bar"></span>
+                           </button>
+                           
+                       </div>
+                       <!-- Collect the nav links, forms, and other content for toggling -->
+                       <div class="collapse navbar-collapse navbar-ex1-collapse">
+                           <ul class="nav navbar-nav navbar-left">
+                               
+                               <li><a href="">Familia >> Subindicador Cultivos en la finca</a></li>
+                           </ul>
+                           
+                           <ul class="nav navbar-nav navbar-right">
+                               <li id="mas" class=" btnindicador">
+                                   <a href="">
+                                       <span id="estado">
+                                       <span class="glyphicon glyphicon-arrow-down"></span>
+                                       </span> Cambiar de Indicador
+                                   </a>
+                               </li>
+                           </ul>
+                       </div><!-- /.navbar-collapse -->
+                   </nav>
+               </div>
+               <div id="mostrar">
+                    {% include "monitoreo/menu.html" %}
+               </div>
+                <br>
+               <div role="tabpanel">
 
-<div role="tabpanel">
+                 <!-- Nav tabs -->
+                 <ul class="nav nav-tabs" role="tablist">
+                   <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Cultivos de la familia</a></li>
+                   <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Cultivos de mujer</a></li>
+                   <li role="presentation"><a href="#ambos" aria-controls="ambos" role="tab" data-toggle="tab">Cultivos de ambos</a></li>
+                 </ul>
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Cultivos de la familia</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Cultivos de mujer</a></li>
-    <li role="presentation"><a href="#ambos" aria-controls="ambos" role="tab" data-toggle="tab">Cultivos de ambos</a></li>
-  </ul>
+                 <!-- Tab panes -->
+                 <div class="tab-content">
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-
-    <div role="tabpanel" class="tab-pane active" id="home">
-
-
-
-        
-
-
-
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/12/"></a>{%endif%} </div>
-
-<div class="contenido">
-{% if user.is_authenticated %}
-{%for key, value in maiz.tabla.items%}
-<table>
-        <caption>{{key|unslugify}}</caption>
-        <thead>
-            <tr>
-                <th>Area</th>
-                <th>Producción</th>
-                <th>Id</th>
-            </tr>
-        </thead>
-        <tbody> 
-            {%for a in value%}
-            <tr>
-                <td>{{a.0}}</td>
-                <td>{{a.1}}</td>
-                <td>{{a.2}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
- {%endfor%}
-{%for key, value in frijol.tabla.items%}
-<table>
-        <caption>{{key|unslugify}}</caption>
-        <thead>
-            <tr>
-                <th>Area</th>
-                <th>Producción</th>
-                <th>Id</th>
-            </tr>
-        </thead>
-        <tbody> 
-            {%for a in value%}
-            <tr>
-                <td>{{a.0}}</td>
-                <td>{{a.1}}</td>
-                <td>{{a.2}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
- {%endfor%}
- {%for key, value in platano.tabla.items%}
-<table>
-        <caption>{{key|unslugify}}</caption>
-        <thead>
-            <tr>
-                <th>Area</th>
-                <th>Producción</th>
-                <th>Id</th>
-            </tr>
-        </thead>
-        <tbody> 
-            {%for a in value%}
-            <tr>
-                <td>{{a.0}}</td>
-                <td>{{a.1}}</td>
-                <td>{{a.2}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
- {%endfor%}
- {%for key, value in guineo.tabla.items%}
-<table>
-        <caption>{{key|unslugify}}</caption>
-        <thead>
-            <tr>
-                <th>Area</th>
-                <th>Producción</th>
-                <th>Id</th>
-            </tr>
-        </thead>
-        <tbody> 
-            {%for a in value%}
-            <tr>
-                <td>{{a.0}}</td>
-                <td>{{a.1}}</td>
-                <td>{{a.2}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
- {%endfor%}
- {%for key, value in cafe.tabla.items%}
-<table>
-        <caption>{{key|unslugify}}</caption>
-        <thead>
-            <tr>
-                <th>Area</th>
-                <th>Producción</th>
-                <th>Id</th>
-            </tr>
-        </thead>
-        <tbody> 
-            {%for a in value%}
-            <tr>
-                <td>{{a.0}}</td>
-                <td>{{a.1}}</td>
-                <td>{{a.2}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
- {%endfor%}
- {%for key, value in cacao.tabla.items%}
-<table>
-        <caption>{{key|unslugify}}</caption>
-        <thead>
-            <tr>
-                <th>Area</th>
-                <th>Producción</th>
-                <th>Id</th>
-            </tr>
-        </thead>
-        <tbody> 
-            {%for a in value%}
-            <tr>
-                <td>{{a.0}}</td>
-                <td>{{a.1}}</td>
-                <td>{{a.2}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
- {%endfor%}
-{%endif%}
-<div id="modalidad">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
-
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                <div class="panel panel-success panel-graficos">
-                    <div class="panel-heading">Gráficos: Dispersión</div>
-                              
-                    <div class="panel-body graficos_widget">
-                                
-                        <a href="#" id="grafico" onclick="Grafo();" class="grafo">Maíz</a>
-                        <a href="#" id="grafico1" onclick="Grafo1();" class="grafo">Frijol</a>
-                        <a href="#" id="grafico2" onclick="Grafo2();" class="grafo">Plátano</a>
-                        <a href="#" id="grafico3" onclick="Grafo3();" class="grafo">Guíneo</a>
-                        <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Cáfe</a>
-                        <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Cacao</a>
+                   <div role="tabpanel" class="tab-pane active" id="home">
 
 
-                    </div>
-                              
-                </div>
-                            
 
-                <div class="panel panel-success panel-graficos">
-                    <div class="panel-heading">Gráficos: Regresión Lineal</div>
-                              
-                    <div class="panel-body graficos_widget">
-                                
-                        <a href="#" id="grafico6" onclick="Grafo6();" class="grafo">Maíz</a>
-                        <a href="#" id="grafico7" onclick="Grafo7();" class="grafo">Frijol</a>
-                        <a href="#" id="grafico8" onclick="Grafo8();" class="grafo">Plátano</a>
-                        <a href="#" id="grafico9" onclick="Grafo9();" class="grafo">Guíneo</a>
-                        <a href="#" id="grafico10" onclick="Grafo10();" class="grafo">Cáfe</a>
-                        <a href="#" id="grafico11" onclick="Grafo11();" class="grafo">Cacao</a>
+                       
 
 
-                    </div>
-                              
-                </div>
-                            
- 
-                <div class="panel panel-success panel-graficos">
-                    <div class="panel-heading">Gráficos: Rangos de la productividad</div>
-                              
-                    <div class="panel-body graficos_widget">
-                                
-                        <a href="#" id="grafico12" onclick="Grafo12();" class="grafo">Maíz</a>
-                        <a href="#" id="grafico13" onclick="Grafo13();" class="grafo">Frijol</a>
-                        <a href="#" id="grafico14" onclick="Grafo14();" class="grafo">Plátano</a>
-                        <a href="#" id="grafico15" onclick="Grafo15();" class="grafo">Guíneo</a>
-                        <a href="#" id="grafico16" onclick="Grafo16();" class="grafo">Cáfe</a>
-                        <a href="#" id="grafico17" onclick="Grafo17();" class="grafo">Cacao</a>
 
+               <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/12/"></a>{%endif%} </div>
 
-                    </div>
-                              
-                </div>
-                            
-            </div>
-
-
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-               <div id="grafo" class="center-block"></div>
-                   <table id="example" class="display" cellspacing="0" width="50%">
-                        <caption>Los cultivos y la producción</caption>
-                        <thead>
-                            <tr>
-                                <th>CULTIVOS</th>
-                                <th>Unidad</th>
-                                <th>Número</th>
-                                <th>Total produccion por año</th>
-                                <th>Consumo por año</th>
-                                <th>Venta libre por año</th>
-                                <th>Vente organizada por año</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {%for key, value in tabla.items%}
-                            <tr>
-                                <td>{{key|unslugify}}</td>
-                                <td>{{value.key2|unslugify}}</td>
-                                <td>{{value.numero|unslugify}}</td>
-                                <td>{{value.totales|floatformat}}</td>
-                                <td>{{value.consumo|floatformat}}</td>
-                                <td>{{value.libre|floatformat}}</td>
-                                <td>{{value.organizada|floatformat}}</td>
-                            </tr>
-                            {%endfor%}
-                        </tbody>
+               <div class="contenido">
+               {% if user.is_authenticated %}
+               {%for key, value in maiz.tabla.items%}
+                
+                <div class="table-responsive">
+                   <table class="table table-bordered table-hover">
+                           <caption>{{key|unslugify}}</caption>
+                           <thead>
+                               <tr>
+                                   <th>Area</th>
+                                   <th>Producción</th>
+                                   <th>Id</th>
+                               </tr>
+                           </thead>
+                           <tbody> 
+                               {%for a in value%}
+                               <tr>
+                                   <td>{{a.0}}</td>
+                                   <td>{{a.1}}</td>
+                                   <td>{{a.2}}</td>
+                               </tr>
+                               {%endfor%}
+                           </tbody>
                     </table>
-                    <br>
-                    <table id="example1" class="display" cellspacing="0" width="50%">
-                        <caption>Los cultivos y la productividad</caption>
-                        <thead>
-                            <tr>
-                                <th>CULTIVOS</th>
-                                <th>Unidad</th>
-                                <th>Número</th>
-                                <th>Area total</th>
-                                <th>Promedio de areas</th>
-                                <th>Total producción</th>
-                                <th>Productividad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {%for key, value in tabla2.items%}
-                            <tr>
-                                <td>{{key|unslugify}}</td>
-                                <td>{{value.key2|unslugify}}</td>
-                                <td>{{value.numero|unslugify}}</td>
-                                <td>{{value.area_total|floatformat}}</td>
-                                <td>{{value.area_avg|floatformat}}</td>
-                                <td>{{value.totales|floatformat}}</td>
-                                <td>{{value.productividad|floatformat}}</td>
-                            </tr>
-                            {%endfor%}
-                        </tbody>
-                    </table> 
-            </div>
-            
-        
-        </div>
+                </div>       
+                {%endfor%}
+               {%for key, value in frijol.tabla.items%}
+               <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                       <caption>{{key|unslugify}}</caption>
+                       <thead>
+                           <tr>
+                               <th>Area</th>
+                               <th>Producción</th>
+                               <th>Id</th>
+                           </tr>
+                       </thead>
+                       <tbody> 
+                           {%for a in value%}
+                           <tr>
+                               <td>{{a.0}}</td>
+                               <td>{{a.1}}</td>
+                               <td>{{a.2}}</td>
+                           </tr>
+                           {%endfor%}
+                       </tbody>
+                   </table>
+               </div>
+                {%endfor%}
+                {%for key, value in platano.tabla.items%}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                       <caption>{{key|unslugify}}</caption>
+                       <thead>
+                           <tr>
+                               <th>Area</th>
+                               <th>Producción</th>
+                               <th>Id</th>
+                           </tr>
+                       </thead>
+                       <tbody> 
+                           {%for a in value%}
+                           <tr>
+                               <td>{{a.0}}</td>
+                               <td>{{a.1}}</td>
+                               <td>{{a.2}}</td>
+                           </tr>
+                           {%endfor%}
+                       </tbody>
+                   </table>
+               </div>
+                {%endfor%}
+                {%for key, value in guineo.tabla.items%}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                       <caption>{{key|unslugify}}</caption>
+                       <thead>
+                           <tr>
+                               <th>Area</th>
+                               <th>Producción</th>
+                               <th>Id</th>
+                           </tr>
+                       </thead>
+                       <tbody> 
+                           {%for a in value%}
+                           <tr>
+                               <td>{{a.0}}</td>
+                               <td>{{a.1}}</td>
+                               <td>{{a.2}}</td>
+                           </tr>
+                           {%endfor%}
+                       </tbody>
+                   </table>
+               </div>
+                {%endfor%}
+                {%for key, value in cafe.tabla.items%}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                       <caption>{{key|unslugify}}</caption>
+                       <thead>
+                           <tr>
+                               <th>Area</th>
+                               <th>Producción</th>
+                               <th>Id</th>
+                           </tr>
+                       </thead>
+                       <tbody> 
+                           {%for a in value%}
+                           <tr>
+                               <td>{{a.0}}</td>
+                               <td>{{a.1}}</td>
+                               <td>{{a.2}}</td>
+                           </tr>
+                           {%endfor%}
+                       </tbody>
+                   </table>
+               </div>
+                {%endfor%}
+                {%for key, value in cacao.tabla.items%}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                       <caption>{{key|unslugify}}</caption>
+                       <thead>
+                           <tr>
+                               <th>Area</th>
+                               <th>Producción</th>
+                               <th>Id</th>
+                           </tr>
+                       </thead>
+                       <tbody> 
+                           {%for a in value%}
+                           <tr>
+                               <td>{{a.0}}</td>
+                               <td>{{a.1}}</td>
+                               <td>{{a.2}}</td>
+                           </tr>
+                           {%endfor%}
+                       </tbody>
+                   </table>
+               </div>
+                {%endfor%}
+               {%endif%}
+               <div id="modalidad">
+                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 graficos">
 
-</div>
+                           <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                               <div class="panel panel-success panel-graficos">
+                                   <div class="panel-heading">Gráficos: Dispersión</div>
+                                             
+                                   <div class="panel-body graficos_widget">
+                                               
+                                       <a href="#" id="grafico" onclick="Grafo();" class="grafo">Maíz</a>
+                                       <a href="#" id="grafico1" onclick="Grafo1();" class="grafo">Frijol</a>
+                                       <a href="#" id="grafico2" onclick="Grafo2();" class="grafo">Plátano</a>
+                                       <a href="#" id="grafico3" onclick="Grafo3();" class="grafo">Guíneo</a>
+                                       <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Cáfe</a>
+                                       <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Cacao</a>
 
 
-</div>
-    
-    </div>
-    <div role="tabpanel" class="tab-pane" id="profile">
-     <div id="modalidad">
-    <table id="example2"  class="table table-striped" cellspacing="0" width="50%">
-        <caption>Los cultivos y la producción cuando la mujer maneja el cultivo</caption>
-        <thead>
-            <tr>
-                <th>CULTIVOS</th>
-                <th>Unidad</th>
-                <th>Número</th>
-                <th>Total produccion por año</th>
-                <th>Consumo por año</th>
-                <th>Venta libre por año</th>
-                <th>Vente organizada por año</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_mujer.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.key2|unslugify}}</td>
-                <td>{{value.numero|unslugify}}</td>
-                <td>{{value.totales|floatformat}}</td>
-                <td>{{value.consumo|floatformat}}</td>
-                <td>{{value.libre|floatformat}}</td>
-                <td>{{value.organizada|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
+                                   </div>
+                                             
+                               </div>
+                                           
 
-<table id="example3"  class="table table-striped" cellspacing="0" width="50%">
-        <caption>Los cultivos y la productividad cuando ambos maneja los cultivos</caption>
-        <thead>
-            <tr>
-                <th>CULTIVOS</th>
-                <th>Unidad</th>
-                <th>Número</th>
-                <th>Area total</th>
-                <th>Promedio de areas</th>
-                <th>Total producción</th>
-                <th>Productividad</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla2_mujer.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.key2|unslugify}}</td>
-                <td>{{value.numero|unslugify}}</td>
-                <td>{{value.area_total|floatformat}}</td>
-                <td>{{value.area_avg|floatformat}}</td>
-                <td>{{value.totales|floatformat}}</td>
-                <td>{{value.productividad|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table> 
+                               <div class="panel panel-success panel-graficos">
+                                   <div class="panel-heading">Gráficos: Regresión Lineal</div>
+                                             
+                                   <div class="panel-body graficos_widget">
+                                               
+                                       <a href="#" id="grafico6" onclick="Grafo6();" class="grafo">Maíz</a>
+                                       <a href="#" id="grafico7" onclick="Grafo7();" class="grafo">Frijol</a>
+                                       <a href="#" id="grafico8" onclick="Grafo8();" class="grafo">Plátano</a>
+                                       <a href="#" id="grafico9" onclick="Grafo9();" class="grafo">Guíneo</a>
+                                       <a href="#" id="grafico10" onclick="Grafo10();" class="grafo">Cáfe</a>
+                                       <a href="#" id="grafico11" onclick="Grafo11();" class="grafo">Cacao</a>
 
-    </div>
-     <div role="tabpanel" class="tab-pane" id="ambos">
-      <div id="modalidad">
-    <table id="example4"  class="table table-striped" cellspacing="0" width="50%">
-        <caption>Los cultivos y la producción cuando ambos manejan los cultivos</caption>
-        <thead>
-            <tr>
-                <th>CULTIVOS</th>
-                <th>Unidad</th>
-                <th>Número</th>
-                <th>Total produccion por año</th>
-                <th>Consumo por año</th>
-                <th>Venta libre por año</th>
-                <th>Vente organizada por año</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_ambos.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.key2|unslugify}}</td>
-                <td>{{value.numero|unslugify}}</td>
-                <td>{{value.totales|floatformat}}</td>
-                <td>{{value.consumo|floatformat}}</td>
-                <td>{{value.libre|floatformat}}</td>
-                <td>{{value.organizada|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-<br>
-<table id="example5" class="table table-striped" cellspacing="0" width="50%">
-        <caption>Los cultivos y la productividad cuando la mujer maneja el cultivo</caption>
-        <thead>
-            <tr>
-                <th>CULTIVOS</th>
-                <th>Unidad</th>
-                <th>Número</th>
-                <th>Area total</th>
-                <th>Promedio de areas</th>
-                <th>Total producción</th>
-                <th>Productividad</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla2_ambos.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.key2|unslugify}}</td>
-                <td>{{value.numero|unslugify}}</td>
-                <td>{{value.area_total|floatformat}}</td>
-                <td>{{value.area_avg|floatformat}}</td>
-                <td>{{value.totales|floatformat}}</td>
-                <td>{{value.productividad|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table> 
-    </div>
 
-  </div>
+                                   </div>
+                                             
+                               </div>
+                                           
+                
+                               <div class="panel panel-success panel-graficos">
+                                   <div class="panel-heading">Gráficos: Rangos de la productividad</div>
+                                             
+                                   <div class="panel-body graficos_widget">
+                                               
+                                       <a href="#" id="grafico12" onclick="Grafo12();" class="grafo">Maíz</a>
+                                       <a href="#" id="grafico13" onclick="Grafo13();" class="grafo">Frijol</a>
+                                       <a href="#" id="grafico14" onclick="Grafo14();" class="grafo">Plátano</a>
+                                       <a href="#" id="grafico15" onclick="Grafo15();" class="grafo">Guíneo</a>
+                                       <a href="#" id="grafico16" onclick="Grafo16();" class="grafo">Cáfe</a>
+                                       <a href="#" id="grafico17" onclick="Grafo17();" class="grafo">Cacao</a>
 
-</div>
 
-   
+                                   </div>
+                                             
+                               </div>
+                                           
+                           </div>
+
+
+                           <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                              <div id="grafo" class="center-block"></div>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-bordered table-hover" >
+                                       <caption>Los cultivos y la producción</caption>
+                                       <thead>
+                                           <tr>
+                                               <th>CULTIVOS</th>
+                                               <th>Unidad</th>
+                                               <th>Número</th>
+                                               <th>Total produccion por año</th>
+                                               <th>Consumo por año</th>
+                                               <th>Venta libre por año</th>
+                                               <th>Vente organizada por año</th>
+                                           </tr>
+                                       </thead>
+                                       <tbody>
+                                           {%for key, value in tabla.items%}
+                                           <tr>
+                                               <td>{{key|unslugify}}</td>
+                                               <td>{{value.key2|unslugify}}</td>
+                                               <td>{{value.numero|unslugify}}</td>
+                                               <td>{{value.totales|floatformat}}</td>
+                                               <td>{{value.consumo|floatformat}}</td>
+                                               <td>{{value.libre|floatformat}}</td>
+                                               <td>{{value.organizada|floatformat}}</td>
+                                           </tr>
+                                           {%endfor%}
+                                       </tbody>
+                                   </table>
+                               </div>
+                                <div class="table-responsive">
+                                   <table id="example1" class="table table-bordered table-hover" >
+                                       <caption>Los cultivos y la productividad</caption>
+                                       <thead>
+                                           <tr>
+                                               <th>CULTIVOS</th>
+                                               <th>Unidad</th>
+                                               <th>Número</th>
+                                               <th>Area total</th>
+                                               <th>Promedio de areas</th>
+                                               <th>Total producción</th>
+                                               <th>Productividad</th>
+                                           </tr>
+                                       </thead>
+                                       <tbody>
+                                           {%for key, value in tabla2.items%}
+                                           <tr>
+                                               <td>{{key|unslugify}}</td>
+                                               <td>{{value.key2|unslugify}}</td>
+                                               <td>{{value.numero|unslugify}}</td>
+                                               <td>{{value.area_total|floatformat}}</td>
+                                               <td>{{value.area_avg|floatformat}}</td>
+                                               <td>{{value.totales|floatformat}}</td>
+                                               <td>{{value.productividad|floatformat}}</td>
+                                           </tr>
+                                           {%endfor%}
+                                       </tbody>
+                                   </table> 
+                               </div>
+                           </div>
+                           
+                       
+                       </div>
+
+               </div>
+
+
+               </div>
+                   
+                   </div>
+                   <div role="tabpanel" class="tab-pane" id="profile">
+                   
+                        <div class="table-responsive">
+                            <table id="example2"  class="table table-bordered table-hover" >
+                               <caption>Los cultivos y la producción cuando la mujer maneja el cultivo</caption>
+                               <thead>
+                                   <tr>
+                                       <th>CULTIVOS</th>
+                                       <th>Unidad</th>
+                                       <th>Número</th>
+                                       <th>Total produccion por año</th>
+                                       <th>Consumo por año</th>
+                                       <th>Venta libre por año</th>
+                                       <th>Vente organizada por año</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   {%for key, value in tabla_mujer.items%}
+                                   <tr>
+                                       <td>{{key|unslugify}}</td>
+                                       <td>{{value.key2|unslugify}}</td>
+                                       <td>{{value.numero|unslugify}}</td>
+                                       <td>{{value.totales|floatformat}}</td>
+                                       <td>{{value.consumo|floatformat}}</td>
+                                       <td>{{value.libre|floatformat}}</td>
+                                       <td>{{value.organizada|floatformat}}</td>
+                                   </tr>
+                                   {%endfor%}
+                               </tbody>
+                           </table>
+                       </div>
+
+                        <div class="table-responsive">
+                           <table id="example3"  class="table table-bordered table-hover" >
+                                   <caption>Los cultivos y la productividad cuando ambos maneja los cultivos</caption>
+                                   <thead>
+                                       <tr>
+                                           <th>CULTIVOS</th>
+                                           <th>Unidad</th>
+                                           <th>Número</th>
+                                           <th>Area total</th>
+                                           <th>Promedio de areas</th>
+                                           <th>Total producción</th>
+                                           <th>Productividad</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       {%for key, value in tabla2_mujer.items%}
+                                       <tr>
+                                           <td>{{key|unslugify}}</td>
+                                           <td>{{value.key2|unslugify}}</td>
+                                           <td>{{value.numero|unslugify}}</td>
+                                           <td>{{value.area_total|floatformat}}</td>
+                                           <td>{{value.area_avg|floatformat}}</td>
+                                           <td>{{value.totales|floatformat}}</td>
+                                           <td>{{value.productividad|floatformat}}</td>
+                                       </tr>
+                                       {%endfor%}
+                                   </tbody>
+                               </table>
+                        </div>
+
+                   </div>
+                    <div role="tabpanel" class="tab-pane" id="ambos">
+                     <div class="table-responsive">
+                           <table id="example4"  class="table table-bordered table-hover" >
+                               <caption>Los cultivos y la producción cuando ambos manejan los cultivos</caption>
+                               <thead>
+                                   <tr>
+                                       <th>CULTIVOS</th>
+                                       <th>Unidad</th>
+                                       <th>Número</th>
+                                       <th>Total produccion por año</th>
+                                       <th>Consumo por año</th>
+                                       <th>Venta libre por año</th>
+                                       <th>Vente organizada por año</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   {%for key, value in tabla_ambos.items%}
+                                   <tr>
+                                       <td>{{key|unslugify}}</td>
+                                       <td>{{value.key2|unslugify}}</td>
+                                       <td>{{value.numero|unslugify}}</td>
+                                       <td>{{value.totales|floatformat}}</td>
+                                       <td>{{value.consumo|floatformat}}</td>
+                                       <td>{{value.libre|floatformat}}</td>
+                                       <td>{{value.organizada|floatformat}}</td>
+                                   </tr>
+                                   {%endfor%}
+                               </tbody>
+                           </table>
+                    </div>
+
+                    <div class="table-responsive">
+                           <table id="example5" class="table table-bordered table-hover" >
+                                   <caption>Los cultivos y la productividad cuando la mujer maneja el cultivo</caption>
+                                   <thead>
+                                       <tr>
+                                           <th>CULTIVOS</th>
+                                           <th>Unidad</th>
+                                           <th>Número</th>
+                                           <th>Area total</th>
+                                           <th>Promedio de areas</th>
+                                           <th>Total producción</th>
+                                           <th>Productividad</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                       {%for key, value in tabla2_ambos.items%}
+                                       <tr>
+                                           <td>{{key|unslugify}}</td>
+                                           <td>{{value.key2|unslugify}}</td>
+                                           <td>{{value.numero|unslugify}}</td>
+                                           <td>{{value.area_total|floatformat}}</td>
+                                           <td>{{value.area_avg|floatformat}}</td>
+                                           <td>{{value.totales|floatformat}}</td>
+                                           <td>{{value.productividad|floatformat}}</td>
+                                       </tr>
+                                       {%endfor%}
+                                   </tbody>
+                               </table>
+                    </div>
+                   </div>
+
+                 </div>
+
+               </div>
+
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div><!-- sidebar row -->   
 
 {%endblock%}

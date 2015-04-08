@@ -46,160 +46,187 @@
 {%endblock%}
 
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador Animales en al finca</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</div>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
+                    
+            <ul class="list-unstyled clear-margins"><!-- widgets -->
 
-<div id="mostrar">
-     {% include "monitoreo/menu.html" %}
-</div>
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador Animales en al finca</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
 
-<div role="tabpanel">
+                <div id="mostrar">
+                     {% include "monitoreo/menu.html" %}
+                </div>
+<br>
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Animales de la familia</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Animales de la entrevistada</a></li>
-  </ul>
+                <div role="tabpanel">
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Animales de la familia</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Animales de la entrevistada</a></li>
+                  </ul>
 
-    <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/11/"></a> {%endif%}</div>
-    
-    <div class="contenido">
-<div id="modalidad">
-    <table id="example" class="display" cellspacing="0" width="50%">
-        <caption>Los Animales</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Número</th>
-                <th>%</th>
-                <th>cantidad</th>
-                <th>Cantidad/Familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for fila in tabla%}
-            <tr>
-                {%for celda in fila%}
-                <td>{{celda}}</td>
-                {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
 
-    <table id="example1" class="display" cellspacing="0" width="50%">
-        <caption>Los Animales y la Producción </caption>
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Unidad</th>
-                <th>Cantidad Producida</th>
-                <th>Consumo</th>
-                <th>Venta Libre</th>
-                <th>Venta organizada</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for fila in tabla_produccion%}
-            <tr>
-                {%for celda in fila%}
-                <td>{{celda}}</td>
-                {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
+                    <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/11/"></a> {%endif%}</div>
+                    
+                    <div class="contenido">
 
-    </div>
-    <div role="tabpanel" class="tab-pane" id="profile">
-        <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/11/"></a> {%endif%}</div>
-    <div class="contenido">
-<div id="modalidad">
-    <table id="example" class="display" cellspacing="0" width="50%">
-        <caption>Los Animales de la entrevistada</caption>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Número</th>
-                <th>%</th>
-                <th>cantidad</th>
-                <th>Cantidad/Familia</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for fila in tabla_entre%}
-            <tr>
-                {%for celda in fila%}
-                <td>{{celda}}</td>
-                {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
 
-    <table id="example1" class="display" cellspacing="0" width="50%">
-        <caption>Los Animales y la Producción de la entrevistada</caption>
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Unidad</th>
-                <th>Cantidad Producida</th>
-                <th>Consumo</th>
-                <th>Venta Libre</th>
-                <th>Venta organizada</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for fila in tabla_produccion_entre%}
-            <tr>
-                {%for celda in fila%}
-                <td>{{celda}}</td>
-                {%endfor%}
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
+                        
+                            <div class="table-responsive">
+                                <table id="example" class="table table-bordered table-hover" width="80%">
+                                    <caption>Los Animales</caption>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Número</th>
+                                            <th>%</th>
+                                            <th>cantidad</th>
+                                            <th>Cantidad/Familia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for fila in tabla%}
+                                        <tr>
+                                            {%for celda in fila%}
+                                            <td>{{celda}}</td>
+                                            {%endfor%}
+                                        </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
 
-    </div>
-  </div>
 
-</div>
+                       
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-hover" width="80%" >
+                                    <caption>Los Animales y la Producción </caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Unidad</th>
+                                            <th>Cantidad Producida</th>
+                                            <th>Consumo</th>
+                                            <th>Venta Libre</th>
+                                            <th>Venta organizada</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for fila in tabla_produccion%}
+                                        <tr>
+                                            {%for celda in fila%}
+                                            <td>{{celda}}</td>
+                                            {%endfor%}
+                                        </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
 
+                            </div>
+
+                </div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/11/"></a> {%endif%}</div>
+                    <div class="contenido">
+                        <div class="table-responsive">
+
+                            <table id="example" class="table table-bordered table-hover" cellspacing="0">
+                                <caption>Los Animales de la entrevistada</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Número</th>
+                                        <th>%</th>
+                                        <th>cantidad</th>
+                                        <th>Cantidad/Familia</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for fila in tabla_entre%}
+                                    <tr>
+                                        {%for celda in fila%}
+                                        <td>{{celda}}</td>
+                                        {%endfor%}
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-responsive">
+
+                            <table id="example1" class="table table-bordered table-hover" cellspacing="0" width="50%">
+                                <caption>Los Animales y la Producción de la entrevistada</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Unidad</th>
+                                        <th>Cantidad Producida</th>
+                                        <th>Consumo</th>
+                                        <th>Venta Libre</th>
+                                        <th>Venta organizada</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for fila in tabla_produccion_entre%}
+                                    <tr>
+                                        {%for celda in fila%}
+                                        <td>{{celda}}</td>
+                                        {%endfor%}
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+
+                    </div>
+                  </div>
+
+                </div>
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div><!-- sidebar row -->
 {% endblock %}

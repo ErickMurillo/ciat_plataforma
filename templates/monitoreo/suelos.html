@@ -86,210 +86,223 @@
 {% endblock%}
 
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador caracteristicas del terreno</a></li>
-            </ul>
-            
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-</div>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
+                    
+            <ul class="list-unstyled clear-margins"><!-- widgets -->
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador caracteristicas del terreno</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
 
-{% include "monitoreo/nav_suelo.html" %}
-<div class="separador"></div>
+                {% include "monitoreo/nav_suelo.html" %}
+                <div class="separador"></div>
 
-<div id="mostrar">
-    {% include "monitoreo/menu.html" %}
-</div>
+                <div id="mostrar">
+                    {% include "monitoreo/menu.html" %}
+                </div>
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/15/"></a>{%endif%}</div>
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/15/"></a>{%endif%}</div>
 
-<div class="contenido">
-<div id="modalidad">
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    
-    <table id="example" class="display" width=500>
-        <caption>¿Cúal es el tipo de textura del suelo?</caption>
-        <thead>
-            <tr>
-                <th>Texturas</th>
-                <th>Número</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_textura.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.textura|floatformat}}</td>
-                <td>{{value.por_textura|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
+                <div class="contenido">
+                <div id="modalidad">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 table-responsive">
+                    
+                    <table id="example" class="table table-bordered table-hover" width="80%">
+                        <caption>¿Cúal es el tipo de textura del suelo?</caption>
+                        <thead>
+                            <tr>
+                                <th>Texturas</th>
+                                <th>Número</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_textura.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.textura|floatformat}}</td>
+                                <td>{{value.por_textura|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
 
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 table-responsive">
 
-    <table  id="example1" class="display"  width="500"> 
-        <caption>¿Cúal es la profundidad del suelo?</caption>
-        <thead>
-            <tr>
-                <th>Profundidad</th>
-                <th>Número</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_profundidad.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.profundidad|floatformat}}</td>
-                <td>{{value.por_profundidad|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
+                    <table  id="example1" class="table table-bordered table-hover" width="80%"> 
+                        <caption>¿Cúal es la profundidad del suelo?</caption>
+                        <thead>
+                            <tr>
+                                <th>Profundidad</th>
+                                <th>Número</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_profundidad.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.profundidad|floatformat}}</td>
+                                <td>{{value.por_profundidad|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <table   id="example2" class="display" width="500">
-        <caption>¿Cómo es la presencia de lombrice en el suelo?</caption>
-        <thead>
-            <tr>
-                <th>Presencia de Lombrices</th>
-                <th>Número</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_lombrices.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.lombrices|floatformat}}</td>
-                <td>{{value.por_lombrices|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 table-responsive">
+                    <table   id="example2" class="table table-bordered table-hover" width="80%">
+                        <caption>¿Cómo es la presencia de lombrice en el suelo?</caption>
+                        <thead>
+                            <tr>
+                                <th>Presencia de Lombrices</th>
+                                <th>Número</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_lombrices.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.lombrices|floatformat}}</td>
+                                <td>{{value.por_lombrices|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
 
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <table  id="example3" class="display" width="500">
-        <caption>¿Cómo es la densidad de raiz en la capa productiva de suelo?</caption>
-        <thead>
-            <tr>
-                <th>Densidad</th>
-                <th>Número</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_densidad.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.densidad|floatformat}}</td>
-                <td>{{value.por_densidad|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 table-responsive">
+                    <table  id="example3" class="table table-bordered table-hover" width="80%">
+                        <caption>¿Cómo es la densidad de raiz en la capa productiva de suelo?</caption>
+                        <thead>
+                            <tr>
+                                <th>Densidad</th>
+                                <th>Número</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_densidad.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.densidad|floatformat}}</td>
+                                <td>{{value.por_densidad|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <table id="example4" class="display" width="500">
-        <caption>¿Cúal es la pendiente del terrreno?</caption>
-        <thead>
-            <tr>
-                <th>Pendientes</th>
-                <th>Número</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_pendiente.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.pendiente|floatformat}}</td>
-                <td>{{value.por_pendiente|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <table  id="example5" class="display" width="500">
-        <caption>¿Cómo es el drenaje del suelo?</caption>
-        <thead>
-            <tr>
-                <th>Drenaje</th>
-                <th>Número</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_drenaje.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.drenaje|floatformat}}</td>
-                <td>{{value.por_drenaje|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <table  id="example6" class="display" width="500">
-        <caption>¿Cómo es el contenido de materia orgánica?</caption>
-        <thead>
-            <tr>
-                <th>Contenido</th>
-                <th>Número</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in tabla_materia.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.materia|floatformat}}</td>
-                <td>{{value.por_materia|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div>
-</div>
-</div>
-</div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 table-responsive">
+                    <table id="example4" class="table table-bordered table-hover" width="95%">
+                        <caption>¿Cúal es la pendiente del terrreno?</caption>
+                        <thead>
+                            <tr>
+                                <th>Pendientes</th>
+                                <th>Número</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_pendiente.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.pendiente|floatformat}}</td>
+                                <td>{{value.por_pendiente|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 table-responsive">
+                    <table  id="example5" class="table table-bordered table-hover" width="80%">
+                        <caption>¿Cómo es el drenaje del suelo?</caption>
+                        <thead>
+                            <tr>
+                                <th>Drenaje</th>
+                                <th>Número</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_drenaje.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.drenaje|floatformat}}</td>
+                                <td>{{value.por_drenaje|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 suelos-tablas">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 table-responsive">
+                    <table  id="example6" class="table table-bordered table-hover" width="80%">
+                        <caption>¿Cómo es el contenido de materia orgánica?</caption>
+                        <thead>
+                            <tr>
+                                <th>Contenido</th>
+                                <th>Número</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in tabla_materia.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.materia|floatformat}}</td>
+                                <td>{{value.por_materia|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                </div>
+                </div>
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+</div><!-- sidebar row -->
 {% endblock %}

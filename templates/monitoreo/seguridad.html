@@ -519,198 +519,217 @@ var chart;
 {% endblock %}
 
 {% block contenido %}
-<div class="slide-indicadores">
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-        </div>
-    
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-left">
+<div class="row no-gutter"><!-- row -->
                 
-                <li><a href="">Familia >> Subindicador seguridad alimentaria</a></li>
-            </ul>
+    <div id="k-sidebar" class="col-lg-12 col-md-12"><!-- sidebar wrapper -->
+                    
+        <div class="col-consulta col-shaded"><!-- inner custom column -->
             
-            <ul class="nav navbar-nav navbar-right">
-                <li id="mas" class=" btnindicador">
-                    <a href="">
-                        <span id="estado">
-                        <span class="glyphicon glyphicon-arrow-down"></span>
-                        </span> Cambiar de Indicador
-                    </a>
-                </li>
+            <ul class="list-unstyled clear-margins"><!-- widgets --> 
 
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
+                <div class="slide-indicadores">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            
+                        </div>
+                    
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                <li><a href="">Familia >> Subindicador seguridad alimentaria</a></li>
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="mas" class=" btnindicador">
+                                    <a href="">
+                                        <span id="estado">
+                                        <span class="glyphicon glyphicon-arrow-down"></span>
+                                        </span> Cambiar de Indicador
+                                    </a>
+                                </li>
 
-</div>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
 
-<div id="mostrar">
-     {% include "monitoreo/menu.html" %}
-</div>
+                </div>
 
-<div class="contenido">
+                <div id="mostrar">
+                     {% include "monitoreo/menu.html" %}
+                </div>
+                <br>
+                <div class="contenido">
 
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container4"></div>
-</div>
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container4"></div>
+                </div>
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/26/"></a>{%endif%}</div>
+                <div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/26/"></a>{%endif%}</div>
 
-<div id="modalidad">
-<table id="example" class="display" cellspacing="0" width="100%">
-    <caption>Alimentos que contienen carbohidrátos</caption>
-        <thead>
-            <tr>
-                <th>ALIMENTOS</th>
-                <th># de familias que producen</th>
-                <th>%</th>
-                <th># de familias que compran</th>
-                <th>%</th>
-                <th># de familias que consumen suficiente verano</th>
-                <th>%</th>
-                <th># de familias que consumen suficiente invierno</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in carbohidrato.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.producen|floatformat}}</td>
-                <td>{{value.por_producen|floatformat}}</td>
-                <td>{{value.compran|floatformat}}</td>
-                <td>{{value.por_compran|floatformat}}</td>
-                <td>{{value.consumen|floatformat}}</td>
-                <td>{{value.por_consumen|floatformat}}</td>
-                <td>{{value.invierno|floatformat}}</td>
-                <td>{{value.por_invierno|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container"></div>
-</div>
-    <br></br>
-<table id="example1" class="display" cellspacing="0" width="100%">
-    <caption>Alimentos que contienen grasas</caption>
-        <thead>
-            <tr>
-                <th>ALIMENTOS</th>
-                <th># de familias que producen</th>
-                <th>%</th>
-                <th># de familias que compran</th>
-                <th>%</th>
-                <th># de familias que consumen suficiente verano</th>
-                <th>%</th>
-                <th># de familias que consumen suficiente invierno</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in grasa.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.producen|floatformat}}</td>
-                <td>{{value.por_producen|floatformat}}</td>
-                <td>{{value.compran|floatformat}}</td>
-                <td>{{value.por_compran|floatformat}}</td>
-                <td>{{value.consumen|floatformat}}</td>
-                <td>{{value.por_consumen|floatformat}}</td>
-                <td>{{value.invierno|floatformat}}</td>
-                <td>{{value.por_invierno|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container1"></div>
-</div>
-    <br></br>
-<table id="example2" class="display" cellspacing="0" width="100%">
-    <caption>Alimentos que contienen minerales/vitaminas</caption>
-        <thead>
-            <tr>
-                <th>ALIMENTOS</th>
-                <th># de familias que producen</th>
-                <th>%</th>
-                <th># de familias que compran</th>
-                <th>%</th>
-                <th># de familias que consumen suficiente verano</th>
-                <th>%</th>
-                <th># de familias que consumen suficiente invierno</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in minerales.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.producen|floatformat}}</td>
-                <td>{{value.por_producen|floatformat}}</td>
-                <td>{{value.compran|floatformat}}</td>
-                <td>{{value.por_compran|floatformat}}</td>
-                <td>{{value.consumen|floatformat}}</td>
-                <td>{{value.por_consumen|floatformat}}</td>
-                <td>{{value.invierno|floatformat}}</td>
-                <td>{{value.por_invierno|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container2"></div>
-</div>
-   <br></br> 
-<table id="example3" class="display" cellspacing="0" width="100%">
-    <caption>Alimentos que contienen proteinas</caption>
-        <thead>
-            <tr>
-                <th>ALIMENTOS</th>
-                <th># de familias que producen</th>
-                <th>%</th>
-                <th># de familias que compran</th>
-                <th>%</th>
-                <th># de familias que consumen suficiente verano</th>
-                <th>%</th>
-                <th># de familias que consumen suficiente invierno</th>
-                <th>%</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for key, value in proteinas.items%}
-            <tr>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.producen|floatformat}}</td>
-                <td>{{value.por_producen|floatformat}}</td>
-                <td>{{value.compran|floatformat}}</td>
-                <td>{{value.por_compran|floatformat}}</td>
-                <td>{{value.consumen|floatformat}}</td>
-                <td>{{value.por_consumen|floatformat}}</td>
-                <td>{{value.invierno|floatformat}}</td>
-                <td>{{value.por_invierno|floatformat}}</td>
-            </tr>
-            {%endfor%}
-        </tbody>
-    </table>
-</div> 
-<div class="contenedor">
-        <div class="grafico-title"></div>
-        <div id="container3"></div>
-</div> 
-</div>    
+                <div id="modalidad">
+                <table id="example" class="table table-bordered table-hover">
+                    <caption>Alimentos que contienen carbohidrátos</caption>
+                        <thead>
+                            <tr>
+                                <th>ALIMENTOS</th>
+                                <th># de familias que producen</th>
+                                <th>%</th>
+                                <th># de familias que compran</th>
+                                <th>%</th>
+                                <th># de familias que consumen suficiente verano</th>
+                                <th>%</th>
+                                <th># de familias que consumen suficiente invierno</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in carbohidrato.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.producen|floatformat}}</td>
+                                <td>{{value.por_producen|floatformat}}</td>
+                                <td>{{value.compran|floatformat}}</td>
+                                <td>{{value.por_compran|floatformat}}</td>
+                                <td>{{value.consumen|floatformat}}</td>
+                                <td>{{value.por_consumen|floatformat}}</td>
+                                <td>{{value.invierno|floatformat}}</td>
+                                <td>{{value.por_invierno|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                    <br>
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container"></div>
+                </div>
+                    <br>
+                <table id="example1" class="table table-bordered table-hover">
+                    <caption>Alimentos que contienen grasas</caption>
+                        <thead>
+                            <tr>
+                                <th>ALIMENTOS</th>
+                                <th># de familias que producen</th>
+                                <th>%</th>
+                                <th># de familias que compran</th>
+                                <th>%</th>
+                                <th># de familias que consumen suficiente verano</th>
+                                <th>%</th>
+                                <th># de familias que consumen suficiente invierno</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in grasa.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.producen|floatformat}}</td>
+                                <td>{{value.por_producen|floatformat}}</td>
+                                <td>{{value.compran|floatformat}}</td>
+                                <td>{{value.por_compran|floatformat}}</td>
+                                <td>{{value.consumen|floatformat}}</td>
+                                <td>{{value.por_consumen|floatformat}}</td>
+                                <td>{{value.invierno|floatformat}}</td>
+                                <td>{{value.por_invierno|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                    <br>
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container1"></div>
+                </div>
+                    <br>
+                <table id="example2" class="table table-bordered table-hover">
+                    <caption>Alimentos que contienen minerales/vitaminas</caption>
+                        <thead>
+                            <tr>
+                                <th>ALIMENTOS</th>
+                                <th># de familias que producen</th>
+                                <th>%</th>
+                                <th># de familias que compran</th>
+                                <th>%</th>
+                                <th># de familias que consumen suficiente verano</th>
+                                <th>%</th>
+                                <th># de familias que consumen suficiente invierno</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in minerales.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.producen|floatformat}}</td>
+                                <td>{{value.por_producen|floatformat}}</td>
+                                <td>{{value.compran|floatformat}}</td>
+                                <td>{{value.por_compran|floatformat}}</td>
+                                <td>{{value.consumen|floatformat}}</td>
+                                <td>{{value.por_consumen|floatformat}}</td>
+                                <td>{{value.invierno|floatformat}}</td>
+                                <td>{{value.por_invierno|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                    <br>
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container2"></div>
+                </div>
+                   <br>
+                <table id="example3" class="table table-bordered table-hover">
+                    <caption>Alimentos que contienen proteinas</caption>
+                        <thead>
+                            <tr>
+                                <th>ALIMENTOS</th>
+                                <th># de familias que producen</th>
+                                <th>%</th>
+                                <th># de familias que compran</th>
+                                <th>%</th>
+                                <th># de familias que consumen suficiente verano</th>
+                                <th>%</th>
+                                <th># de familias que consumen suficiente invierno</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for key, value in proteinas.items%}
+                            <tr>
+                                <td>{{key|unslugify}}</td>
+                                <td>{{value.producen|floatformat}}</td>
+                                <td>{{value.por_producen|floatformat}}</td>
+                                <td>{{value.compran|floatformat}}</td>
+                                <td>{{value.por_compran|floatformat}}</td>
+                                <td>{{value.consumen|floatformat}}</td>
+                                <td>{{value.por_consumen|floatformat}}</td>
+                                <td>{{value.invierno|floatformat}}</td>
+                                <td>{{value.por_invierno|floatformat}}</td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                    <br>
+                </div> 
+                <div class="contenedor">
+                        <div class="grafico-title"></div>
+                        <div id="container3"></div>
+                </div> 
+                </div>
+            </ul><!-- widgets end -->
+                    
+        </div><!-- inner custom column end -->
+                    
+    </div><!-- sidebar wrapper end -->
+
+</div><!-- sidebar row -->   
 {% endblock %}
