@@ -1,0 +1,72 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+<script>
+    $(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Número de impactos por Temáticas y Sector'
+            },
+            xAxis: {
+                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total fruit consumption'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [{
+                name: 'John',
+                data: [5, 3, 4, 7, 2]
+            }, {
+                name: 'Jane',
+                data: [2, 2, 3, 2, 1]
+            }, {
+                name: 'Joe',
+                data: [3, 4, 4, 2, 5]
+            }]
+        });
+    });
+</script>
+{% endblock extra_js%} 
+
+{% block contenido %}
+<h3>Distribución de Proyectos/Iniciativas por Temáticas</h3>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Temáticas</th>
+                <th>Número de Proyectos/Iniciativas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key,value in temas.items %}
+            <tr>
+                <td>{{key}}</td>
+                <td>{{value}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div> 
+
+<!--grafico 5 -->
+<div id="container"></div>
+
+{% endblock contenido %}

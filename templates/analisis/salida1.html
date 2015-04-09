@@ -1,0 +1,73 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+<!-- ++ grafica 1  -->
+
+<script>
+    $(function () {
+        $('#sector').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Distribución de la Participación en la Entrevista por Sector'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '% Participacion',
+            data: [
+
+            {% for key,value in sectores.items %}
+            ['{{key}}', {{value}}],
+            {% endfor %}
+            ]
+        }]
+    });
+});</script>
+{% endblock extra_js%} 
+{% block contenido %}
+	<div>
+    <table class="table">
+      <tbody>
+       {% for key,value in sectores1.items %}
+       <tr>
+        <td>{{key}}</td>
+        <td></td>
+        <td>
+            {% for x in value %}
+            {{x.nombre}}
+            <br>
+            {% endfor %}
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    {% endfor %}
+</tbody>
+</table>
+</div>
+
+<!--grafico 1 -->
+<div id="sector"></div> 
+{% endblock contenido %}

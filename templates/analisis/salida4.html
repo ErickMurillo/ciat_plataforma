@@ -1,0 +1,79 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+<script>
+    $(function () {
+        $('#impactos').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Distribución de Impactos por Tipo de Organización'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+
+            {% for key,value in  impactos.items %}
+            ['{{key}}', {{value}}],
+            {% endfor %}
+            ]
+        }]
+    });
+});</script>
+{% endblock extra_js%} 
+
+{% block contenido %}
+<h3> Numero de Impactos por Grupo Organizacional</h3>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Grupo Organizacional</th>
+                <th>Número de Organizaciones</th>
+                <th>Número de Impactos</th>
+                <th>Número medio de proyectos</th>
+                <th>Valor de la Mediana</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key,value in impactos.items %}
+            <tr>
+                <td>{{key}}</td>
+                <td></td>
+                <td>{{value}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div> 
+
+
+<!--grafico 3 -->
+<div id="impactos"></div> 
+
+{% endblock contenido %}

@@ -62,7 +62,70 @@ def inicio(request, template='analisis/inicio.html'):
     
     return render(request, template, locals())
 
+def salida1(request, template="analisis/salida1.html"):
+    filtro = _queryset_filtrado(request)
 
+    sectores = {}
+    sectores1 = {}
+    for x in Sector.objects.all():
+        cont_organizacion = filtro.filter(organizacion__sector=x).count()
+        sectores[x.nombre] = cont_organizacion
+        cont_organizacion1 = filtro.filter(organizacion__sector=x)
+        sectores1[x.nombre] = cont_organizacion1
+        
+    return render(request,template, locals())
+
+def salida2(request, template="analisis/salida2.html"):
+    filtro = _queryset_filtrado(request)
+
+    tabla = []
+    proyectos = {}
+    valores1 = []
+    valores2 = []
+
+    for choice in Sector.objects.all():
+        query = filtro.filter(pregunta_1__socio__sector=choice)
+        cont_organizacion = filtro.filter(pregunta_1__socio__sector=choice).count()
+
+        resultados = query.count()
+
+        fila = [choice.nombre,
+                cont_organizacion,
+                resultados,
+                promedio(resultados,cont_organizacion)
+                ]
+
+        tabla.append(fila)
+        proyectos[choice.nombre] = promedio(resultados,cont_organizacion)
+
+        valores1.append(cont_organizacion)
+        valores2.append(resultados)
+        
+    total1 = sumarLista(valores1)
+    total2 = sumarLista(valores2)
+        
+    return render(request,template, locals())
+
+def salida3(request, template="analisis/salida3.html"):
+    filtro = _queryset_filtrado(request)
+
+    temas = {}  
+    for y in Tema.objects.all():
+        contador_pregunta1 = filtro.filter(pregunta_1__tema=y).count()
+        temas[y.tema] = contador_pregunta1
+        
+    return render(request,template, locals())
+
+def salida4(request, template="analisis/salida4.html"):
+    filtro = _queryset_filtrado(request)
+
+    #salida 4: Numero de Impactos por Grupo Organizacional
+    impactos = {}
+    for imp in Sector.objects.all():
+        preg_4 = filtro.filter(pregunta_4__entrevistado__organizacion__sector=imp).count()
+        impactos[imp.nombre] = preg_4
+        
+    return render(request,template, locals())
 
 def post(request):
 	fecha = request.POST['fecha']
