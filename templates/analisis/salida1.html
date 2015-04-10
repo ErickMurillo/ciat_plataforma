@@ -45,7 +45,10 @@
     });
 });</script>
 {% endblock extra_js%} 
+
+
 {% block contenido %}
+
 	<div>
     <table class="table">
       <tbody>
@@ -55,7 +58,7 @@
         <td></td>
         <td>
             {% for x in value %}
-            {{x.nombre}}
+            {{x.organizacion}}
             <br>
             {% endfor %}
         </td>

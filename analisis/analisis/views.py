@@ -10,6 +10,7 @@ from .forms import *
 #Inicio del filtro para la consultas del front-end
 
 def _queryset_filtrado(request):
+
     params = {}
     if 'fecha' in request.session:
         params['fecha1'] = request.session['fecha']
@@ -67,10 +68,14 @@ def salida1(request, template="analisis/salida1.html"):
 
     sectores = {}
     sectores1 = {}
+
+
     for x in Sector.objects.all():
         cont_organizacion = filtro.filter(organizacion__sector=x).count()
         sectores[x.nombre] = cont_organizacion
+
         cont_organizacion1 = filtro.filter(organizacion__sector=x)
+        	
         sectores1[x.nombre] = cont_organizacion1
         
     return render(request,template, locals())
@@ -84,8 +89,8 @@ def salida2(request, template="analisis/salida2.html"):
     valores2 = []
 
     for choice in Sector.objects.all():
-        query = filtro.filter(pregunta_1__socio__sector=choice)
-        cont_organizacion = filtro.filter(pregunta_1__socio__sector=choice).count()
+        query = filtro.filter(pregunta_1__socio__sector=choice)#revisar 
+        cont_organizacion = filtro.filter(organizacion__sector=choice).count()
 
         resultados = query.count()
 
@@ -108,7 +113,7 @@ def salida2(request, template="analisis/salida2.html"):
 
 def salida3(request, template="analisis/salida3.html"):
     filtro = _queryset_filtrado(request)
-
+    
     temas = {}  
     for y in Tema.objects.all():
         contador_pregunta1 = filtro.filter(pregunta_1__tema=y).count()
@@ -121,9 +126,19 @@ def salida4(request, template="analisis/salida4.html"):
 
     #salida 4: Numero de Impactos por Grupo Organizacional
     impactos = {}
+    tabla = []
+    
     for imp in Sector.objects.all():
         preg_4 = filtro.filter(pregunta_4__entrevistado__organizacion__sector=imp).count()
-        impactos[imp.nombre] = preg_4
+        cont_organizacion = filtro.filter(organizacion__sector=imp).count()
+        #impactos[imp.nombre] = preg_4
+        fila = [imp.nombre,
+	                cont_organizacion,
+	                preg_4,
+	                promedio(preg_4,cont_organizacion)
+	                ]
+
+        tabla.append(fila)
         
     return render(request,template, locals())
 

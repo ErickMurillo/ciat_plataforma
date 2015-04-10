@@ -59,15 +59,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for key,value in impactos.items %}
-            <tr>
-                <td>{{key}}</td>
-                <td></td>
-                <td>{{value}}</td>
-                <td></td>
-                <td></td>
-            </tr>
-            {% endfor %}
+             {%for fila in tabla%}
+    <tr>
+        {%for celda in fila %}
+        <td>{{celda}}</td>
+        {%endfor%}
+    </tr>
+    {%endfor%}
         </tbody>
     </table>
 </div> 
