@@ -12,7 +12,7 @@ from .forms import *
 def _queryset_filtrado(request):
     params = {}
     if 'fecha' in request.session:
-        params['fecha1'] = request.session['fecha1']
+        params['fecha1'] = request.session['fecha']
 
     if 'pais' in request.session:
         params['pais'] = request.session['pais']
@@ -62,57 +62,108 @@ def inicio(request, template='analisis/inicio.html'):
     
     return render(request, template, locals())
 
+
 class IndexView(ListView):
-    template_name = 'analisis/index.html'
-    model = Sector
+	# template_name = 'analisis/index.html'
+	# model = Sector
 
-    def get_context_data(self,**kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        contador_org = Organizaciones.objects.count()
+	def post(self, request, *args,**kwargs):
+		fecha = request.POST['fecha']
+		pais = request.POST['pais']
+		sitio_accion = request.POST['sitio_accion']
+		tipo_estudio = request.POST['tipo_estudio']
 
-        sector = {}
-        for x in Sector.objects.all():
-            cont_org = Organizaciones.objects.filter(sector=x).count()
-            sector[x.nombre] = cont_org
-        context['contador_sector'] = sector
+		template = 'analisis/index.html'
+		
+		sectores = {}
+		for x in Sector.objects.all():
+			cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais,
+													 entrevista__tipo_estudio=tipo_estudio,
+													 entrevista__fecha1=fecha).count()
+			sectores[x.nombre] = cont_organizacion
 
-        tema = {}
-        for y in Tema.objects.all():
-            contador_pregunta1 = Pregunta_1.objects.filter(tema=y).count()
-            tema[y.tema] = contador_pregunta1
-        context['contador_tematica'] = tema
-        
-        prueba = {}
-        for i in Sector.objects.all():
-            conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i)
-            prueba[i.nombre] = conteo
-        context['proyectos'] = prueba
-            
-        impactos = {}
-        for imp in Sector.objects.all():
-            preg_4 = Pregunta_4.objects.filter(entrevistado__organizacion__sector=imp).count()
-            impactos[imp.nombre] = preg_4
-        context['impacto'] = impactos
+		sectores1 = {}
+		for x in Sector.objects.all():
+			cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais)
+			sectores1[x.nombre] = cont_organizacion	
 
-        preg_4_tema = {}
-        for y in Tema.objects.all():
-            contador_pregunta4 = Pregunta_4.objects.filter(tema=y).count()
-            preg_4_tema[y.tema] = contador_pregunta4
-        context['impactos_tematica'] = preg_4_tema
+	 	temas = {}
+		for y in Tema.objects.all():
+			contador_pregunta1 = Pregunta_1.objects.filter(tema=y,
+														   entrevistado__organizacion__sitio_accion=sitio_accion,
+														   entrevistado__organizacion__pais=pais,
+														   entrevistado__fecha1=fecha).count()
+			temas[y.tema] = contador_pregunta1
 
-        innocacion = {}
-        for inno in Sector.objects.all():
-            contador_pregunta5 = Pregunta_5a.objects.filter(entrevistado__organizacion__sector=inno).count()
-            innocacion[inno.nombre] = contador_pregunta5
-        context['innovacion_contador']  = innocacion
+		proyectos = {}
+		for i in Sector.objects.all():
+			conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i,
+											   entrevistado__organizacion__sitio_accion=sitio_accion,
+											   entrevistado__organizacion__pais=pais,
+											   entrevistado__fecha1=fecha).count()
+			proyectos[i.nombre] = conteo
 
-        tematica_innovacion = {}
-        for ti in Tema.objects.all():
-            contador_tematica_5a = Pregunta_5a.objects.filter(tema=ti).count()
-            tematica_innovacion[ti.tema] = contador_tematica_5a
-        context['tematica_innovacion_5a'] = tematica_innovacion
+		impactos = {}
+		for imp in Sector.objects.all():
+			preg_4 = Pregunta_4.objects.filter(entrevistado__organizacion__sector=imp,
+											   entrevistado__organizacion__sitio_accion=sitio_accion,
+											   entrevistado__organizacion__pais=pais,
+											   entrevistado__fecha1=fecha).count()
+			impactos[imp.nombre] = preg_4
 
-        return context
+
+		return render(request, template, locals())
+
+	# def get_context_data(self,**kwargs):
+	# 	context = super(IndexView, self).get_context_data(**kwargs)
+	# 	contador_org = Organizaciones.objects.count()
+
+
+	# sector = {}
+	# for x in Sector.objects.all():
+	# 	cont_org = Organizaciones.objects.filter(sector=x).count()
+	# 	sector[x.nombre] = cont_org
+	# context['contador_sector'] = sector
+
+	# 	tema = {}
+	# 	for y in Tema.objects.all():
+	# 		contador_pregunta1 = Pregunta_1.objects.filter(tema=y).count()
+	# 		tema[y.tema] = contador_pregunta1
+	# 	context['contador_tematica'] = tema
+		
+	# 	prueba = {}
+	# 	for i in Sector.objects.all():
+	# 		conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i).count()
+	# 		prueba[i.nombre] = conteo
+	# 	context['proyectos'] = prueba
+			
+	# 	impactos = {}
+	# 	for imp in Sector.objects.all():
+	# 		preg_4 = Pregunta_4.objects.filter(entrevistado__organizacion__sector=imp).count()
+	# 		impactos[imp.nombre] = preg_4
+	# 	context['impacto'] = impactos
+
+	# 	preg_4_tema = {}
+	# 	for y in Tema.objects.all():
+	# 		contador_pregunta4 = Pregunta_4.objects.filter(tema=y).count()
+	# 		preg_4_tema[y.tema] = contador_pregunta4
+	# 	context['impactos_tematica'] = preg_4_tema
+
+	# 	innocacion = {}
+	# 	for inno in Sector.objects.all():
+	# 		contador_pregunta5 = Pregunta_5a.objects.filter(entrevistado__organizacion__sector=inno).count()
+	# 		innocacion[inno.nombre] = contador_pregunta5
+	# 	context['innovacion_contador']  = innocacion
+
+	# 	tematica_innovacion = {}
+	# 	for ti in Tema.objects.all():
+	# 		contador_tematica_5a = Pregunta_5a.objects.filter(tema=ti).count()
+	# 		tematica_innovacion[ti.tema] = contador_tematica_5a
+	# 	context['tematica_innovacion_5a'] = tematica_innovacion
+
+	# 	return context
+
+   
 
 class BusquedaPaisView(TemplateView):
      
