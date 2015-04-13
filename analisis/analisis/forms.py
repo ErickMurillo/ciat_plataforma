@@ -26,7 +26,7 @@ def fecha_choice():
     for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
         years.append((en,en))
     return list(set(years))
-
+    
 class EntrevistaConsulta(forms.Form):
 	fecha = forms.ChoiceField(choices=fecha_choice())
 	pais = forms.ModelChoiceField(queryset=Pais.objects.order_by('-nombre'), 

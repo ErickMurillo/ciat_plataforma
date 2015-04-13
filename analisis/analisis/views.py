@@ -15,7 +15,6 @@ def _queryset_filtrado(request):
 
     if 'fecha' in request.session:
         params['fecha1'] = request.session['fecha']
-        print request.session['fecha']
 
     if 'pais' in request.session:
         params['pais'] = request.session['pais']
@@ -33,8 +32,7 @@ def _queryset_filtrado(request):
 
     for key in unvalid_keys:
         del params[key]
-        
-    print Entrevista.objects.filter(**params)
+
     return Entrevista.objects.filter(**params)
 
 def inicio(request, template='analisis/inicio.html'):
@@ -89,6 +87,7 @@ def salida2(request, template="analisis/salida2.html"):
     proyectos = {}
     valores1 = []
     valores2 = []
+    valores3 = []
 
     for choice in Sector.objects.all():
         query = filtro.filter(pregunta_1__socio__sector=choice)
@@ -107,16 +106,21 @@ def salida2(request, template="analisis/salida2.html"):
 
         valores1.append(cont_organizacion)
         valores2.append(resultados)
+        valores3.append(float(promedio(resultados,cont_organizacion)))
         
     total1 = sumarLista(valores1)
     total2 = sumarLista(valores2)
+    total3 = sumarLista(valores3)/len(valores3)
         
     return render(request,template, locals())
 
 def salida3(request, template="analisis/salida3.html"):
     filtro = _queryset_filtrado(request)
+
+    sectores = Sector.objects.all()
     
     temas = {}  
+    
     for y in Tema.objects.all():
         contador_pregunta1 = filtro.filter(pregunta_1__tema=y).count()
         temas[y.tema] = contador_pregunta1
@@ -129,6 +133,9 @@ def salida4(request, template="analisis/salida4.html"):
     #salida 4: Numero de Impactos por Grupo Organizacional
     impactos = {}
     tabla = []
+    valores1 = []
+    valores2 = []
+    valores3 = []
     
     for imp in Sector.objects.all():
         preg_4 = filtro.filter(pregunta_4__entrevistado__organizacion__sector=imp).count()
@@ -141,6 +148,15 @@ def salida4(request, template="analisis/salida4.html"):
 	                ]
 
         tabla.append(fila)
+        impactos[imp.nombre] = promedio(preg_4,cont_organizacion)
+
+        valores1.append(cont_organizacion)
+        valores2.append(preg_4)
+        valores3.append(float(promedio(preg_4,cont_organizacion)))
+        
+    total1 = sumarLista(valores1)
+    total2 = sumarLista(valores2)
+    total3 = sumarLista(valores3)/len(valores3)
         
     return render(request,template, locals())
 
@@ -155,8 +171,8 @@ def post(request,template='analisis/index.html'):
 	sectores = {}
 	for x in Sector.objects.all():
 		cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais,
-												 entrevista__tipo_estudio=tipo_estudio,
-												 entrevista__fecha1=fecha).count()
+												entrevista__tipo_estudio=tipo_estudio,
+												entrevista__fecha1=fecha).count()
 		sectores[x.nombre] = cont_organizacion
 
 	sectores1 = {}

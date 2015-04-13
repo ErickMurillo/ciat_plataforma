@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 
-ALCANCE_CHOICES = (
+ALCANCE_CHOICES = (	
 				    (1,_('Nacional')),
 				    (2,_('Territorial')),
     			)

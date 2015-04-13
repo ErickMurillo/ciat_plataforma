@@ -14,7 +14,11 @@
                 text: 'Número de impactos por Temáticas y Sector'
             },
             xAxis: {
-                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                categories: [
+                                {% for key,value in temas.items %}
+                                    '{{key}}',
+                                {% endfor %}
+                            ]
             },
             yAxis: {
                 min: 0,
