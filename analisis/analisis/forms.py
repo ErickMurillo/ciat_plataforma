@@ -21,39 +21,14 @@ class Pregunta_6aForm(forms.ModelForm):
     	model = Pregunta_6a
     	widgets = {'prioritizado': forms.Select(attrs={'class':'select-evt'})}
 
-
-# class Pregunta_5cForm(forms.ModelForm):
-#     def __init__(self,*args, **kwargs):
-#         super(Pregunta_5cForm, self).__init__(*args, **kwargs)
-#         self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1',entrevistado__pk='1')
-
-
-# class Pregunta_5dForm(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super(Pregunta_5dForm, self).__init__(*args, **kwargs)
-#         self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1')
-
-# class Pregunta_5eForm(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super(Pregunta_5eForm, self).__init__(*args, **kwargs)
-#         self.fields['innovacion'].queryset = Pregunta_5a.objects.filter(prioritizado='1')
-
-FECHA_CHOICES = (
-					(1,2014),
-					(2,2015),
-					(3,2016),
-					(4,2017),
-					(5,2018),
-					(6,2019),
-					(7,2020),
-					(8,2021),
-					(9,2022),
-					(10,2023),
-					(11,2024),
-				)
+def fecha_choice():
+    years = []
+    for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
+        years.append((en,en))
+    return list(set(years))
 
 class EntrevistaConsulta(forms.Form):
-	fecha = forms.ChoiceField(choices=FECHA_CHOICES)
+	fecha = forms.ChoiceField(choices=fecha_choice())
 	pais = forms.ModelChoiceField(queryset=Pais.objects.order_by('-nombre'), 
 								  required=False, 
 			                      label=u'Pais')

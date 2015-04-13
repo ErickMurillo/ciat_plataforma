@@ -12,8 +12,10 @@ from .forms import *
 def _queryset_filtrado(request):
 
     params = {}
+
     if 'fecha' in request.session:
         params['fecha1'] = request.session['fecha']
+        print request.session['fecha']
 
     if 'pais' in request.session:
         params['pais'] = request.session['pais']
@@ -31,7 +33,8 @@ def _queryset_filtrado(request):
 
     for key in unvalid_keys:
         del params[key]
-
+        
+    print Entrevista.objects.filter(**params)
     return Entrevista.objects.filter(**params)
 
 def inicio(request, template='analisis/inicio.html'):
@@ -60,6 +63,7 @@ def inicio(request, template='analisis/inicio.html'):
             del request.session['pais']
             del request.session['sitio_accion']
             del request.session['tipo_estudio']
+
     
     return render(request, template, locals())
 
@@ -69,13 +73,11 @@ def salida1(request, template="analisis/salida1.html"):
     sectores = {}
     sectores1 = {}
 
-
     for x in Sector.objects.all():
         cont_organizacion = filtro.filter(organizacion__sector=x).count()
         sectores[x.nombre] = cont_organizacion
 
-        cont_organizacion1 = filtro.filter(organizacion__sector=x)
-        	
+        cont_organizacion1 = filtro.filter(organizacion__sector=x)	
         sectores1[x.nombre] = cont_organizacion1
         
     return render(request,template, locals())
@@ -89,7 +91,7 @@ def salida2(request, template="analisis/salida2.html"):
     valores2 = []
 
     for choice in Sector.objects.all():
-        query = filtro.filter(pregunta_1__socio__sector=choice)#revisar 
+        query = filtro.filter(pregunta_1__socio__sector=choice)
         cont_organizacion = filtro.filter(organizacion__sector=choice).count()
 
         resultados = query.count()
@@ -142,13 +144,12 @@ def salida4(request, template="analisis/salida4.html"):
         
     return render(request,template, locals())
 
-def post(request):
+def post(request,template='analisis/index.html'):
 	fecha = request.POST['fecha']
 	pais = request.POST['pais']
 	sitio_accion = request.POST['sitio_accion']
 	tipo_estudio = request.POST['tipo_estudio']
-
-	template = 'analisis/index.html'
+	
 	
 	#salida 1 : Participacion entrevista por sector
 	sectores = {}
@@ -160,7 +161,9 @@ def post(request):
 
 	sectores1 = {}
 	for x in Sector.objects.all():
-		cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais)
+		cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais,
+															entrevista__tipo_estudio=tipo_estudio,
+															entrevista__fecha1=fecha)
 		sectores1[x.nombre] = cont_organizacion	
 
 	#salida 2: Proyectos/Iniciativas de las Organizaciones
