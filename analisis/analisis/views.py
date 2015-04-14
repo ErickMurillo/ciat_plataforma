@@ -6,6 +6,7 @@ from mapeo.models import *
 from django.core import serializers
 from django.http import HttpResponse
 from .forms import *
+from django.db.models import Count
 
 #Inicio del filtro para la consultas del front-end
 
@@ -239,7 +240,7 @@ def salida6(request, template="analisis/salida6.html"):
     lista = []
     for obj in Sector.objects.all():
         count_organization = filtro.filter(pregunta_5a__socio__sector=obj).count()
-        count_innovation = filtro.filter(pregunta_5a__socio__sector=obj).count()
+        count_innovation = filtro.filter(pregunta_5a__innovacion=True).exclude(pregunta_5a__innovacion='').count()
         try:
             avg_total = promedio(count_organization, count_innovation)
         except:
@@ -250,6 +251,21 @@ def salida6(request, template="analisis/salida6.html"):
 
 
     return render(request, template, locals())
+
+
+def salida7(request, template="analisis/salida7.html"):
+    filtro = _queryset_filtrado(request)
+
+    datos = {}
+    for obj in Tema.objects.all():
+        count_tema = filtro.filter(pregunta_5a__tema=obj, pregunta_5a__innovacion=True).count()
+        datos[obj] = count_tema
+
+
+    return render(request, template, locals())
+
+
+# ----------- funciones utilitarias --------
 
 def sumarLista(lista):
     sum=0

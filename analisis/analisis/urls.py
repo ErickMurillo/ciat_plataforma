@@ -10,4 +10,6 @@ urlpatterns = patterns('analisis.analisis.views',
     url(r'^salida5/$', 'salida5', name='salida5'),
     url(r'^salida5b/$', 'salida5b', name='salida5b'),
     url(r'^salida6/$', 'salida6', name='salida6'),
+    url(r'^salida7/$', 'salida7', name='salida7'),
+    
     )
