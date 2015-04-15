@@ -1,0 +1,75 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%} 
+<script>
+    $(function () {
+        $('#salida9').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Distribution of Partner Organizations by sector'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '% Participacion',
+            data: [
+
+            {% for key,value in datos.items %}
+            ['{{key}}', {{value}}],
+            {% endfor %}
+            ]
+        }]
+    });
+});</script>
+{% endblock extra_js%} 
+
+{% block contenido %}
+<h3>Number, Average, and Median Value of Alliances by Sector</h3>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sector</th>
+                <th>Número de Organizaciones</th>
+                <th>Número de Socios reportados</th>
+                <th>Avg del # de Socios</th>
+                <th>Valor de la Media</th>
+            </tr>
+        </thead>
+        <tbody>
+          {%for fila in tabla%}
+           <tr>
+            {%for celda in fila %}
+            <td>{{celda}}</td>
+            {%endfor%}
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+</div> 
+
+<div id="salida9"></div> 
+
+{% endblock contenido %}

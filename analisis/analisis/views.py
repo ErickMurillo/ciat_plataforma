@@ -72,7 +72,7 @@ def salida1(request, template="analisis/salida1.html"):
     for x in Sector.objects.all():
         cont_organizacion = filtro.filter(organizacion__sector=x).count()
         sectores[x.nombre] = cont_organizacion
-        sectores1[x.nombre] = []
+
         cont_organizacion1 = filtro.filter(organizacion__sector=x)
         sectores1[x.nombre] = cont_organizacion1.distinct()
         
@@ -88,8 +88,8 @@ def salida2(request, template="analisis/salida2.html"):
     valores3 = []
 
     for choice in Sector.objects.all():
-        query = filtro.filter(pregunta_1__socio__sector=choice)
-        cont_organizacion = filtro.filter(pregunta_1__socio__sector=choice).count()
+        query = filtro.filter(pregunta_1__entrevistado__organizacion__sector=choice)
+        cont_organizacion = filtro.filter(organizacion__sector=choice).count()
 
         resultados = query.count()
 
@@ -152,18 +152,40 @@ def salida4(request, template="analisis/salida4.html"):
     return render(request,template, locals())
 
 def salida8(request, template="analisis/salida8.html"):
+	#revisar
 	filtro = _queryset_filtrado(request)
 
 	tabla = []
 
 	for p in Papel.objects.all():
 		socio = filtro.filter(pregunta_5c__pregunta_5c_nested__papel_1=p).count()
-		prioritizado = filtro.filter(pregunta_5a__prioritizado='1').count()
+		
 
-		fila = [p.nombre,prioritizado,socio]
+		fila = [p.nombre,'--',socio]
 		tabla.append(fila)
 
 	return render(request,template, locals())
+
+def salida9(request, template="analisis/salida9.html"):
+	filtro = _queryset_filtrado(request)
+
+	tabla = []
+	datos = {}
+
+	for x in Sector.objects.all():
+		cont_organizacion = filtro.filter(organizacion__sector=x).count()
+		cont_socios = filtro.filter(pregunta_5c__pregunta_5c_nested__pregunta_5c__entrevistado__organizacion__sector=x).count()
+		try:
+			avg_total = promedio(cont_organizacion, cont_socios)
+		except:
+			avg_total = 0
+
+		fila = [x.nombre,cont_organizacion,cont_socios,avg_total]
+		tabla.append(fila)
+		datos[x.nombre] = avg_total
+
+	return render(request,template, locals())
+
 
 # def post(request):
 # 	fecha = request.POST['fecha']
