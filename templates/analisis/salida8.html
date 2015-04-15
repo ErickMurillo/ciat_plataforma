@@ -1,0 +1,35 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%} 
+
+{% endblock extra_js%} 
+
+{% block contenido %}
+<h3>Distribution of Partner Organizations by role</h3>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Papel</th>
+                <th>Número de Innovaciones Prioritizadas</th>
+                <th>Número de Socios reportados en las innovaciones</th>
+                <th>Avg del # de Socios por Innovación</th>
+            </tr>
+        </thead>
+        <tbody>
+          {%for fila in tabla%}
+           <tr>
+            {%for celda in fila %}
+            <td>{{celda}}</td>
+            {%endfor%}
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+</div> 
+
+
+{% endblock contenido %}

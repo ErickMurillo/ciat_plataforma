@@ -1,0 +1,74 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+<script>
+    $(function () {
+        $('#salida5').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 1,//null,
+                plotShadow: false
+        },
+        title: {
+            text: 'Distribución de Impactos por Tipo de Organización'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+
+            {% for key,value in  impactos.items %}
+            ['{{key}}', {{value}}],
+            {% endfor %}
+            ]
+        }]
+    });
+});</script>
+{% endblock extra_js%} 
+
+{% block contenido %}
+<h3>Distribution of Innovations/Changes by Thematic Area</h3>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Area tematica</th>
+                <th>Número de Proyectos</th>
+                <th>Número de Innovaciones/cambios</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for k,v in datos.items%}
+            <tr>  
+              <td>{{k}}</td>
+              <td>0</td>
+              <td>{{v}}</td>
+                  
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div> 
+
+<div id="salida5"></div> 
+
+{% endblock contenido %}

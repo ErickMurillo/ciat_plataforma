@@ -1,0 +1,77 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+<script>
+    $(function () {
+        $('#salida5').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 1,//null,
+                plotShadow: false
+        },
+        title: {
+            text: 'Distribución de Impactos por Tipo de Organización'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+
+            {% for key,value in  impactos.items %}
+            ['{{key}}', {{value}}],
+            {% endfor %}
+            ]
+        }]
+    });
+});</script>
+{% endblock extra_js%} 
+
+{% block contenido %}
+<h3>Number, Average, and Median Value of Innovations/Changes by Sector </h3>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sector</th>
+                <th>Número de Organizaciones</th>
+                <th>Número de Innovaciones/cambios</th>
+                <th>Avg de innovaciones</th>
+                <th>Mediana del # de innovaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for k,v in datos.items%}
+            <tr>  
+              <td>{{k}}</td>
+              {% for algo in v %}
+                   <td>{{algo}}</td> 
+              {% endfor %}
+                  
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div> 
+
+<div id="salida5"></div> 
+
+{% endblock contenido %}
