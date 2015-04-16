@@ -1,0 +1,38 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+{% endblock extra_js%} 
+
+
+{% block contenido %}
+
+	<div>
+    <table class="table">
+      <tbody>
+       {% for key,value in datos.items %}
+       <tr>
+        <td>{{key}}</td>
+        <td>
+            {% for x in value.0 %}
+                {% for zx in x.socio.all %}
+                    {{zx}},
+                {% endfor %}
+            {% endfor %}
+
+            {% for x in value.1 %}
+                {% for zx in x.socio.all %}
+                    {{zx}},
+                {% endfor %}
+            {% endfor %}
+        </td>
+    </tr>
+
+    {% endfor %}
+</tbody>
+</table>
+</div>
+ 
+{% endblock contenido %}

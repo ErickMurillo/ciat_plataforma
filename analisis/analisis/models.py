@@ -162,7 +162,7 @@ class Pregunta_5c_nested(models.Model):
 		verbose_name_plural = _(u'Organizaciones colaborativas de innovación')
 
 	def __unicode__(self):
-		return self.organizacion
+		return self.organizacion.nombre
 
 class Pregunta_5d(models.Model):
 	innovacion = models.ForeignKey(Pregunta_5a,verbose_name=_(u'Innovación'))

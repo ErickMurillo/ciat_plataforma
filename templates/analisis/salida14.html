@@ -1,0 +1,84 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+<!-- ++ grafica 2  -->
+<script>
+    $(function () {
+        $('#salida14').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Distribution of Desired Innovations/Changes across Organization Groups'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Browser share',
+            data: [
+            {% for key,value in  proyectos.items %}
+            ['{{key}}', {{value}}],
+            {% endfor %}
+            ]
+        }]
+    });
+});</script>
+{% endblock extra_js%} 
+
+{% block contenido %}
+	<h3>Number, Average, and Median Value of Desired Innovations/Changes by Sector</h3>
+<div>
+    <table class="table">
+
+     <thead>
+      <tr>
+          <th>Sector</th>
+          <th>Número de Organizaciones</th>
+          <th>Número de Proyectos/Iniciativas deseados</th>
+          <th>Número medio por Sector</th>
+          <th>Valor de la Mediana</th>
+      </tr>
+  </thead>
+  <tbody>
+    {%for fila in tabla%}
+    <tr>
+        {%for celda in fila %}
+        <td>{{celda}}</td>
+        {%endfor%}
+    </tr>
+    {%endfor%}
+</tbody>
+<tfoot>
+        <td>Total</td>
+        <td>{{total1}}</td>
+        <td>{{total2}}</td>
+        <td>{{total3}}</td>
+        <td></td>
+</tfoot>
+
+</table>
+</div>
+
+<!--grafico 2 -->
+<div id="salida14"></div> 
+
+{% endblock contenido %}

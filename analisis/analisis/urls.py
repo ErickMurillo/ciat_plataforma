@@ -13,5 +13,8 @@ urlpatterns = patterns('analisis.analisis.views',
     url(r'^salida7/$', 'salida7', name='salida7'),
     url(r'^salida8/$', 'salida8', name='salida8'),
     url(r'^salida9/$', 'salida9', name='salida9'),
+    url(r'^salida10/$', 'salida10', name='salida10'),
+    url(r'^salida14/$', 'salida14', name='salida14'),
+    url(r'^salida15/$', 'salida15', name='salida15'),
     
     )

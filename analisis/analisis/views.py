@@ -159,10 +159,15 @@ def salida8(request, template="analisis/salida8.html"):
 
 	for p in Papel.objects.all():
 		socio = filtro.filter(pregunta_5c__pregunta_5c_nested__papel_1=p).count()
+		# for obj in Pregunta_5c.objects.all():
+		# 	for x in obj.pregunta_5c_nested_set.all():
+		# 		prioritizado = filtro.filter(pregunta_5c__pregunta_5c_nested__papel_1=p).count()
+		# 		print prioritizado
 		
 
 		fila = [p.nombre,'--',socio]
 		tabla.append(fila)
+		print tabla
 
 	return render(request,template, locals())
 
@@ -186,84 +191,63 @@ def salida9(request, template="analisis/salida9.html"):
 
 	return render(request,template, locals())
 
+def salida10(request, template="analisis/salida10.html"):
+	filtro = _queryset_filtrado(request)
 
-# def post(request):
-# 	fecha = request.POST['fecha']
-# 	pais = request.POST['pais']
-# 	sitio_accion = request.POST['sitio_accion']
-# 	tipo_estudio = request.POST['tipo_estudio']
+	tabla = []
+	datos = {}
 
-# 	template = 'analisis/index.html'
-	
-# 	#salida 1 : Participacion entrevista por sector
-# 	sectores = {}
-# 	for x in Sector.objects.all():
-# 		cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais,
-# 												entrevista__tipo_estudio=tipo_estudio,
-# 												entrevista__fecha1=fecha).count()
-# 		sectores[x.nombre] = cont_organizacion
+	for x in Sector.objects.all():
+		cont_socio_1 = Pregunta_1.objects.filter(entrevistado=filtro,socio__sector=x).distinct('socio')
+		cont_socio_2 = Pregunta_5a.objects.filter(entrevistado=filtro,socio__sector=x).distinct('socio')
 
-# 	sectores1 = {}
-# 	for x in Sector.objects.all():
-# 		cont_organizacion = Organizaciones.objects.filter(sector=x,sitio_accion=sitio_accion,pais=pais)
-# 		sectores1[x.nombre] = cont_organizacion	
+		tabla.append(cont_socio_1)
+		tabla.append(cont_socio_2)
+		datos[x] = (list(set(tabla)))
 
-# 	#salida 2: Proyectos/Iniciativas de las Organizaciones
-# 	tabla = []
-# 	proyectos = {}
-# 	valores1 = []
-# 	valores2 = []
+	return render(request,template, locals())
 
-# 	for choice in Sector.objects.all():
-# 		query = Pregunta_1.objects.filter(entrevistado__organizacion__sector=choice,
-# 										   entrevistado__organizacion__sitio_accion=sitio_accion,
-# 										   entrevistado__organizacion__pais=pais,
-# 										   entrevistado__fecha1=fecha)
-# 		cont_organizacion = Organizaciones.objects.filter(sector=choice,sitio_accion=sitio_accion,pais=pais,
-# 												 entrevista__tipo_estudio=tipo_estudio,
-# 												 entrevista__fecha1=fecha).count()
+def salida14(request, template="analisis/salida14.html"):
+    filtro = _queryset_filtrado(request)
 
-# 		resultados = query.count()
+    tabla = []
+    proyectos = {}
+    valores1 = []
+    valores2 = []
+    valores3 = []
 
-# 		fila = [choice.nombre,
-# 				cont_organizacion,
-# 				resultados,
-# 				promedio(resultados,cont_organizacion)
-# 				]
+    for choice in Sector.objects.all():
+        innovaciones = filtro.filter(pregunta_6a__entrevistado__organizacion__sector=choice).count()
+        cont_organizacion = filtro.filter(organizacion__sector=choice).count()
 
-# 		tabla.append(fila)
-# 		proyectos[choice.nombre] = promedio(resultados,cont_organizacion)
+        fila = [choice.nombre,cont_organizacion,innovaciones,promedio(innovaciones,cont_organizacion)]
 
-# 		valores1.append(cont_organizacion)
-# 		valores2.append(resultados)
-		
-# 	total1 = sumarLista(valores1)
-# 	total2 = sumarLista(valores2)
+        tabla.append(fila)
+        proyectos[choice.nombre] = promedio(innovaciones,cont_organizacion)
 
-	
+        valores1.append(cont_organizacion)
+        valores2.append(innovaciones)
+        valores3.append(float(promedio(innovaciones,cont_organizacion)))
+        
+    total1 = sumarLista(valores1)
+    total2 = sumarLista(valores2)
+    total3 = sumarLista(valores3)/len(valores3)
+        
+    return render(request,template, locals())
 
+def salida15(request, template="analisis/salida15.html"):
+	#falta grafica
+    filtro = _queryset_filtrado(request)
 
-#  	#salida 3: Distribución de Proyectos/Iniciativas por Temáticas
-# 	temas = {}	
-# 	for y in Tema.objects.all():
-# 		contador_pregunta1 = Pregunta_1.objects.filter(tema=y,
-# 													   entrevistado__organizacion__sitio_accion=sitio_accion,
-# 													   entrevistado__organizacion__pais=pais,
-# 													   entrevistado__fecha1=fecha).count()
-# 		temas[y.tema] = contador_pregunta1
+    temas = {}  
+    
+    for y in Tema.objects.all():
+        contador_pregunta1 = filtro.filter(pregunta_6a__tema=y).count()
+        temas[y.tema] = contador_pregunta1
+        
+    return render(request,template, locals())
 
-	
-# 	#salida 4: Numero de Impactos por Grupo Organizacional
-# 	impactos = {}
-# 	for imp in Sector.objects.all():
-# 		preg_4 = Pregunta_4.objects.filter(entrevistado__organizacion__sector=imp,
-# 										   entrevistado__organizacion__sitio_accion=sitio_accion,
-# 										   entrevistado__organizacion__pais=pais,
-# 										   entrevistado__fecha1=fecha).count()
-# 		impactos[imp.nombre] = preg_4
-
-
-# 	return render(request, template, locals())
+###########################################################################################
 
 def salida5(request, template="analisis/salida5.html"):
     filtro = _queryset_filtrado(request)
@@ -372,57 +356,6 @@ def calcular_mediana(lista):
             return calcular_promedio([lista[index_1-1], lista[index_2-1]])
         except:
             return 0
-
-	# def get_context_data(self,**kwargs):
-	# 	context = super(IndexView, self).get_context_data(**kwargs)
-	# 	contador_org = Organizaciones.objects.count()
-
-
-	# sector = {}
-	# for x in Sector.objects.all():
-	# 	cont_org = Organizaciones.objects.filter(sector=x).count()
-	# 	sector[x.nombre] = cont_org
-	# context['contador_sector'] = sector
-
-	# 	tema = {}
-	# 	for y in Tema.objects.all():
-	# 		contador_pregunta1 = Pregunta_1.objects.filter(tema=y).count()
-	# 		tema[y.tema] = contador_pregunta1
-	# 	context['contador_tematica'] = tema
-		
-	# 	prueba = {}
-	# 	for i in Sector.objects.all():
-	# 		conteo = Pregunta_1.objects.filter(entrevistado__organizacion__sector=i).count()
-	# 		prueba[i.nombre] = conteo
-	# 	context['proyectos'] = prueba
-			
-	# 	impactos = {}
-	# 	for imp in Sector.objects.all():
-	# 		preg_4 = Pregunta_4.objects.filter(entrevistado__organizacion__sector=imp).count()
-	# 		impactos[imp.nombre] = preg_4
-	# 	context['impacto'] = impactos
-
-	# 	preg_4_tema = {}
-	# 	for y in Tema.objects.all():
-	# 		contador_pregunta4 = Pregunta_4.objects.filter(tema=y).count()
-	# 		preg_4_tema[y.tema] = contador_pregunta4
-	# 	context['impactos_tematica'] = preg_4_tema
-
-	# 	innocacion = {}
-	# 	for inno in Sector.objects.all():
-	# 		contador_pregunta5 = Pregunta_5a.objects.filter(entrevistado__organizacion__sector=inno).count()
-	# 		innocacion[inno.nombre] = contador_pregunta5
-	# 	context['innovacion_contador']  = innocacion
-
-	# 	tematica_innovacion = {}
-	# 	for ti in Tema.objects.all():
-	# 		contador_tematica_5a = Pregunta_5a.objects.filter(tema=ti).count()
-	# 		tematica_innovacion[ti.tema] = contador_tematica_5a
-	# 	context['tematica_innovacion_5a'] = tematica_innovacion
-
-	# 	return context
-
-   
 
 class BusquedaPaisView(TemplateView):
      
