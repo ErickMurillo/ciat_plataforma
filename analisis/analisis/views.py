@@ -55,7 +55,7 @@ def inicio(request, template='analisis/inicio.html'):
         form = EntrevistaConsulta()
         mensaje = "Existen alguno errores"
         centinela = 0
-        #if 'fecha' in request.session:
+        # if 'fecha' in request.session:
         #    del request.session['fecha']
         #    del request.session['pais']
         #    del request.session['sitio_accion']
@@ -70,11 +70,11 @@ def salida1(request, template="analisis/salida1.html"):
     sectores = {}
     sectores1 = {}
     for x in Sector.objects.all():
-        cont_organizacion = filtro.filter(organizacion__sector=x).count()
+        cont_organizacion = filtro.filter(organizacion__sector=x).distinct('organizacion').count()
         sectores[x.nombre] = cont_organizacion
 
-        cont_organizacion1 = filtro.filter(organizacion__sector=x)
-        sectores1[x.nombre] = cont_organizacion1.distinct()
+        cont_organizacion1 = filtro.filter(organizacion__sector=x).distinct('organizacion')
+        sectores1[x.nombre] = cont_organizacion1
         
     return render(request,template, locals())
 
@@ -89,7 +89,7 @@ def salida2(request, template="analisis/salida2.html"):
 
     for choice in Sector.objects.all():
         query = filtro.filter(pregunta_1__entrevistado__organizacion__sector=choice)
-        cont_organizacion = filtro.filter(organizacion__sector=choice).count()
+        cont_organizacion = filtro.filter(organizacion__sector=choice).distinct('organizacion').count()
 
         resultados = query.count()
 
@@ -133,7 +133,7 @@ def salida4(request, template="analisis/salida4.html"):
     
     for imp in Sector.objects.all():
         preg_4 = filtro.filter(pregunta_4__entrevistado__organizacion__sector=imp).count()
-        cont_organizacion = filtro.filter(organizacion__sector=imp).count()
+        cont_organizacion = filtro.filter(organizacion__sector=imp).distinct('organizacion').count()
         
         fila = [imp.nombre,cont_organizacion,preg_4,promedio(preg_4,cont_organizacion)]
 
@@ -178,7 +178,7 @@ def salida9(request, template="analisis/salida9.html"):
 	datos = {}
 
 	for x in Sector.objects.all():
-		cont_organizacion = filtro.filter(organizacion__sector=x).count()
+		cont_organizacion = filtro.filter(organizacion__sector=x).distinct('organizacion').count()
 		cont_socios = filtro.filter(pregunta_5c__pregunta_5c_nested__pregunta_5c__entrevistado__organizacion__sector=x).count()
 		try:
 			avg_total = promedio(cont_organizacion, cont_socios)
@@ -218,7 +218,7 @@ def salida14(request, template="analisis/salida14.html"):
 
     for choice in Sector.objects.all():
         innovaciones = filtro.filter(pregunta_6a__entrevistado__organizacion__sector=choice).count()
-        cont_organizacion = filtro.filter(organizacion__sector=choice).count()
+        cont_organizacion = filtro.filter(organizacion__sector=choice).distinct('organizacion').count()
 
         fila = [choice.nombre,cont_organizacion,innovaciones,promedio(innovaciones,cont_organizacion)]
 
@@ -244,6 +244,34 @@ def salida15(request, template="analisis/salida15.html"):
     for y in Tema.objects.all():
         contador_pregunta1 = filtro.filter(pregunta_6a__tema=y).count()
         temas[y.tema] = contador_pregunta1
+        
+    return render(request,template, locals())
+
+def salida17(request, template="analisis/salida17.html"):
+    filtro = _queryset_filtrado(request)
+
+    sectores = {}
+    dic = {}
+    tabla = []  
+
+    for y in Sector.objects.all():
+        org = filtro.filter(organizacion__sector=y).distinct('organizacion')
+        cont_org = filtro.filter(organizacion__sector=y).distinct('organizacion').count()
+        
+        for x in org:
+            project_partners = Pregunta_1.objects.filter(entrevistado=filtro,socio=x.organizacion).distinct('socio')
+            dic[x.organizacion] = project_partners
+
+        sectores[y] = (org,(cont_org + 1),dic)
+           
+
+    for key,value in dic.items():
+        print "organizacion:%s " % (key)
+        for x in value:
+            for asd in x.socio.all():
+                 print asd
+    
+
         
     return render(request,template, locals())
 

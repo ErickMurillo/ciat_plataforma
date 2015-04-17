@@ -1,0 +1,105 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+{% endblock extra_js%} 
+
+
+{% block contenido %}
+
+<!-- <TABLE BORDER=3 width=340>
+
+    <TR>
+
+        <TD ROWSPAN="2" ALIGN=center WIDTH="200">How about this?</TD>
+        <TD ALIGN=center WIDTH="200">Cell</TD>
+    </TR>
+
+    <TR>
+        <TD ALIGN=center WIDTH="200">Cell</TD>
+    </TR>
+</TABLE> -->
+
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sector</th>
+                <th>Organización</th>
+                <th>Socios de Proyectos</th>
+                <th>Socios de innovaciones actuales</th>
+                <th>Socios de innovaciones deseadas</th>
+            </tr>
+        </thead>
+        <tbody>
+           {%for key,value in sectores.items %}
+           <tr>
+            <td rowspan="{{value.1}}">{{key}}</td>
+        </tr>
+
+
+        {% for x in value.0 %}
+        <tr>
+            <td>{{x.organizacion}}
+               <td>
+                {% for key1,value1 in value.2.items %}
+                {% if key1 == x.organizacion %}
+                      {% for y in value1 %} 
+                       {% for z in y.socio.all %}
+                           {{z}},
+                       {% endfor %}
+                   {% endfor %} 
+                {% endif %}
+               
+                
+                {% endfor %}
+                </td>
+
+            </td>
+        </tr>
+        {% endfor %}
+
+
+
+        {%endfor%}
+
+    </tbody>
+</table>
+</div> 
+
+   <!-- <div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sector</th>
+                <th>Organización</th>
+                <th>Socios de Proyectos</th>
+                <th>Socios de innovaciones actuales</th>
+                <th>Socios de innovaciones deseadas</th>
+            </tr>
+        </thead>
+        <tbody>
+         {%for key,value in sectores.items %}
+         <tr>
+            <td>{{key}}</td>
+            <td>{% for x in value.0 %}
+                    {{x.organizacion}},
+                 {% endfor %}
+            </td>
+            <td>
+                {% for x in value.2 %}
+                    {% for xz in x.socio.all %}
+                        {{xz}},
+                    {% endfor %}
+                {% endfor %}
+            </td>
+        </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div> -->
+
+    {% endblock contenido %}

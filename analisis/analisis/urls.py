@@ -16,5 +16,6 @@ urlpatterns = patterns('analisis.analisis.views',
     url(r'^salida10/$', 'salida10', name='salida10'),
     url(r'^salida14/$', 'salida14', name='salida14'),
     url(r'^salida15/$', 'salida15', name='salida15'),
+    url(r'^salida17/$', 'salida17', name='salida17'),
     
     )
