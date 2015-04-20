@@ -1,0 +1,35 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+{% endblock extra_js%} 
+
+{% block contenido %}
+<h3>Limitaciones actuales y percibidas para fomentar innovaciones y cambios</h3>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Limitación</th>
+                <th>Número organizaciones que se encuentran con limitaciones en innovaciones actuales</th>
+                <th>Número organizaciones que reportan limitaciones potenciales para innovaciones deseadas</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          	<td>{{key}}</td>
+          	<td>{{value.0}}</td>
+          	<td>{{value.1}}</td>
+          	</tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+</div> 
+ 
+{% endblock contenido %}

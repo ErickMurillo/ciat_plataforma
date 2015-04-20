@@ -35,38 +35,51 @@
             </tr>
         </thead>
         <tbody>
-           {%for key,value in sectores.items %}
-           <tr>
-            <td rowspan="{{value.1}}">{{key}}</td>
+         {%for key,value in sectores.items %}
+         <tr>
+            <td rowspan="{{value.3}}">{{key}}</td>
         </tr>
 
 
         {% for x in value.0 %}
         <tr>
             <td>{{x.organizacion}}
-               <td>
-                {% for key1,value1 in value.2.items %}
-                {% if key1 == x.organizacion %}
-                      {% for y in value1 %} 
-                       {% for z in y.socio.all %}
-                           {{z}},
-                       {% endfor %}
-                   {% endfor %} 
-                {% endif %}
-               
-                
+             <td>
+                {% for key1,value1 in value.1.items %}
+                    {% if key1 == x.organizacion %}
+                        {% for y in value1 %} 
+                            {% for z in y.socio.all %}
+                                {{z}},
+                             {% endfor %}
+                         {% endfor %} 
+                    {% endif %}
                 {% endfor %}
-                </td>
-
             </td>
-        </tr>
-        {% endfor %}
+
+            <td>
+                {% for key2,value2 in value.2.items %}
+                    {% if key2 == x.organizacion %}
+                        {% for z in value2 %} 
+                            {% for v in z.socio.all %}
+                                {{v}},
+                             {% endfor %}
+                         {% endfor %} 
+                    {% endif %}
+                {% endfor %}
+            </td>
+
+
+        
+
+       </td>
+   </tr>
+   {% endfor %}
 
 
 
-        {%endfor%}
+   {%endfor%}
 
-    </tbody>
+</tbody>
 </table>
 </div> 
 

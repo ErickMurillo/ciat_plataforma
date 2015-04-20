@@ -2,19 +2,17 @@
 {%load staticfiles%}
 {% load i18n %}
 
-
 {% block extra_js%}  
-<!-- ++ grafica 2  -->
 <script>
     $(function () {
-        $('#salida14').highcharts({
+        $('#salida16').highcharts({
             chart: {
                 plotBackgroundColor: null,
             plotBorderWidth: 1,//null,
             plotShadow: false
         },
         title: {
-            text: 'Distribution of Desired Innovations/Changes across Organization Groups'
+            text: 'Socios potenciales de Innovaciones/Cambios por Sector'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -34,9 +32,10 @@
         },
         series: [{
             type: 'pie',
-            name: 'Browser share',
+            name: '% Participacion',
             data: [
-            {% for key,value in  proyectos.items %}
+
+            {% for key,value in grafica.items %}
             ['{{key}}', {{value}}],
             {% endfor %}
             ]
@@ -46,40 +45,26 @@
 {% endblock extra_js%} 
 
 {% block contenido %}
-	<h3>Number, Average, and Median Value of Desired Innovations/Changes by Sector</h3>
+	<h3>Socios potenciales de Innovaciones/Cambios por Sector</h3>
 <div>
     <table class="table">
-
-     <thead>
-      <tr>
-          <th>Sector</th>
-          <th>Número de Organizaciones</th>
-          <th>Número de Proyectos/Iniciativas deseados</th>
-          <th>Número medio por Sector</th>
-          <th>Valor de la Mediana</th>
-      </tr>
-  </thead>
   <tbody>
-    {%for fila in tabla%}
-    <tr>
-        {%for celda in fila %}
-        <td>{{celda}}</td>
-        {%endfor%}
-    </tr>
-    {%endfor%}
+  {% for key,value in datos.items %}
+            <tr>
+                <td>{{key}}</td>
+                <td>
+                {% for x in value %}
+                	{{x}},
+                {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
 </tbody>
-<tfoot>
-        <td>Total</td>
-        <td>{{total1}}</td>
-        <td>{{total2}}</td>
-        <td>{{total3|floatformat:2}}</td>
-        <td></td>
-</tfoot>
 
 </table>
 </div>
 
-<!--grafico 2 -->
-<div id="salida14"></div> 
+
+<div id="salida16"></div> 
 
 {% endblock contenido %}
