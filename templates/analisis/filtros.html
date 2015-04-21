@@ -1,0 +1,19 @@
+<div class="filtros">
+	<ol class="breadcrumb">
+	<li>Filtros Seleccionados: </li>
+	{% if request.session.fecha %}
+		<li><a href="#">{{ request.session.fecha }}</a></li>
+	{% endif %}
+    {% if request.session.pais %}
+    	<li><a href="#">{{ request.session.pais }}</a></li>
+    {% endif %}
+    {% if request.session.sitio_accion %}
+    	<li><a href="#">{{ request.session.sitio_accion }}</a></li>
+    {% endif %}
+    {% if request.session.tipo_estudio %}
+    	<li><a href="#">{{ request.session.tipo_estudio }}</a></li>
+    {% endif %}
+   
+	</ol>
+
+</div>

@@ -293,7 +293,7 @@ font-weight: 700;
 .navbar-default {
 border:0px solid black;
 font-family: 'Open Sans', 'Myriad Pro', 'Helvetica', sans-serif;
-font-size: 14px;
+font-size: 11px;
 font-weight: bold;
 
 text-transform: uppercase;
@@ -357,5 +357,4 @@ line-height: 1.428571429;
 }
    
 }
-
 

@@ -45,7 +45,10 @@
 {% endblock extra_js%} 
 
 {% block contenido %}
-	<h3>Proyectos/Iniciativas de las Organizaciones</h3>
+
+{% include "analisis/filtros.html" %}
+
+	<h3>Numero, promedio, and valores medianos de proyectos/iniciativa por Sector </h3>
 <div>
     <table class="table">
 

@@ -757,3 +757,13 @@ color: #1d1d1d !important;
 .btn-success {
 background-color: #5d8c3b;
 }
+
+/*==============================================
+    BREADCRUMBS PARA LOS FILTROS DEL SITIO DE ANALISIS    
+    =============================================*/
+.breadcrumb {background: rgba(164, 196, 149, 1); border: 0px solid rgba(245, 245, 245, 1); border-radius: 4px; display: block;}
+.breadcrumb li {font-size: 14px;}
+.breadcrumb a {color: rgba(0, 0, 0, 1);}
+.breadcrumb a:hover {color: rgba(42, 100, 150, 1);}
+.breadcrumb>.active {color: rgba(59, 120, 31, 1);}
+.breadcrumb>li+li:before {color: rgba(15, 8, 8, 1); content: "\276F\00a0";}
