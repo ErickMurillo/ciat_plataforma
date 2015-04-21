@@ -4,49 +4,58 @@
 
 {% block extra_js%}  
 <script>
-    $(function () {
+
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
         $('#salida5').highcharts({
             chart: {
                 plotBackgroundColor: null,
-                plotBorderWidth: 1,//null,
+                plotBorderWidth: null,
                 plotShadow: false
-        },
-        title: {
-            text: 'Distribución de Impactos por Tipo de Organización'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
+            },
+            title: {
+                text: 'Distribución de Impactos por Tipo de Organización'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
+                    format: '{point.percentage:.1f} %',
+                    
+                },
+                    showInLegend: true
                 }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Browser share',
-            data: [
+            },
+            series: [{
+                type: 'pie',
+                name: 'Aporte',
+              data: [
 
             {% for key,value in  datos.items %}
             ['{{key}}', {{value.2}}],
             {% endfor %}
             ]
-        }]
+            }]
+        });
     });
-});</script>
+
+});
+
+</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
 {% include "analisis/filtros.html" %}
-<h3>Number, Average, and Median Value of Innovations/Changes by Sector </h3>
+
+<h3>Numero, promedio, and valores medianos de las innovaciones/cambios por sector</h3>
 
 <div>
     <table class="table">

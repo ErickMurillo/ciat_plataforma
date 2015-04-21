@@ -6,51 +6,58 @@
 <!-- ++ grafica 1  -->
 
 <script>
-    $(function () {
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
         $('#sector').highcharts({
             chart: {
                 plotBackgroundColor: null,
-            plotBorderWidth: 1,//null,
-            plotShadow: false
-        },
-        title: {
-            text: 'Distribución de la Participación en la Entrevista por Sector'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Distribución de la Participación en la Entrevista por Sector'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
+                    format: '{point.percentage:.1f} %',
+                    
+                },
+                    showInLegend: true
                 }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: '% Participacion',
-            data: [
+            },
+            series: [{
+                type: 'pie',
+                name: 'Aporte',
+              data: [
 
             {% for key,value in sectores.items %}
             ['{{key}}', {{value}}],
             {% endfor %}
             ]
-        }]
+            }]
+        });
     });
-});</script>
+
+});
+   </script>
 {% endblock extra_js%} 
 
 
 {% block contenido %}
+
 {% include "analisis/filtros.html" %}
 
-<h3>Organizationes participando en los estudios</h3>
+<h3>Organizaciones participando en el estudio</h3>
 	<div>
     <table class="table">
       <tbody>

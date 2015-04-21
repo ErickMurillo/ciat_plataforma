@@ -8,16 +8,18 @@
 
 {% block contenido %}
 {% include "analisis/filtros.html" %}
-<h3>Distribución de los socios de las Organizaciones por rol</h3>
+
+<h3>Número, promedio y valores medianos de las alianzas por sector</h3>
 
 <div>
     <table class="table">
         <thead>
             <tr>
-                <th>Papel</th>
-                <th>Número de Innovaciones Prioritizadas</th>
-                <th>Número de Socios reportados en las innovaciones</th>
-                <th>Avg del # de Socios por Innovación</th>
+                <th>Sector</th>
+                {% for sector in sectores %}
+                    <th>{{sector}}</th>
+                {% endfor %}
+                
             </tr>
         </thead>
         <tbody>
@@ -32,5 +34,6 @@
     </table>
 </div> 
 
+<div id="salida9"></div> 
 
 {% endblock contenido %}

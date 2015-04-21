@@ -4,49 +4,57 @@
 
 {% block extra_js%} 
 <script>
-    $(function () {
+
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
         $('#salida9').highcharts({
             chart: {
                 plotBackgroundColor: null,
-            plotBorderWidth: 1,//null,
-            plotShadow: false
-        },
-        title: {
-            text: 'Distribution of Partner Organizations by sector'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Distribución de los socios de las Organizaciones por sector'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
+                    format: '{point.percentage:.1f} %',
+                    
+                },
+                    showInLegend: true
                 }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: '% Participacion',
-            data: [
-
+            },
+            series: [{
+                type: 'pie',
+                name: 'Aporte',
+              data: [
             {% for key,value in datos.items %}
             ['{{key}}', {{value}}],
             {% endfor %}
             ]
-        }]
+            }]
+        });
     });
-});</script>
+
+});
+
+</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
 {% include "analisis/filtros.html" %}
-<h3>Number, Average, and Median Value of Alliances by Sector</h3>
+
+<h3>Número, promedio y valores medianos de las alianzas por sector</h3>
 
 <div>
     <table class="table">

@@ -9,19 +9,8 @@
 
 {% block contenido %}
 {% include "analisis/filtros.html" %}
-<!-- <TABLE BORDER=3 width=340>
 
-    <TR>
-
-        <TD ROWSPAN="2" ALIGN=center WIDTH="200">How about this?</TD>
-        <TD ALIGN=center WIDTH="200">Cell</TD>
-    </TR>
-
-    <TR>
-        <TD ALIGN=center WIDTH="200">Cell</TD>
-    </TR>
-</TABLE> -->
-
+<h3>Construcción de sociedades y alianzas por Sector y Organizaciones</h3>
 
 <div>
     <table class="table">
@@ -37,7 +26,7 @@
         <tbody>
          {%for key,value in sectores.items %}
          <tr>
-            <td rowspan="{{value.3}}">{{key}}</td>
+            <td rowspan="{{value.4}}">{{key}}</td>
         </tr>
 
 
@@ -56,17 +45,28 @@
                 {% endfor %}
             </td>
 
-            <td>
+           <td>
                 {% for key2,value2 in value.2.items %}
                     {% if key2 == x.organizacion %}
-                        {% for z in value2 %} 
-                            {% for v in z.socio.all %}
-                                {{v}},
-                             {% endfor %}
-                         {% endfor %} 
-                    {% endif %}
+                         {% for zx in value2 %}
+                             {{zx}},  
+                    {% endfor %}
+                     {% endif %} 
+                    
                 {% endfor %}
             </td>
+
+             <td>
+                {% for key3,value3 in value.3.items %}
+                    {% if key3 == x.organizacion %}
+                         {% for zx in value3 %}
+                             {{zx}},  
+                    {% endfor %}
+                     {% endif %} 
+                    
+                {% endfor %}
+            </td>
+
 
 
         
@@ -83,36 +83,6 @@
 </table>
 </div> 
 
-   <!-- <div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Sector</th>
-                <th>Organización</th>
-                <th>Socios de Proyectos</th>
-                <th>Socios de innovaciones actuales</th>
-                <th>Socios de innovaciones deseadas</th>
-            </tr>
-        </thead>
-        <tbody>
-         {%for key,value in sectores.items %}
-         <tr>
-            <td>{{key}}</td>
-            <td>{% for x in value.0 %}
-                    {{x.organizacion}},
-                 {% endfor %}
-            </td>
-            <td>
-                {% for x in value.2 %}
-                    {% for xz in x.socio.all %}
-                        {{xz}},
-                    {% endfor %}
-                {% endfor %}
-            </td>
-        </tr>
-                {%endfor%}
-            </tbody>
-        </table>
-    </div> -->
+
 
     {% endblock contenido %}
