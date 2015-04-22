@@ -1,7 +1,7 @@
 from django.conf.urls import *
-from django.views.generic import TemplateView
+from .views import IndexView
 
-urlpatterns = patterns('',
-	url(r'^pablo/$', TemplateView.as_view(template_name="producto/index.html"),
+urlpatterns = patterns('producto.views',
+	url(r'^$', IndexView.as_view(), name='index'),
 
     )
