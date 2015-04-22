@@ -1,0 +1,181 @@
+
+/*---------------Circulo------------------*/
+body {
+  	padding-top: 0;
+	background:#ddd url(/static/general/img/fondo.jpg) no-repeat center center fixed; 
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+  	font-size: 16px;
+
+}
+.nicanorte, .domini{
+	background-color:transparent !important;
+	margin-bottom: 2em;
+}
+
+.circle-producto {
+	position: relative;
+	perspective: 1000;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	margin-top: 1.1em;
+
+		
+}
+.titulo{
+	padding: 0 !important;
+	margin-top: 2em;
+
+}
+.titulo li{
+	list-style: none;
+
+	text-align: center;
+
+}
+.titulo li a{
+	font-size: 1.5em;
+	color: white;
+	text-transform: uppercase;
+	font-weight: 700;
+	text-decoration: none;
+
+}
+		
+.circle-producto:hover .circunferencia {
+	transform: rotate3d(45, 45, 0, 180deg);
+}
+		
+.circle-producto:hover .outer-ring {
+	transform: rotate3d(45, 0, 0, 180deg);
+}
+
+.circle-producto:hover .outer-outer-ring {
+	transform: rotate3d(0, 45, 0, 180deg);
+}
+		
+.circle-producto, .front, .back {
+	width: 350px;
+	height: 350px;
+	background-color: rgba(0,0,0,0);
+}
+		
+.circunferencia, .outer-ring, .outer-outer-ring {
+	transition: 0.5s;
+	transform-style: preserve-3d;
+	transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+}
+		
+.circunferencia {
+	position: relative;
+	width: 350px;
+	height: 350px;
+}
+		
+.front, .back {
+	border-radius: 50%;
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+		
+.back {
+	background-color: #fff;
+	z-index: 2;
+}
+		
+.back p {
+	margin-top: 1em;
+  	padding: 0 30px;
+	font-family: cabin, sans-serif;
+	font-weight: 700;
+	font-size: 15px;
+	text-align: justify;
+	color: black;
+}
+.back h4{
+	margin-top: 2em;
+	font-family: cabin, sans-serif;
+	font-weight: 700;
+	font-size: 2em;
+	text-align: center;
+	color: #008040;	
+}		
+.back {
+	transform: rotate3d(45,45,0,180deg);
+	background-color: #fff;
+	text-decoration: none;
+}
+		
+.back-logo {
+  width: 350px;
+  height: 350px;
+  display: block;
+  border-radius: 50%;
+}
+		
+.outer-ring {
+	position: absolute;
+	top: -12px;
+	left: -12px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	width: 375px;
+	height: 375px;
+	background-color: rgba(255,255,255,0);
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+}
+
+.outer-outer-ring {
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	width: 211px;
+	height: 211px;
+	background-color: rgba(255,255,255,0);
+	box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+}
+/*---------------Link------------------*/
+
+/*---------------*/
+a:focus, a:hover {
+
+  text-decoration: none !important;
+}	
+
+
+.fondo{
+	background-color: rgba(0,0,0,0.2);
+}
+.encabezado{
+	
+	background-color:transparent;
+	margin-bottom: 4em;
+
+}
+
+
+.titulo h2{
+	color: #ed702b;
+	font-weight: bold;
+	
+
+}
+
+
+.footer{
+	/*background-color:#ed702b;*/
+	background-color: rgba(237, 112, 43, 0.5); 
+}
+.footer img{
+	
+	margin-right: 4%;
+	margin-left: 8%;
+}
+
