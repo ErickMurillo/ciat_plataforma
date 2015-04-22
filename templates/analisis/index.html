@@ -6,32 +6,32 @@
 
 
 *****************************************salida 1************************************************** 
-<!--grafico 1 -->
-<div id="sector"></div> 
 
 <div>
     <table class="table">
       <tbody>
-         {% for key,value in sectores1.items %}
-         <tr>
-            <td>{{key}}</td>
-            <td></td>
-            <td>
-                {% for x in value %}
-                {{x.nombre}}
-                <br>
-                {% endfor %}
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
+       {% for key,value in sectores1.items %}
+       <tr>
+        <td>{{key}}</td>
+        <td></td>
+        <td>
+            {% for x in value %}
+            {{x.nombre}}
+            <br>
+            {% endfor %}
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
 
-        {% endfor %}
-    </tbody>
-
-
+    {% endfor %}
+</tbody>
 </table>
 </div>
+
+<!--grafico 1 -->
+<div id="sector"></div> 
+
 
 *****************************************salida 2************************************************** 
 <!--tabla 1-->
@@ -39,28 +39,31 @@
 <div>
     <table class="table">
 
-       <thead>
-          <tr>
-              <th>Grupo Organizacional</th>
-              <th>Número de Organizaciones</th>
-              <th>Número de Proyectos/Iniciativas</th>
-              <th>Número medio de proyectos</th>
-              <th>Valor de la Mediana</th>
-          </tr>
-      </thead>
-      <tbody>
-         {% for key,value in proyectos.items %}
-         <tr>
-            <td>{{key}}</td>
-            <td></td>
-            <td>{{value}}</td>
-            <td></td>
-            <td></td>
-        </tr>
-
-        {% endfor %}
-    </tbody>
-
+     <thead>
+      <tr>
+          <th>Grupo Organizacional</th>
+          <th>Número de Organizaciones</th>
+          <th>Número de Proyectos/Iniciativas</th>
+          <th>Número medio de proyectos</th>
+          <th>Valor de la Mediana</th>
+      </tr>
+  </thead>
+  <tbody>
+    {%for fila in tabla%}
+    <tr>
+        {%for celda in fila %}
+        <td>{{celda}}</td>
+        {%endfor%}
+    </tr>
+    {%endfor%}
+</tbody>
+<tfoot>
+        <td>Total</td>
+        <td>{{total1}}</td>
+        <td>{{total2}}</td>
+        <td></td>
+        <td></td>
+</tfoot>
 
 </table>
 </div>
@@ -136,6 +139,7 @@
         <thead>
             <tr>
                 <th>Temáticas</th>
+                <th>Número de Proyectos</th>
                 <th>Número de Impactos</th>
             </tr>
         </thead>
@@ -143,6 +147,7 @@
             {% for key,value in impactos_tematica.items %}
             <tr>
                 <td>{{key}}</td>
+                <td></td>
                 <td>{{value}}</td>
             </tr>
             {% endfor %}
@@ -162,7 +167,7 @@
             </tr>
         </thead>
         <tbody>
-            
+
             <tr>
                 <td></td>
                 <td></td>
@@ -311,7 +316,6 @@
             type: 'pie',
             name: 'Browser share',
             data: [
-
             {% for key,value in  proyectos.items %}
             ['{{key}}', {{value}}],
             {% endfor %}

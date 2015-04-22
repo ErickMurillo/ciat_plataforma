@@ -170,10 +170,12 @@ width: :218px !important;
 }
 
 .footer{
-	background-color:#ed702b; 
+	/*background-color:#ed702b;*/
+	background-color: rgba(237, 112, 43, 0.5); 
 }
 .footer img{
 	
 	margin-right: 4%;
 	margin-left: 8%;
 }
+
