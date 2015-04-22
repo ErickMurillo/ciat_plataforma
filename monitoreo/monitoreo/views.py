@@ -139,9 +139,12 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['familias'] = Encuesta.objects.all().count()
-        context['organizacion'] = Organizaciones.objects.all().count()
+        #context['organizacion'] = Organizaciones.objects.all().count()
         context['mujeres'] = Encuesta.objects.filter(productor__sexo=2).count()
         context['hombres'] = Encuesta.objects.filter(productor__sexo=1).count()
+          
+        foo = Encuesta.objects.all().order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
+        context['organizacion'] = Organizaciones.objects.filter(id__in=foo).count()
 
         return context
 
@@ -1968,12 +1971,12 @@ def graves(request,numero):
     num_familia = a.count()
     #******************************************
     suma = 0
-    for p in Graves.objects.all():
+    for p in Graves.objects.filter(id__in=[1,2,3,4]):
         fenomeno = a.filter(vulnerable__motivo__id=numero, vulnerable__respuesta=p).count()
         suma += fenomeno
 
     lista = []
-    for x in Graves.objects.all():
+    for x in Graves.objects.filter(id__in=[1,2,3,4]):
         fenomeno = a.filter(vulnerable__motivo__id=numero, vulnerable__respuesta=x).count()
         porcentaje = round(saca_porcentajes(fenomeno,suma),2)
         lista.append([x.nombre,fenomeno,int(porcentaje)])
@@ -1986,7 +1989,7 @@ def suma_graves(request,numero):
     num_familia = a.count()
     #******************************************
     suma = 0
-    for p in Graves.objects.all():
+    for p in Graves.objects.filter(id__in=[1,2,3,4]):
         fenomeno = a.filter(vulnerable__motivo__id=numero, vulnerable__respuesta=p).count()
         suma += fenomeno
     return suma
@@ -2507,9 +2510,9 @@ def obtener_lista(request):
     if request.is_ajax():
         lista = []
         for objeto in Encuesta.objects.all():
-            dicc = dict(nombre=objeto.nombre, id=objeto.id,
-                        lon=float(objeto.comunidad.municipio.longitud) ,
-                        lat=float(objeto.comunidad.municipio.latitud)
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
                         )
             lista.append(dicc)
 
