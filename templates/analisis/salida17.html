@@ -36,12 +36,12 @@
              <td>
                 {% for key1,value1 in value.1.items %}
                     {% if key1 == x.organizacion %}
-                        {% for y in value1 %} 
-                            {% for z in y.socio.all %}
-                                {{z}},
-                             {% endfor %}
-                         {% endfor %} 
+                        {% for xc in value1 %}
+                        {{xc}},
+                    {% endfor %}
                     {% endif %}
+                    
+                    
                 {% endfor %}
             </td>
 
