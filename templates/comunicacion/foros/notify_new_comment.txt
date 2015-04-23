@@ -4,4 +4,5 @@ del Foro {{comentario.aporte.foro.nombre}}
 Pare ver el comentario dar click al enlace abajo:
 {{url}}
 
-Humidtropic
+Alianzas Centroamérica - Caribe
+http://alianza-cac.net/

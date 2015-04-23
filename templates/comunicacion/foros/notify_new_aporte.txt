@@ -7,4 +7,5 @@ Foro al que aporta: {{aporte}}
 Haga click al enlace de abajo para ir a ver el aporte: 
 http://{{url_aporte}}
 
-Humidtropic
+Alianzas Centroamérica - Caribe
+http://alianza-cac.net/
