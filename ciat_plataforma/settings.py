@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'mapeo',
     #apps solo de analisis
     'analisis.analisis',
+
     #apps solo de comunicion
     #'comunicacion.aliados',
     'comunicacion.contrapartes',

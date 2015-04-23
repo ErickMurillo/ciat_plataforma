@@ -112,12 +112,13 @@ def salida3(request, template="analisis/salida3.html"):
 
 	sectores = Sector.objects.all()
 	
-	temas = {}  
+	temas = {}
 	
 	for y in Tema.objects.all():
 		contador_pregunta1 = filtro.filter(pregunta_1__tema=y).count()
 
 		temas[y.tema] = contador_pregunta1
+
 
 	return render(request,template, locals())
 
@@ -223,7 +224,8 @@ def salida10(request, template="analisis/salida10.html"):
 
 	return render(request,template, locals())
 
-def salida11(request, template="analisis/salida11.html"):
+
+def salida12(request, template="analisis/salida12.html"):
 	filtro = _queryset_filtrado(request)
 
 	sectores = Sector.objects.all()
@@ -267,6 +269,7 @@ def salida11(request, template="analisis/salida11.html"):
 
 
 	return render(request,template, locals())
+
 
 def salida14(request, template="analisis/salida14.html"):
 	filtro = _queryset_filtrado(request)
