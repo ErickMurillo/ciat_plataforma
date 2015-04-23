@@ -1,0 +1,30 @@
+<ol class="breadcrumb">
+  <li>Filtros Seleccionados: </li>
+	{%if num_familias%}
+		<li><b>Familias:</b>{{num_familias}}</li>
+	{%endif%}
+    {%if request.session.fecha%}
+    <li><b>Año:</b>{%for x in request.session.fecha%}{{x}}, {%endfor%}</li>
+    {%endif%}
+    {%if request.session.departamento%}
+    <li><b>Departamento:</b>{%for a in request.session.departamento.all %}{{a}}, {%endfor%}</li>
+    {%endif%}
+    {%if request.session.organizacion%}
+    <li><b>Organización:</b>{%for b in request.session.organizacion.all %}{{b}}, {%endfor%}</li>
+    {%endif%}
+    {%if request.session.municipio%}
+    <li><b>Municipio:</b>{%for c in request.session.municipio.all %}{{c}}, {%endfor%}</li>
+    {%endif%}
+    {%if request.session.comunidad%}
+    <li><b>Comunidad:</b>{%for d in request.session.comunidad.all %}{{d}}, {%endfor%}</li>
+    {%endif%}
+    {%if request.session.socio%}
+    <li><b>Socio:</b>{%if request.session.socio = '1'%}Si{%else%}No{%endif%}</li>
+    {%endif%}
+    {%if request.session.desde%}
+    <li><b>Socio:</b>{%if request.session.desde = '1'%}Menos de 5 {%else%}Mas de 5 {%endif%}</li>
+    {%endif%}
+    {%if request.session.duenio%}
+    <li><b>Jefe:</b>{%if request.session.duenio = '1'%}Si{%endif%}{%if request.session.duenio = '2'%}No{%endif%}</li>
+    {%endif%}  
+</ol>
