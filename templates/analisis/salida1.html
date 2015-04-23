@@ -59,22 +59,20 @@ $(function () {
 
 <h3>Organizaciones participando en el estudio</h3>
 	<div>
-    <table class="table">
+    <table class="table table-bordered">
       <tbody>
        {% for key,value in sectores1.items %}
        <tr>
         <td>{{key}}</td>
-        <td></td>
+        
         <td>
             {% for x in value %}
             {{x.organizacion}}
             <br>
             {% endfor %}
         </td>
-        <td></td>
-        <td></td>
+        
     </tr>
-
     {% endfor %}
 </tbody>
 </table>

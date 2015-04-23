@@ -10,10 +10,10 @@
 {% block contenido %}
 {% include "analisis/filtros.html" %}
 
-<h3>Construcción de sociedades y alianzas por Sector y Organizaciones</h3>
+<h3>Construcción de Sociedades y Alianzas por Sector y Organizaciones</h3>
 
 <div>
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Sector</th>
@@ -36,12 +36,12 @@
              <td>
                 {% for key1,value1 in value.1.items %}
                     {% if key1 == x.organizacion %}
-                        {% for y in value1 %} 
-                            {% for z in y.socio.all %}
-                                {{z}},
-                             {% endfor %}
-                         {% endfor %} 
+                        {% for xc in value1 %}
+                        {{xc}},
+                    {% endfor %}
                     {% endif %}
+                    
+                    
                 {% endfor %}
             </td>
 

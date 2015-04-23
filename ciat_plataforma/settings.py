@@ -79,6 +79,9 @@ INSTALLED_APPS = (
     'monitoreo.indicador18',
     'monitoreo.indicador19',
     'monitoreo.indicador20',
+
+    #producto_proceso
+    'producto',
     
 
 

@@ -65,7 +65,6 @@ def inicio(request, template='analisis/inicio.html'):
 
 def salida1(request, template="analisis/salida1.html"):
 	filtro = _queryset_filtrado(request)
-	#print "cuantas encuestas hay: %s " % (filtro.count())
 
 	sectores = {}
 	sectores1 = {}
@@ -125,7 +124,6 @@ def salida3(request, template="analisis/salida3.html"):
 def salida4(request, template="analisis/salida4.html"):
 	filtro = _queryset_filtrado(request)
 
-	#salida 4: Numero de Impactos por Grupo Organizacional
 	impactos = {}
 	tabla = []
 	valores1 = []
@@ -208,19 +206,20 @@ def salida10(request, template="analisis/salida10.html"):
 
 	tabla = []
 	datos = {}
+	datos1 = {}
 
 	for x in Sector.objects.all():
 		cont_socio_1 = Pregunta_1.objects.filter(entrevistado=filtro,socio__sector=x).distinct('socio')
 		cont_socio_2 = Pregunta_5a.objects.filter(entrevistado=filtro,socio__sector=x).distinct('socio')
+		for y in cont_socio_1:
+			for z in y.socio.all():
+				tabla.append(z)
 
-		#datos[x] = (cont_socio_1,cont_socio_2)
-
-		tabla.append(cont_socio_1)
-		tabla.append(cont_socio_2)
+		for yx in cont_socio_2:
+			for zx in y.socio.all():
+				tabla.append(zx)
+		
 		datos[x] = list(set(tabla))
-
-	# datos1[x] = list(set(tabla1))
-	# print datos1
 
 	return render(request,template, locals())
 
@@ -332,15 +331,21 @@ def salida17(request, template="analisis/salida17.html"):
 	pregunta_1 = {}
 	pregunta_5 = {}
 	pregunta_6 = {}
-	tabla = []  
+	  
 
 	for y in Sector.objects.all():
 		org = filtro.filter(organizacion__sector=y).distinct('organizacion')
 		cont_org = filtro.filter(organizacion__sector=y).distinct('organizacion').count()
 		
 		for x in org:
-			project_partners = Pregunta_1.objects.filter(entrevistado=filtro,socio=x.organizacion).distinct('socio')
-			pregunta_1[x.organizacion] = project_partners
+			project_partners = Pregunta_1.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).distinct('socio')
+			tabla = []
+			for z in project_partners:
+				for xc in z.socio.all():
+					tabla.append(xc)
+
+			pregunta_1[x.organizacion] = list(set(tabla))
+			
 
 			project_partners1 = Pregunta_5c_nested.objects.filter(pregunta_5c__entrevistado=filtro,pregunta_5c__pregunta_5c_nested__pregunta_5c__entrevistado__organizacion=x.organizacion).distinct('organizacion')
 			pregunta_5[x.organizacion] = project_partners1

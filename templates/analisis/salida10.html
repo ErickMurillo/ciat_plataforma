@@ -10,25 +10,23 @@
 {% block contenido %}
 {% include "analisis/filtros.html" %}
 
-<h3>Organizaciones socias para los proyectos e innovaciones por sector</h3>
+<h3>Organizaciones socias para los Proyectos e Innovaciones por Sector</h3>
 	<div>
-    <table class="table">
+    <table class="table table-bordered">
       <tbody>
        {% for key,value in datos.items %}
        <tr>
         <td>{{key}}</td>
         <td>
-            {% for x in value.0 %}
-                {% for zx in x.socio.all %}
-                    {{zx}},
-                {% endfor %}
-            {% endfor %}
+        {% for x in value %}
+        {% if x.sector == key %}
+            {{x}},
+        {% endif %}
+            
+        {% endfor %}
+            
 
-            {% for x in value.1 %}
-                {% for zx in x.socio.all %}
-                    {{zx}},
-                {% endfor %}
-            {% endfor %}
+            
         </td>
     </tr>
 

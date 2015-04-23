@@ -1,6 +1,9 @@
 /*==============================================
     GENERAL  STYLES    
     =============================================*/
+
+
+
 body {
     font-family: 'Open Sans', sans-serif;
 }
@@ -21,7 +24,7 @@ body {
     margin:10px 20px 10px 0px;
     background-color:#fff!important;
     padding:10px;
-    min-height:600px;
+    min-height:1000px;
 }
 
 .text-center {

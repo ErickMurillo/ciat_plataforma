@@ -18,7 +18,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'ciat_plaforma.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', TemplateView.as_view(template_name="indexgeneral.html")),
-    url(r'^producto/', TemplateView.as_view(template_name="producto/index.html")),
 
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     url(r'^accounts/logout/$', 'comunicacion.notas.views.logout_page'),
@@ -40,6 +39,8 @@ urlpatterns = patterns('',
     #urls para monitoreo
     url(r'^monitoreo/', include('monitoreo.monitoreo.urls')),
 
+    #urls para producto
+    url(r'^producto/', include('producto.urls')),
 
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
