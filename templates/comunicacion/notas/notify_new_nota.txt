@@ -7,4 +7,5 @@ Titulo: {{nota.titulo}}
 Haga click al enlace de abajo para ver la Nota: 
 http://{{url}}
 
-Humidtropic
+Alianzas Centroamérica - Caribe
+http://alianza-cac.net/

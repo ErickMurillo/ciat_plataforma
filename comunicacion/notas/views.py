@@ -259,7 +259,7 @@ def notify_all_notas(notas):
     site = Site.objects.get_current()
     users = User.objects.all() #.exclude(username=foros.contraparte.username)
     contenido = render_to_string('comunicacion/notas/notify_new_nota.txt', {'nota': notas,
-                                 'url': '%s/notas/%s' % (site, notas.id),
+                                 'url': '%s/comunicacion/%s' % (site, notas.id),
                                  #'url_aporte': '%s/foros/ver/%s/#aporte' % (site, foros.id),
                                  })
     send_mail('Nueva Nota Humidtropic', contenido, 'crocha09.09@gmail.com', [user.email for user in users if user.email])
