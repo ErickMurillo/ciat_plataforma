@@ -118,15 +118,15 @@ def inicio(request):
         form = MonitoreoForm()
         mensaje = "Existen alguno errores"
         centinela = 0
-        if 'fecha' in request.session:
-            del request.session['fecha']
-            del request.session['departamento']
-            del request.session['organizacion']
-            del request.session['municipio']
-            del request.session['comunidad']
-            del request.session['socio']
-            del request.session['desde']
-            del request.session['duenio']
+        #if 'fecha' in request.session:
+        #    del request.session['fecha']
+        #    del request.session['departamento']
+        #    del request.session['organizacion']
+        #    del request.session['municipio']
+        #    del request.session['comunidad']
+        #    del request.session['socio']
+        #    del request.session['desde']
+        #    del request.session['duenio']
 
     return render_to_response('monitoreo/inicio.html', locals(),
                               context_instance=RequestContext(request))
