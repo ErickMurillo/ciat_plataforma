@@ -55,11 +55,11 @@ def inicio(request, template='analisis/inicio.html'):
 		form = EntrevistaConsulta()
 		mensaje = "Existen alguno errores"
 		centinela = 0
-		# if 'fecha' in request.session:
-		#    del request.session['fecha']
-		#    del request.session['pais']
-		#    del request.session['sitio_accion']
-		#    del request.session['tipo_estudio']
+		if 'fecha' in request.session:
+			del request.session['fecha']
+			del request.session['pais']
+			del request.session['sitio_accion']
+			del request.session['tipo_estudio']
 	
 	return render(request, template, locals())
 
@@ -115,10 +115,8 @@ def salida3(request, template="analisis/salida3.html"):
 	temas = {}
 	
 	for y in Tema.objects.all():
-		contador_pregunta1 = filtro.filter(pregunta_1__tema=y).count()
-
+		contador_pregunta1 = Pregunta_1.objects.filter(tema=y, entrevistado=filtro).count()
 		temas[y.tema] = contador_pregunta1
-
 
 	return render(request,template, locals())
 

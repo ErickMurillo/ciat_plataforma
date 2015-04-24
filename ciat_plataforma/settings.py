@@ -48,10 +48,12 @@ INSTALLED_APPS = (
 
     'comunicacion.lugar',
     #apps solo de mapeo
-    'analisis.configuracion',
     'mapeo',
+    
     #apps solo de analisis
     'analisis.analisis',
+    'analisis.configuracion',
+
 
     #apps solo de comunicion
     #'comunicacion.aliados',
