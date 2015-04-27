@@ -79,15 +79,15 @@ class Pregunta_1(models.Model):
 PREGUNTA2_CHOICES = (
     (1,_(u'Tecnicos')),
     (2,_(u'Promotores ')),
-    (3,_(u'Invetigadores')),
+    (3,_(u'Investigadores')),
     (4,_(u'Decisores')),
     (5,_(u'Administrativos')),
     )
 
 class Pregunta_2(models.Model):
 	seleccion1 = models.IntegerField(choices=PREGUNTA2_CHOICES,verbose_name=_(u'Cargos'))
-	hombre = models.IntegerField(verbose_name=_(u'Numero de Hombre(s)'))
-	mujer = models.IntegerField(verbose_name=_(u'Numero de Mujer(es)'))
+	hombre = models.IntegerField(verbose_name=_(u'Número de Hombre(s)'))
+	mujer = models.IntegerField(verbose_name=_(u'Número de Mujer(es)'))
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
@@ -347,7 +347,7 @@ class Pregunta_9(models.Model):
 		return self.tema
 
 SOBRE_CHOICES = (
-	(1,_(u'Situación de las fincas (producción y biodivarsidad)')),
+	(1,_(u'Situación de las fincas (producción y biodiversidad)')),
 	(2,_(u'Situación de los recursos naturales y manejo de ellos')),
 	(3,_(u'Situación de comercialización y acceso a mercados')),
 	(4,_(u'Situación de organización de las comunidades y capacidad de aprendizaje')),

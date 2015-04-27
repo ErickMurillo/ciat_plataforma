@@ -54,6 +54,10 @@ INSTALLED_APPS = (
     'analisis.analisis',
     'analisis.configuracion',
 
+    #apps solo de analisis ingles
+    'analysis.analysis',
+    'analysis.configuration',
+
 
     #apps solo de comunicion
     #'comunicacion.aliados',

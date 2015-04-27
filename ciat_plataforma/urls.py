@@ -34,6 +34,7 @@ urlpatterns = patterns('',
 
     #urls para analisis organizacional
     url(r'^analisis/', include('analisis.analisis.urls')),
+    url(r'^analysis/', include('analysis.analysis.urls')),
     url(r'^admin/pais/$', BusquedaPaisView.as_view()),
 
     #urls para monitoreo

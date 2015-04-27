@@ -1,0 +1,88 @@
+{% extends "analysis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+{% endblock extra_js%} 
+
+
+{% block contenido %}
+{% include "analysis/filtros.html" %}
+
+<h3>Partnership and alliance building by sectors and organizations </h3>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sector</th>
+                <th>Organization</th>
+                <th>Project partners</th>
+                <th>Current innovation partners</th>
+                <th>Desired innovation partner</th>
+            </tr>
+        </thead>
+        <tbody>
+         {%for key,value in sectores.items %}
+         <tr>
+            <td rowspan="{{value.4}}">{{key}}</td>
+        </tr>
+
+
+        {% for x in value.0 %}
+        <tr>
+            <td>{{x.organizacion}}
+             <td>
+                {% for key1,value1 in value.1.items %}
+                    {% if key1 == x.organizacion %}
+                        {% for xc in value1 %}
+                        {{xc}},
+                    {% endfor %}
+                    {% endif %}
+                    
+                    
+                {% endfor %}
+            </td>
+
+           <td>
+                {% for key2,value2 in value.2.items %}
+                    {% if key2 == x.organizacion %}
+                         {% for zx in value2 %}
+                             {{zx}},  
+                    {% endfor %}
+                     {% endif %} 
+                    
+                {% endfor %}
+            </td>
+
+             <td>
+                {% for key3,value3 in value.3.items %}
+                    {% if key3 == x.organizacion %}
+                         {% for zx in value3 %}
+                             {{zx}},  
+                    {% endfor %}
+                     {% endif %} 
+                    
+                {% endfor %}
+            </td>
+
+
+
+        
+
+       </td>
+   </tr>
+   {% endfor %}
+
+
+
+   {%endfor%}
+
+</tbody>
+</table>
+</div> 
+
+
+
+    {% endblock contenido %}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+{%load staticfiles%}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Alianzas Centroamérica - Caribe</title>
+    <link rel="shortcut icon" href="/static/general/img/logo.jpg" />
+    <!-- BOOTSTRAP STYLES-->
+    <link href="{% static 'general/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"><!-- Bootstrap -->
+     <!-- FONTAWESOME STYLES-->
+
+    <link href="{% static 'general/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"><!-- font-awesome -->
+        <!-- CUSTOM STYLES-->
+    <link href="{% static 'analisis/css/analisis.css' %}" rel="stylesheet" />
+    <link href="{% static 'analisis/css/style.css' %}" rel="stylesheet" type="text/css"><!-- theme styles -->
+     <!-- GOOGLE FONTS-->
+   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default hidden-lg hidden-md " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+            </div>
+
+        </nav>   
+           <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav drop-down-left" id="main-menu">
+
+                    <li class="text-center">
+                    <img src="{% static 'analisis/img/site-logo.jpg' %}" class="user-image"/>
+                    </li>
+                
+                    
+                    <li>
+                        <a  href="/analysis/"><i class="fa fa-dashboard fa-2x"></i>Query</a>
+                    </li>
+
+
+
+                      <li>
+                        <a  href="/analysis/output1/"><i class="fa fa-desktop fa-2x"></i>Organization</a>
+                    </li>
+                     <li>
+                        <a href="#"><i class="fa fa-sitemap fa-2x"></i>Projects, initiatives of the Org<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/analysis/output2/">Output 2</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output3/">Output 3</a>
+                            </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-sitemap fa-2x"></i>Organizational Impacts<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/analysis/output4/">Output 4</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output5/">Output 5</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output5b/">Output 5b</a>
+                            </li>
+                        </ul>
+                      </li>
+                       <li>
+                        <a href="#"><i class="fa fa-sitemap fa-2x"></i>Recent Innovations, changes of the Org.<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/analysis/output6/">Output 6</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output7/">Output 7</a>
+                            </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-sitemap fa-2x"></i>Partnerships between organizations<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/analysis/output8/">Output 8</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output9/">Output 9</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output10/">Output 10</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output11/">Output 11</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output12/">Output 12</a>
+                            </li>
+                        </ul>
+                      </li>   
+                      <li  >
+                        <a  href="/analisis/salida13/"><i class="fa fa-table fa-2x"></i>Common themes in work with partner organizations</a>
+                    </li>
+                     <li>
+                        <a href="#"><i class="fa fa-sitemap fa-2x"></i>The innovations and changes required<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/analysis/output14/">Output 14</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output15/">Output 15</a>
+                            </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#"><i class="fa fa-sitemap fa-2x"></i>Current Innovation Partners vs Potential Partners<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/analysis/output16/">Output 16</a>
+                            </li>
+                            <li>
+                                <a href="/analysis/output17/">Output 17</a>
+                            </li>
+                        </ul>
+                      </li> 
+                    <li>
+                        <a class=""  href="/analysis/output18/"><i class="fa fa-table fa-2x"></i>Learning resources for innovations</a>
+                    </li>
+                     <li>
+                        <a class=""  href="/analysis/output19/"><i class="fa fa-table fa-2x"></i>Information needed to perform desired innovations</a>
+                    </li>
+                    <li>
+                        <a class=""  href="/analysis/output20/"><i class="fa fa-table fa-2x"></i>Real and perceived limitations Promoting Innovation and Change</a>
+                    </li> 
+                </ul>
+               
+            </div>
+            
+        </nav>  
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12" >
+
+                    {% block contenido %}{% endblock contenido %}
+                     
+                       
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+
+
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="{% static 'general/js/jQuery/jquery-2.1.1.min.js' %}"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="{% static 'general/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="{% static 'analisis/js/jquery.metisMenu.js' %}"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'analisis/js/analisis.js' %}"></script>
+
+    <script src="{% static 'analisis/js/jquery.min.js' %}"></script>
+    <script src="{% static 'analisis/js/highcharts.js' %}"></script>
+    <script src="{% static 'analisis/js/exporting.js' %}"></script>
+
+
+    {% block extra_js%}{% endblock extra_js %}
+
+
+
+
+</body>
+</html>

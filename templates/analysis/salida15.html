@@ -1,0 +1,36 @@
+{% extends "analysis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+{% endblock extra_js%} 
+
+{% block contenido %}
+{% include "analysis/filtros.html" %}
+	<h3>Distribution of Desired Innovations/Changes by Thematic Area</h3>
+<div>
+    <table class="table table-bordered">
+
+     <thead>
+      <tr>
+          <th>Thematic Area</th>
+          <th>Number of Desired Innovations/Changes</th>
+      </tr>
+  </thead>
+  <tbody>
+  {% for key,value in temas.items %}
+            <tr>
+                <td>{{key}}</td>
+                <td>{{value}}</td>
+            </tr>
+            {% endfor %}
+</tbody>
+
+</table>
+</div>
+
+<!--grafico 2 -->
+<div id="salida14"></div> 
+
+{% endblock contenido %}

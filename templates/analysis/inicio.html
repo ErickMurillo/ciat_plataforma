@@ -1,0 +1,13 @@
+{% extends "analysis/baseanalisis.html" %}
+
+{% block contenido %}
+
+	<form action="." method="POST">{% csrf_token %}
+		{{form}}
+		<input type="submit" value="Consultar" name="consulta" class="btn btn-success"/>
+	</form>
+
+	{%if centinela = 1 %}
+	<p>Por favor escoger las salidas del menu del lado izquierdo!</p>    
+    {%endif%} 
+{% endblock contenido %}

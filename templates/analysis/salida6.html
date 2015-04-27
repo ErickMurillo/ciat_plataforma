@@ -1,23 +1,23 @@
-{% extends "analisis/baseanalisis.html" %}
+{% extends "analysis/baseanalisis.html" %}
 {%load staticfiles%}
 {% load i18n %}
 
 {% block extra_js%}  
-<!-- ++ grafica 2  -->
 <script>
+
 $(function () {
 
     $(document).ready(function () {
 
         // Build the chart
-        $('#proyectos').highcharts({
+        $('#salida5').highcharts({
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false
             },
             title: {
-                text: 'Distribución de Proyectos por Tipo de Organización'
+                text: 'Distribution of Innovations/Changes across Sectors'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -37,9 +37,10 @@ $(function () {
             series: [{
                 type: 'pie',
                 name: 'Aporte',
-                data: [
-            {% for key,value in  proyectos.items %}
-            ['{{key}}', {{value}}],
+              data: [
+
+            {% for key,value in  datos.items %}
+            ['{{key}}', {{value.2}}],
             {% endfor %}
             ]
             }]
@@ -52,43 +53,43 @@ $(function () {
 {% endblock extra_js%} 
 
 {% block contenido %}
+{% include "analysis/filtros.html" %}
 
-{% include "analisis/filtros.html" %}
+<h3>Number, Average, and Median Value of Innovations/Changes by Sector</h3>
 
-	<h3>Número, promedio y valores medianos de Proyectos/Iniciativa por Sector </h3>
 <div>
     <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sector</th>
+                <th>Number of organizations</th>
+                <th>Number of Innovations/Changes</th>
+                <th>Average number of innovations </th>
+                <th>Median Value of number of innovations </th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for k,v in datos.items%}
+            <tr>  
+              <td>{{k}}</td>
+              {% for algo in v %}
+                   <td>{{algo}}</td> 
+              {% endfor %}
+                  
+            </tr>
+            {%endfor%}
+        </tbody>
 
-     <thead>
-      <tr>
-          <th>Sector</th>
-          <th>Número de Organizaciones</th>
-          <th>Número de Proyectos/Iniciativas</th>
-          <th>Número medio de proyectos</th>
-          <th>Valor de la Mediana</th>
-      </tr>
-  </thead>
-  <tbody>
-    {%for fila in tabla%}
-    <tr>
-        {%for celda in fila %}
-        <td>{{celda}}</td>
-        {%endfor%}
-    </tr>
-    {%endfor%}
-</tbody>
-<tfoot>
+         <tfoot>
         <td>Total</td>
         <td>{{total1}}</td>
         <td>{{total2}}</td>
         <td>{{total3|floatformat:2}}</td>
         <td></td>
-</tfoot>
+    </tfoot>
+    </table>
+</div> 
 
-</table>
-</div>
-
-<!--grafico 2 -->
-<div id="proyectos"></div> 
+<div id="salida5"></div> 
 
 {% endblock contenido %}

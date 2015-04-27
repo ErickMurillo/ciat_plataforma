@@ -1,0 +1,82 @@
+{% extends "analysis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+{% endblock extra_js%} 
+
+{% block contenido %}
+{% include "analysis/filtros.html" %}
+<h3>Number of Reported Sources of Learning to Carry Out Innovations by Sector</h3>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sector</th>
+                <th>Number of organizations</th>
+                <th>Number of Sources of Learning Utilized</th>
+                <th>Average Number of Sources of Learning Utilized</th>
+                <th>Median Value</th>
+            </tr>
+        </thead>
+        <tbody>
+           {%for fila in tabla%}
+           <tr>
+            {%for celda in fila %}
+            <td>{{celda}}</td>
+            {%endfor%}
+        </tr>
+        {%endfor%}
+    </tbody>
+    <tfoot>
+        <td>Total</td>
+        <td>{{total1}}</td>
+        <td>{{total2}}</td>
+        <td>{{total3|floatformat:2}}</td>
+        <td></td>
+    </tfoot>
+</table>
+</div> 
+
+
+<h3>Frequency of use of different sources of Learning </h3>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Number of Organizations Reporting Learning from Each Sourcee</th>
+                <th>Less than 2 organizations</th>
+                <th>2-4 organizations</th>
+                <th>5-7 organizations</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for key,value in cat_fuente.items %}
+          </tr>
+          <td>{{key}}</td>
+              {% if value == 0 %}
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                {% elif value <= 2 %}
+                      <td>x</td>
+                      <td></td>
+                      <td></td>
+                {% elif value >= 2 and value <= 4 %}
+                      <td></td>
+                      <td>x</td>
+                      <td></td>
+                {% elif value >= 5 and value <= 7 %}
+              {% endif %}
+          <tr>
+              
+          {% endfor %}
+    </tbody>
+</table>
+</div> 
+ 
+
+{% endblock contenido %}

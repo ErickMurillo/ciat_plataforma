@@ -1,0 +1,36 @@
+{% extends "analysis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%} 
+
+{% endblock extra_js%} 
+
+{% block contenido %}
+{% include "analysis/filtros.html" %}
+<h3>Distribution of Partner Organizations by role</h3>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Rol</th>
+                <th>Number of innovations prioritized</th>
+                <th>Number of Reported Partners in all the innovations</th>
+                <th>Average Number of Partners per innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+          {%for fila in tabla%}
+           <tr>
+            {%for celda in fila %}
+            <td>{{celda}}</td>
+            {%endfor%}
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+</div> 
+
+
+{% endblock contenido %}
