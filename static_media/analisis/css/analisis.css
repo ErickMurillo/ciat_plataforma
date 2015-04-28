@@ -319,6 +319,20 @@ background-color: #FFF;
     margin-right:10px;
 }
 
+.idiomabtn{
+    padding: 1.5em
+}
+.idiomabtn a img{
+    width: 10%
+}
+.idiomabtn a{
+    padding-right: 1em
+}
+
+.chosen-container a{
+    font-size: 14px
+}
+
 
 
 /*==============================================

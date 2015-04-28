@@ -28,15 +28,15 @@ def fecha_choice():
     return list(set(years))
     
 class EntrevistaConsulta(forms.Form):
-	fecha = forms.ChoiceField(choices=fecha_choice())
+	fecha = forms.ChoiceField(choices=fecha_choice(),label='Date')
 	pais = forms.ModelChoiceField(queryset=Pais.objects.order_by('-nombre'), 
 								  required=False, 
-			                      label=u'Pais')
+			                      label=u'Country')
 	sitio_accion = forms.ModelChoiceField(queryset=SitioAccion.objects.order_by('-nombre'), 
 								  required=False, 
-			                      label=u'Sitio de acción')
+			                      label=u'Area Site')
 	tipo_estudio = forms.ModelChoiceField(queryset=Tipo_Estudio.objects.order_by('-nombre'), 
 								  required=False, 
-			                      label=u'Tipo de estudio')
+			                      label=u'Type of study')
 
 

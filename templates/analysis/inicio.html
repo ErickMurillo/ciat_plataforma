@@ -2,12 +2,15 @@
 
 {% block contenido %}
 
-	<form action="." method="POST">{% csrf_token %}
-		{{form}}
-		<input type="submit" value="Consultar" name="consulta" class="btn btn-success"/>
+	<form action="." method="POST" id="form_analisis">{% csrf_token %}
+		{{form.fecha.label}}: {{form.fecha}}
+		{{form.pais.label}}: {{form.pais}}
+		{{form.sitio_accion.label}}: {{form.sitio_accion}}
+		{{form.tipo_estudio.label}}: {{form.tipo_estudio}}
+		<input type="submit" value="Query" name="consulta" class="btn btn-success"/>
 	</form>
 
 	{%if centinela = 1 %}
-	<p>Por favor escoger las salidas del menu del lado izquierdo!</p>    
+	<p>Please select an item from the left menu!</p>    
     {%endif%} 
 {% endblock contenido %}
