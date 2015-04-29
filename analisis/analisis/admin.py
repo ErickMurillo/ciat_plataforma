@@ -331,7 +331,8 @@ class EntrevistaAdmin(NestedModelAdmin):
 	fieldsets = [
 		(_('Informacion de la persona entrevistada'), {'fields' : (('nombre','posicion','email','organizacion','pais','departamento','telefono'),('fecha1','alcance1','tipo_estudio',))}),
 	]
-	list_display = ('nombre','posicion','organizacion','fecha1','tipo_estudio')
+	list_display = ('organizacion','nombre','posicion','fecha1','tipo_estudio')
+	list_display_links = ('organizacion','nombre')
 	list_filter = ('pais',)
 	inlines = [Pregunta_1_Inline, Pregunta_2_Inline, Pregunta_3_Inline, Pregunta_4_Inline, 
 			   Pregunta_5a_Inline, Pregunta_5c_Inline, Pregunta_5d_Inline, Pregunta_5e_Inline,
