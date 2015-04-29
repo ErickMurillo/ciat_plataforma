@@ -1,18 +1,4 @@
 
-
-// (function($){
-//    $(document).ready(function(){
-//    	var prio = $(".dynamic-pregunta_5a_set select")
-//       prio.click(function (e) {
-//         if (prio.val() == '1') {
-//         	alert('ya ta')
-//         };
-//     });
-//    });
-// })(jQuery || django.jQuery);
-
-
-
 (function($){
 
 	$(document).ready(function(){
@@ -20,10 +6,25 @@
 		var gu = $(".submit-row input[name$='_continue']");
 		gu.addClass('guardar');
 
+		var save = $(".submit-row input[name$='_save']");
+		save.addClass('save');
+
+		var add = $(".submit-row input[name$='_addanother']");
+		add.addClass('add');
+
 		var pathname = window.location.pathname;
 		url = pathname.split("/");
-		if (url[4]=='add') {
-			$('.field-box.field-tipo_estudio').append('<input type="submit" value="Grabar y continuar editando" name="_continue" class="guardar default" id="btn_intro">');
+			if (url[4]=='add' && url[2] == 'analysis') {
+			$('.field-box.field-tipo_estudio').append('<input type="submit" value="Save and continue editing" name="_continue" class="guardar default" id="btn_intro">');
+		}else if(url[4]=='add' && url[2] == 'analisis'){
+			$('.field-box.field-tipo_estudio').append('<input type="submit" value="Guardar y continuar editando" name="_continue" class="guardar default" id="btn_intro">');
+		};
+		
+		if (url[2] == 'analysis') {
+			$('.save').prop('value', 'Save');
+			$('.guardar').prop('value', 'Save and continue editing');
+			$('.add').prop('value', 'Seva and add another');
+
 		};
 	});
 
