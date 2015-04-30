@@ -139,8 +139,22 @@ class Papel(models.Model):
 		verbose_name = _(u'Papel')
 		verbose_name_plural = _(u'Papeles')
 
+LIMITACIONES_CATEGORIA = (
+    (1,'Productivo'),
+    (2,'Económico'),
+    (3,'Técnico'),
+    (4,'Comercialización'),
+    (5,'Institucional'),
+    (6,'Actitud/Cultural'),
+    (7,'Capacidad Humana'),
+    (8,'Alianza/Socios'),
+    (9,'Política'),
+    (10,'Otros'),
+    )
+
 class Categoria(models.Model):
 	nombre = models.CharField(max_length=100)
+	categoria = models.IntegerField(choices=LIMITACIONES_CATEGORIA)
 
 	def __unicode__(self):
 		return self.nombre

@@ -38,5 +38,8 @@ class EntrevistaConsulta(forms.Form):
 	tipo_estudio = forms.ModelChoiceField(queryset=Tipo_Estudio.objects.order_by('-nombre'), 
 								  required=False, 
 			                      label=u'Type of study')
+	plataforma = forms.ModelChoiceField(queryset=Plataforma.objects.order_by('-nombre'), 
+                                  required=False, 
+                                  label=u'Platform')
 
 

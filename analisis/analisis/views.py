@@ -24,6 +24,9 @@ def _queryset_filtrado(request):
 	if 'tipo_estudio' in request.session:
 		params['tipo_estudio'] = request.session['tipo_estudio']
 
+	if 'plataforma' in request.session:
+		params['organizacion__plataforma'] = request.session['plataforma']
+
 	unvalid_keys = []
 	for key in params:
 		if not params[key]:
@@ -44,6 +47,7 @@ def inicio(request, template='analisis/inicio.html'):
 			request.session['pais'] = form.cleaned_data['pais']
 			request.session['sitio_accion'] = form.cleaned_data['sitio_accion']
 			request.session['tipo_estudio'] = form.cleaned_data['tipo_estudio']
+			request.session['plataforma'] = form.cleaned_data['plataforma']
 
 			mensaje = "Todas las variables estan correctamente :)"
 			request.session['activo'] = True
@@ -90,9 +94,21 @@ def salida2(request, template="analisis/salida2.html"):
 		query = filtro.filter(pregunta_1__entrevistado__organizacion__sector=choice)
 		cont_organizacion = filtro.filter(organizacion__sector=choice).distinct('organizacion').count()
 
+		cont_organizacion1 = filtro.filter(organizacion__sector=choice).distinct('organizacion')
+		t = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_1.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).count()
+			t.append(prueba)
+
 		resultados = query.count()
 
-		fila = [choice.nombre,cont_organizacion,resultados,promedio(resultados,cont_organizacion)]
+		if len(t) >= 3:
+			mediana = calcular_mediana(t)
+		else:
+			mediana = '--'
+
+		fila = [choice.nombre,cont_organizacion,resultados,promedio(resultados,cont_organizacion),mediana]
 
 		tabla.append(fila)
 		proyectos[choice.nombre] = promedio(resultados,cont_organizacion)
@@ -109,8 +125,6 @@ def salida2(request, template="analisis/salida2.html"):
 
 def salida3(request, template="analisis/salida3.html"):
 	filtro = _queryset_filtrado(request)
-
-	sectores = Sector.objects.all()
 	
 	temas = {}
 	
@@ -132,8 +146,21 @@ def salida4(request, template="analisis/salida4.html"):
 	for imp in Sector.objects.all():
 		preg_4 = filtro.filter(pregunta_4__entrevistado__organizacion__sector=imp).count()
 		cont_organizacion = filtro.filter(organizacion__sector=imp).distinct('organizacion').count()
+
+		cont_organizacion1 = filtro.filter(organizacion__sector=imp).distinct('organizacion')
+		t = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_4.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).count()
+			t.append(prueba)
+
+		if len(t) >= 3:
+			mediana = calcular_mediana(t)
+		else:
+			mediana = '--'
+
 		
-		fila = [imp.nombre,cont_organizacion,preg_4,promedio(preg_4,cont_organizacion)]
+		fila = [imp.nombre,cont_organizacion,preg_4,promedio(preg_4,cont_organizacion),mediana]
 
 		tabla.append(fila)
 		impactos[imp.nombre] = promedio(preg_4,cont_organizacion)
@@ -180,7 +207,8 @@ def salida9(request, template="analisis/salida9.html"):
 
 	for x in Sector.objects.all():
 		cont_organizacion = filtro.filter(organizacion__sector=x).distinct('organizacion').count()
-		cont_socios = filtro.filter(pregunta_5c__pregunta_5c_nested__pregunta_5c__entrevistado__organizacion__sector=x).count()
+		cont_socios = Pregunta_8.objects.filter(entrevistado=filtro,entrevistado__organizacion__sector=x).count()
+
 		try:
 			avg_total = promedio(cont_socios,cont_organizacion)
 		except:
@@ -267,6 +295,7 @@ def salida12(request, template="analisis/salida12.html"):
 
 
 	return render(request,template, locals())
+
 
 
 def salida14(request, template="analisis/salida14.html"):
@@ -409,7 +438,7 @@ def salida20(request, template="analisis/salida20.html"):
 		cont_categoria = filtro.filter(pregunta_5d__categoria=x).distinct('organizacion').count()
 		cont_categoria1 = filtro.filter(pregunta_6d__categoria=x).distinct('organizacion').count()
 
-		categoria[x.nombre] = (cont_categoria,cont_categoria1)
+		categoria[x.nombre] = (cont_categoria,cont_categoria1,x.categoria)
 	print categoria
 
 	return render(request,template, locals())
@@ -421,17 +450,13 @@ def salida5(request, template="analisis/salida5.html"):
 
 	tematicas = {}
 	datos = []
+	
 	for obj in Tema.objects.all():
 		count_impacts = filtro.filter(pregunta_4__tema=obj).count()
 		count_projects = filtro.filter(pregunta_1__tema=obj).count()
 
 		fila = [obj.tema,count_projects,count_impacts]
 		datos.append(fila)
-		#tematicas[obj] = count_impacts
-		#for sector in Sector.objects.all():
-		#    cont_organizacion = filtro.filter(pregunta_4__entrevistado__organizacion__sector=sector).count()
-		#     tematicas[obj] = (cont_organizacion,count_impacts)
-
 
 	return render(request, template, locals())
 
@@ -458,13 +483,28 @@ def salida6(request, template="analisis/salida6.html"):
 	for obj in Sector.objects.all():
 		count_organization = filtro.filter(organizacion__sector=obj).distinct('organizacion').count()
 		count_innovation = filtro.filter(pregunta_5a__entrevistado__organizacion__sector=obj).count()
+
+		cont_organizacion1 = filtro.filter(organizacion__sector=obj).distinct('organizacion')
+		t = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_5a.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).count()
+			t.append(prueba)
+			print t
+
+		if len(t) >= 3:
+			mediana = calcular_mediana(t)
+		else:
+			mediana = '--'
+
 		try:
 			avg_total = promedio(count_innovation,count_organization)
 		except:
 			avg_total = 0
 		lista.append(count_innovation)
-		mediana_obj = calcular_mediana(lista)
-		datos[obj] = (count_organization,count_innovation, avg_total, mediana_obj)
+
+		
+		datos[obj] = (count_organization,count_innovation, avg_total, mediana)
 
 		valores1.append(count_organization)
 		valores2.append(count_innovation)

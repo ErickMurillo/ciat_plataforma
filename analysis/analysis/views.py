@@ -24,6 +24,9 @@ def _queryset_filtrado(request):
 	if 'tipo_estudio' in request.session:
 		params['tipo_estudio'] = request.session['tipo_estudio']
 
+	if 'plataforma' in request.session:
+		params['organizacion__plataforma'] = request.session['plataforma']
+
 	unvalid_keys = []
 	for key in params:
 		if not params[key]:

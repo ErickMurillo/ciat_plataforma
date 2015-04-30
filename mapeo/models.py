@@ -7,6 +7,7 @@ from sorl.thumbnail import ImageField
 from ckeditor.fields import RichTextField
 from smart_selects.db_fields import ChainedForeignKey
 from analisis.configuracion.models import Sector, AreaAccion, SitioAccion, Plataforma
+from analysis.configuration.models import Sector_en
 
 # Create your models here.
 from comunicacion.contrapartes.widgets import ColorPickerWidget
@@ -31,7 +32,8 @@ class Organizaciones(models.Model):
     area_accion = models.ForeignKey(AreaAccion)
     sitio_accion = models.ForeignKey(SitioAccion)
     plataforma = models.ForeignKey(Plataforma)
-    sector = models.ForeignKey(Sector)
+    sector = models.ForeignKey(Sector,verbose_name='Sector (Español)')
+    sector_en = models.ForeignKey(Sector_en,verbose_name='Sector (Ingles)')
     telefono = models.IntegerField(null=True, blank=True)
     fax = models.CharField(max_length=50, null=True, blank=True)
     logo = ImageField(upload_to=get_file_path, null=True, blank=True)

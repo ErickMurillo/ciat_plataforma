@@ -48,7 +48,7 @@ class Status_Legal(models.Model):
 		verbose_name = _(u'Legal Status')
 		verbose_name_plural = _(u'Legal Status')
 
-class Sector(models.Model):
+class Sector_en(models.Model):
 	nombre  = models.CharField(max_length=200)
 
 	def __unicode__(self):
@@ -115,17 +115,32 @@ class Papel(models.Model):
 		verbose_name = _(u'Role')
 		verbose_name_plural = _(u'Roles')
 
+LIMITACIONES_CATEGORIA = (
+    (1,'Productive'),
+    (2,'Economic'),
+    (3,'Technician'),
+    (4,'Merchandising'),
+    (5,'Institutional'),
+    (6,'Attitude/Cultural'),
+    (7,'Human Capacity'),
+    (8,'Alliance / Partner'),
+    (9,'Politics'),
+    (10,'Others'),
+    )
+
+
 class Categoria(models.Model):
-	nombre = models.CharField(max_length=100)
+	nombre = models.CharField(max_length=100, verbose_name='Name')
+	categoria = models.IntegerField(choices=LIMITACIONES_CATEGORIA, verbose_name='Category')
 
 	def __unicode__(self):
 		return self.nombre
 	class Meta:
-		verbose_name = _(u'Category')
-		verbose_name_plural = _(u'Categories')
+		verbose_name = 'Category'
+		verbose_name_plural = 'Categories'
 
 class Categoria_Innovacion(models.Model):
-	nombre = models.CharField(_(u'Name'),max_length=100)
+	nombre = models.CharField('Name',max_length=100)
 
 	def __unicode__(self):
 		return self.nombre
