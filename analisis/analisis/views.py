@@ -427,6 +427,26 @@ def salida10(request, template="analisis/salida10.html"):
 
 	return render(request,template, locals())
 
+def salida11(request, template="analisis/salida11.html"):
+	filtro = _queryset_filtrado(request)
+
+	sectores = {}
+	lista_sectores = {}
+
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Sector.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
+	return render(request,template, locals())
 
 def salida12(request, template="analisis/salida12.html"):
 	filtro = _queryset_filtrado(request)
@@ -510,12 +530,27 @@ def salida15(request, template="analisis/salida15.html"):
 	#falta grafica
 	filtro = _queryset_filtrado(request)
 
-	temas = {}  
+	temas = {}
+	sectores = {}
+	lista_sectores = {}  
 	
 	for y in Tema.objects.all():
 		contador_pregunta1 = filtro.filter(pregunta_6a__tema=y).count()
 		temas[y.tema] = contador_pregunta1
 		
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Tema.objects.all():
+			entrevista = Pregunta_6a.objects.filter(tema=x, entrevistado=filtro,entrevistado__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
 	return render(request,template, locals())
 
 def salida16(request, template="analisis/salida16.html"):
@@ -524,6 +559,7 @@ def salida16(request, template="analisis/salida16.html"):
 	datos = {}
 	grafica = {}
 
+
 	for x in Sector.objects.all():
 		socio = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,organizacion__sector=x).distinct('organizacion')
 		cont_socio = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,organizacion__sector=x).distinct('organizacion').count()
@@ -531,6 +567,7 @@ def salida16(request, template="analisis/salida16.html"):
 		datos[x] = socio
 		grafica[x] = cont_socio
 
+	
 	return render(request,template, locals())
 
 
