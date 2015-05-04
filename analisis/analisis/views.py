@@ -59,12 +59,14 @@ def inicio(request, template='analisis/inicio.html'):
 		form = EntrevistaConsulta()
 		mensaje = "Existen alguno errores"
 		centinela = 0
-		# if 'fecha' in request.session:
-		# 	del request.session['fecha']
-		# 	del request.session['pais']
-		# 	del request.session['sitio_accion']
-		# 	del request.session['tipo_estudio']
-	
+		try:
+			del request.session['fecha']
+			del request.session['pais']
+			del request.session['sitio_accion']
+			del request.session['tipo_estudio']
+		except:
+			pass
+
 	return render(request, template, locals())
 
 def salida1(request, template="analisis/salida1.html"):
