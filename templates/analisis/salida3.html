@@ -15,15 +15,18 @@
             },
             xAxis: {
                 categories: [
-                                {% for key,value in temas.items %}
-                                    '{{key}}',
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
                                 {% endfor %}
                             ]
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Total fruit consumption'
+                    text: 'Número de Proyectos'
                 }
             },
             legend: {
@@ -34,16 +37,19 @@
                     stacking: 'normal'
                 }
             },
-            series: [{
-                name: 'John',
-                data: [5, 3, 4, 7, 2]
-            }, {
-                name: 'Jane',
-                data: [2, 2, 3, 2, 1]
-            }, {
-                name: 'Joe',
-                data: [3, 4, 4, 2, 5]
-            }]
+            series: [
+
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
+            {% endfor %}
+
+            
+
+
+        ]
         });
     });
 </script>
@@ -51,6 +57,7 @@
 
 {% block contenido %}
 {% include "analisis/filtros.html" %}
+
 <h3>Distribución de Proyectos/Iniciativas por Temáticas</h3>
 <div>
     <table class="table table-bordered">

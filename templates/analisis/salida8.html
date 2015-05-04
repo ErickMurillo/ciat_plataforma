@@ -3,7 +3,51 @@
 {% load i18n %}
 
 {% block extra_js%} 
+<script>
+$(function () {
+        $('#salida8').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Distribución de las Alianzas por Sector y Rol'
+            },
+            xAxis: {
+                categories: [
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
+                                {% endfor %}
+                            ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de Innovaciones'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [
 
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
+            {% endfor %}
+        ]
+        });
+    });
+</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
@@ -32,5 +76,6 @@
     </table>
 </div> 
 
+<div id="salida8"></div>
 
 {% endblock contenido %}

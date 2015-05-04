@@ -3,45 +3,52 @@
 {% load i18n %}
 
 {% block extra_js%}  
+
 <script>
     $(function () {
         $('#salida5').highcharts({
             chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: 1,//null,
-                plotShadow: false
-        },
-        title: {
-            text: 'Distribución de Impactos por Tipo de Organización'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
+                type: 'bar'
+            },
+            title: {
+                text: 'Número de Impactos por Temáticas y Sector'
+            },
+            xAxis: {
+                categories: [
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
+                                {% endfor %}
+                            ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de Impactos'
                 }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Browser share',
-            data: [
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [
 
-            {% for key,value in  impactos.items %}
-            ['{{key}}', {{value}}],
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
             {% endfor %}
-            ]
-        }]
+        ]
+        });
     });
-});</script>
+</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
@@ -69,6 +76,6 @@
     </table>
 </div> 
 
-<!-- <div id="salida5"></div> -->
+<div id="salida5"></div> 
 
 {% endblock contenido %}

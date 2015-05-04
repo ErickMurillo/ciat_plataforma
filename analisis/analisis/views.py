@@ -130,11 +130,29 @@ def salida3(request, template="analisis/salida3.html"):
 	filtro = _queryset_filtrado(request)
 	
 	temas = {}
+	sectores = {}
+	lista_sectores = {}
 
 	for y in Tema.objects.all():
 		contador_pregunta1 = Pregunta_1.objects.filter(tema=y, entrevistado=filtro).count()
 		temas[y.tema] = contador_pregunta1
 
+
+
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Tema.objects.all():
+			entrevista = Pregunta_1.objects.filter(tema=x, entrevistado=filtro,entrevistado__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+			
+		lista_sectores[z] = lista
 
 	return render(request,template, locals())
 
@@ -188,6 +206,8 @@ def salida5(request, template="analisis/salida5.html"):
 
 	tematicas = {}
 	datos = []
+	sectores = {}
+	lista_sectores = {}
 	
 	for obj in Tema.objects.all():
 		count_impacts = filtro.filter(pregunta_4__tema=obj).count()
@@ -196,16 +216,44 @@ def salida5(request, template="analisis/salida5.html"):
 		fila = [obj.tema,count_projects,count_impacts]
 		datos.append(fila)
 
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Tema.objects.all():
+			entrevista = Pregunta_4.objects.filter(tema=x, entrevistado=filtro,entrevistado__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
 	return render(request, template, locals())
 
 def salida5b(request, template="analisis/salida5b.html"):
 	filtro = _queryset_filtrado(request)
 
 	beneficiario = {}
+	sectores = {}
+	lista_sectores = {}
+
 	for obj in Grupo.objects.all():
 		count_beneficiario = filtro.filter(pregunta_4__grupo_beneficiario=obj).count()
 		beneficiario[obj] = count_beneficiario
 
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Grupo.objects.all():
+			entrevista = Pregunta_4.objects.filter(grupo_beneficiario=x, entrevistado=filtro,entrevistado__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
 
 	return render(request, template, locals())
 
@@ -263,11 +311,26 @@ def salida7(request, template="analisis/salida7.html"):
 	filtro = _queryset_filtrado(request)
 
 	datos = {}
+	sectores = {}
+	lista_sectores = {}
+
 	for obj in Tema.objects.all():
 		count_projects = filtro.filter(pregunta_1__tema=obj).count()
 		count_tema = filtro.filter(pregunta_5a__tema=obj).count()
 		datos[obj] = (count_projects,count_tema)
 
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Tema.objects.all():
+			entrevista = Pregunta_5a.objects.filter(tema=x, entrevistado=filtro,entrevistado__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
 
 	return render(request, template, locals())
 
@@ -275,6 +338,8 @@ def salida8(request, template="analisis/salida8.html"):
 	filtro = _queryset_filtrado(request)
 
 	tabla = []
+	sectores = {}
+	lista_sectores = {}
 
 	for p in Papel.objects.all():
 		socio = filtro.filter(pregunta_5c__pregunta_5c_nested__papel_1=p).count()
@@ -287,7 +352,19 @@ def salida8(request, template="analisis/salida8.html"):
 
 		fila = [p.nombre,prioritizado,socio,avg_total]
 		tabla.append(fila)
-	print tabla
+
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Papel.objects.all():
+			entrevista = Pregunta_5c.objects.filter(pregunta_5c_nested__papel_1=x, entrevistado=filtro,pregunta_5c_nested__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
 
 	return render(request,template, locals())
 
