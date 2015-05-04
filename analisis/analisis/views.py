@@ -7,6 +7,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from .forms import *
 from django.db.models import Count
+import json as simplejson
 
 #Inicio del filtro para la consultas del front-end
 
@@ -629,6 +630,13 @@ def salida20(request, template="analisis/salida20.html"):
 ###########################################################################################
 
 # ----------- funciones utilitarias --------
+
+def get_fecha(request):
+    years = []
+    for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
+        years.append((en,en))
+    lista = list(set(years))
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
 
 def sumarLista(lista):
 	sum=0
