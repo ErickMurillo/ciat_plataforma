@@ -33,7 +33,7 @@ class Organizaciones(models.Model):
     sitio_accion = models.ForeignKey(SitioAccion)
     plataforma = models.ForeignKey(Plataforma)
     sector = models.ForeignKey(Sector,verbose_name='Sector (Español)')
-    sector_en = models.ForeignKey(Sector_en,verbose_name='Sector (Ingles)')
+    sector_en = models.ForeignKey(Sector_en,verbose_name='Sector (Ingles)',null=True, blank=True)
     telefono = models.IntegerField(null=True, blank=True)
     fax = models.CharField(max_length=50, null=True, blank=True)
     logo = ImageField(upload_to=get_file_path, null=True, blank=True)

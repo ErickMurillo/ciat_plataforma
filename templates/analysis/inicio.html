@@ -3,12 +3,12 @@
 {% block contenido %}
 
 	<form action="." method="POST" id="form_analisis">{% csrf_token %}
-		{{form.fecha.label}}: {{form.fecha}}
-		{{form.pais.label}}: {{form.pais}}
-		{{form.sitio_accion.label}}: {{form.sitio_accion}}
-		{{form.tipo_estudio.label}}: {{form.tipo_estudio}}
-		{{form.plataforma.label}}: {{form.plataforma}}
-		<input type="submit" value="Query" name="consulta" class="btn btn-success"/>
+		<div class="col-md-3">{{form.fecha.label}}: {{form.fecha}}</div>
+	<div class="col-md-3">{{form.pais.label}}: {{form.pais}}</div>
+	<div class="col-md-3">{{form.sitio_accion.label}}: {{form.sitio_accion}}</div>
+	<div class="col-md-3">{{form.tipo_estudio.label}}: {{form.tipo_estudio}}</div>
+	<div class="col-md-3">{{form.plataforma.label}}: {{form.plataforma}}</div>
+		<input type="submit" value="Query" name="consulta" class="btn btn-success consultar"/>
 	</form>
 
 	{%if centinela = 1 %}

@@ -21,24 +21,29 @@ class Pregunta_6aForm(forms.ModelForm):
     	model = Pregunta_6a
     	widgets = {'prioritizado': forms.Select(attrs={'class':'select-evt'})}
 
-def fecha_choice():
-    years = []
-    for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
-        years.append((en,en))
-    return list(set(years))
+
     
 class EntrevistaConsulta(forms.Form):
-	fecha = forms.ChoiceField(choices=fecha_choice())
-	pais = forms.ModelChoiceField(queryset=Pais.objects.order_by('-nombre'), 
+
+	def fecha_choice():
+	    years = []
+	    for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
+	        years.append((en,en))
+	    return list(set(years))
+
+	fecha = forms.ChoiceField(choices=fecha_choice(), 
+								  required=False, 
+			                      label=u'Fecha')
+	pais = forms.ModelChoiceField(queryset=Pais.objects.order_by('nombre'), 
 								  required=False, 
 			                      label=u'Pais')
-	sitio_accion = forms.ModelChoiceField(queryset=SitioAccion.objects.order_by('-nombre'), 
+	sitio_accion = forms.ModelChoiceField(queryset=SitioAccion.objects.order_by('nombre'), 
 								  required=False, 
 			                      label=u'Sitio de acción')
-	tipo_estudio = forms.ModelChoiceField(queryset=Tipo_Estudio.objects.order_by('-nombre'), 
+	tipo_estudio = forms.ModelChoiceField(queryset=Tipo_Estudio.objects.order_by('nombre'), 
 								  required=False, 
 			                      label=u'Tipo de estudio')
-	plataforma = forms.ModelChoiceField(queryset=Plataforma.objects.exclude(id=8).order_by('-nombre'), 
+	plataforma = forms.ModelChoiceField(queryset=Plataforma.objects.exclude(id=8).order_by('nombre'), 
 								  required=False, 
 								  label=u'Plataforma')
 
