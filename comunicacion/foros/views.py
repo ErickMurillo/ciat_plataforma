@@ -411,7 +411,7 @@ def notify_all_foro(foros):
                                  'url': '%s/foros/ver/%s' % (site, foros.id),
                                  'url_aporte': '%s/foros/ver/%s/#formaporte' % (site, foros.id),
                                  })
-    send_mail('Nuevo Foro en Humidtropic', contenido, 'humidtropic@gmail.com', [user.email for user in users if user.email])
+    send_mail('Nuevo Foro en Humidtropic', contenido, 'ciatcac@gmail.com', [user.email for user in users if user.email])
 
 def notify_all_aporte(aportes):
     site = Site.objects.get_current()
@@ -420,7 +420,7 @@ def notify_all_aporte(aportes):
                                  #'url': '%s/foros/ver/%s' % (site, foros.id),
                                  'url_aporte': '%s/foros/ver/%s/#%s' % (site, aportes.foro.id, aportes.id),
                                  })
-    send_mail('Nuevo Aporte en Humidtropic', contenido, 'humidtropic@gmail.com', [user.email for user in users if user.email])
+    send_mail('Nuevo Aporte en Humidtropic', contenido, 'ciatcac@gmail.com', [user.email for user in users if user.email])
 
 def notify_user_comentario(comentario):
     site = Site.objects.get_current()
@@ -428,7 +428,7 @@ def notify_user_comentario(comentario):
                                    'comentario': comentario,
                                    'url': '%s/foros/ver/%s' % (site, comentario.aporte.foro.id)
                                     })
-    send_mail('Nuevo comentario Humidtropic', contenido, 'crocha09.09@gmail.com', [comentario.aporte.user.email])
+    send_mail('Nuevo comentario Humidtropic', contenido, 'ciatcac@gmail.com', [comentario.aporte.user.email])
 
 @login_required
 def editar_aporte(request, aporte_id):
