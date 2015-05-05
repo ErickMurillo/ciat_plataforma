@@ -39,7 +39,7 @@ def lista_contrapartes(request):
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes_pais(request,id):
-    object_list = Organizaciones.objects.filter(sitio_accion__id=id).order_by('nombre')
+    object_list = Organizaciones.objects.filter(sitio_accion__id=id).exclude(plataforma__id=8).order_by('nombre')
     agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
     paises = SitioAccion.objects.all()
     notas = Notas.objects.all().order_by('-fecha','-id')
