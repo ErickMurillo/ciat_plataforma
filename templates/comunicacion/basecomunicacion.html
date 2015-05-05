@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load thumbnail %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -178,14 +179,11 @@
                                 <h1 class="title-widget">Imagenes</h1>
                                 
                                 <ul class="k-flickr-photos list-unstyled">
-                                	<li><a href="#" title="Flickr photo"><img src="/static/comunicacion/img/flickr-1.jpg" alt="Photo 1" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/comunicacion/img/flickr-2.jpg" alt="Photo 2" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/comunicacion/img/flickr-3.jpg" alt="Photo 3" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/comunicacion/img/flickr-4.jpg" alt="Photo 4" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/comunicacion/img/flickr-5.jpg" alt="Photo 5" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/comunicacion/img/flickr-6.jpg" alt="Photo 6" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/comunicacion/img/flickr-7.jpg" alt="Photo 7" /></a></li>
-                                    <li><a href="#" title="Flickr photo"><img src="/static/comunicacion/img/flickr-8.jpg" alt="Photo 8" /></a></li>
+                                    {% for imagen in  imagenes_global %}
+                                        {% thumbnail imagen.foto "75x75" as im %}
+                                            <li><a href="#" title="Flickr photo"><img src="/media/{{im}}" alt="{{imagen.nombre_img}}" /></a></li>
+                                        {% endthumbnail %}
+                                    {% endfor %}
                                 </ul>
                     
 							</li>

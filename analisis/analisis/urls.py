@@ -22,5 +22,6 @@ urlpatterns = patterns('analisis.analisis.views',
     url(r'^salida17/$', 'salida17', name='salida17'),
     url(r'^salida18/$', 'salida18', name='salida18'),
     url(r'^salida20/$', 'salida20', name='salida20'),
+    url(r'^ajax/fechas/$', 'get_fecha', name='get_fecha'),
     
     )

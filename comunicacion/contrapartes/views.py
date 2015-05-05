@@ -25,12 +25,12 @@ from analisis.configuracion.models import SitioAccion, Plataforma
 #                                 context_instance=RequestContext(request))
 
 def lista_contrapartes_mapa(request):
-    contra = Organizaciones.objects.filter(tipo=1)
+    contra = Organizaciones.objects.filter(tipo=1).exclude(plataforma__id=8)
     return render_to_response('comunicacion/contrapartes/contraparte_list_mapa.html', locals(),
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes(request):
-    object_list = Organizaciones.objects.all().order_by('nombre')
+    object_list = Organizaciones.objects.exclude(plataforma__id=8).order_by('nombre')
     agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
     paises = SitioAccion.objects.all()
     notas = Notas.objects.all().order_by('-fecha','-id')
@@ -39,7 +39,7 @@ def lista_contrapartes(request):
                                  context_instance=RequestContext(request))
 
 def lista_contrapartes_pais(request,id):
-    object_list = Organizaciones.objects.filter(sitio_accion__id=id).order_by('nombre')
+    object_list = Organizaciones.objects.filter(sitio_accion__id=id).exclude(plataforma__id=8).order_by('nombre')
     agenda = Agendas.objects.filter(inicio__gte=datetime.date.today()).order_by('-inicio','-id')
     paises = SitioAccion.objects.all()
     notas = Notas.objects.all().order_by('-fecha','-id')
