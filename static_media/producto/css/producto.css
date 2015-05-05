@@ -10,9 +10,14 @@ body {
   	font-size: 16px;
 
 }
-.nicanorte, .domini{
-	background-color:transparent !important;
-	margin-bottom: 2em;
+.navbar {
+  margin-bottom: 0px !important;
+	border-radius: 0 !important;
+
+}
+.navbar-default {
+  background-color: white !important;
+  border-color: white !important;
 }
 
 .circle-producto {

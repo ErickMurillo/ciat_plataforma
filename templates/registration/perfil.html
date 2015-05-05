@@ -42,7 +42,7 @@
                                     <div class="col-sm-6 col-md-6 avatar-user">
                         
                                         {% if user.userprofile.avatar %}
-                                            {% thumbnail user.userprofile.avatar "220x220" crop="center" as im %}
+                                            {% thumbnail user.userprofile.avatar "220x220" as im %}
                                             <img class="img-thumbnail" src="/media/{{im}}">        
                                             {% endthumbnail %}
                                                             
@@ -71,6 +71,7 @@
                                             {{user.userprofile.contraparte.plataforma}}
                                             
                                         <!-- button edicion-->
+                                        <br>
                                             <a href="/contrapartes/usuario/editar/" class="btn btn-primary fa fa-pencil-square-o" role="button"> Editar Perfil</a>
 
                                     </div>
@@ -84,26 +85,26 @@
                             
                                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                                     <div class="list-group">
-                                        <a href="#" class="list-group-item active">
+                                        <a class="list-group-item active">
                                             Estadísticas de {{request.user.first_name}} {{request.user.last_name}}
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-file-text-o"> {{notas}}</span>
                                             Notas Redactadas
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-comment-o"> {{comentarios}}</span>
                                             Comentarios a Notas
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-comments"> {{foros}}</span>
                                             Foros Creados
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-pencil-square-o"> {{aportes}}</span>
                                             Aportes a Foros
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-calendar"> {{eventos}}</span>
                                             Creación de Eventos
                                         </a>
@@ -149,7 +150,7 @@
                                     <div class="col-sm-6 col-md-6 avatar-user">
                         
                                         {% if user.userprofile.avatar %}
-                                            {% thumbnail user.userprofile.contraparte.logo "220x220" crop="center" as im %}
+                                            {% thumbnail user.userprofile.contraparte.logo "220x220" as im %}
                                             <img class="img-thumbnail" src="/media/{{im}}">        
                                             {% endthumbnail %}
                                                             
@@ -182,6 +183,7 @@
                                         {{user.userprofile.contraparte.sitio_accion}}
                                             
                                         <!-- button edicion-->
+                                        <br>
                                         <a href="/contrapartes/editar/{{user.userprofile.contraparte.id}}" class="btn btn-primary fa fa-pencil-square-o" role="button"> Editar Perfil</a>
 
                                     </div>
@@ -194,26 +196,26 @@
 
                             <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                                     <div class="list-group">
-                                        <a href="#" class="list-group-item active">
+                                        <a class="list-group-item active">
                                             Estadísticas de {{request.user.userprofile.contraparte.siglas}}
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-file-text-o"> {{noticiasC}}</span>
                                             Notas Redactadas
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-comment-o"> {{comentariosC}}</span>
                                             Comentarios a Notas
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-comments"> {{forosC}}</span>
                                             Foros Creados
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-pencil-square-o"> {{aportesC}}</span>
                                             Aportes a Foros
                                         </a>
-                                        <a href="#" class="list-group-item">
+                                        <a class="list-group-item">
                                             <span class="badge fa fa-calendar"> {{eventosC}}</span>
                                             Creación de Eventos
                                         </a>

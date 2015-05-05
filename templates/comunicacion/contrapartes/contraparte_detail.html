@@ -148,7 +148,7 @@
                                     <div class="col-lg-4 col-md-4">
                                         <figure class="news-featured-image">
                                         {% if contra.logo %}
-                                            {% thumbnail contra.logo "220x220" crop="center" as im %}
+                                            {% thumbnail contra.logo "220x220" as im %}
                                                 <img class="center-block" src="/media/{{im}}" alt="Featured image 4" class="" />
                                             {% endthumbnail %}
                                                 {% else %}
