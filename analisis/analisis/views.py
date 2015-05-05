@@ -634,8 +634,8 @@ def salida20(request, template="analisis/salida20.html"):
 def get_fecha(request):
     years = []
     for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
-        years.append((en,en))
-    lista = list(set(years))
+        years.append((en))
+    lista = sorted(set(years))
     return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
 
 def sumarLista(lista):

@@ -1,4 +1,8 @@
-{% extends "baseadmin.html" %} {% block extra_js%} <script
+{% extends "baseadmin.html" %} 
+
+{% load thumbnail %}
+
+{% block extra_js%} <script
 type="text/javascript"
 src="/static/comunicacion/js/bxslider/jquery.bxslider.js"></script> <script
 type="text/javascript">   $(document).ready(function(){
@@ -43,10 +47,10 @@ $(".fancybox").fancybox({       openEffect  : 'elastic',       closeEffect :
 
 						<div class="multimedia_fotos">
 							{% for a in imagenes %}
-								<a class="imagen-gal fancybox" title="{{a.nombre_img}} <a class='btn btn-info btn-mini' style='float:right' href='/media/{{a.foto}}'>Descargar tamaño original</a>" href="{{a.foto.url_640x480}}">
-
-									<img src="{{a.foto.url_220x160}}">
-
+								<a class="imagen-gal fancybox" title="{{a.nombre_img}} <a class='btn btn-info btn-mini' style='float:right' href='/media/{{a.foto}}'>Descargar tamaño original</a>" href="{{a.foto}}">
+									{% thumbnail a.foto "220x160" as im %}
+                                      <img src="/media/{{im}}">
+                                     {% endthumbnail %}
 								</a>
 							{% endfor %}
 						</div>
