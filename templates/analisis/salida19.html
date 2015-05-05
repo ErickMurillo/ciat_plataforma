@@ -1,0 +1,44 @@
+{% extends "analisis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+{% endblock extra_js%} 
+
+{% block contenido %}
+{% include "analisis/filtros.html" %}
+
+	<h3>Temas de Innovaciones Deseadas e Información necesaria para efectuarlas</h3>
+<div>
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+          <th>Temas de Innovaciones Deseadas</th>
+          <th>Información necesaria</th>
+
+      </tr>
+  </thead>
+  <tbody>
+  {% for key,value in sectores.items %}
+<tr>
+                    <td>{{key}}</td>
+                    <td>
+                    {% for limitacion,numero in value.items %}
+                        {% if numero >= 1  %}
+                            {{limitacion}},
+                        {% endif %}
+                    {% endfor %}
+                    </td>
+                    
+                 
+ </tr>
+            {% endfor %}
+        
+</tbody>
+
+</table>
+</div>
+
+
+{% endblock contenido %}

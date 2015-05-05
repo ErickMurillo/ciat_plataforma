@@ -57,7 +57,6 @@ class Sector(models.Model):
 	class Meta:
 		verbose_name = _(u'Sector')
 		verbose_name_plural = _(u'Sectores')
-		ordering = ('-nombre',)
 
 		
 # class Organizacion(models.Model):

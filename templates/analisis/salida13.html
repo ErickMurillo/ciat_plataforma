@@ -9,27 +9,29 @@
 {% block contenido %}
 {% include "analisis/filtros.html" %}
 
-<h3>Número, promedio y valores medianos de las Alianzas por Sector</h3>
+<h3>Número de Innovaciones por Sector y Temática</h3>
 
 <div>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Sector</th>
+                <th>Temática</th>
                 {% for sector in sectores %}
                     <th>{{sector}}</th>
                 {% endfor %}
+                <th>Total</th>
                 
             </tr>
         </thead>
         <tbody>
         
-        {% for x,y in lista_sectores.items %}
+        {% for key,value in lista_sectores.items %}
 <tr>
-                    <td>{{x}}</td>
-                    {% for z in y %}
-                        <td>{{z|floatformat:2}} %</td>
+                    <td>{{key}}</td>
+                    {% for z in value.0 %}
+                        <td>{{z}}</td>
                     {% endfor %}
+                    <td>{{value.1}}</td>
                  
  </tr>
             {% endfor %}
