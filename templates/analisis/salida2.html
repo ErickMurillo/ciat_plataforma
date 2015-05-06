@@ -3,8 +3,10 @@
 {% load i18n %}
 
 {% block extra_js%}  
-<!-- ++ grafica 2  -->
 <script>
+$( ".menu2" ).addClass( "active" );
+$( ".menu2-1 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
+
 $(function () {
 
     $(document).ready(function () {
@@ -91,4 +93,23 @@ $(function () {
 <!--grafico 2 -->
 <div id="proyectos"></div> 
 
+<style>
+    .menu2{
+        background: #5d8c3b;
+
+    }
+    .sidebar-collapse .nav > .menu2 > a {
+        background: none;
+        color: white
+    }
+    .menu2 .menu2-1{
+      background: white;  
+    }
+    .menu2 .menu2-2{
+      background: white;  
+    } 
+    #page-inner{
+        min-height: 1100px
+    }   
+</style>
 {% endblock contenido %}

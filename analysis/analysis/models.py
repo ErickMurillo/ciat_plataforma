@@ -31,7 +31,7 @@ FECHA_CHOICES = (
 				)
 
 class Entrevista(models.Model):
-	nombre = models.CharField(_(u'Name'), max_length=200)
+	nombre = models.CharField('Name', max_length=200)
 	posicion = models.CharField(_(u'Position'), max_length=200)
 	email = models.EmailField(_(u'Email'))
 	organizacion = models.ForeignKey(Organizaciones, verbose_name= _(u'Organization'),related_name='Org')

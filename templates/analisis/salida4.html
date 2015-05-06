@@ -4,6 +4,9 @@
 
 {% block extra_js%}  
 <script>
+$( ".menu3" ).addClass( "active" );
+$( ".menu3-1 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
+
 $(function () {
 
     $(document).ready(function () {
@@ -88,5 +91,29 @@ $(function () {
 
 <!--grafico 3 -->
 <div id="impactos"></div> 
+
+<style>
+    .menu3{
+        background: #5d8c3b;
+
+    }
+    .sidebar-collapse .nav > .menu3 > a {
+        background: none;
+        color: white
+    }
+    .menu3 .menu3-1{
+      background: white;  
+    }
+    .menu3 .menu3-2{
+      background: white;  
+    }  
+
+    .menu3 .menu3-3{
+      background: white;  
+    }
+    #page-inner{
+        min-height: 1150px
+    }  
+</style>     
 
 {% endblock contenido %}

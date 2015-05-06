@@ -108,7 +108,7 @@ class Pregunta_3(models.Model):
 
 
 class Pregunta_4(models.Model):
-	impacto = models.CharField(max_length=250, verbose_name=_(u'Impacto(s)'))
+	impacto = models.CharField(max_length=250, verbose_name='Impacto(s)')
 	grupo_beneficiario = models.ManyToManyField(Grupo,verbose_name=_(u'Grupos beneficiarios principales de este impacto'))
 	tema = models.ManyToManyField(Tema,verbose_name=_(u'Temas'))
 	entrevistado = models.ForeignKey(Entrevista)

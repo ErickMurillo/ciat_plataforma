@@ -4,6 +4,10 @@
 
 {% block extra_js%} 
 <script>
+$( ".menu5" ).addClass( "active" );
+$( ".menu5-1 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
+
+
 $(function () {
         $('#salida8').highcharts({
             chart: {
@@ -77,5 +81,21 @@ $(function () {
 </div> 
 
 <div id="salida8"></div>
+
+<style>
+    .menu5{
+        background: #5d8c3b;
+    }
+    .sidebar-collapse .nav > .menu5 > a {
+        background: none;
+        color: white
+    }
+    .menu5 .menu5-1, .menu5-2, .menu5-3, .menu5-4, .menu5-5{
+      background: white;  
+    }
+    #page-inner{
+        min-height: 1250px
+    }
+</style>  
 
 {% endblock contenido %}

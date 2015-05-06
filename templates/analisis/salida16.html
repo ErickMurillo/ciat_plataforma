@@ -4,6 +4,10 @@
 
 {% block extra_js%}  
 <script>
+$( ".menu8" ).addClass( "active" );
+$( ".menu8-1 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
+
+
 $(function () {
 
     $(document).ready(function () {
@@ -121,5 +125,21 @@ $(function () {
 <div id="salida16"></div>
 
 <div id="salida16b"></div>
+
+<style>
+    .menu8{
+        background: #5d8c3b;
+    }
+    .sidebar-collapse .nav > .menu8 > a {
+        background: none;
+        color: white
+    }
+    .menu8 .menu8-1, .menu8-2 {
+      background: white;  
+    }
+    #page-inner{
+        min-height: 1100px
+    }
+    </style>
 
 {% endblock contenido %}
