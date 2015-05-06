@@ -39,7 +39,7 @@ class Plataforma(models.Model):
 
 
 class Status_Legal(models.Model):
-	nombre = models.CharField(max_length=200)
+	nombre = models.CharField(max_length=200,verbose_name='Name')
 
 	def __unicode__(self):
 		return self.nombre
@@ -49,7 +49,7 @@ class Status_Legal(models.Model):
 		verbose_name_plural = _(u'Legal Status')
 
 class Sector_en(models.Model):
-	nombre  = models.CharField(max_length=200)
+	nombre  = models.CharField(max_length=200,verbose_name='Name')
 
 	def __unicode__(self):
 		return self.nombre
@@ -106,7 +106,7 @@ class Grupo_Beneficiario(models.Model):
 		verbose_name_plural = _(u'Beneficiary Groups')
 
 class Papel(models.Model):
-	nombre = models.CharField(max_length=100)
+	nombre = models.CharField(max_length=100,verbose_name='Name')
 
 	def __unicode__(self):
 		return self.nombre

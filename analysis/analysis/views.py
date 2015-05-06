@@ -6,7 +6,16 @@ from mapeo.models import *
 from django.core import serializers
 from django.http import HttpResponse
 from .forms import *
+from django.db.models import Count# -*- coding: utf-8 -*-
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView,TemplateView
+from .models import *
+from mapeo.models import *
+from django.core import serializers
+from django.http import HttpResponse
+from .forms import *
 from django.db.models import Count
+import json as simplejson
 
 #Inicio del filtro para la consultas del front-end
 
@@ -47,6 +56,7 @@ def inicio(request, template='analysis/inicio.html'):
 			request.session['pais'] = form.cleaned_data['pais']
 			request.session['sitio_accion'] = form.cleaned_data['sitio_accion']
 			request.session['tipo_estudio'] = form.cleaned_data['tipo_estudio']
+			request.session['plataforma'] = form.cleaned_data['plataforma']
 
 			mensaje = "Todas las variables estan correctamente :)"
 			request.session['activo'] = True
@@ -65,7 +75,7 @@ def inicio(request, template='analysis/inicio.html'):
 			del request.session['tipo_estudio']
 		except:
 			pass
-	
+
 	return render(request, template, locals())
 
 def output1(request, template="analysis/salida1.html"):
@@ -73,11 +83,11 @@ def output1(request, template="analysis/salida1.html"):
 
 	sectores = {}
 	sectores1 = {}
-	for x in Sector.objects.all():
-		cont_organizacion = filtro.filter(organizacion__sector=x).distinct('organizacion').count()
+	for x in Sector_en.objects.all():
+		cont_organizacion = filtro.filter(organizacion__sector_en=x).distinct('organizacion').count()
 		sectores[x.nombre] = cont_organizacion
 
-		cont_organizacion1 = filtro.filter(organizacion__sector=x).distinct('organizacion')
+		cont_organizacion1 = filtro.filter(organizacion__sector_en=x).distinct('organizacion')
 		sectores1[x.nombre] = cont_organizacion1
 		
 	return render(request,template, locals())
@@ -91,13 +101,25 @@ def output2(request, template="analysis/salida2.html"):
 	valores2 = []
 	valores3 = []
 
-	for choice in Sector.objects.all():
-		query = filtro.filter(pregunta_1__entrevistado__organizacion__sector=choice)
-		cont_organizacion = filtro.filter(organizacion__sector=choice).distinct('organizacion').count()
+	for choice in Sector_en.objects.all():
+		query = filtro.filter(pregunta_1__entrevistado__organizacion__sector_en=choice)
+		cont_organizacion = filtro.filter(organizacion__sector_en=choice).distinct('organizacion').count()
+
+		cont_organizacion1 = filtro.filter(organizacion__sector_en=choice).distinct('organizacion')
+		t = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_1.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).count()
+			t.append(prueba)
 
 		resultados = query.count()
 
-		fila = [choice.nombre,cont_organizacion,resultados,promedio(resultados,cont_organizacion)]
+		if len(t) >= 3:
+			mediana = calcular_mediana(t)
+		else:
+			mediana = '--'
+
+		fila = [choice.nombre,cont_organizacion,resultados,promedio(resultados,cont_organizacion),mediana]
 
 		tabla.append(fila)
 		proyectos[choice.nombre] = promedio(resultados,cont_organizacion)
@@ -108,20 +130,40 @@ def output2(request, template="analysis/salida2.html"):
 		
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
-	total3 = total2/float(total1)
+	try:
+		total3 = total2/float(total1)
+	except:
+		total3 = 0
 		
 	return render(request,template, locals())
 
 def output3(request, template="analysis/salida3.html"):
 	filtro = _queryset_filtrado(request)
-
-	sectores = Sector.objects.all()
 	
 	temas = {}
-	
+	sectores = {}
+	lista_sectores = {}
+
 	for y in Tema.objects.all():
 		contador_pregunta1 = Pregunta_1.objects.filter(tema=y, entrevistado=filtro).count()
 		temas[y.tema] = contador_pregunta1
+
+
+
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Tema.objects.all():
+			entrevista = Pregunta_1.objects.filter(tema=x, entrevistado=filtro,entrevistado__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+			
+		lista_sectores[z] = lista
 
 	return render(request,template, locals())
 
@@ -134,11 +176,24 @@ def output4(request, template="analysis/salida4.html"):
 	valores2 = []
 	valores3 = []
 	
-	for imp in Sector.objects.all():
-		preg_4 = filtro.filter(pregunta_4__entrevistado__organizacion__sector=imp).count()
-		cont_organizacion = filtro.filter(organizacion__sector=imp).distinct('organizacion').count()
+	for imp in Sector_en.objects.all():
+		preg_4 = filtro.filter(pregunta_4__entrevistado__organizacion__sector_en=imp).count()
+		cont_organizacion = filtro.filter(organizacion__sector_en=imp).distinct('organizacion').count()
+
+		cont_organizacion1 = filtro.filter(organizacion__sector_en=imp).distinct('organizacion')
+		lista = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_4.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).count()
+			lista.append(prueba)
+
+		if len(lista) >= 3:
+			mediana = calcular_mediana(lista)
+		else:
+			mediana = '--'
+
 		
-		fila = [imp.nombre,cont_organizacion,preg_4,promedio(preg_4,cont_organizacion)]
+		fila = [imp.nombre,cont_organizacion,preg_4,promedio(preg_4,cont_organizacion),mediana]
 
 		tabla.append(fila)
 		impactos[imp.nombre] = promedio(preg_4,cont_organizacion)
@@ -149,15 +204,153 @@ def output4(request, template="analysis/salida4.html"):
 		
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
-	total3 = total2/float(total1)
-
+	try:
+		total3 = total2/float(total1)
+	except:
+		total3 = 0
 		
 	return render(request,template, locals())
+
+
+def output5(request, template="analysis/salida5.html"):
+	filtro = _queryset_filtrado(request)
+
+	tematicas = {}
+	datos = []
+	sectores = {}
+	lista_sectores = {}
+	
+	for obj in Tema.objects.all():
+		count_impacts = filtro.filter(pregunta_4__tema=obj).count()
+		count_projects = filtro.filter(pregunta_1__tema=obj).count()
+
+		fila = [obj.tema,count_projects,count_impacts]
+		datos.append(fila)
+
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Tema.objects.all():
+			entrevista = Pregunta_4.objects.filter(tema=x, entrevistado=filtro,entrevistado__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
+	return render(request, template, locals())
+
+def output5b(request, template="analysis/salida5b.html"):
+	filtro = _queryset_filtrado(request)
+
+	beneficiario = {}
+	sectores = {}
+	lista_sectores = {}
+
+	for obj in Grupo.objects.all():
+		count_beneficiario = filtro.filter(pregunta_4__grupo_beneficiario=obj).count()
+		beneficiario[obj] = count_beneficiario
+
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Grupo.objects.all():
+			entrevista = Pregunta_4.objects.filter(grupo_beneficiario=x, entrevistado=filtro,entrevistado__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
+	return render(request, template, locals())
+
+def output6(request, template="analysis/salida6.html"):
+	filtro = _queryset_filtrado(request)
+
+	datos = {}
+	lista = []
+	valores1 = []
+	valores2 = []
+	valores3 = []
+
+	for obj in Sector_en.objects.all():
+		count_organization = filtro.filter(organizacion__sector_en=obj).distinct('organizacion').count()
+		count_innovation = filtro.filter(pregunta_5a__entrevistado__organizacion__sector_en=obj).count()
+
+		cont_organizacion1 = filtro.filter(organizacion__sector=obj).distinct('organizacion')
+		t = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_5a.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).count()
+			t.append(prueba)
+			print t
+
+		if len(t) >= 3:
+			mediana = calcular_mediana(t)
+		else:
+			mediana = '--'
+
+		try:
+			avg_total = promedio(count_innovation,count_organization)
+		except:
+			avg_total = 0
+		lista.append(count_innovation)
+
+		
+		datos[obj] = (count_organization,count_innovation, avg_total, mediana)
+
+		valores1.append(count_organization)
+		valores2.append(count_innovation)
+		valores3.append(float(promedio(count_innovation,count_organization)))
+		
+	total1 = sumarLista(valores1)
+	total2 = sumarLista(valores2)
+	try:
+		total3 = total2/float(total1)
+	except:
+		total3 = 0
+
+
+	return render(request, template, locals())
+
+
+def output7(request, template="analysis/salida7.html"):
+	filtro = _queryset_filtrado(request)
+
+	datos = {}
+	sectores = {}
+	lista_sectores = {}
+
+	for obj in Tema.objects.all():
+		count_projects = filtro.filter(pregunta_1__tema=obj).count()
+		count_tema = filtro.filter(pregunta_5a__tema=obj).count()
+		datos[obj] = (count_projects,count_tema)
+
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Tema.objects.all():
+			entrevista = Pregunta_5a.objects.filter(tema=x, entrevistado=filtro,entrevistado__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
+	return render(request, template, locals())
 
 def output8(request, template="analysis/salida8.html"):
 	filtro = _queryset_filtrado(request)
 
 	tabla = []
+	sectores = {}
+	lista_sectores = {}
 
 	for p in Papel.objects.all():
 		socio = filtro.filter(pregunta_5c__pregunta_5c_nested__papel_1=p).count()
@@ -170,7 +363,19 @@ def output8(request, template="analysis/salida8.html"):
 
 		fila = [p.nombre,prioritizado,socio,avg_total]
 		tabla.append(fila)
-	print tabla
+
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Papel.objects.all():
+			entrevista = Pregunta_5c.objects.filter(pregunta_5c_nested__papel_1=x, entrevistado=filtro,pregunta_5c_nested__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
 
 	return render(request,template, locals())
 
@@ -183,9 +388,10 @@ def output9(request, template="analysis/salida9.html"):
 	valores2 = []
 	valores3 = []
 
-	for x in Sector.objects.all():
-		cont_organizacion = filtro.filter(organizacion__sector=x).distinct('organizacion').count()
-		cont_socios = filtro.filter(pregunta_5c__pregunta_5c_nested__pregunta_5c__entrevistado__organizacion__sector=x).count()
+	for x in Sector_en.objects.all():
+		cont_organizacion = filtro.filter(organizacion__sector_en=x).distinct('organizacion').count()
+		cont_socios = Pregunta_8.objects.filter(entrevistado=filtro,entrevistado__organizacion__sector_en=x).count()
+
 		try:
 			avg_total = promedio(cont_socios,cont_organizacion)
 		except:
@@ -201,7 +407,10 @@ def output9(request, template="analysis/salida9.html"):
 		
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
-	total3 = total2/float(total1)
+	try:
+		total3 = total2/float(total1)
+	except:
+		total3 = 0
 
 	return render(request,template, locals())
 
@@ -212,9 +421,9 @@ def output10(request, template="analysis/salida10.html"):
 	datos = {}
 	datos1 = {}
 
-	for x in Sector.objects.all():
-		cont_socio_1 = Pregunta_1.objects.filter(entrevistado=filtro,socio__sector=x).distinct('socio')
-		cont_socio_2 = Pregunta_5a.objects.filter(entrevistado=filtro,socio__sector=x).distinct('socio')
+	for x in Sector_en.objects.all():
+		cont_socio_1 = Pregunta_1.objects.filter(entrevistado=filtro,socio__sector_en=x).distinct('socio')
+		cont_socio_2 = Pregunta_5a.objects.filter(entrevistado=filtro,socio__sector_en=x).distinct('socio')
 		for y in cont_socio_1:
 			for z in y.socio.all():
 				tabla.append(z)
@@ -227,50 +436,77 @@ def output10(request, template="analysis/salida10.html"):
 
 	return render(request,template, locals())
 
+def output11(request, template="analysis/salida11.html"):
+	filtro = _queryset_filtrado(request)
+
+	sectores = {}
+	lista_sectores = {}
+
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Sector_en.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector_en=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
+	return render(request,template, locals())
 
 def output12(request, template="analysis/salida12.html"):
 	filtro = _queryset_filtrado(request)
 
-	sectores = Sector.objects.all()
+	sectores = {}
+	lista_sectores = {}
 
-	datos = {}
-	datos2 = {}
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
 
-	a = filtro.count()
+		for x in Sector_en.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector_en=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
 
-	for x in filtro:
-		CONTADOR = 0
-		for obj in x.pregunta_5a_set.all():
-			for z in obj.socio.all():
-				CONTADOR += 1
-				print z.sector
-			datos[x.organizacion] = CONTADOR
-	#print datos		
-		#datos[x.organizacion]
-			# for z in sectores:
-			# 	count = y.filter(socio__sector=z)
-			# 	print count
+	for z,zx in sectores.items():
+		lista = []
+		lista2 = []
+		for x,y in zx.items():
+			lista.append(y)
+		asd = sumarLista(lista)
+		for i in lista:
+			try:
+				lista2.append((i/float(asd))*100)
+			except:
+				lista2.append(0.0)
+
+
+		lista_sectores[z] = lista2
 			
-			#datos[x.organizacion] = count
-	# for y in sectores:
-	# 	entrevista = filtro.filter(organizacion__sector=y) 
+	return render(request,template, locals())
 
-	# 	for x in entrevista:
-	# 		count_preg_5 = Pregunta_5a.objects.filter(socio__sector=x.organizacion.sector).count()
-	# 		for z in sectores:
-	# 			count_ent = Pregunta_5a.objects.filter(socio__sector=z).count()
+def output13(request, template="analysis/salida13.html"):
+	filtro = _queryset_filtrado(request)
 
-	# 			try:
-	# 				procentaje = count_preg_5/filtro.count()
-	# 			except Exception, e:
-	# 				raise
-	# 			datos[z] = procentaje
+	temas = {}
+	lista_sectores = {}
+	sectores = Sector_en.objects.all()
 
+	for y in Tema.objects.all():
+		temas[y] = {}
 
-	# for x,y in datos.items():
-	# 	print "%s %s" % (x,y) 
+		for x in Sector.objects.all():
+			entrevista = Pregunta_5a.objects.filter(tema=y,entrevistado=filtro,socio__sector_en=x).count()
+			temas[y][x] = entrevista
 
-
+	for z,zx in temas.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = (lista,sumarLista(lista))
+			
 	return render(request,template, locals())
 
 
@@ -283,9 +519,9 @@ def output14(request, template="analysis/salida14.html"):
 	valores2 = []
 	valores3 = []
 
-	for choice in Sector.objects.all():
-		innovaciones = filtro.filter(pregunta_6a__entrevistado__organizacion__sector=choice).count()
-		cont_organizacion = filtro.filter(organizacion__sector=choice).distinct('organizacion').count()
+	for choice in Sector_en.objects.all():
+		innovaciones = filtro.filter(pregunta_6a__entrevistado__organizacion__sector_en=choice).count()
+		cont_organizacion = filtro.filter(organizacion__sector_en=choice).distinct('organizacion').count()
 
 		fila = [choice.nombre,cont_organizacion,innovaciones,promedio(innovaciones,cont_organizacion)]
 
@@ -298,7 +534,10 @@ def output14(request, template="analysis/salida14.html"):
 		
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
-	total3 = total2/float(total1)
+	try:
+		total3 = total2/float(total1)
+	except:
+		total3 = 0
 		
 	return render(request,template, locals())
 
@@ -306,12 +545,27 @@ def output15(request, template="analysis/salida15.html"):
 	#falta grafica
 	filtro = _queryset_filtrado(request)
 
-	temas = {}  
+	temas = {}
+	sectores = {}
+	lista_sectores = {}  
 	
 	for y in Tema.objects.all():
 		contador_pregunta1 = filtro.filter(pregunta_6a__tema=y).count()
 		temas[y.tema] = contador_pregunta1
 		
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Tema.objects.all():
+			entrevista = Pregunta_6a.objects.filter(tema=x, entrevistado=filtro,entrevistado__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
 	return render(request,template, locals())
 
 def output16(request, template="analysis/salida16.html"):
@@ -319,14 +573,29 @@ def output16(request, template="analysis/salida16.html"):
 
 	datos = {}
 	grafica = {}
+	sectores = {}
+	lista_sectores = {} 
 
-	for x in Sector.objects.all():
-		socio = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,organizacion__sector=x).distinct('organizacion')
-		cont_socio = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,organizacion__sector=x).distinct('organizacion').count()
+	for x in Sector_en.objects.all():
+		socio = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,organizacion__sector_en=x).distinct('organizacion')
+		cont_socio = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,organizacion__sector_en=x).distinct('organizacion').count()
 		
 		datos[x] = socio
 		grafica[x] = cont_socio
 
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Sector_en.objects.all():
+			entrevista = Pregunta_6c_nested.objects.filter(organizacion__sector_en=x,pregunta_6c__entrevistado=filtro,pregunta_6c__entrevistado__organizacion__sector_en=y).distinct('organizacion').count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+	
 	return render(request,template, locals())
 
 
@@ -339,9 +608,9 @@ def output17(request, template="analysis/salida17.html"):
 	pregunta_6 = {}
 	  
 
-	for y in Sector.objects.all():
-		org = filtro.filter(organizacion__sector=y).distinct('organizacion')
-		cont_org = filtro.filter(organizacion__sector=y).distinct('organizacion').count()
+	for y in Sector_en.objects.all():
+		org = filtro.filter(organizacion__sector_en=y).distinct('organizacion')
+		cont_org = filtro.filter(organizacion__sector_en=y).distinct('organizacion').count()
 		
 		for x in org:
 			project_partners = Pregunta_1.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).distinct('socio')
@@ -382,9 +651,9 @@ def output18(request, template="analysis/salida18.html"):
 	valores3 = []
 	cat_fuente = {}
 
-	for choice in Sector.objects.all():
-		fuentes_aprendizaje = filtro.filter(pregunta_5e__entrevistado__organizacion__sector=choice).count()
-		cont_organizacion = filtro.filter(organizacion__sector=choice).distinct('organizacion').count()
+	for choice in Sector_en.objects.all():
+		fuentes_aprendizaje = filtro.filter(pregunta_5e__entrevistado__organizacion__sector_en=choice).count()
+		cont_organizacion = filtro.filter(organizacion__sector_en=choice).distinct('organizacion').count()
 
 		fila = [choice.nombre,cont_organizacion,fuentes_aprendizaje,promedio(fuentes_aprendizaje,cont_organizacion)]
 
@@ -396,13 +665,31 @@ def output18(request, template="analysis/salida18.html"):
 		
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
-	total3 = total2/float(total1)
+	try:
+		total3 = total2/float(total1)
+	except:
+		total3 = 0
 
 	for x in Categoria_Fuente.objects.all():
 		cont_categoria_fuente = filtro.filter(pregunta_5e__categoria_fuente=x).distinct('organizacion').count()
 
 		cat_fuente[x.nombre] = (cont_categoria_fuente)
 
+	return render(request,template, locals())
+
+def output19(request, template="analysis/salida19.html"):
+	filtro = _queryset_filtrado(request)
+
+	sectores = {}
+	lista_sectores = {} 
+
+	for y in Tema.objects.all():
+		sectores[y] = {}
+
+		for x in Categoria.objects.all():
+			entrevista = Pregunta_6d.objects.filter(categoria=x,entrevistado=filtro,entrevistado__pregunta_6a__tema=y).distinct('categoria').count()
+			sectores[y][x] = entrevista
+	
 	return render(request,template, locals())
 
 def output20(request, template="analysis/salida20.html"):
@@ -414,89 +701,21 @@ def output20(request, template="analysis/salida20.html"):
 		cont_categoria = filtro.filter(pregunta_5d__categoria=x).distinct('organizacion').count()
 		cont_categoria1 = filtro.filter(pregunta_6d__categoria=x).distinct('organizacion').count()
 
-		categoria[x.nombre] = (cont_categoria,cont_categoria1)
+		categoria[x.nombre] = (cont_categoria,cont_categoria1,x.categoria)
 	print categoria
 
 	return render(request,template, locals())
 
 ###########################################################################################
 
-def output5(request, template="analysis/salida5.html"):
-	filtro = _queryset_filtrado(request)
-
-	tematicas = {}
-	datos = []
-	for obj in Tema.objects.all():
-		count_impacts = filtro.filter(pregunta_4__tema=obj).count()
-		count_projects = filtro.filter(pregunta_1__tema=obj).count()
-
-		fila = [obj.tema,count_projects,count_impacts]
-		datos.append(fila)
-		#tematicas[obj] = count_impacts
-		#for sector in Sector.objects.all():
-		#    cont_organizacion = filtro.filter(pregunta_4__entrevistado__organizacion__sector=sector).count()
-		#     tematicas[obj] = (cont_organizacion,count_impacts)
-
-
-	return render(request, template, locals())
-
-def output5b(request, template="analysis/salida5b.html"):
-	filtro = _queryset_filtrado(request)
-
-	beneficiario = {}
-	for obj in Grupo.objects.all():
-		count_beneficiario = filtro.filter(pregunta_4__grupo_beneficiario=obj).count()
-		beneficiario[obj] = count_beneficiario
-
-
-	return render(request, template, locals())
-
-def output6(request, template="analysis/salida6.html"):
-	filtro = _queryset_filtrado(request)
-
-	datos = {}
-	lista = []
-	valores1 = []
-	valores2 = []
-	valores3 = []
-
-	for obj in Sector.objects.all():
-		count_organization = filtro.filter(organizacion__sector=obj).distinct('organizacion').count()
-		count_innovation = filtro.filter(pregunta_5a__entrevistado__organizacion__sector=obj).count()
-		try:
-			avg_total = promedio(count_innovation,count_organization)
-		except:
-			avg_total = 0
-		lista.append(count_innovation)
-		mediana_obj = calcular_mediana(lista)
-		datos[obj] = (count_organization,count_innovation, avg_total, mediana_obj)
-
-		valores1.append(count_organization)
-		valores2.append(count_innovation)
-		valores3.append(float(promedio(count_innovation,count_organization)))
-		
-	total1 = sumarLista(valores1)
-	total2 = sumarLista(valores2)
-	total3 = total2/float(total1)
-
-
-	return render(request, template, locals())
-
-
-def output7(request, template="analysis/salida7.html"):
-	filtro = _queryset_filtrado(request)
-
-	datos = {}
-	for obj in Tema.objects.all():
-		count_projects = filtro.filter(pregunta_1__tema=obj).count()
-		count_tema = filtro.filter(pregunta_5a__tema=obj).count()
-		datos[obj] = (count_projects,count_tema)
-
-
-	return render(request, template, locals())
-
-
 # ----------- funciones utilitarias --------
+
+def get_fecha(request):
+    years = []
+    for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
+        years.append((en))
+    lista = sorted(set(years))
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
 
 def sumarLista(lista):
 	sum=0

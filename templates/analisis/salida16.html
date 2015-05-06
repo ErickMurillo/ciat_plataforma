@@ -47,7 +47,53 @@ $(function () {
     });
 
 });
+
+$(function () {
+        $('#salida16b').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
+                                {% endfor %}
+                            ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de Socios Potenciales por Sector'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [
+
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
+            {% endfor %}
+        ]
+        });
+    });
+
 </script>
+
 {% endblock extra_js%} 
 
 {% block contenido %}
@@ -72,6 +118,8 @@ $(function () {
 </div>
 
 
-<div id="salida16"></div> 
+<div id="salida16"></div>
+
+<div id="salida16b"></div>
 
 {% endblock contenido %}

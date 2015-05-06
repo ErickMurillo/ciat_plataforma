@@ -296,10 +296,10 @@ font-weight: 700;
 .navbar-default {
 border:0px solid black;
 font-family: 'Open Sans', 'Myriad Pro', 'Helvetica', sans-serif;
-font-size: 11px;
+font-size: 13px;
 font-weight: bold;
 
-text-transform: uppercase;
+/*text-transform: uppercase;*/
      
 }
 .navbar-header {
@@ -329,10 +329,9 @@ background-color: #FFF;
     padding-right: 1em
 }
 
-.chosen-container a{
-    font-size: 14px
+select {
+    width: 100%
 }
-
 .consultar{
     margin-top: 2em
 }

@@ -22,12 +22,6 @@ class Pregunta_6aForm(forms.ModelForm):
     	widgets = {'prioritizado': forms.Select(attrs={'class':'select-evt'})}
 
 
-def fecha_choice():
-    years = []
-    for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
-        years.append((en,en))
-    return list(set(years))
-
 class EntrevistaConsulta(forms.Form):
 	fecha = forms.CharField(required=True, 
 							label=u'Fecha',
