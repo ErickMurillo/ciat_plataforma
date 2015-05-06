@@ -2,19 +2,18 @@
 {%load staticfiles%}
 {% load i18n %}
 
-{% block extra_js%}  
+{% block extra_js%} 
 <script>
-$( ".menu7" ).addClass( "active" );
-$( ".menu7-2 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
-
+$( ".menu5" ).addClass( "active" );
+$( ".menu5-4 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 
 $(function () {
-        $('#salida15').highcharts({
+        $('#salida11').highcharts({
             chart: {
                 type: 'bar'
             },
             title: {
-                text: 'Distribution of Desired Innovations/Changes by Sector & Thematic Area'
+                text: 'Distribution of Partnerships by Sector'
             },
             xAxis: {
                 categories: [
@@ -29,7 +28,7 @@ $(function () {
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Number of Desired Innovations'
+                    text: 'Number of Orgs from Sample by Sector'
                 }
             },
             legend: {
@@ -56,29 +55,24 @@ $(function () {
 
 {% block contenido %}
 {% include "analysis/filtros.html" %}
-	<h3>Distribution of Desired Innovations/Changes by Thematic Area</h3>
-<div>
-    <table class="table table-bordered">
 
-     <thead>
-      <tr>
-          <th>Thematic Area</th>
-          <th>Number of Desired Innovations/Changes</th>
-      </tr>
-  </thead>
-  <tbody>
-  {% for key,value in temas.items %}
-            <tr>
-                <td>{{key}}</td>
-                <td>{{value}}</td>
-            </tr>
-            {% endfor %}
-</tbody>
-
-</table>
-</div>
+<div id="salida11"></div>
 
 
-<div id="salida15"></div> 
+<style>
+    .menu5{
+        background: #5d8c3b;
+    }
+    .sidebar-collapse .nav > .menu5 > a {
+        background: none;
+        color: white
+    }
+    .menu5 .menu5-1, .menu5-2, .menu5-3, .menu5-4, .menu5-5{
+      background: white;  
+    }
+    #page-inner{
+        min-height: 1250px
+    }
+</style>
 
 {% endblock contenido %}

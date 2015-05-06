@@ -3,37 +3,35 @@
 {% load i18n %}
 
 {% block extra_js%} 
-<script>
-$( ".menu5" ).addClass( "active" );
-$( ".menu5-5 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 
-</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
 {% include "analysis/filtros.html" %}
 
-<h3>Distribution of Partnerships for Each Sector (%)</h3>
+<h3>Number of Innovations by sector and by Theme</h3>
 
 <div>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Sector</th>
+                <th>Theme</th>
                 {% for sector in sectores %}
                     <th>{{sector}}</th>
                 {% endfor %}
+                <th>Total</th>
                 
             </tr>
         </thead>
         <tbody>
         
-        {% for x,y in lista_sectores.items %}
+        {% for key,value in lista_sectores.items %}
 <tr>
-                    <td>{{x}}</td>
-                    {% for z in y %}
-                        <td>{{z|floatformat:2}} %</td>
+                    <td>{{key}}</td>
+                    {% for z in value.0 %}
+                        <td>{{z}}</td>
                     {% endfor %}
+                    <td>{{value.1}}</td>
                  
  </tr>
             {% endfor %}
@@ -44,19 +42,14 @@ $( ".menu5-5 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 </div> 
 
 <style>
-    .menu5{
+    .menu6{
         background: #5d8c3b;
+
     }
-    .sidebar-collapse .nav > .menu5 > a {
+    .sidebar-collapse .nav > .menu6 > a {
         background: none;
         color: white
-    }
-    .menu5 .menu5-1, .menu5-2, .menu5-3, .menu5-4, .menu5-5{
-      background: white;  
-    }
-    #page-inner{
-        min-height: 1250px
+
     }
 </style>
-
 {% endblock contenido %}

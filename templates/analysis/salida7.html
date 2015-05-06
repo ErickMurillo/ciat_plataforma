@@ -4,44 +4,52 @@
 
 {% block extra_js%}  
 <script>
-    $(function () {
-        $('#salida5').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: 1,//null,
-                plotShadow: false
-        },
-        title: {
-            text: 'Distribución de Impactos por Tipo de Organización'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Browser share',
-            data: [
+$( ".menu4" ).addClass( "active" );
+$( ".menu4-2 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 
-            {% for key,value in  impactos.items %}
-            ['{{key}}', {{value}}],
+    $(function () {
+        $('#salida7').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Distribution of Innovations/Changes by Sector and Thematic Area'
+            },
+            xAxis: {
+                categories: [
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
+                                {% endfor %}
+                            ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of Innovations'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [
+
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
             {% endfor %}
-            ]
-        }]
-    });
-});</script>
+        ]
+        });
+    });</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
@@ -70,6 +78,25 @@
     </table>
 </div> 
 
-<!-- <div id="salida5"></div> -->
+<div id="salida7"></div>
+
+<style>
+    .menu4{
+        background: #5d8c3b;
+    }
+    .sidebar-collapse .nav > .menu4 > a {
+        background: none;
+        color: white
+    }
+    .menu4 .menu4-1{
+      background: white;  
+    }
+    .menu4 .menu4-2{
+      background: white;  
+    }  
+    #page-inner{
+        min-height: 1100px
+    }
+</style>
 
 {% endblock contenido %}

@@ -6,14 +6,6 @@ from mapeo.models import *
 from django.core import serializers
 from django.http import HttpResponse
 from .forms import *
-from django.db.models import Count# -*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView,TemplateView
-from .models import *
-from mapeo.models import *
-from django.core import serializers
-from django.http import HttpResponse
-from .forms import *
 from django.db.models import Count
 import json as simplejson
 
@@ -392,12 +384,26 @@ def output9(request, template="analysis/salida9.html"):
 		cont_organizacion = filtro.filter(organizacion__sector_en=x).distinct('organizacion').count()
 		cont_socios = Pregunta_8.objects.filter(entrevistado=filtro,entrevistado__organizacion__sector_en=x).count()
 
+		cont_organizacion1 = filtro.filter(organizacion__sector_en=x).distinct('organizacion')
+		t = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_8.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).count()
+			t.append(prueba)
+			print t
+
+		if len(t) >= 3:
+			mediana = calcular_mediana(t)
+		else:
+			mediana = '--'
+
 		try:
 			avg_total = promedio(cont_socios,cont_organizacion)
 		except:
 			avg_total = 0
 
-		fila = [x.nombre,cont_organizacion,cont_socios,avg_total]
+
+		fila = [x.nombre,cont_organizacion,cont_socios,avg_total,mediana]
 		tabla.append(fila)
 		datos[x.nombre] = avg_total
 
@@ -523,7 +529,20 @@ def output14(request, template="analysis/salida14.html"):
 		innovaciones = filtro.filter(pregunta_6a__entrevistado__organizacion__sector_en=choice).count()
 		cont_organizacion = filtro.filter(organizacion__sector_en=choice).distinct('organizacion').count()
 
-		fila = [choice.nombre,cont_organizacion,innovaciones,promedio(innovaciones,cont_organizacion)]
+		cont_organizacion1 = filtro.filter(organizacion__sector_en=choice).distinct('organizacion')
+		t = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,pregunta_6c__entrevistado__organizacion=x.organizacion).count()
+			t.append(prueba)
+			print t
+
+		if len(t) >= 3:
+			mediana = calcular_mediana(t)
+		else:
+			mediana = '--'
+
+		fila = [choice.nombre,cont_organizacion,innovaciones,promedio(innovaciones,cont_organizacion),mediana]
 
 		tabla.append(fila)
 		proyectos[choice.nombre] = promedio(innovaciones,cont_organizacion)
@@ -655,7 +674,20 @@ def output18(request, template="analysis/salida18.html"):
 		fuentes_aprendizaje = filtro.filter(pregunta_5e__entrevistado__organizacion__sector_en=choice).count()
 		cont_organizacion = filtro.filter(organizacion__sector_en=choice).distinct('organizacion').count()
 
-		fila = [choice.nombre,cont_organizacion,fuentes_aprendizaje,promedio(fuentes_aprendizaje,cont_organizacion)]
+		cont_organizacion1 = filtro.filter(organizacion__sector_en=choice).distinct('organizacion')
+		t = []
+
+		for x in cont_organizacion1:
+			prueba = Pregunta_5e.objects.filter(entrevistado__organizacion=x.organizacion).count()
+			t.append(prueba)
+			print t
+
+		if len(t) >= 3:
+			mediana = calcular_mediana(t)
+		else:
+			mediana = '--'
+
+		fila = [choice.nombre,cont_organizacion,fuentes_aprendizaje,promedio(fuentes_aprendizaje,cont_organizacion),mediana]
 
 		tabla.append(fila)
 

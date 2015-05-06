@@ -3,7 +3,55 @@
 {% load i18n %}
 
 {% block extra_js%} 
+<script>
+$( ".menu5" ).addClass( "active" );
+$( ".menu5-1 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 
+
+$(function () {
+        $('#salida8').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
+                                {% endfor %}
+                            ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Numbre of Partners'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [
+
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
+            {% endfor %}
+        ]
+        });
+    });
+</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
@@ -31,6 +79,22 @@
         </tbody>
     </table>
 </div> 
+<div id="salida8"></div>
 
+<style>
+    .menu5{
+        background: #5d8c3b;
+    }
+    .sidebar-collapse .nav > .menu5 > a {
+        background: none;
+        color: white
+    }
+    .menu5 .menu5-1, .menu5-2, .menu5-3, .menu5-4, .menu5-5{
+      background: white;  
+    }
+    #page-inner{
+        min-height: 1250px
+    }
+</style>  
 
 {% endblock contenido %}

@@ -1,5 +1,22 @@
 {% extends "analysis/baseanalisis.html" %}
 
+{% block extra_js %}
+<script type="text/javascript">
+
+	$.ajax({
+	    type: "GET",
+	    url: '/analysis/ajax/fechas/',
+	    dataType:'json',
+	    success: function(data) {
+		      	$.each(data, function(i, value) {
+		          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
+		        });
+	    	}
+	});
+	
+</script>
+{% endblock extra_js %}
+
 {% block contenido %}
 
 	<form action="." method="POST" id="form_analisis">{% csrf_token %}

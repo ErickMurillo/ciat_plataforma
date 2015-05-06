@@ -1,0 +1,55 @@
+{% extends "analysis/baseanalisis.html" %}
+{%load staticfiles%}
+{% load i18n %}
+
+{% block extra_js%}  
+
+{% endblock extra_js%} 
+
+{% block contenido %}
+{% include "analysis/filtros.html" %}
+
+	<h3>Themes of Desired Innovations and Information Needed to Carry Them Out</h3>
+<div>
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+          <th>Theme of Desired Innovation</th>
+          <th>Information Needed</th>
+
+      </tr>
+  </thead>
+  <tbody>
+  {% for key,value in sectores.items %}
+<tr>
+                    <td>{{key}}</td>
+                    <td>
+                    {% for limitacion,numero in value.items %}
+                        {% if numero >= 1  %}
+                            {{limitacion}},
+                        {% endif %}
+                    {% endfor %}
+                    </td>
+                    
+                 
+ </tr>
+            {% endfor %}
+        
+</tbody>
+
+</table>
+</div>
+
+<style>
+    .menu10{
+        background: #5d8c3b;
+
+    }
+    .sidebar-collapse .nav > .menu10 > a {
+        background: none;
+        color: white
+
+    }
+</style>
+
+{% endblock contenido %}

@@ -303,6 +303,7 @@
     <!-- METISMENU SCRIPTS -->
     <script src="{% static 'analisis/js/jquery.metisMenu.js' %}"></script>
       <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'analisis/js/analisis.js' %}"></script>
 
     <script src="{% static 'analisis/js/jquery.min.js' %}"></script>
     <script src="{% static 'analisis/js/highcharts.js' %}"></script>
@@ -313,9 +314,8 @@
      $('#id_fecha').select2({
             data:data
         });
-      $('select').select2({
-            minimumResultsForSearch: Infinity
-        });
+      $('select').select2({minimumResultsForSearch: Infinity});
+      
     </script>
 
 

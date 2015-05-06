@@ -2,8 +2,7 @@
 {%load staticfiles%}
 {% load i18n %}
 
-{% block extra_js%}  
-<!-- ++ grafica 1  -->
+{% block extra_js%}
 
 <script>
 $(function () {
@@ -37,7 +36,7 @@ $(function () {
             },
             series: [{
                 type: 'pie',
-                name: 'Aporte',
+                name: 'Contribution',
               data: [
 
             {% for key,value in sectores.items %}
@@ -78,6 +77,18 @@ $(function () {
 </table>
 </div>
 
-<!--grafico 1 -->
+
 <div id="sector"></div> 
+
+<style>
+    .menu1{
+        background: #5d8c3b;
+
+    }
+    .sidebar-collapse .nav > .menu1 > a {
+        background: none;
+        color: white
+
+    }
+</style>
 {% endblock contenido %}

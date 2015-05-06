@@ -1,7 +1,7 @@
 {% extends "analisis/baseanalisis.html" %}
 
 {% block extra_js %}
-<script type="text/javascript" >
+<script type="text/javascript">
 
 	$.ajax({
 	    type: "GET",
@@ -9,7 +9,6 @@
 	    dataType:'json',
 	    success: function(data) {
 		      	$.each(data, function(i, value) {
-		         
 		          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
 		        });
 	    	}

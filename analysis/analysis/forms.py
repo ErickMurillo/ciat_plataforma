@@ -23,16 +23,9 @@ class Pregunta_6aForm(forms.ModelForm):
 
     
 class EntrevistaConsulta(forms.Form):
-
-    def fecha_choice():
-        years = []
-        for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
-            years.append((en,en))
-        return list(set(years))
-
-    fecha = forms.ChoiceField(choices=fecha_choice(), 
-                            required=False, 
-                            label=u'Date')
+    fecha = forms.CharField(required=True, 
+                            label=u'Date',
+                            widget=forms.Select)
     pais = forms.ModelChoiceField(queryset=Pais.objects.order_by('nombre'), 
 								  required=False, 
 			                      label=u'Country')

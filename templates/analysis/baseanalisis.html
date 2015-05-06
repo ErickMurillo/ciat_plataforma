@@ -52,97 +52,97 @@
                     </li>
 
                     {% if request.session.fecha %}
-                      <li>
+                      <li class="menu1">
                         <a  href="/analysis/output1/"><i class="fa fa-users fa-2x"></i>Organization</a>
                     </li>
-                     <li>
+                     <li class="menu2">
                         <a href="#"><i class="fa fa-file-text-o fa-2x"></i>Projects, initiatives of the Org<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
+                            <li class="menu2-1">
                                 <a href="/analysis/output2/">Output 2</a>
                             </li>
-                            <li>
+                            <li class="menu2-2">
                                 <a href="/analysis/output3/">Output 3</a>
                             </li>
                         </ul>
                       </li>
-                      <li>
+                      <li class="menu3">
                         <a href="#"><i class="fa fa-sitemap fa-2x"></i>Organizational Impacts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
+                            <li class="menu3-1">
                                 <a href="/analysis/output4/">Output 4</a>
                             </li>
-                            <li>
+                            <li class="menu3-2">
                                 <a href="/analysis/output5/">Output 5</a>
                             </li>
-                            <li>
+                            <li class="menu3-3">
                                 <a href="/analysis/output5b/">Output 5b</a>
                             </li>
                         </ul>
                       </li>
-                       <li>
+                       <li class="menu4">
                         <a href="#"><i class="fa fa-building-o fa-2x"></i>Recent Innovations, changes of the Org.<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
+                            <li class="menu4-1">
                                 <a href="/analysis/output6/">Output 6</a>
                             </li>
-                            <li>
+                            <li class="menu4-2">
                                 <a href="/analysis/output7/">Output 7</a>
                             </li>
                         </ul>
                       </li>
-                      <li>
+                      <li class="menu5">
                         <a href="#"><i class="fa fa-sitemap fa-2x"></i>Partnerships between organizations<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
+                            <li class="menu5-1">
                                 <a href="/analysis/output8/">Output 8</a>
                             </li>
-                            <li>
+                            <li class="menu5-2">
                                 <a href="/analysis/output9/">Output 9</a>
                             </li>
-                            <li>
+                            <li class="menu5-3">
                                 <a href="/analysis/output10/">Output 10</a>
                             </li>
-                            <li>
+                            <li class="menu5-4">
                                 <a href="/analysis/output11/">Output 11</a>
                             </li>
-                            <li>
+                            <li class="menu5-5">
                                 <a href="/analysis/output12/">Output 12</a>
                             </li>
                         </ul>
                       </li>   
-                      <li  >
-                        <a  href="/analisis/salida13/"><i class="fa fa-table fa-2x"></i>Common themes in work with partner organizations</a>
+                      <li class="menu6">
+                        <a  href="/analysis/output13/"><i class="fa fa-table fa-2x"></i>Common themes in work with partner organizations</a>
                     </li>
-                     <li>
+                     <li class="menu7">
                         <a href="#"><i class="fa fa-sitemap fa-2x"></i>The innovations and changes required<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
+                            <li class="menu7-1">
                                 <a href="/analysis/output14/">Output 14</a>
                             </li>
-                            <li>
+                            <li class="menu7-2">
                                 <a href="/analysis/output15/">Output 15</a>
                             </li>
                         </ul>
                       </li>
-                      <li>
+                      <li class="menu8">
                         <a href="#"><i class="fa fa-sitemap fa-2x"></i>Current Innovation Partners vs Potential Partners<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
+                            <li class="menu8-1">
                                 <a href="/analysis/output16/">Output 16</a>
                             </li>
-                            <li>
+                            <li class="menu8-2">
                                 <a href="/analysis/output17/">Output 17</a>
                             </li>
                         </ul>
                       </li> 
-                    <li>
+                    <li class="menu9">
                         <a class=""  href="/analysis/output18/"><i class="fa fa-table fa-2x"></i>Learning resources for innovations</a>
                     </li>
-                     <li>
+                     <li class="menu10">
                         <a class=""  href="/analysis/output19/"><i class="fa fa-table fa-2x"></i>Information needed to perform desired innovations</a>
                     </li>
-                    <li>
+                    <li class="menu11">
                         <a class=""  href="/analysis/output20/"><i class="fa fa-table fa-2x"></i>Real and perceived limitations Promoting Innovation and Change</a>
                     </li> 
                     {% endif %}
@@ -315,8 +315,15 @@
     <script src="{% static 'analisis/js/select2.min.js' %}"></script>
 
     <script type="text/javascript">
+    var data = [{ id: 0, text: '---------' }];
+     $('#id_fecha').select2({
+            data:data
+        });
       $('select').select2({minimumResultsForSearch: Infinity});
+      
     </script>
+
+
 
 
     {% block extra_js%}{% endblock extra_js %}

@@ -5,6 +5,10 @@
 {% block extra_js%}  
 
 <script>
+$( ".menu2" ).addClass( "active" );
+$( ".menu2-2 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
+
+    
     $(function () {
         $('#container').highcharts({
             chart: {
@@ -15,15 +19,18 @@
             },
             xAxis: {
                 categories: [
-                                {% for key,value in temas.items %}
-                                    '{{key}}',
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
                                 {% endfor %}
                             ]
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Total fruit consumption'
+                    text: 'Number of Projects'
                 }
             },
             legend: {
@@ -34,16 +41,19 @@
                     stacking: 'normal'
                 }
             },
-            series: [{
-                name: 'John',
-                data: [5, 3, 4, 7, 2]
-            }, {
-                name: 'Jane',
-                data: [2, 2, 3, 2, 1]
-            }, {
-                name: 'Joe',
-                data: [3, 4, 4, 2, 5]
-            }]
+            series: [
+
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
+            {% endfor %}
+
+            
+
+
+        ]
         });
     });
 </script>
@@ -72,7 +82,27 @@
     </table>
 </div> 
 
-<!--grafico 5 -->
-<!-- <div id="container"></div> -->
+
+<div id="container"></div>
+
+<style>
+    .menu2{
+        background: #5d8c3b;
+
+    }
+    .sidebar-collapse .nav > .menu2 > a {
+        background: none;
+        color: white
+    }
+    .menu2 .menu2-1{
+      background: white;  
+    }
+    .menu2 .menu2-2{
+      background: white;  
+    } 
+    #page-inner{
+        min-height: 1100px
+    }     
+</style>
 
 {% endblock contenido %}

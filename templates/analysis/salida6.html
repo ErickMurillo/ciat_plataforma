@@ -4,13 +4,15 @@
 
 {% block extra_js%}  
 <script>
+$( ".menu4" ).addClass( "active" );
+$( ".menu4-1 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 
 $(function () {
 
     $(document).ready(function () {
 
         // Build the chart
-        $('#salida5').highcharts({
+        $('#salida6').highcharts({
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -36,7 +38,7 @@ $(function () {
             },
             series: [{
                 type: 'pie',
-                name: 'Aporte',
+                name: 'Contribution',
               data: [
 
             {% for key,value in  datos.items %}
@@ -90,6 +92,25 @@ $(function () {
     </table>
 </div> 
 
-<div id="salida5"></div> 
+<div id="salida6"></div> 
+
+<style>
+    .menu4{
+        background: #5d8c3b;
+    }
+    .sidebar-collapse .nav > .menu4 > a {
+        background: none;
+        color: white
+    }
+    .menu4 .menu4-1{
+      background: white;  
+    }
+    .menu4 .menu4-2{
+      background: white;  
+    }  
+    #page-inner{
+        min-height: 1100px
+    } 
+</style> 
 
 {% endblock contenido %}

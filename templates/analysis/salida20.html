@@ -8,29 +8,301 @@
 
 {% block contenido %}
 {% include "analysis/filtros.html" %}
-<h3>Reported Limitations and Perceived Limitations</h3>
+<h3 align="center">Reported Limitations and Perceived Limitations</h3>
+<hr>
 
-<div>
-    <table class="table table-bordered">
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+  
+    <li role="presentation" class="active"><a href="#productivo" aria-controls="productivo" role="tab" data-toggle="tab">Productive</a></li>
+    
+    <li role="presentation"><a href="#economico" aria-controls="economico" role="tab" data-toggle="tab">Economic</a></li>
+    <li role="presentation"><a href="#tecnico" aria-controls="tecnico" role="tab" data-toggle="tab">Technical</a></li>
+    <li role="presentation"><a href="#comercial" aria-controls="comercial" role="tab" data-toggle="tab">Commercialization</a></li>
+    <li role="presentation"><a href="#inst" aria-controls="inst" role="tab" data-toggle="tab">Institutional</a></li>
+    <li role="presentation"><a href="#actitud" aria-controls="actitud" role="tab" data-toggle="tab">Attitude/Cultural</a></li>
+    <li role="presentation"><a href="#capacidad" aria-controls="capacidad" role="tab" data-toggle="tab">Human capacity</a></li>
+    <li role="presentation"><a href="#alianza" aria-controls="alianza" role="tab" data-toggle="tab">Alliance/Partnership</a></li>
+    <li role="presentation"><a href="#politica" aria-controls="politica" role="tab" data-toggle="tab">Politics</a></li>
+    <li role="presentation"><a href="#otros" aria-controls="otros" role="tab" data-toggle="tab">Other</a></li>
+    
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="productivo">
+     <table class="table table-bordered">
         <thead>
-            <tr>
+            <tr> 
                 <th>Limitation</th>
-                <th># of Organizations Encountering Limitation Current Innovation</th>
-                <th># of Organizations Reporting as Potential Limitation Desired Innovation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
             </tr>
         </thead>
         <tbody>
         
           {% for key,value in categoria.items %}
           <tr>
-          	<td>{{key}}</td>
-          	<td>{{value.0}}</td>
-          	<td>{{value.1}}</td>
-          	</tr>
+          {% if value.2 == 1 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
           {% endfor %}
           
     </tbody>
 </table>
-</div> 
+    </div>
+    <div role="tabpanel" class="tab-pane" id="economico">
+    <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 2 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tecnico">
+    <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 3 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane" id="comercial">
+      <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 4 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+
+        <div role="tabpanel" class="tab-pane" id="inst">
+      <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 5 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+
+        <div role="tabpanel" class="tab-pane" id="actitud">
+      <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 6 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+
+        <div role="tabpanel" class="tab-pane" id="capacidad">
+      <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 7 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+
+        <div role="tabpanel" class="tab-pane" id="alianza">
+      <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 8 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+
+        <div role="tabpanel" class="tab-pane" id="politica">
+      <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 9 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+
+        <div role="tabpanel" class="tab-pane" id="otros">
+      <table class="table table-bordered">
+        <thead>
+            <tr> 
+                <th>Limitation</th>
+                <th>Number of Organizations Encountering Limitation Current Innovation</th>
+                <th>Number of Organizations Reporting as Potential Limitation Desired Innovation</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+          {% for key,value in categoria.items %}
+          <tr>
+          {% if value.2 == 10 %}
+            <td>{{key}}</td>
+            <td>{{value.0}}</td>
+            <td>{{value.1}}</td>
+          {% endif %}
+            
+            </tr>
+          {% endfor %}
+          
+    </tbody>
+</table>
+    </div>
+  </div>
+
+</div>
  
+ <style>
+    .menu11{
+        background: #5d8c3b;
+
+    }
+    .sidebar-collapse .nav > .menu11 > a {
+        background: none;
+        color: white
+
+    }
+</style>
 {% endblock contenido %}
