@@ -262,7 +262,7 @@ def notify_all_notas(notas):
                                  'url': '%s/comunicacion/%s' % (site, notas.id),
                                  #'url_aporte': '%s/foros/ver/%s/#aporte' % (site, foros.id),
                                  })
-    send_mail('Nueva Nota Alianza CAC', contenido, 'ciatcac@gmail.com', [user.email for user in users if user.email])
+    send_mail('Nueva Nota Alianza CAC', contenido, 'alianza.cac@gmail.com', [user.email for user in users if user.email])
 
 @login_required
 def comentar_nota(request, id):
