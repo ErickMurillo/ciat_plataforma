@@ -4,18 +4,17 @@
 <script type="text/javascript" >
 
 	$.ajax({
-    type: "GET",
-    url: '/analisis/ajax/fechas/',
-    dataType:'json',
-    success: function(data) {
-    	//data = eval('('+data+')');
-
-      $.each(data, function(i, value) {
-      console.log(value);   
-          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
-        });
-    }
-});
+	    type: "GET",
+	    url: '/analisis/ajax/fechas/',
+	    dataType:'json',
+	    success: function(data) {
+		      	$.each(data, function(i, value) {
+		         
+		          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
+		        });
+	    	}
+	});
+	
 </script>
 {% endblock extra_js %}
 
