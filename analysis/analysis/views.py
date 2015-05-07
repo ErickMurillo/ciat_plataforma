@@ -387,8 +387,8 @@ def output9(request, template="analysis/salida9.html"):
 		cont_organizacion1 = filtro.filter(organizacion__sector_en=x).distinct('organizacion')
 		t = []
 
-		for x in cont_organizacion1:
-			prueba = Pregunta_8.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).count()
+		for xz in cont_organizacion1:
+			prueba = Pregunta_8.objects.filter(entrevistado=filtro,entrevistado__organizacion=xz.organizacion).count()
 			t.append(prueba)
 			print t
 
@@ -403,9 +403,9 @@ def output9(request, template="analysis/salida9.html"):
 			avg_total = 0
 
 
-		fila = [x.nombre,cont_organizacion,cont_socios,avg_total,mediana]
+		fila = [x,cont_organizacion,cont_socios,avg_total,mediana]
 		tabla.append(fila)
-		datos[x.nombre] = avg_total
+		datos[x] = avg_total
 
 		valores1.append(cont_organizacion)
 		valores2.append(cont_socios)

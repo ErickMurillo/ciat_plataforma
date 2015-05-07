@@ -8,6 +8,7 @@ from ckeditor.fields import RichTextField
 from smart_selects.db_fields import ChainedForeignKey
 from analisis.configuracion.models import Sector, AreaAccion, SitioAccion, Plataforma
 from analysis.configuration.models import Sector_en
+from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 from comunicacion.contrapartes.widgets import ColorPickerWidget
@@ -25,19 +26,19 @@ class ColorField(models.CharField):
         return super(ColorField, self).formfield(**kwargs)
 
 class Organizaciones(models.Model):
-    nombre = models.CharField(max_length=200)
-    siglas = models.CharField("Siglas o nombre corto",
-                                help_text="Siglas o nombre corto de la oganización",
+    nombre = models.CharField(_(u'Nombre'), max_length=200)
+    siglas = models.CharField(_(u"Siglas o nombre corto"),
+                                help_text=_(u"Siglas o nombre corto de la oganización"),
                                 max_length=200)
     area_accion = models.ForeignKey(AreaAccion)
     sitio_accion = models.ForeignKey(SitioAccion)
     plataforma = models.ForeignKey(Plataforma)
-    sector = models.ForeignKey(Sector,verbose_name='Sector (Español)')
-    sector_en = models.ForeignKey(Sector_en,verbose_name='Sector (Ingles)',null=True, blank=True)
-    telefono = models.IntegerField(null=True, blank=True)
+    sector = models.ForeignKey(Sector,verbose_name=_(u'Sector (Español)'))
+    sector_en = models.ForeignKey(Sector_en,verbose_name=_(u'Sector (Ingles)'),null=True, blank=True)
+    telefono = models.IntegerField(_(u'Telefono'), null=True, blank=True)
     fax = models.CharField(max_length=50, null=True, blank=True)
     logo = ImageField(upload_to=get_file_path, null=True, blank=True)
-    direccion = models.TextField(null=True, blank=True)
+    direccion = models.TextField(_(u'Direccion'), null=True, blank=True)
 
     pais = models.ForeignKey(Pais)
     departamento = ChainedForeignKey(
@@ -50,29 +51,29 @@ class Organizaciones(models.Model):
                                 chained_field="departamento", 
                                 chained_model_field="departamento",
                                 show_all=False, auto_choose=True,null=True, blank=True)
-    fundacion = models.CharField('Año de fundación', 
+    fundacion = models.CharField(_(u'Año de fundación'), 
                                  max_length=200, 
                                  blank=True, null=True)
-    temas = RichTextField(blank=True, null=True)
-    generalidades = RichTextField(blank=True, null=True)
-    contacto = models.CharField('Persona de contacto', max_length=200, blank=True, null=True)
-    correo_electronico = models.EmailField(null=True, blank=True)
-    telefono = models.CharField(max_length=200, blank=True, null=True)
-    sitio_web = models.URLField(blank=True, null=True)
+    temas = RichTextField(_(u'Temas'), blank=True, null=True)
+    generalidades = RichTextField(_(u'Generalidades'), blank=True, null=True)
+    contacto = models.CharField(_(u'Persona de contacto'), max_length=200, blank=True, null=True)
+    correo_electronico = models.EmailField(_(u'Correo'), null=True, blank=True)
+    telefono = models.CharField(_(u'Telefono'), max_length=200, blank=True, null=True)
+    sitio_web = models.URLField(_(u'Sitio web'), blank=True, null=True)
     rss = models.CharField(max_length=200, blank=True, null=True)
     font_color = ColorField(blank=True, unique=True)
 
     fileDir = 'organizaciones/logos/'
 
     class Meta:
-        verbose_name_plural = "Organizaciones"
+        verbose_name_plural = _(u"Organizaciones")
         unique_together = ("font_color", "nombre")
         ordering = ['nombre',]
 
     def __unicode__(self):
         return self.siglas
 
-CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
+CHOICE_SEXO = ((1,_(u'Hombre')),(2,_(u'Mujer')))
 CHOICE_RANGO = (
                 (1, '18 - 25'),
                 (2, '26 - 45'),
@@ -81,20 +82,20 @@ CHOICE_RANGO = (
             )
 
 CHOICE_NIVEL_EDUCATIVO = (
-                (1, 'No sabe leer o escribir'),
-                (2, 'Primaria Incompleta'),
-                (3, 'Primaria Completa'),
-                (4, 'Secundaria Incompleta'),
-                (5, 'Bachiller'),
-                (6, 'Universitario'),
+                (1, _(u'No sabe leer o escribir')),
+                (2, _(u'Primaria Incompleta')),
+                (3, _(u'Primaria Completa')),
+                (4, _(u'Secundaria Incompleta')),
+                (5, _(u'Bachiller')),
+                (6, _(u'Universitario')),
             )
 
 class Persona(models.Model):
-    nombre = models.CharField('Nombre de entrevistado/a', max_length=200)
-    cedula = models.CharField('cedula de entrevistado', max_length=200, null=True, blank=True)
-    sexo = models.IntegerField(choices=CHOICE_SEXO)
-    edad = models.IntegerField(choices=CHOICE_RANGO)
-    finca = models.CharField('Nombre de Finca', max_length=200, null=True, blank=True)
+    nombre = models.CharField(_(u'Nombre de entrevistado/a'), max_length=200)
+    cedula = models.CharField(_(u'cedula de entrevistado'), max_length=200, null=True, blank=True)
+    sexo = models.IntegerField(_(u'Sexo'), choices=CHOICE_SEXO)
+    edad = models.IntegerField(_(u'Edad'), choices=CHOICE_RANGO)
+    finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
     pais = models.ForeignKey(Pais)
     departamento = ChainedForeignKey(
                                 Departamento,
@@ -112,11 +113,11 @@ class Persona(models.Model):
                                 chained_model_field="municipio",
                                 show_all=False, auto_choose=True)
     organizacion = models.ManyToManyField(Organizaciones, related_name ="org", 
-                                        verbose_name='Organizaciones que lo apoyan')
-    nivel_educacion = models.IntegerField(choices=CHOICE_NIVEL_EDUCATIVO)
+                                        verbose_name=_(u'Organizaciones que lo apoyan'))
+    nivel_educacion = models.IntegerField(_(u'Nivel de educacion'), choices=CHOICE_NIVEL_EDUCATIVO)
 
     def __unicode__(self):
         return self.nombre
 
     class Meta:
-        verbose_name_plural= 'Personas registradas'
+        verbose_name_plural= _(u'Personas registradas')
