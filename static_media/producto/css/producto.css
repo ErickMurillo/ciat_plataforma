@@ -103,12 +103,13 @@ body {
 	color: black;
 }
 .back h4{
-	margin-top: 2em;
+	margin-top: 3em;
 	font-family: cabin, sans-serif;
 	font-weight: 700;
 	font-size: 2em;
 	text-align: center;
-	color: #008040;	
+	color: #008040;
+	padding: 0 30px;
 }		
 .back {
 	transform: rotate3d(45,45,0,180deg);
