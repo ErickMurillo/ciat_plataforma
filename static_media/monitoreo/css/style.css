@@ -1038,3 +1038,14 @@ border-color: rgba(93, 140, 59, 0.5);
  .valores{
  	width: 30% !important;
  }
+.main-menu-admin {
+  background-color: white;
+  border: none;
+  margin-bottom: 0px;
+}
+.main-menu-admin .navbar-nav>li>a{
+	font-weight: normal !important;
+}
+.subindicador{
+	font-weight: bold;
+}

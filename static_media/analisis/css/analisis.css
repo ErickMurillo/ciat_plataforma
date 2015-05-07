@@ -296,14 +296,27 @@ font-weight: 700;
 .navbar-default {
 border:0px solid black;
 font-family: 'Open Sans', 'Myriad Pro', 'Helvetica', sans-serif;
-font-size: 13px;
-font-weight: bold;
+
+/*font-size: 13px;
+font-weight: bold;*/
 
 /*text-transform: uppercase;*/
+
+font-size: 16px;
+
+
+
+
      
 }
-.navbar-header {
-    background: #5d8c3b;
+.navbar {
+  margin-bottom: 0px !important;
+    border-radius: 0 !important;
+
+}
+.navbar-default {
+  background-color: white !important;
+  border-color: white !important;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
 background-color: #5d8c3b;
