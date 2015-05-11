@@ -77,6 +77,9 @@ def _queryset_filtrado(request):
     if 'duenio' in  request.session:
         params['jefe'] = request.session['duenio']
 
+    if 'tipo' in  request.session:
+        params['tipo_encuesta'] = request.session['tipo']
+
     unvalid_keys = []
     for key in params:
         if not params[key]:
@@ -89,7 +92,7 @@ def _queryset_filtrado(request):
 
 #-------------------------------------------------------------------------------
 
-# Comienza la parte del index
+# Comienza la parte del index de entrevistada
 
 def inicio(request):
     #centinela = 0
@@ -105,6 +108,48 @@ def inicio(request):
             request.session['socio'] = form.cleaned_data['socio']
             request.session['desde'] = form.cleaned_data['desde']
             request.session['duenio'] = form.cleaned_data['dueno']
+            request.session['tipo'] = form.cleaned_data['tipo']
+
+            mensaje = "Todas las variables estan correctamente :)"
+            request.session['activo'] = True
+            centinela = 1
+            variablerandom = random.randrange(10,250)
+            request.session['crce']  = variablerandom
+        else:
+            centinela = 0   
+           
+    else:
+        form = MonitoreoForm()
+        mensaje = "Existen alguno errores"
+        centinela = 0
+        #if 'fecha' in request.session:
+        #    del request.session['fecha']
+        #    del request.session['departamento']
+        #    del request.session['organizacion']
+        #    del request.session['municipio']
+        #    del request.session['comunidad']
+        #    del request.session['socio']
+        #    del request.session['desde']
+        #    del request.session['duenio']
+
+    return render_to_response('monitoreo/inicio.html', locals(),
+                              context_instance=RequestContext(request))
+
+def inicio_linea(request):
+    #centinela = 0
+    if request.method == 'POST':
+        mensaje = None
+        form = MonitoreoForm(request.POST)
+        if form.is_valid():
+            request.session['fecha'] = form.cleaned_data['fecha']
+            request.session['departamento'] = form.cleaned_data['departamento']
+            request.session['organizacion'] = form.cleaned_data['organizacion']
+            request.session['municipio'] = form.cleaned_data['municipio']
+            request.session['comunidad'] = form.cleaned_data['comunidad']
+            request.session['socio'] = form.cleaned_data['socio']
+            request.session['desde'] = form.cleaned_data['desde']
+            request.session['duenio'] = form.cleaned_data['dueno']
+            request.session['tipo'] = form.cleaned_data['tipo']
 
             mensaje = "Todas las variables estan correctamente :)"
             request.session['activo'] = True
@@ -138,18 +183,30 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['familias'] = Encuesta.objects.all().count()
+        context['familias'] = Encuesta.objects.filter(tipo_encuesta=2).count()
         #context['organizacion'] = Organizaciones.objects.all().count()
         context['mujeres'] = Encuesta.objects.filter(productor__sexo=2).count()
         context['hombres'] = Encuesta.objects.filter(productor__sexo=1).count()
           
-        foo = Encuesta.objects.all().order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
+        foo = Encuesta.objects.filter(tipo_encuesta=2).order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
         context['organizacion'] = Organizaciones.objects.filter(id__in=foo).count()
 
         return context
 
 class HomePageViewfail(TemplateView):
-    template_name = 'monitoreo/index2.html'
+    template_name = 'monitoreo/indexLineaBase.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePageViewfail, self).get_context_data(**kwargs)
+        context['familias'] = Encuesta.objects.filter(tipo_encuesta=1).count()
+        #context['organizacion'] = Organizaciones.objects.all().count()
+        context['mujeres'] = Encuesta.objects.filter(tipo_encuesta=1,productor__sexo=2).count()
+        context['hombres'] = Encuesta.objects.filter(tipo_encuesta=1,productor__sexo=1).count()
+          
+        foo = Encuesta.objects.filter(tipo_encuesta=1).order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
+        context['organizacion'] = Organizaciones.objects.filter(id__in=foo).count()
+
+        return context
 
 #-------------------------------------------------------------------------------
 
@@ -2504,12 +2561,27 @@ def ahorro_credito_grafos_entre(request, tipo):
     else:
         raise Http404
 
-#Los puntos en el mapa
+#Los puntos en el mapa para entrevista mujer
 
 def obtener_lista(request):
     if request.is_ajax():
         lista = []
-        for objeto in Encuesta.objects.all():
+        for objeto in Encuesta.objects.filter(tipo_encuesta=2):
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+
+        serializado = simplejson.dumps(lista)
+        return HttpResponse(serializado, mimetype='application/json')
+
+#Los puntos en el mapa para linea base
+#
+def obtener_lista_linea(request):
+    if request.is_ajax():
+        lista = []
+        for objeto in Encuesta.objects.filter(tipo_encuesta=1):
             dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
                         lon=float(objeto.productor.comunidad.municipio.longitud) ,
                         lat=float(objeto.productor.comunidad.municipio.latitud)
