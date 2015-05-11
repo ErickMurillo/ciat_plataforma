@@ -14,6 +14,10 @@ import datetime
 from mapeo.models import Organizaciones
 from analisis.configuracion.models import SitioAccion
 from django.views.decorators.csrf import csrf_exempt
+import thread
+from django.contrib.sites.models import Site
+from django.template.loader import render_to_string
+from django.core.mail import send_mail, EmailMultiAlternatives
 # Create your views here.
 
 @login_required
@@ -30,6 +34,7 @@ def crear_agenda(request):
                 form1_uncommitd = form1.save(commit=False)
                 form1_uncommitd.content_object = form_uncommited
                 form1_uncommitd.save()
+            thread.start_new_thread(notify_all_event, (form_uncommited,))
             return HttpResponseRedirect('/agendas/calendario')
     else:
         form = AgendaForm()
@@ -218,3 +223,15 @@ def calendario_full_contraparte(request,id=None):
     return render_to_response('comunicacion/agendas/agenda_list_full.html',locals(),
                               context_instance = RequestContext(request))
 
+
+#enviar mensajes cuando se crea un evento
+
+def notify_all_event(eventos):
+    site = Site.objects.get_current()
+    users = User.objects.all() #.exclude(username=foros.contraparte.username)
+    contenido = render_to_string('comunicacion/agendas/notify_new_event.txt', {'evento': eventos,
+                                 'url': '%s/agendas/calendario/%s' % (site, eventos.id),
+                                 #'url_aporte': '%s/foros/ver/%s/#aporte' % (site, foros.id),
+                                 })
+    send_mail('Nuevo evento en Alianza CAC', contenido, 'alianza.cac@gmail.com', [user.email for user in users if user.email])
+   

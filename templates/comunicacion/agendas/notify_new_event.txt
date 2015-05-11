@@ -1,0 +1,11 @@
+El usuario {{evento.user}} ha publicado un nuevo Evento en 
+el sistema de alianza centroamérica y el caribe
+
+
+Fecha: {{evento.inicio|date:"D d M Y"}}
+Titulo: {{evento.evento}}
+Haga click al enlace de abajo para ver la Nota: 
+http://{{url}}
+
+Alianzas Centroamérica - Caribe
+http://alianza-cac.net/
