@@ -283,7 +283,8 @@
                                             <div class="row"><!-- row -->
                                                     
                                                 <div class="form-group clearfix col-lg-12">
-                                                            
+                                                {% if user.is_authenticated %}
+                                                                   
                                                     <form action="." method="post">
                                                         {% csrf_token %}
                                                         {{form.media}}
@@ -292,6 +293,7 @@
                                                         <input class="btn btn-large btn-success " style="" type="submit" id="submitfoo" value="Guardar" />
         
                                                     </form>
+                                                {% endif %}      
                                                 </div>
                                                         
                                             </div><!-- row end -->
