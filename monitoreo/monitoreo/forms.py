@@ -29,6 +29,8 @@ def departamentos():
     foo = Encuesta.objects.all().order_by('productor__comunidad__municipio__departamento__nombre').distinct().values_list('productor__comunidad__municipio__departamento__id', flat=True)
     return Departamento.objects.filter(id__in=foo)
 
+CHOICE_OPCION_TIPO = ((1,'Linea base'),(2,'Entrevista mujer'))
+
 class MonitoreoForm(forms.Form):
     fecha = forms.MultipleChoiceField(choices=fecha_choice())
     departamento = forms.ModelMultipleChoiceField(queryset=departamentos(), required=False, label=u'Departamentos')
@@ -38,3 +40,4 @@ class MonitoreoForm(forms.Form):
     socio = forms.ChoiceField(choices = CHOICE_OPCION_F , required=False, label="Socio Gremial")
     desde = forms.ChoiceField(choices = CHOICE_DESDE_F , required=False)
     dueno = forms.ChoiceField(label = 'Jefe de Familia', choices = CHOICE_OPCION_F , required=False)
+    tipo = forms.ChoiceField(choices = CHOICE_OPCION_TIPO)

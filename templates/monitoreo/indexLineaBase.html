@@ -23,7 +23,7 @@
         new google.maps.Size(15, 32),
         new google.maps.Point(0,0),
         new google.maps.Point(0, 32));
-            $.getJSON("{% url 'obtener-lista' %}", function(data){
+            $.getJSON("{% url 'obtener-lista-linea' %}", function(data){
                 $.each(data, function(i, elemento){
                     var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
                     var marker = new google.maps.Marker({
@@ -63,12 +63,12 @@
                 
                 <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
                     <h1 class="title-median">
-                        Monitoreo: Entrevistas mujeres
+                        Monitoreo: Linea Base
                     </h1>
                     <div class="col-padded"><!-- inner custom column -->
-                    
-                        <div class="row gutter"><!-- row -->
                         
+                        <div class="row gutter"><!-- row -->
+                       
                             <div class="col-lg-12 col-md-12">
                             
                              <div class="mapa">
@@ -176,9 +176,3 @@
 
 
 {% endblock contenido %}
-
-{% block index %}
-
-
-
-{% endblock %}
