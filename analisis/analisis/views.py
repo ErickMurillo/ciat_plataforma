@@ -801,3 +801,5 @@ class BusquedaPaisView(TemplateView):
 		departamento = Departamento.objects.filter(pais__id=id_pais)
 		data = serializers.serialize('json',departamento,fields=('nombre',))
 		return HttpResponse(data,mimetype='application/json')
+
+

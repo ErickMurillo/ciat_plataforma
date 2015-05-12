@@ -2,13 +2,11 @@
     GENERAL  STYLES    
     =============================================*/
 
-th{
+th, td, h3{
     text-align: center
 }
 
-td{
-    text-align: center
-}
+
 body {
     font-family: 'Open Sans', sans-serif;
 }
