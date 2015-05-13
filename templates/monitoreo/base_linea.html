@@ -42,16 +42,9 @@
                 <nav id="k-menu" class="k-main-navig "><!-- main navig -->
         
                     <ul id="drop-down-left" class="k-dropdown-menu monitoreo-menu">
-                        {% if request.session.tipo == '2' %}
-                        <li>
-                            <a href="{% url 'index' %}" title="Cosultar Datos">Consulta</a>
-                        </li>
-                        {%else%}
                         <li>
                             <a href="{% url 'index_linea' %}" title="Cosultar Datos">Consulta</a>
                         </li>
-                        {% endif %}
-                        
 
                         <li>
                             <a href="{% url 'ayuda' %}" title="Descripción del Proyecto">Acerca de</a>

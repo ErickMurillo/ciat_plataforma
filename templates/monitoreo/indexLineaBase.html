@@ -1,4 +1,4 @@
-{% extends "monitoreo/base.html" %}
+{% extends "monitoreo/base_linea.html" %}
 
 {% block extra_js %}
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -146,7 +146,7 @@
 
                                     </div>
                                     <br>
-                                    <a class="btn btn-success center-block" href="{% url 'index' %}">Explorar los datos ahora</a>
+                                    <a class="btn btn-success center-block" href="{% url 'index_linea' %}">Explorar los datos ahora</a>
                     
                             </li>
                             

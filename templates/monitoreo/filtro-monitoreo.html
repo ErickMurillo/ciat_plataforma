@@ -26,5 +26,8 @@
     {%endif%}
     {%if request.session.duenio%}
     <li><b>Jefe:</b>{%if request.session.duenio = '1'%}Si{%endif%}{%if request.session.duenio = '2'%}No{%endif%}</li>
-    {%endif%}  
+    {%endif%} 
+    {%if request.session.tipo%}
+    <li><b>Tipo Encuesta:</b>{%if request.session.tipo = '1'%}Linea base{%endif%}{%if request.session.tipo = '2'%}Entrevista mujer{%endif%}</li>
+    {%endif%} 
 </ol>

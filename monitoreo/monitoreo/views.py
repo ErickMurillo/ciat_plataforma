@@ -173,7 +173,7 @@ def inicio_linea(request):
         #    del request.session['desde']
         #    del request.session['duenio']
 
-    return render_to_response('monitoreo/inicio.html', locals(),
+    return render_to_response('monitoreo/inicio_linea.html', locals(),
                               context_instance=RequestContext(request))
 
 #-------------------------------------------------------------------------------
@@ -465,7 +465,10 @@ def fincas(request):
 
     totales['numero'] = suma
     totales['manzanas'] = round(total_manzana,0)
-    totales['promedio_manzana'] = round(totales['manzanas'] / consulta.count(),2)
+    try:
+        totales['promedio_manzana'] = round(totales['manzanas'] / consulta.count(),2)
+    except:
+        pass
 
     for uso in Uso.objects.exclude(id=1):
         key = slugify(uso.nombre).replace('-', '_')
@@ -537,7 +540,10 @@ def fincas(request):
 
     totales_entre['numero'] = suma_entre
     totales_entre['manzanas'] = round(total_manzana_entre,0)
-    totales_entre['promedio_manzana'] = round(totales_entre['manzanas'] / consulta.count(),2)
+    try:
+        totales_entre['promedio_manzana'] = round(totales_entre['manzanas'] / consulta.count(),2)
+    except:
+        pass
 
     for uso in Uso.objects.exclude(id=1):
         key = slugify(uso.nombre).replace('-', '_')

@@ -137,7 +137,7 @@
                                 
                                     <li class="recent-news-wrap">
                                 
-                                        <h1 class="title-median"><a href="{% url 'detalle-notas' nota.id %}" title="">{{nota.titulo}}</a></h1>
+                                        <h1 class="title-median"><a href="{% url 'detalle-notas' nota.id %}" title="{{nota.titulo}}">{{nota.titulo}}</a></h1>
                                         
                                         <div class="recent-news-meta">
                                             <div class="recent-news-date">{{nota.fecha|date:"M j, Y"}}</div>
@@ -200,7 +200,7 @@
 
                                     <li class="recent-news-wrap">
                                 
-                                        <h1 class="title-median"><a href="#" title="">{{nota.titulo}}</a></h1>
+                                        <h1 class="title-median"><a href="{% url 'detalle-notas' nota.id %}" title="{{nota.titulo}}">{{nota.titulo}}</a></h1>
                                         
                                         <div class="recent-news-meta">
                                             <div class="recent-news-date">{{nota.fecha|date:"M j, Y"}}</div>
