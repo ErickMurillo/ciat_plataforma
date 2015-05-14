@@ -8,6 +8,11 @@
 <script type="text/javascript" src="{{STATIC_URL}}monitoreo/js/exporting.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}monitoreo/js/dataTables.js"></script>
 <script type="text/javascript">
+ if ({{request.session.tipo}} == 1) {
+        $("a[href='/monitoreo/index/']").attr('href', '/monitoreo/index/linea/')
+    }else{
+        $("a[href='/monitoreo/index/linea/']").attr('href', '/monitoreo/index/')
+    }
     var flag = true;
     $(document).ready(function(){
         $('#mas').click(function(){
