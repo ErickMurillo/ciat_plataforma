@@ -5,9 +5,9 @@
 {% block extra_js%}
 
 <script>
-$(function () {
+    $(function () {
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
         // Build the chart
         $('#sector').highcharts({
@@ -27,28 +27,28 @@ $(function () {
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {
-                    enabled: true,
-                    format: '{point.percentage:.1f} %',
-                    
-                },
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+
+                    },
                     showInLegend: true
                 }
             },
             series: [{
                 type: 'pie',
                 name: 'Aporte',
-              data: [
+                data: [
 
-            {% for key,value in sectores.items %}
-            ['{{key}}', {{value}}],
-            {% endfor %}
-            ]
+                {% for key,value in sectores.items %}
+                ['{{key}}', {{value}}],
+                {% endfor %}
+                ]
             }]
         });
-    });
+});
 
 });
-   </script>
+</script>
 {% endblock extra_js%} 
 
 
@@ -57,23 +57,27 @@ $(function () {
 {% include "analisis/filtros.html" %}
 
 <h3>Organizaciones participando en el estudio</h3>
-	<div>
+
+<!-- <a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;">Exportar</a> -->
+
+
+<div id="modalidad">
     <table class="table table-bordered">
       <tbody>
-       {% for key,value in sectores1.items %}
-       <tr>
-        <td>{{key}}</td>
-        
-        <td>
-            {% for x in value %}
-            {{x.organizacion}}
-            <br>
-            {% endfor %}
-        </td>
-        
-    </tr>
-    {% endfor %}
-</tbody>
+         {% for key,value in sectores1.items %}
+         <tr>
+            <td>{{key}}</td>
+
+            <td>
+                {% for x in value %}
+                {{x.organizacion}}
+                <br>
+                {% endfor %}
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 </div>
 
@@ -91,4 +95,6 @@ $(function () {
 
     }
 </style>
+
+
 {% endblock contenido %}

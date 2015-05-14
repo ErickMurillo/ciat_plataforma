@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^analisis/', include('analisis.analisis.urls')),
     url(r'^analysis/', include('analysis.analysis.urls')),
     url(r'^admin/pais/$', BusquedaPaisView.as_view()),
+    url(r'^xls/$', 'analisis.analisis.utils.save_as_xls'),
 
     #urls para monitoreo
     url(r'^monitoreo/', include('monitoreo.monitoreo.urls')),
@@ -51,6 +52,7 @@ urlpatterns = patterns('',
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     #url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^rosetta/', include('rosetta.urls')),
+
 
 )
 

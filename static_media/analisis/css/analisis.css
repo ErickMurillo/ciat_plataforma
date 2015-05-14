@@ -2,6 +2,9 @@
     GENERAL  STYLES    
     =============================================*/
 
+th, td, h3{
+    text-align: center
+}
 
 
 body {
