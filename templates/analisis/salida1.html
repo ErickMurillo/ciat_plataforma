@@ -71,8 +71,10 @@
 
             <td>
                 {% for x in value %}
-                {{x.organizacion}}
-                <br>
+         
+
+                <a href="{% url 'detalle-contraparte' x.organizacion.id %}">{{x.organizacion}}</a>,
+                
                 {% endfor %}
             </td>
 
