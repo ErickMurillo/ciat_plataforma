@@ -158,6 +158,12 @@
                                         </figure>
                                     </div>
                                     <div class="col-lg-8 col-md-8">
+                                    {% if contra.siglas %}
+                                        <div class="ong-meta">
+                                            <span class=""><strong>Organización</strong></span>
+                                            <span class="btn">{{contra.siglas}}</span>
+                                        </div>
+                                    {% endif %}
                                     {% if contra.pais %}
                                         <div class="ong-meta">
                                             <span class=""><strong>Pais</strong></span>
@@ -243,6 +249,8 @@
                                 <ul>
                                 {%for nota in notas%}
                                     <li><a href="{% url 'detalle-notas' nota.id %}" title="menu item">{{nota.titulo}}</a></li>
+                                {%empty%}
+                                    <li style="color:red;">Aún no tienen notas esta organización</li>
                                 {% endfor %}
                                     
                                     

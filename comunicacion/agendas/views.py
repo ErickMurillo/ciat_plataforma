@@ -155,8 +155,8 @@ def calendario_publico(request,id=None):
 @csrf_exempt
 def calendario_publico_sitio(request,id_sitio=None):
     paises = SitioAccion.objects.all()
-    contrapartes = Organizaciones.objects.filter(sitio_accion__id=id_sitio)
-
+    #contrapartes = Organizaciones.objects.filter(sitio_accion__id=id_sitio)
+    contrapartes = Organizaciones.objects.exclude(plataforma__id=8).order_by('nombre')
     if request.is_ajax():
         start = datetime.datetime.fromtimestamp(float(request.GET['start']))
         end = datetime.datetime.fromtimestamp(float(request.GET['end']))
