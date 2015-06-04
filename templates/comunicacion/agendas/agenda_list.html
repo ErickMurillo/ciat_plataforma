@@ -118,6 +118,15 @@
                                     
                                     <hr/>
 
+                                <div class="detalle-event"> 
+                                    <span class=""> Número de participantes hombres : {{actividad.hombres}}</span>
+                                    <span class=""> Número de participantes mujeres : {{actividad.mujeres}}</span>
+                                    <span class=""> Número de organizaciones participantes : {{actividad.organi}}</span>
+                                </div>
+                                <p>
+                                   {{actividad.resultados|safe}}
+                                    </p>
+
                                     {% if actividad.user.userprofile.contraparte == request.user.userprofile.contraparte or request.user.is_superuser %}
 
                                     <div class="modal fade" id="modal-borrar">

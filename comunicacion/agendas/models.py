@@ -22,6 +22,10 @@ class Agendas(models.Model):
     final = models.DateField('Fecha de Finalización')
     publico = models.BooleanField()
     sitio_accion = models.ForeignKey(SitioAccion)
+    hombres = models.IntegerField('Número de participantes hombres', null=True, blank=True)
+    mujeres = models.IntegerField('Número de participantes mujeres', null=True, blank=True)
+    organi = models.IntegerField('Número de organizaciones participates', null=True, blank=True)
+    resultados = RichTextField('Resultados y acuerdo del evento', null=True, blank=True)
     adjunto = generic.GenericRelation(Documentos)
     
     user = models.ForeignKey(User)
