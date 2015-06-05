@@ -1039,6 +1039,169 @@ def distribucion(request, items):
     dict = {'rangos':rangos,'llaves':llaves}
     return dict
 
+def distribucion_mujer(request, items):
+    a = _queryset_filtrado(request)
+    grafo = {}
+    for i in Cultivos.objects.filter(id=items):
+        key = slugify(i.nombre).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=2)
+        for obj in query:
+            cultivos_finca = obj.cultivosfinca_set.filter(cultivos__id=items)
+            for datos in cultivos_finca:
+                if not key in grafo.keys():
+                    grafo[key] = [[datos.productivos], ]
+                else:
+                    grafo[key].append([datos.productivos])
+    
+    xy = grafo
+    prueba = []
+    for k,v in xy.items():
+        for conteo in v:
+            prueba.append(conteo)
+    #comienza la formula
+    lista_productividad = []
+
+    for numero in range(0, len(prueba)):
+        for k, v in xy.items():
+            lista_productividad.append(v[numero][0])
+    rangos = {}
+    rango1 = 0
+    rango2 = 0
+    rango3 = 0
+    rango4 = 0
+    rango5 = 0
+    rango6 = 0
+    rango7 = 0
+    rango8 = 0
+    rango9 = 0
+    rango10 = 0
+    rango11 = 0
+    rango12 = 0   
+    for cantidad in lista_productividad:
+        if cantidad > 0.1 and cantidad <= 5:
+            rango1 += 1
+        elif cantidad > 5.1 and cantidad <= 10:
+            rango2 += 1
+        elif cantidad > 10.1 and cantidad <= 15:
+            rango3 += 1
+        elif cantidad > 15.1 and cantidad <= 20:
+            rango4 += 1  
+        elif cantidad > 20.1 and cantidad <= 30:
+            rango5 += 1
+        elif cantidad > 30.1 and cantidad <= 40:
+            rango6 += 1
+        elif cantidad > 40.1 and cantidad <= 50:
+            rango7 += 1
+        elif cantidad > 50.1 and cantidad <= 60:
+            rango8 += 1
+        elif cantidad > 60.1 and cantidad <= 70:
+            rango9 += 1
+        elif cantidad > 70.1 and cantidad <= 80:
+            rango10 += 1
+        elif cantidad > 80.1:
+            rango11 += 1
+    suma_rangos = rango1 + rango2 + rango3 + rango4 + rango5 + rango6 + rango7 + rango8 + \
+                  rango9 + rango10 + rango11 + rango12
+           
+    rangos = {'0.1 - 5':int(saca_porcentajes(rango1,suma_rangos)),
+              '5.1 - 10':int(saca_porcentajes(rango2,suma_rangos)),
+              '10.1 - 15':int(saca_porcentajes(rango3,suma_rangos)),
+              '15.1 - 20':int(saca_porcentajes(rango4,suma_rangos)),
+              '20.1 - 30':int(saca_porcentajes(rango5,suma_rangos)),
+              '30.1 - 40':int(saca_porcentajes(rango6,suma_rangos)),
+              '40.1 - 50':int(saca_porcentajes(rango7,suma_rangos)),
+              '50.1 - 60':int(saca_porcentajes(rango8,suma_rangos)),
+              '60.1 - 70':int(saca_porcentajes(rango9,suma_rangos)),
+              '70.1 - 80':int(saca_porcentajes(rango10,suma_rangos)),
+              'más de 80.1':int(saca_porcentajes(rango11,suma_rangos))}
+              
+    llaves = ('0.1 - 5','5.1 - 10','10.1 - 15','15.1 - 20','20.1 - 30','30.1 - 40',
+              '40.1 - 50','50.1 - 60','60.1 - 70','70.1 - 80','más de 80.1')
+    
+    dict = {'rangos':rangos,'llaves':llaves}
+    return dict
+
+def distribucion_ambos(request, items):
+    a = _queryset_filtrado(request)
+    grafo = {}
+    for i in Cultivos.objects.filter(id=items):
+        key = slugify(i.nombre).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i, cultivosfinca__quien=3)
+        for obj in query:
+            cultivos_finca = obj.cultivosfinca_set.filter(cultivos__id=items)
+            for datos in cultivos_finca:
+                if not key in grafo.keys():
+                    grafo[key] = [[datos.productivos], ]
+                else:
+                    grafo[key].append([datos.productivos])
+    
+    xy = grafo
+    prueba = []
+    for k,v in xy.items():
+        for conteo in v:
+            prueba.append(conteo)
+    #comienza la formula
+    lista_productividad = []
+
+    for numero in range(0, len(prueba)):
+        for k, v in xy.items():
+            lista_productividad.append(v[numero][0])
+    rangos = {}
+    rango1 = 0
+    rango2 = 0
+    rango3 = 0
+    rango4 = 0
+    rango5 = 0
+    rango6 = 0
+    rango7 = 0
+    rango8 = 0
+    rango9 = 0
+    rango10 = 0
+    rango11 = 0
+    rango12 = 0   
+    for cantidad in lista_productividad:
+        if cantidad > 0.1 and cantidad <= 5:
+            rango1 += 1
+        elif cantidad > 5.1 and cantidad <= 10:
+            rango2 += 1
+        elif cantidad > 10.1 and cantidad <= 15:
+            rango3 += 1
+        elif cantidad > 15.1 and cantidad <= 20:
+            rango4 += 1  
+        elif cantidad > 20.1 and cantidad <= 30:
+            rango5 += 1
+        elif cantidad > 30.1 and cantidad <= 40:
+            rango6 += 1
+        elif cantidad > 40.1 and cantidad <= 50:
+            rango7 += 1
+        elif cantidad > 50.1 and cantidad <= 60:
+            rango8 += 1
+        elif cantidad > 60.1 and cantidad <= 70:
+            rango9 += 1
+        elif cantidad > 70.1 and cantidad <= 80:
+            rango10 += 1
+        elif cantidad > 80.1:
+            rango11 += 1
+    suma_rangos = rango1 + rango2 + rango3 + rango4 + rango5 + rango6 + rango7 + rango8 + \
+                  rango9 + rango10 + rango11 + rango12
+           
+    rangos = {'0.1 - 5':int(saca_porcentajes(rango1,suma_rangos)),
+              '5.1 - 10':int(saca_porcentajes(rango2,suma_rangos)),
+              '10.1 - 15':int(saca_porcentajes(rango3,suma_rangos)),
+              '15.1 - 20':int(saca_porcentajes(rango4,suma_rangos)),
+              '20.1 - 30':int(saca_porcentajes(rango5,suma_rangos)),
+              '30.1 - 40':int(saca_porcentajes(rango6,suma_rangos)),
+              '40.1 - 50':int(saca_porcentajes(rango7,suma_rangos)),
+              '50.1 - 60':int(saca_porcentajes(rango8,suma_rangos)),
+              '60.1 - 70':int(saca_porcentajes(rango9,suma_rangos)),
+              '70.1 - 80':int(saca_porcentajes(rango10,suma_rangos)),
+              'más de 80.1':int(saca_porcentajes(rango11,suma_rangos))}
+              
+    llaves = ('0.1 - 5','5.1 - 10','10.1 - 15','15.1 - 20','20.1 - 30','30.1 - 40',
+              '40.1 - 50','50.1 - 60','60.1 - 70','70.1 - 80','más de 80.1')
+    
+    dict = {'rangos':rangos,'llaves':llaves}
+    return dict
 
 @session_required
 def cultivos(request):
@@ -1137,6 +1300,15 @@ def cultivos(request):
             tabla2_mujer[key] = {'key2':key2,'numero':numero,'area_total':area_total,
                        'area_avg':area_avg,'totales':totales,'productividad':productividad_mujer}
 
+    ################################ rango de productividad de la mujer
+    distribucion_maiz_mujer = distribucion_mujer(request,12)
+    distribucion_frijol_mujer = distribucion_mujer(request,8)
+    distribucion_platano_mujer = distribucion_mujer(request,18)
+    distribucion_guineo_mujer = distribucion_mujer(request,9)
+    distribucion_cafe_mujer = distribucion_mujer(request,5)
+    distribucion_cacao_mujer = distribucion_mujer(request,4)
+
+
     #-----------------------------------------------------
     #Tabla de cultivos cuando lo maneja ambos
     #-----------------------------------------------------
@@ -1173,6 +1345,14 @@ def cultivos(request):
         if numero > 0:
             tabla2_ambos[key] = {'key2':key2,'numero':numero,'area_total':area_total,
                        'area_avg':area_avg,'totales':totales,'productividad':productividad_ambos}
+
+    ################################ rango de productividad de ambos
+    distribucion_maiz_ambos = distribucion_ambos(request,12)
+    distribucion_frijol_ambos = distribucion_ambos(request,8)
+    distribucion_platano_ambos = distribucion_ambos(request,18)
+    distribucion_guineo_ambos = distribucion_ambos(request,9)
+    distribucion_cafe_ambos = distribucion_ambos(request,5)
+    distribucion_cacao_ambos = distribucion_ambos(request,4)
 
 
                                            
