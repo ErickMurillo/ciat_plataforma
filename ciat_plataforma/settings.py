@@ -89,6 +89,8 @@ INSTALLED_APPS = (
 
     #producto_proceso
     'producto',
+    #biblioteca
+    'biblioteca',
     
 
 
