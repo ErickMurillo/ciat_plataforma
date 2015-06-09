@@ -44,6 +44,9 @@ urlpatterns = patterns('',
     #urls para producto
     url(r'^producto/', include('producto.urls')),
 
+    #urls para biblioteca
+    url(r'^biblioteca/', include('biblioteca.urls')),
+
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
     url(r'^selectable/', include('selectable.urls')),

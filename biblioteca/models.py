@@ -41,6 +41,10 @@ class ArchivoAdjunto(models.Model):
 
     fileDir = 'BibliotecaArchivos/'
 
+    def extension(self):
+        name, extension = os.path.splitext(self.archivo.name)
+        return extension
+
     class Meta:
         verbose_name = 'Archivo adjunto'
         verbose_name_plural = 'Archivos adjuntos'
