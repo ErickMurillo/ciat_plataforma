@@ -18,14 +18,18 @@
 <div class="row">
 	{% for obj in libros %}
 	  <div class="col-sm-4">
-	    <div class="ih-item square effect4 separar"><a href="#">
-	        <div class="img"><img src="/static/biblioteca/img/pptp.jpg" alt="img"></div>
-	        <div class="mask1"></div>
-	        <div class="mask2"></div>
-	        <div class="info">
-	          <h3>{{obj.titulo}}--{%for puta in obj.archivoadjunto_set.all%} {{puta.extension}} {%endfor%}</h3>
-	          <p>{{obj.descripcion|safe|truncatewords:8}}</p>
-	        </div></a></div>
+	    <div class="grid">
+            <figure class="effect-hera">
+                <img src="/static/biblioteca/img/prueba.jpg" alt="img17"/>
+                <figcaption>
+                    <h2>Tender <span>Hera</span></h2>
+                    <p>
+                        <a href="#"><i class="fa fa-fw fa-file-pdf-o"></i></a>
+                        <a href="#"><i class="fa fa-fw fa-file-image-o"></i></a>
+                    </p>
+                </figcaption>           
+            </figure>
+        </div>
 	  </div>
     {% endfor %}
 
