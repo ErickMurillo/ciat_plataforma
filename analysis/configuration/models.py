@@ -118,12 +118,12 @@ class Papel(models.Model):
 LIMITACIONES_CATEGORIA = (
     (1,'Productive'),
     (2,'Economic'),
-    (3,'Technician'),
-    (4,'Merchandising'),
+    (3,'Technical'),
+    (4,'Marketing'),
     (5,'Institutional'),
-    (6,'Attitude/Cultural'),
+    (6,'Attitude / Cultural'),
     (7,'Human Capacity'),
-    (8,'Alliance / Partner'),
+    (8,'Alliance / Partners'),
     (9,'Politics'),
     (10,'Others'),
     )
