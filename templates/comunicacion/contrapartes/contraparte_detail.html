@@ -158,6 +158,12 @@
                                         </figure>
                                     </div>
                                     <div class="col-lg-8 col-md-8">
+                                    {% if contra.siglas %}
+                                        <div class="ong-meta">
+                                            <span class=""><strong>Nombre</strong></span>
+                                            <span class="btn">{{contra.siglas}}</span>
+                                        </div>
+                                    {% endif %}
                                     {% if contra.pais %}
                                         <div class="ong-meta">
                                             <span class=""><strong>Pais</strong></span>

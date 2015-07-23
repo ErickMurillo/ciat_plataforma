@@ -267,6 +267,7 @@
                             
                               <h1 class="title-widget">Último Vídeo</h1>
                               {% for obj in video %}
+
                                 <div class="embed-responsive embed-responsive-16by9">
                                 <p>{{ obj.url|magicembed:"300x200"}}</p>
                                   
@@ -280,6 +281,7 @@
 
                                 <div class="audio">
                                 {% for obj in audio %}
+                                 <p class="titulo-audio">{{obj.nombre_audio}}</p>
                                   <audio class="center-block" width="100%" src="/media/{{obj.audio}}" type="audio/mp3" controls="controls">    
                                     </audio>
                                 {% endfor %}
@@ -301,7 +303,7 @@
     
     </div><!-- content wrapper end 300x150-->
 
-    <div class="sliderorg ">
+  <!--  <div class="sliderorg ">
       {% for contra in contrapartes %}
       <div class="slide thumbnail" style="height=1000px !important">
       <div id="slidecontraparte">
@@ -323,6 +325,6 @@
 
       {% endfor %}
       
-    </div>
+    </div>-->
     <br>
 {%endblock%}
