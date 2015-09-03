@@ -21,14 +21,18 @@ class Pregunta_6aForm(forms.ModelForm):
     	model = Pregunta_6a
     	widgets = {'prioritizado': forms.Select(attrs={'class':'select-evt'})}
 
+def fecha_choice():
+    years = []
+    for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
+        years.append((en,en))
+    return list(sorted(set(years)))
 
 class EntrevistaConsulta(forms.Form):
-	fecha = forms.CharField(required=True, 
-							label=u'Fecha',
-							widget=forms.Select)
-	pais = forms.ModelChoiceField(queryset=Pais.objects.order_by('nombre'), 
+	fecha = forms.MultipleChoiceField(choices=fecha_choice(),required=True, 
+							label=u'Fecha')
+	area_accion = forms.ModelChoiceField(queryset=AreaAccion.objects.order_by('nombre'), 
 								  required=False, 
-			                      label=u'Pais')
+			                      label=u'Área de acción')
 	sitio_accion = forms.ModelChoiceField(queryset=SitioAccion.objects.order_by('nombre'), 
 								  required=False, 
 			                      label=u'Sitio de acción')
