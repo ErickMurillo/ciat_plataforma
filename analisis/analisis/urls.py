@@ -1,6 +1,10 @@
 from django.conf.urls import *
 
 urlpatterns = patterns('analisis.analisis.views',
+    #######################################################
+    url(r'^inicio/$', 'indexnuevo', name='indexnuevo'),
+    url(r'^consulta/$', 'consulta', name='consulta'),
+    #######################################################
 	url(r'^$', 'inicio', name="inicio"),
     #url(r'^salidas/$', 'post', name='salidas'),
     url(r'^salida1/$', 'salida1', name='salida1'),

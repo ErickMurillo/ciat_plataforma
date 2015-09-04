@@ -50,6 +50,49 @@ $(function () {
 
 });
 
+$(function () {
+        $('#salida11').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Distribución de las Alianzas por Sector'
+            },
+            xAxis: {
+                categories: [
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
+                                {% endfor %}
+                            ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Número de Alianzas'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [
+
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
+            {% endfor %}
+        ]
+        });
+    });
 </script>
 {% endblock extra_js%} 
 
@@ -89,6 +132,8 @@ $(function () {
 </div> 
 
 <div id="salida9"></div> 
+
+<div id="salida11"></div>
 
 <style>
     .menu5{

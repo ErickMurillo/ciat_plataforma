@@ -415,6 +415,23 @@ def salida9(request, template="analisis/salida9.html"):
 	except:
 		total3 = 0
 
+	#salida 11
+	sectores = {}
+	lista_sectores = {}
+
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Sector.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
 	return render(request,template, locals())
 
 def salida10(request, template="analisis/salida10.html"):
@@ -436,6 +453,54 @@ def salida10(request, template="analisis/salida10.html"):
 				tabla.append(zx)
 		
 		datos[x] = list(set(tabla))
+
+	#salida 12
+	sectores = {}
+	lista_sectores = {}
+	lista_sectores2 = {}
+
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Sector.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		lista2 = []
+		lista3 = []
+		for x,y in zx.items():
+			lista.append(y)
+
+		sum_fila = sumarLista(lista)
+ 
+		for i in lista:
+			try:
+				result = (i/float(sum_fila))*100
+			except:
+				result = 0.0
+			lista2.append((i,result))
+			lista3.append(i)
+
+		lista_sectores[z] = (lista2,sum_fila)
+
+		lista_sectores2[z] = lista3
+	
+	#sumatoria totales matriz
+	mat = []
+	for key,value in lista_sectores2.items():
+		mat.append(value)
+
+	lista_totales = []
+	for x in range(0,len(mat)):
+		sumacolumna = 0 
+		for y in range(0,len(mat)):
+			sumacolumna += mat[y][x]
+
+		lista_totales.append(sumacolumna)
+
+	total = sumarLista(lista_totales)
 
 	return render(request,template, locals())
 
@@ -465,6 +530,7 @@ def salida12(request, template="analisis/salida12.html"):
 
 	sectores = {}
 	lista_sectores = {}
+	lista_sectores2 = {}
 
 	for y in Sector.objects.all():
 		sectores[y] = {}
@@ -473,10 +539,10 @@ def salida12(request, template="analisis/salida12.html"):
 			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector=y).count()
 			sectores[y][x] = entrevista
 
-	dic = {}
 	for z,zx in sectores.items():
 		lista = []
 		lista2 = []
+		lista3 = []
 		for x,y in zx.items():
 			lista.append(y)
 
@@ -488,17 +554,27 @@ def salida12(request, template="analisis/salida12.html"):
 			except:
 				result = 0.0
 			lista2.append((i,result))
+			lista3.append(i)
 
 		lista_sectores[z] = (lista2,sum_fila)
 
-		dic = {}
-		for k,v in sectores.items():
-			suma = 0 
-			for z,x in v.items():
-				if k == z:
-					suma += x
-			print suma
+		lista_sectores2[z] = lista3
 	
+	#sumatoria totales matriz
+	mat = []
+	for key,value in lista_sectores2.items():
+		mat.append(value)
+
+	lista_totales = []
+	for x in range(0,len(mat)):
+		sumacolumna = 0 
+		for y in range(0,len(mat)):
+			sumacolumna += mat[y][x]
+
+		lista_totales.append(sumacolumna)
+
+	total = sumarLista(lista_totales)
+
 	return render(request,template, locals())
 
 def salida13(request, template="analisis/salida13.html"):
@@ -512,7 +588,7 @@ def salida13(request, template="analisis/salida13.html"):
 		temas[y] = {}
 
 		for x in Sector.objects.all():
-			entrevista = Pregunta_5a.objects.filter(tema=y,entrevistado=filtro,socio__sector=x).count()
+			entrevista = Pregunta_5a.objects.filter(tema=y,entrevistado=filtro,entrevistado__organizacion__sector=x).count()
 			temas[y][x] = entrevista
 
 	for z,zx in temas.items():
@@ -520,7 +596,8 @@ def salida13(request, template="analisis/salida13.html"):
 		for x,y in zx.items():
 			lista.append(y)
 		lista_sectores[z] = (lista,sumarLista(lista))
-			
+
+
 	return render(request,template, locals())
 
 
@@ -813,3 +890,12 @@ class BusquedaPaisView(TemplateView):
 		return HttpResponse(data,mimetype='application/json')
 
 
+#nuevo codigo
+
+def indexnuevo(request):
+    
+    return render(request, "analisis/pagina1.html")
+
+def consulta(request):
+    
+    return render(request, "analisis/pagina2.html")

@@ -38,7 +38,7 @@ $( ".menu5-5 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
                                 {% if forloop.counter == 1 %}
                                     {{valor}}
                                 {% else %}
-                                    ({{valor}} %)
+                                    ({{valor|floatformat:2}} %)
                                 {% endif %}
                             {% endfor %}
                         </td>
@@ -50,7 +50,10 @@ $( ".menu5-5 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 
             <tr>
                 <td>Total</td>
-                <td></td>
+                {% for x in lista_totales %}
+                    <td>{{x}}</td>
+                {% endfor %}
+                <td>{{total}}</td>
             </tr>
         
 
