@@ -115,7 +115,7 @@ class Proyectos(models.Model):
     corto = models.CharField(_(u"Nombre corto"),max_length=250)
     codigo = models.CharField(max_length=50)
     inicio = models.DateField(_(u"Fecha de inicio"))
-    finalizacion = models.DateField(_(u"Fecha de finalizacón"))
+    finalizacion = models.DateField(_(u"Fecha de finalización"))
     alianza = models.ManyToManyField(Plataforma, verbose_name=_(u"Alianza de influencia"))
     influencia = models.ManyToManyField(Municipio, verbose_name=_(u"Zona de influencia"))
     ejecutora = models.ForeignKey(Organizaciones, verbose_name=_(u"Organización ejecutora"))
@@ -188,7 +188,38 @@ class FuenteManoObra(models.Model):
     class Meta:
         verbose_name_plural = _(u'Fuentes de mano de obra')
 
+class FormaAtencion(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = _(u'Formas en que atiende')
+
 class Productor(models.Model):
+    persona = models.ForeignKey(Persona)
+    fecha = models.DateField()
+    finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
+    organizacion = models.ManyToManyField(Organizaciones, related_name ="organizacion",
+                                        verbose_name=_(u'Organizaciones que lo apoyan'))
+    tamano = models.FloatField(_(u'Tamaño de la finca'))
+    ganado = models.IntegerField(_(u'Número de ganado'))
+    rubros_agro = models.ManyToManyField(RubrosAgropecuarios, related_name="uno", verbose_name=_(u'Rubros que generan ingreso agropecuario'))
+    rubro_principal_agro = models.ForeignKey(RubrosAgropecuarios, related_name="dos")
+    rubros_no_agro = models.ManyToManyField(RubrosNoAgropecuarios, related_name="tres", verbose_name=_(u'Rubros que generan ingreso no agropecuario'))
+    rubro_principal_no_agro = models.ForeignKey(RubrosNoAgropecuarios, related_name="cuatro")
+    fuente = models.ManyToManyField(FuenteManoObra, verbose_name=_(u'Fuente de mano de obra'))
+    jefe = models.IntegerField(choices=CHOICE_SEXO_JEFE, verbose_name=_(u'Jefe de familia'))
+    tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA)
+    proyecto = models.ManyToManyField(Proyectos)
+
+    class Meta:
+        verbose_name_plural = _(u'Información productor/productora')
+
+
+
+class Lideres(models.Model):
     persona = models.ForeignKey(Persona)
     fecha = models.DateField()
     finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
@@ -203,29 +234,73 @@ class Productor(models.Model):
     fuente = models.ManyToManyField(FuenteManoObra, verbose_name=_(u'Fuente de mano de obra'))
     jefe = models.IntegerField(choices=CHOICE_SEXO_JEFE, verbose_name=_(u'Jefe de familia'))
     tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA)
-    proyectos = models.ManyToManyField(Proyectos)
+    atiende = models.IntegerField(_(u'Número de personas que atiende'))
+    forma_atiende = models.ManyToManyField(FormaAtencion, verbose_name=_(u'Forma de atención'))
+    proyecto = models.ManyToManyField(Proyectos)
 
     class Meta:
-        verbose_name_plural = _(u'Información productor/productora')
+        verbose_name_plural = _(u'Líder o Lideresa comunitaria')
 
 
+CHOICE_FORMACION = (
+                (1, _(u'(Bachiller')),
+                (2, _(u'Técnico')),
+                (3, _(u'Ingeniero')),
+                (4, _(u'Licenciado')),
+                (5, _(u'Maestría')),
+                (6, _(u'Doctorado')),
+            )
 
+class Especialidades(models.Model):
+    nombre = models.CharField(max_length=250)
 
+    def __unicode__(self):
+        return self.nombre
 
+    class Meta:
+        verbose_name_plural = _(u'Especialidades')
 
+class TecnicoEspInvestigador(models.Model):
+    persona = models.ForeignKey(Persona)
+    formacion = models.IntegerField(choices=CHOICE_FORMACION)
+    experiencia = models.CharField(max_length=250)
+    especialidad = models.ManyToManyField(Especialidades)
+    pertenece = models.ManyToManyField(Organizaciones, 
+            verbose_name=_(u'Organizaciones a que pertenece'))
+    proyecto = models.ManyToManyField(Proyectos, 
+            verbose_name=_(u'Vinculado a proyectos'))
 
+    class Meta:
+        verbose_name_plural = _(u'Técnico, Especialista o Investigador')
 
+class Accionar(models.Model):
+    nombre = models.CharField(max_length=250)
 
+    def __unicode__(self):
+        return self.nombre
 
+    class Meta:
+        verbose_name_plural = _(u'Niveles de accionar')
 
+class CampoAccion(models.Model):
+    nombre = models.CharField(max_length=250)
 
+    def __unicode__(self):
+        return self.nombre
 
+    class Meta:
+        verbose_name_plural = _(u'Campos de acción')
 
-
-
-
-
-
-
-
-
+class Decisor(models.Model):
+    persona = models.ForeignKey(Persona)
+    nivel = models.ManyToManyField(Accionar, 
+                verbose_name=_(u'Nivel de accionar'))
+    campo = models.ManyToManyField(CampoAccion, 
+                verbose_name=_(u'Campo de acción'))
+    pertenece = models.ManyToManyField(Organizaciones, 
+            verbose_name=_(u'Organizaciones a que pertenece'))
+    proyecto = models.ManyToManyField(Proyectos, 
+            verbose_name=_(u'Vinculado a proyectos'))
+    
+    class Meta:
+        verbose_name_plural = _(u'Decisor')
