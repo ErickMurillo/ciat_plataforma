@@ -3,7 +3,7 @@
 	$(document).ready(function(){
 
 		var valor_tipo1 = $('#id_tipo_encuesta').val();
-		
+
 		if (valor_tipo1 === '1' ) {
 				$('#organizacionong_set-group').hide();
 				$('#tenenciaentrevistada_set-group').hide();
@@ -47,7 +47,7 @@
 				$('#creditoentrevista_set-group').hide();
 			};
 		});
-		
-	
+
+
 	});
 })(jQuery || django.jQuery)

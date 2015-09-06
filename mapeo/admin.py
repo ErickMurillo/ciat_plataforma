@@ -32,6 +32,10 @@ class PersonaAdmin(admin.ModelAdmin):
 	inlines = [InlineProductor, InlineLideres, InlineTecnicoEspInvestigador,
 				InlineDecisor]
 
+	class Media:
+		js = ('/static/general/js/personaAdmin.js',)
+
+
 # Register your models here.
 admin.site.register(Organizaciones, OrganizacionesAdmin)
 admin.site.register(Persona, PersonaAdmin)
