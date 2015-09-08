@@ -33,7 +33,7 @@
                 <span>información: </span>{{obj.informacion}} <br>
             {% endif %}
 
-            <a class="btn btn-default" href="#" >ver mapa de actores</a>
+            <a class="btn btn-default" href='{% url "mapa-proyecto" obj.id %}' >ver mapa de actores</a>
         </div>
       </div>
     {% endfor %}

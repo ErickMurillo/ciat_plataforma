@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import *
 from .forms import MapeoConsulta
+import json
 
 # Create your views here.
 
@@ -55,9 +56,42 @@ def indexview(request, template='mapeo/index.html'):
 
 
 def proyectos(request, template="mapeo/proyectos.html"):
+
     proyectos = _queryset_filtrado(request)
-    return render(request, template, locals())
-
-def mapa_actores(request, template="mapeo/mapa.html", proyecto=None):
 
     return render(request, template, locals())
+
+def mapa_actores(request, template="mapeo/mapa.html", id_proyecto=None):
+
+    todos_productores = Productor.objects.filter(proyecto__id=id_proyecto)
+    todos_lideres = Lideres.objects.filter(proyecto__id=id_proyecto)
+    todos_tecnicoespinvestigador = TecnicoEspInvestigador.objects.filter(proyecto__id=id_proyecto)
+    todos_decisor = Decisor.objects.filter(proyecto__id=id_proyecto)
+
+    print todos_productores
+
+    return render(request, template, locals())
+
+
+def obtener_mapa(request):
+    if request.is_ajax():
+        lista = []
+        consulta = _queryset_filtrado(request)
+        params = []
+        if request.session['bandera'] == 1:
+            params = consulta.filter(fkmercado__departamento__id=request.POST['depart'])
+        else:
+            params = ActividadMercado.objects.filter(fkmercado__departamento__id=request.POST['depart'])
+        for objeto in params:
+            dicc = dict(nombre=objeto.fkmercado.nombre_mercado, 
+                        id=objeto.id,
+                        idm = float(objeto.fkmercado.id),
+                        lon=float(objeto.fkmercado.municipio.longitud) , 
+                        lat=float(objeto.fkmercado.municipio.latitud),
+                        periodicidad=objeto.periodicidad.nombre,
+                        modalidad=objeto.get_modalidad_display(),
+                        )
+            lista.append(dicc)
+
+        serializado = json.dumps(lista)
+        return HttpResponse(serializado, mimetype='application/json')

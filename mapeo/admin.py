@@ -8,6 +8,7 @@ class OrganizacionesAdmin(admin.ModelAdmin):
 
 
 class ProyectosAdmin(admin.ModelAdmin):
+	filter_horizontal = ("alianza","influencia","socias")
 	list_display = ('nombre', 'corto', 'codigo', 'inicio', 'finalizacion')
 
 class InlineProductor(admin.TabularInline):
