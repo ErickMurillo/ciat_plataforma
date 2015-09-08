@@ -1,0 +1,42 @@
+{% extends "mapeo/base.html" %}
+
+{% block contenido %}
+<style type="text/css">
+    .cuadro {
+        padding: 10px 20px 30px 40px;
+        margin: 10px 20px 30px 40px;
+        background-color: #ccc;
+    }
+    .cuadro span {
+        color: #50AB2F;
+        font-weight: bold;
+    }
+</style>
+{% include "mapeo/filtros.html" %}
+
+<div class="row">
+    {% for obj in proyectos %}
+      <div class="col-sm-4">
+          <div class="cuadro">
+            <span>Nombre: </span>{{obj.nombre}} <br>
+            <span>Codigo: </span>{{obj.codigo}} <br>
+            <span>Fecha de inicio: </span>{{obj.inicio}} <br>
+            <span>Fecha de finalizacion: </span>{{obj.finalizacion}} <br>
+            <span>Zona de influencias: </span>{% for x in obj.influencia.all %}
+                                        {{x.nombre}},
+                                {% endfor %}<br>
+            <span>Organización ejecutora: </span>{{obj.ejecutora}} <br>
+            <span>Organizaciones socias: </span>{% for x in obj.socias.all %}
+                                        {{x.nombre}},
+                                {% endfor %}<br>
+            {% if obj.informacion %}
+                <span>información: </span>{{obj.informacion}} <br>
+            {% endif %}
+
+            <a class="btn btn-default" href="#" >ver mapa de actores</a>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+
+{% endblock contenido %}

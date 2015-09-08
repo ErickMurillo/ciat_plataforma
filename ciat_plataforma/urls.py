@@ -47,6 +47,9 @@ urlpatterns = patterns('',
     #urls para biblioteca
     url(r'^biblioteca/', include('biblioteca.urls')),
 
+    #urls para mapeo
+    url(r'^mapeo/', include('mapeo.urls')),
+
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
     url(r'^selectable/', include('selectable.urls')),

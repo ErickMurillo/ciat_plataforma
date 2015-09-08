@@ -1,0 +1,15 @@
+<div class="filtros">
+    <ol class="breadcrumb">
+    <li>Filtros Seleccionados: </li>
+    {% if request.session.area_accion %}
+        <li><a href="#">{{ request.session.area_accion }}</a></li>
+    {% endif %}
+    {% if request.session.sitio_accion %}
+        <li><a href="#">{{ request.session.sitio_accion }}</a></li>
+    {% endif %}
+    {% if request.session.alianza %}
+        <li><a href="#">{{ request.session.alianza }}</a></li>
+    {% endif %}
+    </ol>
+
+</div>

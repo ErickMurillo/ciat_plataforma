@@ -54,8 +54,8 @@ def inicio(request, template='analisis/inicio.html'):
 			request.session['activo'] = True
 			centinela = 1
 		else:
-			centinela = 0   
-		   
+			centinela = 0
+
 	else:
 		form = EntrevistaConsulta()
 		mensaje = "Existen alguno errores"
@@ -81,7 +81,7 @@ def salida1(request, template="analisis/salida1.html"):
 
 		cont_organizacion1 = filtro.filter(organizacion__sector=x).distinct('organizacion')
 		sectores1[x.nombre] = cont_organizacion1
-		
+
 	return render(request,template, locals())
 
 def salida2(request, template="analisis/salida2.html"):
@@ -119,19 +119,19 @@ def salida2(request, template="analisis/salida2.html"):
 		valores1.append(cont_organizacion)
 		valores2.append(resultados)
 		valores3.append(float(promedio(resultados,cont_organizacion)))
-		
+
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
 	try:
 		total3 = total2/float(total1)
 	except:
 		total3 = 0
-		
+
 	return render(request,template, locals())
 
 def salida3(request, template="analisis/salida3.html"):
 	filtro = _queryset_filtrado(request)
-	
+
 	temas = {}
 	sectores = {}
 	lista_sectores = {}
@@ -148,11 +148,11 @@ def salida3(request, template="analisis/salida3.html"):
 			sectores[y][x] = entrevista
 
 	for z,zx in sectores.items():
-		
+
 		lista = []
 		for x,y in zx.items():
 			lista.append(y)
-			
+
 		lista_sectores[z] = lista
 
 	return render(request,template, locals())
@@ -165,7 +165,7 @@ def salida4(request, template="analisis/salida4.html"):
 	valores1 = []
 	valores2 = []
 	valores3 = []
-	
+
 	for imp in Sector.objects.all():
 		preg_4 = filtro.filter(pregunta_4__entrevistado__organizacion__sector=imp).count()
 		cont_organizacion = filtro.filter(organizacion__sector=imp).distinct('organizacion').count()
@@ -182,7 +182,7 @@ def salida4(request, template="analisis/salida4.html"):
 		else:
 			mediana = '--'
 
-		
+
 		fila = [imp.nombre,cont_organizacion,preg_4,promedio(preg_4,cont_organizacion),mediana]
 
 		tabla.append(fila)
@@ -191,14 +191,14 @@ def salida4(request, template="analisis/salida4.html"):
 		valores1.append(cont_organizacion)
 		valores2.append(preg_4)
 		valores3.append(float(promedio(preg_4,cont_organizacion)))
-		
+
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
 	try:
 		total3 = total2/float(total1)
 	except:
 		total3 = 0
-		
+
 	return render(request,template, locals())
 
 
@@ -209,7 +209,7 @@ def salida5(request, template="analisis/salida5.html"):
 	datos = []
 	sectores = {}
 	lista_sectores = {}
-	
+
 	for obj in Tema.objects.all():
 		count_impacts = filtro.filter(pregunta_4__tema=obj).count()
 		count_projects = filtro.filter(pregunta_1__tema=obj).count()
@@ -289,13 +289,13 @@ def salida6(request, template="analisis/salida6.html"):
 			avg_total = 0
 		lista.append(count_innovation)
 
-		
+
 		datos[obj] = (count_organization,count_innovation, avg_total, mediana)
 
 		valores1.append(count_organization)
 		valores2.append(count_innovation)
 		valores3.append(float(promedio(count_innovation,count_organization)))
-		
+
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
 	try:
@@ -344,7 +344,7 @@ def salida8(request, template="analisis/salida8.html"):
 	for p in Papel.objects.all():
 		socio = filtro.filter(pregunta_5c__pregunta_5c_nested__papel_1=p).count()
 		prioritizado = Pregunta_5a.objects.filter(entrevistado=filtro,prioritizado='1').count()
-		
+
 		try:
 			avg_total = promedio(socio,prioritizado)
 		except:
@@ -407,7 +407,7 @@ def salida9(request, template="analisis/salida9.html"):
 		valores1.append(cont_organizacion)
 		valores2.append(cont_socios)
 		valores3.append(float(promedio(cont_socios,cont_organizacion)))
-		
+
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
 	try:
@@ -434,7 +434,7 @@ def salida10(request, template="analisis/salida10.html"):
 		for yx in cont_socio_2:
 			for zx in y.socio.all():
 				tabla.append(zx)
-		
+
 		datos[x] = list(set(tabla))
 
 	return render(request,template, locals())
@@ -486,7 +486,7 @@ def salida12(request, template="analisis/salida12.html"):
 				lista2.append(0.0)
 
 		lista_sectores[z] = lista2
-			
+
 	return render(request,template, locals())
 
 def salida13(request, template="analisis/salida13.html"):
@@ -508,7 +508,7 @@ def salida13(request, template="analisis/salida13.html"):
 		for x,y in zx.items():
 			lista.append(y)
 		lista_sectores[z] = (lista,sumarLista(lista))
-			
+
 	return render(request,template, locals())
 
 
@@ -545,14 +545,14 @@ def salida14(request, template="analisis/salida14.html"):
 		valores1.append(cont_organizacion)
 		valores2.append(innovaciones)
 		valores3.append(float(promedio(innovaciones,cont_organizacion)))
-		
+
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
 	try:
 		total3 = total2/float(total1)
 	except:
 		total3 = 0
-		
+
 	return render(request,template, locals())
 
 def salida15(request, template="analisis/salida15.html"):
@@ -560,12 +560,12 @@ def salida15(request, template="analisis/salida15.html"):
 
 	temas = {}
 	sectores = {}
-	lista_sectores = {}  
-	
+	lista_sectores = {}
+
 	for y in Tema.objects.all():
 		contador_pregunta1 = filtro.filter(pregunta_6a__tema=y).count()
 		temas[y.tema] = contador_pregunta1
-		
+
 	for y in Sector.objects.all():
 		sectores[y] = {}
 
@@ -587,12 +587,12 @@ def salida16(request, template="analisis/salida16.html"):
 	datos = {}
 	grafica = {}
 	sectores = {}
-	lista_sectores = {} 
+	lista_sectores = {}
 
 	for x in Sector.objects.all():
 		socio = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,organizacion__sector=x).distinct('organizacion')
 		cont_socio = Pregunta_6c_nested.objects.filter(pregunta_6c__entrevistado=filtro,organizacion__sector=x).distinct('organizacion').count()
-		
+
 		datos[x] = socio
 		grafica[x] = cont_socio
 
@@ -608,7 +608,7 @@ def salida16(request, template="analisis/salida16.html"):
 		for x,y in zx.items():
 			lista.append(y)
 		lista_sectores[z] = lista
-	
+
 	return render(request,template, locals())
 
 
@@ -619,12 +619,12 @@ def salida17(request, template="analisis/salida17.html"):
 	pregunta_1 = {}
 	pregunta_5 = {}
 	pregunta_6 = {}
-	  
+
 
 	for y in Sector.objects.all():
 		org = filtro.filter(organizacion__sector=y).distinct('organizacion')
 		cont_org = filtro.filter(organizacion__sector=y).distinct('organizacion').count()
-		
+
 		for x in org:
 			project_partners = Pregunta_1.objects.filter(entrevistado=filtro,entrevistado__organizacion=x.organizacion).distinct('socio')
 			tabla = []
@@ -633,7 +633,7 @@ def salida17(request, template="analisis/salida17.html"):
 					tabla.append(xc)
 
 			pregunta_1[x.organizacion] = list(set(tabla))
-			
+
 			project_partners1 = Pregunta_5c_nested.objects.filter(pregunta_5c__entrevistado=filtro,pregunta_5c__pregunta_5c_nested__pregunta_5c__entrevistado__organizacion=x.organizacion).distinct('organizacion')
 			pregunta_5[x.organizacion] = project_partners1
 
@@ -641,7 +641,7 @@ def salida17(request, template="analisis/salida17.html"):
 			pregunta_6[x.organizacion] = project_partners2
 
 		sectores[y] = (org,pregunta_1,pregunta_5,pregunta_6,cont_org + 1)
-	
+
 	return render(request,template, locals())
 
 def salida18(request, template="analisis/salida18.html"):
@@ -663,7 +663,7 @@ def salida18(request, template="analisis/salida18.html"):
 		for x in cont_organizacion1:
 			prueba = Pregunta_5e.objects.filter(entrevistado__organizacion=x.organizacion).count()
 			t.append(prueba)
-			
+
 		if len(t) >= 3:
 			mediana = calcular_mediana(t)
 		else:
@@ -676,7 +676,7 @@ def salida18(request, template="analisis/salida18.html"):
 		valores1.append(cont_organizacion)
 		valores2.append(fuentes_aprendizaje)
 		valores3.append(float(promedio(fuentes_aprendizaje,cont_organizacion)))
-		
+
 	total1 = sumarLista(valores1)
 	total2 = sumarLista(valores2)
 	try:
@@ -695,7 +695,7 @@ def salida19(request, template="analisis/salida19.html"):
 	filtro = _queryset_filtrado(request)
 
 	sectores = {}
-	lista_sectores = {} 
+	lista_sectores = {}
 
 	for y in Tema.objects.all():
 		sectores[y] = {}
@@ -703,7 +703,7 @@ def salida19(request, template="analisis/salida19.html"):
 		for x in Categoria.objects.all():
 			entrevista = Pregunta_6d.objects.filter(categoria=x,entrevistado=filtro,entrevistado__pregunta_6a__tema=y).distinct('categoria').count()
 			sectores[y][x] = entrevista
-	
+
 	return render(request,template, locals())
 
 def salida20(request, template="analisis/salida20.html"):
@@ -752,12 +752,12 @@ def calcular_promedio(lista):
 	try:
 		return round(total_suma/n, 2)
 	except:
-		return 0 
+		return 0
 
 def calcular_mediana(lista):
 	n = len(lista)
 	lista = sorted(lista)
-	
+
 	#calcular si lista es odd or even
 	if (n%2) == 1:
 		try:
@@ -774,7 +774,7 @@ def calcular_mediana(lista):
 			return 0
 
 class BusquedaPaisView(TemplateView):
-	 
+
 	def get(self, request, *args, **kwargs):
 		id_pais = request.GET['id']
 		departamento = Departamento.objects.filter(pais__id=id_pais)
