@@ -419,6 +419,22 @@ def output9(request, template="analysis/salida9.html"):
 	except:
 		total3 = 0
 
+	#salida 11
+	sectores = {}
+	lista_sectores = {}
+
+	for y in Sector_en.objects.all():
+		sectores[y] = {}
+
+		for x in Sector_en.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector_en=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
 	return render(request,template, locals())
 
 def output10(request, template="analysis/salida10.html"):
@@ -440,7 +456,53 @@ def output10(request, template="analysis/salida10.html"):
 				tabla.append(zx)
 		
 		datos[x] = list(set(tabla))
+	#salida 12
+	sectores = {}
+	lista_sectores = {}
+	lista_sectores2 = {}
 
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Sector.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector_en=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector_en=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		lista2 = []
+		lista3 = []
+		for x,y in zx.items():
+			lista.append(y)
+
+		sum_fila = sumarLista(lista)
+ 
+		for i in lista:
+			try:
+				result = (i/float(sum_fila))*100
+			except:
+				result = 0.0
+			lista2.append((i,result))
+			lista3.append(i)
+
+		lista_sectores[z] = (lista2,sum_fila)
+
+		lista_sectores2[z] = lista3
+
+	#sumatoria totales matriz
+	mat = []
+	for key,value in lista_sectores2.items():
+		mat.append(value)
+
+	lista_totales = []
+	for x in range(0,len(mat)):
+		sumacolumna = 0 
+		for y in range(0,len(mat)):
+			sumacolumna += mat[y][x]
+			
+		lista_totales.append((sumacolumna))
+
+	total = sumarLista(lista_totales)
 	return render(request,template, locals())
 
 def output11(request, template="analysis/salida11.html"):
@@ -505,7 +567,7 @@ def output13(request, template="analysis/salida13.html"):
 		temas[y] = {}
 
 		for x in Sector.objects.all():
-			entrevista = Pregunta_5a.objects.filter(tema=y,entrevistado=filtro,socio__sector_en=x).count()
+			entrevista = Pregunta_5a.objects.filter(tema=y,entrevistado=filtro,entrevistado__organizacion__sector_en=x).count()
 			temas[y][x] = entrevista
 
 	for z,zx in temas.items():

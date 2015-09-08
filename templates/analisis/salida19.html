@@ -3,7 +3,11 @@
 {% load i18n %}
 
 {% block extra_js%}  
+<script>
+$( ".menu9" ).addClass( "active" );
+$( ".menu9-2 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 
+</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
@@ -41,14 +45,15 @@
 </div>
 
 <style>
-    .menu10{
+      .menu9{
         background: #5d8c3b;
-
     }
-    .sidebar-collapse .nav > .menu10 > a {
+    .sidebar-collapse .nav > .menu9 > a {
         background: none;
         color: white
-
+    }
+    .menu9 .menu9-1, .menu9-2, .menu9-3 {
+      background: white;  
     }
 </style>
 

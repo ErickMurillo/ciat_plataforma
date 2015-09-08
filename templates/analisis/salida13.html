@@ -22,6 +22,7 @@ $( ".menu4-3 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
                 {% for sector in sectores %}
                     <th>{{sector}}</th>
                 {% endfor %}
+
                 <th>Total</th>
                 
             </tr>
@@ -29,15 +30,22 @@ $( ".menu4-3 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
         <tbody>
         
         {% for key,value in lista_sectores.items %}
-<tr>
+                <tr>
                     <td>{{key}}</td>
                     {% for z in value.0 %}
                         <td>{{z}}</td>
                     {% endfor %}
                     <td>{{value.1}}</td>
                  
- </tr>
-            {% endfor %}
+                </tr>
+        {% endfor %}
+            <tr>
+                <td>Total</td>
+                {% for x in lista_totales %}
+                    <td>{{x}}</td>
+                {% endfor %}
+                <td>{{total}}</td>
+            </tr>
         
 
         </tbody>

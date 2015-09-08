@@ -486,7 +486,7 @@ def salida10(request, template="analisis/salida10.html"):
 		lista_sectores[z] = (lista2,sum_fila)
 
 		lista_sectores2[z] = lista3
-	
+
 	#sumatoria totales matriz
 	mat = []
 	for key,value in lista_sectores2.items():
@@ -497,8 +497,8 @@ def salida10(request, template="analisis/salida10.html"):
 		sumacolumna = 0 
 		for y in range(0,len(mat)):
 			sumacolumna += mat[y][x]
-
-		lista_totales.append(sumacolumna)
+			
+		lista_totales.append((sumacolumna))
 
 	total = sumarLista(lista_totales)
 
@@ -582,6 +582,8 @@ def salida13(request, template="analisis/salida13.html"):
 
 	temas = {}
 	lista_sectores = {}
+	lista_sectores2 = {}
+	aux_list = 0
 	sectores = Sector.objects.all()
 
 	for y in Tema.objects.all():
@@ -596,7 +598,21 @@ def salida13(request, template="analisis/salida13.html"):
 		for x,y in zx.items():
 			lista.append(y)
 		lista_sectores[z] = (lista,sumarLista(lista))
+		lista_sectores2[z] = lista
+	aux_list = len(lista)
 
+	mat = []
+	for key,value in lista_sectores2.items():
+		mat.append(value)
+
+	lista_totales = []
+	for x in range(0,aux_list):
+		sumacolumna = 0 
+		for y in range(0,len(mat)):
+			sumacolumna += mat[y][x]
+
+		lista_totales.append(sumacolumna)
+	total = sumarLista(lista_totales)
 
 	return render(request,template, locals())
 
@@ -880,6 +896,19 @@ def calcular_mediana(lista):
 			return calcular_promedio([lista[index_1-1], lista[index_2-1]])
 		except:
 			return 0
+
+def saca_porcentajes(dato, total, formato=True):
+    if dato != None:
+        try:
+            porcentaje = (dato/float(total)) * 100 if total != None or total != 0 else 0
+        except:
+            return 0
+        if formato:
+            return porcentaje
+        else:
+            return '%.2f' % porcentaje
+    else:
+        return 0
 
 class BusquedaPaisView(TemplateView):
 	 
