@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
-from .forms import MapeoConsulta
+from .forms import MapeoConsulta, MapaConsulta
 import json
 
 # Create your views here.
@@ -22,6 +22,7 @@ def _queryset_filtrado(request):
     #    params['productor__proyecto'] = request.session['proyectos']
 
     return Proyectos.objects.filter(**params)
+
 
 def indexview(request, template='mapeo/index.html'):
 
@@ -63,30 +64,35 @@ def proyectos(request, template="mapeo/proyectos.html"):
 
 def mapa_actores(request, template="mapeo/mapa.html", id_proyecto=None):
 
+    el_proyecto = Proyectos.objects.get(id=id_proyecto)
+    form_mapa = MapaConsulta()
+
+    return render(request, template, locals())
+
+
+def obtener_mapa(request, id_proyecto=None):
     todos_productores = Productor.objects.filter(proyecto__id=id_proyecto)
     todos_lideres = Lideres.objects.filter(proyecto__id=id_proyecto)
     todos_tecnicoespinvestigador = TecnicoEspInvestigador.objects.filter(proyecto__id=id_proyecto)
     todos_decisor = Decisor.objects.filter(proyecto__id=id_proyecto)
 
-    print todos_productores
-
-    return render(request, template, locals())
-
-
-def obtener_mapa(request):
+    #todos_juntos = pass
+    print "aca esta el comentarios"
+    print request.POST
     if request.is_ajax():
         lista = []
-        consulta = _queryset_filtrado(request)
+        print request.POST
+
         params = []
-        if request.session['bandera'] == 1:
-            params = consulta.filter(fkmercado__departamento__id=request.POST['depart'])
-        else:
-            params = ActividadMercado.objects.filter(fkmercado__departamento__id=request.POST['depart'])
+        # if request.POST['tipo_persona'] == 0:
+        #     params = consulta.filter(fkmercado__departamento__id=request.POST['depart'])
+        # else:
+        #     params = ActividadMercado.objects.filter(fkmercado__departamento__id=request.POST['depart'])
         for objeto in params:
-            dicc = dict(nombre=objeto.fkmercado.nombre_mercado, 
+            dicc = dict(nombre=objeto.fkmercado.nombre_mercado,
                         id=objeto.id,
                         idm = float(objeto.fkmercado.id),
-                        lon=float(objeto.fkmercado.municipio.longitud) , 
+                        lon=float(objeto.fkmercado.municipio.longitud) ,
                         lat=float(objeto.fkmercado.municipio.latitud),
                         periodicidad=objeto.periodicidad.nombre,
                         modalidad=objeto.get_modalidad_display(),
@@ -94,4 +100,4 @@ def obtener_mapa(request):
             lista.append(dicc)
 
         serializado = json.dumps(lista)
-        return HttpResponse(serializado, mimetype='application/json')
+        return HttpResponse(serializado, content_type='application/json')

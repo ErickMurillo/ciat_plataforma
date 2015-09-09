@@ -13,6 +13,20 @@ class MapeoConsulta(forms.Form):
                                 , required=False,
                                 label=u'Sitio de acción')
     alianza = forms.ModelChoiceField(queryset=Plataforma.objects.exclude(id=8).order_by('nombre'), required=False, label=u'Plataforma')
-    #proyectos = forms.ModelChoiceField(queryset=Proyectos.objects.order_by('nombre'),
-    #                              required=False,
-    #                              label=u'Proyectos')
+
+
+CHOICE_MAPA = (
+        (0, "Todos los actores"),
+        (1, "productor/productora"),
+        (2, "Líder o Lideresa comunitaria"),
+        (3, "Técnico"),
+        (4, "Especialista"),
+        (5, "Investigador"),
+        (6, "Decisor"),
+    )
+
+
+class MapaConsulta(forms.Form):
+    tipo_persona = forms.ChoiceField(choices=CHOICE_MAPA,
+                                  required=False,
+                                  label=u'Ver tipo de personas')

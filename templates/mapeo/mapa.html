@@ -4,10 +4,12 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="/static/monitoreo/js/markerclusterer.js"></script>
 <script type="text/javascript" src="/static/monitoreo/js/infobox.js"></script>
+<script type="text/javascript" src="/static/general/js/jquery.cookie.js"></script>
 <script type="text/javascript">
+    var valor_persona = $("#id_tipo_perosna").val();
     var map;
     var markers = [];
-    $(document).ready(function () {     
+    $(document).ready(function () {
         var infowindow = new google.maps.InfoWindow();
         var myLatlng = new google.maps.LatLng(13,-85);
         var myOptions = {
@@ -23,25 +25,25 @@
         new google.maps.Size(15, 32),
         new google.maps.Point(0,0),
         new google.maps.Point(0, 32));
-            $.getJSON("{% url 'obtener-lista' %}", function(data){
+            $.getJSON("{% url 'obtener-mapa' %}", function(data){
                 $.each(data, function(i, elemento){
                     var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
                     var marker = new google.maps.Marker({
                         position: latlng,
                         map: map,
                         title: elemento.nombre,
-                        icon: image,                        
+                        icon: image,
                         item: '',
-                        id: elemento.id                        
-                    });                    
-                    markers.push(marker);                    
+                        id: elemento.id
+                    });
+                    markers.push(marker);
                 });
                 var markerCluster = new MarkerClusterer(map, markers);
             });
-                
+
     });
-    
-</script>	
+
+</script>
 {% endblock extra_js %}
 
 {% block contenido %}
@@ -49,9 +51,9 @@
     .mapa{
     	margin: 0 auto;
     	float: left;
-    	width: 708px;    
+    	width: 708px;
     }
-    .mapa #map_canvas { 
+    .mapa #map_canvas {
         height: 500px;
         width: 700px;
         margin: 0 auto;
@@ -59,8 +61,18 @@
     #map_canvas img,.google-maps img{max-width:none;}
 </style>
 
-	<div class="row mapa">
-    	<div id="map_canvas"></div>
-    </div>
+<div class="row">
+    <h4>{{el_proyecto.nombre}}</h4>
+    <form action="." method="POST">
+    {% csrf_token %}
+    {{form_mapa}}
+    <input class="btn btn-default" type="submit" value="Consultar" />
+</form>
+</div>
+
+<br>
+<div class="row mapa">
+	<div id="map_canvas"></div>
+</div>
 
 {% endblock contenido %}

@@ -116,8 +116,8 @@ def inicio(request):
             variablerandom = random.randrange(10,250)
             request.session['crce']  = variablerandom
         else:
-            centinela = 0   
-           
+            centinela = 0
+
     else:
         form = MonitoreoForm()
         mensaje = "Existen alguno errores"
@@ -157,8 +157,8 @@ def inicio_linea(request):
             variablerandom = random.randrange(10,250)
             request.session['crce']  = variablerandom
         else:
-            centinela = 0   
-           
+            centinela = 0
+
     else:
         form = MonitoreoForm()
         mensaje = "Existen alguno errores"
@@ -187,8 +187,9 @@ class HomePageView(TemplateView):
         #context['organizacion'] = Organizaciones.objects.all().count()
         context['mujeres'] = Encuesta.objects.filter(productor__sexo=2).count()
         context['hombres'] = Encuesta.objects.filter(productor__sexo=1).count()
-          
-        foo = Encuesta.objects.filter(tipo_encuesta=2).order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
+
+        #foo = Encuesta.objects.filter(tipo_encuesta=2).order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
+        foo = 0
         context['organizacion'] = Organizaciones.objects.filter(id__in=foo).count()
 
         return context
@@ -202,7 +203,7 @@ class HomePageViewfail(TemplateView):
         #context['organizacion'] = Organizaciones.objects.all().count()
         context['mujeres'] = Encuesta.objects.filter(tipo_encuesta=1,productor__sexo=2).count()
         context['hombres'] = Encuesta.objects.filter(tipo_encuesta=1,productor__sexo=1).count()
-          
+
         foo = Encuesta.objects.filter(tipo_encuesta=1).order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
         context['organizacion'] = Organizaciones.objects.filter(id__in=foo).count()
 
@@ -483,9 +484,9 @@ def fincas(request):
         porcentaje_mz = saca_porcentajes(manzanas, totales['manzanas'])
         por_man += porcentaje_mz
 
-        tabla[key] = {'numero': int(numero), 
+        tabla[key] = {'numero': int(numero),
                       'porcentaje_num': int(porcentaje_num),
-                      'manzanas': manzanas, 
+                      'manzanas': manzanas,
                       'porcentaje_mz': int(porcentaje_mz)}
 
     totales['porcentaje_numero'] = por_num
@@ -558,9 +559,9 @@ def fincas(request):
         porcentaje_mz = saca_porcentajes(manzanas, totales_entre['manzanas'])
         por_man_entre += porcentaje_mz
 
-        tabla_entre[key] = {'numero': int(numero), 
+        tabla_entre[key] = {'numero': int(numero),
                       'porcentaje_num': int(porcentaje_num),
-                      'manzanas': manzanas, 
+                      'manzanas': manzanas,
                       'porcentaje_mz': int(porcentaje_mz)}
 
     totales_entre['porcentaje_numero'] = por_num
@@ -594,7 +595,7 @@ def fincas(request):
     por_rango3_entre = round(saca_porcentajes(rango3_entre,total_rangos_entre),2)
     por_rango4_entre = round(saca_porcentajes(rango4_entre,total_rangos_entre),2)
     total_porcentajes_entre = round((por_cero_entre + por_rango1_entre + por_rango2_entre + por_rango3_entre + por_rango4_entre),1)
-    
+
 
     return render_to_response('monitoreo/fincas.html',
                               locals(),
@@ -678,7 +679,7 @@ def animales(request):
     for animal in Animales.objects.all():
         query = consulta.filter(animalesfinca__animales = animal)
         numero = query.distinct().count()
-        
+
 
         porcentaje_num = saca_porcentajes(numero, totales['numero'], False)
         animales = query.aggregate(cantidad = Sum('animalesfinca__cantidad'),
@@ -690,7 +691,7 @@ def animales(request):
         animal_familia = "%.2f" % animal_familia
         tabla.append([animal.nombre, numero, porcentaje_num,
                       animales['cantidad'], animal_familia])
-        
+
 
     for animal in ProductoAnimal.objects.all():
         query = consulta.filter(produccionanimal__produccion = animal)
@@ -706,7 +707,7 @@ def animales(request):
                                    venta_libre = Sum('produccionanimal__venta_libre'),
                                    venta_organizada = Sum('produccionanimal__venta_organizada'),
                                    consumo = Sum('produccionanimal__consumo'))
-        
+
         tabla_produccion.append([
                                  animal.nombre, animal.unidad,
                                  animales['total_produccion'],
@@ -727,7 +728,7 @@ def animales(request):
     for animal in Animales.objects.all():
         query = consulta.filter(animalesfinca__animales = animal)
         numero = query.distinct().count()
-        
+
 
         porcentaje_num = saca_porcentajes(numero, totales_entre['numero'], False)
         animales = query.aggregate(cantidad = Sum('animalesfinca__cantidad_mujer'),
@@ -739,7 +740,7 @@ def animales(request):
         animal_familia = "%.2f" % animal_familia
         tabla_entre.append([animal.nombre, numero, porcentaje_num,
                       animales['cantidad'], animal_familia])
-        
+
 
     for animal in ProductoAnimal.objects.all():
         query = consulta.filter(produccionanimalentrevistada__produccion = animal)
@@ -755,7 +756,7 @@ def animales(request):
                                    venta_libre = Sum('produccionanimalentrevistada__venta_libre'),
                                    venta_organizada = Sum('produccionanimalentrevistada__venta_organizada'),
                                    consumo = Sum('produccionanimalentrevistada__consumo'))
-        
+
         tabla_produccion_entre.append([
                                  animal.nombre, animal.unidad,
                                  animales['total_produccion'],
@@ -913,7 +914,7 @@ def grafo_generic(request, producto):
                     tabla[key].append([datos.area,datos.total,datos.encuesta_id])
     dict = {'grafo':grafo,'tabla':tabla}
     return dict
-    
+
 def regresion_linear(request, nidea):
     filtro = _queryset_filtrado(request)
     n = filtro.count()
@@ -929,34 +930,34 @@ def regresion_linear(request, nidea):
         for k, v in xy.items():
             lista_x.append(v[numero][0])
             lista_y.append(v[numero][1])
-            
+
     def cuadrado(n):
         return n** 2
     cuadrado_x = map(cuadrado, lista_x)
     suma_x = sum(lista_x)
     suma_y = sum(lista_y)
-    m1 = n * (suma_x + suma_y) - (suma_x + suma_y) 
+    m1 = n * (suma_x + suma_y) - (suma_x + suma_y)
     m2 = n * sum(cuadrado_x) - (sum(lista_x))**2
     #Pendiente
     try:
         m = m1 / m2
     except:
         m = 0
-    
+
     b1 = suma_y - m * suma_x
     #inteseccion
     try:
         b = b1 / n
     except:
         b = 0
-    
+
     y1 = m * 0 + b
     y2 = m * 15 + b
     lineal = [[0,round(y1,2)]]
-    lineal.append([15,round(y2,2)]) 
-    
+    lineal.append([15,round(y2,2)])
+
     return lineal
-    
+
 def distribucion(request, items):
     a = _queryset_filtrado(request)
     grafo = {}
@@ -970,7 +971,7 @@ def distribucion(request, items):
                     grafo[key] = [[datos.productivos], ]
                 else:
                     grafo[key].append([datos.productivos])
-    
+
     xy = grafo
     prueba = []
     for k,v in xy.items():
@@ -994,7 +995,7 @@ def distribucion(request, items):
     rango9 = 0
     rango10 = 0
     rango11 = 0
-    rango12 = 0   
+    rango12 = 0
     for cantidad in lista_productividad:
         if cantidad > 0.1 and cantidad <= 5:
             rango1 += 1
@@ -1003,7 +1004,7 @@ def distribucion(request, items):
         elif cantidad > 10.1 and cantidad <= 15:
             rango3 += 1
         elif cantidad > 15.1 and cantidad <= 20:
-            rango4 += 1  
+            rango4 += 1
         elif cantidad > 20.1 and cantidad <= 30:
             rango5 += 1
         elif cantidad > 30.1 and cantidad <= 40:
@@ -1020,7 +1021,7 @@ def distribucion(request, items):
             rango11 += 1
     suma_rangos = rango1 + rango2 + rango3 + rango4 + rango5 + rango6 + rango7 + rango8 + \
                   rango9 + rango10 + rango11 + rango12
-           
+
     rangos = {'0.1 - 5':int(saca_porcentajes(rango1,suma_rangos)),
               '5.1 - 10':int(saca_porcentajes(rango2,suma_rangos)),
               '10.1 - 15':int(saca_porcentajes(rango3,suma_rangos)),
@@ -1032,10 +1033,10 @@ def distribucion(request, items):
               '60.1 - 70':int(saca_porcentajes(rango9,suma_rangos)),
               '70.1 - 80':int(saca_porcentajes(rango10,suma_rangos)),
               'más de 80.1':int(saca_porcentajes(rango11,suma_rangos))}
-              
+
     llaves = ('0.1 - 5','5.1 - 10','10.1 - 15','15.1 - 20','20.1 - 30','30.1 - 40',
               '40.1 - 50','50.1 - 60','60.1 - 70','70.1 - 80','más de 80.1')
-    
+
     dict = {'rangos':rangos,'llaves':llaves}
     return dict
 
@@ -1052,7 +1053,7 @@ def distribucion_mujer(request, items):
                     grafo[key] = [[datos.productivos], ]
                 else:
                     grafo[key].append([datos.productivos])
-    
+
     xy = grafo
     prueba = []
     for k,v in xy.items():
@@ -1076,7 +1077,7 @@ def distribucion_mujer(request, items):
     rango9 = 0
     rango10 = 0
     rango11 = 0
-    rango12 = 0   
+    rango12 = 0
     for cantidad in lista_productividad:
         if cantidad > 0.1 and cantidad <= 5:
             rango1 += 1
@@ -1085,7 +1086,7 @@ def distribucion_mujer(request, items):
         elif cantidad > 10.1 and cantidad <= 15:
             rango3 += 1
         elif cantidad > 15.1 and cantidad <= 20:
-            rango4 += 1  
+            rango4 += 1
         elif cantidad > 20.1 and cantidad <= 30:
             rango5 += 1
         elif cantidad > 30.1 and cantidad <= 40:
@@ -1102,7 +1103,7 @@ def distribucion_mujer(request, items):
             rango11 += 1
     suma_rangos = rango1 + rango2 + rango3 + rango4 + rango5 + rango6 + rango7 + rango8 + \
                   rango9 + rango10 + rango11 + rango12
-           
+
     rangos = {'0.1 - 5':int(saca_porcentajes(rango1,suma_rangos)),
               '5.1 - 10':int(saca_porcentajes(rango2,suma_rangos)),
               '10.1 - 15':int(saca_porcentajes(rango3,suma_rangos)),
@@ -1114,10 +1115,10 @@ def distribucion_mujer(request, items):
               '60.1 - 70':int(saca_porcentajes(rango9,suma_rangos)),
               '70.1 - 80':int(saca_porcentajes(rango10,suma_rangos)),
               'más de 80.1':int(saca_porcentajes(rango11,suma_rangos))}
-              
+
     llaves = ('0.1 - 5','5.1 - 10','10.1 - 15','15.1 - 20','20.1 - 30','30.1 - 40',
               '40.1 - 50','50.1 - 60','60.1 - 70','70.1 - 80','más de 80.1')
-    
+
     dict = {'rangos':rangos,'llaves':llaves}
     return dict
 
@@ -1134,7 +1135,7 @@ def distribucion_ambos(request, items):
                     grafo[key] = [[datos.productivos], ]
                 else:
                     grafo[key].append([datos.productivos])
-    
+
     xy = grafo
     prueba = []
     for k,v in xy.items():
@@ -1158,7 +1159,7 @@ def distribucion_ambos(request, items):
     rango9 = 0
     rango10 = 0
     rango11 = 0
-    rango12 = 0   
+    rango12 = 0
     for cantidad in lista_productividad:
         if cantidad > 0.1 and cantidad <= 5:
             rango1 += 1
@@ -1167,7 +1168,7 @@ def distribucion_ambos(request, items):
         elif cantidad > 10.1 and cantidad <= 15:
             rango3 += 1
         elif cantidad > 15.1 and cantidad <= 20:
-            rango4 += 1  
+            rango4 += 1
         elif cantidad > 20.1 and cantidad <= 30:
             rango5 += 1
         elif cantidad > 30.1 and cantidad <= 40:
@@ -1184,7 +1185,7 @@ def distribucion_ambos(request, items):
             rango11 += 1
     suma_rangos = rango1 + rango2 + rango3 + rango4 + rango5 + rango6 + rango7 + rango8 + \
                   rango9 + rango10 + rango11 + rango12
-           
+
     rangos = {'0.1 - 5':int(saca_porcentajes(rango1,suma_rangos)),
               '5.1 - 10':int(saca_porcentajes(rango2,suma_rangos)),
               '10.1 - 15':int(saca_porcentajes(rango3,suma_rangos)),
@@ -1196,10 +1197,10 @@ def distribucion_ambos(request, items):
               '60.1 - 70':int(saca_porcentajes(rango9,suma_rangos)),
               '70.1 - 80':int(saca_porcentajes(rango10,suma_rangos)),
               'más de 80.1':int(saca_porcentajes(rango11,suma_rangos))}
-              
+
     llaves = ('0.1 - 5','5.1 - 10','10.1 - 15','15.1 - 20','20.1 - 30','30.1 - 40',
               '40.1 - 50','50.1 - 60','60.1 - 70','70.1 - 80','más de 80.1')
-    
+
     dict = {'rangos':rangos,'llaves':llaves}
     return dict
 
@@ -1208,7 +1209,7 @@ def cultivos(request):
     '''tabla los cultivos y produccion'''
     a = _queryset_filtrado(request)
     num_familias = a.count()
-    
+
     tabla = {}
     for i in Cultivos.objects.all():
         key = slugify(i.nombre).replace('-', '_')
@@ -1222,7 +1223,7 @@ def cultivos(request):
         if numero > 0:
             tabla[key] = {'key2':key2,'numero':numero,'totales':totales,
                            'consumo':consumo,'libre':libre,'organizada':organizada}
-    
+
     tabla2 = {}
     lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
     productividad = 0
@@ -1241,7 +1242,7 @@ def cultivos(request):
         if numero > 0:
             tabla2[key] = {'key2':key2,'numero':numero,'area_total':area_total,
                        'area_avg':area_avg,'totales':totales,'productividad':productividad}
-                       
+
     maiz = grafo_generic(request,12)
     frijol = grafo_generic(request,8)
     platano = grafo_generic(request,18)
@@ -1266,7 +1267,7 @@ def cultivos(request):
     #-----------------------------------------------------
     #Tabla de cultivos de la mujer
     #-----------------------------------------------------
-    
+
     tabla_mujer = {}
     for i in Cultivos.objects.all():
         key = slugify(i.nombre).replace('-', '_')
@@ -1280,7 +1281,7 @@ def cultivos(request):
         if numero > 0:
             tabla_mujer[key] = {'key2':key2,'numero':numero,'totales':totales,
                            'consumo':consumo,'libre':libre,'organizada':organizada}
-    
+
     tabla2_mujer = {}
     #lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
     productividad_mujer = 0
@@ -1312,7 +1313,7 @@ def cultivos(request):
     #-----------------------------------------------------
     #Tabla de cultivos cuando lo maneja ambos
     #-----------------------------------------------------
-    
+
     tabla_ambos = {}
     for i in Cultivos.objects.all():
         key = slugify(i.nombre).replace('-', '_')
@@ -1326,7 +1327,7 @@ def cultivos(request):
         if numero > 0:
             tabla_ambos[key] = {'key2':key2,'numero':numero,'totales':totales,
                            'consumo':consumo,'libre':libre,'organizada':organizada}
-    
+
     tabla2_ambos = {}
     #lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
     productividad_ambos = 0
@@ -1355,7 +1356,7 @@ def cultivos(request):
     distribucion_cacao_ambos = distribucion_ambos(request,4)
 
 
-                                           
+
     return render_to_response('monitoreo/cultivos.html',
                              locals(),
                              context_instance=RequestContext(request))
@@ -1408,7 +1409,7 @@ def ingresos(request):
     a = _queryset_filtrado(request)
     num_familias = a.count()
     #******************************
-    
+
     #*******calculos de las variables ingreso************
     respuesta = {}
     respuesta['bruto']= 0
@@ -1482,7 +1483,7 @@ def ingresos(request):
                   'Animales_de_patio':int(total_patio),'Hortalizas_y_frutas':int(total_fruta),
                   'Musaceas':int(total_musaceas),'Tuberculos_y_raices':int(total_raices)
                  })
-                 
+
     cuantos = []
     cuantos.append({'Agroforestales':c_agro,'Forestales':c_forestal,'Granos_basicos':c_basico,
                   'Ganado_mayor':c_ganado,'Animales_de_patio':c_patio,
@@ -1518,7 +1519,7 @@ def ingresos(request):
     #Ingreso de la entrevistada
     #
     #--------------------------------------------------------------------
-    
+
     respuesta_entre = {}
     respuesta_entre['bruto']= 0
     respuesta_entre['ingreso']=0
@@ -1591,7 +1592,7 @@ def ingresos(request):
                   'Animales_de_patio':int(total_patio_entre),'Hortalizas_y_frutas':int(total_fruta_entre),
                   'Musaceas':int(total_musaceas_entre),'Tuberculos_y_raices':int(total_raices_entre)
                  })
-                 
+
     cuantos_entre = []
     cuantos_entre.append({'Agroforestales':c_agro_entre,'Forestales':c_forestal_entre,'Granos_basicos':c_basico_entre,
                   'Ganado_mayor':c_ganado_entre,'Animales_de_patio':c_patio_entre,
@@ -1751,7 +1752,7 @@ def equipos(request):
     #Esta parte representa las tablas para las entrevistadas
     #
     #-------------------------------------------------------
-    
+
     #********** tabla de equipos *************
     tabla_entre = {}
     totales_entre = {}
@@ -2917,7 +2918,7 @@ def volcar_xls(request, modelo):
     riesgos = PreguntaRiesgo.objects.all()
 
     resultados = []
-    
+
     for encuesta in encuestas:
         filas = []
         filas.append(encuesta.fecha)
@@ -2929,7 +2930,7 @@ def volcar_xls(request, modelo):
         filas.append(encuesta.comunidad.municipio)
         filas.append(encuesta.comunidad)
         filas.append(','.join(map(unicode, encuesta.organizacion.all().values_list(u'nombre',flat=True))))
-        
+
         if modelo == '1':
             educacion = encuesta.educacion_set.all()
             for obj in educacion:
@@ -2942,7 +2943,7 @@ def volcar_xls(request, modelo):
                 filas.append(obj.bachiller)
                 filas.append(obj.universitario)
                 filas.append(obj.f_comunidad)
-        
+
         if modelo == '2':
             salud = encuesta.salud_set.all()
             for obj in salud:
@@ -2985,7 +2986,7 @@ def volcar_xls(request, modelo):
             comunitaria = encuesta.organizacioncomunitaria_set.all()
             for obj in comunitaria:
                 filas.append(obj.numero)
-                filas.append(obj.pertence)    
+                filas.append(obj.pertence)
                 filas.append(','.join(map(unicode, obj.cual_organizacion.all().values_list(u'nombre',flat=True))))
                 filas.append(','.join(map(unicode, obj.cual_beneficio.all().values_list(u'nombre',flat=True))))
                 filas.append(','.join(map(unicode, obj.no_organizado.all().values_list(u'nombre',flat=True))))
@@ -2996,7 +2997,7 @@ def volcar_xls(request, modelo):
                 filas.append(obj.area)
         if modelo == '9':
             arboles = encuesta.existenciaarboles_set.all()
-            for obj in arboles:    
+            for obj in arboles:
                 filas.append(','.join(map(unicode, obj.maderable.all().values_list(u'nombre',flat=True))))
                 filas.append(obj.cantidad_maderable)
                 filas.append(','.join(map(unicode, obj.forrajero.all().values_list(u'nombre',flat=True))))
@@ -3145,13 +3146,13 @@ def volcar_xls(request, modelo):
                 filas.append(obj.get_parcela_display())
                 filas.append(obj.get_solar_display())
                 filas.append(obj.get_dueno_display())
-    
+
         resultados.append(filas)
 
-    dict = {'resultados':resultados,'tiposexo':tiposexo, 'PEnergia':PEnergia, 
-            'usotierra':usotierra,'reforestacion':reforestacion, 
+    dict = {'resultados':resultados,'tiposexo':tiposexo, 'PEnergia':PEnergia,
+            'usotierra':usotierra,'reforestacion':reforestacion,
             'animales':animales, 'cultivos':cultivos,
-            'manejo':manejo, 'semilla':semilla, 'rubro':rubro, 
+            'manejo':manejo, 'semilla':semilla, 'rubro':rubro,
             'otrosingresos':otrosingresos, 'equipo':equipo, 'herramienta':herramienta,
             'transporte':transporte, 'ahorro':ahorro, 'seguridad':seguridad,
             'fenomeno':fenomeno, 'riesgos':riesgos, 'ayuda':ayuda}
@@ -3167,7 +3168,7 @@ def write_xls(template_src, context_dict, filename):
     response['Content-Disposition'] = 'attachment; filename='+filename
     response['Content-Type'] = 'application/vnd.ms-excel'
     response['Charset']='UTF-8'
-    return response 
+    return response
 
 #TODO: completar esto
 VALID_VIEWS = {
