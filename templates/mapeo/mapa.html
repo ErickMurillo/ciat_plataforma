@@ -7,8 +7,7 @@
 <script type="text/javascript" src="/static/general/js/custom.js"></script>
 <script type="text/javascript" src="/static/general/js/jquery.cookie.js"></script>
 <script type="text/javascript">
-    var valor_persona = $("#id_tipo_perosna").val();
-    console.log(valor_persona);
+    var valor_persona = {{request.session.tipo_persona}}
     var map;
     var markers = [];
     $(document).ready(function () {
@@ -23,10 +22,10 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-        var image = new google.maps.MarkerImage('/static/monitoreo/images/custom_marker.png',
-        new google.maps.Size(15, 32),
-        new google.maps.Point(0,0),
-        new google.maps.Point(0, 32));
+        //var image = new google.maps.MarkerImage('/static/monitoreo/images/custom_marker.png',
+        //new google.maps.Size(15, 32),
+        //new google.maps.Point(0,0),
+        //new google.maps.Point(0, 32));
             $.post("{% url 'obtener-mapa' el_proyecto.id %}", {valor_persona:valor_persona}, function(data){
                 $.each(data, function(i, elemento){
                     var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
@@ -34,7 +33,7 @@
                         position: latlng,
                         map: map,
                         title: elemento.nombre,
-                        icon: image,
+                        //icon: image,
                         item: '',
                         id: elemento.id
                     });
