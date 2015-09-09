@@ -88,14 +88,11 @@ def obtener_mapa(request, id_proyecto=None):
         #     params = consulta.filter(fkmercado__departamento__id=request.POST['depart'])
         # else:
         #     params = ActividadMercado.objects.filter(fkmercado__departamento__id=request.POST['depart'])
-        for objeto in params:
-            dicc = dict(nombre=objeto.fkmercado.nombre_mercado,
+        for objeto in Persona.objects.all():
+            dicc = dict(nombre=objeto.nombre,
                         id=objeto.id,
-                        idm = float(objeto.fkmercado.id),
-                        lon=float(objeto.fkmercado.municipio.longitud) ,
-                        lat=float(objeto.fkmercado.municipio.latitud),
-                        periodicidad=objeto.periodicidad.nombre,
-                        modalidad=objeto.get_modalidad_display(),
+                        lon=float(objeto.municipio.longitud) ,
+                        lat=float(objeto.municipio.latitud),
                         )
             lista.append(dicc)
 
