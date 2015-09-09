@@ -190,7 +190,7 @@ class HomePageView(TemplateView):
 
         #foo = Encuesta.objects.filter(tipo_encuesta=2).order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
         foo = 0
-        context['organizacion'] = Organizaciones.objects.filter(id__in=foo).count()
+        context['organizacion'] = 0#Organizaciones.objects.filter(id__in=foo).count()
 
         return context
 
