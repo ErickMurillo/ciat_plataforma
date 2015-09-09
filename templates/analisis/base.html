@@ -14,8 +14,8 @@
 
     <link href="{% static 'general/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"><!-- font-awesome -->
         <!-- CUSTOM STYLES-->
-    <link href="{% static 'analisis/css/analisis.css' %}" rel="stylesheet" />
-    <link href="{% static 'analisis/css/style.css' %}" rel="stylesheet" type="text/css"><!-- theme styles -->
+    <link href="{% static 'monitoreo/css/analisis.css' %}" rel="stylesheet" />
+    <link href="{% static 'monitoreo/css/style.css' %}" rel="stylesheet" type="text/css"><!-- theme styles -->
      <!-- GOOGLE FONTS-->
    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css">
         <!-- SELECT2-->
@@ -23,159 +23,35 @@
 </head>
 <body>
 {% include "menuprincipal.html" %}
-    <div id="wrapper">
-        <nav class="navbar navbar-default hidden-lg hidden-md " role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                
-            </div>
-
-        </nav>   
-           <!-- /. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav drop-down-left" id="main-menu">
-
-                    <li class="text-center">
-                    <img src="{% static 'analisis/img/site-logo.jpg' %}" class="user-image"/>
-                    </li>
-                
-                    
-                    <li>
-                        <a  href="/analisis/"><i class="fa fa-search fa-2x"></i>Consultar</a>
-                    </li>
-
-                    {% if request.session.fecha %}
-                      <li class="menu1">
-                        <a  href="/analisis/salida1/">Las Organizaciones</a>
-                    </li>
-                     <li class="menu2">
-                        <a href="#">Los Proyectos<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="menu2-1">
-                                <a href="/analisis/salida2/">Proyectos por sector</a>
-                            </li>
-                            <li class="menu2-2">
-                                <a href="/analisis/salida3/">Proyectos por tema</a>
-                            </li>
-                        </ul>
-                      </li>
-                      <li class="menu3">
-                        <a href="#">Los Impactos<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="menu3-1">
-                                <a href="/analisis/salida4/">Impactos por sector</a>
-                            </li>
-                            <li class="menu3-2">
-                                <a href="/analisis/salida5/">Impactos por tema</a>
-                            </li>
-                            <li class="menu3-3">
-                                <a href="/analisis/salida5b/">Impactos por beneficiarios</a>
-                            </li>
-                        </ul>
-                      </li>
-                       <li class="menu4">
-                        <a href="#"></i>Las Innovaciones recientes<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="menu4-1">
-                                <a href="/analisis/salida6/">Innovaciones por sector</a>
-                            </li>
-                            <li class="menu4-2">
-                                <a href="/analisis/salida7/">Innovaciones  por tema</a>
-                            </li>
-                            <li class="menu4-3">
-                                <a href="/analisis/salida13/">Temas por sector</a>
-                            </li>
-                        </ul>
-                      </li>
-                      <li class="menu5">
-                        <a href="#">Las alianzas<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="menu5-1">
-                                <a href="/analisis/salida8/">Los aliados y sus roles</a>
-                            </li>
-                            <li class="menu5-2">
-                                <a href="/analisis/salida9/">Los sectores y sus aliados</a>
-                            </li>
-                            <li class="menu5-3">
-                                <a href="/analisis/salida10/">Las relaciones de los sectores</a>
-                            </li>
-                            <!--<li class="menu5-4">
-                                <a href="/analisis/salida11/">Salida 11</a>
-                            </li>
-                            <li class="menu5-5">
-                                <a href="/analisis/salida12/">Salida 12</a>
-                            </li>-->
-                        </ul>
-                      </li>   
-                      <!--<li class="menu6" >
-                        <a  href="/analisis/salida13/"><i class="fa fa-file-o fa-2x"></i>Temas comunes en Trabajo con organizaciones asociadas</a>
-                    </li>-->
-                     <li class="menu7">
-                        <a href="#"><i class="fa fa-laptop fa-2x"></i>Las Innovaciones y Cambios deseados<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="menu7-1">
-                                <a href="/analisis/salida14/">Salida 14</a>
-                            </li>
-                            <li class="menu7-2">
-                                <a href="/analisis/salida15/">Salida 15</a>
-                            </li>
-                        </ul>
-                      </li>
-                      <li class="menu8">
-                        <a href="#"><i class="fa fa-users fa-2x"></i>Socios Innovación Actuales vs Potenciales<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li class="menu8-1">
-                                <a href="/analisis/salida16/">Salida 16</a>
-                            </li>
-                            <li class="menu8-2">
-                                <a href="/analisis/salida17/">Salida 17</a>
-                            </li>
-                        </ul>
-                      </li> 
-                    <li class="menu9">
-                        <a class=""  href="/analisis/salida18/"><i class="fa fa-book fa-2x"></i>Fuentes de aprendizaje para innovaciones</a>
-                    </li>
-                     <li class="menu10">
-                        <a class=""  href="/analisis/salida19/"><i class="fa fa-info-circle fa-2x"></i>Información necesaria para realizar innovaciones deseadas</a>
-                    </li>
-                    <li class="menu11">
-                        <a class=""  href="/analisis/salida20/"><i class="fa fa-table fa-2x"></i>Limitaciones real y percibida de Fomento de la Innovación y Cambio</a>
-                    </li> 
-                </ul>
-               {% endif %}
-            </div>
-            
-        </nav>  
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-        <div class="col-md-3 col-md-offset-9 idiomabtn">
-                <a href="/analisis/"><img src="/static/analisis/img/espana.png" alt="">Español</a>
-                <a href="/analysis/"><img src="/static/analisis/img/eeuu.png" alt="">Ingles</a>
-            </div>
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12" >
-
-                    {% block contenido %}{% endblock contenido %}
-                     
-                       
-                    </div>
-                </div>
-                 <!-- /. ROW  -->
-                 <hr />
-               
+<nav class="navbar navbar-default nav-inicio" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/analisis"></a>
     </div>
-             <!-- /. PAGE INNER  -->
-            </div>
-         <!-- /. PAGE WRAPPER  -->
-        </div>
-     <!-- /. WRAPPER  -->
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Consultar</a></li>
+            <li><a href="#">Acerca de</a></li>
+            <li><a href="#"><span class="idioma" ><img  src="{% static 'analisis/img/eeuu.jpg' %}" alt=""></span>Ingles</a></li>
+           <!-- <li><a href="#"><span class="idioma" ><img  src="{% static 'analisis/img/spanish.jpg' %}" alt=""></span>Español</a></li>-->
+
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+    <div class="container-fluid">
+                    {% block inicio %}{% endblock inicio %}
+     </div>                
+
      <div id="k-footer"><!-- footer -->
     
         <div class="container"><!-- container -->

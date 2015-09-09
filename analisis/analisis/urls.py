@@ -1,6 +1,10 @@
 from django.conf.urls import *
 
 urlpatterns = patterns('analisis.analisis.views',
+    #######################################################
+    url(r'^inicio/$', 'indexnuevo', name='indexnuevo'),
+    url(r'^consulta/$', 'consulta', name='consulta'),
+    #######################################################
 	url(r'^$', 'inicio', name="inicio"),
     #url(r'^salidas/$', 'post', name='salidas'),
     url(r'^salida1/$', 'salida1', name='salida1'),
@@ -25,5 +29,6 @@ urlpatterns = patterns('analisis.analisis.views',
     url(r'^salida19/$', 'salida19', name='salida19'),
     url(r'^salida20/$', 'salida20', name='salida20'),
     url(r'^ajax/fechas/$', 'get_fecha', name='get_fecha'),
-    
+    url(r'^ajax/sitioaccion/$', 'get_sitio_accion', name='get_sitio_accion'),
+    url(r'^ajax/plataforma/$', 'get_plataforma', name='get_plataforma'),
     )

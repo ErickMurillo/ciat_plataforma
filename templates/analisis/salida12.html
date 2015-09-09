@@ -23,6 +23,7 @@ $( ".menu5-5 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
                 {% for sector in sectores %}
                     <th>{{sector}}</th>
                 {% endfor %}
+                <th>Total</th>
                 
             </tr>
         </thead>
@@ -31,12 +32,29 @@ $( ".menu5-5 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
         {% for x,y in lista_sectores.items %}
 <tr>
                     <td>{{x}}</td>
-                    {% for z in y %}
-                        <td>{{z|floatformat:2}} %</td>
+                    {% for z in y.0 %}
+                        <td>
+                            {% for valor in z %}
+                                {% if forloop.counter == 1 %}
+                                    {{valor}}
+                                {% else %}
+                                    ({{valor|floatformat:2}} %)
+                                {% endif %}
+                            {% endfor %}
+                        </td>
                     {% endfor %}
+                    <td>{{y.1}}</td>
                  
  </tr>
             {% endfor %}
+
+            <tr>
+                <td>Total</td>
+                {% for x in lista_totales %}
+                    <td>{{x}}</td>
+                {% endfor %}
+                <td>{{total}}</td>
+            </tr>
         
 
         </tbody>

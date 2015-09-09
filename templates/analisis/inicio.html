@@ -8,12 +8,53 @@
 	    url: '/analisis/ajax/fechas/',
 	    dataType:'json',
 	    success: function(data) {
+	    		$('#id_fecha').html('');
 		      	$.each(data, function(i, value) {
 		          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
 		        });
 	    	}
 	});
 	
+  $("#id_sitio_accion").prop("disabled", true);
+  $("#id_plataforma").prop("disabled", true);
+
+var foo2 = [];
+$(document).on('change','#id_area_accion',function(){
+         
+    $('#id_area_accion :selected').each(function(i, selected){ 
+        foo2[i] = $(selected).val();      
+    });
+
+    $.getJSON('/analisis/ajax/sitioaccion/?ids='+foo2.join(","), function(data){
+        $('#id_sitio_accion').html('');
+        $("#id_sitio_accion").prop("disabled", false);
+        if(data){
+        	$('#id_sitio_accion').append($('<option></option>').val('0').html('-------'));
+            $.each(data, function(i, item){
+                $('#id_sitio_accion').append($('<option></option>').val(item.id).html(item.nombre));
+                });
+       }
+   });
+    });
+
+var foo = [];
+$(document).on('change','#id_sitio_accion',function(){
+         
+    $('#id_sitio_accion :selected').each(function(i, selected){ 
+        foo[i] = $(selected).val();      
+    });
+
+    $.getJSON('/analisis/ajax/plataforma/?ids='+foo.join(","), function(data){
+        $('#id_plataforma').html('');
+        $("#id_plataforma").prop("disabled", false);
+        if(data){
+        	$('#id_plataforma').append($('<option></option>').val('0').html('-------'));
+            $.each(data, function(i, item){
+                $('#id_plataforma').append($('<option></option>').val(item.id).html(item.nombre));
+                });
+       }
+   });
+    });
 </script>
 {% endblock extra_js %}
 
@@ -21,10 +62,10 @@
 
 
 	<form action="." method="POST">{% csrf_token %}
-	<div class="col-md-3">{{form.fecha.label}}: {{form.fecha}}</div>
-	<div class="col-md-3">{{form.pais.label}}: {{form.pais}}</div>
-	<div class="col-md-3">{{form.sitio_accion.label}}: {{form.sitio_accion}}</div>
 	<div class="col-md-3">{{form.tipo_estudio.label}}: {{form.tipo_estudio}}</div>
+	<div class="col-md-3">{{form.fecha.label}}: {{form.fecha}}</div>
+	<div class="col-md-3">{{form.area_accion.label}}: {{form.area_accion}}</div>
+	<div class="col-md-3">{{form.sitio_accion.label}}: {{form.sitio_accion}}</div>
 	<div class="col-md-3">{{form.plataforma.label}}: {{form.plataforma}}</div>
 		
 		<input type="submit" value="Consultar" name="consulta" class="btn btn-success consultar"/>
