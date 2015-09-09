@@ -928,3 +928,17 @@ def indexnuevo(request):
 def consulta(request):
     
     return render(request, "analisis/pagina2.html")
+
+#obtener puntos en el mapa
+def obtener_lista(request):
+    if request.is_ajax():
+        lista = []
+        for objeto in Entrevista.objects.all():
+            dicc = dict(nombre=objeto.organizacion.municipio.nombre, id=objeto.id,
+                        lon=float(objeto.organizacion.municipio.longitud),
+                        lat=float(objeto.organizacion.municipio.latitud)
+                        )
+            lista.append(dicc)
+
+        serializado = simplejson.dumps(lista)
+        return HttpResponse(serializado, mimetype='application/json')

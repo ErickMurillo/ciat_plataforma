@@ -32,4 +32,5 @@ urlpatterns = patterns('analisis.analisis.views',
     url(r'^ajax/fechas/$', 'get_fecha', name='get_fecha'),
     url(r'^ajax/sitioaccion/$', 'get_sitio_accion', name='get_sitio_accion'),
     url(r'^ajax/plataforma/$', 'get_plataforma', name='get_plataforma'),
+    url(r'^mapa/$', 'obtener_lista', name='obtener-lista'),
     )
