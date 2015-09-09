@@ -1138,9 +1138,9 @@ margin-top: 10px;
 .k-logo img{
 	margin-top: 20px !important;
 }
-.container {
+/*.container {
 max-width: 960px;
-}
+}*/
 
 .fc-header td{
 	border: none !important;
@@ -1267,4 +1267,10 @@ a.ong:hover{
   	margin-right: -30px;
 
   	margin-left: 35px;
+}
+
+.titulo-audio{
+	font-size: 14 !important;
+	font-weight: bold;
+	margin-top: -20px;
 }

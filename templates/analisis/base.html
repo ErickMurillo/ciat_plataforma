@@ -1,80 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{%load staticfiles%}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Alianzas Centroamérica - Caribe</title>
     <link rel="shortcut icon" href="/static/general/img/logo.jpg" />
-    <!-- Styles -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css"><!-- Google web fonts -->
-    <link href="/static/general/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"><!-- font-awesome -->
-    <link href="/static/monitoreo/js/dropdown-menu/dropdown-menu.css" rel="stylesheet" type="text/css"><!-- dropdown-menu -->
-    <link href="/static/general/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"><!-- Bootstrap -->
-    <link href="/static/monitoreo/css/style.css" rel="stylesheet" type="text/css"><!-- theme styles -->
-    
-    <link href="/static/biblioteca/css/styles/biblioteca.css" rel="stylesheet">
+    <!-- BOOTSTRAP STYLES-->
+    <link href="{% static 'general/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"><!-- Bootstrap -->
+     <!-- FONTAWESOME STYLES-->
 
-  </head>
-  
-  <body role="document" class="page">
-  
-    <!-- device test, don't remove. javascript needed! -->
-    <span class="visible-xs"></span><span class="visible-sm"></span><span class="visible-md"></span><span class="visible-lg"></span>
-    <!-- device test end -->
-    
-    <div id="k-head" class="container"><!-- container + head wrapper -->
-    {% include "menuprincipal.html" %}
-        <div class="row"><!-- row -->
-        
-            <div class="col-lg-12">
-        
-                <div id="k-site-logo" class="pull-left"><!-- site logo -->
-                
-                    <h1 class="k-logo">
-                        <a href="/monitoreo" title="Home Page">
-                            <img src="/static/monitoreo/img/site-logo.jpg" alt="Site Logo" class="img-responsive" />
-                        </a>
-                    </h1>
-                    
-                    <a id="mobile-nav-switch" href="#drop-down-left"><span class="alter-menu-icon"></span></a><!-- alternative menu button -->
-            
-                </div><!-- site logo end -->
+    <link href="{% static 'general/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"><!-- font-awesome -->
+        <!-- CUSTOM STYLES-->
+    <link href="{% static 'monitoreo/css/analisis.css' %}" rel="stylesheet" />
+    <link href="{% static 'monitoreo/css/style.css' %}" rel="stylesheet" type="text/css"><!-- theme styles -->
+     <!-- GOOGLE FONTS-->
+   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css">
+        <!-- SELECT2-->
+   <link href="{% static 'analisis/css/select2.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+{% include "menuprincipal.html" %}
+<nav class="navbar navbar-default nav-inicio" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/analisis"></a>
+    </div>
 
-                <nav id="k-menu" class="k-main-navig "><!-- main navig -->
-        
-                    <ul id="drop-down-left" class="k-dropdown-menu monitoreo-menu">
-                        
-                       
-                        <li>
-                            <a href="{% url 'ayuda' %}" title="Descripción del Proyecto">Acerca de biblioteca</a>
-                        </li>
-                        <li>
-                            <a href="/admin/" class="Pages Collection" title="Entra">Inicio de Sesión</a>
-                        </li>
-                    </ul>
-        
-                </nav><!-- main navig end -->
-            
-            </div>
-            
-        </div><!-- row end -->
-    
-    </div><!-- container + head wrapper end -->
-    
-    <div id="k-body"><!-- content wrapper -->
-    
-        <div class="container"><!-- container -->
-        <br>
-            {% block contenido %}
-                
-            {% endblock contenido %}
-        
-        </div><!-- container end -->
-    
-    </div><!-- content wrapper end -->
-    
-    <div id="k-footer"><!-- footer -->
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Consultar</a></li>
+            <li><a href="#">Acerca de</a></li>
+            <li><a href="#"><span class="idioma" ><img  src="{% static 'analisis/img/eeuu.jpg' %}" alt=""></span>Ingles</a></li>
+           <!-- <li><a href="#"><span class="idioma" ><img  src="{% static 'analisis/img/spanish.jpg' %}" alt=""></span>Español</a></li>-->
+
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+    <div class="container-fluid">
+                    {% block inicio %}{% endblock inicio %}
+     </div>                
+
+     <div id="k-footer"><!-- footer -->
     
         <div class="container"><!-- container -->
         
@@ -196,15 +174,41 @@
     
     </div><!-- subfooter end -->
 
-    <!-- jQuery -->
-    <script src="/static/general/js/jQuery/jquery-2.1.1.min.js"></script>
-    <script src="/static/general/js/jQuery/jquery-migrate-1.2.1.min.js"></script>
-    
-    <!-- Bootstrap -->
-    <script src="/static/general/bootstrap/js/bootstrap.min.js"></script>
-    
 
-    {%block extra_js%}{%endblock%}
-    
-  </body>
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="{% static 'general/js/jQuery/jquery-2.1.1.min.js' %}"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="{% static 'general/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="{% static 'analisis/js/jquery.metisMenu.js' %}"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="{% static 'analisis/js/analisis.js' %}"></script>
+
+    <script src="{% static 'analisis/js/jquery.min.js' %}"></script>
+    <script src="{% static 'analisis/js/highcharts.js' %}"></script>
+    <script src="{% static 'analisis/js/exporting.js' %}"></script>
+    <script src="{% static 'analisis/js/select2.min.js' %}"></script>
+    <script src="{% static 'analisis/js/jquery.cookie.js' %}"></script>
+    <script src="{% static 'analisis/js/table.exporting.js' %}"></script>
+
+    <script type="text/javascript">
+     // var data = [{ id: 0, text: '---------' }];
+     // $('#id_sitio_accion').select2({
+     //        data:data
+     //    });
+     // $('#id_plataforma').select2({
+     //        data:data
+     //    });
+      $('select').select2({minimumResultsForSearch: Infinity});
+      
+    </script>
+
+
+    {% block extra_js%}{% endblock extra_js %}
+
+
+
+
+</body>
 </html>

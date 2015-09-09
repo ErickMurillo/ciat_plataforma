@@ -43,16 +43,16 @@ class Organizaciones(models.Model):
     pais = models.ForeignKey(Pais)
     departamento = ChainedForeignKey(
                                 Departamento,
-                                chained_field="pais", 
+                                chained_field="pais",
                                 chained_model_field="pais",
                                 show_all=False, auto_choose=True,null=True, blank=True)
     municipio = ChainedForeignKey(
                                 Municipio,
-                                chained_field="departamento", 
+                                chained_field="departamento",
                                 chained_model_field="departamento",
                                 show_all=False, auto_choose=True,null=True, blank=True)
-    fundacion = models.CharField(_(u'Año de fundación'), 
-                                 max_length=200, 
+    fundacion = models.CharField(_(u'Año de fundación'),
+                                 max_length=200,
                                  blank=True, null=True)
     temas = RichTextField(_(u'Temas'), blank=True, null=True)
     generalidades = RichTextField(_(u'Generalidades'), blank=True, null=True)
@@ -74,6 +74,7 @@ class Organizaciones(models.Model):
         return self.siglas
 
 CHOICE_SEXO = ((1,_(u'Hombre')),(2,_(u'Mujer')))
+CHOICE_SEXO_JEFE = ((1,_(u'Hombre')),(2,_(u'Mujer')),(3,_(u'Compartida')))
 CHOICE_RANGO = (
                 (1, '18 - 25'),
                 (2, '26 - 45'),
@@ -90,34 +91,141 @@ CHOICE_NIVEL_EDUCATIVO = (
                 (6, _(u'Universitario')),
             )
 
+CHOICE_TIPO_PERSONA = (
+                (1, _(u'Productor o Productora')),
+                (2, _(u'Líder o Lideresa comunitaria')),
+                (3, _(u'Técnico')),
+                (4, _(u'Especialista')),
+                (5, _(u'Investigador')),
+                (6, _(u'Decisor')),
+            )
+
+CHOICE_TIPOLOGIA = (
+                (1, _(u'Pequeño campesino de montaña')),
+                (2, _(u'Pequeño campesino diversificado')),
+                (3, _(u'Finquero cacaotero')),
+                (4, _(u'Finquero ganadero cacaotero')),
+                (5, _(u'Finquero cafetalero')),
+                (6, _(u'Finquero ganadero cafetalero')),
+                (7, _(u'Finquero ganadero')),
+            )
+
+class Proyectos(models.Model):
+    nombre = models.CharField(max_length=250)
+    corto = models.CharField(_(u"Nombre corto"),max_length=250)
+    codigo = models.CharField(max_length=50)
+    inicio = models.DateField(_(u"Fecha de inicio"))
+    finalizacion = models.DateField(_(u"Fecha de finalizacón"))
+    alianza = models.ManyToManyField(Plataforma, verbose_name=_(u"Alianza de influencia"))
+    influencia = models.ManyToManyField(Municipio, verbose_name=_(u"Zona de influencia"))
+    ejecutora = models.ForeignKey(Organizaciones, verbose_name=_(u"Organización ejecutora"))
+    socias = models.ManyToManyField(Organizaciones, related_name="socias", verbose_name=_(u"Organización socias"))
+    informacion = models.URLField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.corto
+
+    class Meta:
+        verbose_name_plural = _(u"Proyectos")
+
 class Persona(models.Model):
+    tipo_persona = models.IntegerField(choices=CHOICE_TIPO_PERSONA, null=True, blank=True)
     nombre = models.CharField(_(u'Nombre de entrevistado/a'), max_length=200)
     cedula = models.CharField(_(u'cedula de entrevistado'), max_length=200, null=True, blank=True)
     sexo = models.IntegerField(_(u'Sexo'), choices=CHOICE_SEXO)
     edad = models.IntegerField(_(u'Edad'), choices=CHOICE_RANGO)
-    finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
+    #finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
     pais = models.ForeignKey(Pais)
     departamento = ChainedForeignKey(
                                 Departamento,
-                                chained_field="pais", 
+                                chained_field="pais",
                                 chained_model_field="pais",
                                 show_all=False, auto_choose=True)
     municipio = ChainedForeignKey(
                                 Municipio,
-                                chained_field="departamento", 
+                                chained_field="departamento",
                                 chained_model_field="departamento",
                                 show_all=False, auto_choose=True)
     comunidad = ChainedForeignKey(
                                 Comunidad,
-                                chained_field="municipio", 
+                                chained_field="municipio",
                                 chained_model_field="municipio",
                                 show_all=False, auto_choose=True)
-    organizacion = models.ManyToManyField(Organizaciones, related_name ="org", 
-                                        verbose_name=_(u'Organizaciones que lo apoyan'))
-    nivel_educacion = models.IntegerField(_(u'Nivel de educacion'), choices=CHOICE_NIVEL_EDUCATIVO)
+    #organizacion = models.ManyToManyField(Organizaciones, related_name ="org",
+                                        #verbose_name=_(u'Organizaciones que lo apoyan'))
+    #nivel_educacion = models.IntegerField(_(u'Nivel de educacion'), choices=CHOICE_NIVEL_EDUCATIVO)
 
     def __unicode__(self):
         return self.nombre
 
     class Meta:
         verbose_name_plural= _(u'Personas registradas')
+
+class RubrosAgropecuarios(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = _(u'Rubros agropecuarios')
+
+class RubrosNoAgropecuarios(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = _(u'Rubros no agropecuarios')
+
+class FuenteManoObra(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural = _(u'Fuentes de mano de obra')
+
+class Productor(models.Model):
+    persona = models.ForeignKey(Persona)
+    fecha = models.DateField()
+    finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
+    organizacion = models.ManyToManyField(Organizaciones, related_name ="org",
+                                        verbose_name=_(u'Organizaciones que lo apoyan'))
+    tamano = models.FloatField(_(u'Tamaño de la finca'))
+    ganado = models.IntegerField(_(u'Número de ganado'))
+    rubros_agro = models.ManyToManyField(RubrosAgropecuarios, related_name="agro", verbose_name=_(u'Rubros que generan ingreso agropecuario'))
+    rubro_principal_agro = models.ForeignKey(RubrosAgropecuarios, related_name="principal")
+    rubros_no_agro = models.ManyToManyField(RubrosNoAgropecuarios, related_name="noagro", verbose_name=_(u'Rubros que generan ingreso no agropecuario'))
+    rubro_principal_no_agro = models.ForeignKey(RubrosNoAgropecuarios, related_name="principalno")
+    fuente = models.ManyToManyField(FuenteManoObra, verbose_name=_(u'Fuente de mano de obra'))
+    jefe = models.IntegerField(choices=CHOICE_SEXO_JEFE, verbose_name=_(u'Jefe de familia'))
+    tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA)
+    proyectos = models.ManyToManyField(Proyectos)
+
+    class Meta:
+        verbose_name_plural = _(u'Información productor/productora')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
