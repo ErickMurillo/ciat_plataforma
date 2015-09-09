@@ -14,10 +14,10 @@ import json as simplejson
 def _queryset_filtrado(request):
 	params = {}
 	if 'fecha' in request.session:
-		params['fecha1'] = request.session['fecha']
+		params['fecha1__in'] = request.session['fecha']
 
-	if 'pais' in request.session:
-		params['pais'] = request.session['pais']
+	if 'area_accion' in request.session:
+		params['organizacion__area_accion'] = request.session['area_accion']
 
 	if 'sitio_accion' in request.session:
 		params['organizacion__sitio_accion'] = request.session['sitio_accion']
@@ -45,7 +45,7 @@ def inicio(request, template='analisis/inicio.html'):
 		form = EntrevistaConsulta(request.POST)
 		if form.is_valid():
 			request.session['fecha'] = form.cleaned_data['fecha']
-			request.session['pais'] = form.cleaned_data['pais']
+			request.session['area_accion'] = form.cleaned_data['area_accion']
 			request.session['sitio_accion'] = form.cleaned_data['sitio_accion']
 			request.session['tipo_estudio'] = form.cleaned_data['tipo_estudio']
 			request.session['plataforma'] = form.cleaned_data['plataforma']
@@ -62,7 +62,7 @@ def inicio(request, template='analisis/inicio.html'):
 		centinela = 0
 		try:
 			del request.session['fecha']
-			del request.session['pais']
+			del request.session['area_accion']
 			del request.session['sitio_accion']
 			del request.session['tipo_estudio']
 		except:
@@ -415,6 +415,23 @@ def salida9(request, template="analisis/salida9.html"):
 	except:
 		total3 = 0
 
+	#salida 11
+	sectores = {}
+	lista_sectores = {}
+
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Sector.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		for x,y in zx.items():
+			lista.append(y)
+		lista_sectores[z] = lista
+
 	return render(request,template, locals())
 
 def salida10(request, template="analisis/salida10.html"):
@@ -436,6 +453,54 @@ def salida10(request, template="analisis/salida10.html"):
 				tabla.append(zx)
 
 		datos[x] = list(set(tabla))
+
+	#salida 12
+	sectores = {}
+	lista_sectores = {}
+	lista_sectores2 = {}
+
+	for y in Sector.objects.all():
+		sectores[y] = {}
+
+		for x in Sector.objects.all():
+			entrevista = Pregunta_5c.objects.filter(entrevistado__organizacion__sector=x,entrevistado=filtro,pregunta_5c_nested__organizacion__sector=y).count()
+			sectores[y][x] = entrevista
+
+	for z,zx in sectores.items():
+		lista = []
+		lista2 = []
+		lista3 = []
+		for x,y in zx.items():
+			lista.append(y)
+
+		sum_fila = sumarLista(lista)
+ 
+		for i in lista:
+			try:
+				result = (i/float(sum_fila))*100
+			except:
+				result = 0.0
+			lista2.append((i,result))
+			lista3.append(i)
+
+		lista_sectores[z] = (lista2,sum_fila)
+
+		lista_sectores2[z] = lista3
+
+	#sumatoria totales matriz
+	mat = []
+	for key,value in lista_sectores2.items():
+		mat.append(value)
+
+	lista_totales = []
+	for x in range(0,len(mat)):
+		sumacolumna = 0 
+		for y in range(0,len(mat)):
+			sumacolumna += mat[y][x]
+			
+		lista_totales.append((sumacolumna))
+
+	total = sumarLista(lista_totales)
 
 	return render(request,template, locals())
 
@@ -465,6 +530,7 @@ def salida12(request, template="analisis/salida12.html"):
 
 	sectores = {}
 	lista_sectores = {}
+	lista_sectores2 = {}
 
 	for y in Sector.objects.all():
 		sectores[y] = {}
@@ -476,16 +542,38 @@ def salida12(request, template="analisis/salida12.html"):
 	for z,zx in sectores.items():
 		lista = []
 		lista2 = []
+		lista3 = []
 		for x,y in zx.items():
 			lista.append(y)
-		asd = sumarLista(lista)
+
+		sum_fila = sumarLista(lista)
+ 
 		for i in lista:
 			try:
-				lista2.append((i/float(asd))*100)
+				result = (i/float(sum_fila))*100
 			except:
-				lista2.append(0.0)
+				result = 0.0
+			lista2.append((i,result))
+			lista3.append(i)
 
-		lista_sectores[z] = lista2
+		lista_sectores[z] = (lista2,sum_fila)
+
+		lista_sectores2[z] = lista3
+	
+	#sumatoria totales matriz
+	mat = []
+	for key,value in lista_sectores2.items():
+		mat.append(value)
+
+	lista_totales = []
+	for x in range(0,len(mat)):
+		sumacolumna = 0 
+		for y in range(0,len(mat)):
+			sumacolumna += mat[y][x]
+
+		lista_totales.append(sumacolumna)
+
+	total = sumarLista(lista_totales)
 
 	return render(request,template, locals())
 
@@ -494,13 +582,15 @@ def salida13(request, template="analisis/salida13.html"):
 
 	temas = {}
 	lista_sectores = {}
+	lista_sectores2 = {}
+	aux_list = 0
 	sectores = Sector.objects.all()
 
 	for y in Tema.objects.all():
 		temas[y] = {}
 
 		for x in Sector.objects.all():
-			entrevista = Pregunta_5a.objects.filter(tema=y,entrevistado=filtro,socio__sector=x).count()
+			entrevista = Pregunta_5a.objects.filter(tema=y,entrevistado=filtro,entrevistado__organizacion__sector=x).count()
 			temas[y][x] = entrevista
 
 	for z,zx in temas.items():
@@ -508,6 +598,23 @@ def salida13(request, template="analisis/salida13.html"):
 		for x,y in zx.items():
 			lista.append(y)
 		lista_sectores[z] = (lista,sumarLista(lista))
+
+		lista_sectores2[z] = lista
+	aux_list = len(lista)
+
+	mat = []
+	for key,value in lista_sectores2.items():
+		mat.append(value)
+
+	lista_totales = []
+	for x in range(0,aux_list):
+		sumacolumna = 0 
+		for y in range(0,len(mat)):
+			sumacolumna += mat[y][x]
+
+		lista_totales.append(sumacolumna)
+	total = sumarLista(lista_totales)
+
 
 	return render(request,template, locals())
 
@@ -727,8 +834,27 @@ def get_fecha(request):
     years = []
     for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
         years.append((en))
-    lista = sorted(set(years))
+    lista = list(sorted(set(years)))
     return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+
+def get_sitio_accion(request):
+    ids = request.GET.get('ids', '')
+    if ids:
+        lista = ids.split(',')
+    results = []
+    sitios = SitioAccion.objects.filter(area_accion__pk__in=lista).order_by('nombre').values('id', 'nombre')
+
+    return HttpResponse(simplejson.dumps(list(sitios)), content_type='application/json')
+
+def get_plataforma(request):
+    ids = request.GET.get('ids', '')
+    if ids:
+        lista = ids.split(',')
+    results = []
+    sitios = Plataforma.objects.filter(sitio_accion__pk__in=lista).order_by('nombre').values('id', 'nombre')
+
+    return HttpResponse(simplejson.dumps(list(sitios)), content_type='application/json')
+
 
 def sumarLista(lista):
 	sum=0
@@ -773,6 +899,19 @@ def calcular_mediana(lista):
 		except:
 			return 0
 
+def saca_porcentajes(dato, total, formato=True):
+    if dato != None:
+        try:
+            porcentaje = (dato/float(total)) * 100 if total != None or total != 0 else 0
+        except:
+            return 0
+        if formato:
+            return porcentaje
+        else:
+            return '%.2f' % porcentaje
+    else:
+        return 0
+
 class BusquedaPaisView(TemplateView):
 
 	def get(self, request, *args, **kwargs):
@@ -782,3 +921,26 @@ class BusquedaPaisView(TemplateView):
 		return HttpResponse(data,mimetype='application/json')
 
 
+#nuevo codigo
+
+def indexnuevo(request):
+    
+    return render(request, "analisis/pagina1.html")
+
+def consulta(request):
+    
+    return render(request, "analisis/pagina2.html")
+
+#obtener puntos en el mapa
+def obtener_lista(request):
+    if request.is_ajax():
+        lista = []
+        for objeto in Entrevista.objects.all():
+            dicc = dict(nombre=objeto.organizacion.municipio.nombre, id=objeto.id,
+                        lon=float(objeto.organizacion.municipio.longitud),
+                        lat=float(objeto.organizacion.municipio.latitud)
+                        )
+            lista.append(dicc)
+
+        serializado = simplejson.dumps(lista)
+        return HttpResponse(serializado, mimetype='application/json')

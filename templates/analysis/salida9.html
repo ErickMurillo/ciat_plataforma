@@ -50,6 +50,49 @@ $(function () {
 
 });
 
+$(function () {
+        $('#salida11').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Distribution of Partnerships by Sector'
+            },
+            xAxis: {
+                categories: [
+                                {% for key,value in sectores.items %}
+                                    {% for x,y in value.items %}
+                                        '{{x}}',
+                                    {% endfor %}
+                                    
+                                {% endfor %}
+                            ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of Orgs from Sample by Sector'
+                }
+            },
+            legend: {
+                reversed: true
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [
+
+            {% for x,y in lista_sectores.items %}
+                {
+                name: '{{x}}',
+                data: {{y}}
+            },
+            {% endfor %}
+        ]
+        });
+    });
 </script>
 {% endblock extra_js%} 
 
@@ -89,6 +132,8 @@ $(function () {
 </div> 
 
 <div id="salida9"></div>
+<br>
+<div id="salida11"></div>
 <style>
     .menu5{
         background: #5d8c3b;

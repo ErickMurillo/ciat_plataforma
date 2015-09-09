@@ -31,40 +31,41 @@ function ocultardegcentro(){document.getElementById('deg-centro').style.display 
 		<div class="titulo">
 			
 			
-				<h2 class="text-center">Alianzas Centroamérica - Caribe</h2>
+				<h3 class="text-center">Alianzas Centroamérica - Caribe</h3>
 				
 			
 		</div>
 		
 	</nav>
-
-	<div class="info col-xs-3 col-sm-3 col-md-3 col-lg-3">
+<div class="contenido">
+	<div class="row">
+			<div class="info col-xs-3 col-sm-3 col-md-3 col-lg-3">
 		<h3>Pellentesque urna dapibus nunc.</h3>
 		<p>
 			Pellentesque urna dapibus nunc. Velit montes rhoncus nec mattis turpis mauris penatibus dolor cursus adipiscing placerat sed lundium, duis ridiculus! Porta sociis duis amet, magna augue odio dignissim, porta? Augue, in! Sociis, elementum dictumst ut scelerisque mauris tempor pulvinar non duis nunc sagittis ac porta sagittis magnis natoque! In aenean et dapibus, turpis mattis! Et, hac! Cras, pid et rhoncus, ac amet aenean in proin montes? Phasellus, tristique, augue. Risus. Et porta? Penatibus mid amet, sagittis aliquet, porta urna magna? Nisi, ridiculus vel sed? Placerat nascetur rhoncus dignissim, a mattis? Enim, diam mid nisi porttitor porttitor, vel augue integer vel vel pellentesque porttitor sed. Lacus, ultricies sed phasellus! Elementum nunc porttitor enim, a adipiscing, mid mid risus montes etiam purus.
 		</p>
 	</div>
 	
-	<div class="circle-container col-xs-5 col-sm-5 col-md-5 col-lg-5">
+	<div class="col-xs-5 col-sm-5 col-md-5 col-lg-6">
+		<div class="circle-container">
+			<a class="deg315" onmouseover="mostrardeg315()" onmouseout="ocultardeg315()" href="/comunicacion" ><i class="fa fa-bullhorn circle hvr-grow"></i></a>
+	
+			<a class="deg0" onmouseover="mostrardeg0()" onmouseout="ocultardeg0()" href="/analisis"><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
 
-	<a class="deg315" onmouseover="mostrardeg315()" onmouseout="ocultardeg315()" href="/comunicacion" ><i class="fa fa-bullhorn circle hvr-grow"></i></a>
+			<a class="deg45" onmouseover="mostrardeg45()" onmouseout="ocultardeg45()" href="/producto"><i class="fa fa-link circle hvr-grow"></i></a>
 
-	<a class="deg0" onmouseover="mostrardeg0()" onmouseout="ocultardeg0()" href="/analisis"><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
+			<a class="deg270" onmouseover="mostrardeg270()" onmouseout="ocultardeg270()" href="#"><i class="fa fa-line-chart circle hvr-grow"></i></a>
 
-	<a class="deg45" onmouseover="mostrardeg45()" onmouseout="ocultardeg45()" href="/producto"><i class="fa fa-link circle hvr-grow"></i></a>
+			<a class="deg135" onmouseover="mostrardeg135()" onmouseout="ocultardeg135()" href="/monitoreo/linea-base/"><i class="fa fa-area-chart circle hvr-grow"></i></a>
 
-	<a class="deg270" onmouseover="mostrardeg270()" onmouseout="ocultardeg270()" href="#"><i class="fa fa-line-chart circle hvr-grow"></i></a>
+			<a class="deg180" onmouseover="mostrardeg180()" onmouseout="ocultardeg180()" href="/monitoreo"><i class="fa fa-female circle hvr-grow"></i></a>
 
-	<a class="deg135" onmouseover="mostrardeg135()" onmouseout="ocultardeg135()" href="/monitoreo/linea-base/"><i class="fa fa-area-chart circle hvr-grow"></i></a>
+			<a class="deg225" onmouseover="mostrardeg225()" onmouseout="ocultardeg225()" href="#"><i class="fa fa-map-marker circle hvr-grow"></i></a>
 
-	<a class="deg180" onmouseover="mostrardeg180()" onmouseout="ocultardeg180()" href="/monitoreo"><i class="fa fa-female circle hvr-grow"></i></a>
+			<a class="deg90" onmouseover="mostrardeg90()" onmouseout="ocultardeg90()" href="#"><i class="fa  fa-leanpub circle hvr-grow"></i></a>
 
-	<a class="deg225" onmouseover="mostrardeg225()" onmouseout="ocultardeg225()" href="#"><i class="fa fa-map-marker circle hvr-grow"></i></a>
-
-	<a class="deg90" onmouseover="mostrardeg90()" onmouseout="ocultardeg90()" href="#"><i class="fa  fa-leanpub circle hvr-grow"></i></a>
-
-	<a class="deg-centro" onmouseover="mostrardegcentro()" onmouseout="ocultardegcentro()" href="#"><i class="fa  fa-dashboard fa-3x circle-2x hvr-grow"></i></a>
-  
+			<a class="deg-centro" onmouseover="mostrardegcentro()" onmouseout="ocultardegcentro()" href="#"><i class="fa  fa-dashboard fa-3x circle-2x hvr-grow"></i></a>
+		</div>
 	</div>
 	<div class="mostrar col-xs-3 col-sm-3 col-md-3 col-lg-3">
 		<div id="deg315" style="display:none;">
@@ -122,5 +123,8 @@ function ocultardegcentro(){document.getElementById('deg-centro').style.display 
 			</p>
 		</div>
 	</div>
+	</div>
+</div>
+
 
 {% endblock contenido %}

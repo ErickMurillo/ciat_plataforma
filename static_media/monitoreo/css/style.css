@@ -1049,3 +1049,21 @@ border-color: rgba(93, 140, 59, 0.5);
 .subindicador{
 	font-weight: bold;
 }
+
+.nav-inicio{
+	border:none;
+	border-radius: 0px;
+}
+.nav-inicio .navbar-nav>li>a{
+	color: #5d8c3b;
+}
+.examplelink{
+	color: #5d8c3b !important;
+}
+.idioma{
+	margin-right: 10px;
+}
+.data-analisis{
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
