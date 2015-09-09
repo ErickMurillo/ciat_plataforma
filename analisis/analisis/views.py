@@ -922,7 +922,7 @@ class BusquedaPaisView(TemplateView):
 #nuevo codigo
 
 def indexnuevo(request):
-    
+	
     return render(request, "analisis/pagina1.html")
 
 def consulta(request):
@@ -934,11 +934,11 @@ def obtener_lista(request):
     if request.is_ajax():
         lista = []
         for objeto in Entrevista.objects.all():
-            dicc = dict(nombre=objeto.organizacion.municipio.nombre, id=objeto.id,
-                        lon=float(objeto.organizacion.municipio.longitud),
-                        lat=float(objeto.organizacion.municipio.latitud)
-                        )
+            dicc = dict(nombre=objeto.organizacion.departamento.nombre, id=objeto.id,
+                    lon=float(objeto.organizacion.departamento.longitud),
+                    lat=float(objeto.organizacion.departamento.latitud)
+                    )
             lista.append(dicc)
 
         serializado = simplejson.dumps(lista)
-        return HttpResponse(serializado, mimetype='application/json')
+        return HttpResponse(serializado, content_type='application/json')
