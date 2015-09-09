@@ -14,10 +14,10 @@ import json as simplejson
 def _queryset_filtrado(request):
 	params = {}
 	if 'fecha' in request.session:
-		params['fecha1'] = request.session['fecha']
+		params['fecha1__in'] = request.session['fecha']
 
-	if 'pais' in request.session:
-		params['pais'] = request.session['pais']
+	if 'area_accion' in request.session:
+		params['organizacion__area_accion'] = request.session['area_accion']
 
 	if 'sitio_accion' in request.session:
 		params['organizacion__sitio_accion'] = request.session['sitio_accion']
@@ -45,7 +45,7 @@ def inicio(request, template='analysis/inicio.html'):
 		form = EntrevistaConsulta(request.POST)
 		if form.is_valid():
 			request.session['fecha'] = form.cleaned_data['fecha']
-			request.session['pais'] = form.cleaned_data['pais']
+			request.session['area_accion'] = form.cleaned_data['area_accion']
 			request.session['sitio_accion'] = form.cleaned_data['sitio_accion']
 			request.session['tipo_estudio'] = form.cleaned_data['tipo_estudio']
 			request.session['plataforma'] = form.cleaned_data['plataforma']
@@ -62,7 +62,7 @@ def inicio(request, template='analysis/inicio.html'):
 		centinela = 0
 		try:
 			del request.session['fecha']
-			del request.session['pais']
+			del request.session['area_accion']
 			del request.session['sitio_accion']
 			del request.session['tipo_estudio']
 		except:
@@ -863,3 +863,29 @@ class BusquedaPaisView(TemplateView):
 		departamento = Departamento.objects.filter(pais__id=id_pais)
 		data = serializers.serialize('json',departamento,fields=('nombre',))
 		return HttpResponse(data,mimetype='application/json')
+
+
+def get_fecha(request):
+    years = []
+    for en in Entrevista.objects.order_by('fecha1').values_list('fecha1', flat=True):
+        years.append((en))
+    lista = list(sorted(set(years)))
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+
+def get_sitio_accion(request):
+    ids = request.GET.get('ids', '')
+    if ids:
+        lista = ids.split(',')
+    results = []
+    sitios = SitioAccion.objects.filter(area_accion__pk__in=lista).order_by('nombre').values('id', 'nombre')
+
+    return HttpResponse(simplejson.dumps(list(sitios)), content_type='application/json')
+
+def get_plataforma(request):
+    ids = request.GET.get('ids', '')
+    if ids:
+        lista = ids.split(',')
+    results = []
+    sitios = Plataforma.objects.filter(sitio_accion__pk__in=lista).order_by('nombre').values('id', 'nombre')
+
+    return HttpResponse(simplejson.dumps(list(sitios)), content_type='application/json')

@@ -17,7 +17,7 @@ def _queryset_filtrado(request):
 		params['fecha1__in'] = request.session['fecha']
 
 	if 'area_accion' in request.session:
-		params['area_accion'] = request.session['area_accion']
+		params['organizacion__area_accion'] = request.session['area_accion']
 
 	if 'sitio_accion' in request.session:
 		params['organizacion__sitio_accion'] = request.session['sitio_accion']

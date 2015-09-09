@@ -3,7 +3,10 @@
 {% load i18n %}
 
 {% block extra_js%} 
-
+<script>
+$( ".menu4" ).addClass( "active" );
+$( ".menu4-3 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
+</script>
 {% endblock extra_js%} 
 
 {% block contenido %}
@@ -42,14 +45,24 @@
 </div> 
 
 <style>
-    .menu6{
+    .menu4{
         background: #5d8c3b;
-
     }
-    .sidebar-collapse .nav > .menu6 > a {
+    .sidebar-collapse .nav > .menu4 > a {
         background: none;
         color: white
-
+    }
+    .menu4 .menu4-1{
+      background: white;  
+    }
+    .menu4 .menu4-2{
+      background: white;  
+    }  
+    .menu4 .menu4-3{
+      background: white;  
+    } 
+    #page-inner{
+        min-height: 1100px
     }
 </style>
 {% endblock contenido %}
