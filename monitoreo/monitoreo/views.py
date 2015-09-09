@@ -65,8 +65,8 @@ def _queryset_filtrado(request):
             else:
                 params['productor__comunidad__municipio__in'] = request.session['municipio']
 
-    if request.session['organizacion']:
-        params['productor__organizacion__in'] = request.session['organizacion']
+    #if request.session['organizacion']:
+    #    params['productor__organizacion__in'] = request.session['organizacion']
 
     if 'socio' in request.session:
         params['organizaciongremial__socio'] = request.session['socio']
@@ -102,7 +102,7 @@ def inicio(request):
         if form.is_valid():
             request.session['fecha'] = form.cleaned_data['fecha']
             request.session['departamento'] = form.cleaned_data['departamento']
-            request.session['organizacion'] = form.cleaned_data['organizacion']
+            #request.session['organizacion'] = form.cleaned_data['organizacion']
             request.session['municipio'] = form.cleaned_data['municipio']
             request.session['comunidad'] = form.cleaned_data['comunidad']
             request.session['socio'] = form.cleaned_data['socio']
@@ -143,7 +143,7 @@ def inicio_linea(request):
         if form.is_valid():
             request.session['fecha'] = form.cleaned_data['fecha']
             request.session['departamento'] = form.cleaned_data['departamento']
-            request.session['organizacion'] = form.cleaned_data['organizacion']
+            #request.session['organizacion'] = form.cleaned_data['organizacion']
             request.session['municipio'] = form.cleaned_data['municipio']
             request.session['comunidad'] = form.cleaned_data['comunidad']
             request.session['socio'] = form.cleaned_data['socio']

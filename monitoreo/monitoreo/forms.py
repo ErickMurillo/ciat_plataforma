@@ -25,7 +25,7 @@ def fecha_choice():
         years.append((en,en))
     return list(set(years))
 
-def departamentos():   
+def departamentos():
     foo = Encuesta.objects.all().order_by('productor__comunidad__municipio__departamento__nombre').distinct().values_list('productor__comunidad__municipio__departamento__id', flat=True)
     return Departamento.objects.filter(id__in=foo)
 
@@ -34,7 +34,7 @@ CHOICE_OPCION_TIPO = ((1,'Linea base'),(2,'Entrevista mujer'))
 class MonitoreoForm(forms.Form):
     fecha = forms.MultipleChoiceField(choices=fecha_choice())
     departamento = forms.ModelMultipleChoiceField(queryset=departamentos(), required=False, label=u'Departamentos')
-    organizacion = forms.ModelMultipleChoiceField(queryset=Organizaciones.objects.all().order_by('nombre'), required=False, label=u'Organización')
+    #organizacion = forms.ModelMultipleChoiceField(queryset=Organizaciones.objects.all().order_by('nombre'), required=False, label=u'Organización')
     municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all().order_by('nombre'), required=False)
     comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
     socio = forms.ChoiceField(choices = CHOICE_OPCION_F , required=False, label="Socio Gremial")
