@@ -130,8 +130,8 @@ class Proyectos(models.Model):
 
 class Persona(models.Model):
     tipo_persona = models.IntegerField(choices=CHOICE_TIPO_PERSONA, null=True, blank=True)
-    nombre = models.CharField(_(u'Nombre de entrevistado/a'), max_length=200)
-    cedula = models.CharField(_(u'cedula de entrevistado'), max_length=200, null=True, blank=True)
+    nombre = models.CharField(_(u'Nombre de la persona'), max_length=200)
+    cedula = models.CharField(_(u'cedula de la persona'), max_length=200, null=True, blank=True)
     sexo = models.IntegerField(_(u'Sexo'), choices=CHOICE_SEXO)
     edad = models.IntegerField(_(u'Edad'), choices=CHOICE_RANGO)
     #finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
@@ -214,6 +214,12 @@ class Productor(models.Model):
     tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA)
     proyecto = models.ManyToManyField(Proyectos)
 
+    fecha1 = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.fecha1 = self.fecha.year
+        super(Productor, self).save()
+
     class Meta:
         verbose_name_plural = _(u'Información productor/productora')
 
@@ -265,9 +271,9 @@ class TecnicoEspInvestigador(models.Model):
     formacion = models.IntegerField(choices=CHOICE_FORMACION)
     experiencia = models.CharField(max_length=250)
     especialidad = models.ManyToManyField(Especialidades)
-    pertenece = models.ManyToManyField(Organizaciones, 
+    pertenece = models.ManyToManyField(Organizaciones,
             verbose_name=_(u'Organizaciones a que pertenece'))
-    proyecto = models.ManyToManyField(Proyectos, 
+    proyecto = models.ManyToManyField(Proyectos,
             verbose_name=_(u'Vinculado a proyectos'))
 
     class Meta:
@@ -293,14 +299,14 @@ class CampoAccion(models.Model):
 
 class Decisor(models.Model):
     persona = models.ForeignKey(Persona)
-    nivel = models.ManyToManyField(Accionar, 
+    nivel = models.ManyToManyField(Accionar,
                 verbose_name=_(u'Nivel de accionar'))
-    campo = models.ManyToManyField(CampoAccion, 
+    campo = models.ManyToManyField(CampoAccion,
                 verbose_name=_(u'Campo de acción'))
-    pertenece = models.ManyToManyField(Organizaciones, 
+    pertenece = models.ManyToManyField(Organizaciones,
             verbose_name=_(u'Organizaciones a que pertenece'))
-    proyecto = models.ManyToManyField(Proyectos, 
+    proyecto = models.ManyToManyField(Proyectos,
             verbose_name=_(u'Vinculado a proyectos'))
-    
+
     class Meta:
         verbose_name_plural = _(u'Decisor')

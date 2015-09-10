@@ -7,7 +7,12 @@
 <script type="text/javascript" src="/static/general/js/custom.js"></script>
 <script type="text/javascript" src="/static/general/js/jquery.cookie.js"></script>
 <script type="text/javascript">
-    var valor_persona = {{request.session.tipo_persona}}
+    {% if centinela == 0 %}
+        var tipo_persona = $("#id_tipo_persona").val();
+    {% else%}
+        var tipo_persona = {{request.session.tipo_persona}};
+    {% endif %}
+    console.log(tipo_persona);
     var map;
     var markers = [];
     $(document).ready(function () {
@@ -21,20 +26,16 @@
             center: myLatlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
+        var iconBase = '/static/general/img/chinches/';
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-        //var image = new google.maps.MarkerImage('/static/monitoreo/images/custom_marker.png',
-        //new google.maps.Size(15, 32),
-        //new google.maps.Point(0,0),
-        //new google.maps.Point(0, 32));
-            $.post("{% url 'obtener-mapa' el_proyecto.id %}", {valor_persona:valor_persona}, function(data){
+            $.post("{% url 'obtener-mapa' el_proyecto.id %}",{tipo_persona:tipo_persona}, function(data){
                 $.each(data, function(i, elemento){
                     var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
                     var marker = new google.maps.Marker({
                         position: latlng,
                         map: map,
                         title: elemento.nombre,
-                        //icon: image,
-                        item: '',
+                        icon: iconBase + elemento.tipo + ".png",
                         id: elemento.id
                     });
                     markers.push(marker);

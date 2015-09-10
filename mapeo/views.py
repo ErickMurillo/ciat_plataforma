@@ -87,32 +87,35 @@ def mapa_actores(request, template="mapeo/mapa.html", id_proyecto=None):
 
     return render(request, template, locals())
 
- 
+
 def obtener_mapa(request, id_proyecto=None):
     persona_productor = Persona.objects.filter(productor__proyecto__id=id_proyecto)
     persona_lideres = Persona.objects.filter(lideres__proyecto__id=id_proyecto)
     persona_tecnicoespinvestigador = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto)
     persona_decisor = Persona.objects.filter(decisor__proyecto__id=id_proyecto)
-    
+
     todos = list(chain(persona_productor, persona_lideres, persona_tecnicoespinvestigador,persona_decisor))
-    
+
     if request.is_ajax():
         lista = []
+        print request.POST
         params = []
         try:
-            if request.POST['valor_persona'] == '1':
-                params = Persona.objects.filter(productor__proyecto__id=id_proyecto, tipo_persona=request.POST['valor_persona'])
-            if request.POST['valor_persona'] == '2':
-                params = Persona.objects.filter(lideres__proyecto__id=id_proyecto, tipo_persona=request.POST['valor_persona'])
-            if request.POST['valor_persona'] == '3':
-                params = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=request.POST['valor_persona'])
-            if request.POST['valor_persona'] == '4':
-                params = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=request.POST['valor_persona'])
-            if request.POST['valor_persona'] == '5':
-                params = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=request.POST['valor_persona'])
-            if request.POST['valor_persona'] == '6':
-                params = Persona.objects.filter(decisor__proyecto__id=id_proyecto, tipo_persona=request.POST['valor_persona'])
-             
+            if request.POST['tipo_persona'] == '0':
+                params = todos
+            if request.POST['tipo_persona'] == '1':
+                params = Persona.objects.filter(productor__proyecto__id=id_proyecto, tipo_persona=request.POST['tipo_persona'])
+            if request.POST['tipo_persona'] == '2':
+                params = Persona.objects.filter(lideres__proyecto__id=id_proyecto, tipo_persona=request.POST['tipo_persona'])
+            if request.POST['tipo_persona'] == '3':
+                params = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=request.POST['tipo_persona'])
+            if request.POST['tipo_persona'] == '4':
+                params = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=request.POST['tipo_persona'])
+            if request.POST['tipo_persona'] == '5':
+                params = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=request.POST['tipo_persona'])
+            if request.POST['tipo_persona'] == '6':
+                params = Persona.objects.filter(decisor__proyecto__id=id_proyecto, tipo_persona=request.POST['tipo_persona'])
+
             for objeto in params:
                 dicc = dict(nombre=objeto.nombre,
                             tipo=objeto.tipo_persona,
@@ -122,14 +125,7 @@ def obtener_mapa(request, id_proyecto=None):
                             )
                 lista.append(dicc)
         except:
-            for objeto in todos:
-                dicc = dict(nombre=objeto.nombre,
-                            tipo=objeto.tipo_persona,
-                            id=objeto.id,
-                            lon=float(objeto.municipio.longitud) ,
-                            lat=float(objeto.municipio.latitud),
-                            )
-                lista.append(dicc)
+            pass
 
         serializado = json.dumps(lista)
         return HttpResponse(serializado, content_type='application/json')
