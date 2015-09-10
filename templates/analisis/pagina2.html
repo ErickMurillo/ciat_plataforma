@@ -1,3 +1,158 @@
-{% block contenido %}
-	aqui la consulta
-{% endblock contenido %}
+{% extends "analisis/base.html" %}
+{% block extra_js %}
+
+{% endblock extra_js %}
+
+{% block inicio %}
+<style type="text/css">
+	.filtros select, .filtros label{
+	width: 70%;
+	
+}
+.form-group{
+	margin-left: 15%;
+}
+.select2-container--default .select2-selection--single{
+	height: 42px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+	line-height: 39px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+	height: 41px;
+}
+</style>
+	<div class="row no-gutter"><!-- row -->
+
+	  	<!--<form action="." method="POST">
+	  	<div class="container-fluid">
+	  		<div class="row">
+	  			<div class="col-md-3">
+	  			<label for="tipo">Tipo de Estudio</label>
+				<select class="js-example-basic-multiple" multiple="multiple">
+				  	<option value="AL">Alabama</option>
+				  	<option value="WY">Wyoming</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<select class="js-example-basic-multiple" multiple="multiple">
+				  	<option value="AL">Alabama</option>
+				  	<option value="WY">Wyoming</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<select class="js-example-basic-multiple" multiple="multiple">
+				  	<option value="AL">Alabama</option>
+				  	<option value="WY">Wyoming</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<select class="js-example-basic-multiple" multiple="multiple">
+				  	<option value="AL">Alabama</option>
+				  	<option value="WY">Wyoming</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<select class="js-example-basic-multiple" multiple="multiple">
+				  	<option value="AL">Alabama</option>
+				  	<option value="WY">Wyoming</option>
+				</select>
+			</div>
+	  		</div>
+	  	</div>
+			
+				
+				<input type="submit" value="Consultar" name="consulta" class="btn btn-success consultar"/>
+		</form>              
+
+	                
+	   --> 
+
+	   			<div class=" container filtros">
+					<div class="row">
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 select-filtro">
+							<div class="form-group">
+                                <label >Tipo de Estudio</label>
+                                <br>
+                                <select  id="" name="fecha">
+									<option value="Tipo 1">Tipo 1</option>
+									<option value="Tipo 2">Tipo 2</option>
+								</select>                     
+                            </div>
+							<div class="form-group">
+                                <label >Fecha</label>
+                                <br>
+                                <select multiple="multiple" id="id_fecha" name="fecha">
+									<option value="2015">2015</option>
+									<option value="2014">2014</option>
+								</select>                     
+                            </div>
+
+
+						</div>
+
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 select-filtro">
+							<div class="form-group">
+                                <label >Area de Acción</label>
+                                <br>
+                                <select id="" name="fecha">
+									<option value="CAC">CAC</option>
+									
+								</select>                     
+                            </div>
+
+                            <div class="form-group">
+                                <label >Sitio de Acción</label>
+                                <br>
+                                <select  id="" name="fecha">
+									<option value="Nicanorte">Nicanorte</option>
+								
+								</select>                     
+                            </div>
+
+						</div>
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 select-filtro">
+							<div class="form-group">
+                                <label >Plataforma</label>
+                                <br>
+                                <select  id="" name="fecha">
+									<option value="">Cacao</option>
+									<option value="">Café</option>
+								</select>                     
+                            </div>
+                            <div class="form-group">
+                            <label for=""></label><br>
+                            	<a type="button" class="btn btn-success consultar">button</a>
+                            </div>
+						</div>
+
+
+					</div>
+
+
+					<div class="row">
+						<h3>Indicadores</h3>
+						<hr>
+						
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a type="button" class="btn btn-success consultar">button</a>
+							</div>
+
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a type="button" class="btn btn-success consultar">button</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a type="button" class="btn btn-success consultar">button</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a type="button" class="btn btn-success consultar">button</a>
+							</div>
+					
+					</div> 
+				</div>
+				     
+	</div><!-- row end Corta hasta aca-->
+
+<br>
+<br>
+{% endblock inicio %}
