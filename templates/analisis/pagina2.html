@@ -1,6 +1,61 @@
 {% extends "analisis/base.html" %}
-{% block extra_js %}
 
+{% block extra_js %}
+<script type="text/javascript">
+
+	$.ajax({
+	    type: "GET",
+	    url: '/analisis/ajax/fechas/',
+	    dataType:'json',
+	    success: function(data) {
+	    		$('#id_fecha').html('');
+		      	$.each(data, function(i, value) {
+		          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
+		        });
+	    	}
+	});
+	
+  $("#id_sitio_accion").prop("disabled", true);
+  $("#id_plataforma").prop("disabled", true);
+
+var foo2 = [];
+$(document).on('change','#id_area_accion',function(){
+         
+    $('#id_area_accion :selected').each(function(i, selected){ 
+        foo2[i] = $(selected).val();      
+    });
+
+    $.getJSON('/analisis/ajax/sitioaccion/?ids='+foo2.join(","), function(data){
+        $("#id_sitio_accion option").remove();
+        $("#id_sitio_accion").prop("disabled", false);
+        if(data){
+        	$('#id_sitio_accion').append($('<option></option>').val('0').html('-------'));
+            $.each(data, function(i, item){
+                $('#id_sitio_accion').append($('<option></option>').val(item.id).html(item.nombre));
+                });
+       }
+   });
+    });
+
+var foo = [];
+$(document).on('change','#id_sitio_accion',function(){
+         
+    $('#id_sitio_accion :selected').each(function(i, selected){ 
+        foo[i] = $(selected).val();      
+    });
+
+    $.getJSON('/analisis/ajax/plataforma/?ids='+foo.join(","), function(data){
+        $("#id_plataforma option").remove();
+        $("#id_plataforma").prop("disabled", false);
+        if(data){
+        	$('#id_plataforma').append($('<option></option>').val('0').html('-------'));
+            $.each(data, function(i, item){
+                $('#id_plataforma').append($('<option></option>').val(item.id).html(item.nombre));
+                });
+       }
+   });
+    });
+</script>
 {% endblock extra_js %}
 
 {% block inicio %}
@@ -20,6 +75,9 @@
 }
 .select2-container--default .select2-selection--single .select2-selection__arrow{
 	height: 41px;
+}
+.consultar{
+	margin-bottom: 1em
 }
 </style>
 	<div class="row no-gutter"><!-- row -->
@@ -70,22 +128,17 @@
 
 	   			<div class=" container filtros">
 					<div class="row">
+					<form action="." method="POST">{% csrf_token %}
 						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 select-filtro">
 							<div class="form-group">
                                 <label >Tipo de Estudio</label>
                                 <br>
-                                <select  id="" name="fecha">
-									<option value="Tipo 1">Tipo 1</option>
-									<option value="Tipo 2">Tipo 2</option>
-								</select>                     
+                                	{{form.tipo_estudio}}                     
                             </div>
 							<div class="form-group">
                                 <label >Fecha</label>
                                 <br>
-                                <select multiple="multiple" id="id_fecha" name="fecha">
-									<option value="2015">2015</option>
-									<option value="2014">2014</option>
-								</select>                     
+                                	{{form.fecha}}                     
                             </div>
 
 
@@ -95,19 +148,13 @@
 							<div class="form-group">
                                 <label >Area de Acción</label>
                                 <br>
-                                <select id="" name="fecha">
-									<option value="CAC">CAC</option>
-									
-								</select>                     
+                                {{form.area_accion}}                    
                             </div>
 
                             <div class="form-group">
                                 <label >Sitio de Acción</label>
                                 <br>
-                                <select  id="" name="fecha">
-									<option value="Nicanorte">Nicanorte</option>
-								
-								</select>                     
+                                {{form.sitio_accion}}                  
                             </div>
 
 						</div>
@@ -115,40 +162,90 @@
 							<div class="form-group">
                                 <label >Plataforma</label>
                                 <br>
-                                <select  id="" name="fecha">
-									<option value="">Cacao</option>
-									<option value="">Café</option>
-								</select>                     
+                               {{form.plataforma}}                    
                             </div>
                             <div class="form-group">
                             <label for=""></label><br>
-                            	<a type="button" class="btn btn-success consultar">button</a>
+                            	
+                            	<input type="submit" value="Consultar" name="consulta" class="btn btn-success"/>
                             </div>
 						</div>
-
+					</form>
 
 					</div>
 
-
-					<div class="row">
+					{%if centinela = 1 %}
+					 <div class="row">
 						<h3>Indicadores</h3>
 						<hr>
-						
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a type="button" class="btn btn-success consultar">button</a>
+								<a href="/analisis/organizaciones/" type="button" class="btn btn-success consultar">Las Organizaciones</a>
 							</div>
 
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a type="button" class="btn btn-success consultar">button</a>
+								<a href="/analisis/proyectos-por-sector/" type="button" class="btn btn-success consultar">Proyectos por Sector</a>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a type="button" class="btn btn-success consultar">button</a>
+								<a href="/analisis/proyectos-por-tema/" type="button" class="btn btn-success consultar">Proyectos por Tema</a>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a type="button" class="btn btn-success consultar">button</a>
+								<a href="/analisis/impactos-por-sector/" type="button" class="btn btn-success consultar">Impactos por Sector</a>
+							</div>
+
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/impactos-por-tema/" type="button" class="btn btn-success consultar">Impactos por Tema</a>
+							</div>
+
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/impactos-por-beneficiarios/" type="button" class="btn btn-success consultar">Impactos por Beneficiarios</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/innovaciones-por-sector/" type="button" class="btn btn-success consultar">Innovaciones por Sector</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/innovaciones-por-tema/" type="button" class="btn btn-success consultar">Innovaciones  por Tema</a>
+							</div>
+
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/temas-por-sector/" type="button" class="btn btn-success consultar">Temas por Sector</a>
+							</div>
+
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/aliados-roles/" type="button" class="btn btn-success consultar">Los Aliados y sus Roles</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/sectores-aliados/" type="button" class="btn btn-success consultar">Los Sectores y sus Aliados</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/relaciones-sectores/" type="button" class="btn btn-success consultar">Las Relaciones de los Sectores</a>
+							</div>
+
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/innovaciones-futuras-por-sector/" type="button" class="btn btn-success consultar">Innova. futuras por Sector</a>
+							</div>
+
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/innovaciones-futuras-por-tema/" type="button" class="btn btn-success consultar">Innova. futuras por Tema</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/socio-potenciales-por-sector/" type="button" class="btn btn-success consultar">Socio potenciales por Sector</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/socios-tiempo/" type="button" class="btn btn-success consultar">Socios en el tiempo</a>
+							</div>
+
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/fuentes-aprendizaje/" type="button" class="btn btn-success consultar">Fuentes de aprendizaje</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/informacion-necesaria/" type="button" class="btn btn-success consultar">Informacion necesaria</a>
+							</div>
+							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+								<a href="/analisis/limitaciones/" type="button" class="btn btn-success consultar">Limitaciones</a>
 							</div>
 					
 					</div> 
+				    {%endif%} 
 				</div>
 				     
 	</div><!-- row end Corta hasta aca-->

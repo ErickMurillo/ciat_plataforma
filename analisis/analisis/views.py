@@ -38,7 +38,45 @@ def _queryset_filtrado(request):
 
 	return Entrevista.objects.filter(**params)
 
-def inicio(request, template='analisis/inicio.html'):
+# def inicio(request, template='analisis/inicio.html'):
+
+# 	if request.method == 'POST':
+# 		mensaje = None
+# 		form = EntrevistaConsulta(request.POST)
+# 		if form.is_valid():
+# 			request.session['fecha'] = form.cleaned_data['fecha']
+# 			request.session['area_accion'] = form.cleaned_data['area_accion']
+# 			request.session['sitio_accion'] = form.cleaned_data['sitio_accion']
+# 			request.session['tipo_estudio'] = form.cleaned_data['tipo_estudio']
+# 			request.session['plataforma'] = form.cleaned_data['plataforma']
+
+# 			mensaje = "Todas las variables estan correctamente :)"
+# 			request.session['activo'] = True
+# 			centinela = 1
+# 		else:
+# 			centinela = 0   
+		   
+# 	else:
+# 		form = EntrevistaConsulta()
+# 		mensaje = "Existen alguno errores"
+# 		centinela = 0
+# 		try:
+# 			del request.session['fecha']
+# 			del request.session['area_accion']
+# 			del request.session['sitio_accion']
+# 			del request.session['tipo_estudio']
+# 		except:
+# 			pass
+
+# 	return render(request, template, locals())
+
+def index(request,template='analisis/pagina1.html'):
+	organizaciones = Organizaciones.objects.all().count()
+	estudios = Entrevista.objects.all().count()
+
+	return render(request, template, locals() )
+
+def consulta(request, template='analisis/pagina2.html'):
 
 	if request.method == 'POST':
 		mensaje = None
@@ -918,16 +956,6 @@ class BusquedaPaisView(TemplateView):
 		data = serializers.serialize('json',departamento,fields=('nombre',))
 		return HttpResponse(data,mimetype='application/json')
 
-
-#nuevo codigo
-
-def indexnuevo(request):
-	
-    return render(request, "analisis/pagina1.html")
-
-def consulta(request):
-    
-    return render(request, "analisis/pagina2.html")
 
 #obtener puntos en el mapa
 def obtener_lista(request):
