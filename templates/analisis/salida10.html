@@ -14,7 +14,7 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
 {% include "analisis/filtros.html" %}
 
 <h3>Organizaciones socias para los Proyectos e Innovaciones por Sector</h3>
-	<div>
+
     <table class="table table-bordered">
       <tbody>
        {% for key,value in datos.items %}
@@ -36,11 +36,11 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
     {% endfor %}
 </tbody>
 </table>
-</div>
+
 
 <h3>Distribución de las alianzas para cada sector (%)</h3>
 
-<div>
+<div class="table-responsive-100">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -84,7 +84,7 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
 
         </tbody>
     </table>
-</div> 
+</div>
 <style>
     .menu5{
         background: #5d8c3b;
