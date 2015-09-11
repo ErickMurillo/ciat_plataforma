@@ -83,8 +83,6 @@
                                 <hr />
                             </div>
                    
-
-
                     	<div class="row gutter"><!-- row -->{%if actividad %}
                             <div class="col-lg-12 col-md-12">
                                 
@@ -115,17 +113,49 @@
                                     
                                     <hr/>
 
-                         
-                     
-                    
-                                </div>
+                        <div class="detalle-event"> 
+                            {% if actividad.hombres %}
+                                <span class=""> Número de participantes hombres : {{actividad.hombres}}</span>
+                            {% endif %}
+                            {% if actividad.mujeres %}
+                                <span class=""> Número de participantes mujeres : {{actividad.mujeres}}</span>
+                            {% endif %}
+                            {% if actividad.organi %}
+                                 <span class=""> Número de organizaciones participantes : {{actividad.organi}}</span>
+                            {% endif %} 
+                        </div>
+
+                                {% if actividad.resultados  %}
+                                    {{actividad.resultados|safe}}
+                                     <hr />
+                                {% endif %}
                                 
+                                </div>
+                                 {%if actividad.adjunto.all %}
+                                    <div class="row">
+                                        {% for doc in actividad.adjunto.all%}
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="col-md-12 col-lg-8">
+                                                <p class="info-doc">{{doc.nombre_doc}}</p>
+                                            </div>
+                                            <div class="col-md-12 col-lg-4">
+                                                <a href="/uploads/{{doc.adjunto}}" class="btn btn-primary">
+                                                    <i class="fa fa-download">&nbsp;</i>Descargar
+                                                </a>
+                                            </div>
+                                        </div>
+                                
+                                    </div>
+                                    {% endfor %}
+                                    <hr />
+                                {%endif%}
+                               
                                 <div class="col-md-12 col-lg-12">
                                     <div class="addthis_native_toolbox"></div>
                                 </div>
                                 <br>
                                 <hr />
-                            </div>
+                                </div>
 
                                     {%endif%}
                             
