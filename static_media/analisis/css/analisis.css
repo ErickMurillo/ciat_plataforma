@@ -18,6 +18,11 @@
 #main-menu li a {
     font-size: 13px !important
 }
+
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+  color: black;
+  border-color: rgba(93, 140, 59, 0.5);
+}
 /* -------------------------------------- */
 h3{
     text-align: center

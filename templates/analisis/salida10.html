@@ -61,14 +61,14 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
                         <td>
                             {% for valor in z %}
                                 {% if forloop.counter == 1 %}
-                                    {{valor}}
+                                    <b>{{valor}}</b>
                                 {% else %}
                                     ({{valor|floatformat:2}} %)
                                 {% endif %}
                             {% endfor %}
                         </td>
                     {% endfor %}
-                    <td>{{y.1}}</td>
+                    <td><b>{{y.1}}</b></td>
                  
  </tr>
             {% endfor %}
@@ -76,9 +76,9 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
             <tr>
                 <td>Total</td>
                 {% for x in lista_totales %}
-                    <td>{{x}}</td>
+                    <td><b>{{x}}</b></td>
                 {% endfor %}
-                <td>{{total}}</td>
+                <td><b>{{total}}</b></td>
             </tr>
         
 
