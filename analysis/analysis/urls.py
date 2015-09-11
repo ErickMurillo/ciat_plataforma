@@ -1,7 +1,8 @@
 from django.conf.urls import *
 
 urlpatterns = patterns('analysis.analysis.views',
-	url(r'^$', 'inicio', name="inicio"),
+	url(r'^$', 'index', name="index"),
+    url(r'^consult/$', 'consulta', name='consulta'),
     #url(r'^salidas/$', 'post', name='salidas'),
     url(r'^organizations/$', 'output1', name='organizations'),
     url(r'^projects-by-sector/$', 'output2', name='projects-by-sector'),
@@ -28,5 +29,6 @@ urlpatterns = patterns('analysis.analysis.views',
     url(r'^ajax/fechas/$', 'get_fecha', name='get_fecha'),
     url(r'^ajax/sitioaccion/$', 'get_sitio_accion', name='get_sitio_accion'),
     url(r'^ajax/plataforma/$', 'get_plataforma', name='get_plataforma'),
+    url(r'^mapa/$', 'obtener_lista', name='obtener-lista'),
     
     )

@@ -1,7 +1,24 @@
 /*==============================================
     GENERAL  STYLES    
     =============================================*/
+/* nuevo codigo */
+.idiomabtn {
+    text-align: right;
+}
 
+.sidebar-collapse > .nav > li > a {
+   padding: 10px 5px !important;
+}
+
+.navbar-default {
+    font-size: 16px !important;
+      font-weight: normal !important;
+}
+
+#main-menu li a {
+    font-size: 13px !important
+}
+/* -------------------------------------- */
 h3{
     text-align: center
 }

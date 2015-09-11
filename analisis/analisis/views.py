@@ -74,7 +74,7 @@ def index(request,template='analisis/pagina1.html'):
 	organizaciones = Organizaciones.objects.all().count()
 	estudios = Entrevista.objects.all().count()
 
-	return render(request, template, locals() )
+	return render(request, template, locals())
 
 def consulta(request, template='analisis/pagina2.html'):
 

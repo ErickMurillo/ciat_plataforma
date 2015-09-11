@@ -38,7 +38,13 @@ def _queryset_filtrado(request):
 
 	return Entrevista.objects.filter(**params)
 
-def inicio(request, template='analysis/inicio.html'):
+def index(request,template='analysis/pagina1.html'):
+	organizaciones = Organizaciones.objects.all().count()
+	estudios = Entrevista.objects.all().count()
+
+	return render(request, template, locals())
+
+def consulta(request, template='analysis/pagina2.html'):
 
 	if request.method == 'POST':
 		mensaje = None
@@ -69,6 +75,38 @@ def inicio(request, template='analysis/inicio.html'):
 			pass
 
 	return render(request, template, locals())
+
+# def inicio(request, template='analysis/inicio.html'):
+
+# 	if request.method == 'POST':
+# 		mensaje = None
+# 		form = EntrevistaConsulta(request.POST)
+# 		if form.is_valid():
+# 			request.session['fecha'] = form.cleaned_data['fecha']
+# 			request.session['area_accion'] = form.cleaned_data['area_accion']
+# 			request.session['sitio_accion'] = form.cleaned_data['sitio_accion']
+# 			request.session['tipo_estudio'] = form.cleaned_data['tipo_estudio']
+# 			request.session['plataforma'] = form.cleaned_data['plataforma']
+
+# 			mensaje = "Todas las variables estan correctamente :)"
+# 			request.session['activo'] = True
+# 			centinela = 1
+# 		else:
+# 			centinela = 0   
+		   
+# 	else:
+# 		form = EntrevistaConsulta()
+# 		mensaje = "Existen alguno errores"
+# 		centinela = 0
+# 		try:
+# 			del request.session['fecha']
+# 			del request.session['area_accion']
+# 			del request.session['sitio_accion']
+# 			del request.session['tipo_estudio']
+# 		except:
+# 			pass
+
+# 	return render(request, template, locals())
 
 def output1(request, template="analysis/salida1.html"):
 	filtro = _queryset_filtrado(request)
@@ -889,3 +927,17 @@ def get_plataforma(request):
     sitios = Plataforma.objects.filter(sitio_accion__pk__in=lista).order_by('nombre').values('id', 'nombre')
 
     return HttpResponse(simplejson.dumps(list(sitios)), content_type='application/json')
+
+#obtener puntos en el mapa
+def obtener_lista(request):
+    if request.is_ajax():
+        lista = []
+        for objeto in Entrevista.objects.all():
+            dicc = dict(nombre=objeto.organizacion.departamento.nombre, id=objeto.id,
+                    lon=float(objeto.organizacion.departamento.longitud),
+                    lat=float(objeto.organizacion.departamento.latitud)
+                    )
+            lista.append(dicc)
+
+        serializado = simplejson.dumps(lista)
+        return HttpResponse(serializado, content_type='application/json')
