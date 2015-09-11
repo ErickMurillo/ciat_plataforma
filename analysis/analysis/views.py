@@ -933,7 +933,7 @@ def obtener_lista(request):
     if request.is_ajax():
         lista = []
         for objeto in Entrevista.objects.all():
-            dicc = dict(nombre=objeto.organizacion.departamento.nombre, id=objeto.id,
+            dicc = dict(id=objeto.id,
                     lon=float(objeto.organizacion.departamento.longitud),
                     lat=float(objeto.organizacion.departamento.latitud)
                     )
