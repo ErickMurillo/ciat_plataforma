@@ -962,12 +962,14 @@ def obtener_lista(request):
     if request.is_ajax():
         lista = []
         for objeto in Entrevista.objects.all():
-            if objeto.organizacion.departamento.longitud != None and objeto.organizacion.departamento.latitud != None:
+            try:
                 dicc = dict(id=objeto.id,
                         lon=float(objeto.organizacion.departamento.longitud),
                         lat=float(objeto.organizacion.departamento.latitud)
                         )
                 lista.append(dicc)
+            except:
+                pass
 
         serializado = simplejson.dumps(lista)
         return HttpResponse(serializado, content_type='application/json')
