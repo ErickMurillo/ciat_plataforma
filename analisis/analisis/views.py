@@ -38,7 +38,45 @@ def _queryset_filtrado(request):
 
 	return Entrevista.objects.filter(**params)
 
-def inicio(request, template='analisis/inicio.html'):
+# def inicio(request, template='analisis/inicio.html'):
+
+# 	if request.method == 'POST':
+# 		mensaje = None
+# 		form = EntrevistaConsulta(request.POST)
+# 		if form.is_valid():
+# 			request.session['fecha'] = form.cleaned_data['fecha']
+# 			request.session['area_accion'] = form.cleaned_data['area_accion']
+# 			request.session['sitio_accion'] = form.cleaned_data['sitio_accion']
+# 			request.session['tipo_estudio'] = form.cleaned_data['tipo_estudio']
+# 			request.session['plataforma'] = form.cleaned_data['plataforma']
+
+# 			mensaje = "Todas las variables estan correctamente :)"
+# 			request.session['activo'] = True
+# 			centinela = 1
+# 		else:
+# 			centinela = 0   
+		   
+# 	else:
+# 		form = EntrevistaConsulta()
+# 		mensaje = "Existen alguno errores"
+# 		centinela = 0
+# 		try:
+# 			del request.session['fecha']
+# 			del request.session['area_accion']
+# 			del request.session['sitio_accion']
+# 			del request.session['tipo_estudio']
+# 		except:
+# 			pass
+
+# 	return render(request, template, locals())
+
+def index(request,template='analisis/pagina1.html'):
+	organizaciones = Organizaciones.objects.all().count()
+	estudios = Entrevista.objects.all().count()
+
+	return render(request, template, locals())
+
+def consulta(request, template='analisis/pagina2.html'):
 
 	if request.method == 'POST':
 		mensaje = None
@@ -921,26 +959,17 @@ class BusquedaPaisView(TemplateView):
 		return HttpResponse(data,mimetype='application/json')
 
 
-#nuevo codigo
-
-def indexnuevo(request):
-    
-    return render(request, "analisis/pagina1.html")
-
-def consulta(request):
-    
-    return render(request, "analisis/pagina2.html")
-
 #obtener puntos en el mapa
 def obtener_lista(request):
     if request.is_ajax():
         lista = []
         for objeto in Entrevista.objects.all():
-            dicc = dict(nombre=objeto.organizacion.municipio.nombre, id=objeto.id,
-                        lon=float(objeto.organizacion.municipio.longitud),
-                        lat=float(objeto.organizacion.municipio.latitud)
-                        )
+            dicc = dict(nombre=objeto.organizacion.departamento.nombre, id=objeto.id,
+                    lon=float(objeto.organizacion.departamento.longitud),
+                    lat=float(objeto.organizacion.departamento.latitud)
+                    )
             lista.append(dicc)
 
         serializado = simplejson.dumps(lista)
-        return HttpResponse(serializado, mimetype='application/json')
+
+        return HttpResponse(serializado, content_type='application/json')

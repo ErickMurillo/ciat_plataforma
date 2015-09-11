@@ -1,4 +1,4 @@
-{% extends "analisis/base.html" %}
+{% extends "analysis/base.html" %}
 
 {% block extra_js %}
 <script src="https://maps.googleapis.com/maps/api/js"></script>
@@ -22,7 +22,7 @@
         //var image = new google.maps.MarkerImage('/static/img/m2.png');
         
         
-        $.getJSON("/analisis/mapa/", function(data){
+        $.getJSON("/analysis/mapa/", function(data){
             $.each(data, function(i, elemento){
                 var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
                 bounds.extend(latlng);  
@@ -76,7 +76,7 @@
                         
                             <li class="widget-container widget_nav_menu"><!-- widget -->
                     
-                                <h1 class="title-widget">Actualmente</h1>
+                                <h1 class="title-widget">Actually</h1>
                                 
                                
                                     <div class="monitoreo-data clearfix">
@@ -85,7 +85,7 @@
                                                 
                                             <h1 class="title-median">
                                                 <span class="cant">{{estudios}}</span>
-                                                Estudios
+                                                Studies
                                             </h1>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                                 
                                             <h1 class="title-median">
                                                 <span class="cant">{{organizaciones}}</span>
-                                                Organizaciones
+                                                Organizations
                                             </h1>
                                         </div>
                                     </div>
@@ -123,7 +123,7 @@
 
                                     </div>-->
                                     <br>
-                                    <a class="btn btn-success center-block" href="/analisis/consulta/">Explorar los datos ahora</a>
+                                    <a class="btn btn-success center-block" href="/analysis/consult/">Explore data now</a>
                     
                             </li>
                             
@@ -162,12 +162,12 @@
                         
                             <li class="widget-container widget_nav_menu"><!-- widget -->
                     
-                                <h1 class="title-widget">Análisis organizacional</h1>
+                                <h1 class="title-widget">Organizational analysis</h1>
                                 
 								<div class="cuerpo">
 							            Ac sed natoque ut rhoncus lacus turpis tortor facilisis, ut? Arcu amet amet pellentesque massa. Montes lacus nec nisi cum, turpis! Facilisis elementum integer? Habitasse rhoncus placerat platea nisi eros, cursus nec mus velit tincidunt, dolor, quis turpis dapibus nunc, integer ac lacus est cum nec dapibus nunc! Integer lacus odio et? Enim lectus nec eros velit urna sit sagittis, amet et etiam dignissim...
 							        <br><br>
-							        <a class='examplelink' href="#">Continuar leyendo <img src="/static/monitoreo/imagen/seguir.png" class="seguir" alt="seguir"></a>
+							        <a class='examplelink' href="#">Read more <img src="/static/monitoreo/imagen/seguir.png" class="seguir" alt="seguir"></a>
 							    </div> 
                     
                             </li>

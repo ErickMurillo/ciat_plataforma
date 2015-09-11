@@ -20,6 +20,7 @@
    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css">
         <!-- SELECT2-->
    <link href="{% static 'analisis/css/select2.min.css' %}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 {% include "menuprincipal.html" %}
@@ -47,7 +48,7 @@
                 
                     
                     <li>
-                        <a  href="/analisis/"></i>Consultar</a>
+                        <a  href="/analisis/consulta"></i>Consultar</a>
                     </li>
 
                     {% if request.session.fecha %}
@@ -128,7 +129,7 @@
                         </ul>
                       </li>
                       <li class="menu8">
-                        <a href="#"></i>Los Socios actuales y potenciales<span class="fa arrow"></span></a>
+                        <a href="#">Los Socios actuales y potenciales<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="menu8-1">
                                 <a href="/analisis/socio-potenciales-por-sector/">Socio potenciales por Sector</a>
@@ -139,7 +140,7 @@
                         </ul>
                       </li> 
                     <li class="menu9">
-                        <a class=""  href="#"></i>Aprendizaje<span class="fa arrow"></span></a>
+                        <a class=""  href="#">Aprendizaje<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="menu9-1">
                                 <a href="/analisis/fuentes-aprendizaje/">Fuentes de aprendizaje</a>
@@ -166,22 +167,22 @@
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
         <div class="col-md-3 col-md-offset-9 idiomabtn">
-                <a href="/analisis/"><img src="/static/analisis/img/espana.png" alt="">Español</a>
-                <a href="/analysis/"><img src="/static/analisis/img/eeuu.png" alt="">Ingles</a>
+                <!--<a href="/analisis/"><img src="/static/analisis/img/espana.png" alt="">Español</a>-->
+                <a href="/analysis/"><img src="/static/analisis/img/eeuu.jpg" alt=""> Ingles</a>
             </div>
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12" >
-
+                        <div class="contenido">
                     {% block contenido %}{% endblock contenido %}
                      
-                       
+                </div>   
                     </div>
                 </div>
                  <!-- /. ROW  -->
                  <hr />
                
-    </div>
+        </div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
@@ -205,9 +206,9 @@
                                 
                                  <ul>
                                     <li><a href="/analisis/" title="menu item">Analisis Organizacional</a></li>
-                                    <li><a href="#" title="menu item">Monitoreo campesino</a></li>
-                                    <li><a href="/comunicacion" title="menu item">Plataforma de comunicación</a></li>
-                                    <li><a href="#" title="menu item">Productos y procesos</a></li>
+                                    <li><a href="/monitoreo/" title="menu item">Monitoreo campesino</a></li>
+                                    <li><a href="/comunicacion/" title="menu item">Plataforma de comunicación</a></li>
+                                    <li><a href="/producto/" title="menu item">Productos y procesos</a></li>
                                     <li><a href="#" title="menu item">Mapeo de actores</a></li>
                                 </ul>
                     
@@ -336,7 +337,7 @@
      //        data:data
      //    });
       $('select').select2({minimumResultsForSearch: Infinity});
-      
+      $("table").addClass( "table table-hover" );
     </script>
 
 

@@ -20,6 +20,7 @@
    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,800" rel="stylesheet" type="text/css">
      <!-- SELECT2-->
    <link href="{% static 'analisis/css/select2.min.css' %}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 {% include "mainmenu.html" %}
@@ -49,7 +50,7 @@
                 
                     
                     <li>
-                        <a  href="/analysis/"></i>Query</a>
+                        <a  href="/analysis/consult/"></i>Query</a>
                     </li>
 
                     {% if request.session.fecha %}
@@ -173,16 +174,18 @@
 
         <div id="page-wrapper" >
             <div class="col-md-3 col-md-offset-9 idiomabtn">
-                <a href="/analisis/"><img src="/static/analisis/img/espana.png" alt="">Spanish</a>
-                <a href="/analysis/"><img src="/static/analisis/img/eeuu.png" alt="">English</a>
+                <a href="/analisis/"><img src="/static/analisis/img/es.png" alt=""> Spanish</a>
+                <!--<a href="/analysis/"><img src="/static/analisis/img/eeuu.png" alt="">English</a>-->
             </div>
 
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12" >
 
+                     <div class="contenido">
                     {% block contenido %}{% endblock contenido %}
                      
+                </div>
                        
                     </div>
                 </div>
@@ -213,9 +216,9 @@
                                 
                                  <ul>
                                     <li><a href="/analisis/" title="menu item">Analisis Organizacional</a></li>
-                                    <li><a href="#" title="menu item">Monitoreo campesino</a></li>
-                                    <li><a href="/comunicacion" title="menu item">Plataforma de comunicación</a></li>
-                                    <li><a href="#" title="menu item">Productos y procesos</a></li>
+                                    <li><a href="/monitoreo/" title="menu item">Monitoreo campesino</a></li>
+                                    <li><a href="/comunicacion/" title="menu item">Plataforma de comunicación</a></li>
+                                    <li><a href="/producto/" title="menu item">Productos y procesos</a></li>
                                     <li><a href="#" title="menu item">Mapeo de actores</a></li>
                                 </ul>
                     
@@ -339,6 +342,7 @@
     //     });
       $('select').select2({minimumResultsForSearch: Infinity});
       
+      $("table").addClass( "table table-hover" );
     </script>
 
 

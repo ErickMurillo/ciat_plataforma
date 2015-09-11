@@ -792,10 +792,76 @@ background-color: #FFF;
   margin: 0 0 15px 0;
 }
 
-#k-footer .container {
+/*#k-footer .container {
   max-width: 960px;
+}*/
+
+/*#k-subfooter .container {
+  max-width: 960px;
+}*/
+
+
+/**Nuevo 11/09/2015**/
+.contenido{
+	margin: 0 auto;
+}
+@media (min-width: 1200px){
+	.contenido {
+	  width: 970px;
+	}
 }
 
-#k-subfooter .container {
-  max-width: 960px;
+@media (min-width: 992px){
+	.container {
+	  width: 750px;
+	}
+}
+.filtros{
+	background-color: #5D8C3B;
+}
+.filtros .breadcrumb{
+	background-color: transparent;
+	margin-left: 20px;
+}
+
+.filtros li, .breadcrumb>li+li:before, .filtros li a{
+	color: white;
+	font-weight: bold;
+	padding: 10px 0px;
+}
+
+.table{
+	margin: 0 auto;
+}
+th {
+  background-color: #5d8c3b;
+  color: white;
+  font-weight: bold;
+  padding: 25px 0px;
+  text-align: center;
+  vertical-align: middle;
+}
+#sector,#proyectos,#container,#impactos,#salida5,
+#salida5b,#salida6,#salida7,#salida8,#salida9,#salida11,
+#salida14,#salida15,#salida16,#salida16b{
+	width: 90%;
+	margin: 40px auto;
+
+}
+.modalidad{
+	margin-bottom: 50px;
+}
+.valor{
+	text-align: center;
+}
+
+
+.table-responsive-100 {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  border: 1px solid #ddd;
+  -webkit-overflow-scrolling: touch;
 }

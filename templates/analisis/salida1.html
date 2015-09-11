@@ -54,7 +54,11 @@
 
 
 {% block contenido %}
-
+<style>
+    td{
+        width: 50% !important;
+    }
+</style>
 {% include "analisis/filtros.html" %}
 
 <h3>Organizaciones participando en el estudio</h3>
@@ -64,6 +68,10 @@
 
 <div id="modalidad">
     <table class="table table-bordered">
+    <thead>
+        <th>Sectores</th>
+        <th>Organizaciones</th>
+    </thead>
       <tbody>
          {% for key,value in sectores1.items %}
          <tr>

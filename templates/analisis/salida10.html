@@ -5,7 +5,7 @@
 {% block extra_js%}  
 <script>
 $( ".menu5" ).addClass( "active" );
-$( ".menu5-3 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
+$( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
 </script>
 {% endblock extra_js%} 
 
@@ -14,7 +14,7 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
 {% include "analisis/filtros.html" %}
 
 <h3>Organizaciones socias para los Proyectos e Innovaciones por Sector</h3>
-	<div>
+
     <table class="table table-bordered">
       <tbody>
        {% for key,value in datos.items %}
@@ -36,11 +36,11 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
     {% endfor %}
 </tbody>
 </table>
-</div>
 
-<h3>Número, promedio y valores medianos de las Alianzas por Sector</h3>
 
-<div>
+<h3>Distribución de las alianzas para cada sector (%)</h3>
+
+<div class="table-responsive-100">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -61,14 +61,14 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
                         <td>
                             {% for valor in z %}
                                 {% if forloop.counter == 1 %}
-                                    {{valor}}
+                                    <b>{{valor}}</b>
                                 {% else %}
                                     ({{valor|floatformat:2}} %)
                                 {% endif %}
                             {% endfor %}
                         </td>
                     {% endfor %}
-                    <td>{{y.1}}</td>
+                    <td><b>{{y.1}}</b></td>
                  
  </tr>
             {% endfor %}
@@ -76,15 +76,15 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-2x'></i>" );
             <tr>
                 <td>Total</td>
                 {% for x in lista_totales %}
-                    <td>{{x}}</td>
+                    <td><b>{{x}}</b></td>
                 {% endfor %}
-                <td>{{total}}</td>
+                <td><b>{{total}}</b></td>
             </tr>
         
 
         </tbody>
     </table>
-</div> 
+</div>
 <style>
     .menu5{
         background: #5d8c3b;
