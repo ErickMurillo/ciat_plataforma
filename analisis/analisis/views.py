@@ -105,7 +105,7 @@ def consulta(request, template='analisis/pagina2.html'):
             del request.session['tipo_estudio']
         except:
             pass
-
+            
     return render(request, template, locals())
 
 def salida1(request, template="analisis/salida1.html"):

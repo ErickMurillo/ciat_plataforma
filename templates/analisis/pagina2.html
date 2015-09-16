@@ -3,17 +3,17 @@
 {% block extra_js %}
 <script type="text/javascript">
 
-	$.ajax({
-	    type: "GET",
-	    url: '/analisis/ajax/fechas/',
-	    dataType:'json',
-	    success: function(data) {
-	    		$('#id_fecha').html('');
-		      	$.each(data, function(i, value) {
-		          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
-		        });
-	    	}
-	});
+	// $.ajax({
+	//     type: "GET",
+	//     url: '/analisis/ajax/fechas/',
+	//     dataType:'json',
+	//     success: function(data) {
+	//     		$('#id_fecha').html('');
+	// 	      	$.each(data, function(i, value) {
+	// 	          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
+	// 	        });
+	//     	}
+	// });
 	
   $("#id_sitio_accion").prop("disabled", true);
   $("#id_plataforma").prop("disabled", true);

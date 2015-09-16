@@ -28,19 +28,24 @@ def fecha_choice():
     return list(sorted(set(years)))
     
 class EntrevistaConsulta(forms.Form):
-    fecha = forms.MultipleChoiceField(choices=fecha_choice(),required=True, 
-              label=u'Date')
-    area_accion = forms.ModelChoiceField(queryset=AreaAccion.objects.order_by('nombre'), 
-                                  required=False, 
-                                  label=u'Action Site')
-    sitio_accion = forms.ModelChoiceField(queryset=SitioAccion.objects.order_by('nombre'), 
-								            required=False, 
-			                      label=u'Area Site')
-    tipo_estudio = forms.ModelChoiceField(queryset=Tipo_Estudio.objects.order_by('nombre'), 
-								            required=False, 
-			                      label=u'Type of study')
-    plataforma = forms.ModelChoiceField(queryset=Plataforma.objects.order_by('nombre'), 
-                                  required=False, 
-                                  label=u'Platform')
+  
+  def __init__(self, *args, **kwargs):
+        super(EntrevistaConsulta, self).__init__(*args, **kwargs)
+        self.fields['fecha'] = forms.MultipleChoiceField(choices=fecha_choice(),required=True,label=u'Date')
+   
+        self.fields['area_accion'] = forms.ModelChoiceField(queryset=AreaAccion.objects.order_by('nombre'), 
+                                      required=False, 
+                                      label=u'Action Site')
+        self.fields['sitio_accion'] = forms.ModelChoiceField(queryset=SitioAccion.objects.order_by('nombre'), 
+    								            required=False, 
+    			                      label=u'Area Site')
+        self.fields['tipo_estudio'] = forms.ModelChoiceField(queryset=Tipo_Estudio.objects.order_by('nombre'), 
+    								            required=False, 
+    			                      label=u'Type of study')
+        self.fields['plataforma'] = forms.ModelChoiceField(queryset=Plataforma.objects.order_by('nombre'), 
+                                      required=False, 
+                                      label=u'Platform')
+
+    
 
 
