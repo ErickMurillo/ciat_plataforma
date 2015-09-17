@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from comunicacion.utils import *
 from mapeo.models import Proyectos
 from analisis.configuracion.models import Plataforma
+from mapeo.models import Temas
 
 # Create your models here.
 CHOICE_TIPO = (
@@ -40,6 +41,7 @@ class Biblioteca(models.Model):
     palabras_claves = models.CharField(max_length=250, null=True, blank=True)
     proyecto = models.ManyToManyField(Proyectos, blank=True)
     alianza = models.ManyToManyField(Plataforma, blank=True)
+    temas = models.ManyToManyField(Temas, blank=True)
 
     user = models.ForeignKey(User)
 
