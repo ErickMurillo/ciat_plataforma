@@ -73,8 +73,8 @@ class Pregunta_1(models.Model):
 		return self.proyecto
 
 	class Meta:
-		verbose_name = (u'Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 years')
-		verbose_name_plural = (u'Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 años')
+		verbose_name = (u'1-Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 years')
+		verbose_name_plural = (u'1-Proyectos e iniciativas que ha llevado su organizacion en los ultimos 5 años')
 
 PREGUNTA2_CHOICES = (
     (1, (u'Tecnicos')),
@@ -91,8 +91,8 @@ class Pregunta_2(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Recursos humanos')
-		verbose_name_plural = (u'Recursos humanos que tiene su organización')
+		verbose_name = (u'2-Recursos humanos')
+		verbose_name_plural = (u'2-Recursos humanos que tiene su organización')
 
 	def __unicode__(self):
 		return self.seleccion1
@@ -102,8 +102,8 @@ class Pregunta_3(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'A que grupos beneficia su organización')
-		verbose_name_plural = (u'A que grupos beneficia su organización')
+		verbose_name = (u'3-A que grupos beneficia su organización')
+		verbose_name_plural = (u'3-A que grupos beneficia su organización')
 
 
 
@@ -114,8 +114,8 @@ class Pregunta_4(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Impactos Organizacionales')
-		verbose_name_plural = (u'Tipos de impactos organizacionales que ha hecho su organización en los ultimos 5 años')
+		verbose_name = (u'4-Impactos Organizacionales')
+		verbose_name_plural = (u'4-Tipos de impactos organizacionales que ha hecho su organización en los ultimos 5 años')
 
 	def __unicode__(self):
 		return self.impacto
@@ -137,8 +137,8 @@ class Pregunta_5a(models.Model):
 		return self.innovacion
 
 	class Meta:
-		verbose_name = (u'Innovación productiva u organizacional')
-		verbose_name_plural = (u'Ha participado su organización en alguna innovación productiva u organizacional en la región')
+		verbose_name = (u'5a-Innovación productiva u organizacional')
+		verbose_name_plural = (u'5a-Ha participado su organización en alguna innovación productiva u organizacional en la región')
 
 class Pregunta_5c(models.Model):
 	innovacion = models.ForeignKey(Pregunta_5a,verbose_name=(u'Innovacion'))
@@ -146,8 +146,8 @@ class Pregunta_5c(models.Model):
 
 
 	class Meta:
-		verbose_name = (u'Papel que juega su organización')
-		verbose_name_plural = (u'Papel que juega su organización y otros socios en relación a cada innovación')
+		verbose_name = (u'5c-Papel que juega su organización')
+		verbose_name_plural = (u'5c-Papel que juega su organización y otros socios en relación a cada innovación')
 
 	def __unicode__(self):
 		return self.innovacion
@@ -158,8 +158,8 @@ class Pregunta_5c_nested(models.Model):
 	pregunta_5c = models.ForeignKey(Pregunta_5c)
 
 	class Meta:
-		verbose_name = (u'Organizaciones colaborativas de innovación')
-		verbose_name_plural = (u'Organizaciones colaborativas de innovación')
+		verbose_name = (u'5c-Organizaciones colaborativas de innovación')
+		verbose_name_plural = (u'5c-Organizaciones colaborativas de innovación')
 
 	def __unicode__(self):
 		return self.organizacion.nombre
@@ -170,8 +170,8 @@ class Pregunta_5d(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Limitaciones')
-		verbose_name_plural = (u'Principales limitaciones que afectaron el éxito de estas innovaciones')
+		verbose_name = (u'5d-Limitaciones')
+		verbose_name_plural = (u'5d-Principales limitaciones que afectaron el éxito de estas innovaciones')
 
 	def __unicode__(self):
 		return self.innovacion
@@ -183,8 +183,8 @@ class Pregunta_5e(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Fuentes de aprendizaje')
-		verbose_name_plural = (u'Fuentes mas importantes de aprendizaje y consulta dentro y fuera de la región')
+		verbose_name = (u'5e-Fuentes de aprendizaje')
+		verbose_name_plural = (u'5e-Fuentes mas importantes de aprendizaje y consulta dentro y fuera de la región')
 
 	def __unicode__(self):
 		return self.innovacion
@@ -200,16 +200,16 @@ class Pregunta_6a(models.Model):
 		return self.innovacion
 		
 	class Meta:
-		verbose_name = (u'Innovaciones')
-		verbose_name_plural = (u'Innovaciones en las que le gustaría trabajar a su organización en los proximas 5-10 años')
+		verbose_name = (u'6a-Innovaciones')
+		verbose_name_plural = (u'6a-Innovaciones en las que le gustaría trabajar a su organización en los proximas 5-10 años')
 
 class Pregunta_6c(models.Model):
 	innovacion = models.ForeignKey(Pregunta_6a,verbose_name=(u'Innovación'))
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Socios o colaboradores')
-		verbose_name_plural = (u'Socios o colaboradores claves para llevar a cabo las innovaciones')
+		verbose_name = (u'6c-Socios o colaboradores')
+		verbose_name_plural = (u'6c-Socios o colaboradores claves para llevar a cabo las innovaciones')
 
 	def __unicode__(self):
 		return self.innovacion
@@ -220,8 +220,8 @@ class Pregunta_6c_nested(models.Model):
 	pregunta_6c = models.ForeignKey(Pregunta_6c)
 
 	class Meta:
-			verbose_name = (u'Organizaciones colaborativas de innovación')
-			verbose_name_plural = (u'Organizaciones colaborativas de innovación')
+			verbose_name = (u'6c-Organizaciones colaborativas de innovación')
+			verbose_name_plural = (u'6c-Organizaciones colaborativas de innovación')
 
 	def __unicode__(self):
 		return self.organizacion
@@ -232,8 +232,8 @@ class Pregunta_6d(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Posibles limitaciones')
-		verbose_name_plural = (u'Posibles limitaciones para llevar a cabo estos cambios en la región')
+		verbose_name = (u'6d-Posibles limitaciones')
+		verbose_name_plural = (u'6d-Posibles limitaciones para llevar a cabo estos cambios en la región')
 	
 	def __unicode__(self):
 		return self.innovacion
@@ -246,8 +246,8 @@ class Pregunta_6e(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Información necesaria o clave para la realización de las innovaciones')
-		verbose_name_plural = (u'Información necesaria o clave para la realización de las innovaciones')
+		verbose_name = (u'6e-Información necesaria o clave para la realización de las innovaciones')
+		verbose_name_plural = (u'6e-Información necesaria o clave para la realización de las innovaciones')
 
 	def __unicode__(self):
 		return self.innovacion
@@ -258,16 +258,16 @@ class Pregunta_7a(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name =(u'Sitios de campo')
-		verbose_name_plural = (u'Sitios de campo donde Humidtropics debería desarrollar actividades con socios locales')
+		verbose_name =(u'7a-Sitios de campo')
+		verbose_name_plural = (u'7a-Sitios de campo donde Humidtropics debería desarrollar actividades con socios locales')
 
 class Pregunta_7b(models.Model):
 	seleccion = models.ManyToManyField(Seleccion_7b, verbose_name=(u'Selección'))
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Papel que podría jugar su organización en los sitios de campo seleccionados/Humidtropics')
-		verbose_name_plural = (u'Papel que podría jugar su organización en los sitios de campo seleccionados/Humidtropics')
+		verbose_name = (u'7b-Papel que podría jugar su organización en los sitios de campo seleccionados/Humidtropics')
+		verbose_name_plural = (u'7b-Papel que podría jugar su organización en los sitios de campo seleccionados/Humidtropics')
 
 TERRITORIO_CHOICES = (
     (1, (u'Dentro')),
@@ -296,8 +296,8 @@ class Pregunta_8(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Relación con las organizaciones')
-		verbose_name_plural = (u'Relaciones con las organizaciones que radican en los territorios')
+		verbose_name = (u'8-Relación con las organizaciones')
+		verbose_name_plural = (u'8-Relaciones con las organizaciones que radican en los territorios')
 
 	def __unicode__(self):
 		return self.organizacion
@@ -340,8 +340,8 @@ class Pregunta_9(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Análisis de capacidad de las organizaciones')
-		verbose_name_plural = (u'Análisis de capacidad de las organizaciones')
+		verbose_name = (u'9-Análisis de capacidad de las organizaciones')
+		verbose_name_plural = (u'9-Análisis de capacidad de las organizaciones')
 
 	def __unicode__(self):
 		return self.tema
@@ -382,8 +382,8 @@ class Pregunta_11(models.Model):
 	entrevistado = models.ForeignKey(Entrevista)
 
 	class Meta:
-		verbose_name = (u'Datos que tiene la organización para análisis de datos secundarios')
-		verbose_name_plural = (u'Datos que tiene la organización para análisis de datos secundarios')
+		verbose_name = (u'11-Datos que tiene la organización para análisis de datos secundarios')
+		verbose_name_plural = (u'11-Datos que tiene la organización para análisis de datos secundarios')
 
 	def __unicode__(self):
 		return self.sobre
