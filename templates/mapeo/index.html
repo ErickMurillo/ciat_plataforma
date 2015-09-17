@@ -55,7 +55,7 @@
         <article class="listas">
             <h6 class="pointer mar-b-5">{{obj.codigo}}</h6>
             <div>
-                <h4 class="mar-b-5 mar-t-5"><a href="#" >{{obj.nombre}}</a></h4>
+                <h4 class="mar-b-5 mar-t-5"><a href='{% url "mapa-proyecto" obj.id %}' >{{obj.nombre}}</a></h4>
             </div>
 
         </article>

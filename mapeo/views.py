@@ -68,6 +68,7 @@ def proyectos(request, template="mapeo/proyectos.html"):
 def mapa_actores(request, template="mapeo/mapa.html", id_proyecto=None):
 
     el_proyecto = Proyectos.objects.get(id=id_proyecto)
+    
     if request.method == 'POST':
         mensaje = None
         form_mapa = MapaConsulta(request.POST)

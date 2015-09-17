@@ -12,7 +12,7 @@
     {% else%}
         var tipo_persona = {{request.session.tipo_persona}};
     {% endif %}
-    console.log(tipo_persona);
+    
     var map;
     var markers = [];
     $(document).ready(function () {
@@ -65,16 +65,56 @@
 
 <div class="row">
     <h4>{{el_proyecto.nombre}}</h4>
-    <form action="." method="POST">
-    {% csrf_token %}
-    {{form_mapa}}
-    <input class="btn btn-default" type="submit" value="Consultar" />
-</form>
+    <div>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Proyecto Descripción</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Actores(mapa)</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Linea de tiempo</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Publicaciones</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="home">
+            <ul>
+                <li>Inicio: {{el_proyecto.inicio}}</li>
+                <li>Finalización: {{el_proyecto.fin}}</li>
+                <li>Estado: Activo</li>
+                <li>Tipo proyecto: {{el_proyecto.tipo}}</li>
+                <li>Administrador del proyecto: {{el_proyecto.encargado}}</li>
+            </ul>
+            <p>{{el_proyecto.descripcion}}</p>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="profile">
+            <form action="." method="POST">
+                {% csrf_token %}
+                {{form_mapa}}
+                <input class="btn btn-default" type="submit" value="Consultar" />
+            </form>
+
+            <br>
+            <div class="mapa">
+                <div id="map_canvas"></div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="messages">
+            Linea de tiempo
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="settings">
+            <ul>
+                {% for obj in el_proyecto.biblioteca_set.all %}
+                    <li><a href="#">{{obj.titulo}} - tipo: {{obj.get_tipo_display}}</a></li>
+                {% endfor %}
+                
+            </ul>
+        </div>
+      </div>
+
 </div>
 
-<br>
-<div class="row mapa">
-	<div id="map_canvas"></div>
+
 </div>
 
 {% endblock contenido %}
