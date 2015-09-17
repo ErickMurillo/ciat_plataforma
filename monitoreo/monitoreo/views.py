@@ -1670,6 +1670,7 @@ def equipos(request):
     '''tabla de equipos'''
     #******** variables globales***********
     a = _queryset_filtrado(request)
+    num_familia = a.count()
     num_familias = a.count()
     #*************************************
 
