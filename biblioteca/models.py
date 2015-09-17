@@ -24,6 +24,7 @@ CHOICE_TIPO = (
                 (11, 'Afiche'),
                 (12, 'Presentación'),
                 (13, 'Artículo en revista'),
+                (14, 'Informe'),
     )
 
 class Biblioteca(models.Model):
