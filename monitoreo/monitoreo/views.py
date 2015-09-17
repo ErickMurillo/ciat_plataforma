@@ -667,9 +667,11 @@ def arboles(request):
 def animales(request):
     '''Los animales y la produccion'''
     consulta = _queryset_filtrado(request)
+    num_familias = consulta.count()
     tabla = []
     tabla_produccion = []
     totales = {}
+
 
     totales['numero'] = consulta.count()
     totales['porcentaje_num'] = 100
@@ -1667,7 +1669,7 @@ def equipos(request):
     '''tabla de equipos'''
     #******** variables globales***********
     a = _queryset_filtrado(request)
-    num_familia = a.count()
+    num_familias = a.count()
     #*************************************
 
     #********** tabla de equipos *************
