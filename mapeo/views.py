@@ -38,7 +38,7 @@ def indexview(request, template='mapeo/index.html'):
             request.session['activo'] = True
             centinela = 1
 
-            return HttpResponseRedirect('proyectos/')
+            #return HttpResponseRedirect('proyectos/')
         else:
             centinela = 0
 
@@ -53,6 +53,8 @@ def indexview(request, template='mapeo/index.html'):
             #del request.session['proyectos']
         except:
             pass
+
+    proyectos = Proyectos.objects.all()
 
     return render(request, template, locals())
 
