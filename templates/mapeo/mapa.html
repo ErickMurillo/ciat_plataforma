@@ -17,49 +17,7 @@ $(function(){
     })
 });
 
-$('a[href="#profile"]').on('shown.bs.tab', function(e) {
-    {% if centinela == 0 %}
-        var tipo_persona = $("#id_tipo_persona").val();
-    {% else%}
-        var tipo_persona = {{request.session.tipo_persona}};
-    {% endif %}
 
-    var map;
-    var markers = [];
-    $(document).ready(function () {
-        var infowindow = new google.maps.InfoWindow();
-        var myLatlng = new google.maps.LatLng(13,-85);
-        var myOptions = {
-            zoom: 7,
-            mapTypeControl: true,
-            scaleControl: false,
-            scrollwheel: false,
-            center: myLatlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        var iconBase = '/static/general/img/chinches/';
-        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-            $.post("{% url 'obtener-mapa' el_proyecto.id %}",{tipo_persona:tipo_persona}, function(data){
-                $.each(data, function(i, elemento){
-                    var latlng = new google.maps.LatLng(elemento.lat, elemento.lon);
-                    var marker = new google.maps.Marker({
-                        position: latlng,
-                        map: map,
-                        title: elemento.nombre,
-                        icon: iconBase + elemento.tipo + ".png",
-                        id: elemento.id
-                    });
-                    markers.push(marker);
-                });
-                var markerCluster = new MarkerClusterer(map, markers);
-            });
-
-
-        //$("#map_canvas").css("width", 400).css("height", 400);
-
-    });
-
-            });
 </script>
 {% endblock extra_js %}
 
@@ -85,7 +43,7 @@ $('a[href="#profile"]').on('shown.bs.tab', function(e) {
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Proyecto Descripción</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Actores(mapa)</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Actores</a></li>
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Linea de tiempo</a></li>
         <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Publicaciones</a></li>
       </ul>
@@ -103,15 +61,64 @@ $('a[href="#profile"]').on('shown.bs.tab', function(e) {
             <p>{{el_proyecto.descripcion}}</p>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="profile">
-            <form action="." method="POST">
-                {% csrf_token %}
-                {{form_mapa}}
-                <input class="btn btn-default" type="submit" value="Consultar" />
-            </form>
+            <div>
 
-            <br>
-            <div class="mapa">
-                <div id="map_canvas"></div>
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home1" aria-controls="home" role="tab" data-toggle="tab">Productor/productora</a></li>
+                <li role="presentation"><a href="#profile1" aria-controls="profile" role="tab" data-toggle="tab">Líder o Lideresa comunitaria</a></li>
+                <li role="presentation"><a href="#messages1" aria-controls="messages" role="tab" data-toggle="tab">Técnico</a></li>
+                <li role="presentation"><a href="#settings1" aria-controls="settings" role="tab" data-toggle="tab">Especialista</a></li>
+                <li role="presentation"><a href="#algo1" aria-controls="settings" role="tab" data-toggle="tab">Investigador</a></li>
+                <li role="presentation"><a href="#algo2" aria-controls="settings" role="tab" data-toggle="tab">Decisor</a></li>
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home1">
+                    <ul>
+                        {% for obj in persona_lideres %}
+                            <li>{{obj.nombre}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile1">
+                    <ul>
+                        {% for obj in persona_productor %}
+                            <li>{{obj.nombre}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages1">
+                    <ul>
+                        {% for obj in persona_tecnico %}
+                            <li>{{obj.nombre}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="settings1">
+                    <ul>
+                        {% for obj in persona_esp %}
+                            <li>{{obj.nombre}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="algo1">
+                    <ul>
+                        {% for obj in persona_inv %}
+                            <li>{{obj.nombre}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="algo2">
+                    <ul>
+                        {% for obj in persona_decisor %}
+                            <li>{{obj.nombre}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+              </div>
+
             </div>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="messages">

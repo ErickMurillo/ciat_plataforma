@@ -70,6 +70,13 @@ def mapa_actores(request, template="mapeo/mapa.html", id_proyecto=None):
 
     el_proyecto = Proyectos.objects.get(id=id_proyecto)
 
+    persona_productor = Persona.objects.filter(productor__proyecto__id=id_proyecto,tipo_persona=1)
+    persona_lideres = Persona.objects.filter(lideres__proyecto__id=id_proyecto,tipo_persona=2)
+    persona_tecnico = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=3)
+    persona_esp = Persona.objects.filter(decisor__proyecto__id=id_proyecto, tipo_persona=4)
+    persona_inv = Persona.objects.filter(decisor__proyecto__id=id_proyecto, tipo_persona=5)
+    persona_decisor = Persona.objects.filter(decisor__proyecto__id=id_proyecto, tipo_persona=6)
+
     if request.method == 'POST':
         mensaje = None
         form_mapa = MapaConsulta(request.POST)
