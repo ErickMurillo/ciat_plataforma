@@ -204,8 +204,9 @@ class HomePageViewfail(TemplateView):
         context['mujeres'] = Encuesta.objects.filter(tipo_encuesta=1,productor__sexo=2).count()
         context['hombres'] = Encuesta.objects.filter(tipo_encuesta=1,productor__sexo=1).count()
 
-        foo = Encuesta.objects.filter(tipo_encuesta=1).order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
-        context['organizacion'] = Organizaciones.objects.filter(id__in=foo).count()
+        #foo = Encuesta.objects.filter(tipo_encuesta=1).order_by('productor__organizacion__nombre').distinct().values_list('productor__organizacion__id', flat=True)
+        foo = 0
+        context['organizacion'] = 0#Organizaciones.objects.filter(id__in=foo).count()
 
         return context
 
@@ -667,9 +668,11 @@ def arboles(request):
 def animales(request):
     '''Los animales y la produccion'''
     consulta = _queryset_filtrado(request)
+    num_familias = consulta.count()
     tabla = []
     tabla_produccion = []
     totales = {}
+
 
     totales['numero'] = consulta.count()
     totales['porcentaje_num'] = 100
@@ -1668,6 +1671,7 @@ def equipos(request):
     #******** variables globales***********
     a = _queryset_filtrado(request)
     num_familia = a.count()
+    num_familias = a.count()
     #*************************************
 
     #********** tabla de equipos *************

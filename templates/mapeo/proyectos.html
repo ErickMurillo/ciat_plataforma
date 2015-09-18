@@ -27,7 +27,7 @@
                                 {% endfor %}<br>
             <span>Organización ejecutora: </span>{{obj.ejecutora}} <br>
             <span>Organizaciones socias: </span>{% for x in obj.socias.all %}
-                                        {{x.nombre}},
+                                        {{x.siglas}},
                                 {% endfor %}<br>
             {% if obj.informacion %}
                 <span>información: </span>{{obj.informacion}} <br>
