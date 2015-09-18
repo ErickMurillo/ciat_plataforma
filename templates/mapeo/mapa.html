@@ -65,58 +65,93 @@ $(function(){
 
               <!-- Nav tabs -->
               <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home1" aria-controls="home" role="tab" data-toggle="tab">Productor/productora</a></li>
-                <li role="presentation"><a href="#profile1" aria-controls="profile" role="tab" data-toggle="tab">Líder o Lideresa comunitaria</a></li>
-                <li role="presentation"><a href="#messages1" aria-controls="messages" role="tab" data-toggle="tab">Técnico</a></li>
-                <li role="presentation"><a href="#settings1" aria-controls="settings" role="tab" data-toggle="tab">Especialista</a></li>
-                <li role="presentation"><a href="#algo1" aria-controls="settings" role="tab" data-toggle="tab">Investigador</a></li>
-                <li role="presentation"><a href="#algo2" aria-controls="settings" role="tab" data-toggle="tab">Decisor</a></li>
+                {% if persona_productor %}
+                    <li role="presentation" class="active"><a href="#home1" aria-controls="home" role="tab" data-toggle="tab">Productor/productora</a></li>
+                {% endif %}
+                
+                {% if persona_lideres %}
+                    <li role="presentation"><a href="#profile1" aria-controls="profile" role="tab" data-toggle="tab">Líder o Lideresa comunitaria</a></li>
+                {% endif %}
+                
+                {% if persona_tecnico %}
+                    <li role="presentation"><a href="#messages1" aria-controls="messages" role="tab" data-toggle="tab">Técnico</a></li>
+                {% endif %}
+                
+                {% if persona_esp %}
+                    <li role="presentation"><a href="#settings1" aria-controls="settings" role="tab" data-toggle="tab">Especialista</a></li>
+                {% endif %}
+                
+                {% if persona_inv %}
+                    <li role="presentation"><a href="#algo1" aria-controls="settings" role="tab" data-toggle="tab">Investigador</a></li>
+                {% endif %}
+                {% if persona_decisor %}
+                    <li role="presentation"><a href="#algo2" aria-controls="settings" role="tab" data-toggle="tab">Decisor</a></li>
+                {% endif %}
+                
               </ul>
 
               <!-- Tab panes -->
               <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home1">
-                    <ul>
-                        {% for obj in persona_lideres %}
-                            <li>{{obj.nombre}}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="profile1">
+              {% if persona_productor %}
+                   <div role="tabpanel" class="tab-pane active" id="home1">
                     <ul>
                         {% for obj in persona_productor %}
                             <li>{{obj.nombre}}</li>
                         {% endfor %}
                     </ul>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="messages1">
+              {% endif %}
+               
+                {% if persona_lideres %}
+                    <div role="tabpanel" class="tab-pane" id="profile1">
+                    <ul>
+                        {% for obj in persona_lideres %}
+                            <li>{{obj.nombre}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                {% if persona_tecnico %}
+                    <div role="tabpanel" class="tab-pane" id="messages1">
                     <ul>
                         {% for obj in persona_tecnico %}
                             <li>{{obj.nombre}}</li>
                         {% endfor %}
                     </ul>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="settings1">
+                {% endif %}
+                
+                {% if persona_esp %}
+                    <div role="tabpanel" class="tab-pane" id="settings1">
                     <ul>
                         {% for obj in persona_esp %}
                             <li>{{obj.nombre}}</li>
                         {% endfor %}
                     </ul>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="algo1">
+                {% endif %}
+                
+                {% if persona_inv %}
+                    <div role="tabpanel" class="tab-pane" id="algo1">
                     <ul>
                         {% for obj in persona_inv %}
                             <li>{{obj.nombre}}</li>
                         {% endfor %}
                     </ul>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="algo2">
+                {% endif %}
+                
+                {% if persona_decisor %}
+                   <div role="tabpanel" class="tab-pane" id="algo2">
                     <ul>
                         {% for obj in persona_decisor %}
                             <li>{{obj.nombre}}</li>
                         {% endfor %}
                     </ul>
-                </div>
+                </div> 
+                {% endif %}
+                
               </div>
 
             </div>
