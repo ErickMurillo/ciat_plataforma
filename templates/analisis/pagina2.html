@@ -3,17 +3,17 @@
 {% block extra_js %}
 <script type="text/javascript">
 
-	// $.ajax({
-	//     type: "GET",
-	//     url: '/analisis/ajax/fechas/',
-	//     dataType:'json',
-	//     success: function(data) {
-	//     		$('#id_fecha').html('');
-	// 	      	$.each(data, function(i, value) {
-	// 	          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
-	// 	        });
-	//     	}
-	// });
+	$.ajax({
+	    type: "GET",
+	    url: '/analisis/ajax/fechas/',
+	    dataType:'json',
+	    success: function(data) {
+	    		$('#id_fecha').html('');
+		      	$.each(data, function(i, value) {
+		          $('#id_fecha').append($("<option></option>").text(value).attr('value', value)); 
+		        });
+	    	}
+	});
 	
   $("#id_sitio_accion").prop("disabled", true);
   $("#id_plataforma").prop("disabled", true);
@@ -55,34 +55,102 @@ $(document).on('change','#id_sitio_accion',function(){
        }
    });
     });
+
+$(function () {
+    $('#btnproyecto').popover({
+
+    	html : true, 
+        content: function() {
+          return $('#content-proyecto').html();
+        },
+
+
+    });
+    $('#btnimpacto').popover({
+
+    	html : true, 
+        content: function() {
+          return $('#content-impacto').html();
+        },
+
+    });
+    $('#btnreciente').popover({
+
+    	html : true, 
+        content: function() {
+          return $('#content-reciente').html();
+        },
+
+    });
+     $('#btnalianzas').popover({
+
+    	html : true, 
+        content: function() {
+          return $('#content-alianzas').html();
+        },
+
+    });
+     $('#btnfuturas').popover({
+
+    	html : true, 
+        content: function() {
+          return $('#content-futuras').html();
+        },
+
+    });
+      $('#btnsocios').popover({
+
+    	html : true, 
+        content: function() {
+          return $('#content-socios').html();
+        },
+
+    });
+       $('#btnaprendizaje').popover({
+
+    	html : true, 
+        content: function() {
+          return $('#content-aprendizaje').html();
+        },
+
+    });
+});
+
 </script>
 {% endblock extra_js %}
 
 {% block inicio %}
 <style type="text/css">
 	.filtros select, .filtros label{
-	width: 70%;
-	
-}
+		width: 70%;
+		
+	}
 
-#indicadores a:link{
-  width: 90%;
-}
-.form-group{
-	margin-left: 15%;
-}
-.select2-container--default .select2-selection--single{
-	height: 42px;
-}
-.select2-container--default .select2-selection--single .select2-selection__rendered{
-	line-height: 39px;
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow{
-	height: 41px;
-}
-.consultar{
-	margin-bottom: 1em
-}
+	#indicadores .consultar{
+	  width: 90%;
+	}
+	.popover-content a:link{
+		width: 100%;
+	}
+	.form-group{
+		margin-left: 15%;
+	}
+	.select2-container--default .select2-selection--single{
+		height: 42px;
+	}
+	.select2-container--default .select2-selection--single .select2-selection__rendered{
+		line-height: 39px;
+	}
+	.select2-container--default .select2-selection--single .select2-selection__arrow{
+		height: 41px;
+	}
+	.consultar{
+		margin-bottom: 1em
+	}
+	.consultar-pop{
+		margin-bottom: 0.5em;
+		margin-top:0.5em;
+	}
 </style>
 	<div class="row no-gutter"><!-- row -->
 
@@ -178,6 +246,70 @@ $(document).on('change','#id_sitio_accion',function(){
 
 					</div>
 
+<div id="indicadores">
+
+</div>
+
+
+
+
+ <div id="content-proyecto" style="display: none">
+  
+	<a href="/analisis/proyectos-por-sector/" type="button" class="btn btn-success consultar-pop">Proyectos por Sector</a>
+
+	<a href="/analisis/proyectos-por-tema/" type="button" class="btn btn-success consultar-pop">Proyectos por Tema</a>
+   
+</div>
+
+
+<div id="content-impacto" style="display: none">
+
+	<a href="/analisis/impactos-por-sector/" type="button" class="btn btn-success consultar-pop">Impactos por Sector</a>
+
+	<a href="/analisis/impactos-por-tema/" type="button" class="btn btn-success consultar-pop">Impactos por Tema</a>
+
+	<a href="/analisis/impactos-por-beneficiarios/" type="button" class="btn btn-success consultar-pop">Impactos por Beneficiarios</a>
+						
+</div>
+
+<div id="content-reciente" style="display: none">
+	<a href="/analisis/innovaciones-por-sector/" type="button" class="btn btn-success consultar-pop">Innovaciones por Sector</a>
+
+	<a href="/analisis/innovaciones-por-tema/" type="button" class="btn btn-success consultar-pop">Innovaciones  por Tema</a>
+
+	<a href="/analisis/temas-por-sector/" type="button" class="btn btn-success consultar-pop">Temas por Sector</a>
+						
+</div>
+
+<div id="content-alianzas" style="display: none">
+	<a href="/analisis/aliados-roles/" type="button" class="btn btn-success consultar-pop">Los Aliados y sus Roles</a>
+
+	<a href="/analisis/sectores-aliados/" type="button" class="btn btn-success consultar-pop">Los Sectores y sus Aliados</a>
+
+	<a href="/analisis/relaciones-sectores/" type="button" class="btn btn-success consultar-pop">Relaciones de los Sectores</a>
+						
+</div>
+
+<div id="content-futuras" style="display: none">
+	<a href="/analisis/innovaciones-futuras-por-sector/" type="button" class="btn btn-success consultar-pop">Innova. futuras por Sector</a>
+	<a href="/analisis/innovaciones-futuras-por-tema/" type="button" class="btn btn-success consultar-pop">Innova. futuras por Tema</a>
+						
+</div>
+<div id="content-socios" style="display: none">
+	<a href="/analisis/socio-potenciales-por-sector/" type="button" class="btn btn-success consultar-pop">Socio potenciales por Sec.</a>
+
+	<a href="/analisis/socios-tiempo/" type="button" class="btn btn-success consultar-pop">Socios en el tiempo</a>
+						
+</div>
+
+<div id="content-aprendizaje" style="display: none">
+	<a href="/analisis/fuentes-aprendizaje/" type="button" class="btn btn-success consultar-pop">Fuentes de aprendizaje</a>
+
+	<a href="/analisis/informacion-necesaria/" type="button" class="btn btn-success consultar-pop">Informacion necesaria</a>
+
+	<a href="/analisis/limitaciones/" type="button" class="btn btn-success consultar-pop">Limitaciones</a>
+						
+</div>
 					{%if centinela = 1 %}
 					 <div class="row" id="indicadores">
 						<h3>Indicadores</h3>
@@ -185,67 +317,26 @@ $(document).on('change','#id_sitio_accion',function(){
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
 								<a href="/analisis/organizaciones/" type="button" class="btn btn-success consultar">Las Organizaciones</a>
 							</div>
-
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/proyectos-por-sector/" type="button" class="btn btn-success consultar">Proyectos por Sector</a>
+								<a  type="button" id="btnproyecto" class="btn btn-success consultar">Los Proyectos</a>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/proyectos-por-tema/" type="button" class="btn btn-success consultar">Proyectos por Tema</a>
+								<a  type="button" id="btnimpacto" class="btn btn-success consultar">Los Impactos</a>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/impactos-por-sector/" type="button" class="btn btn-success consultar">Impactos por Sector</a>
-							</div>
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/impactos-por-tema/" type="button" class="btn btn-success consultar">Impactos por Tema</a>
-							</div>
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/impactos-por-beneficiarios/" type="button" class="btn btn-success consultar">Impactos por Beneficiarios</a>
+								<a  type="button" id="btnreciente" data-placement="left"  class="btn btn-success consultar">Los Innovaciones Recientes</a>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/innovaciones-por-sector/" type="button" class="btn btn-success consultar">Innovaciones por Sector</a>
+								<a  type="button" id="btnalianzas" class="btn btn-success consultar">Las Alianzas</a>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/innovaciones-por-tema/" type="button" class="btn btn-success consultar">Innovaciones  por Tema</a>
-							</div>
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/temas-por-sector/" type="button" class="btn btn-success consultar">Temas por Sector</a>
-							</div>
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/aliados-roles/" type="button" class="btn btn-success consultar">Los Aliados y sus Roles</a>
+								<a  type="button" id="btnfuturas"  class="btn btn-success consultar">Los Innovaciones Futuras</a>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/sectores-aliados/" type="button" class="btn btn-success consultar">Los Sectores y sus Aliados</a>
+								<a  type="button" id="btnsocios"  class="btn btn-success consultar">Socios Actuales y Potenciales</a>
 							</div>
 							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/relaciones-sectores/" type="button" class="btn btn-success consultar">Las Relaciones de los Sectores</a>
-							</div>
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/innovaciones-futuras-por-sector/" type="button" class="btn btn-success consultar">Innova. futuras por Sector</a>
-							</div>
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/innovaciones-futuras-por-tema/" type="button" class="btn btn-success consultar">Innova. futuras por Tema</a>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/socio-potenciales-por-sector/" type="button" class="btn btn-success consultar">Socio potenciales por Sector</a>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/socios-tiempo/" type="button" class="btn btn-success consultar">Socios en el tiempo</a>
-							</div>
-
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/fuentes-aprendizaje/" type="button" class="btn btn-success consultar">Fuentes de aprendizaje</a>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/informacion-necesaria/" type="button" class="btn btn-success consultar">Informacion necesaria</a>
-							</div>
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-								<a href="/analisis/limitaciones/" type="button" class="btn btn-success consultar">Limitaciones</a>
+								<a  type="button" id="btnaprendizaje" data-placement="left" class="btn btn-success consultar">Aprendizaje</a>
 							</div>
 					
 					</div> 
