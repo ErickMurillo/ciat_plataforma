@@ -11,6 +11,7 @@ class AdminBiblioteca(admin.ModelAdmin):
         obj.save()
     exclude = ('user',)
     inlines = [InlineArchivoAdjunto]
+    filter_horizontal = ("proyecto","alianza","temas")
     list_display = ('titulo','autor', 'descripcion', 'fecha')
     list_filter = ('fecha','user')
     search_fields = ('titulo','autor','descripcion')

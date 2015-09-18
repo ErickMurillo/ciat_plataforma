@@ -110,12 +110,36 @@ CHOICE_TIPOLOGIA = (
                 (7, _(u'Finquero ganadero')),
             )
 
+class Temas(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Tema del proyecto/biblioteca'
+        verbose_name_plural = 'Temas de los proyectos/bibliotecas'
+
+class TiposProyectos(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Tipo del proyecto'
+        verbose_name_plural = 'Tipos de los proyectos'
+
 class Proyectos(models.Model):
     nombre = models.CharField(max_length=250)
     corto = models.CharField(_(u"Nombre corto"),max_length=250)
     codigo = models.CharField(max_length=50)
     inicio = models.DateField(_(u"Fecha de inicio"))
     finalizacion = models.DateField(_(u"Fecha de finalización"))
+    descripcion = models.TextField('Descripción del proyecto', null=True, blank=True)
+    tipo = models.ForeignKey(TiposProyectos, verbose_name='Tipo proyecto', null=True, blank=True)
+    temas = models.ManyToManyField(Temas, blank=True)
+    encargado = models.CharField('Encargado del proyecto', max_length=250, null=True, blank=True)
     alianza = models.ManyToManyField(Plataforma, verbose_name=_(u"Alianza de influencia"))
     influencia = models.ManyToManyField(Municipio, verbose_name=_(u"Zona de influencia"))
     ejecutora = models.ForeignKey(Organizaciones, verbose_name=_(u"Organización ejecutora"))
@@ -127,6 +151,24 @@ class Proyectos(models.Model):
 
     class Meta:
         verbose_name_plural = _(u"Proyectos")
+
+class TimeLineProyecto(models.Model):
+    proyecto = models.ForeignKey(Proyectos)
+    fecha = models.DateField()
+    texto = models.CharField(max_length=100)
+
+    year = models.IntegerField(editable=False)
+    mes = models.IntegerField(editable=False)
+
+    def save(self):
+        self.year = self.fecha.year
+        self.mes = self.fecha.month
+        super(TimeLineProyecto, self).save()
+
+    def __unicode__(self):
+        return u'%s - %s ' % (self.proyecto.corto, self.proyecto.codigo)
+
+
 
 class Persona(models.Model):
     tipo_persona = models.IntegerField(choices=CHOICE_TIPO_PERSONA, null=True, blank=True)
