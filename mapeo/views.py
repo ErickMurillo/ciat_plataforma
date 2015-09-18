@@ -4,6 +4,7 @@ from .models import *
 from .forms import MapeoConsulta, MapaConsulta
 import json
 from itertools import chain
+from datetime import datetime
 
 # Create your views here.
 
@@ -68,7 +69,7 @@ def proyectos(request, template="mapeo/proyectos.html"):
 def mapa_actores(request, template="mapeo/mapa.html", id_proyecto=None):
 
     el_proyecto = Proyectos.objects.get(id=id_proyecto)
-    
+
     if request.method == 'POST':
         mensaje = None
         form_mapa = MapaConsulta(request.POST)
@@ -101,7 +102,6 @@ def obtener_mapa(request, id_proyecto=None):
 
     if request.is_ajax():
         lista = []
-        print request.POST
         params = []
         try:
             if request.POST['tipo_persona'] == '0':
@@ -131,4 +131,20 @@ def obtener_mapa(request, id_proyecto=None):
             pass
 
         serializado = json.dumps(lista)
+        return HttpResponse(serializado, content_type='application/json')
+
+
+def timelinejson(request, id_proyecto=None):
+    if request.is_ajax():
+        lista = []
+        for objeto in TimeLineProyecto.objects.filter(proyecto__id=id_proyecto):
+            dicc = dict(title=str(objeto.fecha.strftime("%B %d, %Y")),
+                        description=objeto.texto,
+                        startDate=str(objeto.fecha.strftime("%B %d, %Y")),
+                        endDate= 'null',
+                        )
+            lista.append(dicc)
+
+        serializado = json.dumps(lista)
+        print serializado
         return HttpResponse(serializado, content_type='application/json')

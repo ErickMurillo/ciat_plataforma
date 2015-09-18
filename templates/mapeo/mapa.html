@@ -1,18 +1,29 @@
 {% extends "mapeo/base.html" %}
 
 {% block extra_js %}
+<link rel="stylesheet" href="/static/general/css/timeline.css" media="screen" />
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="/static/monitoreo/js/markerclusterer.js"></script>
 <script type="text/javascript" src="/static/monitoreo/js/infobox.js"></script>
 <script type="text/javascript" src="/static/general/js/custom.js"></script>
 <script type="text/javascript" src="/static/general/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/general/js/jquery.timelinr-0.9.54.js"></script>
+
 <script type="text/javascript">
+
+$(function(){
+    $().timelinr({
+        arrowKeys: 'true'
+    })
+});
+
+$('a[href="#profile"]').on('shown.bs.tab', function(e) {
     {% if centinela == 0 %}
         var tipo_persona = $("#id_tipo_persona").val();
     {% else%}
         var tipo_persona = {{request.session.tipo_persona}};
     {% endif %}
-    
+
     var map;
     var markers = [];
     $(document).ready(function () {
@@ -43,8 +54,12 @@
                 var markerCluster = new MarkerClusterer(map, markers);
             });
 
+
+        //$("#map_canvas").css("width", 400).css("height", 400);
+
     });
 
+            });
 </script>
 {% endblock extra_js %}
 
@@ -100,14 +115,33 @@
             </div>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="messages">
-            Linea de tiempo
+           <div id="timeline">
+            <ul id="dates">
+             {% for obj in el_proyecto.timelineproyecto_set.all %}
+                <li><a href="#{{obj.fecha|date:'d-b-Y'}}">{{obj.fecha|date:"b,Y"}}</a></li>
+             {% endfor %}
+
+            </ul>
+            <ul id="issues">
+            {% for obj in el_proyecto.timelineproyecto_set.all %}
+                 <li id="{{obj.fecha|date:'d-b-Y'}}">
+                    <h1>{{obj.fecha}}</h1>
+                    <p>{{obj.texto}}</p>
+                </li>
+            {% endfor %}
+            </ul>
+            <div id="grad_left"></div>
+            <div id="grad_right"></div>
+            <a href="#" id="next">+</a>
+            <a href="#" id="prev">-</a>
+        </div>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="settings">
             <ul>
                 {% for obj in el_proyecto.biblioteca_set.all %}
                     <li><a href="#">{{obj.titulo}} - tipo: {{obj.get_tipo_display}}</a></li>
                 {% endfor %}
-                
+
             </ul>
         </div>
       </div>
