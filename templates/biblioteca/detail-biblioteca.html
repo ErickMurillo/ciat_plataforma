@@ -1,0 +1,12 @@
+{% extends "biblioteca/base.html" %}
+
+{% block contenido %}
+    <h3>{{detalle.titulo}}</h1> <br>
+    <h4>{{detalle.descripcion|safe}}</h3> <br>
+
+    <hr>
+    {% for obj in detalle.archivoadjunto_set.all %}
+        <a href="/media/{{obj.archivo}}">Descargar</a>
+    {% endfor %}
+
+{% endblock contenido %}

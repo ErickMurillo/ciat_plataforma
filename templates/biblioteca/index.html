@@ -5,33 +5,33 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-                <form role="form" class="seccion-search-form" action="/busqueda/" autocomplete="off">
+                <form role="form" class="seccion-search-form" action="/biblioteca/busqueda/" autocomplete="off">
                     <input type="text" value="" id="search" placeholder="Buscar documento ..." name="q">
                     <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
                 </form>
-                <div id="search-results" class="resultados-busqueda"></div>
+
             </div>
         </div>
     </div>
 </section>
 
 <div class="row">
-	{% for obj in libros %}
-	  <div class="col-sm-4">
-	    <div class="grid">
-            <figure class="effect-hera">
-                <img src="/static/biblioteca/img/prueba.jpg" alt="img17"/>
-                <figcaption>
-                    <h2>Tender <span>Hera</span></h2>
-                    <p>
-                        <a href="#"><i class="fa fa-fw fa-file-pdf-o"></i></a>
-                        <a href="#"><i class="fa fa-fw fa-file-image-o"></i></a>
-                    </p>
-                </figcaption>           
-            </figure>
-        </div>
-	  </div>
-    {% endfor %}
+    <section class="articulos">
 
+	{% for obj in resultados %}
+	  <div class="col-sm-4">
+	    <article class="listas">
+            <h6 class="pointer mar-b-5">{{obj.get_tipo_display}}</h6>
+            <div>
+                <h4 class="mar-b-5 mar-t-5"><a href='{% url "detalle-libro" obj.id %}' >{{obj.titulo}}</a></h4>
+            </div>
+
+        </article>
+	  </div>
+    {% empty%}
+        <p>No existe resultado para su busqueda trate con otro termino!!!</p>
+    {% endfor %}
+</section>
+</div>
 </div>
 {% endblock contenido %}
