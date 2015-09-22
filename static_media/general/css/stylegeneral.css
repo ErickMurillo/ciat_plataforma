@@ -18,14 +18,6 @@ body{
 }
 
 
-.titulo h3{
-	color: #ed702b;
-	font-weight: bold;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	
-
-}
 
 .contenido{
 	width: 95%;
@@ -35,43 +27,42 @@ body{
 .info{
 	background-color: rgba(237, 112, 43, 0.7);
 	color: white;
-	  margin-top: -60px;
+	margin-top: 20px;
+	font-size: 13px;
 }
 .info h3{
 	font-weight: bold;
+	font-size: 14px;
 }
 .circle-container {
     position: relative;
-    width: 33em !important;
-    height: 33em;
-    padding: 2.8em;
-    /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
+    width: 30em !important;
+    height: 30em;
     border: dashed 4px;
     border-color: #5d8c3b;
     border-radius: 50%;
-    /*margin: 5em auto 0;*/
-    margin: 0em 0 0 6em;
-    margin-bottom: 50px;
+    margin: 4em auto;
+   
 	}
 	.circle-container a {
 	    display: block;
 	    position: absolute;
 	    top: 50%; 
 	    left: 50%;
-	    width: 6em; 
-	    height: 6em;
-	    margin: -2em;
+	    width: 17%; 
+	    height: 17%;
+	 
 	    text-align: center;
 
 	}
 	.circle-container .deg-centro{
 	    display: block;
 	    position: absolute;
-	    top: 50%; 
-	    left: 50%;
-	    width: 8em; 
-	    height: 8em;
-	    margin: -4em;
+	    top: 40%; 
+	    left: 40%;
+	    width: 20%; 
+	    height: 20%;
+	   
 	    text-align: center;
 
 	}
@@ -82,6 +73,7 @@ body{
 	padding: 1em;
 	display: none;
 	margin-bottom: 1em;
+	margin-top: 50px;
 
 }
 .mostrar{
@@ -98,16 +90,17 @@ body{
 
 i.fa.circle {
 	text-align: center;
-	font-size: 30px;
-	color:#008040; 
-	padding-top: 22px;
-  	padding-right: 25px
+	font-size: 28px;
+  	color: #008040;
+  	padding-top: 17px;
+  	padding-right: 40px;
 }
 i.fa.circle-2x {
 
 	
 	color:#008040; 
-	padding-top: 25px;
+	padding-top: 16px;
+  	font-size: 35px;
 
 }
 .popover{
@@ -128,109 +121,109 @@ width: :218px !important;
 
 @-webkit-keyframes analisis{
 	0% { transform: translate(0em); }
-	100%{transform: rotate(0deg) translate(16em);}
+	100%{transform: rotate(348deg) translate(13em) rotate(-348deg);}
 }
 .deg0 { 
 	-moz-animation-duration: 2s;
     -webkit-animation-duration: 2s;
     -moz-animation-name: analisis;
     -webkit-animation-name: analisis;
-    transform: translate(16em); 
+    transform: rotate(348deg) translate(13em) rotate(-348deg); 
 }
 @-webkit-keyframes producto{
 	0% { transform: translate(0em); }
-	100%{transform: rotate(45deg) translate(16em) rotate(-45deg);}
+	100%{transform: rotate(40deg) translate(11em) rotate(-40deg);}
 }
 .deg45 { 
 	-moz-animation-duration: 2s;
     -webkit-animation-duration: 2s;
     -moz-animation-name: producto;
     -webkit-animation-name: producto;
-    transform: rotate(45deg) translate(16em) rotate(-45deg); 
+    transform: rotate(40deg) translate(11em) rotate(-40deg); 
 }
 
 @-webkit-keyframes biblioteca{
 	0% { transform: translate(0em); }
-	100%{transform: rotate(90deg) translate(-19em) rotate(-90deg);}
+	100%{transform: rotate(-99deg) translate(18em) rotate(99deg);}
 }
 .deg90 { 
 	-moz-animation-duration: 2s;
     -webkit-animation-duration: 2s;
     -moz-animation-name: biblioteca;
     -webkit-animation-name: biblioteca;
-    transform: rotate(90deg) translate(-19em) rotate(-90deg); 
+    transform: rotate(-99deg) translate(18em) rotate(99deg); 
 }
 
 @-webkit-keyframes monitoreo{
 	0% { transform: rotate(0deg) translate(0em) rotate(0deg); }
-	100%{ transform: rotate(135deg) translate(17em) rotate(-135deg); }
+	100%{ transform: rotate(152deg) translate(16em) rotate(-152deg); }
 }
 .deg135 {
     -moz-animation-duration: 2s;
     -webkit-animation-duration: 2s;
     -moz-animation-name: monitoreo;
     -webkit-animation-name: monitoreo;
-    transform: rotate(135deg) translate(17em) rotate(-135deg);
+    transform: rotate(152deg) translate(16em) rotate(-152deg);
  }
 
 @-webkit-keyframes mujeres{
 	0% { transform:translate(0em); }
-	100%{ transform: translate(-19em); }
+	100%{ transform: rotate(368deg) translate(-18em) rotate(-368deg); }
 }
 .deg180 {
     -moz-animation-duration: 2s;
     -webkit-animation-duration: 2s;
     -moz-animation-name: mujeres;
     -webkit-animation-name: mujeres;
-   	transform: translate(-19em);
+   	transform: rotate(368deg) translate(-18em) rotate(-368deg);
  }
 @-webkit-keyframes actores{
 	0% { transform:translate(0em); }
-	100%{ transform: rotate(225deg) translate(19em) rotate(-225deg); }
+	100%{ transform: rotate(223deg) translate(18em) rotate(-223deg); }
 }
 .deg225 {
     -moz-animation-duration: 2s;
     -webkit-animation-duration: 2s;
     -moz-animation-name: actores;
     -webkit-animation-name: actores;
-   	transform: rotate(225deg) translate(19em) rotate(-225deg);
+   	transform: rotate(223deg) translate(18em) rotate(-223deg);
  }
 
 @-webkit-keyframes mercado{
 	0% { transform:translate(0em); }
-	100%{ transform: rotate(270deg) translate(-16em) rotate(-270deg); }
+	100%{ transform: rotate(282deg) translate(-13em) rotate(-282deg); }
 }
 .deg270 {
     -moz-animation-duration: 2s;
     -webkit-animation-duration: 2s;
     -moz-animation-name: mercado;
     -webkit-animation-name: mercado;
-   	transform: rotate(270deg) translate(-16em) rotate(-270deg);
+   	transform: rotate(282deg) translate(-13em) rotate(-282deg);
  }
 
 @-webkit-keyframes comunicacion{
 	0% { transform:translate(0em); }
-	100%{ transform: rotate(315deg) translate(17em) rotate(-310deg); }
+	100%{ transform: rotate(307deg) translate(15em) rotate(-307deg); }
 }
 .deg315 {
     -moz-animation-duration: 2s;
     -webkit-animation-duration: 2s;
     -moz-animation-name: comunicacion;
     -webkit-animation-name: comunicacion;
-   	transform: rotate(315deg) translate(17em) rotate(-310deg);
+   	transform: rotate(307deg) translate(15em) rotate(-307deg);
  }
-/*
-.deg0 {transform: translate(16em);}
-.deg45 { transform: rotate(45deg) translate(16em) rotate(-45deg); }
-.deg90 { transform: rotate(90deg) translate(-19em) rotate(-90deg); }
-.deg135 { transform: rotate(135deg) translate(17em) rotate(-135deg); }
-.deg180 { transform: translate(-19em); }
-.deg225 { transform: rotate(225deg) translate(19em) rotate(-225deg); }
-.deg270 { transform: rotate(270deg) translate(-16em) rotate(-270deg); }
-.deg315 { transform: rotate(315deg) translate(17em) rotate(-310deg);}
+
+/*.deg0 {transform: rotate(348deg) translate(13em) rotate(-348deg);}
+.deg45 { transform: rotate(40deg) translate(11em) rotate(-40deg); }
+.deg90 { transform: rotate(-99deg) translate(18em) rotate(99deg); }
+.deg135 { transform: rotate(152deg) translate(16em) rotate(-152deg); }
+.deg180 { transform: rotate(368deg) translate(-18em) rotate(-368deg); }
+.deg225 { transform: rotate(223deg) translate(18em) rotate(-223deg); }
+.deg270 { transform: rotate(282deg) translate(-13em) rotate(-282deg); }
+.deg315 { transform: rotate(307deg) translate(15em) rotate(-307deg);}*/
 .deg-centro{ transform: rotate(90deg) translate(0em) rotate(-90deg); }
 
-*/
+
 .deg0, .deg45, .deg135, .deg180, .deg225, .deg315, .deg90, .deg270{
 
 	border: 5px solid #c0c0c0;
@@ -270,11 +263,12 @@ width: :218px !important;
 	transition: all 800ms linear;
 }
 
-.footer{
+footer{
 	/*background-color:#ed702b;*/
-	background-color: rgba(237, 112, 43, 0.5); 
+	background-color: rgba(237, 112, 43, 0.5);
+
 }
-.footer img{
+footer img{
 	
 	margin-right: 4%;
 	margin-left: 8%;
