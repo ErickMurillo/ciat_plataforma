@@ -42,7 +42,7 @@ def index(request,template='analisis/pagina1.html'):
     estudios = Entrevista.objects.all().distinct('tipo_estudio').count()
     entrevistas = Entrevista.objects.all().count()
     organizaciones = Organizaciones.objects.all().count()
-
+    
     return render(request, template, locals())
 
 def consulta(request, template='analisis/pagina2.html'):
