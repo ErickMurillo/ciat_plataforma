@@ -19,11 +19,7 @@
     font-size: 13px !important
 }
 
-.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
-  color: black;
-  border-color: rgba(93, 140, 59, 0.5);
- 
-}
+
 /* -------------------------------------- */
 h3{
     text-align: center
@@ -32,6 +28,7 @@ h3{
 
 body {
     font-family: 'Open Sans', sans-serif;
+    background:url(../img/textura.png);
 }
 
  #wrapper {
@@ -411,3 +408,41 @@ line-height: 1.428571429;
    
 }
 
+/*************22/09/15**************/
+th,.table > thead > tr > th{
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+td{
+  font-size: 13px;
+  color: #696969;
+}
+td a:link{
+  font-weight: bold;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: #F7FFF2;
+}
+#main-menu a{
+  font-weight: bold;
+}
+
+#wrapper{
+  border-top: 1px solid #5D8C3B;
+}
+
+}
+tfoot tr>td{
+    background: #5d8c3b;
+    color: white;
+    font-weight: bold;
+    
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+  background-color: #5d8c3b;
+  color: white;
+}

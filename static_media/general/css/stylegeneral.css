@@ -81,7 +81,13 @@ body{
 	position: absolute !important;
 	right: 2%;
 }
-
+.mostrar h4{
+	font-size: 14px;
+	font-weight: bold;
+}
+.mostrar p{
+	font-size: 13px;
+}
 .circle { 
    width: 100px;
    height: 100px;
