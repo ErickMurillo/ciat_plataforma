@@ -1,7 +1,11 @@
-.module{
+/*.module{
 	margin-top: 3em !important;
 }
 
 #btn_intro{
 	margin-left: 1.5em !important;
+}*/
+
+ul li {
+	list-style: none
 }

@@ -43,7 +43,7 @@ class Entrevista(models.Model):
 	fecha1 = models.IntegerField((u'Date'),choices=FECHA_CHOICES)
 	slug = models.SlugField(editable=False)
 	alcance1 = models.IntegerField((u'Scope'),choices=ALCANCE_CHOICES)
-	tipo_estudio = models.ForeignKey(Tipo_Estudio, verbose_name=(u'Type of study'))
+	tipo_estudio = models.ForeignKey(Tipo_Estudio, verbose_name=(u'Name of study'))
 	usuario = models.ForeignKey(User,related_name='Usuario')
 
 	def __unicode__(self):
@@ -81,10 +81,11 @@ class Pregunta_1(models.Model):
 
 PREGUNTA2_CHOICES = (
     (1,(u'Technicians')),
-    (2,(u'Promoters ')),
+    (2,(u'Partners ')),
     (3,(u'Researchers')),
     (4,(u'Makers')),
     (5,(u'Administrative')),
+    (6,(u'Promoters ')),
     )
 
 class Pregunta_2(models.Model):

@@ -83,12 +83,6 @@ class Pregunta_5a_Inline(NestedTabularInline):
 		
 		return super(Pregunta_5a_Inline, self).formfield_for_manytomany(db_field, request, **kwargs)
 	
-
-	class Media:
-		js = ('analisis/js/custom.js',)
-		css = {
-            'all': ('analisis/css/admin.css',)
-        }
 class Pregunta_5c_nestedInline(NestedTabularInline):
 	model = Pregunta_5c_nested
 	extra = 1
@@ -338,7 +332,12 @@ class EntrevistaAdmin(NestedModelAdmin):
 			   Pregunta_6a_Inline, Pregunta_6c_Inline,Pregunta_6d_Inline,Pregunta_6e_Inline,
 			   Pregunta_7a_Inline,Pregunta_7b_Inline,Pregunta_8_Inline,Pregunta_9_Inline,Pregunta_11_Inline]
 
-
+	class Media:
+		js = ('analisis/js/custom.js',)
+		css = {
+            'all': ('analisis/css/admin.css',)
+        }
+        
 	# def formfield_for_manytomany(self, db_field, request, **kwargs):
 	# 	urlactual=request.get_full_path()
 	# 	urlactual=urlactual.split('/')

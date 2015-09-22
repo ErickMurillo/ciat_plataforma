@@ -39,8 +39,9 @@ def _queryset_filtrado(request):
     return Entrevista.objects.filter(**params)
 
 def index(request,template='analysis/pagina1.html'):
+    estudios = Entrevista.objects.all().distinct('tipo_estudio').count()
+    entrevistas = Entrevista.objects.all().count()
     organizaciones = Organizaciones.objects.all().count()
-    estudios = Entrevista.objects.all().count()
 
     return render(request, template, locals())
 
