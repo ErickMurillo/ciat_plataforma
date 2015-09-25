@@ -50,6 +50,9 @@ urlpatterns = patterns('',
     #urls para mapeo
     url(r'^mapeo/', include('mapeo.urls')),
 
+    #url para mercados
+    url(r'^mercados/$', TemplateView.as_view(template_name="producto/producto.html")),
+
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
     url(r'^selectable/', include('selectable.urls')),
