@@ -1,6 +1,6 @@
 body{
 	
-	background:linear-gradient(rgba(0,128,64,0.2),rgba(0,128,64,0.2)), url(/static/general/img/fondo2.jpg) no-repeat center center fixed; 
+	background:linear-gradient(rgba(0,128,64,0.2),rgba(0,128,64,0.2)), url(/static/general/img/fondo.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
