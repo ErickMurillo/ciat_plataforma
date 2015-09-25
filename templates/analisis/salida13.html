@@ -14,7 +14,7 @@ $( ".menu4-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
 
 <h3>Número de Innovaciones por Sector y Temática</h3>
 
-<div>
+<div class="table-responsive-100">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -39,6 +39,8 @@ $( ".menu4-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
                  
                 </tr>
         {% endfor %}
+        </tbody>
+        <tfoot>
             <tr>
                 <td>Total</td>
                 {% for x in lista_totales %}
@@ -46,9 +48,9 @@ $( ".menu4-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
                 {% endfor %}
                 <td>{{total}}</td>
             </tr>
-        
+        </tfoot>
 
-        </tbody>
+        
     </table>
 </div> 
 

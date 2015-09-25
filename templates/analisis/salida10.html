@@ -63,7 +63,7 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
                                 {% if forloop.counter == 1 %}
                                     <b>{{valor}}</b>
                                 {% else %}
-                                    ({{valor|floatformat:2}} %)
+                                   <br> ({{valor|floatformat:2}} %)
                                 {% endif %}
                             {% endfor %}
                         </td>
@@ -72,7 +72,8 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
                  
  </tr>
             {% endfor %}
-
+            </tbody>
+<tfoot>
             <tr>
                 <td>Total</td>
                 {% for x in lista_totales %}
@@ -82,7 +83,7 @@ $( ".menu5-3 a" ).append( " <i class='fa fa-check fa-lg'></i>" );
             </tr>
         
 
-        </tbody>
+            </tfoot>    
     </table>
 </div>
 <style>
