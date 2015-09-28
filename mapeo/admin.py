@@ -19,18 +19,22 @@ class ProyectosAdmin(admin.ModelAdmin):
 class InlineProductor(admin.TabularInline):
     model = Productor
     extra = 1
+    max_num = 1
 
 class InlineLideres(admin.TabularInline):
     model = Lideres
     extra = 1
+    max_num = 1
 
 class InlineTecnicoEspInvestigador(admin.TabularInline):
     model = TecnicoEspInvestigador
     extra = 1
+    max_num = 1
 
 class InlineDecisor(admin.TabularInline):
     model = Decisor
     extra = 1
+    max_num = 1
 
 class PersonaAdmin(admin.ModelAdmin):
     list_display = ('tipo_persona', 'nombre', 'sexo', 'pais')
