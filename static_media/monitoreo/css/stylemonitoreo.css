@@ -7,7 +7,7 @@
 .mapeo-list{
   padding: 10px 20px 0px 20px ;
 }
-#id_area_accion,#id_sitio_accion,#id_alianza{
+#id_area_accion,#id_sitio_accion,#id_alianza,#id_pais,#id_temas{
   background: white;
   width: 100%;
   padding: 5px;
@@ -28,7 +28,7 @@ label[for='titulo']{
   font-weight: bold;
 }
 
-#id_area_accion:focus,#id_sitio_accion:focus,#id_alianza:focus{
+#id_area_accion:focus,#id_sitio_accion:focus,#id_alianza:focus,#id_pais:focus,#id_temas:focus{
   border-color: rgba(44, 174, 103, 0.7);
   -webkit-box-shadow: 0 1px 60px -1px #2cae67;
   box-shadow: 0 1px 20px -5px #2cae67;
