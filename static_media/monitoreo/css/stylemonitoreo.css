@@ -1,0 +1,59 @@
+.mapeo-consult{
+  background-color: #cacaca;
+  padding: 25px 20px 25px 20px ;
+  margin-top: 15px;
+
+}
+.mapeo-list{
+  padding: 10px 20px 0px 20px ;
+}
+#id_area_accion,#id_sitio_accion,#id_alianza{
+  background: white;
+  width: 100%;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  border-radius: 0;
+  border: white 2px solid;
+  height: 34px;
+  -webkit-appearance: none;
+  background: white url("../img/arrow-down-01-16.png") no-repeat right center;
+  background-position: 95% 50%;
+}
+
+label[for='titulo']{
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+}
+
+#id_area_accion:focus,#id_sitio_accion:focus,#id_alianza:focus{
+  border-color: rgba(44, 174, 103, 0.7);
+  -webkit-box-shadow: 0 1px 60px -1px #2cae67;
+  box-shadow: 0 1px 20px -5px #2cae67;
+}
+option:checked { display:none; }
+
+/*.mapeo-list{
+  padding:0px 20px;
+}*/
+.pointer a, .pointer {
+  font-weight: bold;
+  color:rgba(237, 112, 43, 1);
+}
+.lista h6 {
+  font-size: 12px;
+  font-weight: 700px;
+  margin: 10px 0px 0px 0px;
+}
+.list-titulo{
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 15px;
+  margin: 0px 0px 10px 0px;
+}
+.mapeo-list hr{
+  border-top:1px dotted #CDCCC8;
+  margin-bottom:10px;
+}
