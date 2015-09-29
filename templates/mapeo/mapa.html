@@ -68,26 +68,26 @@ $(function(){
                 {% if persona_productor %}
                     <li role="presentation" class="active"><a href="#home1" aria-controls="home" role="tab" data-toggle="tab">Productor/productora</a></li>
                 {% endif %}
-                
+
                 {% if persona_lideres %}
                     <li role="presentation"><a href="#profile1" aria-controls="profile" role="tab" data-toggle="tab">Líder o Lideresa comunitaria</a></li>
                 {% endif %}
-                
+
                 {% if persona_tecnico %}
                     <li role="presentation"><a href="#messages1" aria-controls="messages" role="tab" data-toggle="tab">Técnico</a></li>
                 {% endif %}
-                
+
                 {% if persona_esp %}
                     <li role="presentation"><a href="#settings1" aria-controls="settings" role="tab" data-toggle="tab">Especialista</a></li>
                 {% endif %}
-                
+
                 {% if persona_inv %}
                     <li role="presentation"><a href="#algo1" aria-controls="settings" role="tab" data-toggle="tab">Investigador</a></li>
                 {% endif %}
                 {% if persona_decisor %}
                     <li role="presentation"><a href="#algo2" aria-controls="settings" role="tab" data-toggle="tab">Decisor</a></li>
                 {% endif %}
-                
+
               </ul>
 
               <!-- Tab panes -->
@@ -96,62 +96,62 @@ $(function(){
                    <div role="tabpanel" class="tab-pane active" id="home1">
                     <ul>
                         {% for obj in persona_productor %}
-                            <li>{{obj.nombre}}</li>
+                            <li><a data-toggle="modal" data-target="#productor-{{obj.id}}" href="#">{{obj.nombre}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
               {% endif %}
-               
+
                 {% if persona_lideres %}
                     <div role="tabpanel" class="tab-pane" id="profile1">
                     <ul>
                         {% for obj in persona_lideres %}
-                            <li>{{obj.nombre}}</li>
+                            <li><a data-toggle="modal" data-target="#lider-{{obj.id}}" href="#">{{obj.nombre}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
                 {% endif %}
-                
+
                 {% if persona_tecnico %}
                     <div role="tabpanel" class="tab-pane" id="messages1">
                     <ul>
                         {% for obj in persona_tecnico %}
-                            <li>{{obj.nombre}}</li>
+                            <li><a data-toggle="modal" data-target="#tecnico-{{obj.id}}" href="#">{{obj.nombre}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
                 {% endif %}
-                
+
                 {% if persona_esp %}
                     <div role="tabpanel" class="tab-pane" id="settings1">
                     <ul>
                         {% for obj in persona_esp %}
-                            <li>{{obj.nombre}}</li>
+                            <li><a data-toggle="modal" data-target="#especialista-{{obj.id}}" href="#">{{obj.nombre}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
                 {% endif %}
-                
+
                 {% if persona_inv %}
                     <div role="tabpanel" class="tab-pane" id="algo1">
                     <ul>
                         {% for obj in persona_inv %}
-                            <li>{{obj.nombre}}</li>
+                            <li><a data-toggle="modal" data-target="#investigador-{{obj.id}}" href="#">{{obj.nombre}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
                 {% endif %}
-                
+
                 {% if persona_decisor %}
                    <div role="tabpanel" class="tab-pane" id="algo2">
                     <ul>
                         {% for obj in persona_decisor %}
-                            <li>{{obj.nombre}}</li>
+                            <li><a data-toggle="modal" data-target="#decisor-{{obj.id}}" href="#">{{obj.nombre}}</a></li>
                         {% endfor %}
                     </ul>
-                </div> 
+                </div>
                 {% endif %}
-                
+
               </div>
 
             </div>
@@ -190,7 +190,193 @@ $(function(){
 
 </div>
 
-
 </div>
+
+{% for obj in persona_productor %}
+<div class="modal fade" id="productor-{{obj.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:black">Datos del productor/productora</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>Nombre: {{obj.nombre}}</li>
+            <li>Sexo: {{obj.get_sexo_display}}</li>
+            <li>Edad: {{obj.get_edad_display}}</li>
+            <li>Pais: {{obj.pais}}</li>
+            <li>Departamento: {{obj.departamento}}</li>
+            <li>Tipologia: {% for productor in obj.productor_set.all %} {{productor.get_tipologia_display}} {% endfor %}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for obj in persona_lideres %}
+<div class="modal fade" id="lider-{{obj.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:black">Datos del Lider o lideresa comunitaria</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>Nombre: {{obj.nombre}}</li>
+            <li>Sexo: {{obj.get_sexo_display}}</li>
+            <li>Edad: {{obj.get_edad_display}}</li>
+            <li>Pais: {{obj.pais}}</li>
+            <li>Departamento: {{obj.departamento}}</li>
+            <li>Tipologia: {% for productor in obj.lideres_set.all %} {{productor.get_tipologia_display}} {% endfor %}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for obj in persona_tecnico %}
+<div class="modal fade" id="tecnico-{{obj.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:black">Datos del técnico</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>Nombre: {{obj.nombre}}</li>
+            <li>Sexo: {{obj.get_sexo_display}}</li>
+            <li>Edad: {{obj.get_edad_display}}</li>
+            <li>Pais: {{obj.pais}}</li>
+            <li>Departamento: {{obj.departamento}}</li>
+            <li>Experiencia: {% for productor in obj.tecnicoespinvestigador_set.all %} {{productor.experiencia}} {% endfor %}</li>
+            <li>Especialidad: {% for productor in obj.tecnicoespinvestigador_set.all %} {% for x in productor.especialidad.all %} {{x}} {%endfor%} {% endfor %}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for obj in persona_esp %}
+<div class="modal fade" id="especialista-{{obj.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:black">Datos del especialista</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>Nombre: {{obj.nombre}}</li>
+            <li>Sexo: {{obj.get_sexo_display}}</li>
+            <li>Edad: {{obj.get_edad_display}}</li>
+            <li>Pais: {{obj.pais}}</li>
+            <li>Departamento: {{obj.departamento}}</li>
+            <li>Experiencia: {% for productor in obj.tecnicoespinvestigador_set.all %} {{productor.experiencia}} {% endfor %}</li>
+            <li>Especialidad: {% for productor in obj.tecnicoespinvestigador_set.all %} {% for x in productor.especialidad.all %} {{x}} {%endfor%} {% endfor %}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for obj in persona_esp %}
+<div class="modal fade" id="especialista-{{obj.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:black">Datos del especialista</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>Nombre: {{obj.nombre}}</li>
+            <li>Sexo: {{obj.get_sexo_display}}</li>
+            <li>Edad: {{obj.get_edad_display}}</li>
+            <li>Pais: {{obj.pais}}</li>
+            <li>Departamento: {{obj.departamento}}</li>
+            <li>Experiencia: {% for productor in obj.tecnicoespinvestigador_set.all %} {{productor.experiencia}} {% endfor %}</li>
+            <li>Especialidad: {% for productor in obj.tecnicoespinvestigador_set.all %} {% for x in productor.especialidad.all %} {{x}} {%endfor%} {% endfor %}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for obj in persona_inv %}
+<div class="modal fade" id="investigador-{{obj.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:black">Datos del investigador</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>Nombre: {{obj.nombre}}</li>
+            <li>Sexo: {{obj.get_sexo_display}}</li>
+            <li>Edad: {{obj.get_edad_display}}</li>
+            <li>Pais: {{obj.pais}}</li>
+            <li>Departamento: {{obj.departamento}}</li>
+            <li>Experiencia: {% for productor in obj.tecnicoespinvestigador_set.all %} {{productor.experiencia}} {% endfor %}</li>
+            <li>Especialidad: {% for productor in obj.tecnicoespinvestigador_set.all %} {% for x in productor.especialidad.all %} {{x}} {%endfor%} {% endfor %}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for obj in persona_decisor %}
+<div class="modal fade" id="decisor-{{obj.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color:black">Datos del Decisor</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+            <li>Nombre: {{obj.nombre}}</li>
+            <li>Sexo: {{obj.get_sexo_display}}</li>
+            <li>Edad: {{obj.get_edad_display}}</li>
+            <li>Pais: {{obj.pais}}</li>
+            <li>Departamento: {{obj.departamento}}</li>
+            <li>Nivel de accionar: {% for productor in obj.decisor_set.all %} {% for x in productor.nivel.all %} {{x}}, {% endfor %} {% endfor %}</li>
+            <li>Campo de acción: {% for productor in obj.decisor_set.all %} {% for x in productor.campo.all %} {{x}}, {%endfor%} {% endfor %}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 
 {% endblock contenido %}
