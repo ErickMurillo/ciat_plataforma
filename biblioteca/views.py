@@ -30,6 +30,11 @@ def buscador(request):
                  Q(proyecto__nombre__icontains=search_text) |
                  Q(temas__nombre__icontains=search_text)
                  ).distinct()
+        elif search_text2:
+            search_text2 = request.GET['temas']
+            resultados = Biblioteca.objects.filter(
+                 Q(temas__nombre__icontains=search_text2)
+                 ).distinct()
         else:
             resultados = []
 
