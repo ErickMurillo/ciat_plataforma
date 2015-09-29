@@ -86,6 +86,15 @@ def mapa_actores(request, template="mapeo/mapa.html", id_proyecto=None):
 
     el_proyecto = Proyectos.objects.get(id=id_proyecto)
 
+    hoy = datetime.today()
+
+    fin = datetime(el_proyecto.finalizacion.year, el_proyecto.finalizacion.month, el_proyecto.finalizacion.day)
+    activo = 1
+    if fin < hoy:
+        activo = 0
+    else:
+        activo = 1
+
     persona_productor = Persona.objects.filter(productor__proyecto__id=id_proyecto,tipo_persona=1)
     persona_lideres = Persona.objects.filter(lideres__proyecto__id=id_proyecto,tipo_persona=2)
     persona_tecnico = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=3)
