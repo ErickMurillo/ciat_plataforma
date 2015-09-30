@@ -142,22 +142,70 @@ ul[role="mapeo"] > li > a:hover, .nav > li > a:focus {
   margin-left: 0px;
 }
 #timeline{
-  margin: 0px auto;
-  width: 76%;
+  margin: 0px auto !important;
+  width: 76% !important;
 }
 #issues li h1{
-  color: #FD8B4B;
-  text-shadow: #A6A6A6 1px 1px 2px;
-  padding-left: 20px;
+  color: #FD8B4B !important;
+  text-shadow: #A6A6A6 1px 1px 2px !important;
+  padding-left: 30px !important;
 }
 #issues li p{
-  padding-left: 20px
+  padding-left: 30px !important;
 }
 #dates .selected {
-  font-size: 17px;
-  color: rgb(122, 124, 121);
+  font-size: 17px !important;
+  color: rgb(122, 124, 121) !important;
+  font-weight: bold !important;
+}
+#next, #prev{
+  top: 100px !important;
+}
+.list-actores{
+  margin-bottom: 20px;
+}
+ul[role="actores"] > li{
+  border-left: 6px solid rgba(237, 112, 43, 1);
+  background-color: #fafafa;
+  -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+       -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+
+}
+
+ul[role="actores"] > li>a{
+  color:#777;
+  font-weight: bold;
+
+}
+ul[role="actores"]> li > a:hover, ul[role="actores"] > li > a:focus {
+  background-color: rgba(252, 182, 143, 1);
+  color: white;
   font-weight: bold;
 }
+ ul[role="actores"] > li.active > a {
+  background-color: rgba(239, 133, 74, 1);
+  color: white;
+ }
+
+.modal-actores .modal-dialog {
+  padding-top: 35px;
+}
+
+.modal-actores .modal-header{
+  background-color: #5d8c3b;
+}
+
+.modal-actores ul{
+  list-style: none;
+}
+
+.modal-actores ul li{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #777;
+}
+
 
 @media (min-width: 1200px){
   .m-detail{
