@@ -84,10 +84,7 @@
             text-indent: -9999px;
             overflow: hidden;
         }
-            #next:hover,
-            #prev:hover {
-                background-position: 0 -76px;
-            }
+
             #next {
                 right: 0;
                 background-image: url('../img/next.png');
