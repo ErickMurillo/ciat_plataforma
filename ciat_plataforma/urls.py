@@ -51,7 +51,7 @@ urlpatterns = patterns('',
     url(r'^mapeo/', include('mapeo.urls')),
 
     #url para mercados
-    url(r'^mercados/$', TemplateView.as_view(template_name="producto/producto.html")),
+    url(r'^mercado/$', TemplateView.as_view(template_name="producto/producto.html")),
 
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
