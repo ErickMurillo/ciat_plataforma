@@ -39,12 +39,12 @@
 					<td>{{detalle.cita}}</td>
 				</tr>
 				<tr>
-					<th>Temas:</th>
+					<th>Temas</th>
 					<td>
 						<ol>
-							<li>Temas de prueba</li>
-							<li>Lorem ut est ac porta sed</li>
-							<li>In habitasse nascetur odio, risus, lectus.</li>
+						{% for tema in detalle.temas.all %}
+							<li>{{tema}}</li>
+						{% endfor %}
 						</ol>
 				 	</td>
 				</tr>
@@ -52,9 +52,9 @@
 				<th>Alianzas</th>
 					<td>
 						<ol>
-							<li>Alianza de prueba</li>
-							<li>Lorem</li>
-							<li>In habitasse</li>
+						{% for alianza in detalle.alianza.all %}
+							<li>{{alianza}}</li>
+						{% endfor %}
 						</ol>
 				 	</td>
 				</tr>
