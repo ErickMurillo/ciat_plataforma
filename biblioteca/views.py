@@ -22,7 +22,8 @@ def buscador(request):
         search_text2 = request.GET['temas']
         if search_text is not None and search_text != u"":
             search_text = request.GET['q']
-            resultados = Biblioteca.objects.filter(Q(titulo__icontains=search_text) |
+            resultados = Biblioteca.objects.filter(
+                 Q(titulo__icontains=search_text) |
                  Q(autor__icontains=search_text) |
                  Q(descripcion__icontains=search_text) |
                  Q(cita__icontains=search_text) |
