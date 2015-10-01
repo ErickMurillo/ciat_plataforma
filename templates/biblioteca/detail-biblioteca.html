@@ -1,12 +1,81 @@
 {% extends "biblioteca/base.html" %}
 
 {% block contenido %}
-    <h3>{{detalle.titulo}}</h1> <br>
-    <h4>{{detalle.descripcion|safe}}</h3> <br>
+<div id="k-sidebar" class="col-lg-12 col-md-12">
+	<div class="detalle-biblioteca">
+
+		<div class="row">
+		  <div class="col-xs-6 col-md-3">
+		    <div class="thumbnail">
+		      <img src="/static/biblioteca/img/portada.png" alt="...">
+		    </div>
+		  </div>
+
+
+		  <div class="col-xs-6 col-md-9">
+			<table>
+				<tr>
+					<th>Titulo:</th>
+					<td>{{detalle.titulo}}</td>
+				</tr>
+				<tr>
+					<th>Autor:</th>
+					<td>{{detalle.autor}}</td>
+				</tr>
+				<tr>
+					<th>Editorial o revista:</th>
+					<td>{{detalle.edicion}}</td>
+				</tr>
+				<tr>
+					<th>Tipo:</th>
+					<td>{{detalle.tipo}}</td>
+				</tr>
+				<tr>
+					<th>Año:</th>
+					<td>{{detalle.anio}}</td>
+				</tr>
+				<tr>
+					<th>Cita bibliográfica:</th>
+					<td>{{detalle.cita}}</td>
+				</tr>
+				<tr>
+					<th>Temas:</th>
+					<td>
+						<ol>
+							<li>Temas de prueba</li>
+							<li>Lorem ut est ac porta sed</li>
+							<li>In habitasse nascetur odio, risus, lectus.</li>
+						</ol>
+				 	</td>
+				</tr>
+				<tr>
+				<th>Alianzas</th>
+					<td>
+						<ol>
+							<li>Alianza de prueba</li>
+							<li>Lorem</li>
+							<li>In habitasse</li>
+						</ol>
+				 	</td>
+				</tr>
+			</table>
+		  </div>
+		</div>
+		<div class="row">
+			<h4 class="descricion-b">
+				Descripción
+			</h4>
+			<p>{{detalle.descripcion|safe}}</p>
+		</div>
+
+
+
+     <br>
 
     <hr>
     {% for obj in detalle.archivoadjunto_set.all %}
         <a href="/media/{{obj.archivo}}">Descargar</a>
     {% endfor %}
-
+    </div>
+</div>
 {% endblock contenido %}

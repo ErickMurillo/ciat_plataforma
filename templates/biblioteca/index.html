@@ -24,23 +24,38 @@
     </div>
 
     <div class="row">
-        <section class="articulos">
+        <section class="biblioteca">
 
            {% for obj in resultados %}
-           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-               <article class="listas">
-                <h6 class="pointer">{{obj.get_tipo_display}} - {{obj.anio}}</h6>
-                <div>
-                    <h4 class="list-titulo"><a href='{% url "detalle-libro" obj.id %}' >{{obj.titulo}}</a></h4>
-                </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail">
+                    <a href='{% url "detalle-libro" obj.id %}'>
+                        <img src="/static/biblioteca/img/portada.png" alt="{{obj.titulo}}"> 
+                    </a>
+                  
+                      <div class="doc-detalle">
+                          <span class="tipo">Libro</span>
+                          <span class="fecha"> 2015</span>
+                      </div>
+                      <div class="caption">
 
-            </article>
-        </div>
-        {% empty%}
-        <p>No existe resultado para su busqueda trate con otro termino!!!</p>
-        {% endfor %}
-    </section>
-</div>
+                        <h4 class="titulo-libro"><a href='{% url "detalle-libro" obj.id %}' >{{obj.titulo}}</a></h4>
+                       
+                      </div>
+                </div>
+            </div>
+
+            {% empty%}
+            <div class="col-md-12">
+              <div class="update-nag">
+                <div class="update-split update-danger"><i class="glyphicon glyphicon-warning-sign"></i></div>
+                <div class="update-text"> 
+                <p><strong>No se encontraron resultados.</strong> Reintente con otro termino.</div></p>
+              </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
 </div>
 
 {% endblock contenido %}
