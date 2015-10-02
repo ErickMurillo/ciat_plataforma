@@ -57,17 +57,7 @@ label[for='titulo']{
   font-weight: bold;
   font-size: 13px;
 }
-.tipo-fecha{
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 94%;
-  margin-left: 3%;
-  position: relative;
-  margin-top: -72px;
-  padding: 10px 0px 10px 20px;
-  color: rgba(237, 112, 43, 1);
-  font-weight: bold;
-  font-size: 13px;
-}
+
 .fecha{
   padding-left: 16px;
 }
@@ -136,6 +126,9 @@ label[for='titulo']{
   border-top: 1px dotted #CDCCC8;
   margin-top: 0px;
 }
+.division2{
+  border-top: 1px dotted #CDCCC8;
+}
 .btn-danger {
   background-color: #DB5252;
 }
@@ -150,4 +143,19 @@ label[for='titulo']{
 table{
   font-size: 14px;
   margin-top: 5px;
+}
+.detalle-biblioteca ol{
+  padding-left: 20px;
+}
+
+.tipo-fecha{
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 94%;
+  margin-left: 3%;
+  position: relative;
+  margin-top: -72px;
+  padding: 10px 0px 10px 20px;
+  color: rgba(237, 112, 43, 1);
+  font-weight: bold;
+  font-size: 13px;
 }

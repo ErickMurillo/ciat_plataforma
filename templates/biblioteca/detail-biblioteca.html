@@ -22,6 +22,16 @@
 					<td>{{detalle.titulo}}</td>
 				</tr>
 				<tr>
+					<th>Proyecto:</th>
+					<td>
+						<ol>
+						{% for proyect in detalle.proyecto.all %}
+							<li>{{proyect}}</li>
+						{% endfor %}
+						</ol>
+					</td>
+				</tr>
+				<tr>
 					<th>Autor:</th>
 					<td>{{detalle.autor}}</td>
 				</tr>
@@ -75,8 +85,10 @@
 			<div class="col-xs-12 col-md-12 ">
 				<hr class="division">
 				<p>{{detalle.descripcion|safe}}</p>
-				<p>palabras claves</p>
-				{{detalle.palabras_claves}}		
+				<hr class="division">
+				<p><b>Palabras Claves:</b> {{detalle.palabras_claves}}</p>
+				<hr class="division2">
+						
 			</div>	
 				
 				
