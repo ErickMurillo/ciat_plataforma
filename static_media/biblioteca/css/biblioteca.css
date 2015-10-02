@@ -57,6 +57,17 @@ label[for='titulo']{
   font-weight: bold;
   font-size: 13px;
 }
+.tipo-fecha{
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 94%;
+  margin-left: 3%;
+  position: relative;
+  margin-top: -72px;
+  padding: 10px 0px 10px 20px;
+  color: rgba(237, 112, 43, 1);
+  font-weight: bold;
+  font-size: 13px;
+}
 .fecha{
   padding-left: 16px;
 }
@@ -121,6 +132,22 @@ label[for='titulo']{
   text-align: left;
 }
 
-.descricion-b{
-  border-bottom: 1px dotted #CDCCC8;
+.division{
+  border-top: 1px dotted #CDCCC8;
+  margin-top: 0px;
+}
+.btn-danger {
+  background-color: #DB5252;
+}
+.botones, .descricion-b{
+  margin: 40px 0 5px;
+}
+
+.modal-dialog {
+  padding-top: 20px;
+}
+
+table{
+  font-size: 14px;
+  margin-top: 5px;
 }

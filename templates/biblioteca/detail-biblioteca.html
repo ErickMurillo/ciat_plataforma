@@ -5,15 +5,18 @@
 	<div class="detalle-biblioteca">
 
 		<div class="row">
-		  <div class="col-xs-6 col-md-3">
+		  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
 		    <div class="thumbnail">
 		      <img src="/static/biblioteca/img/portada.png" alt="...">
 		    </div>
+		    <div class="tipo-fecha">
+                <span class="tipo">{{detalle.get_tipo_display}}</span>
+                <span class="fecha"> {{detalle.anio}}</span>
+            </div>
 		  </div>
 
-
-		  <div class="col-xs-6 col-md-9">
-			<table>
+		  <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+			<table class="table table-bordered">
 				<tr>
 					<th>Titulo:</th>
 					<td>{{detalle.titulo}}</td>
@@ -25,14 +28,6 @@
 				<tr>
 					<th>Editorial o revista:</th>
 					<td>{{detalle.edicion}}</td>
-				</tr>
-				<tr>
-					<th>Tipo:</th>
-					<td>{{detalle.get_tipo_display}}</td>
-				</tr>
-				<tr>
-					<th>Año:</th>
-					<td>{{detalle.anio}}</td>
 				</tr>
 				<tr>
 					<th>Cita bibliográfica:</th>
@@ -62,20 +57,49 @@
 		  </div>
 		</div>
 		<div class="row">
-			<h4 class="descricion-b">
-				Descripción
-			</h4>
-			<p>{{detalle.descripcion|safe}}</p>
+			<div class="col-xs-4 col-sm-6 col-md-8 col-lg-8">
+				<h4 class="descricion-b">Descripción</h4>
+			</div>
+			<div class="botones col-xs-8 col-sm-6 col-md-4 col-lg-4">
+				{% for obj in detalle.archivoadjunto_set.all %}
+        			<a class="btn btn-success" href="/media/{{obj.archivo}}" target="_blank">Descargar 
+						<span class="glyphicon glyphicon-download-alt" data-toggle="modal" data-target="#modalvideo"></span>
+        			</a>
+	    		{% endfor %}
+
+	    			<button class="btn btn-danger" data-toggle="modal" data-target="#modalvideo">Ver Video 
+						<span class="glyphicon glyphicon-film"></span>
+					</button>
+			</div>	
+			<div class="col-xs-12 col-md-12 ">
+				<hr class="division">
+				<p>{{detalle.descripcion|safe}}</p>		
+			</div>	
+				
+				
+			
 		</div>
 
 
 
      <br>
 
-    <hr>
-    {% for obj in detalle.archivoadjunto_set.all %}
-        <a href="/media/{{obj.archivo}}">Descargar</a>
-    {% endfor %}
     </div>
+</div>
+
+
+<div class="modal fade" id="modalvideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body ">
+			Aquiva el video
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+        
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock contenido %}

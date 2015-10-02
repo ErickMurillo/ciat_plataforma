@@ -207,7 +207,6 @@ ul[role="actores"]> li > a:hover, ul[role="actores"] > li > a:focus {
   color: #777;
 }
 
-
 @media (min-width: 1200px){
   .m-detail{
     margin-left:-70px;
