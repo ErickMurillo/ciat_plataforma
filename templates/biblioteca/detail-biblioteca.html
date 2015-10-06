@@ -92,20 +92,12 @@
 				    	<span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu">
-				    <li><a href="#">Docuemnto 1</a></li>
-				    <li><a href="#">Docuemnto 2</a></li>
-				    <li><a href="#">SDocuemnto 3</a></li>
-				   
+				  {% for obj in detalle.archivoadjunto_set.all %}
+				    <li><a href="/media/{{obj.archivo}}" target="_blank">Descargar{{forloop.counter}}</a></li>
+				   {% endfor %}
 				  </ul>
 				</div>
 
-
-
-				{% for obj in detalle.archivoadjunto_set.all %}
-        			<a class="btn btn-success" href="/media/{{obj.archivo}}" target="_blank">Descargar
-						<span class="glyphicon glyphicon-download-alt"></span>
-        			</a>
-	    		{% endfor %}
 				{% if detalle.url_video %}
 					<button class="btn btn-danger" data-toggle="modal" data-target="#modalvideo">Ver Video
 						<span class="glyphicon glyphicon-film"></span>
@@ -133,7 +125,7 @@
     </div>
 </div>
 
-
+{% if detalle.url_video %}
 <div class="modal fade" id="modalvideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -147,4 +139,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock contenido %}
