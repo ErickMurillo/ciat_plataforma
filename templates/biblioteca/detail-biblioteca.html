@@ -32,7 +32,8 @@
 					<td>{{detalle.titulo}}</td>
 				</tr>
 				<tr>
-					<th>Proyecto:</th>
+				{% if detalle.proyecto %}
+				<th>Proyecto:</th>
 					<td>
 						<ol>
 						{% for proyect in detalle.proyecto.all %}
@@ -40,6 +41,7 @@
 						{% endfor %}
 						</ol>
 					</td>
+				{% endif %}
 				</tr>
 				<tr>
 					<th>Autor:</th>
