@@ -84,9 +84,26 @@
 			</div>
 
 			<div class="botones col-xs-8 col-sm-6 col-md-4 col-lg-4">
+				<!--solo si hay mas de un documento-->
+				<div class="btn-group">
+				  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Descargar
+						<span class="glyphicon glyphicon-download-alt"></span> 
+				    	<span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a href="#">Docuemnto 1</a></li>
+				    <li><a href="#">Docuemnto 2</a></li>
+				    <li><a href="#">SDocuemnto 3</a></li>
+				   
+				  </ul>
+				</div>
+
+
+
 				{% for obj in detalle.archivoadjunto_set.all %}
         			<a class="btn btn-success" href="/media/{{obj.archivo}}" target="_blank">Descargar
-						<span class="glyphicon glyphicon-download-alt" data-toggle="modal" data-target="#modalvideo"></span>
+						<span class="glyphicon glyphicon-download-alt"></span>
         			</a>
 	    		{% endfor %}
 				{% if detalle.url_video %}
