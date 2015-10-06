@@ -1,5 +1,7 @@
 {% extends "biblioteca/base.html" %}
 
+{% load thumbnail %}
+
 {% block contenido %}
 <div id="k-sidebar" class="col-lg-12 col-md-12">
 	<div class="detalle-biblioteca">
@@ -7,7 +9,15 @@
 		<div class="row">
 		  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
 		    <div class="thumbnail">
-		      <img src="/static/biblioteca/img/portada.png" alt="...">
+		    {% if detalle.portada %}
+				{% thumbnail detalle.portada "230x300" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                {% endthumbnail %}
+
+		    {% else %}
+				<img src="/static/biblioteca/img/portada.png" alt="...">
+		    {% endif %}
+
 		    </div>
 		    <div class="tipo-fecha">
                 <span class="tipo">{{detalle.get_tipo_display}}</span>
@@ -73,26 +83,28 @@
 
 			<div class="botones col-xs-8 col-sm-6 col-md-4 col-lg-4">
 				{% for obj in detalle.archivoadjunto_set.all %}
-        			<a class="btn btn-success" href="/media/{{obj.archivo}}" target="_blank">Descargar 
+        			<a class="btn btn-success" href="/media/{{obj.archivo}}" target="_blank">Descargar
 						<span class="glyphicon glyphicon-download-alt" data-toggle="modal" data-target="#modalvideo"></span>
         			</a>
 	    		{% endfor %}
-
-	    			<button class="btn btn-danger" data-toggle="modal" data-target="#modalvideo">Ver Video 
+				{% if detalle.url_video %}
+					<button class="btn btn-danger" data-toggle="modal" data-target="#modalvideo">Ver Video
 						<span class="glyphicon glyphicon-film"></span>
 					</button>
-			</div>	
+				{% endif %}
+
+			</div>
 			<div class="col-xs-12 col-md-12 ">
 				<hr class="division">
 				<p>{{detalle.descripcion|safe}}</p>
 				<hr class="division">
 				<p><b>Palabras Claves:</b> {{detalle.palabras_claves}}</p>
 				<hr class="division2">
-						
-			</div>	
-				
-				
-			
+
+			</div>
+
+
+
 		</div>
 
 
@@ -107,12 +119,11 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body ">
-			Aquiva el video
-        
+      	<iframe width="560" height="315" src="https://www.youtube.com/embed/{{detalle.url_video|cut:'https://www.youtube.com/watch?v='}}" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-        
+
       </div>
     </div>
   </div>
