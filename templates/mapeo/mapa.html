@@ -281,9 +281,7 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
-                {% if obj.correo_electronico %}
-                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
-                {% endif %}
+                <li><b>Correo Electronica:</b> {% for x in obj.tecnicoespinvestigador_set.all %} {{x.correo_electronico}} {%endfor%}</li>
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
@@ -309,9 +307,7 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
-                {% if obj.correo_electronico %}
-                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
-                {% endif %}
+                <li><b>Correo Electronica:</b> {% for x in obj.tecnicoespinvestigador_set.all %} {{x.correo_electronico}} {%endfor%}</li>
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
@@ -338,9 +334,7 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
-                {% if obj.correo_electronico %}
-                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
-                {% endif %}
+                <li><b>Correo Electronica:</b> {% for x in obj.tecnicoespinvestigador_set.all %} {{x.correo_electronico}} {%endfor%}</li>
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
@@ -367,9 +361,7 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
-                {% if obj.correo_electronico %}
-                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
-                {% endif %}
+                <li><b>Correo Electronica:</b> {% for x in obj.tecnicoespinvestigador_set.all %} {{x.correo_electronico}} {%endfor%}</li>
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
@@ -396,9 +388,7 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
-                {% if obj.correo_electronico %}
-                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
-                {% endif %}
+                <li><b>Correo Electronica:</b> {% for x in obj.tecnicoespinvestigador_set.all %} {{x.correo_electronico}} {%endfor%}</li>
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
@@ -425,9 +415,7 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
-                {% if obj.correo_electronico %}
-                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
-                {% endif %}
+                <li><b>Correo Electronica:</b> {% for x in obj.tecnicoespinvestigador_set.all %} {{x.correo_electronico}} {%endfor%}</li>
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
