@@ -76,6 +76,13 @@ $(function(){
                 </div>
                 <hr>
                 <p>{{el_proyecto.descripcion}}</p>
+                <hr>
+                <ul>
+                <li><b>ZONAS DE INFLUENCIA DEL PROYECTO</b></li>
+                {% for obj in el_proyecto.influencia.all %}
+                    <li>{{obj}}</li>
+                {% endfor %}
+              </ul>
 
                 
                 
