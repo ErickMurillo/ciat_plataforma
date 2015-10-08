@@ -282,6 +282,7 @@ class Lideres(models.Model):
     fuente = models.ManyToManyField(FuenteManoObra, verbose_name=_(u'Fuente de mano de obra'))
     jefe = models.IntegerField(choices=CHOICE_SEXO_JEFE, verbose_name=_(u'Jefe de familia'))
     tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA)
+    correo_electronico = models.EmailField(_(u'Correo'), null=True, blank=True)
     atiende = models.IntegerField(_(u'Número de personas que atiende'))
     forma_atiende = models.ManyToManyField(FormaAtencion, verbose_name=_(u'Forma de atención'))
     proyecto = models.ManyToManyField(Proyectos)
@@ -312,6 +313,7 @@ class TecnicoEspInvestigador(models.Model):
     persona = models.ForeignKey(Persona)
     formacion = models.IntegerField(choices=CHOICE_FORMACION)
     experiencia = models.CharField(max_length=250)
+    correo_electronico = models.EmailField(_(u'Correo'), null=True, blank=True)
     especialidad = models.ManyToManyField(Especialidades)
     pertenece = models.ManyToManyField(Organizaciones,
             verbose_name=_(u'Organizaciones a que pertenece'))
@@ -341,6 +343,7 @@ class CampoAccion(models.Model):
 
 class Decisor(models.Model):
     persona = models.ForeignKey(Persona)
+    correo_electronico = models.EmailField(_(u'Correo'), null=True, blank=True)
     nivel = models.ManyToManyField(Accionar,
                 verbose_name=_(u'Nivel de accionar'))
     campo = models.ManyToManyField(CampoAccion,

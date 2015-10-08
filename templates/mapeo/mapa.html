@@ -257,7 +257,6 @@ $(function(){
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
-                <li><b>Edad: </b>{{obj.get_edad_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
                 <li><b>Tipologia:</b> {% for productor in obj.productor_set.all %} {{productor.get_tipologia_display}} {% endfor %}</li>
@@ -282,8 +281,10 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
+                {% if obj.correo_electronico %}
+                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
+                {% endif %}
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
-                <li><b>Edad: </b>{{obj.get_edad_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
                 <li><b>Tipologia:</b> {% for productor in obj.lideres_set.all %} {{productor.get_tipologia_display}} {% endfor %}</li>
@@ -308,8 +309,10 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
+                {% if obj.correo_electronico %}
+                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
+                {% endif %}
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
-                <li><b>Edad: </b>{{obj.get_edad_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
                 <li><b>Experiencia:</b> {% for productor in obj.tecnicoespinvestigador_set.all %} {{productor.experiencia}} {% endfor %}</li>
@@ -335,8 +338,10 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
+                {% if obj.correo_electronico %}
+                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
+                {% endif %}
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
-                <li><b>Edad: </b>{{obj.get_edad_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
                 <li><b>Experiencia:</b> {% for productor in obj.tecnicoespinvestigador_set.all %} {{productor.experiencia}} {% endfor %}</li>
@@ -362,8 +367,10 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
+                {% if obj.correo_electronico %}
+                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
+                {% endif %}
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
-                <li><b>Edad: </b>{{obj.get_edad_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
                 <li><b>Experiencia:</b> {% for productor in obj.tecnicoespinvestigador_set.all %} {{productor.experiencia}} {% endfor %}</li>
@@ -389,8 +396,10 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
+                {% if obj.correo_electronico %}
+                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
+                {% endif %}
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
-                <li><b>Edad: </b>{{obj.get_edad_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
                 <li><b>Experiencia:</b> {% for productor in obj.tecnicoespinvestigador_set.all %} {{productor.experiencia}} {% endfor %}</li>
@@ -416,8 +425,10 @@ $(function(){
           <div class="modal-body">
             <ul>
                 <li><b>Nombre:</b> {{obj.nombre}}</li>
+                {% if obj.correo_electronico %}
+                  <li><b>Correo Electronica:</b> {{obj.correo_electronico}}</li>
+                {% endif %}
                 <li><b>Sexo: </b>{{obj.get_sexo_display}}</li>
-                <li><b>Edad: </b>{{obj.get_edad_display}}</li>
                 <li><b>Pais:</b> {{obj.pais}}</li>
                 <li><b>Departamento:</b> {{obj.departamento}}</li>
                 <li><b>Nivel de accionar: </b>{% for productor in obj.decisor_set.all %} {% for x in productor.nivel.all %} {{x}}, {% endfor %} {% endfor %}</li>
