@@ -11,6 +11,9 @@ from datetime import datetime
 def _queryset_filtrado(request):
     params = {}
 
+    if 'pais' in request.session:
+        params['ejecutora__pais'] = request.session['pais']
+
     if 'area_accion' in request.session:
         params['alianza__sitio_accion__area_accion'] = request.session['area_accion']
 
@@ -19,6 +22,17 @@ def _queryset_filtrado(request):
 
     if 'alianza' in request.session:
         params['alianza'] = request.session['alianza']
+
+    if 'temas' in request.session:
+        params['temas'] = request.session['temas']
+
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+        del params[key]
 
     #if 'proyectos' in request.session:
     #    params['productor__proyecto'] = request.session['proyectos']
@@ -32,14 +46,15 @@ def indexview(request, template='mapeo/index.html'):
         mensaje = None
         form = MapeoConsulta(request.POST)
         if form.is_valid():
+            request.session['pais'] = form.cleaned_data['pais']
             request.session['area_accion'] = form.cleaned_data['area_accion']
             request.session['sitio_accion'] = form.cleaned_data['sitio_accion']
             request.session['alianza'] = form.cleaned_data['alianza']
-            #request.session['proyectos'] = form.cleaned_data['proyectos']
+            request.session['temas'] = form.cleaned_data['temas']
             request.session['activo'] = True
             centinela = 1
 
-            #return HttpResponseRedirect('proyectos/')
+            return HttpResponseRedirect('proyectos/')
         else:
             centinela = 0
 
@@ -48,10 +63,11 @@ def indexview(request, template='mapeo/index.html'):
         mensaje = "Existen alguno errores"
         centinela = 0
         try:
+            del request.session['pais']
             del request.session['area_accion']
             del request.session['sitio_accion']
             del request.session['plataforma']
-            #del request.session['proyectos']
+            del request.session['temas']
         except:
             pass
 
@@ -70,11 +86,20 @@ def mapa_actores(request, template="mapeo/mapa.html", id_proyecto=None):
 
     el_proyecto = Proyectos.objects.get(id=id_proyecto)
 
+    hoy = datetime.today()
+
+    fin = datetime(el_proyecto.finalizacion.year, el_proyecto.finalizacion.month, el_proyecto.finalizacion.day)
+    activo = 1
+    if fin < hoy:
+        activo = 0
+    else:
+        activo = 1
+
     persona_productor = Persona.objects.filter(productor__proyecto__id=id_proyecto,tipo_persona=1)
     persona_lideres = Persona.objects.filter(lideres__proyecto__id=id_proyecto,tipo_persona=2)
     persona_tecnico = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=3)
-    persona_esp = Persona.objects.filter(decisor__proyecto__id=id_proyecto, tipo_persona=4)
-    persona_inv = Persona.objects.filter(decisor__proyecto__id=id_proyecto, tipo_persona=5)
+    persona_esp = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=4)
+    persona_inv = Persona.objects.filter(tecnicoespinvestigador__proyecto__id=id_proyecto, tipo_persona=5)
     persona_decisor = Persona.objects.filter(decisor__proyecto__id=id_proyecto, tipo_persona=6)
 
     if request.method == 'POST':

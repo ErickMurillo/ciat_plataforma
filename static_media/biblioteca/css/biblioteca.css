@@ -1,0 +1,161 @@
+#id_q,#id_temas{
+  background: white;
+  width: 100%;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  border-radius: 0;
+  border: #d0d4d8 3px solid;
+  height: 34px;
+  -webkit-appearance: none;
+  
+}
+#id_temas{
+  background: white url("../img/arrow-down-01-16.png") no-repeat right center;
+  background-position: 95% 50%;
+  padding-right: 30px;
+}
+label[for='titulo']{
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+}
+
+.buscador {
+  background-color: #cacaca;
+  padding: 25px 20px 25px 20px ;
+  margin-top: 15px;
+}
+
+.biblioteca{
+  margin-top:30px;
+}
+
+.year {
+  font-weight: bold;
+  color:rgba(237, 112, 43, 1);
+  font-size: 12px;
+
+  margin: 10px 0px 0px 0px;
+
+}
+.titulo-libro{
+  font-weight: bold;
+  font-size: 13px;
+  margin: 5px 0px 0px 0px;
+  line-height: 17px;
+}
+.doc-detalle{
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 94%;
+  margin-left: 3%;
+  position: relative;
+  margin-top: -38px;
+  padding: 10px 0px 10px 20px;
+  color: rgba(237, 112, 43, 1);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.fecha{
+  padding-left: 16px;
+}
+.thumbnail>img, .thumbnail a>img{
+  margin-top: 5px;
+}
+.thumbnail{
+  background-color: #F4F4F4;
+}
+
+.update-nag{
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  height: 50px;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+  margin-bottom: 10px;
+}
+
+.update-nag:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.4);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.3);
+}
+
+.update-nag > .update-split{
+  background: #337ab7;
+  width: 50px;
+  float: left;
+  color: #fff!important;
+  height: 100%;
+  text-align: center;
+}
+
+.update-nag > .update-split > .glyphicon{
+  position:relative;
+  top: calc(50% - 9px)!important; /* 50% - 3/4 of icon height */
+}
+
+.update-nag > .update-split.update-danger{
+  background: #d9534f!important;
+}
+.update-text p{
+   padding: 14px 0px 0px 60px;
+}
+
+.detalle-biblioteca{
+  padding: 20px;
+}
+.detalle-biblioteca .thumbnail>img{
+  margin-top: 0px;
+
+}
+.detalle-biblioteca table{
+  width: 100%;
+}
+.detalle-biblioteca th{
+  background-color: transparent;
+  color: #777;
+  width: 20%;
+  text-align: left;
+}
+
+.division{
+  border-top: 1px dotted #CDCCC8;
+  margin-top: 0px;
+}
+.division2{
+  border-top: 1px dotted #CDCCC8;
+}
+.btn-danger {
+  background-color: #DB5252;
+}
+.botones, .descricion-b{
+  margin: 40px 0 5px;
+}
+
+.modal-dialog {
+  padding-top: 20px;
+}
+
+table{
+  font-size: 14px;
+  margin-top: 5px;
+}
+.detalle-biblioteca ol{
+  padding-left: 20px;
+}
+
+.tipo-fecha{
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 94%;
+  margin-left: 3%;
+  position: relative;
+  margin-top: -72px;
+  padding: 10px 0px 10px 20px;
+  color: rgba(237, 112, 43, 1);
+  font-weight: bold;
+  font-size: 13px;
+}

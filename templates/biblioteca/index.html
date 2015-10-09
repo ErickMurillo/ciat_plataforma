@@ -1,37 +1,71 @@
 {% extends "biblioteca/base.html" %}
 
-{% block contenido %}
-<section class="buscador">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-                <form role="form" class="seccion-search-form" action="/biblioteca/busqueda/" autocomplete="off">
-                    <input type="text" value="" id="search" placeholder="Buscar documento ..." name="q">
-                    <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
-                </form>
+{% load thumbnail %}
 
-            </div>
+{% block contenido %}
+<div id="k-sidebar" class="col-lg-12 col-md-12">
+
+    <div class="buscador">
+        <div class="row">
+            <form method="GET" action="/biblioteca/busqueda/" >
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                    <label for="titulo">Búsqueda</label>
+                    {{form.q}}
+
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <label for="titulo">{{form.temas.label}}</label>
+                    {{form.temas}}
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <br>
+                    <input class="btn btn-success center-block" type="submit" value="Consultar" />
+                </div>
+            </form>
         </div>
     </div>
-</section>
 
-<div class="row">
-    <section class="articulos">
+    <div class="row">
+        <section class="biblioteca">
 
-	{% for obj in resultados %}
-	  <div class="col-sm-4">
-	    <article class="listas">
-            <h6 class="pointer mar-b-5">{{obj.get_tipo_display}}</h6>
-            <div>
-                <h4 class="mar-b-5 mar-t-5"><a href='{% url "detalle-libro" obj.id %}' >{{obj.titulo}}</a></h4>
+           {% for obj in resultados %}
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail">
+                    {% if obj.portada %}
+                        <a href='{% url "detalle-libro" obj.id %}'>
+                        {% thumbnail obj.portada "230x300" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                        {% endthumbnail %}
+                        </a>
+                    {% else %}
+                        <a href='{% url "detalle-libro" obj.id %}'>
+                            <img src="/static/biblioteca/img/portada.png" alt="{{obj.titulo}}">
+                        </a>
+                    {% endif %}
+                      <div class="doc-detalle">
+                          <span class="tipo">{{obj.get_tipo_display}}</span>
+                          <span class="fecha">{{obj.anio}}</span>
+                      </div>
+                      <div class="caption">
+
+                        <h4 class="titulo-libro"><a href='{% url "detalle-libro" obj.id %}' >{{obj.titulo}}</a></h4>
+
+                      </div>
+                </div>
             </div>
 
-        </article>
-	  </div>
-    {% empty%}
-        <p>No existe resultado para su busqueda trate con otro termino!!!</p>
-    {% endfor %}
-</section>
+
+            {% empty%}
+            <div class="col-md-12">
+              <div class="update-nag">
+                <div class="update-split update-danger"><i class="glyphicon glyphicon-warning-sign"></i></div>
+                <div class="update-text">
+                <p><strong>No se encontraron resultados.</strong> Reintente con otro termino.</div></p>
+              </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
 </div>
-</div>
+
 {% endblock contenido %}

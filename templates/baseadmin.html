@@ -161,7 +161,7 @@
                         
                             <li class="widget-container widget_recent_news"><!-- widgets list -->
                     
-                                <h1 class="title-widget">Contactenos</h1>
+                                <h1 class="title-widget">Contactenos Latinoamerica</h1>
                                 
                                 <div itemscope itemtype="http://data-vocabulary.org/Organization"> 
                                 
@@ -211,15 +211,39 @@
                         
                             <li class="widget-container widget_sofa_flickr"><!-- widgets list -->
                     
-                                <h1 class="title-widget">Imagenes</h1>
+                                <h1 class="title-widget">Contactenos Colombia</h1>
                                 
-                                <ul class="k-flickr-photos list-unstyled">
-                                    {% for imagen in  imagenes_global %}
-                                        {% thumbnail imagen.foto "75x75" as im %}
-                                            <li><a href="#" title="Flickr photo"><img src="/media/{{im}}" alt="{{imagen.nombre_img}}" /></a></li>
-                                        {% endthumbnail %}
-                                    {% endfor %}
-                                </ul>
+                                <div itemscope itemtype="http://data-vocabulary.org/Organization"> 
+                                
+                                    <h2 class="title-median m-contact-subject" itemprop="name">Centro Internacional de Agricultura Tropical (CIAT)</h2>
+                                
+                                    <div class="m-contact-address" itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
+                                        <span class="m-contact-street" itemprop="street-address">De Pizza Hut Villa Fontana 1 Cuadra abajo. Edificio CAR 3, Piso 4, Managua, Nicaragua</span>
+                                        <span class="m-contact-city-region"><span class="m-contact-city" itemprop="locality">Managua</span>, <span class="m-contact-region" itemprop="region">Nicaragua</span></span>
+                                        
+                                    </div>
+                                     
+                                    <div class="m-contact-tel-fax">
+                                        <span class="m-contact-tel">Tel: <span itemprop="tel"> (+505) 2270-9965</span></span>
+                                        <span class="m-contact-fax">Rein Van der Hoek:</span>
+                                        <span itemprop="fax">r.vanderhoek@cgiar.org</span>
+                                        <span class="m-contact-fax">Shadi Azadegan:</span>
+                                        <span itemprop="fax">s.v.azadegan@cgiar.org</span>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="social-icons">
+                                
+                                    <ul class="list-unstyled list-inline">
+                                    
+                                        <li><a href="http://ciat.cgiar.org" title="Contact us"><i class="fa fa-globe"></i></a></li>
+                                        <li><a href="https://twitter.com/CIAT_" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="https://www.facebook.com/ciat.ecoefficient" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    
+                                    </ul>
+                                
+                                </div>
                     
                             </li>
                             
