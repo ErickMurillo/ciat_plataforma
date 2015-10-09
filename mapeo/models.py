@@ -244,17 +244,17 @@ class Productor(models.Model):
     fecha = models.DateField()
     finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
     organizacion = models.ManyToManyField(Organizaciones, related_name ="organizacion",
-                                        verbose_name=_(u'Organizaciones que lo apoyan'))
-    tamano = models.FloatField(_(u'Tamaño de la finca'))
-    ganado = models.IntegerField(_(u'Número de ganado'))
-    rubros_agro = models.ManyToManyField(RubrosAgropecuarios, related_name="uno", verbose_name=_(u'Rubros que generan ingreso agropecuario'))
-    rubro_principal_agro = models.ForeignKey(RubrosAgropecuarios, related_name="dos")
-    rubros_no_agro = models.ManyToManyField(RubrosNoAgropecuarios, related_name="tres", verbose_name=_(u'Rubros que generan ingreso no agropecuario'))
-    rubro_principal_no_agro = models.ForeignKey(RubrosNoAgropecuarios, related_name="cuatro")
-    fuente = models.ManyToManyField(FuenteManoObra, verbose_name=_(u'Fuente de mano de obra'))
-    jefe = models.IntegerField(choices=CHOICE_SEXO_JEFE, verbose_name=_(u'Jefe de familia'))
-    tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA)
-    proyecto = models.ManyToManyField(Proyectos)
+                                        verbose_name=_(u'Organizaciones que lo apoyan'), blank=True)
+    tamano = models.FloatField(_(u'Tamaño de la finca'), null=True, blank=True)
+    ganado = models.IntegerField(_(u'Número de ganado'), null=True, blank=True)
+    rubros_agro = models.ManyToManyField(RubrosAgropecuarios, related_name="uno", verbose_name=_(u'Rubros que generan ingreso agropecuario'), blank=True)
+    rubro_principal_agro = models.ForeignKey(RubrosAgropecuarios, related_name="dos", null=True, blank=True)
+    rubros_no_agro = models.ManyToManyField(RubrosNoAgropecuarios, related_name="tres", verbose_name=_(u'Rubros que generan ingreso no agropecuario'), blank=True)
+    rubro_principal_no_agro = models.ForeignKey(RubrosNoAgropecuarios, related_name="cuatro", null=True, blank=True)
+    fuente = models.ManyToManyField(FuenteManoObra, verbose_name=_(u'Fuente de mano de obra'), blank=True)
+    jefe = models.IntegerField(choices=CHOICE_SEXO_JEFE, verbose_name=_(u'Jefe de familia'), null=True, blank=True)
+    tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA, null=True, blank=True)
+    proyecto = models.ManyToManyField(Proyectos, blank=True)
 
     fecha1 = models.IntegerField(editable=False, null=True, blank=True)
 
@@ -272,20 +272,20 @@ class Lideres(models.Model):
     fecha = models.DateField()
     finca = models.CharField(_(u'Nombre de Finca'), max_length=200, null=True, blank=True)
     organizacion = models.ManyToManyField(Organizaciones, related_name ="org",
-                                        verbose_name=_(u'Organizaciones que lo apoyan'))
-    tamano = models.FloatField(_(u'Tamaño de la finca'))
-    ganado = models.IntegerField(_(u'Número de ganado'))
-    rubros_agro = models.ManyToManyField(RubrosAgropecuarios, related_name="agro", verbose_name=_(u'Rubros que generan ingreso agropecuario'))
-    rubro_principal_agro = models.ForeignKey(RubrosAgropecuarios, related_name="principal")
-    rubros_no_agro = models.ManyToManyField(RubrosNoAgropecuarios, related_name="noagro", verbose_name=_(u'Rubros que generan ingreso no agropecuario'))
-    rubro_principal_no_agro = models.ForeignKey(RubrosNoAgropecuarios, related_name="principalno")
-    fuente = models.ManyToManyField(FuenteManoObra, verbose_name=_(u'Fuente de mano de obra'))
-    jefe = models.IntegerField(choices=CHOICE_SEXO_JEFE, verbose_name=_(u'Jefe de familia'))
-    tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA)
+                                        verbose_name=_(u'Organizaciones que lo apoyan'),null=True, blank=True)
+    tamano = models.FloatField(_(u'Tamaño de la finca'), null=True, blank=True)
+    ganado = models.IntegerField(_(u'Número de ganado'), null=True, blank=True)
+    rubros_agro = models.ManyToManyField(RubrosAgropecuarios, related_name="agro", verbose_name=_(u'Rubros que generan ingreso agropecuario'), blank=True)
+    rubro_principal_agro = models.ForeignKey(RubrosAgropecuarios, related_name="principal", null=True, blank=True)
+    rubros_no_agro = models.ManyToManyField(RubrosNoAgropecuarios, related_name="noagro", verbose_name=_(u'Rubros que generan ingreso no agropecuario'), blank=True)
+    rubro_principal_no_agro = models.ForeignKey(RubrosNoAgropecuarios, related_name="principalno", null=True, blank=True)
+    fuente = models.ManyToManyField(FuenteManoObra, verbose_name=_(u'Fuente de mano de obra'), blank=True)
+    jefe = models.IntegerField(choices=CHOICE_SEXO_JEFE, verbose_name=_(u'Jefe de familia'), null=True, blank=True)
+    tipologia = models.IntegerField(choices=CHOICE_TIPOLOGIA, null=True, blank=True)
     correo_electronico = models.EmailField(_(u'Correo'), null=True, blank=True)
-    atiende = models.IntegerField(_(u'Número de personas que atiende'))
-    forma_atiende = models.ManyToManyField(FormaAtencion, verbose_name=_(u'Forma de atención'))
-    proyecto = models.ManyToManyField(Proyectos)
+    atiende = models.IntegerField(_(u'Número de personas que atiende'), null=True, blank=True)
+    forma_atiende = models.ManyToManyField(FormaAtencion, verbose_name=_(u'Forma de atención'), blank=True)
+    proyecto = models.ManyToManyField(Proyectos, blank=True)
 
     class Meta:
         verbose_name_plural = _(u'Líder o Lideresa comunitaria')
@@ -311,14 +311,14 @@ class Especialidades(models.Model):
 
 class TecnicoEspInvestigador(models.Model):
     persona = models.ForeignKey(Persona)
-    formacion = models.IntegerField(choices=CHOICE_FORMACION)
-    experiencia = models.CharField(max_length=250)
+    formacion = models.IntegerField(choices=CHOICE_FORMACION, null=True, blank=True)
+    experiencia = models.CharField(max_length=250, null=True, blank=True)
     correo_electronico = models.EmailField(_(u'Correo'), null=True, blank=True)
-    especialidad = models.ManyToManyField(Especialidades)
+    especialidad = models.ManyToManyField(Especialidades, blank=True)
     pertenece = models.ManyToManyField(Organizaciones,
-            verbose_name=_(u'Organizaciones a que pertenece'))
+            verbose_name=_(u'Organizaciones a que pertenece'), blank=True)
     proyecto = models.ManyToManyField(Proyectos,
-            verbose_name=_(u'Vinculado a proyectos'))
+            verbose_name=_(u'Vinculado a proyectos'), blank=True)
 
     class Meta:
         verbose_name_plural = _(u'Técnico, Especialista o Investigador')
@@ -345,13 +345,13 @@ class Decisor(models.Model):
     persona = models.ForeignKey(Persona)
     correo_electronico = models.EmailField(_(u'Correo'), null=True, blank=True)
     nivel = models.ManyToManyField(Accionar,
-                verbose_name=_(u'Nivel de accionar'))
+                verbose_name=_(u'Nivel de accionar'), blank=True)
     campo = models.ManyToManyField(CampoAccion,
-                verbose_name=_(u'Campo de acción'))
+                verbose_name=_(u'Campo de acción'), blank=True)
     pertenece = models.ManyToManyField(Organizaciones,
-            verbose_name=_(u'Organizaciones a que pertenece'))
+            verbose_name=_(u'Organizaciones a que pertenece'), blank=True)
     proyecto = models.ManyToManyField(Proyectos,
-            verbose_name=_(u'Vinculado a proyectos'))
+            verbose_name=_(u'Vinculado a proyectos'), blank=True)
 
     class Meta:
         verbose_name_plural = _(u'Decisor')
