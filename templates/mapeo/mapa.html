@@ -26,7 +26,7 @@ $(function(){
 <div id="k-sidebar" class="col-lg-12 col-md-12">
     <div class="row">
         <h4 class="title-proyect"><span> <img src="/static/mapeo/img/project.png" alt=""></span>Proyecto {{el_proyecto.nombre}}</h4>
-       
+
 
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="mapeo">
@@ -55,18 +55,18 @@ $(function(){
                         <li>{{el_proyecto.inicio}}</li>
                         <li>{{el_proyecto.finalizacion}}</li>
                         <li>
-                            {% if activo == 0 %} 
+                            {% if activo == 0 %}
                             <span class="red">
                                 <span class="circulo"></span>
                                 <label for="">Inactivo</label>
                             </span>
-                            {% else %} 
+                            {% else %}
                             <span class="green">
                                 <label for="">Activo</label>
                                 <span class="circulo"></span>
                             </span>
                             {% endif %}
-                            
+
                         </li>
                         <li> {{el_proyecto.tipo}}</li>
                         <li>{{el_proyecto.encargado}}</li>
@@ -83,13 +83,6 @@ $(function(){
                     <li>{{obj}}</li>
                 {% endfor %}
               </ul>
-
-                
-                
-                
-
-
-
 
             </div>
             <div role="tabpanel" class="tab-pane fade" id="profile">
@@ -133,15 +126,15 @@ $(function(){
                         <div class="lista">
                             {% for obj in persona_productor %}
 
-                                
+
 
                                 <h4 class="list-titulo"><a data-toggle="modal" data-target="#productor-{{obj.id}}" href="#">{{obj.nombre}}</a></h4>
 
                                 <hr>
-                                
+
                             {% endfor %}
                         </div>
-                         
+
                     </div>
                   {% endif %}
 
@@ -165,7 +158,7 @@ $(function(){
                                 <h4 class="list-titulo"><a data-toggle="modal" data-target="#tecnico-{{obj.id}}" href="#">{{obj.nombre}}</a></h4>
 
                                 <hr>
-                                
+
                             {% endfor %}
                         </div>
                     </div>
@@ -177,7 +170,7 @@ $(function(){
                             {% for obj in persona_esp %}
                                 <h4 class="list-titulo"><a data-toggle="modal" data-target="#especialista-{{obj.id}}" href="#">{{obj.nombre}}</a></h4>
                                 <hr>
-                                
+
                             {% endfor %}
                         </div>
                     </div>
@@ -189,7 +182,7 @@ $(function(){
                             {% for obj in persona_inv %}
                                 <h4 class="list-titulo"><a data-toggle="modal" data-target="#investigador-{{obj.id}}" href="#">{{obj.nombre}}</a></h4>
                                 <hr>
-                                
+
                             {% endfor %}
                         </div>
                     </div>
@@ -209,7 +202,7 @@ $(function(){
                   </div>
               </div>
               </div>
-            </div> 
+            </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="messages">
                <div id="timeline">
@@ -238,16 +231,30 @@ $(function(){
                     <div class="lista">
                         <h6 class="pointer">{{obj.get_tipo_display}}</h6>
 
-                        <h4 class="list-titulo"><a href=# >{{obj.titulo}}</a></h4>
-
+                        <h4 class="list-titulo">{{obj.titulo}}</h4>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Descargar
+                            <span class="fa fa-cloud-download"></span>
+                              <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                          {% for x in obj.archivoadjunto_set.all %}
+                            <li><a href="/media/{{x.archivo}}" target="_blank">Descargar{{forloop.counter}}</a></li>
+                           {% endfor %}
+                          </ul>
+                        </div>
+                          < | >
+                          <a class="btn btn-default" href='{% url "detalle-libro" obj.id %}'><i class="icon-eye-open"></i>
+                          <i class="fa fa-eye"></i> Ver {{obj.get_tipo_display}}</a>
                         <hr>
                     </div>
 
                 {% endfor %}
-  
+
             </div>
           </div>
-        
+
     </div>
 
     </div>
