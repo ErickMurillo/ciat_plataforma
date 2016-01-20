@@ -61,8 +61,12 @@ label[for='titulo']{
 .fecha{
   padding-left: 16px;
 }
+.thumbnail{
+  height: 375px;
+}
 .thumbnail>img, .thumbnail a>img{
   margin-top: 5px;
+  height: 260px;
 }
 .thumbnail{
   background-color: #F4F4F4;
