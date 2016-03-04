@@ -49,7 +49,7 @@ INSTALLED_APPS = (
     'comunicacion.lugar',
     #apps solo de mapeo
     'mapeo',
-    
+
     #apps solo de analisis
     'analisis.analisis',
     'analisis.configuracion',
@@ -65,7 +65,7 @@ INSTALLED_APPS = (
     'comunicacion.foros',
     'comunicacion.agendas',
     'comunicacion.notas',
-    
+
     #apps solo de monitoreo,
     'monitoreo.monitoreo',
     'monitoreo.indicador01',
@@ -91,7 +91,10 @@ INSTALLED_APPS = (
     'producto',
     #biblioteca
     'biblioteca',
-    
+
+    #fichas
+    'ficha_sombra',
+
 
 
 )
@@ -153,7 +156,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    
+
     )
 
 TEMPLATE_LOADERS = (
