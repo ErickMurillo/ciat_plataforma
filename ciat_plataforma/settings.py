@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'rosetta',
     'ajax_select',
     'nested_inline',
+    'multiselectfield',
 
     'comunicacion.lugar',
     #apps solo de mapeo
@@ -94,6 +95,7 @@ INSTALLED_APPS = (
 
     #fichas
     'ficha_sombra',
+    'ficha_poda',
 
 
 
