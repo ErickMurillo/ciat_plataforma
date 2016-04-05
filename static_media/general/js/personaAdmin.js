@@ -28,6 +28,16 @@
             $('#decisor_set-group').hide();
         };
 
+        if (valor_tipo1 == '7') {
+            $('#productorgranosbasicos_set-group').show();
+            $('#usosuelo_set-group').show();
+            $('#composicionfamiliar_set-group').show();
+        }else{
+            $('#productorgranosbasicos_set-group').hide();
+            $('#usosuelo_set-group').hide();
+            $('#composicionfamiliar_set-group').hide();
+        };
+
         $('#id_tipo_persona').change(function(){
             var valor_tipo1 = $('#id_tipo_persona').val();
             if (valor_tipo1 === '1' ) {
@@ -54,6 +64,16 @@
                 $('#decisor_set-group').hide();
             };
 
+            if (valor_tipo1 == '7') {
+                $('#productorgranosbasicos_set-group').show();
+                $('#usosuelo_set-group').show();
+                $('#composicionfamiliar_set-group').show();
+            }else{
+                $('#productorgranosbasicos_set-group').hide();
+                $('#usosuelo_set-group').hide();
+                $('#composicionfamiliar_set-group').hide();
+            };
+            
         });
 
 

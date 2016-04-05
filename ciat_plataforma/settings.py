@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'ficha_sombra',
     'ficha_poda',
 
+    'ficha_granos_basicos',
 
 
 )
@@ -206,5 +207,3 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'ciat_plataforma.context.globales',
     )
-
-

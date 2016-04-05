@@ -92,12 +92,13 @@ CHOICE_NIVEL_EDUCATIVO = (
             )
 
 CHOICE_TIPO_PERSONA = (
-                (1, _(u'Productor o Productora')),
+                (1, _(u'Productor o Productora (Monitoreo)')),
                 (2, _(u'Líder o Lideresa comunitaria')),
                 (3, _(u'Técnico')),
                 (4, _(u'Especialista')),
                 (5, _(u'Investigador')),
                 (6, _(u'Decisor')),
+                (7, _(u'Productor o Productora (Granos Básicos)')),
             )
 
 CHOICE_TIPOLOGIA = (
@@ -355,3 +356,85 @@ class Decisor(models.Model):
 
     class Meta:
         verbose_name_plural = _(u'Decisor')
+
+RELACION_CHOICES = (
+    (1,'Jefe/Jefa de familia'),
+    (2,'Cónyuge'),
+    (3,'Hijo/Hija'),
+    (4,'Otro familiar'),
+    (5,'Administrador'),
+)
+
+class ProductorGranosBasicos(models.Model):
+    persona = models.ForeignKey(Persona)
+    organizacion = models.ForeignKey(Organizaciones,verbose_name='Organización a la que está afiliado/a.')
+    nombre_finca = models.CharField(max_length=200)
+    telefono = models.IntegerField()
+    latitud = models.IntegerField()
+    longitud = models.IntegerField()
+    nombre_productor = models.CharField(max_length=200,verbose_name='Nombre de el/la productor/a de la parcela GB')
+    relacion = models.IntegerField(choices=RELACION_CHOICES,verbose_name='Relación de el/la productor/a con el/la responsable de Familia.')
+
+    class Meta:
+        verbose_name_plural = 'Productor/a de Granos Básicos'
+
+USO_SUELO_CHOICES = (
+    (1,'Área Total'),
+    (2,'Cultivos Anuales (GB)'),
+    (3,'Cultivos perennes'),
+    (4,'Tacotales'),
+    (5,'Potreros'),
+    (6,'Pasto de Corte'),
+)
+
+class UsoSuelo(models.Model):
+    persona = models.ForeignKey(Persona)
+    uso = models.IntegerField(choices=USO_SUELO_CHOICES)
+    cantidad = models.FloatField(verbose_name='Cantidad en mz')
+
+    class Meta:
+        verbose_name_plural = 'Uso de Suelo de la finca'
+
+FAMILIA_CHOICES = (
+    (1,'Padre'),
+    (2,'Madre'),
+    (3,'Hijo'),
+    (4,'Hija'),
+    (5,'Hermano'),
+    (6,'Hermana'),
+    (7,'Sobrino'),
+    (8,'Sobrina'),
+    (9,'Abuelo'),
+    (10,'Abuela'),
+    (11,'Cuñado'),
+    (12,'Cuñada'),
+    (13,'Yerno'),
+    (14,'Nuera'),
+    (15,'Otro'),
+)
+
+ESCOLARIDAD_CHOICES = (
+    (1,'Ninguno'),
+    (2,'Primaria Incompleta'),
+    (3,'Primaria'),
+    (4,'Secundaria Incompleta'),
+    (5,'Secundaria'),
+    (6,'Técnico'),
+    (7,'Universitario'),
+    (8,'Profesional'),
+)
+
+SI_NO_CHOICES = (
+    (1,'Si'),
+    (2,'No'),
+)
+
+class ComposicionFamiliar(models.Model):
+    persona = models.ForeignKey(Persona)
+    familia = models.IntegerField(choices=FAMILIA_CHOICES)
+    edad = models.IntegerField()
+    escolaridad = models.IntegerField(choices=ESCOLARIDAD_CHOICES,verbose_name='Nivel de Escolaridad')
+    participacion = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='Participa en la parcela de Granos Básicos')
+
+    class Meta:
+        verbose_name_plural = 'Composición Familiar'
