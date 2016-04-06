@@ -133,7 +133,7 @@ class DatosMonitoreo(InfoGeneral):
     fecha_cosecha = models.DateField()
 
     class Meta:
-        verbose_name_plural = 'Datos del Monitoreo'
+        verbose_name_plural = 'II. Datos del Monitoreo'
 
 DIRECCION_CHOICES = (
     (1,'N'),
@@ -238,7 +238,7 @@ class Semillas(InfoGeneral):
     semilla_maiz = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
 
     class Meta:
-        verbose_name_plural = 'Semilla'
+        verbose_name_plural = 'IV. Semilla'
 
 class NombreSemilla(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
@@ -274,5 +274,79 @@ class PruebaGerminacion(models.Model):
     class Meta:
         verbose_name_plural = 'Prueba de germinación'
 #fin semilla -----------------------------------------
+
+#Inicio suelo ----------------------------------------
+UNIDADES_CHOICES = (
+    (1,'%'),
+    (2,'ppm'),
+    (3,'meq/100'),
+    (4,'gr/cm3'),
+)
+
+class ParametrosSuelo(models.Model):
+    parametro = models.CharField(max_length=100)
+    unidad = models.IntegerField(choices=UNIDADES_CHOICES,blank=True,null=True)
+    nivel_critico = models.FloatField(blank=True,null=True)
+    nivel_suficiencia = models.FloatField(blank=True,null=True)
+
+    def __unicode__(self):
+		return self.parametro
+
+    class Meta:
+        verbose_name_plural = 'Parámetros de suelo'
+
+class Suelo(models.Model):
+    productor = models.ForeignKey(Persona)
+    fecha = models.DateField()
+    visita = models.IntegerField(choices=VISITA_CHOICES)
+    areas = MultiSelectField(choices=AREAS_CHOICES)
+
+    class Meta:
+        verbose_name_plural = 'V. Suelo'
+
+class TablaSuelo(models.Model):
+    parametro = models.ForeignKey(ParametrosSuelo)
+    resultado = models.FloatField()
+    suelo = models.ForeignKey(Suelo)
+#fin  suelo ------------------------------------------------------
+
+#inicio macrofauna -----------------------------------------------
+class Macrofauna(models.Model):
+    productor = models.ForeignKey(Persona)
+    fecha = models.DateField()
+    visita = models.IntegerField(choices=VISITA_CHOICES)
+    areas = MultiSelectField(choices=AREAS_CHOICES)
+
+    class Meta:
+        verbose_name_plural = 'VI. Macrofauna de Suelo y Malezas'
+
+ESPECIES_CHOICES = (
+    (1,'Cuerudo'),
+    (2,'Gusano Alambre'),
+    (3,'Zompopos'),
+    (4,'Tortuguilla'),
+    (5,'Coralillo'),
+    (6,'Gallina Ciega (Larva grande)'),
+    (7,'Gallina Ciega (Larva pequeña)'),
+)
+
+class TablaMacrofauna(models.Model):
+    especie = models.IntegerField(choices=ESPECIES_CHOICES)
+    est1 = models.IntegerField()
+    est2 = models.IntegerField()
+    est3 = models.IntegerField()
+    est4 = models.IntegerField()
+    est5 = models.IntegerField()
+    promedio = models.FloatField(editable=False)
+    macrofauna = models.ForeignKey(Macrofauna)
+
+    def save(self, *args, **kwargs):
+        self.promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
+        super(TablaMacrofauna, self).save(*args, **kwargs)
+#fin macrofauna --------------------------------------------------
+
+#inicio malezas --------------------------------------------------
+
+#fin malezas -----------------------------------------------------
 
 #Fin Ficha monitoreo 1 --------------------------------------------
