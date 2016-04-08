@@ -106,14 +106,19 @@ AREAS_CHOICES = (
     (9,'Almacenamiento'),
 )
 
-class InfoGeneral(models.Model):
+MONITOREO_CHOICES = (
+    (1,'Monitoreo #1: Familia, Finca y Parcela'),
+    (2,'Monitoreo #2: Post Siembra'),
+    (3,'Monitoreo #3: Desarrollo Vegetativo'),
+    (4,'Monitoreo #4: Maduración'),
+    (5,'Monitoreo #5: Almacenamiento Post Cosecha'),
+)
+
+class Monitoreo(models.Model):
     productor = models.ForeignKey(Persona)
     fecha = models.DateField()
     visita = models.IntegerField(choices=VISITA_CHOICES)
-    areas = MultiSelectField(choices=AREAS_CHOICES)
-
-    class Meta:
-        abstract = True
+    monitoreo = models.IntegerField(choices=MONITOREO_CHOICES)
 
 CICLO_CHOICES = (
     (1,'Primera'),
@@ -126,11 +131,12 @@ CULTIVO_CHOICES = (
     (3,'Maíz y Frijol'),
 )
 #datos del monitoreo ------------------------------
-class DatosMonitoreo(InfoGeneral):
+class DatosMonitoreo(models.Model):
     ciclo_productivo = models.IntegerField(choices=CICLO_CHOICES)
     cultivo = models.IntegerField(choices=CULTIVO_CHOICES)
     fecha_siembra = models.DateField()
     fecha_cosecha = models.DateField()
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'II. Datos del Monitoreo'
@@ -171,7 +177,7 @@ class DatosParcela(models.Model):
     acceso_agua = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Tiene acceso a agua en su parcela?')
     fuente_agua = MultiSelectField(choices=ACCESO_AGUA_CHOICES,verbose_name='Como tiene acceso a agua')
     distancia = models.FloatField(verbose_name='¿A qué distancia tiene la fuente de agua?')
-    datos_monitoreo = models.ForeignKey(DatosMonitoreo)
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Datos de la parcela'
@@ -186,7 +192,7 @@ class DistribucionPendiente(models.Model):
     inclinado = models.FloatField()
     plano = models.FloatField()
     ondulado = models.FloatField()
-    datos_monitoreo = models.ForeignKey(DatosMonitoreo)
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Distribución de la Pendiente/Inclinación'
@@ -200,7 +206,7 @@ RESPUESTA_CHOICES = (
 class RecursosSiembra(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
     respuesta = models.IntegerField(choices=RESPUESTA_CHOICES)
-    datos_monitoreo = models.ForeignKey(DatosMonitoreo)
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Recursos para la siembra'
@@ -220,33 +226,28 @@ class HistorialRendimiento(models.Model):
     ciclo_productivo = models.IntegerField(choices=CICLO_CHOICES)
     anio = models.IntegerField(choices=ANIO_CHOICES)
     rendimiento = models.FloatField()
-    datos_monitoreo = models.ForeignKey(DatosMonitoreo)
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Historial de rendimiento'
 #fin datos del monitoreo ------------------------------
 
-#semilla ---------------------------------------------
+# #semilla ---------------------------------------------
 TIPO_SEMILLA_CHOICES = (
     (1,'Criolla'),
     (2,'Acriollada'),
     (3,'Mejorada'),
 )
 
-class Semillas(InfoGeneral):
+class Semillas(models.Model):
     semilla_frijol = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
     semilla_maiz = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
+    nombre_frijol = models.CharField(max_length=100)
+    nombre_maiz = models.CharField(max_length=100)
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'IV. Semilla'
-
-class NombreSemilla(models.Model):
-    rubro = models.IntegerField(choices=RUBRO_CHOICES)
-    nombre = models.CharField(max_length=100)
-    semillas = models.ForeignKey(Semillas)
-
-    class Meta:
-        verbose_name_plural = 'Nombre semillas'
 
 PROCEDENCIA_CHOICES = (
     (1,'Cosecha anterior'),
@@ -260,7 +261,7 @@ PROCEDENCIA_CHOICES = (
 class ProcedenciaSemilla(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
     procedencia = models.IntegerField(choices=PROCEDENCIA_CHOICES)
-    semillas = models.ForeignKey(Semillas)
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Procedencia de la semilla'
@@ -268,14 +269,14 @@ class ProcedenciaSemilla(models.Model):
 class PruebaGerminacion(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
     respuesta = models.IntegerField(choices=SI_NO_CHOICES)
-    porcentaje = models.FloatField()
-    semillas = models.ForeignKey(Semillas)
+    porcentaje = models.FloatField(blank=True,null=True)
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Prueba de germinación'
-#fin semilla -----------------------------------------
-
-#Inicio suelo ----------------------------------------
+# #fin semilla -----------------------------------------
+#
+# #Inicio suelo ----------------------------------------
 UNIDADES_CHOICES = (
     (1,'%'),
     (2,'ppm'),
@@ -296,30 +297,15 @@ class ParametrosSuelo(models.Model):
         verbose_name_plural = 'Parámetros de suelo'
 
 class Suelo(models.Model):
-    productor = models.ForeignKey(Persona)
-    fecha = models.DateField()
-    visita = models.IntegerField(choices=VISITA_CHOICES)
-    areas = MultiSelectField(choices=AREAS_CHOICES)
+    # parametro = models.ForeignKey(ParametrosSuelo)
+    resultado = models.FloatField()
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'V. Suelo'
-
-class TablaSuelo(models.Model):
-    parametro = models.ForeignKey(ParametrosSuelo)
-    resultado = models.FloatField()
-    suelo = models.ForeignKey(Suelo)
-#fin  suelo ------------------------------------------------------
-
-#inicio macrofauna -----------------------------------------------
-class Macrofauna(models.Model):
-    productor = models.ForeignKey(Persona)
-    fecha = models.DateField()
-    visita = models.IntegerField(choices=VISITA_CHOICES)
-    areas = MultiSelectField(choices=AREAS_CHOICES)
-
-    class Meta:
-        verbose_name_plural = 'VI. Macrofauna de Suelo y Malezas'
-
+# #fin  suelo ------------------------------------------------------
+#
+# #inicio macrofauna -----------------------------------------------
 ESPECIES_CHOICES = (
     (1,'Cuerudo'),
     (2,'Gusano Alambre'),
@@ -330,7 +316,7 @@ ESPECIES_CHOICES = (
     (7,'Gallina Ciega (Larva pequeña)'),
 )
 
-class TablaMacrofauna(models.Model):
+class Macrofauna(models.Model):
     especie = models.IntegerField(choices=ESPECIES_CHOICES)
     est1 = models.IntegerField()
     est2 = models.IntegerField()
@@ -338,15 +324,52 @@ class TablaMacrofauna(models.Model):
     est4 = models.IntegerField()
     est5 = models.IntegerField()
     promedio = models.FloatField(editable=False)
-    macrofauna = models.ForeignKey(Macrofauna)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'VI. Macrofauna de Suelo y Malezas'
 
     def save(self, *args, **kwargs):
         self.promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
         super(TablaMacrofauna, self).save(*args, **kwargs)
-#fin macrofauna --------------------------------------------------
-
-#inicio malezas --------------------------------------------------
-
-#fin malezas -----------------------------------------------------
-
-#Fin Ficha monitoreo 1 --------------------------------------------
+# #fin macrofauna --------------------------------------------------
+#
+# #inicio malezas --------------------------------------------------
+#
+# #fin malezas -----------------------------------------------------
+#
+# #Fin Ficha monitoreo 1 --------------------------------------------
+#
+# #Inicio monitoreo 2 -----------------------------------------------
+# class Poblacion(models.Model):
+#     productor = models.ForeignKey(Persona)
+#     fecha = models.DateField()
+#     visita = models.IntegerField(choices=VISITA_CHOICES)
+#     areas = MultiSelectField(choices=AREAS_CHOICES)
+#
+#     class Meta:
+#         verbose_name_plural = 'Población'
+#
+# class DistanciaSurco(models.Model):
+#     distancia_frijol = models.FloatField()
+#     distancia_maiz = models.FloatField()
+#     poblacion = models.ForeignKey(Poblacion)
+#
+# class TablaPoblacion(models.Model):
+#     rubro = models.IntegerField(choices=RUBRO_CHOICES)
+#     est1 = models.IntegerField()
+#     est2 = models.IntegerField()
+#     est3 = models.IntegerField()
+#     est4 = models.IntegerField()
+#     est5 = models.IntegerField()
+#     promedio = models.FloatField(editable=False)
+#     #Calculado la población
+#     numero_surcos = models.FloatField()
+#     metros_lineales = models.FloatField()
+#     poblacion = models.FloatField()
+#     link_poblacion = models.ForeignKey(Poblacion)
+#
+#     def save(self, *args, **kwargs):
+#         self.promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
+#         super(TablaMacrofauna, self).save(*args, **kwargs)
+#FIn monitoreo 2 --------------------------------------------------

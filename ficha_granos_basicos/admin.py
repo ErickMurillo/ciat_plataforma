@@ -26,6 +26,10 @@ class TomaDecisionesAdmin(admin.ModelAdmin):
 admin.site.register(TomaDecisiones,TomaDecisionesAdmin)
 
 #ficha monitoreo #1 ---------------------------------------------------------
+class InlineDatosMonitoreo(admin.TabularInline):
+    model = DatosMonitoreo
+    max_num = 1
+
 class InlineDatosParcela(admin.StackedInline):
     model = DatosParcela
     max_num = 1
@@ -52,25 +56,10 @@ class InlineHistorialRendimiento(admin.TabularInline):
     model = HistorialRendimiento
     extra = 1
 
-class DatosMonitoreoAdmin(admin.ModelAdmin):
-    list_display = ('productor','ciclo_productivo','cultivo')
-
-    inlines = [InlineDatosParcela,InlineDistribucionPendiente,
-                InlineRecursosSiembra,InlineHistorialRendimiento]
-
-    fields = (
-            ('productor', 'fecha', 'visita'),
-            ('areas','ciclo_productivo','cultivo'),
-            ('fecha_siembra', 'fecha_cosecha'),
-        )
-
-admin.site.register(DatosMonitoreo,DatosMonitoreoAdmin)
-
-#siembra --------------------------------------------------------------------
-class InlineNombreSemilla(admin.TabularInline):
-    model = NombreSemilla
-    extra = 1
-    max_num = 2
+class InlineSemillas(admin.TabularInline):
+    model = Semillas
+    max_num = 1
+    can_delete = False
 
 class InlineProcedenciaSemilla(admin.TabularInline):
     model = ProcedenciaSemilla
@@ -82,41 +71,106 @@ class InlinePruebaGerminacion(admin.TabularInline):
     extra = 1
     max_num = 2
 
-class SemillasAdmin(admin.ModelAdmin):
-    list_display = ('productor','fecha','visita')
-
-    inlines = [InlineNombreSemilla,InlineProcedenciaSemilla,
-                InlinePruebaGerminacion]
-
-    fields = (
-            ('productor', 'fecha', 'visita'),
-            ('areas','semilla_frijol','semilla_maiz'),
-        )
-
-admin.site.register(Semillas,SemillasAdmin)
-
-#suelo ----------------------------------------------------------------------
-class InlineTablaSuelo(admin.TabularInline):
-    model = TablaSuelo
+class InlineSuelo(admin.TabularInline):
+    model = Suelo
     extra = 1
     max_num = 21
 
-class SueloAdmin(admin.ModelAdmin):
-    list_display = ('productor','fecha','visita')
-
-    inlines = [InlineTablaSuelo]
-
-admin.site.register(Suelo,SueloAdmin)
-admin.site.register(ParametrosSuelo)
-
-#macrofauna ---------------------------------------------------------------
-class InlineTablaMacrofauna(admin.TabularInline):
-    model = TablaMacrofauna
+class InlineMacrofauna(admin.TabularInline):
+    model = Macrofauna
     extra = 1
 
-class MacrofaunaAdmin(admin.ModelAdmin):
-    list_display = ('productor','fecha','visita')
+class MonitoreoAdmin(admin.ModelAdmin):
+    list_display = ('productor','fecha','visita','monitoreo')
 
-    inlines = [InlineTablaMacrofauna]
+    inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
+                InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
+                InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
+                InlineMacrofauna]
 
-admin.site.register(Macrofauna,MacrofaunaAdmin)
+    # fields = (
+    #         ('productor', 'fecha', 'visita'),
+    #         ('areas','ciclo_productivo','cultivo'),
+    #         ('fecha_siembra', 'fecha_cosecha'),
+    #     )
+
+admin.site.register(Monitoreo,MonitoreoAdmin)
+admin.site.register(ParametrosSuelo)
+#
+# #siembra --------------------------------------------------------------------
+# class InlineNombreSemilla(admin.TabularInline):
+#     model = NombreSemilla
+#     extra = 1
+#     max_num = 2
+#
+# class InlineProcedenciaSemilla(admin.TabularInline):
+#     model = ProcedenciaSemilla
+#     extra = 1
+#     max_num = 2
+#
+# class InlinePruebaGerminacion(admin.TabularInline):
+#     model = PruebaGerminacion
+#     extra = 1
+#     max_num = 2
+#
+# class SemillasAdmin(admin.ModelAdmin):
+#     list_display = ('productor','fecha','visita')
+#
+#     inlines = [InlineNombreSemilla,InlineProcedenciaSemilla,
+#                 InlinePruebaGerminacion]
+#
+#     fields = (
+#             ('productor', 'fecha', 'visita'),
+#             ('areas','semilla_frijol','semilla_maiz'),
+#         )
+#
+# admin.site.register(Semillas,SemillasAdmin)
+#
+# #suelo ----------------------------------------------------------------------
+# class InlineTablaSuelo(admin.TabularInline):
+#     model = TablaSuelo
+#     extra = 1
+#     max_num = 21
+#
+# class SueloAdmin(admin.ModelAdmin):
+#     list_display = ('productor','fecha','visita')
+#
+#     inlines = [InlineTablaSuelo]
+#
+# admin.site.register(Suelo,SueloAdmin)
+# admin.site.register(ParametrosSuelo)
+#
+# #macrofauna ---------------------------------------------------------------
+# class InlineTablaMacrofauna(admin.TabularInline):
+#     model = TablaMacrofauna
+#     extra = 1
+#
+# class MacrofaunaAdmin(admin.ModelAdmin):
+#     list_display = ('productor','fecha','visita')
+#
+#     inlines = [InlineTablaMacrofauna]
+#
+# admin.site.register(Macrofauna,MacrofaunaAdmin)
+#
+# #poblacion-----------------------------------------------------------------
+# class InlineDistanciaSurco(admin.TabularInline):
+#     model = DistanciaSurco
+#     can_delete = False
+#     max_num = 1
+#
+# class InlineTablaPoblacion(admin.TabularInline):
+#     model = TablaPoblacion
+#     extra = 1
+#     max_num = 2
+#
+# class PoblacionAdmin(admin.ModelAdmin):
+#     list_display = ('productor','fecha','visita')
+#
+#     fields = (
+#             ('productor', 'fecha', 'visita'),
+#             ('areas',   ),
+#         )
+#
+#     inlines = [InlineDistanciaSurco,InlineTablaPoblacion]
+#
+# admin.site.register(Poblacion,PoblacionAdmin)
