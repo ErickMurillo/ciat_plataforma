@@ -418,5 +418,34 @@ class PlagasFrijol(models.Model):
     class Meta:
         verbose_name_plural = 'Plagas en Frijol'
 
+    def save(self, *args, **kwargs):
+        sumatoria_presencia = self.presencia_1 + self.presencia_2 + self.presencia_3 + self.presencia_4 + self.presencia_5
+        promedio = sumatoria_presencia / float(5)
+        self.promedio_presencia = promedio / float(20)
 
+        suma_porcentaje = self.porcentaje_dano_1 + self.porcentaje_dano_2 + self.porcentaje_dano_3 + self.porcentaje_dano_4 + self.porcentaje_dano_5
+        promedio_d = suma_porcentaje / float(5)
+        self.promedio_dano = promedio_d / float(20)
+        
+        super(PlagasFrijol, self).save(*args, **kwargs)
+
+class PlagasMaiz(models.Model):
+    plaga = models.ForeignKey(PlagasEnfermedades)
+    presencia_1 = models.FloatField('Presencia 1')
+    presencia_2 = models.FloatField('Presencia 2')
+    presencia_3 = models.FloatField('Presencia 3')
+    presencia_4 = models.FloatField('Presencia 4')
+    presencia_5 = models.FloatField('Presencia 5')
+    promedio_presencia = models.FloatField(editable=False)
+    #Porcentaje daño
+    porcentaje_dano_1 = models.FloatField('Porcentaje de Daño 1')
+    porcentaje_dano_2 = models.FloatField('Porcentaje de Daño 2')
+    porcentaje_dano_3 = models.FloatField('Porcentaje de Daño 3')
+    porcentaje_dano_4 = models.FloatField('Porcentaje de Daño 4')
+    porcentaje_dano_5 = models.FloatField('Porcentaje de Daño 5')
+    promedio_dano = models.FloatField(editable=False)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Plagas en Maíz'
 #FIn monitoreo 2 --------------------------------------------------

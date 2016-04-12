@@ -97,6 +97,14 @@ class InlinePlagasFrijol(admin.TabularInline):
         kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__contains=2)
         return super(InlinePlagasFrijol, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
+class InlinePlagasMaiz(admin.TabularInline):
+    model = PlagasMaiz
+    extra = 1
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__contains=1)
+        return super(InlinePlagasMaiz, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 class MonitoreoAdmin(admin.ModelAdmin):
     list_display = ('productor','fecha','visita','monitoreo')
 
@@ -104,13 +112,12 @@ class MonitoreoAdmin(admin.ModelAdmin):
                 InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
                 InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
                 InlineMacrofauna,InlinePoblacion,InlineTablaPoblacion,
-                InlinePlagasFrijol]
+                InlinePlagasFrijol,InlinePlagasMaiz]
 
-    # fields = (
-    #         ('productor', 'fecha', 'visita'),
-    #         ('areas','ciclo_productivo','cultivo'),
-    #         ('fecha_siembra', 'fecha_cosecha'),
-    #     )
+    class Media:
+		css = {
+            'all': ('granos_basicos/css/admin.css',)
+        }
 
 admin.site.register(Monitoreo,MonitoreoAdmin)
 admin.site.register(ParametrosSuelo)
