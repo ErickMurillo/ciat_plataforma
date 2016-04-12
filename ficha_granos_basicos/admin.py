@@ -80,13 +80,31 @@ class InlineMacrofauna(admin.TabularInline):
     model = Macrofauna
     extra = 1
 
+class InlinePoblacion(admin.TabularInline):
+    model = Poblacion
+    max_num = 1
+
+class InlineTablaPoblacion(admin.TabularInline):
+    model = TablaPoblacion
+    extra = 1
+    max_num = 2
+
+class InlinePlagasFrijol(admin.TabularInline):
+    model = PlagasFrijol
+    extra = 1
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__contains=2)
+        return super(InlinePlagasFrijol, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 class MonitoreoAdmin(admin.ModelAdmin):
     list_display = ('productor','fecha','visita','monitoreo')
 
     inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
                 InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
                 InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
-                InlineMacrofauna]
+                InlineMacrofauna,InlinePoblacion,InlineTablaPoblacion,
+                InlinePlagasFrijol]
 
     # fields = (
     #         ('productor', 'fecha', 'visita'),
@@ -96,6 +114,8 @@ class MonitoreoAdmin(admin.ModelAdmin):
 
 admin.site.register(Monitoreo,MonitoreoAdmin)
 admin.site.register(ParametrosSuelo)
+admin.site.register(Especies)
+admin.site.register(PlagasEnfermedades)
 #
 # #siembra --------------------------------------------------------------------
 # class InlineNombreSemilla(admin.TabularInline):

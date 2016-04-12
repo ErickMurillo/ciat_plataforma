@@ -297,7 +297,7 @@ class ParametrosSuelo(models.Model):
         verbose_name_plural = 'Parámetros de suelo'
 
 class Suelo(models.Model):
-    # parametro = models.ForeignKey(ParametrosSuelo)
+    parametro = models.ForeignKey(ParametrosSuelo)
     resultado = models.FloatField()
     monitoreo = models.ForeignKey(Monitoreo)
 
@@ -306,18 +306,27 @@ class Suelo(models.Model):
 # #fin  suelo ------------------------------------------------------
 #
 # #inicio macrofauna -----------------------------------------------
-ESPECIES_CHOICES = (
-    (1,'Cuerudo'),
-    (2,'Gusano Alambre'),
-    (3,'Zompopos'),
-    (4,'Tortuguilla'),
-    (5,'Coralillo'),
-    (6,'Gallina Ciega (Larva grande)'),
-    (7,'Gallina Ciega (Larva pequeña)'),
-)
+# ESPECIES_CHOICES = (
+#     (1,'Cuerudo'),
+#     (2,'Gusano Alambre'),
+#     (3,'Zompopos'),
+#     (4,'Tortuguilla'),
+#     (5,'Coralillo'),
+#     (6,'Gallina Ciega (Larva grande)'),
+#     (7,'Gallina Ciega (Larva pequeña)'),
+# )
+class Especies(models.Model):
+    nombre = models.CharField(max_length=100)
+    nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
+
+    def __unicode__(self):
+		return self.nombre
+
+    class Meta:
+        verbose_name_plural = 'Especies'
 
 class Macrofauna(models.Model):
-    especie = models.IntegerField(choices=ESPECIES_CHOICES)
+    especie = models.ForeignKey(Especies)
     est1 = models.IntegerField()
     est2 = models.IntegerField()
     est3 = models.IntegerField()
@@ -332,44 +341,82 @@ class Macrofauna(models.Model):
     def save(self, *args, **kwargs):
         self.promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
         super(TablaMacrofauna, self).save(*args, **kwargs)
-# #fin macrofauna --------------------------------------------------
-#
-# #inicio malezas --------------------------------------------------
-#
-# #fin malezas -----------------------------------------------------
-#
-# #Fin Ficha monitoreo 1 --------------------------------------------
-#
-# #Inicio monitoreo 2 -----------------------------------------------
-# class Poblacion(models.Model):
-#     productor = models.ForeignKey(Persona)
-#     fecha = models.DateField()
-#     visita = models.IntegerField(choices=VISITA_CHOICES)
-#     areas = MultiSelectField(choices=AREAS_CHOICES)
-#
-#     class Meta:
-#         verbose_name_plural = 'Población'
-#
-# class DistanciaSurco(models.Model):
-#     distancia_frijol = models.FloatField()
-#     distancia_maiz = models.FloatField()
-#     poblacion = models.ForeignKey(Poblacion)
-#
-# class TablaPoblacion(models.Model):
-#     rubro = models.IntegerField(choices=RUBRO_CHOICES)
-#     est1 = models.IntegerField()
-#     est2 = models.IntegerField()
-#     est3 = models.IntegerField()
-#     est4 = models.IntegerField()
-#     est5 = models.IntegerField()
-#     promedio = models.FloatField(editable=False)
-#     #Calculado la población
-#     numero_surcos = models.FloatField()
-#     metros_lineales = models.FloatField()
-#     poblacion = models.FloatField()
-#     link_poblacion = models.ForeignKey(Poblacion)
-#
-#     def save(self, *args, **kwargs):
-#         self.promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
-#         super(TablaMacrofauna, self).save(*args, **kwargs)
+#fin macrofauna --------------------------------------------------
+
+#inicio malezas --------------------------------------------------
+
+#fin malezas -----------------------------------------------------
+
+#Fin Ficha monitoreo 1 --------------------------------------------
+
+#Inicio monitoreo 2 -----------------------------------------------
+class Poblacion(models.Model):
+    distancia_frijol = models.FloatField()
+    distancia_maiz = models.FloatField()
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'III. Población'
+
+class TablaPoblacion(models.Model):
+    rubro = models.IntegerField(choices=RUBRO_CHOICES)
+    est1 = models.IntegerField()
+    est2 = models.IntegerField()
+    est3 = models.IntegerField()
+    est4 = models.IntegerField()
+    est5 = models.IntegerField()
+    promedio = models.FloatField(editable=False)
+    #Calculado la población
+    numero_surcos = models.FloatField()
+    metros_lineales = models.FloatField()
+    poblacion = models.FloatField()
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Población'
+
+    def save(self, *args, **kwargs):
+        self.promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
+        super(TablaMacrofauna, self).save(*args, **kwargs)
+
+#Plagas y enfermedades-------------------
+TIPO_PLAGA_CHOICES = (
+    (1,'Plaga'),
+    (2,'Enfermedad'),
+)
+
+class PlagasEnfermedades(models.Model):
+    nombre = models.CharField(max_length=100)
+    nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
+    umbral = models.CharField(max_length=150,blank=True,null=True)
+    tipo = models.IntegerField(choices=TIPO_PLAGA_CHOICES)
+    rubro = MultiSelectField(choices=RUBRO_CHOICES)
+
+    def __unicode__(self):
+		return self.nombre
+
+    class Meta:
+        verbose_name_plural = 'Plagas y enfermedades'
+
+class PlagasFrijol(models.Model):
+    plaga = models.ForeignKey(PlagasEnfermedades)
+    presencia_1 = models.FloatField('Presencia 1')
+    presencia_2 = models.FloatField('Presencia 2')
+    presencia_3 = models.FloatField('Presencia 3')
+    presencia_4 = models.FloatField('Presencia 4')
+    presencia_5 = models.FloatField('Presencia 5')
+    promedio_presencia = models.FloatField(editable=False)
+    #Porcentaje daño
+    porcentaje_dano_1 = models.FloatField('Porcentaje de Daño 1')
+    porcentaje_dano_2 = models.FloatField('Porcentaje de Daño 2')
+    porcentaje_dano_3 = models.FloatField('Porcentaje de Daño 3')
+    porcentaje_dano_4 = models.FloatField('Porcentaje de Daño 4')
+    porcentaje_dano_5 = models.FloatField('Porcentaje de Daño 5')
+    promedio_dano = models.FloatField(editable=False)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Plagas en Frijol'
+
+
 #FIn monitoreo 2 --------------------------------------------------
