@@ -426,7 +426,7 @@ class PlagasFrijol(models.Model):
         suma_porcentaje = self.porcentaje_dano_1 + self.porcentaje_dano_2 + self.porcentaje_dano_3 + self.porcentaje_dano_4 + self.porcentaje_dano_5
         promedio_d = suma_porcentaje / float(5)
         self.promedio_dano = promedio_d / float(20)
-        
+
         super(PlagasFrijol, self).save(*args, **kwargs)
 
 class PlagasMaiz(models.Model):
@@ -448,4 +448,49 @@ class PlagasMaiz(models.Model):
 
     class Meta:
         verbose_name_plural = 'Plagas en Maíz'
+
+    def save(self, *args, **kwargs):
+        sumatoria_presencia = self.presencia_1 + self.presencia_2 + self.presencia_3 + self.presencia_4 + self.presencia_5
+        promedio = sumatoria_presencia / float(5)
+        self.promedio_presencia = promedio / float(20)
+
+        suma_porcentaje = self.porcentaje_dano_1 + self.porcentaje_dano_2 + self.porcentaje_dano_3 + self.porcentaje_dano_4 + self.porcentaje_dano_5
+        promedio_d = suma_porcentaje / float(5)
+        self.promedio_dano = promedio_d / float(20)
+
+        super(PlagasMaiz, self).save(*args, **kwargs)
+
+class EnfermedadesFrijol(models.Model):
+    enfermedad = models.ForeignKey(PlagasEnfermedades)
+    planta_1 = models.IntegerField(verbose_name='Plantas afectadas 1')
+    planta_2 = models.IntegerField(verbose_name='Plantas afectadas 2')
+    planta_3 = models.IntegerField(verbose_name='Plantas afectadas 3')
+    planta_4 = models.IntegerField(verbose_name='Plantas afectadas 4')
+    planta_5 = models.IntegerField(verbose_name='Plantas afectadas 5')
+    promedio = models.FloatField(editable=False)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Enfermedades en Frijol'
+
+    def save(self, *args, **kwargs):
+        self.promedio = (self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + self.planta_5) / float(5)
+        super(EnfermmedadesFrijol, self).save(*args, **kwargs)
+
+class EnfermedadesMaiz(models.Model):
+    enfermedad = models.ForeignKey(PlagasEnfermedades)
+    planta_1 = models.IntegerField(verbose_name='Plantas afectadas 1')
+    planta_2 = models.IntegerField(verbose_name='Plantas afectadas 2')
+    planta_3 = models.IntegerField(verbose_name='Plantas afectadas 3')
+    planta_4 = models.IntegerField(verbose_name='Plantas afectadas 4')
+    planta_5 = models.IntegerField(verbose_name='Plantas afectadas 5')
+    promedio = models.FloatField(editable=False)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Enfermedades en Maíz'
+
+    def save(self, *args, **kwargs):
+        self.promedio = (self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + self.planta_5) / float(5)
+        super(EnfermmedadesFrijol, self).save(*args, **kwargs)
 #FIn monitoreo 2 --------------------------------------------------

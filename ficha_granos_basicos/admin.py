@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 from .models import *
 
@@ -29,6 +30,7 @@ admin.site.register(TomaDecisiones,TomaDecisionesAdmin)
 class InlineDatosMonitoreo(admin.TabularInline):
     model = DatosMonitoreo
     max_num = 1
+    can_delete = False
 
 class InlineDatosParcela(admin.StackedInline):
     model = DatosParcela
@@ -83,6 +85,7 @@ class InlineMacrofauna(admin.TabularInline):
 class InlinePoblacion(admin.TabularInline):
     model = Poblacion
     max_num = 1
+    can_delete = False
 
 class InlineTablaPoblacion(admin.TabularInline):
     model = TablaPoblacion
@@ -105,6 +108,22 @@ class InlinePlagasMaiz(admin.TabularInline):
         kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__contains=1)
         return super(InlinePlagasMaiz, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
+class InlineEnfermedadesFrijol(admin.TabularInline):
+    model = EnfermedadesFrijol
+    extra = 1
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=2,rubro__contains=2)
+        return super(InlineEnfermedadesFrijol, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+class InlineEnfermedadesMaiz(admin.TabularInline):
+    model = EnfermedadesMaiz
+    extra = 1
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=2,rubro__contains=1)
+        return super(InlineEnfermedadesMaiz, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 class MonitoreoAdmin(admin.ModelAdmin):
     list_display = ('productor','fecha','visita','monitoreo')
 
@@ -112,17 +131,35 @@ class MonitoreoAdmin(admin.ModelAdmin):
                 InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
                 InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
                 InlineMacrofauna,InlinePoblacion,InlineTablaPoblacion,
-                InlinePlagasFrijol,InlinePlagasMaiz]
+                InlinePlagasFrijol,InlinePlagasMaiz,InlineEnfermedadesFrijol,
+                InlineEnfermedadesMaiz]
 
     class Media:
-		css = {
+        js = ('granos_basicos/js/admin.js',)
+        css = {
             'all': ('granos_basicos/css/admin.css',)
-        }
+            }
+
 
 admin.site.register(Monitoreo,MonitoreoAdmin)
 admin.site.register(ParametrosSuelo)
 admin.site.register(Especies)
-admin.site.register(PlagasEnfermedades)
+
+class PlagasEnfermedadesAdmin(admin.ModelAdmin):
+
+    def rubro_multi(self):
+        if self.rubro == [u'1']:
+            return ("%s" % ('Maíz'))
+        elif self.rubro == [u'2']:
+            return ("%s" % ('Frijol'))
+        else:
+            return ("%s" % ('Maíz y Frijol'))
+
+    rubro_multi.short_description = 'Rubro'
+
+    list_display = ('nombre','tipo',rubro_multi)
+
+admin.site.register(PlagasEnfermedades,PlagasEnfermedadesAdmin)
 #
 # #siembra --------------------------------------------------------------------
 # class InlineNombreSemilla(admin.TabularInline):
