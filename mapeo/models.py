@@ -92,13 +92,12 @@ CHOICE_NIVEL_EDUCATIVO = (
             )
 
 CHOICE_TIPO_PERSONA = (
-                (1, _(u'Productor o Productora (Monitoreo)')),
+                (1, _(u'Productor o Productora')),
                 (2, _(u'Líder o Lideresa comunitaria')),
                 (3, _(u'Técnico')),
                 (4, _(u'Especialista')),
                 (5, _(u'Investigador')),
                 (6, _(u'Decisor')),
-                (7, _(u'Productor o Productora (Granos Básicos)')),
             )
 
 CHOICE_TIPOLOGIA = (

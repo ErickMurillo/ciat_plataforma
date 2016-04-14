@@ -125,7 +125,7 @@ class InlineEnfermedadesMaiz(admin.TabularInline):
         return super(InlineEnfermedadesMaiz, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class MonitoreoAdmin(admin.ModelAdmin):
-    list_display = ('productor','fecha','visita','monitoreo')
+    list_display = ('productor','fecha','visita')
 
     inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
                 InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
@@ -143,7 +143,19 @@ class MonitoreoAdmin(admin.ModelAdmin):
 
 admin.site.register(Monitoreo,MonitoreoAdmin)
 admin.site.register(ParametrosSuelo)
-admin.site.register(Especies)
+
+class InlineFotosEspecies(admin.TabularInline):
+    model = FotosEspecies
+    extra = 1
+
+class EspeciesAdmin(admin.ModelAdmin):
+    list_display = ('nombre_popular','nombre_cientifico')
+    inlines = [InlineFotosEspecies]
+
+    class Media:
+        js = ('granos_basicos/js/especies.js',)
+
+admin.site.register(Especies,EspeciesAdmin)
 
 class PlagasEnfermedadesAdmin(admin.ModelAdmin):
 

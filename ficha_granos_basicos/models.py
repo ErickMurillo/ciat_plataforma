@@ -2,6 +2,8 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 from mapeo.models import Persona
+from comunicacion.utils import *
+from sorl.thumbnail import ImageField
 
 # Create your models here.
 
@@ -106,19 +108,19 @@ AREAS_CHOICES = (
     (9,'Almacenamiento'),
 )
 
-MONITOREO_CHOICES = (
-    (1,'Monitoreo #1: Familia, Finca y Parcela'),
-    (2,'Monitoreo #2: Post Siembra'),
-    (3,'Monitoreo #3: Desarrollo Vegetativo'),
-    (4,'Monitoreo #4: Maduración'),
-    (5,'Monitoreo #5: Almacenamiento Post Cosecha'),
-)
+# MONITOREO_CHOICES = (
+#     (1,'Monitoreo #1: Familia, Finca y Parcela'),
+#     (2,'Monitoreo #2: Post Siembra'),
+#     (3,'Monitoreo #3: Desarrollo Vegetativo'),
+#     (4,'Monitoreo #4: Maduración'),
+#     (5,'Monitoreo #5: Almacenamiento Post Cosecha'),
+# )
 
 class Monitoreo(models.Model):
     productor = models.ForeignKey(Persona)
     fecha = models.DateField()
     visita = models.IntegerField(choices=VISITA_CHOICES)
-    monitoreo = models.IntegerField(choices=MONITOREO_CHOICES)
+    areas = MultiSelectField(choices=AREAS_CHOICES)
 
 CICLO_CHOICES = (
     (1,'Primera'),
@@ -315,15 +317,34 @@ class Suelo(models.Model):
 #     (6,'Gallina Ciega (Larva grande)'),
 #     (7,'Gallina Ciega (Larva pequeña)'),
 # )
+
+UMBRAL_CHOICES = (
+    (1,'Rango'),
+    (2,'Comentario'),
+)
+
 class Especies(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre_popular = models.CharField(max_length=100)
     nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
+    umbral = models.IntegerField(choices=UMBRAL_CHOICES)
+    rango_min = models.FloatField(blank=True,null=True)
+    rango_max = models.FloatField(blank=True,null=True)
+    descripcion = models.CharField(max_length=150,blank=True,null=True)
 
     def __unicode__(self):
-		return self.nombre
+		return self.nombre_popular
 
     class Meta:
         verbose_name_plural = 'Especies'
+
+class FotosEspecies(models.Model):
+    foto = ImageField(upload_to=get_file_path)
+    especie = models.ForeignKey(Especies)
+
+    fileDir = 'granos_basicos/especies/'
+
+    class Meta:
+        verbose_name_plural = 'Fotos Especies'
 
 class Macrofauna(models.Model):
     especie = models.ForeignKey(Especies)
@@ -390,7 +411,7 @@ class PlagasEnfermedades(models.Model):
     nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
     umbral = models.CharField(max_length=150,blank=True,null=True)
     tipo = models.IntegerField(choices=TIPO_PLAGA_CHOICES)
-    rubro = MultiSelectField(choices=RUBRO_CHOICES)
+    rubro = models.IntegerField(choices=CULTIVO_CHOICES)
 
     def __unicode__(self):
 		return self.nombre
