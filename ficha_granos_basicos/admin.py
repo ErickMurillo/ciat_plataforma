@@ -82,6 +82,16 @@ class InlineMacrofauna(admin.TabularInline):
     model = Macrofauna
     extra = 1
 
+class InlineMonitoreoMalezas(admin.TabularInline):
+    model = MonitoreoMalezas
+    extra = 1
+    max_num = 5
+
+class InlineTablaMalezas(admin.TabularInline):
+    model = TablaMalezas
+    extra = 1
+    max_num = 3
+
 class InlinePoblacion(admin.TabularInline):
     model = Poblacion
     max_num = 1
@@ -97,7 +107,7 @@ class InlinePlagasFrijol(admin.TabularInline):
     extra = 1
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__contains=2)
+        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__in=[2,3])
         return super(InlinePlagasFrijol, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class InlinePlagasMaiz(admin.TabularInline):
@@ -105,7 +115,7 @@ class InlinePlagasMaiz(admin.TabularInline):
     extra = 1
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__contains=1)
+        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__in=[1,3])
         return super(InlinePlagasMaiz, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class InlineEnfermedadesFrijol(admin.TabularInline):
@@ -113,7 +123,7 @@ class InlineEnfermedadesFrijol(admin.TabularInline):
     extra = 1
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=2,rubro__contains=2)
+        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=2,rubro__in=[2,3])
         return super(InlineEnfermedadesFrijol, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class InlineEnfermedadesMaiz(admin.TabularInline):
@@ -121,8 +131,9 @@ class InlineEnfermedadesMaiz(admin.TabularInline):
     extra = 1
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=2,rubro__contains=1)
+        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=2,rubro__in=[1,3])
         return super(InlineEnfermedadesMaiz, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 class MonitoreoAdmin(admin.ModelAdmin):
     list_display = ('productor','fecha','visita')
@@ -130,9 +141,10 @@ class MonitoreoAdmin(admin.ModelAdmin):
     inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
                 InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
                 InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
-                InlineMacrofauna,InlinePoblacion,InlineTablaPoblacion,
-                InlinePlagasFrijol,InlinePlagasMaiz,InlineEnfermedadesFrijol,
-                InlineEnfermedadesMaiz]
+                InlineMacrofauna,InlineMonitoreoMalezas,InlineTablaMalezas,
+                InlinePoblacion,InlineTablaPoblacion,InlinePlagasFrijol,
+                InlinePlagasMaiz,InlineEnfermedadesFrijol,InlineEnfermedadesMaiz]
+
 
     class Media:
         js = ('granos_basicos/js/admin.js',)
@@ -143,6 +155,7 @@ class MonitoreoAdmin(admin.ModelAdmin):
 
 admin.site.register(Monitoreo,MonitoreoAdmin)
 admin.site.register(ParametrosSuelo)
+admin.site.register(TiposMalezas)
 
 class InlineFotosEspecies(admin.TabularInline):
     model = FotosEspecies
@@ -157,22 +170,6 @@ class EspeciesAdmin(admin.ModelAdmin):
 
 admin.site.register(Especies,EspeciesAdmin)
 
-class PlagasEnfermedadesAdmin(admin.ModelAdmin):
-
-    def rubro_multi(self):
-        if self.rubro == [u'1']:
-            return ("%s" % ('Maíz'))
-        elif self.rubro == [u'2']:
-            return ("%s" % ('Frijol'))
-        else:
-            return ("%s" % ('Maíz y Frijol'))
-
-    rubro_multi.short_description = 'Rubro'
-
-    list_display = ('nombre','tipo',rubro_multi)
-
-admin.site.register(PlagasEnfermedades,PlagasEnfermedadesAdmin)
-#
 # #siembra --------------------------------------------------------------------
 # class InlineNombreSemilla(admin.TabularInline):
 #     model = NombreSemilla
