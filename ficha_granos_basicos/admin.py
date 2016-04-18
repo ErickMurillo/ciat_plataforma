@@ -92,6 +92,16 @@ class InlineTablaMalezas(admin.TabularInline):
     extra = 1
     max_num = 3
 
+class InlineVigorFrijol(admin.TabularInline):
+    model = VigorFrijol
+    extra = 1
+    max_num = 5
+
+class InlineVigorMaiz(admin.TabularInline):
+    model = VigorMaiz
+    extra = 1
+    max_num = 5
+
 class InlinePoblacion(admin.TabularInline):
     model = Poblacion
     max_num = 1
@@ -107,7 +117,7 @@ class InlinePlagasFrijol(admin.TabularInline):
     extra = 1
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__in=[2,3])
+        kwargs['queryset'] = Especies.objects.filter(tipo=1,rubro__in=[2,3])
         return super(InlinePlagasFrijol, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class InlinePlagasMaiz(admin.TabularInline):
@@ -115,7 +125,7 @@ class InlinePlagasMaiz(admin.TabularInline):
     extra = 1
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=1,rubro__in=[1,3])
+        kwargs['queryset'] = Especies.objects.filter(tipo=1,rubro__in=[1,3])
         return super(InlinePlagasMaiz, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class InlineEnfermedadesFrijol(admin.TabularInline):
@@ -123,7 +133,7 @@ class InlineEnfermedadesFrijol(admin.TabularInline):
     extra = 1
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=2,rubro__in=[2,3])
+        kwargs['queryset'] = Especies.objects.filter(tipo=2,rubro__in=[2,3])
         return super(InlineEnfermedadesFrijol, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class InlineEnfermedadesMaiz(admin.TabularInline):
@@ -131,20 +141,58 @@ class InlineEnfermedadesMaiz(admin.TabularInline):
     extra = 1
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = PlagasEnfermedades.objects.filter(tipo=2,rubro__in=[1,3])
+        kwargs['queryset'] = Especies.objects.filter(tipo=2,rubro__in=[1,3])
         return super(InlineEnfermedadesMaiz, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
+class InlineEstimadoCosechaFrijol(admin.TabularInline):
+    model = EstimadoCosechaFrijol
+    extra = 1
+    max_num = 5
+
+class InlineGranosPlanta(admin.TabularInline):
+    model = GranosPlanta
+    max_num = 1
+    can_delete = False
+
+class InlineEstimadoCosechaMaiz(admin.TabularInline):
+    model = EstimadoCosechaMaiz
+    extra = 1
+    max_num = 3
+
+class InlineEstimadoCosechaMaiz2(admin.TabularInline):
+    model = EstimadoCosechaMaiz2
+    extra = 1
+    max_num = 3
+
+class InlineSobreCosecha(admin.TabularInline):
+    model = SobreCosecha
+    extra = 1
+    max_num = 2
+
+class InlineCuradoSemilla(admin.TabularInline):
+    model = CuradoSemilla
+    max_num = 1
+    can_delete = False
 
 class MonitoreoAdmin(admin.ModelAdmin):
-    list_display = ('productor','fecha','visita')
+    list_display = ('productor','visita','fecha')
+    list_filter = ('visita',)
+    search_fields = ('productor',)
 
     inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
                 InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
                 InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
                 InlineMacrofauna,InlineMonitoreoMalezas,InlineTablaMalezas,
-                InlinePoblacion,InlineTablaPoblacion,InlinePlagasFrijol,
-                InlinePlagasMaiz,InlineEnfermedadesFrijol,InlineEnfermedadesMaiz]
+                InlineVigorFrijol,InlineVigorMaiz,InlinePlagasFrijol,InlinePlagasMaiz,
+                InlineEnfermedadesFrijol,InlineEnfermedadesMaiz,InlinePoblacion,
+                InlineTablaPoblacion,InlineEstimadoCosechaFrijol,
+                InlineGranosPlanta,InlineEstimadoCosechaMaiz,InlineEstimadoCosechaMaiz2,
+                InlineSobreCosecha,InlineCuradoSemilla]
 
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        kwargs['queryset'] = Persona.objects.filter(tipo_persona=1,productor__rubros_agro__nombre='Granos básicos')
+        return super(MonitoreoAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     class Media:
         js = ('granos_basicos/js/admin.js',)
@@ -156,13 +204,15 @@ class MonitoreoAdmin(admin.ModelAdmin):
 admin.site.register(Monitoreo,MonitoreoAdmin)
 admin.site.register(ParametrosSuelo)
 admin.site.register(TiposMalezas)
+admin.site.register(TratamientoSemilla)
+admin.site.register(Productos)
 
 class InlineFotosEspecies(admin.TabularInline):
     model = FotosEspecies
     extra = 1
 
 class EspeciesAdmin(admin.ModelAdmin):
-    list_display = ('nombre_popular','nombre_cientifico')
+    list_display = ('nombre_popular','nombre_cientifico','tipo','rubro')
     inlines = [InlineFotosEspecies]
 
     class Media:

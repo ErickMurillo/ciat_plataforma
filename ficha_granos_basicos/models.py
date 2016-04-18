@@ -6,88 +6,17 @@ from comunicacion.utils import *
 from sorl.thumbnail import ImageField
 
 # Create your models here.
-
-#Inicio Ficha de control de gastos ---------------------------------
-RUBRO_CHOICES = (
-    (1,'Maíz'),
-    (2,'Frijol'),
-)
-
-class Gastos(models.Model):
-    productor = models.ForeignKey(Persona)
-    fecha_siembra = models.DateField()
-    rubro = models.IntegerField(choices=RUBRO_CHOICES)
-
-    class Meta:
-        verbose_name_plural = 'Registro de Gastos'
-
-ACTIVIDAD_CHOICES = (
-    (1,'Preparación de suelo'),
-    (2,'Siembra'),
-    (3,'Aplicación de Agroquímico'),
-    (4,'Limpia de maleza'),
-    (5,'Arrancar'),
-    (6,'Doblar'),
-    (7,'Aporrear'),
-    (8,'Transporte'),
-    (9,'Materiales/Herramientas'),
-)
-
-class TablaGastos(models.Model):
-    fecha = models.DateField()
-    actividad = models.IntegerField(choices=ACTIVIDAD_CHOICES)
-    hombres = models.IntegerField()
-    mujeres = models.IntegerField()
-    dias_persona = models.IntegerField()
-    valor = models.IntegerField(verbose_name='Valor en C$')
-    descripcion = models.TextField()
-    gastos = models.ForeignKey(Gastos)
-
-#Fin Ficha de control de gastos -----------------------------------
-
-#Inicio Ficha toma de decisiones ----------------------------------
-VISITA2_CHOICES = (
-    (1,'Visita 1 / Pre Siembra'),
-    (2,'Visita 2 / Post Siembra'),
-    (3,'Visita 3 / Desarrollo Vegetativo'),
-    (4,'Visita 4 / Maduración'),
-    (5,'Visita 5 / Post Cosecha - Almacenamiento'),
-)
-
-AREAS_DECISIONES_CHOICES = (
-    (1,'Semillas'),
-    (2,'Fertilidad del Suelo'),
-    (3,'Macrofauna del Suelo'),
-    (4,'Malezas'),
-    (5,'Vigor'),
-    (6,'Plagas y Enfermedades'),
-    (7,'Población'),
-    (8,'Estimado de Cosecha'),
-    (9,'Almacenamiento'),
-)
-
+#Inicio Ficha monitoreo 1 -----------------------------------------
 SI_NO_CHOICES = (
     (1,'Si'),
     (2,'No'),
 )
 
-class TomaDecisiones(models.Model):
-    productor = models.ForeignKey(Persona)
+RUBRO_CHOICES = (
+    (1,'Maíz'),
+    (2,'Frijol'),
+)
 
-    class Meta:
-        verbose_name_plural = 'Registro y Monitoreo de Cumplimiento'
-
-class TablaDecisiones(models.Model):
-    visita = models.IntegerField(choices=VISITA2_CHOICES)
-    area = models.IntegerField(choices=AREAS_DECISIONES_CHOICES)
-    decision = models.TextField(verbose_name='Decisión/Recomendación')
-    seleccion = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Se Hizo?')
-    porque = models.TextField(verbose_name='¿Porqué?')
-    toma_deciciones = models.ForeignKey(TomaDecisiones)
-
-#Fin Ficha toma de decisiones -------------------------------------
-
-#Inicio Ficha monitoreo 1 -----------------------------------------
 VISITA_CHOICES = (
     (1,'1'),
     (2,'2'),
@@ -108,19 +37,14 @@ AREAS_CHOICES = (
     (9,'Almacenamiento'),
 )
 
-# MONITOREO_CHOICES = (
-#     (1,'Monitoreo #1: Familia, Finca y Parcela'),
-#     (2,'Monitoreo #2: Post Siembra'),
-#     (3,'Monitoreo #3: Desarrollo Vegetativo'),
-#     (4,'Monitoreo #4: Maduración'),
-#     (5,'Monitoreo #5: Almacenamiento Post Cosecha'),
-# )
-
 class Monitoreo(models.Model):
     productor = models.ForeignKey(Persona)
     fecha = models.DateField()
     visita = models.IntegerField(choices=VISITA_CHOICES)
     areas = MultiSelectField(choices=AREAS_CHOICES)
+
+    def __unicode__(self):
+		return '%s - Visita #%s' % (self.productor, self.visita)
 
 CICLO_CHOICES = (
     (1,'Primera'),
@@ -395,8 +319,22 @@ class MonitoreoMalezas(models.Model):
     class Meta:
         verbose_name_plural = 'Malezas'
 
+MALEZAS_CHOICES = (
+    (1,'Gramíneas'),
+    (2,'Hoja Ancha'),
+    (3,'Ciperáceas'),
+)
+
+CICLO2_CHOICES = (
+    (1,'Perenne'),
+    (2,'Anual'),
+)
+
 class TiposMalezas(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre_popular = models.CharField(max_length=100)
+    nombre_cientifico = models.CharField(max_length=100)
+    categoria = models.IntegerField(choices=MALEZAS_CHOICES)
+    ciclo = models.IntegerField(choices=CICLO2_CHOICES)
 
     class Meta:
         verbose_name_plural = 'Tipos de malezas'
@@ -418,7 +356,7 @@ class Poblacion(models.Model):
     monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
-        verbose_name_plural = 'III. Población'
+        verbose_name_plural = 'Población'
 
 class TablaPoblacion(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
@@ -594,3 +532,195 @@ class EnfermedadesMaiz(models.Model):
         self.promedio = (self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + self.planta_5) / float(5)
         super(EnfermmedadesFrijol, self).save(*args, **kwargs)
 #FIn monitoreo 2 --------------------------------------------------
+
+#Ficha monitoreo 4 ------------------------------------------------
+ESTACION_CHOICES = (
+    (1,'1'),
+    (2,'2'),
+    (3,'3'),
+    (4,'4'),
+    (5,'5'),
+)
+
+class EstimadoCosechaFrijol(models.Model):
+    estacion = models.IntegerField(choices=ESTACION_CHOICES)
+    planta_1 = models.IntegerField()
+    planta_2 = models.IntegerField()
+    planta_3 = models.IntegerField()
+    planta_4 = models.IntegerField()
+    planta_5 = models.IntegerField()
+    promedio = models.FloatField(editable=False)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Estimado de Cosecha Frijol'
+
+    def save(self, *args, **kwargs):
+        self.promedio = (self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + self.planta_5) / float(5)
+        super(EstimadoCosechaFrijol, self).save(*args, **kwargs)
+
+class GranosPlanta(models.Model):
+    cantidad = models.FloatField()
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Cantidad de granos por planta'
+
+MAZORCA_CHOICES = (
+    (1,'Grande'),
+    (2,'Mediana'),
+    (3,'Pequeña'),
+)
+
+class EstimadoCosechaMaiz(models.Model):
+    mazorca = models.IntegerField(choices=MAZORCA_CHOICES)
+    estacion_1 = models.IntegerField()
+    estacion_2 = models.IntegerField()
+    estacion_3 = models.IntegerField()
+    estacion_4 = models.IntegerField()
+    estacion_5 = models.IntegerField()
+    promedio = models.FloatField(editable=False)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Estimado de Cosecha Maíz'
+
+    def save(self, *args, **kwargs):
+        self.promedio = (self.estacion_1 + self.estacion_2 + self.estacion_3 + self.estacion_4 + self.estacion_5) / float(5)
+        super(EstimadoCosechaMaiz, self).save(*args, **kwargs)
+
+class EstimadoCosechaMaiz2(models.Model):
+    mazorca = models.IntegerField(choices=MAZORCA_CHOICES)
+    peso = models.FloatField(verbose_name='Peso en lb')
+    peso_promedio = models.IntegerField(verbose_name='Peso en lb x Promedio de Mazorcas')
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Estimado de Cosecha Maíz'
+#fin ficha monitoreo 4 --------------------------------------------
+
+#ficha monitoreo 5 ------------------------------------------------
+class SobreCosecha(models.Model):
+    rubro = models.IntegerField(choices=RUBRO_CHOICES)
+    cosecha = models.FloatField()
+    venta = models.FloatField()
+    almacenamiento = models.FloatField()
+    precio_mercado = models.FloatField()
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Sobre la Cosecha'
+
+class TratamientoSemilla(models.Model):
+    nombre = models.CharField(max_length=100)
+    dosis = models.CharField(max_length=150)
+    preparacion = models.TextField(blank=True)
+
+    def __unicode__(self):
+		return self.nombre
+
+    class Meta:
+        verbose_name_plural = 'Tratammiento de semilla'
+
+class CuradoSemilla(models.Model):
+    tratamiento = models.ManyToManyField(TratamientoSemilla)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Curado de semilla'
+#fin ficha monitoreo 5 --------------------------------------------
+
+#Inicio Ficha de control de gastos ---------------------------------
+
+class Gastos(models.Model):
+    productor = models.ForeignKey(Monitoreo)
+    fecha_siembra = models.DateField()
+    rubro = models.IntegerField(choices=RUBRO_CHOICES)
+
+    class Meta:
+        verbose_name_plural = 'Registro de Gastos'
+
+ACTIVIDAD_CHOICES = (
+    (1,'Preparación de suelo'),
+    (2,'Siembra'),
+    (3,'Aplicación de Agroquímico'),
+    (4,'Limpia de maleza'),
+    (5,'Arrancar'),
+    (6,'Doblar'),
+    (7,'Aporrear'),
+    (8,'Transporte'),
+    (9,'Materiales/Herramientas'),
+)
+
+class TablaGastos(models.Model):
+    fecha = models.DateField()
+    actividad = models.IntegerField(choices=ACTIVIDAD_CHOICES)
+    hombres = models.IntegerField()
+    mujeres = models.IntegerField()
+    dias_persona = models.IntegerField()
+    valor = models.IntegerField(verbose_name='Valor en C$')
+    descripcion = models.TextField()
+    gastos = models.ForeignKey(Gastos)
+
+PROD_CATEGORIA_CHOICES = (
+    (1,'Fertilizante'),
+    (2,'Fungicida'),
+    (3,'Insecticida'),
+    (4,'Herbicidas'),
+)
+
+PRESENTACION_CHOICES = (
+    (1,'liquido- cc/b'),
+    (2,'hidrosoluble- gr/b'),
+    (3,'granulado- qq/mz'),
+)
+
+class Productos(models.Model):
+    nombre_comercial = models.CharField(max_length=100)
+    principio_activo = models.CharField(max_length=100)
+    categoria = models.IntegerField(choices=PROD_CATEGORIA_CHOICES)
+    presentacion = models.IntegerField(choices=PRESENTACION_CHOICES)
+
+    def __unicode__(self):
+		return self.nombre_comercial
+
+    class Meta:
+        verbose_name_plural = 'Productos'
+#Fin Ficha de control de gastos -----------------------------------
+
+#Inicio Ficha toma de decisiones ----------------------------------
+VISITA2_CHOICES = (
+    (1,'Visita 1 / Pre Siembra'),
+    (2,'Visita 2 / Post Siembra'),
+    (3,'Visita 3 / Desarrollo Vegetativo'),
+    (4,'Visita 4 / Maduración'),
+    (5,'Visita 5 / Post Cosecha - Almacenamiento'),
+)
+
+AREAS_DECISIONES_CHOICES = (
+    (1,'Semillas'),
+    (2,'Fertilidad del Suelo'),
+    (3,'Macrofauna del Suelo'),
+    (4,'Malezas'),
+    (5,'Vigor'),
+    (6,'Plagas y Enfermedades'),
+    (7,'Población'),
+    (8,'Estimado de Cosecha'),
+    (9,'Almacenamiento'),
+)
+
+class TomaDecisiones(models.Model):
+    productor = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Registro y Monitoreo de Cumplimiento'
+
+class TablaDecisiones(models.Model):
+    visita = models.IntegerField(choices=VISITA2_CHOICES)
+    area = models.IntegerField(choices=AREAS_DECISIONES_CHOICES)
+    decision = models.TextField(verbose_name='Decisión/Recomendación')
+    seleccion = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Se Hizo?')
+    porque = models.TextField(verbose_name='¿Porqué?')
+    toma_deciciones = models.ForeignKey(TomaDecisiones)
+
+#Fin Ficha toma de decisiones -------------------------------------
