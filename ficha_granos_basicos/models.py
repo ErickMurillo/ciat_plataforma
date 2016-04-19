@@ -260,6 +260,10 @@ UMBRAL_CHOICES = (
 class Especies(models.Model):
     nombre_popular = models.CharField(max_length=100)
     nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
+    reconocimiento = models.CharField(max_length=200,blank=True,null=True)
+    control_cultural = models.CharField(max_length=200,blank=True,null=True)
+    control_biologico = models.CharField(max_length=200,blank=True,null=True)
+    control_quimico = models.CharField(max_length=200,blank=True,null=True)
     tipo = models.IntegerField(choices=TIPO_PLAGA_CHOICES)
     rubro = models.IntegerField(choices=CULTIVO2_CHOICES)
     umbral = models.IntegerField(choices=UMBRAL_CHOICES)
@@ -620,7 +624,7 @@ class TratamientoSemilla(models.Model):
 		return self.nombre
 
     class Meta:
-        verbose_name_plural = 'Tratammiento de semilla'
+        verbose_name_plural = 'Tratamiento de semilla'
 
 class CuradoSemilla(models.Model):
     tratamiento = models.ManyToManyField(TratamientoSemilla)
