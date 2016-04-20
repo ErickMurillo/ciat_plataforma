@@ -94,8 +94,9 @@ INSTALLED_APPS = (
     'biblioteca',
 
     #fichas
-    'ficha_sombra',
-    'ficha_poda',
+    #'ficha_sombra',
+    #'ficha_poda',
+    'guias_cacao',
 
 
 
