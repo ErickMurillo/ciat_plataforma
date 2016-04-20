@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from .models import *
+from .forms import *
+from nested_inline.admin import NestedStackedInline, NestedModelAdmin, NestedTabularInline
 
 # ficha registro de gastos ------------------------------------------------
 class InlineTablaGastos(admin.TabularInline):
@@ -10,9 +12,29 @@ class InlineTablaGastos(admin.TabularInline):
 class GastosAdmin(admin.ModelAdmin):
     list_display = ('productor', 'fecha_siembra', 'rubro')
 
+    form = ProductorMonitoreoAdminForm
+
     inlines = [InlineTablaGastos]
 
 admin.site.register(Gastos,GastosAdmin)
+
+class InlineLiga_Nested(NestedTabularInline):
+    model = Liga_Nested
+    extra = 1
+
+class InlineTablaInsumos(NestedTabularInline):
+    model = TablaInsumos
+    extra = 1
+    inlines = [InlineLiga_Nested]
+
+class InsumosAdmin(NestedModelAdmin):
+    list_display = ('productor', 'fecha_siembra', 'rubro')
+
+    inlines = [InlineTablaInsumos]
+
+    form = ProductorMonitoreoAdminForm
+
+admin.site.register(Insumos,InsumosAdmin)
 
 #ficha Toma de decisiones --------------------------------------------------
 class InlineTablaDecisiones(admin.TabularInline):
@@ -22,6 +44,8 @@ class InlineTablaDecisiones(admin.TabularInline):
 class TomaDecisionesAdmin(admin.ModelAdmin):
     list_display = ('productor',)
 
+    form = ProductorMonitoreoAdminForm
+    
     inlines = [InlineTablaDecisiones]
 
 admin.site.register(TomaDecisiones,TomaDecisionesAdmin)
@@ -102,15 +126,15 @@ class InlineVigorMaiz(admin.TabularInline):
     extra = 1
     max_num = 5
 
-class InlinePoblacion(admin.TabularInline):
-    model = Poblacion
+class InlinePoblacionFrijol(admin.TabularInline):
+    model = PoblacionFrijol
     max_num = 1
     can_delete = False
 
-class InlineTablaPoblacion(admin.TabularInline):
-    model = TablaPoblacion
-    extra = 1
-    max_num = 2
+class InlinePoblacionMaiz(admin.TabularInline):
+    model = PoblacionMaiz
+    max_num = 1
+    can_delete = False
 
 class InlinePlagasFrijol(admin.TabularInline):
     model = PlagasFrijol
@@ -179,13 +203,15 @@ class MonitoreoAdmin(admin.ModelAdmin):
     list_filter = ('visita',)
     search_fields = ('productor',)
 
+    form = MonitoreoAdminForm
+
     inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
                 InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
                 InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
                 InlineMacrofauna,InlineMonitoreoMalezas,InlineTablaMalezas,
                 InlineVigorFrijol,InlineVigorMaiz,InlinePlagasFrijol,InlinePlagasMaiz,
-                InlineEnfermedadesFrijol,InlineEnfermedadesMaiz,InlinePoblacion,
-                InlineTablaPoblacion,InlineEstimadoCosechaFrijol,
+                InlineEnfermedadesFrijol,InlineEnfermedadesMaiz,InlinePoblacionFrijol,
+                InlinePoblacionMaiz,InlineEstimadoCosechaFrijol,
                 InlineGranosPlanta,InlineEstimadoCosechaMaiz,InlineEstimadoCosechaMaiz2,
                 InlineSobreCosecha,InlineCuradoSemilla]
 

@@ -120,21 +120,21 @@
 
     //poblacion
     if ($('#id_areas_6').is(':checked')) {
-      $('#poblacion_set-group').show();
-      $('#tablapoblacion_set-group').show();
+      $('#poblacionfrijol_set-group').show();
+      $('#poblacionmaiz_set-group').show();
     }else{
-      $('#poblacion_set-group').hide();
-      $('#tablapoblacion_set-group').hide();
+      $('#poblacionfrijol_set-group').hide();
+      $('#poblacionmaiz_set-group').hide();
     };
 
     $('#id_areas_6').change(function(){
-        if ($('#id_areas_6').is(':checked')) {
-          $('#poblacion_set-group').show();
-          $('#tablapoblacion_set-group').show();
-        }else{
-          $('#poblacion_set-group').hide();
-          $('#tablapoblacion_set-group').hide();
-        }
+			if ($('#id_areas_6').is(':checked')) {
+	      $('#poblacionfrijol_set-group').show();
+	      $('#poblacionmaiz_set-group').show();
+	    }else{
+	      $('#poblacionfrijol_set-group').hide();
+	      $('#poblacionmaiz_set-group').hide();
+	    }
     });
 
     //estimado cosecha

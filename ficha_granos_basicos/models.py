@@ -93,7 +93,7 @@ ACCESO_AGUA_CHOICES = (
 
 class DatosParcela(models.Model):
     nombre = models.CharField(max_length=100)
-    edad_parcela = models.FloatField()
+    edad_parcela = models.FloatField(verbose_name='Edad parcela (años)')
     latitud = models.FloatField(blank=True, null=True)
     longitud = models.FloatField(blank=True, null=True)
     direccion_viento = models.IntegerField(choices=DIRECCION_CHOICES)
@@ -101,8 +101,8 @@ class DatosParcela(models.Model):
     tamano_parcela = models.FloatField(verbose_name='Tamaño de la parcela (mz)')
     profundidad_capa = models.FloatField(verbose_name='Profundidad de capa arable (cm)')
     acceso_agua = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Tiene acceso a agua en su parcela?')
-    fuente_agua = MultiSelectField(choices=ACCESO_AGUA_CHOICES,verbose_name='Como tiene acceso a agua')
-    distancia = models.FloatField(verbose_name='¿A qué distancia tiene la fuente de agua?')
+    fuente_agua = MultiSelectField(choices=ACCESO_AGUA_CHOICES,verbose_name='Como tiene acceso a agua',blank=True, null=True)
+    distancia = models.FloatField(verbose_name='¿A qué distancia tiene la fuente de agua?',blank=True, null=True)
     monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
@@ -150,7 +150,7 @@ ANIO_CHOICES = (
 class HistorialRendimiento(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
     ciclo_productivo = models.IntegerField(choices=CICLO_CHOICES)
-    anio = models.IntegerField(choices=ANIO_CHOICES)
+    anio = models.IntegerField(choices=ANIO_CHOICES,verbose_name='Año')
     rendimiento = models.FloatField()
     monitoreo = models.ForeignKey(Monitoreo)
 
@@ -306,15 +306,16 @@ class Macrofauna(models.Model):
 
 #inicio malezas --------------------------------------------------
 COBERTURA_CHOICES = (
-    (1,'Cobertura total 1'),
-    (2,'Cobertura total 2'),
-    (3,'Cobertura total 3'),
-    (4,'Cobertura total 4'),
-    (5,'Cobertura total 5'),
+    (1,'Cobertura 1'),
+    (2,'Cobertura 2'),
+    (3,'Cobertura 3'),
+    (4,'Cobertura 4'),
+    (5,'Cobertura 5'),
 )
 
 class MonitoreoMalezas(models.Model):
     cobertura = models.IntegerField(choices=COBERTURA_CHOICES)
+    cobertura_total = models.FloatField()
     gramineas = models.FloatField('% de Gramíneas')
     hoja_ancha   = models.FloatField('% de Hoja Ancha')
     ciperaceas = models.FloatField('% de Ciperáceas')
@@ -354,16 +355,8 @@ class TablaMalezas(models.Model):
 #Fin Ficha monitoreo 1 --------------------------------------------
 
 #Inicio monitoreo 2 -----------------------------------------------
-class Poblacion(models.Model):
-    distancia_frijol = models.FloatField()
-    distancia_maiz = models.FloatField()
-    monitoreo = models.ForeignKey(Monitoreo)
-
-    class Meta:
-        verbose_name_plural = 'Población'
-
-class TablaPoblacion(models.Model):
-    rubro = models.IntegerField(choices=RUBRO_CHOICES)
+class PoblacionFrijol(models.Model):
+    distancia_frijol = models.FloatField(verbose_name='Distancia entre surco')
     est1 = models.IntegerField()
     est2 = models.IntegerField()
     est3 = models.IntegerField()
@@ -371,17 +364,50 @@ class TablaPoblacion(models.Model):
     est5 = models.IntegerField()
     promedio = models.FloatField(editable=False)
     #Calculado la población
-    numero_surcos = models.FloatField()
-    metros_lineales = models.FloatField()
-    poblacion = models.FloatField()
+    numero_surcos = models.FloatField(editable=False)
+    metros_lineales = models.FloatField(editable=False)
+    poblacion = models.FloatField(editable=False)
+    monitoreo = models.ForeignKey(Monitoreo)    
+
+    class Meta:
+        verbose_name_plural = 'Población Frijol'
+
+    def save(self, *args, **kwargs):
+        promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
+        self.promedio = promedio
+        numero_surcos = 84 / float(self.distancia_frijol)
+        self.numero_surcos = numero_surcos
+        metros_lineales = numero_surcos * 84
+        self.metros_lineales = metros_lineales
+        self.poblacion = (promedio / float(10)) * metros_lineales
+        super(PoblacionFrijol, self).save(*args, **kwargs)
+
+class PoblacionMaiz(models.Model):
+    distancia_maiz = models.FloatField(verbose_name='Distancia entre surco')
+    est1 = models.IntegerField()
+    est2 = models.IntegerField()
+    est3 = models.IntegerField()
+    est4 = models.IntegerField()
+    est5 = models.IntegerField()
+    promedio = models.FloatField(editable=False)
+    #Calculado la población
+    numero_surcos = models.FloatField(editable=False)
+    metros_lineales = models.FloatField(editable=False)
+    poblacion = models.FloatField(editable=False)
     monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
-        verbose_name_plural = 'Población'
+        verbose_name_plural = 'Población Maíz'
 
     def save(self, *args, **kwargs):
-        self.promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
-        super(TablaMacrofauna, self).save(*args, **kwargs)
+        promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
+        self.promedio = promedio
+        numero_surcos = 84 / float(self.distancia_maiz)
+        self.numero_surcos = numero_surcos
+        metros_lineales = numero_surcos * 84
+        self.metros_lineales = metros_lineales
+        self.poblacion = (promedio / float(10)) * metros_lineales
+        super(PoblacionMaiz, self).save(*args, **kwargs)
 
 #Vigor ------------------------
 VIGOR_CHOICES = (
@@ -690,6 +716,34 @@ class Productos(models.Model):
 
     class Meta:
         verbose_name_plural = 'Productos'
+
+class Insumos(models.Model):
+    productor = models.ForeignKey(Monitoreo,verbose_name='Productor/a')
+    fecha_siembra = models.DateField()
+    rubro = models.IntegerField(choices=RUBRO_CHOICES)
+
+    class Meta:
+        verbose_name_plural = 'Registro de Insumos'
+
+class TablaInsumos(models.Model):
+    fecha = models.DateField()
+    producto = models.ForeignKey(Productos)
+    unidades = models.FloatField()
+    bombas = models.FloatField()
+    insumos = models.ForeignKey(Insumos)
+
+    class Meta:
+        verbose_name_plural = 'Tabla de Insumos'
+
+class Liga_Nested(models.Model):
+    producto = models.ForeignKey(Productos)
+    unidades = models.FloatField()
+    tabla_insumos = models.ForeignKey(TablaInsumos)
+
+    class Meta:
+        verbose_name = 'Liga'
+        verbose_name_plural = 'Liga'
+
 #Fin Ficha de control de gastos -----------------------------------
 
 #Inicio Ficha toma de decisiones ----------------------------------
