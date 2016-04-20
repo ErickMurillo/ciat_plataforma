@@ -606,3 +606,251 @@ CHOICE_ENFERMEDADES_CACAOTALES = (
         (10, 'Otros'),
     )
 
+class PlagasEnfermedad(models.Model):
+    plagas = models.IntegerField(choices=CHOICE_ENFERMEDADES_CACAOTALES,
+                blank=True, null=True, verbose_name="Plagas y enfermedades")
+    visto = models.IntegerField(choices=CHOICE_SI_NO,
+                blank=True, null=True, verbose_name="He visto en mi cafetal")
+    dano = models.IntegerField(choices=CHOICE_SI_NO,
+                            blank=True, null=True, verbose_name="Hace daño año con año")
+    promedio = forms.FloatField("¿Promedio nivel de daño en %?")
+
+    ficha = models.ForeignKey(FichaPlaga)
+
+    def __unicode__(self):
+        return u"PlagasEnfermedad"
+
+CHOICE_ACCIONES_ENFERMEDADES = (
+        (1, 'Recuento de plagas'),
+        (2, 'Cortar las mazorcas enfermas'),
+        (3, 'Abonar las plantas'),
+        (4, 'Aplicar Caldos'),
+        (5, 'Aplicar Fungicidas'),
+        (6, 'Manejo de sombra'),
+        (7, 'Podar las plantas de cacao'),
+        (8, 'Aplicar venenos para Zompopo'),
+        (9, 'Control de Comején'),
+        (10, 'Otros'),
+    )
+
+class AccionesEnfermedad(models.Model):
+    plagas_acciones = models.IntegerField(choices=CHOICE_ACCIONES_ENFERMEDADES,
+                    blank=True, null=True, verbose_name="Plagas y enfermedades")
+    realiza_manejo = models.IntegerField(choices=CHOICE_SI_NO,
+                blank=True, null=True, verbose_name="Realiza en manejo")
+    cuantas_veces = models.IntegerField(blank=True, null=True,
+                verbose_name="Cuantas veces realizan el manejo")
+    meses = MultiSelectField(choices=CHOICES_FECHA_PODA,
+            verbose_name='En qué meses realizan el manejo')
+    ficha = models.ForeignKey(FichaPlaga)
+
+
+    def __unicode__(self):
+        return u"AccionesEnfermedad"
+
+CHOICE_ORIENTACION = (
+    ("A", 'Técnico'),
+    ("B", 'Casa comercial'),
+    ("C", 'Cooperativa'),
+    ("D", 'Otros productores'),
+    ("E", 'Experiencia propia/costumbres'),
+    ("F", 'Otros medio de comunicación'),
+)
+
+class Orientacion(models.Model):
+    fuentes = MultiSelectField(choices=CHOICE_ORIENTACION,
+            verbose_name='3. Las fuentes de orientación para manejo de las plagas y enfermedades')
+    ficha = models.ForeignKey(FichaPlaga)
+
+    def __unicode__(self):
+        return u"Orientacion"
+
+
+CHOICE_OBSERVACION_PUNTO1 = (
+        (1, 'Monilia'),
+        (2, 'Mazorca Negra'),
+        (3, 'Mal de machete'),
+        (4, 'Daño de ardilla'),
+        (5, 'Daño de barrenador'),
+        (6, 'Chupadores'),
+        (7, 'Daño de zompopo'),
+        (8, 'Bejuco'),
+        (9, 'Tanda'),
+        (10, 'Otros'),
+    )
+
+class ObservacionPunto1(models.Model):
+    planta = models.IntegerField(choices="CHOICE_OBSERVACION_PUNTO1",
+                                blank=True, null=True)
+    uno = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    dos = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    tres = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    cuatro = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    cinco = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    seis = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    siete = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    ocho = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+
+    ficha = models.ForeignKey(RELATED_MODEL)
+
+    def __unicode__(self):
+        return u"Punto1"
+
+class ObservacionPunto1Nivel(models.Model):
+    planta = models.IntegerField(choices=CHOICE_PLANTAS3)
+    uno = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    dos = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    tres = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    cuatro = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    cinco = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    seis = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    siete = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    ocho = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    nueve = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    dies = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+     ficha = models.ForeignKey(RELATED_MODEL)
+
+
+    def __unicode__(self):
+        return u"Punto1 nivel produccion"
+
+
+class ObservacionPunto2(models.Model):
+    planta = models.IntegerField(choices="CHOICE_OBSERVACION_PUNTO1",
+                                blank=True, null=True)
+    uno = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    dos = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    tres = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    cuatro = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    cinco = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    seis = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    siete = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    ocho = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+
+    ficha = models.ForeignKey(RELATED_MODEL)
+
+    def __unicode__(self):
+        return u"Punto2"
+
+class ObservacionPunto2Nivel(models.Model):
+    planta = models.IntegerField(choices=CHOICE_PLANTAS3)
+    uno = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    dos = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    tres = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    cuatro = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    cinco = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    seis = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    siete = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    ocho = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    nueve = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    dies = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+
+    ficha = models.ForeignKey(RELATED_MODEL)
+
+
+    def __unicode__(self):
+        return u"Punto2 nivel produccion"
+
+class ObservacionPunto3(models.Model):
+    planta = models.IntegerField(choices="CHOICE_OBSERVACION_PUNTO1",
+                                blank=True, null=True)
+    uno = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    dos = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    tres = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    cuatro = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    cinco = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    seis = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    siete = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    ocho = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+
+    ficha = models.ForeignKey(RELATED_MODEL)
+
+    def __unicode__(self):
+        return u"Punto3"
+
+class ObservacionPunto3Nivel(models.Model):
+    planta = models.IntegerField(choices=CHOICE_PLANTAS3)
+    uno = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    dos = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    tres = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    cuatro = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    cinco = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    seis = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    siete = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    ocho = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    nueve = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+    dies = models.IntegerField(choices=CHOICE_PRODUCCION,
+            blank=True, null=True)
+
+    ficha = models.ForeignKey(RELATED_MODEL)
+
+
+    def __unicode__(self):
+        return u"Punto3 nivel produccion"
+
+CHOICE_ENFERMEDADES = (
+        ("A", 'Monilia'),
+        ("B", 'Mazorca negra'),
+        ("C", 'Mal de machete'),
+        ("D", 'Mal de talluelo en el vivero'),
+        ("E", 'Barrenadores de tallo'),
+        ("F", 'Zompopos'),
+        ("G", 'Chupadores o áfidos'),
+        ("H", 'Escarabajos'),
+        ("J", 'Comején'),
+        ("k", 'Otros'),
+    )
+
+CHOICE_SITUACION_PLAGAS = (
+        (1, 'Varias plagas en todos los puntos'),
+        (2, 'Varias plagas en algunos puntos'),
+        (3, 'Pocas plagas en todos los puntos'),
+        (4, 'Pocas plagas en algunos puntos'),
+        (5, 'Una plaga en todos los puntos'),
+        (6, 'Una plaga en algunos puntos'),
+    )
+
+class ProblemasPrincipales(models.Model):
+    observadas = MultiSelectField(choices=CHOICE_ENFERMEDADES,
+            verbose_name='Las plagas y enfermedades observadas en la parcela')
+    situacion = models.IntegerField(choices=CHOICE_SITUACION_PLAGAS,blank=True, null=True)
+    principales = MultiSelectField(choices=CHOICE_ENFERMEDADES,
+            verbose_name='Las plagas y enfermedades principales en la parcela')
+
+    def __unicode__(self):
+        return u"problemas principales"
