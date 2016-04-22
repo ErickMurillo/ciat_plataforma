@@ -24,6 +24,7 @@ SECRET_KEY = 'xz^@^p+q0mku0dpdb&046qt6e4r=*zkxh0er(5l*x5u3x3kq+@'
 
 INSTALLED_APPS = (
     #apps para mejorar el admin
+    'flat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -98,6 +99,7 @@ INSTALLED_APPS = (
     #'ficha_poda',
     'guias_cacao',
 
+    'ficha_granos_basicos',
 
 
 )
@@ -207,5 +209,3 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'ciat_plataforma.context.globales',
     )
-
-

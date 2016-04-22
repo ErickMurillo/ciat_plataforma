@@ -36,11 +36,27 @@ class InlineDecisor(admin.TabularInline):
     extra = 1
     max_num = 1
 
+class InlineProductorGranosBasicos(admin.TabularInline):
+    model = ProductorGranosBasicos
+    extra = 1
+    max_num = 1
+
+class InlineUsoSuelo(admin.TabularInline):
+    model = UsoSuelo
+    extra = 1
+    max_num = 6
+
+class InlineComposicionFamiliar(admin.TabularInline):
+    model = ComposicionFamiliar
+    extra = 1
+    max_num = 15
+
 class PersonaAdmin(admin.ModelAdmin):
     list_display = ('tipo_persona', 'nombre', 'sexo', 'pais')
 
     inlines = [InlineProductor, InlineLideres, InlineTecnicoEspInvestigador,
-                InlineDecisor]
+                InlineDecisor,InlineProductorGranosBasicos,InlineUsoSuelo,
+                InlineComposicionFamiliar]
 
     class Media:
         js = ('/static/general/js/personaAdmin.js',)
