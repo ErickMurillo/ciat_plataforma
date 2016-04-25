@@ -613,7 +613,7 @@ class PlagasEnfermedad(models.Model):
                 blank=True, null=True, verbose_name="He visto en mi cafetal")
     dano = models.IntegerField(choices=CHOICE_SI_NO,
                             blank=True, null=True, verbose_name="Hace daño año con año")
-    promedio = forms.FloatField("¿Promedio nivel de daño en %?")
+    promedio = models.FloatField("¿Promedio nivel de daño en %?")
 
     ficha = models.ForeignKey(FichaPlaga)
 
@@ -680,7 +680,7 @@ CHOICE_OBSERVACION_PUNTO1 = (
     )
 
 class ObservacionPunto1(models.Model):
-    planta = models.IntegerField(choices="CHOICE_OBSERVACION_PUNTO1",
+    planta = models.IntegerField(choices=CHOICE_OBSERVACION_PUNTO1,
                                 blank=True, null=True)
     uno = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dos = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
@@ -693,7 +693,7 @@ class ObservacionPunto1(models.Model):
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
 
-    ficha = models.ForeignKey(RELATED_MODEL)
+    ficha = models.ForeignKey(FichaPlaga)
 
     def __unicode__(self):
         return u"Punto1"
@@ -720,7 +720,7 @@ class ObservacionPunto1Nivel(models.Model):
             blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
-     ficha = models.ForeignKey(RELATED_MODEL)
+    ficha = models.ForeignKey(FichaPlaga)
 
 
     def __unicode__(self):
@@ -728,7 +728,7 @@ class ObservacionPunto1Nivel(models.Model):
 
 
 class ObservacionPunto2(models.Model):
-    planta = models.IntegerField(choices="CHOICE_OBSERVACION_PUNTO1",
+    planta = models.IntegerField(choices=CHOICE_OBSERVACION_PUNTO1,
                                 blank=True, null=True)
     uno = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dos = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
@@ -741,7 +741,7 @@ class ObservacionPunto2(models.Model):
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
 
-    ficha = models.ForeignKey(RELATED_MODEL)
+    ficha = models.ForeignKey(FichaPlaga)
 
     def __unicode__(self):
         return u"Punto2"
@@ -769,14 +769,14 @@ class ObservacionPunto2Nivel(models.Model):
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
 
-    ficha = models.ForeignKey(RELATED_MODEL)
+    ficha = models.ForeignKey(FichaPlaga)
 
 
     def __unicode__(self):
         return u"Punto2 nivel produccion"
 
 class ObservacionPunto3(models.Model):
-    planta = models.IntegerField(choices="CHOICE_OBSERVACION_PUNTO1",
+    planta = models.IntegerField(choices=CHOICE_OBSERVACION_PUNTO1,
                                 blank=True, null=True)
     uno = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dos = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
@@ -789,7 +789,7 @@ class ObservacionPunto3(models.Model):
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
 
-    ficha = models.ForeignKey(RELATED_MODEL)
+    ficha = models.ForeignKey(FichaPlaga)
 
     def __unicode__(self):
         return u"Punto3"
@@ -817,7 +817,7 @@ class ObservacionPunto3Nivel(models.Model):
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
 
-    ficha = models.ForeignKey(RELATED_MODEL)
+    ficha = models.ForeignKey(FichaPlaga)
 
 
     def __unicode__(self):
@@ -851,6 +851,276 @@ class ProblemasPrincipales(models.Model):
     situacion = models.IntegerField(choices=CHOICE_SITUACION_PLAGAS,blank=True, null=True)
     principales = MultiSelectField(choices=CHOICE_ENFERMEDADES,
             verbose_name='Las plagas y enfermedades principales en la parcela')
+    ficha = models.ForeignKey(FichaPlaga)
 
     def __unicode__(self):
         return u"problemas principales"
+
+
+CHOICE_ENFERMEDADES_PUNTO6_1 = (
+        ("A", 'Suelo erosionado'),
+        ("B", 'Suelo poco fértil'),
+        ("C", 'Mucha competencia'),
+        ("D", 'Mal drenaje'),
+        ("E", 'Falta obras de conservación'),
+        ("F", 'Suelo compacto'),
+        ("G", 'Suelo con poca MO'),
+        ("H", 'No usa abono o fertilizante'),
+    )
+
+CHOICE_ENFERMEDADES_PUNTO6_2 = (
+        ("A", 'Sombra muy densa'),
+        ("B", 'Sombra muy rala'),
+        ("C", 'Sombra mal distribuida'),
+        ("D", 'Arboles de sombra no adecuada'),
+        ("E", 'Mucha auto-sombra'),
+        ("F", 'Mucho banano'),
+    )
+
+CHOICE_ENFERMEDADES_PUNTO6_3 = (
+        ("A", 'Poda no adecuada'),
+        ("B", 'Piso no manejado'),
+        ("C", 'No eliminan mazorcas enfermas'),
+        ("D", 'No hay manejo de plagas'),
+        ("E", 'Plantas desnutridas'),
+        ("F", 'Plantación vieja'),
+        ("G", 'Variedades susceptibles'),
+        ("H", 'Variedades no productivas'),
+    )
+
+class Punto6Plagas(models.Model):
+    observaciones = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO6_1,
+            verbose_name='Observaciones de suelo ')
+    sombra = models.IntegerField(choices=CHOICE_ENFERMEDADES_PUNTO6_2,
+            verbose_name="Observaciones de sombra", blank=True, null=True)
+    manejo = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO6_3,
+            verbose_name='Observaciones de manejo ')
+
+    ficha = models.ForeignKey(FichaPlaga)
+
+    def __unicode__(self):
+        return u"punto 6"
+
+
+CHOICE_ACCIONES_PUNTO7_1 = (
+        (1, 'Recuento de plagas'),
+        (2, 'Cortar las mazorcas enfermas'),
+        (3, 'Abonar las plantas'),
+        (4, 'Aplicar Caldos'),
+        (5, 'Aplicar Fungicidas'),
+        (6, 'Manejo de sombra'),
+        (7, 'Podar las plantas de cacao'),
+        (8, 'Aplicar venenos para Zompopo'),
+        (9, 'Control de Comején'),
+    )
+
+CHOICE_ACCIONES_PUNTO7_2 = (
+        (1, 'Toda la parcela'),
+        (2, 'Alguna parte de la parcela'),
+    )
+
+class Punto6Plagas(models.Model):
+    manejo = models.IntegerField(choices=CHOICE_ACCIONES_PUNTO7_1,
+            verbose_name="Manejo de plagas y enfermedades", blank=True, null=True)
+    parte = models.IntegerField(choices=CHOICE_ACCIONES_PUNTO7_2,
+            verbose_name="En que parte", blank=True, null=True)
+    manejo = MultiSelectField(choices=CHOICES_FECHA_PODA,
+            verbose_name='En qué meses vamos a realizar el manejo')
+
+    ficha = models.ForeignKey(FichaPlaga)
+
+    def __unicode__(self):
+        return u"punto 7"
+
+CHOICE_ENFERMEDADES_PUNTO8 = (
+        ("A", 'Medial Luna'),
+        ("B", 'Tijera'),
+        ("C", 'Serrucho'),
+        ("D", 'Bomba de mochila'),
+        ("E", 'Barril'),
+        ("F", 'Cutacha'),
+        ("G", 'No tiene'),
+    )
+class Punto8y9Plagas(models.Model):
+    equipos = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO8,
+            verbose_name='8.¿Tenemos los equipos necesarios para realizar manejo de plagas y enfermedades?')
+
+    opcion = models.IntegerField(choices=CHOICE_SI_NO,
+            verbose_name="9.¿Tenemos la formación para realizar el manejo de plagas y enfermedades?",
+            blank=True, null=True)
+
+    ficha = models.ForeignKey(FichaPlaga)
+
+    def __unicode__(self):
+        return u"punto 8 y 9"
+
+#------------------------------ fin de ficha de plagas -------------------------------
+
+class FichaPiso(models.Model):
+    productor = models.ForeignKey(Persona,
+            verbose_name='Nombre de productor o productora',
+            related_name='persona_productor_piso')
+    tecnico = models.ForeignKey(Persona,
+            verbose_name='Nombre de técnico',
+            related_name='persona_tecnico_piso')
+    fecha_visita = models.DateField()
+
+    def __unicode__(self):
+        return self.productor.nombre
+
+    class Meta:
+        verbose_name = "Ficha piso"
+        verbose_name_plural = "Fichas piso"
+
+CHOICE_PISO1 = (
+        ("A", 'Zacates o matas de hoja angosta'),
+        ("B", 'Arbustos o plantas de hoja ancha'),
+        ("C", 'Coyol o Coyolillo'),
+        ("D", 'Bejucos'),
+        ("E", 'Tanda'),
+        ("F", 'Cobertura de hoja ancha'),
+        ("G", 'Cobertura de hoja angosta'),
+    )
+
+class PisoPunto1(models.Model):
+    punto1 = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO8,
+            verbose_name='1.¿Cuáles son las hierbas qué cubren el piso y sube sobre las planta de cacao? ')
+    punto2 = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO8,
+            verbose_name='2.¿Cuáles son las hierbas qué usted considera dañino? ')
+
+    ficha = models.ForeignKey(FichaPiso)
+
+    def __unicode__(self):
+        return u"piso 1 y 2"
+
+CHOICE_PISO3 = (
+        (1, 'Recuento de malezas'),
+        (2, 'Chapoda tendida'),
+        (3, 'Chapoda selectiva'),
+        (4, 'Aplicar herbicidas total'),
+        (5, 'Aplicar herbicidas en parches'),
+        (6, 'Manejo de bejuco'),
+        (7, 'Manejo de tanda'),
+        (8, 'Regulación de sombra'),
+    )
+
+class PisoPunto3(models.Model):
+    manejo = models.IntegerField(choices=CHOICE_PISO3,
+            verbose_name="Manejo de piso",
+            blank=True, null=True)
+    realiza = models.IntegerField(choices=CHOICE_SI_NO,
+            verbose_name="Realiza en manejo",
+            blank=True, null=True)
+    veces = forms.FloatField("Cuantas veces realizan el manejo")
+    manejo = MultiSelectField(choices=CHOICES_FECHA_PODA,
+            verbose_name='En qué meses vamos a realiza el manejo')
+
+    ficha = models.ForeignKey(FichaPiso)
+
+    def __unicode__(self):
+        return u"punto 3"
+
+CHOICE_PISO4 = (
+        ("A", 'Técnico'),
+        ("B", 'Casa comercial'),
+        ("C", 'Cooperativa'),
+        ("D", 'Otros productores'),
+        ("E", 'Experiencia propia/costumbres'),
+        ("F", 'Otros medio de comunicación'),
+    )
+class PisoPunto4(models.Model):
+    manejo = MultiSelectField(choices=CHOICE_PISO4,
+            verbose_name='4.¿De dónde viene su orientación de manejo de malas hierbas?')
+
+    ficha = models.ForeignKey(FichaPiso)
+
+    def __unicode__(self):
+        return u"punto 4"
+
+CHOICE_PISO5 = (
+        (1, 'Zacate anual'),
+        (2, 'Zacate perene'),
+        (3, 'Hoja ancha anual'),
+        (4, 'Hoja ancha perenne'),
+        (5, 'Ciperácea o Coyolillo'),
+        (6, 'Bejucos en suelo'),
+        (7, 'Cobertura hoja ancha'),
+        (8, 'Cobertura hoja angosta'),
+        (9, 'Hojarasca'),
+        (10, 'Mulch de maleza'),
+        (11, 'Suelo desnudo')
+    )
+
+class PisoPunto5(models.Model):
+    estado = models.IntegerField(choices=CHOICE_PISO5,
+            verbose_name="Estado de Piso",
+            blank=True, null=True)
+    conteo = forms.FloatField('Conteo (números)')
+
+    ficha = models.ForeignKey(FichaPiso)
+
+    def __unicode__(self):
+        return u"punto 5"
+
+CHOICE_PISO6_1 = (
+        ("A", 'Sin competencia'),
+        ("B", 'Media competencia'),
+        ("C", 'Alta competencia'),
+    )
+CHOICE_PISO6_2 = (
+        (1, 'Piso cubierto pero compite'),
+        (2, 'Piso medio cubierto y compite'),
+        (3, 'Piso no cubierto'),
+        (4, 'Piso con mucho bejuco'),
+        (5, 'Plantas con bejuco'),
+        (6, 'Plantas con tanda'),
+    )
+CHOICE_PISO6_3 = (
+        ("A", 'Zacate anual'),
+        ("B", 'Zacate perene'),
+        ("C", 'Hoja ancha anual'),
+        ("D", 'Hoja ancha perenne'),
+        ("E", 'Ciperácea o Coyolillo'),
+        ("F", 'Bejucos'),
+    )
+
+
+class PisoPunto6(models.Model):
+    manejo = MultiSelectField(choices=CHOICE_PISO6_1,
+            verbose_name='La competencia entre malas hierbas y las plantas de cacao?')
+    estado = models.IntegerField(choices=CHOICE_PISO6_2,
+            verbose_name="La cobertura del piso de cacaotal",
+            blank=True, null=True)
+    manejo = MultiSelectField(choices=CHOICE_PISO6_3,
+            verbose_name='Tipo de malezas que compiten')
+
+
+    ficha = models.ForeignKey(FichaPiso)
+
+    def __unicode__(self):
+        return u"punto 6"
+
+CHOICE_PISO7_1 = (
+        ("A", 'Suelo erosionado'),
+        ("B", 'Suelo poco fértil'),
+        ("C", 'Mal drenaje'),
+        ("D", 'Suelo compacto'),
+        ("E", 'Suelo con poca MO'),
+        ("F", 'No usa abono o fertilizante'),
+    )
+
+CHOICE_PISO7_2 = (
+        ("A", 'Sombra muy rala'),
+        ("B", 'Sombra mal distribuida'),
+        ("C", 'Arboles de sombra no adecuada'),
+        ("D", 'Poco banano'),
+    )
+
+CHOICE_PISO7_3 = (
+        ("A", 'Zacate anual'),
+        ("B", 'Zacate perene'),
+        ("C", 'Hoja ancha anual'),
+        ("D", 'Hoja ancha perenne'),
+        ("E", 'Ciperácea o Coyolillo'),
+        ("F", 'Bejucos'),
+    )
