@@ -924,7 +924,7 @@ class Punto6Plagas(models.Model):
             verbose_name="Manejo de plagas y enfermedades", blank=True, null=True)
     parte = models.IntegerField(choices=CHOICE_ACCIONES_PUNTO7_2,
             verbose_name="En que parte", blank=True, null=True)
-    manejo = MultiSelectField(choices=CHOICES_FECHA_PODA,
+    meses = MultiSelectField(choices=CHOICES_FECHA_PODA,
             verbose_name='En qué meses vamos a realizar el manejo')
 
     ficha = models.ForeignKey(FichaPlaga)
@@ -1011,8 +1011,8 @@ class PisoPunto3(models.Model):
     realiza = models.IntegerField(choices=CHOICE_SI_NO,
             verbose_name="Realiza en manejo",
             blank=True, null=True)
-    veces = forms.FloatField("Cuantas veces realizan el manejo")
-    manejo = MultiSelectField(choices=CHOICES_FECHA_PODA,
+    veces = models.FloatField("Cuantas veces realizan el manejo")
+    meses = MultiSelectField(choices=CHOICES_FECHA_PODA,
             verbose_name='En qué meses vamos a realiza el manejo')
 
     ficha = models.ForeignKey(FichaPiso)
@@ -1055,7 +1055,7 @@ class PisoPunto5(models.Model):
     estado = models.IntegerField(choices=CHOICE_PISO5,
             verbose_name="Estado de Piso",
             blank=True, null=True)
-    conteo = forms.FloatField('Conteo (números)')
+    conteo = models.FloatField('Conteo (números)')
 
     ficha = models.ForeignKey(FichaPiso)
 
@@ -1091,7 +1091,7 @@ class PisoPunto6(models.Model):
     estado = models.IntegerField(choices=CHOICE_PISO6_2,
             verbose_name="La cobertura del piso de cacaotal",
             blank=True, null=True)
-    manejo = MultiSelectField(choices=CHOICE_PISO6_3,
+    maleza = MultiSelectField(choices=CHOICE_PISO6_3,
             verbose_name='Tipo de malezas que compiten')
 
 
@@ -1117,10 +1117,74 @@ CHOICE_PISO7_2 = (
     )
 
 CHOICE_PISO7_3 = (
-        ("A", 'Zacate anual'),
-        ("B", 'Zacate perene'),
-        ("C", 'Hoja ancha anual'),
-        ("D", 'Hoja ancha perenne'),
-        ("E", 'Ciperácea o Coyolillo'),
-        ("F", 'Bejucos'),
+        ("A", 'Chapoda no adecuada'),
+        ("B", 'Chapoda tardía'),
+        ("C", 'No hay manejo selectivo'),
+        ("D", 'Plantas desnutridas'),
+        ("E", 'Plantación vieja'),
+        ("F", 'Mala selección de herbicidas'),
     )
+
+class PisoPunto7(models.Model):
+    suelo = MultiSelectField(choices=CHOICE_PISO7_1,
+            verbose_name='Observaciones de suelo ')
+    sombra = MultiSelectField(choices=CHOICE_PISO7_2,
+            verbose_name='Observaciones de sombra')
+    manejo = MultiSelectField(choices=CHOICE_PISO7_3,
+            verbose_name='Observaciones de manejo')
+
+
+    ficha = models.ForeignKey(FichaPiso)
+
+    def __unicode__(self):
+        return u"punto 7"
+
+CHOICE_PISO8 = (
+        (1, 'Recuento de malezas'),
+        (2, 'Chapoda tendida'),
+        (3, 'Chapoda selectiva'),
+        (4, 'Aplicar herbicidas total'),
+        (5, 'Aplicar herbicidas en parches'),
+        (6, 'Manejo de bejuco'),
+        (7, 'Manejo de tanda'),
+        (8, 'Regulación de sombra'),
+    )
+
+class PisoPunto8(models.Model):
+    piso = models.IntegerField(choices=CHOICE_PISO8,
+            verbose_name="Manejo de piso",
+            blank=True, null=True)
+    parte = models.IntegerField(choices=CHOICE_PISO6_2,
+            verbose_name="En que parte",
+            blank=True, null=True)
+    meses = MultiSelectField(choices=CHOICES_FECHA_PODA,
+            verbose_name='En qué meses vamos a realizar el manejo')
+
+
+    ficha = models.ForeignKey(FichaPiso)
+
+    def __unicode__(self):
+        return u"punto 8"
+
+CHOICE_PISO10 = (
+        ("A", 'Machete'),
+        ("B", 'Pico'),
+        ("C", 'Pala'),
+        ("D", 'Bomba de mochila'),
+        ("E", 'Barril'),
+        ("F", 'Cutacha'),
+        ("G", 'No tiene'),
+    )
+
+class PisoPunto10(models.Model):
+    equipo = MultiSelectField(choices=CHOICE_PISO10,
+            verbose_name='10.¿Tenemos los equipos necesarios para realizar manejo de piso?')
+    formacion = models.IntegerField(choices=CHOICE_SI_NO,
+            verbose_name="11.¿Tenemos la formación para realizar el manejo de piso?",
+            blank=True, null=True)
+
+
+    ficha = models.ForeignKey(FichaPiso)
+
+    def __unicode__(self):
+        return u"punto 10 y 11"
