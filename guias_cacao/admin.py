@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .forms import ProductorAdminForm, TecnicoAdminForm
+from .forms import ProductorSombraAdminForm, TecnicoAdminForm, ProductorPodaAdminForm, ProductorPlagaAdminForm, ProductorPisoAdminForm
 from .models import *
 
 
@@ -74,8 +74,8 @@ class AumentarSombraInline(admin.TabularInline):
     extra = 1
     max_num = 1
 
-class ManejoInline(admin.TabularInline):
-    model = Manejo
+class ManejoSombraInline(admin.TabularInline):
+    model = ManejoSombra
     extra = 1
     max_num = 1
 
@@ -86,7 +86,7 @@ class FichaSombraAdmin(admin.ModelAdmin):
                       Foto3Inline,Punto3Inline,Cobertura3Inline,
                       AnalisisSombraInline,AccionesSombraInline,
                       ReducirSombraInline,AumentarSombraInline,
-                      ManejoInline]
+                      ManejoSombraInline]
     list_display = ('fecha_visita', 'productor', 'tecnico',)
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
@@ -101,7 +101,7 @@ class FichaSombraAdmin(admin.ModelAdmin):
 admin.site.register(FichaSombra, FichaSombraAdmin)
 admin.site.register(Especies)
 
-#------------------------------------------------
+#--------------------- admin ficha poda ---------------------------
 
 class Punto1AInline(admin.TabularInline):
     model = Punto1A
@@ -177,3 +177,150 @@ class FichaPodaAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(FichaPoda, FichaPodaAdmin)
+
+
+#--------  admin ficha plaga ----------
+
+class PlagasEnfermedadInline(admin.TabularInline):
+    model = PlagasEnfermedad
+    extra = 1
+    max_num = 1
+
+class AccionesEnfermedadInline(admin.TabularInline):
+    model = AccionesEnfermedad
+    extra = 1
+    max_num = 1
+
+class OrientacionInline(admin.TabularInline):
+    model = Orientacion
+    extra = 1
+    max_num = 1
+
+class ObservacionPunto1Inline(admin.TabularInline):
+    model = ObservacionPunto1
+    extra = 1
+    max_num = 1
+
+class ObservacionPunto1NivelInline(admin.TabularInline):
+    model = ObservacionPunto1Nivel
+    extra = 1
+    max_num = 1
+
+class ObservacionPunto2Inline(admin.TabularInline):
+    model = ObservacionPunto2
+    extra = 1
+    max_num = 1
+
+class ObservacionPunto2NivelInline(admin.TabularInline):
+    model = ObservacionPunto2Nivel
+    extra = 1
+    max_num = 1
+
+class ObservacionPunto3Inline(admin.TabularInline):
+    model = ObservacionPunto3
+    extra = 1
+    max_num = 1
+
+class ObservacionPunto3NivelInline(admin.TabularInline):
+    model = ObservacionPunto3Nivel
+    extra = 1
+    max_num = 1
+
+class ProblemasPrincipalesInline(admin.TabularInline):
+    model = ProblemasPrincipales
+    extra = 1
+    max_num = 1
+
+class Punto6PlagasInline(admin.TabularInline):
+    model = Punto6Plagas
+    extra = 1
+    max_num = 1
+
+class Punto7PlagasInline(admin.TabularInline):
+    model = Punto7Plagas
+    extra = 1
+    max_num = 1
+
+class Punto8y9PlagasInline(admin.TabularInline):
+    model = Punto8y9Plagas
+    extra = 1
+    max_num = 1
+
+class FichaPlagaAdmin(admin.ModelAdmin):
+    form = ProductorPlagaAdminForm
+    inlines = [PlagasEnfermedadInline,AccionesEnfermedadInline,OrientacionInline,
+                ObservacionPunto1Inline,ObservacionPunto1NivelInline,
+                ObservacionPunto2Inline,ObservacionPunto2NivelInline,
+                ObservacionPunto3Inline,ObservacionPunto3NivelInline,
+                ProblemasPrincipalesInline,Punto6PlagasInline,Punto7PlagasInline,
+                Punto8y9PlagasInline]
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+    class Media:
+        css = {
+           'all': ('monitoreo/css/adminPlaga.css',)
+       }
+        js = ('monitoreo/js/fichaPlaga.js',)
+
+admin.site.register(FichaPlaga, FichaPlagaAdmin)
+
+# ----------------- ficha piso -------------------------------
+
+class PisoPunto1Inline(admin.TabularInline):
+    model = PisoPunto1
+    extra = 1
+    max_num = 1
+
+class PisoPunto3Inline(admin.TabularInline):
+    model = PisoPunto3
+    extra = 1
+    max_num = 1
+
+class PisoPunto4Inline(admin.TabularInline):
+    model = PisoPunto4
+    extra = 1
+    max_num = 1
+
+class PisoPunto5Inline(admin.TabularInline):
+    model = PisoPunto5
+    extra = 1
+    max_num = 1
+
+class PisoPunto6Inline(admin.TabularInline):
+    model = PisoPunto6
+    extra = 1
+    max_num = 1
+
+class PisoPunto7Inline(admin.TabularInline):
+    model = PisoPunto7
+    extra = 1
+    max_num = 1
+
+class PisoPunto8Inline(admin.TabularInline):
+    model = PisoPunto8
+    extra = 1
+    max_num = 1
+
+class PisoPunto10Inline(admin.TabularInline):
+    model = PisoPunto10
+    extra = 1
+    max_num = 1
+
+
+class FichaPisoAdmin(admin.ModelAdmin):
+    form = ProductorPlagaAdminForm
+    inlines = [PisoPunto1Inline,PisoPunto3Inline,PisoPunto4Inline, PisoPunto5Inline,
+                PisoPunto6Inline,PisoPunto7Inline,PisoPunto8Inline,PisoPunto10Inline]
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+    class Media:
+        css = {
+           'all': ('monitoreo/css/adminPiso.css',)
+       }
+        js = ('monitoreo/js/fichaPiso.js',)
+
+admin.site.register(FichaPiso, FichaPisoAdmin)

@@ -869,12 +869,12 @@ CHOICE_ENFERMEDADES_PUNTO6_1 = (
     )
 
 CHOICE_ENFERMEDADES_PUNTO6_2 = (
-        ("A", 'Sombra muy densa'),
-        ("B", 'Sombra muy rala'),
-        ("C", 'Sombra mal distribuida'),
-        ("D", 'Arboles de sombra no adecuada'),
-        ("E", 'Mucha auto-sombra'),
-        ("F", 'Mucho banano'),
+        (1, 'Sombra muy densa'),
+        (2, 'Sombra muy rala'),
+        (3, 'Sombra mal distribuida'),
+        (4, 'Arboles de sombra no adecuada'),
+        (5, 'Mucha auto-sombra'),
+        (6, 'Mucho banano'),
     )
 
 CHOICE_ENFERMEDADES_PUNTO6_3 = (
@@ -919,7 +919,7 @@ CHOICE_ACCIONES_PUNTO7_2 = (
         (2, 'Alguna parte de la parcela'),
     )
 
-class Punto6Plagas(models.Model):
+class Punto7Plagas(models.Model):
     manejo = models.IntegerField(choices=CHOICE_ACCIONES_PUNTO7_1,
             verbose_name="Manejo de plagas y enfermedades", blank=True, null=True)
     parte = models.IntegerField(choices=CHOICE_ACCIONES_PUNTO7_2,

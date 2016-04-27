@@ -364,6 +364,277 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'guias_cacao', ['ManejoPoda'])
 
+        # Adding model 'FichaPlaga'
+        db.create_table(u'guias_cacao_fichaplaga', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('productor', self.gf('django.db.models.fields.related.ForeignKey')(related_name='persona_productor_plaga', to=orm['mapeo.Persona'])),
+            ('tecnico', self.gf('django.db.models.fields.related.ForeignKey')(related_name='persona_tecnico_plaga', to=orm['mapeo.Persona'])),
+            ('fecha_visita', self.gf('django.db.models.fields.DateField')()),
+        ))
+        db.send_create_signal(u'guias_cacao', ['FichaPlaga'])
+
+        # Adding model 'PlagasEnfermedad'
+        db.create_table(u'guias_cacao_plagasenfermedad', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('plagas', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('visto', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dano', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('promedio', self.gf('django.db.models.fields.FloatField')()),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PlagasEnfermedad'])
+
+        # Adding model 'AccionesEnfermedad'
+        db.create_table(u'guias_cacao_accionesenfermedad', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('plagas_acciones', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('realiza_manejo', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cuantas_veces', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('meses', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=23)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['AccionesEnfermedad'])
+
+        # Adding model 'Orientacion'
+        db.create_table(u'guias_cacao_orientacion', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('fuentes', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=11)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['Orientacion'])
+
+        # Adding model 'ObservacionPunto1'
+        db.create_table(u'guias_cacao_observacionpunto1', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('planta', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('uno', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dos', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('tres', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cuatro', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cinco', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('seis', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('siete', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ocho', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('nueve', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dies', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['ObservacionPunto1'])
+
+        # Adding model 'ObservacionPunto1Nivel'
+        db.create_table(u'guias_cacao_observacionpunto1nivel', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('planta', self.gf('django.db.models.fields.IntegerField')()),
+            ('uno', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dos', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('tres', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cuatro', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cinco', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('seis', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('siete', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ocho', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('nueve', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dies', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['ObservacionPunto1Nivel'])
+
+        # Adding model 'ObservacionPunto2'
+        db.create_table(u'guias_cacao_observacionpunto2', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('planta', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('uno', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dos', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('tres', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cuatro', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cinco', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('seis', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('siete', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ocho', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('nueve', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dies', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['ObservacionPunto2'])
+
+        # Adding model 'ObservacionPunto2Nivel'
+        db.create_table(u'guias_cacao_observacionpunto2nivel', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('planta', self.gf('django.db.models.fields.IntegerField')()),
+            ('uno', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dos', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('tres', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cuatro', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cinco', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('seis', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('siete', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ocho', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('nueve', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dies', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['ObservacionPunto2Nivel'])
+
+        # Adding model 'ObservacionPunto3'
+        db.create_table(u'guias_cacao_observacionpunto3', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('planta', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('uno', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dos', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('tres', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cuatro', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cinco', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('seis', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('siete', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ocho', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('nueve', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dies', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['ObservacionPunto3'])
+
+        # Adding model 'ObservacionPunto3Nivel'
+        db.create_table(u'guias_cacao_observacionpunto3nivel', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('planta', self.gf('django.db.models.fields.IntegerField')()),
+            ('uno', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dos', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('tres', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cuatro', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('cinco', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('seis', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('siete', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ocho', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('nueve', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('dies', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['ObservacionPunto3Nivel'])
+
+        # Adding model 'ProblemasPrincipales'
+        db.create_table(u'guias_cacao_problemasprincipales', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('observadas', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=19)),
+            ('situacion', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('principales', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=19)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['ProblemasPrincipales'])
+
+        # Adding model 'Punto6Plagas'
+        db.create_table(u'guias_cacao_punto6plagas', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('observaciones', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=15)),
+            ('sombra', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('manejo', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=15)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['Punto6Plagas'])
+
+        # Adding model 'Punto7Plagas'
+        db.create_table(u'guias_cacao_punto7plagas', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('manejo', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('parte', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('meses', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=23)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['Punto7Plagas'])
+
+        # Adding model 'Punto8y9Plagas'
+        db.create_table(u'guias_cacao_punto8y9plagas', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('equipos', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=13)),
+            ('opcion', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPlaga'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['Punto8y9Plagas'])
+
+        # Adding model 'FichaPiso'
+        db.create_table(u'guias_cacao_fichapiso', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('productor', self.gf('django.db.models.fields.related.ForeignKey')(related_name='persona_productor_piso', to=orm['mapeo.Persona'])),
+            ('tecnico', self.gf('django.db.models.fields.related.ForeignKey')(related_name='persona_tecnico_piso', to=orm['mapeo.Persona'])),
+            ('fecha_visita', self.gf('django.db.models.fields.DateField')()),
+        ))
+        db.send_create_signal(u'guias_cacao', ['FichaPiso'])
+
+        # Adding model 'PisoPunto1'
+        db.create_table(u'guias_cacao_pisopunto1', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('punto1', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=13)),
+            ('punto2', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=13)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPiso'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PisoPunto1'])
+
+        # Adding model 'PisoPunto3'
+        db.create_table(u'guias_cacao_pisopunto3', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('manejo', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('realiza', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('veces', self.gf('django.db.models.fields.FloatField')()),
+            ('meses', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=23)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPiso'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PisoPunto3'])
+
+        # Adding model 'PisoPunto4'
+        db.create_table(u'guias_cacao_pisopunto4', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('manejo', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=11)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPiso'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PisoPunto4'])
+
+        # Adding model 'PisoPunto5'
+        db.create_table(u'guias_cacao_pisopunto5', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('estado', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('conteo', self.gf('django.db.models.fields.FloatField')()),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPiso'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PisoPunto5'])
+
+        # Adding model 'PisoPunto6'
+        db.create_table(u'guias_cacao_pisopunto6', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('manejo', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=5)),
+            ('estado', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('maleza', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=11)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPiso'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PisoPunto6'])
+
+        # Adding model 'PisoPunto7'
+        db.create_table(u'guias_cacao_pisopunto7', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('suelo', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=11)),
+            ('sombra', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=7)),
+            ('manejo', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=11)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPiso'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PisoPunto7'])
+
+        # Adding model 'PisoPunto8'
+        db.create_table(u'guias_cacao_pisopunto8', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('piso', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('parte', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('meses', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=23)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPiso'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PisoPunto8'])
+
+        # Adding model 'PisoPunto10'
+        db.create_table(u'guias_cacao_pisopunto10', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('equipo', self.gf('multiselectfield.db.fields.MultiSelectField')(max_length=13)),
+            ('formacion', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('ficha', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['guias_cacao.FichaPiso'])),
+        ))
+        db.send_create_signal(u'guias_cacao', ['PisoPunto10'])
+
 
     def backwards(self, orm):
         # Deleting model 'FichaSombra'
@@ -450,8 +721,86 @@ class Migration(SchemaMigration):
         # Deleting model 'ManejoPoda'
         db.delete_table(u'guias_cacao_manejopoda')
 
+        # Deleting model 'FichaPlaga'
+        db.delete_table(u'guias_cacao_fichaplaga')
+
+        # Deleting model 'PlagasEnfermedad'
+        db.delete_table(u'guias_cacao_plagasenfermedad')
+
+        # Deleting model 'AccionesEnfermedad'
+        db.delete_table(u'guias_cacao_accionesenfermedad')
+
+        # Deleting model 'Orientacion'
+        db.delete_table(u'guias_cacao_orientacion')
+
+        # Deleting model 'ObservacionPunto1'
+        db.delete_table(u'guias_cacao_observacionpunto1')
+
+        # Deleting model 'ObservacionPunto1Nivel'
+        db.delete_table(u'guias_cacao_observacionpunto1nivel')
+
+        # Deleting model 'ObservacionPunto2'
+        db.delete_table(u'guias_cacao_observacionpunto2')
+
+        # Deleting model 'ObservacionPunto2Nivel'
+        db.delete_table(u'guias_cacao_observacionpunto2nivel')
+
+        # Deleting model 'ObservacionPunto3'
+        db.delete_table(u'guias_cacao_observacionpunto3')
+
+        # Deleting model 'ObservacionPunto3Nivel'
+        db.delete_table(u'guias_cacao_observacionpunto3nivel')
+
+        # Deleting model 'ProblemasPrincipales'
+        db.delete_table(u'guias_cacao_problemasprincipales')
+
+        # Deleting model 'Punto6Plagas'
+        db.delete_table(u'guias_cacao_punto6plagas')
+
+        # Deleting model 'Punto7Plagas'
+        db.delete_table(u'guias_cacao_punto7plagas')
+
+        # Deleting model 'Punto8y9Plagas'
+        db.delete_table(u'guias_cacao_punto8y9plagas')
+
+        # Deleting model 'FichaPiso'
+        db.delete_table(u'guias_cacao_fichapiso')
+
+        # Deleting model 'PisoPunto1'
+        db.delete_table(u'guias_cacao_pisopunto1')
+
+        # Deleting model 'PisoPunto3'
+        db.delete_table(u'guias_cacao_pisopunto3')
+
+        # Deleting model 'PisoPunto4'
+        db.delete_table(u'guias_cacao_pisopunto4')
+
+        # Deleting model 'PisoPunto5'
+        db.delete_table(u'guias_cacao_pisopunto5')
+
+        # Deleting model 'PisoPunto6'
+        db.delete_table(u'guias_cacao_pisopunto6')
+
+        # Deleting model 'PisoPunto7'
+        db.delete_table(u'guias_cacao_pisopunto7')
+
+        # Deleting model 'PisoPunto8'
+        db.delete_table(u'guias_cacao_pisopunto8')
+
+        # Deleting model 'PisoPunto10'
+        db.delete_table(u'guias_cacao_pisopunto10')
+
 
     models = {
+        u'guias_cacao.accionesenfermedad': {
+            'Meta': {'object_name': 'AccionesEnfermedad'},
+            'cuantas_veces': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'meses': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '23'}),
+            'plagas_acciones': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'realiza_manejo': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
         u'guias_cacao.accionessombra': {
             'Meta': {'object_name': 'AccionesSombra'},
             'accion': ('django.db.models.fields.IntegerField', [], {}),
@@ -515,6 +864,20 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'nombre': ('django.db.models.fields.CharField', [], {'max_length': '250'})
         },
+        u'guias_cacao.fichapiso': {
+            'Meta': {'object_name': 'FichaPiso'},
+            'fecha_visita': ('django.db.models.fields.DateField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'productor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'persona_productor_piso'", 'to': u"orm['mapeo.Persona']"}),
+            'tecnico': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'persona_tecnico_piso'", 'to': u"orm['mapeo.Persona']"})
+        },
+        u'guias_cacao.fichaplaga': {
+            'Meta': {'object_name': 'FichaPlaga'},
+            'fecha_visita': ('django.db.models.fields.DateField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'productor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'persona_productor_plaga'", 'to': u"orm['mapeo.Persona']"}),
+            'tecnico': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'persona_tecnico_plaga'", 'to': u"orm['mapeo.Persona']"})
+        },
         u'guias_cacao.fichapoda': {
             'Meta': {'object_name': 'FichaPoda'},
             'fecha_visita': ('django.db.models.fields.DateField', [], {}),
@@ -560,6 +923,185 @@ class Migration(SchemaMigration):
             'formacion': ('django.db.models.fields.IntegerField', [], {}),
             'herramientas': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
+        u'guias_cacao.observacionpunto1': {
+            'Meta': {'object_name': 'ObservacionPunto1'},
+            'cinco': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'cuatro': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dies': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dos': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nueve': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ocho': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'planta': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'seis': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'siete': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'tres': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'uno': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.observacionpunto1nivel': {
+            'Meta': {'object_name': 'ObservacionPunto1Nivel'},
+            'cinco': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'cuatro': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dies': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dos': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nueve': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ocho': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'planta': ('django.db.models.fields.IntegerField', [], {}),
+            'seis': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'siete': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'tres': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'uno': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.observacionpunto2': {
+            'Meta': {'object_name': 'ObservacionPunto2'},
+            'cinco': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'cuatro': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dies': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dos': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nueve': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ocho': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'planta': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'seis': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'siete': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'tres': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'uno': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.observacionpunto2nivel': {
+            'Meta': {'object_name': 'ObservacionPunto2Nivel'},
+            'cinco': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'cuatro': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dies': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dos': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nueve': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ocho': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'planta': ('django.db.models.fields.IntegerField', [], {}),
+            'seis': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'siete': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'tres': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'uno': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.observacionpunto3': {
+            'Meta': {'object_name': 'ObservacionPunto3'},
+            'cinco': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'cuatro': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dies': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dos': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nueve': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ocho': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'planta': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'seis': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'siete': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'tres': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'uno': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.observacionpunto3nivel': {
+            'Meta': {'object_name': 'ObservacionPunto3Nivel'},
+            'cinco': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'cuatro': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dies': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'dos': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nueve': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ocho': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'planta': ('django.db.models.fields.IntegerField', [], {}),
+            'seis': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'siete': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'tres': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'uno': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.orientacion': {
+            'Meta': {'object_name': 'Orientacion'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            'fuentes': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '11'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
+        u'guias_cacao.pisopunto1': {
+            'Meta': {'object_name': 'PisoPunto1'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPiso']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'punto1': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '13'}),
+            'punto2': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '13'})
+        },
+        u'guias_cacao.pisopunto10': {
+            'Meta': {'object_name': 'PisoPunto10'},
+            'equipo': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '13'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPiso']"}),
+            'formacion': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
+        u'guias_cacao.pisopunto3': {
+            'Meta': {'object_name': 'PisoPunto3'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPiso']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'manejo': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'meses': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '23'}),
+            'realiza': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'veces': ('django.db.models.fields.FloatField', [], {})
+        },
+        u'guias_cacao.pisopunto4': {
+            'Meta': {'object_name': 'PisoPunto4'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPiso']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'manejo': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '11'})
+        },
+        u'guias_cacao.pisopunto5': {
+            'Meta': {'object_name': 'PisoPunto5'},
+            'conteo': ('django.db.models.fields.FloatField', [], {}),
+            'estado': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPiso']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
+        u'guias_cacao.pisopunto6': {
+            'Meta': {'object_name': 'PisoPunto6'},
+            'estado': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPiso']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'maleza': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '11'}),
+            'manejo': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '5'})
+        },
+        u'guias_cacao.pisopunto7': {
+            'Meta': {'object_name': 'PisoPunto7'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPiso']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'manejo': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '11'}),
+            'sombra': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '7'}),
+            'suelo': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '11'})
+        },
+        u'guias_cacao.pisopunto8': {
+            'Meta': {'object_name': 'PisoPunto8'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPiso']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'meses': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '23'}),
+            'parte': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'piso': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.plagasenfermedad': {
+            'Meta': {'object_name': 'PlagasEnfermedad'},
+            'dano': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'plagas': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'promedio': ('django.db.models.fields.FloatField', [], {}),
+            'visto': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.problemasprincipales': {
+            'Meta': {'object_name': 'ProblemasPrincipales'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'observadas': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '19'}),
+            'principales': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '19'}),
+            'situacion': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
         },
         u'guias_cacao.punto1': {
             'Meta': {'object_name': 'Punto1'},
@@ -740,6 +1282,29 @@ class Migration(SchemaMigration):
             'siete': ('django.db.models.fields.IntegerField', [], {}),
             'tres': ('django.db.models.fields.IntegerField', [], {}),
             'uno': ('django.db.models.fields.IntegerField', [], {})
+        },
+        u'guias_cacao.punto6plagas': {
+            'Meta': {'object_name': 'Punto6Plagas'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'manejo': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '15'}),
+            'observaciones': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '15'}),
+            'sombra': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.punto7plagas': {
+            'Meta': {'object_name': 'Punto7Plagas'},
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'manejo': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'meses': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '23'}),
+            'parte': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'guias_cacao.punto8y9plagas': {
+            'Meta': {'object_name': 'Punto8y9Plagas'},
+            'equipos': ('multiselectfield.db.fields.MultiSelectField', [], {'max_length': '13'}),
+            'ficha': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['guias_cacao.FichaPlaga']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'opcion': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'})
         },
         u'guias_cacao.reducirsombra': {
             'Meta': {'object_name': 'ReducirSombra'},
