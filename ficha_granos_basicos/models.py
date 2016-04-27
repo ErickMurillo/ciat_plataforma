@@ -41,7 +41,7 @@ class Monitoreo(models.Model):
     productor = models.ForeignKey(Persona)
     fecha = models.DateField()
     visita = models.IntegerField(choices=VISITA_CHOICES)
-    areas = MultiSelectField(choices=AREAS_CHOICES)
+    areas = MultiSelectField(choices=AREAS_CHOICES,verbose_name='Áreas a Monitorear')
 
     def __unicode__(self):
 		return '%s - Visita #%s' % (self.productor, self.visita)
@@ -261,6 +261,7 @@ class Especies(models.Model):
     nombre_popular = models.CharField(max_length=100)
     nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
     reconocimiento = models.CharField(max_length=200,blank=True,null=True)
+    dano = models.CharField(max_length=200,blank=True,null=True,verbose_name='Daño')
     control_cultural = models.CharField(max_length=200,blank=True,null=True)
     control_biologico = models.CharField(max_length=200,blank=True,null=True)
     control_quimico = models.CharField(max_length=200,blank=True,null=True)
@@ -367,7 +368,7 @@ class PoblacionFrijol(models.Model):
     numero_surcos = models.FloatField(editable=False)
     metros_lineales = models.FloatField(editable=False)
     poblacion = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)    
+    monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Población Frijol'
