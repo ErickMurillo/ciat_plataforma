@@ -45,7 +45,7 @@ class TomaDecisionesAdmin(admin.ModelAdmin):
     list_display = ('productor',)
 
     form = ProductorMonitoreoAdminForm
-    
+
     inlines = [InlineTablaDecisiones]
 
 admin.site.register(TomaDecisiones,TomaDecisionesAdmin)
@@ -245,81 +245,3 @@ class EspeciesAdmin(admin.ModelAdmin):
         js = ('granos_basicos/js/especies.js',)
 
 admin.site.register(Especies,EspeciesAdmin)
-
-# #siembra --------------------------------------------------------------------
-# class InlineNombreSemilla(admin.TabularInline):
-#     model = NombreSemilla
-#     extra = 1
-#     max_num = 2
-#
-# class InlineProcedenciaSemilla(admin.TabularInline):
-#     model = ProcedenciaSemilla
-#     extra = 1
-#     max_num = 2
-#
-# class InlinePruebaGerminacion(admin.TabularInline):
-#     model = PruebaGerminacion
-#     extra = 1
-#     max_num = 2
-#
-# class SemillasAdmin(admin.ModelAdmin):
-#     list_display = ('productor','fecha','visita')
-#
-#     inlines = [InlineNombreSemilla,InlineProcedenciaSemilla,
-#                 InlinePruebaGerminacion]
-#
-#     fields = (
-#             ('productor', 'fecha', 'visita'),
-#             ('areas','semilla_frijol','semilla_maiz'),
-#         )
-#
-# admin.site.register(Semillas,SemillasAdmin)
-#
-# #suelo ----------------------------------------------------------------------
-# class InlineTablaSuelo(admin.TabularInline):
-#     model = TablaSuelo
-#     extra = 1
-#     max_num = 21
-#
-# class SueloAdmin(admin.ModelAdmin):
-#     list_display = ('productor','fecha','visita')
-#
-#     inlines = [InlineTablaSuelo]
-#
-# admin.site.register(Suelo,SueloAdmin)
-# admin.site.register(ParametrosSuelo)
-#
-# #macrofauna ---------------------------------------------------------------
-# class InlineTablaMacrofauna(admin.TabularInline):
-#     model = TablaMacrofauna
-#     extra = 1
-#
-# class MacrofaunaAdmin(admin.ModelAdmin):
-#     list_display = ('productor','fecha','visita')
-#
-#     inlines = [InlineTablaMacrofauna]
-#
-# admin.site.register(Macrofauna,MacrofaunaAdmin)
-#
-# #poblacion-----------------------------------------------------------------
-# class InlineDistanciaSurco(admin.TabularInline):
-#     model = DistanciaSurco
-#     can_delete = False
-#     max_num = 1
-#
-# class InlineTablaPoblacion(admin.TabularInline):
-#     model = TablaPoblacion
-#     extra = 1
-#     max_num = 2
-#
-# class PoblacionAdmin(admin.ModelAdmin):
-#     list_display = ('productor','fecha','visita')
-#
-#     fields = (
-#             ('productor', 'fecha', 'visita'),
-#             ('areas',   ),
-#         )
-#
-#     inlines = [InlineDistanciaSurco,InlineTablaPoblacion]
-#
-# admin.site.register(Poblacion,PoblacionAdmin)
