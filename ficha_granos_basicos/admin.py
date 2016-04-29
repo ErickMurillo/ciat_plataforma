@@ -119,12 +119,12 @@ class InlineTablaMalezas(admin.TabularInline):
 class InlineVigorFrijol(admin.TabularInline):
     model = VigorFrijol
     extra = 1
-    max_num = 5
+    max_num = 3
 
 class InlineVigorMaiz(admin.TabularInline):
     model = VigorMaiz
     extra = 1
-    max_num = 5
+    max_num = 3
 
 class InlinePoblacionFrijol(admin.TabularInline):
     model = PoblacionFrijol
