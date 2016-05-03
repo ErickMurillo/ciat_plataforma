@@ -184,12 +184,12 @@ admin.site.register(FichaPoda, FichaPodaAdmin)
 class PlagasEnfermedadInline(admin.TabularInline):
     model = PlagasEnfermedad
     extra = 1
-    max_num = 1
+    max_num = 10
 
 class AccionesEnfermedadInline(admin.TabularInline):
     model = AccionesEnfermedad
     extra = 1
-    max_num = 1
+    max_num = 9
 
 class OrientacionInline(admin.TabularInline):
     model = Orientacion
@@ -199,7 +199,7 @@ class OrientacionInline(admin.TabularInline):
 class ObservacionPunto1Inline(admin.TabularInline):
     model = ObservacionPunto1
     extra = 1
-    max_num = 1
+    max_num = 10
 
 class ObservacionPunto1NivelInline(admin.TabularInline):
     model = ObservacionPunto1Nivel
@@ -209,7 +209,7 @@ class ObservacionPunto1NivelInline(admin.TabularInline):
 class ObservacionPunto2Inline(admin.TabularInline):
     model = ObservacionPunto2
     extra = 1
-    max_num = 1
+    max_num = 10
 
 class ObservacionPunto2NivelInline(admin.TabularInline):
     model = ObservacionPunto2Nivel
@@ -219,7 +219,7 @@ class ObservacionPunto2NivelInline(admin.TabularInline):
 class ObservacionPunto3Inline(admin.TabularInline):
     model = ObservacionPunto3
     extra = 1
-    max_num = 1
+    max_num = 10
 
 class ObservacionPunto3NivelInline(admin.TabularInline):
     model = ObservacionPunto3Nivel
@@ -239,7 +239,7 @@ class Punto6PlagasInline(admin.TabularInline):
 class Punto7PlagasInline(admin.TabularInline):
     model = Punto7Plagas
     extra = 1
-    max_num = 1
+    max_num = 9
 
 class Punto8y9PlagasInline(admin.TabularInline):
     model = Punto8y9Plagas
@@ -276,7 +276,7 @@ class PisoPunto1Inline(admin.TabularInline):
 class PisoPunto3Inline(admin.TabularInline):
     model = PisoPunto3
     extra = 1
-    max_num = 1
+    max_num = 8
 
 class PisoPunto4Inline(admin.TabularInline):
     model = PisoPunto4
@@ -286,7 +286,7 @@ class PisoPunto4Inline(admin.TabularInline):
 class PisoPunto5Inline(admin.TabularInline):
     model = PisoPunto5
     extra = 1
-    max_num = 1
+    max_num = 11
 
 class PisoPunto6Inline(admin.TabularInline):
     model = PisoPunto6
@@ -301,7 +301,7 @@ class PisoPunto7Inline(admin.TabularInline):
 class PisoPunto8Inline(admin.TabularInline):
     model = PisoPunto8
     extra = 1
-    max_num = 1
+    max_num = 8
 
 class PisoPunto10Inline(admin.TabularInline):
     model = PisoPunto10
