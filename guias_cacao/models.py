@@ -22,7 +22,7 @@ class FichaSombra(models.Model):
 
     class Meta:
         verbose_name = "Ficha sombra"
-        verbose_name_plural = "Fichas sombras"
+        verbose_name_plural = "Ficha sombra"
 
 
 class Foto1(models.Model):
@@ -36,6 +36,10 @@ class Especies(models.Model):
 
     def __unicode__(self):
         return self.nombre
+
+    class Meta:
+        verbose_name = "Especie"
+        verbose_name_plural = "Especies"
 
 CHOICE_TIPO_PUNTO = (
     (1, 'Perennifolia'),
@@ -291,6 +295,10 @@ class FichaPoda(models.Model):
 
     def __unicode__(self):
         return self.productor.nombre
+
+    class Meta:
+        verbose_name = "Ficha poda"
+        verbose_name_plural = "Ficha poda"
 
 CHOICE_SI_NO = (
     (1, 'Si'),
@@ -590,7 +598,7 @@ class FichaPlaga(models.Model):
 
     class Meta:
         verbose_name = "Ficha plaga"
-        verbose_name_plural = "Fichas plagas"
+        verbose_name_plural = "Ficha plaga"
 
 
 CHOICE_ENFERMEDADES_CACAOTALES = (
@@ -983,9 +991,9 @@ CHOICE_PISO1 = (
     )
 
 class PisoPunto1(models.Model):
-    punto1 = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO8,
+    punto1 = MultiSelectField(choices=CHOICE_PISO1,
             verbose_name='1.¿Cuáles son las hierbas qué cubren el piso y sube sobre las planta de cacao? ')
-    punto2 = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO8,
+    punto2 = MultiSelectField(choices=CHOICE_PISO1,
             verbose_name='2.¿Cuáles son las hierbas qué usted considera dañino? ')
 
     ficha = models.ForeignKey(FichaPiso)
