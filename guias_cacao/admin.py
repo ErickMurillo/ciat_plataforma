@@ -310,7 +310,7 @@ class PisoPunto10Inline(admin.TabularInline):
 
 
 class FichaPisoAdmin(admin.ModelAdmin):
-    form = ProductorPlagaAdminForm
+    form = ProductorPisoAdminForm
     inlines = [PisoPunto1Inline,PisoPunto3Inline,PisoPunto4Inline, PisoPunto5Inline,
                 PisoPunto6Inline,PisoPunto7Inline,PisoPunto8Inline,PisoPunto10Inline]
     list_display = ('fecha_visita', 'productor', 'tecnico',)

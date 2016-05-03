@@ -5,7 +5,7 @@ from mapeo.models import Persona
 class ProductorLookup(ModelLookup):
     model = Persona
     search_fields = ('nombre__icontains', )
-    filters = {'tipo_persona': 1, 'tipo_persona':2,}
+    filters = {'tipo_persona__in': [1,2], }
 
 class TecnicoLookup(ModelLookup):
     model = Persona
