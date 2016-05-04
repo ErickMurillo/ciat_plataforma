@@ -53,8 +53,7 @@ admin.site.register(TomaDecisiones,TomaDecisionesAdmin)
 #ficha monitoreo #1 ---------------------------------------------------------
 class InlineDatosMonitoreo(admin.TabularInline):
     model = DatosMonitoreo
-    max_num = 1
-    can_delete = False
+    extra = 1
 
 class InlineDatosParcela(admin.StackedInline):
     model = DatosParcela
@@ -198,34 +197,50 @@ class InlineCuradoSemilla(admin.TabularInline):
     max_num = 1
     can_delete = False
 
-class MonitoreoAdmin(admin.ModelAdmin):
+class VisitasAdmin(admin.ModelAdmin):
     list_display = ('productor','visita','fecha')
     list_filter = ('visita',)
     search_fields = ('productor',)
 
-    form = MonitoreoAdminForm
+    form = VisitasAdminForm
 
-    inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
-                InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
+    inlines = [
+                InlineSemillas,
                 InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
                 InlineMacrofauna,InlineMonitoreoMalezas,InlineTablaMalezas,
                 InlineVigorFrijol,InlineVigorMaiz,InlinePlagasFrijol,InlinePlagasMaiz,
                 InlineEnfermedadesFrijol,InlineEnfermedadesMaiz,InlinePoblacionFrijol,
                 InlinePoblacionMaiz,InlineEstimadoCosechaFrijol,
                 InlineGranosPlanta,InlineEstimadoCosechaMaiz,InlineEstimadoCosechaMaiz2,
-                InlineSobreCosecha,InlineCuradoSemilla]
+                InlineSobreCosecha,InlineCuradoSemilla
+                ]
+    class Media:
+        js = ('granos_basicos/js/admin_visita.js',)
+        css = {
+            'all': ('granos_basicos/css/admin.css',)
+            }
 
+admin.site.register(Visitas,VisitasAdmin)
+
+class MonitoreoAdmin(admin.ModelAdmin):
+    list_display = ('productor',)
+    # list_filter = ('visita',)
+    search_fields = ('productor',)
+
+    form = MonitoreoAdminForm
+
+    inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
+                InlineRecursosSiembra,InlineHistorialRendimiento,
+                ]
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         kwargs['queryset'] = Persona.objects.filter(tipo_persona=1,productor__rubros_agro__nombre='Granos básicos')
         return super(MonitoreoAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     class Media:
-        js = ('granos_basicos/js/admin.js',)
         css = {
             'all': ('granos_basicos/css/admin.css',)
             }
-
 
 admin.site.register(Monitoreo,MonitoreoAdmin)
 admin.site.register(ParametrosSuelo)

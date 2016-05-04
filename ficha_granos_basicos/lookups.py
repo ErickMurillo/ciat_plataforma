@@ -12,5 +12,10 @@ class MonitoreoLookup(ModelLookup):
     model = Monitoreo
     search_fields = ('productor__nombre__icontains', )
 
+class VisitaLookup(ModelLookup):
+    model = Visitas
+    search_fields = ('productor__productor__nombre__icontains', )
+
 registry.register(ProductorLookup)
 registry.register(MonitoreoLookup)
+registry.register(VisitaLookup)

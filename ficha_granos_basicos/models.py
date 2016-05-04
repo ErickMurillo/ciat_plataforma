@@ -39,12 +39,12 @@ AREAS_CHOICES = (
 
 class Monitoreo(models.Model):
     productor = models.ForeignKey(Persona)
-    fecha = models.DateField()
-    visita = models.IntegerField(choices=VISITA_CHOICES)
-    areas = MultiSelectField(choices=AREAS_CHOICES,verbose_name='Áreas a Monitorear')
+    # fecha = models.DateField()
+    # visita = models.IntegerField(choices=VISITA_CHOICES)
+    # areas = MultiSelectField(choices=AREAS_CHOICES,verbose_name='Áreas a Monitorear')
 
     def __unicode__(self):
-		return '%s - Visita #%s' % (self.productor, self.visita)
+		return u'%s' % (self.productor)
 
 CICLO_CHOICES = (
     (1,'Primera'),
@@ -158,6 +158,19 @@ class HistorialRendimiento(models.Model):
         verbose_name_plural = 'Historial de rendimiento'
 #fin datos del monitoreo ------------------------------
 
+
+#visitas------------------------------------------------
+class Visitas(models.Model):
+    productor = models.ForeignKey(Monitoreo)
+    fecha = models.DateField()
+    visita = models.IntegerField(choices=VISITA_CHOICES)
+    areas = MultiSelectField(choices=AREAS_CHOICES,verbose_name='Áreas a Monitorear')
+
+    def __unicode__(self):
+		return u'%s' % (self.productor)
+
+    class Meta:
+        verbose_name_plural = 'Visitas'
 # #semilla ---------------------------------------------
 TIPO_SEMILLA_CHOICES = (
     (1,'Criolla'),
@@ -170,7 +183,8 @@ class Semillas(models.Model):
     semilla_maiz = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
     nombre_frijol = models.CharField(max_length=100)
     nombre_maiz = models.CharField(max_length=100)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Semilla'
@@ -187,7 +201,8 @@ PROCEDENCIA_CHOICES = (
 class ProcedenciaSemilla(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
     procedencia = models.IntegerField(choices=PROCEDENCIA_CHOICES)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Procedencia de la semilla'
@@ -196,7 +211,8 @@ class PruebaGerminacion(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
     respuesta = models.IntegerField(choices=SI_NO_CHOICES)
     porcentaje = models.FloatField(blank=True,null=True)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Prueba de germinación'
@@ -225,22 +241,14 @@ class ParametrosSuelo(models.Model):
 class Suelo(models.Model):
     parametro = models.ForeignKey(ParametrosSuelo)
     resultado = models.FloatField()
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Suelo'
 # #fin  suelo ------------------------------------------------------
 #
 # #inicio macrofauna -----------------------------------------------
-# ESPECIES_CHOICES = (
-#     (1,'Cuerudo'),
-#     (2,'Gusano Alambre'),
-#     (3,'Zompopos'),
-#     (4,'Tortuguilla'),
-#     (5,'Coralillo'),
-#     (6,'Gallina Ciega (Larva grande)'),
-#     (7,'Gallina Ciega (Larva pequeña)'),
-# )
 TIPO_PLAGA_CHOICES = (
     (1,'Plaga'),
     (2,'Enfermedad'),
@@ -295,14 +303,15 @@ class Macrofauna(models.Model):
     est4 = models.IntegerField()
     est5 = models.IntegerField()
     promedio = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Macrofauna de Suelo y Malezas'
 
     def save(self, *args, **kwargs):
         self.promedio = (self.est1 + self.est2 + self.est3 + self.est4 + self.est5) / float(5)
-        super(TablaMacrofauna, self).save(*args, **kwargs)
+        super(Macrofauna, self).save(*args, **kwargs)
 #fin macrofauna --------------------------------------------------
 
 #inicio malezas --------------------------------------------------
@@ -320,7 +329,8 @@ class MonitoreoMalezas(models.Model):
     gramineas = models.FloatField('% de Gramíneas')
     hoja_ancha   = models.FloatField('% de Hoja Ancha')
     ciperaceas = models.FloatField('% de Ciperáceas')
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Malezas'
@@ -345,9 +355,13 @@ class TiposMalezas(models.Model):
     class Meta:
         verbose_name_plural = 'Tipos de malezas'
 
+    def __unicode__(self):
+		return self.nombre_popular
+
 class TablaMalezas(models.Model):
     maleza = models.ForeignKey(TiposMalezas)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Tres malezas más representativas'
@@ -368,7 +382,8 @@ class PoblacionFrijol(models.Model):
     numero_surcos = models.FloatField(editable=False)
     metros_lineales = models.FloatField(editable=False)
     poblacion = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Población Frijol'
@@ -395,7 +410,8 @@ class PoblacionMaiz(models.Model):
     numero_surcos = models.FloatField(editable=False)
     metros_lineales = models.FloatField(editable=False)
     poblacion = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Población Maíz'
@@ -427,7 +443,8 @@ class VigorFrijol(models.Model):
     promedio = models.FloatField(editable=False)
     estimado_plantas = models.FloatField(editable=False)
     porcentaje = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Vigor Frijol'
@@ -451,7 +468,8 @@ class VigorMaiz(models.Model):
     promedio = models.FloatField(editable=False)
     estimado_plantas = models.FloatField(editable=False)
     porcentaje = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Vigor Maíz'
@@ -482,7 +500,8 @@ class PlagasFrijol(models.Model):
     porcentaje_dano_4 = models.FloatField('Porcentaje de Daño 4')
     porcentaje_dano_5 = models.FloatField('Porcentaje de Daño 5')
     promedio_dano = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Plagas en Frijol'
@@ -513,7 +532,8 @@ class PlagasMaiz(models.Model):
     porcentaje_dano_4 = models.FloatField('Porcentaje de Daño 4')
     porcentaje_dano_5 = models.FloatField('Porcentaje de Daño 5')
     promedio_dano = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Plagas en Maíz'
@@ -537,14 +557,15 @@ class EnfermedadesFrijol(models.Model):
     planta_4 = models.IntegerField(verbose_name='Plantas afectadas 4')
     planta_5 = models.IntegerField(verbose_name='Plantas afectadas 5')
     promedio = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Enfermedades en Frijol'
 
     def save(self, *args, **kwargs):
         self.promedio = (self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + self.planta_5) / float(5)
-        super(EnfermmedadesFrijol, self).save(*args, **kwargs)
+        super(EnfermedadesFrijol, self).save(*args, **kwargs)
 
 class EnfermedadesMaiz(models.Model):
     enfermedad = models.ForeignKey(Especies)
@@ -554,14 +575,15 @@ class EnfermedadesMaiz(models.Model):
     planta_4 = models.IntegerField(verbose_name='Plantas afectadas 4')
     planta_5 = models.IntegerField(verbose_name='Plantas afectadas 5')
     promedio = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Enfermedades en Maíz'
 
     def save(self, *args, **kwargs):
         self.promedio = (self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + self.planta_5) / float(5)
-        super(EnfermmedadesFrijol, self).save(*args, **kwargs)
+        super(EnfermedadesMaiz, self).save(*args, **kwargs)
 #FIn monitoreo 2 --------------------------------------------------
 
 #Ficha monitoreo 4 ------------------------------------------------
@@ -581,7 +603,8 @@ class EstimadoCosechaFrijol(models.Model):
     planta_4 = models.IntegerField()
     planta_5 = models.IntegerField()
     promedio = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Estimado de Cosecha Frijol'
@@ -592,7 +615,8 @@ class EstimadoCosechaFrijol(models.Model):
 
 class GranosPlanta(models.Model):
     cantidad = models.FloatField()
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Cantidad de granos por planta'
@@ -611,7 +635,8 @@ class EstimadoCosechaMaiz(models.Model):
     estacion_4 = models.IntegerField()
     estacion_5 = models.IntegerField()
     promedio = models.FloatField(editable=False)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Estimado de Cosecha Maíz'
@@ -624,7 +649,8 @@ class EstimadoCosechaMaiz2(models.Model):
     mazorca = models.IntegerField(choices=MAZORCA_CHOICES)
     peso = models.FloatField(verbose_name='Peso en lb')
     peso_promedio = models.IntegerField(verbose_name='Peso en lb x Promedio de Mazorcas')
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Estimado de Cosecha Maíz'
@@ -637,7 +663,8 @@ class SobreCosecha(models.Model):
     venta = models.FloatField()
     almacenamiento = models.FloatField()
     precio_mercado = models.FloatField()
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Sobre la Cosecha'
@@ -655,7 +682,8 @@ class TratamientoSemilla(models.Model):
 
 class CuradoSemilla(models.Model):
     tratamiento = models.ManyToManyField(TratamientoSemilla)
-    monitoreo = models.ForeignKey(Monitoreo)
+    visita = models.ForeignKey(Visitas)
+    # monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
         verbose_name_plural = 'Curado de semilla'
