@@ -26,6 +26,9 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.related.ForeignKey')(default=2, to=orm['ficha_granos_basicos.Visitas']),
                       keep_default=False)
 
+
+        # Changing field 'TiposMalezas.nombre_cientifico'
+        db.alter_column(u'ficha_granos_basicos_tiposmalezas', 'nombre_cientifico', self.gf('django.db.models.fields.CharField')(max_length=100, null=True))
         # Deleting field 'GranosPlanta.monitoreo'
         db.delete_column(u'ficha_granos_basicos_granosplanta', 'monitoreo_id')
 
@@ -130,13 +133,43 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.related.ForeignKey')(default=2, to=orm['ficha_granos_basicos.Visitas']),
                       keep_default=False)
 
+        # Deleting field 'Semillas.semilla_frijol'
+        db.delete_column(u'ficha_granos_basicos_semillas', 'semilla_frijol')
+
+        # Deleting field 'Semillas.semilla_maiz'
+        db.delete_column(u'ficha_granos_basicos_semillas', 'semilla_maiz')
+
+        # Deleting field 'Semillas.nombre_maiz'
+        db.delete_column(u'ficha_granos_basicos_semillas', 'nombre_maiz')
+
         # Deleting field 'Semillas.monitoreo'
         db.delete_column(u'ficha_granos_basicos_semillas', 'monitoreo_id')
+
+        # Deleting field 'Semillas.nombre_frijol'
+        db.delete_column(u'ficha_granos_basicos_semillas', 'nombre_frijol')
+
+        # Adding field 'Semillas.rubro'
+        db.add_column(u'ficha_granos_basicos_semillas', 'rubro',
+                      self.gf('django.db.models.fields.IntegerField')(default=2),
+                      keep_default=False)
+
+        # Adding field 'Semillas.tipo_semilla'
+        db.add_column(u'ficha_granos_basicos_semillas', 'tipo_semilla',
+                      self.gf('django.db.models.fields.IntegerField')(default=2),
+                      keep_default=False)
+
+        # Adding field 'Semillas.nombre_semilla'
+        db.add_column(u'ficha_granos_basicos_semillas', 'nombre_semilla',
+                      self.gf('django.db.models.fields.CharField')(default=2, max_length=100),
+                      keep_default=False)
 
         # Adding field 'Semillas.visita'
         db.add_column(u'ficha_granos_basicos_semillas', 'visita',
                       self.gf('django.db.models.fields.related.ForeignKey')(default=2, to=orm['ficha_granos_basicos.Visitas']),
                       keep_default=False)
+
+        # Deleting field 'DistribucionPendiente.ondulado'
+        db.delete_column(u'ficha_granos_basicos_distribucionpendiente', 'ondulado')
 
         # Deleting field 'Monitoreo.fecha'
         db.delete_column(u'ficha_granos_basicos_monitoreo', 'fecha')
@@ -171,6 +204,17 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.related.ForeignKey')(default=2, to=orm['ficha_granos_basicos.Visitas']),
                       keep_default=False)
 
+        # Adding field 'DatosMonitoreo.area_siembra'
+        db.add_column(u'ficha_granos_basicos_datosmonitoreo', 'area_siembra',
+                      self.gf('django.db.models.fields.FloatField')(default=2),
+                      keep_default=False)
+
+
+        # Changing field 'DatosMonitoreo.fecha_siembra'
+        db.alter_column(u'ficha_granos_basicos_datosmonitoreo', 'fecha_siembra', self.gf('django.db.models.fields.DateField')(null=True))
+
+        # Changing field 'DatosMonitoreo.fecha_cosecha'
+        db.alter_column(u'ficha_granos_basicos_datosmonitoreo', 'fecha_cosecha', self.gf('django.db.models.fields.DateField')(null=True))
         # Deleting field 'ProcedenciaSemilla.monitoreo'
         db.delete_column(u'ficha_granos_basicos_procedenciasemilla', 'monitoreo_id')
 
@@ -208,6 +252,9 @@ class Migration(SchemaMigration):
         # Deleting field 'EstimadoCosechaMaiz2.visita'
         db.delete_column(u'ficha_granos_basicos_estimadocosechamaiz2', 'visita_id')
 
+
+        # Changing field 'TiposMalezas.nombre_cientifico'
+        db.alter_column(u'ficha_granos_basicos_tiposmalezas', 'nombre_cientifico', self.gf('django.db.models.fields.CharField')(default=2, max_length=100))
         # Adding field 'GranosPlanta.monitoreo'
         db.add_column(u'ficha_granos_basicos_granosplanta', 'monitoreo',
                       self.gf('django.db.models.fields.related.ForeignKey')(default=2, to=orm['ficha_granos_basicos.Monitoreo']),
@@ -312,13 +359,47 @@ class Migration(SchemaMigration):
         # Deleting field 'PlagasFrijol.visita'
         db.delete_column(u'ficha_granos_basicos_plagasfrijol', 'visita_id')
 
+        # Adding field 'Semillas.semilla_frijol'
+        db.add_column(u'ficha_granos_basicos_semillas', 'semilla_frijol',
+                      self.gf('django.db.models.fields.IntegerField')(default=2),
+                      keep_default=False)
+
+        # Adding field 'Semillas.semilla_maiz'
+        db.add_column(u'ficha_granos_basicos_semillas', 'semilla_maiz',
+                      self.gf('django.db.models.fields.IntegerField')(default=2),
+                      keep_default=False)
+
+        # Adding field 'Semillas.nombre_maiz'
+        db.add_column(u'ficha_granos_basicos_semillas', 'nombre_maiz',
+                      self.gf('django.db.models.fields.CharField')(default=2, max_length=100),
+                      keep_default=False)
+
         # Adding field 'Semillas.monitoreo'
         db.add_column(u'ficha_granos_basicos_semillas', 'monitoreo',
                       self.gf('django.db.models.fields.related.ForeignKey')(default=2, to=orm['ficha_granos_basicos.Monitoreo']),
                       keep_default=False)
 
+        # Adding field 'Semillas.nombre_frijol'
+        db.add_column(u'ficha_granos_basicos_semillas', 'nombre_frijol',
+                      self.gf('django.db.models.fields.CharField')(default=2, max_length=100),
+                      keep_default=False)
+
+        # Deleting field 'Semillas.rubro'
+        db.delete_column(u'ficha_granos_basicos_semillas', 'rubro')
+
+        # Deleting field 'Semillas.tipo_semilla'
+        db.delete_column(u'ficha_granos_basicos_semillas', 'tipo_semilla')
+
+        # Deleting field 'Semillas.nombre_semilla'
+        db.delete_column(u'ficha_granos_basicos_semillas', 'nombre_semilla')
+
         # Deleting field 'Semillas.visita'
         db.delete_column(u'ficha_granos_basicos_semillas', 'visita_id')
+
+        # Adding field 'DistribucionPendiente.ondulado'
+        db.add_column(u'ficha_granos_basicos_distribucionpendiente', 'ondulado',
+                      self.gf('django.db.models.fields.FloatField')(default=2),
+                      keep_default=False)
 
         # Adding field 'Monitoreo.fecha'
         db.add_column(u'ficha_granos_basicos_monitoreo', 'fecha',
@@ -359,6 +440,15 @@ class Migration(SchemaMigration):
         # Deleting field 'EstimadoCosechaFrijol.visita'
         db.delete_column(u'ficha_granos_basicos_estimadocosechafrijol', 'visita_id')
 
+        # Deleting field 'DatosMonitoreo.area_siembra'
+        db.delete_column(u'ficha_granos_basicos_datosmonitoreo', 'area_siembra')
+
+
+        # Changing field 'DatosMonitoreo.fecha_siembra'
+        db.alter_column(u'ficha_granos_basicos_datosmonitoreo', 'fecha_siembra', self.gf('django.db.models.fields.DateField')(default=2))
+
+        # Changing field 'DatosMonitoreo.fecha_cosecha'
+        db.alter_column(u'ficha_granos_basicos_datosmonitoreo', 'fecha_cosecha', self.gf('django.db.models.fields.DateField')(default=2))
         # Adding field 'ProcedenciaSemilla.monitoreo'
         db.add_column(u'ficha_granos_basicos_procedenciasemilla', 'monitoreo',
                       self.gf('django.db.models.fields.related.ForeignKey')(default=2, to=orm['ficha_granos_basicos.Monitoreo']),
@@ -393,10 +483,11 @@ class Migration(SchemaMigration):
         },
         u'ficha_granos_basicos.datosmonitoreo': {
             'Meta': {'object_name': 'DatosMonitoreo'},
+            'area_siembra': ('django.db.models.fields.FloatField', [], {}),
             'ciclo_productivo': ('django.db.models.fields.IntegerField', [], {}),
             'cultivo': ('django.db.models.fields.IntegerField', [], {}),
-            'fecha_cosecha': ('django.db.models.fields.DateField', [], {}),
-            'fecha_siembra': ('django.db.models.fields.DateField', [], {}),
+            'fecha_cosecha': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'fecha_siembra': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'monitoreo': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['ficha_granos_basicos.Monitoreo']"})
         },
@@ -421,7 +512,6 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'inclinado': ('django.db.models.fields.FloatField', [], {}),
             'monitoreo': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['ficha_granos_basicos.Monitoreo']"}),
-            'ondulado': ('django.db.models.fields.FloatField', [], {}),
             'plano': ('django.db.models.fields.FloatField', [], {}),
             'seleccion': ('django.db.models.fields.IntegerField', [], {})
         },
@@ -674,10 +764,9 @@ class Migration(SchemaMigration):
         u'ficha_granos_basicos.semillas': {
             'Meta': {'object_name': 'Semillas'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre_frijol': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'nombre_maiz': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'semilla_frijol': ('django.db.models.fields.IntegerField', [], {}),
-            'semilla_maiz': ('django.db.models.fields.IntegerField', [], {}),
+            'nombre_semilla': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'rubro': ('django.db.models.fields.IntegerField', [], {}),
+            'tipo_semilla': ('django.db.models.fields.IntegerField', [], {}),
             'visita': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['ficha_granos_basicos.Visitas']"})
         },
         u'ficha_granos_basicos.sobrecosecha': {
@@ -739,7 +828,7 @@ class Migration(SchemaMigration):
             'categoria': ('django.db.models.fields.IntegerField', [], {}),
             'ciclo': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'nombre_cientifico': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'nombre_cientifico': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'nombre_popular': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'ficha_granos_basicos.tomadecisiones': {

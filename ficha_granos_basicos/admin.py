@@ -83,8 +83,7 @@ class InlineHistorialRendimiento(admin.TabularInline):
 
 class InlineSemillas(admin.TabularInline):
     model = Semillas
-    max_num = 1
-    can_delete = False
+    extra = 1
 
 class InlineProcedenciaSemilla(admin.TabularInline):
     model = ProcedenciaSemilla
@@ -238,6 +237,7 @@ class MonitoreoAdmin(admin.ModelAdmin):
         return super(MonitoreoAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     class Media:
+        js = ('granos_basicos/js/admin_monitoreo.js',)
         css = {
             'all': ('granos_basicos/css/admin.css',)
             }

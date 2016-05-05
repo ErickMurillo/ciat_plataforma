@@ -60,8 +60,9 @@ CULTIVO_CHOICES = (
 class DatosMonitoreo(models.Model):
     ciclo_productivo = models.IntegerField(choices=CICLO_CHOICES)
     cultivo = models.IntegerField(choices=CULTIVO_CHOICES)
-    fecha_siembra = models.DateField()
-    fecha_cosecha = models.DateField()
+    area_siembra = models.FloatField(verbose_name='Área de siembra (mz)')
+    fecha_siembra = models.DateField(blank=True,null=True)
+    fecha_cosecha = models.DateField(blank=True,null=True)
     monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
@@ -117,7 +118,7 @@ class DistribucionPendiente(models.Model):
     seleccion = models.IntegerField(choices=DISTRIBUCION_CHOICES)
     inclinado = models.FloatField()
     plano = models.FloatField()
-    ondulado = models.FloatField()
+    #ondulado = models.FloatField()
     monitoreo = models.ForeignKey(Monitoreo)
 
     class Meta:
@@ -179,10 +180,13 @@ TIPO_SEMILLA_CHOICES = (
 )
 
 class Semillas(models.Model):
-    semilla_frijol = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
-    semilla_maiz = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
-    nombre_frijol = models.CharField(max_length=100)
-    nombre_maiz = models.CharField(max_length=100)
+    rubro = models.IntegerField(choices=RUBRO_CHOICES)
+    tipo_semilla = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
+    nombre_semilla = models.CharField(max_length=100)
+    # semilla_frijol = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
+    # semilla_maiz = models.IntegerField(choices=TIPO_SEMILLA_CHOICES)
+    # nombre_frijol = models.CharField(max_length=100)
+    # nombre_maiz = models.CharField(max_length=100)
     visita = models.ForeignKey(Visitas)
     # monitoreo = models.ForeignKey(Monitoreo)
 
@@ -316,15 +320,15 @@ class Macrofauna(models.Model):
 
 #inicio malezas --------------------------------------------------
 COBERTURA_CHOICES = (
-    (1,'Cobertura 1'),
-    (2,'Cobertura 2'),
-    (3,'Cobertura 3'),
-    (4,'Cobertura 4'),
-    (5,'Cobertura 5'),
+    (1,'1'),
+    (2,'2'),
+    (3,'3'),
+    (4,'4'),
+    (5,'5'),
 )
 
 class MonitoreoMalezas(models.Model):
-    cobertura = models.IntegerField(choices=COBERTURA_CHOICES)
+    cobertura = models.IntegerField(choices=COBERTURA_CHOICES,verbose_name='Muestra')
     cobertura_total = models.FloatField()
     gramineas = models.FloatField('% de Gramíneas')
     hoja_ancha   = models.FloatField('% de Hoja Ancha')
@@ -348,7 +352,7 @@ CICLO2_CHOICES = (
 
 class TiposMalezas(models.Model):
     nombre_popular = models.CharField(max_length=100)
-    nombre_cientifico = models.CharField(max_length=100)
+    nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
     categoria = models.IntegerField(choices=MALEZAS_CHOICES)
     ciclo = models.IntegerField(choices=CICLO2_CHOICES)
 
