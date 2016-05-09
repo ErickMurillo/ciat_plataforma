@@ -42,6 +42,6 @@ def buscador(request):
     return render(request, 'biblioteca/index.html', {'resultados':resultados, 'form':form})
 
 
-def detalle_libro(request, id=None, template="biblioteca/detail-biblioteca.html"):
+def detalle_libro(request, id_libro=None, template="biblioteca/detail-biblioteca.html"):
     detalle = Biblioteca.objects.get(id=id_libro)
     return render(request, template, locals())
