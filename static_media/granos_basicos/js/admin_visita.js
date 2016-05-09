@@ -1,5 +1,6 @@
 (function($){
 	$(document).ready(function(){
+		$("#id_productor").select2();
     //semillas
     if ($('#id_areas_0').is(':checked')) {
       $('#semillas_set-group').show();

@@ -201,7 +201,7 @@ class VisitasAdmin(admin.ModelAdmin):
     list_filter = ('visita',)
     search_fields = ('productor',)
 
-    form = VisitasAdminForm
+    # form = VisitasAdminForm
 
     inlines = [
                 InlineSemillas,
@@ -214,9 +214,12 @@ class VisitasAdmin(admin.ModelAdmin):
                 InlineSobreCosecha,InlineCuradoSemilla
                 ]
     class Media:
-        js = ('granos_basicos/js/admin_visita.js',)
+        js = ('granos_basicos/js/jquery-2.2.1.min.js',
+                'granos_basicos/js/select2.min.js',
+                'granos_basicos/js/admin_visita.js')
         css = {
-            'all': ('granos_basicos/css/admin.css',)
+            'all': ('granos_basicos/css/admin.css',
+                    'granos_basicos/css/select2.min.css')
             }
 
 admin.site.register(Visitas,VisitasAdmin)
