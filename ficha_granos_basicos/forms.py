@@ -17,13 +17,21 @@ class VisitasAdminForm(forms.ModelForm):
     class Meta(object):
         model = Visitas
         widgets = {
-            'productor': selectable.AutoCompleteSelectWidget(lookup_class=VisitaLookup),
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=MonitoreoLookup),
         }
 
 class ProductorMonitoreoAdminForm(forms.ModelForm):
 
     class Meta(object):
         model = Gastos
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=MonitoreoLookup),
+        }
+
+class InsumosAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = Insumos
         widgets = {
             'productor': selectable.AutoCompleteSelectWidget(lookup_class=MonitoreoLookup),
         }
