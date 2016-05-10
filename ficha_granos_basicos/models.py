@@ -273,7 +273,7 @@ class Especies(models.Model):
     nombre_popular = models.CharField(max_length=100)
     nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
     reconocimiento = models.CharField(max_length=200,blank=True,null=True)
-    #dano = models.CharField(max_length=200,blank=True,null=True,verbose_name='Daño')
+    # dano = models.CharField(max_length=200,blank=True,null=True,verbose_name='Daño')
     dano1 = models.CharField(max_length=200,blank=True,null=True,verbose_name='Daño')
     control_cultural = models.CharField(max_length=200,blank=True,null=True)
     control_biologico = models.CharField(max_length=200,blank=True,null=True)
