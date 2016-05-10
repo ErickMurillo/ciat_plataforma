@@ -32,7 +32,7 @@ class InsumosAdmin(NestedModelAdmin):
 
     inlines = [InlineTablaInsumos]
 
-    form = ProductorMonitoreoAdminForm
+    form = InsumosAdminForm
 
 admin.site.register(Insumos,InsumosAdmin)
 
@@ -45,7 +45,7 @@ class TomaDecisionesAdmin(admin.ModelAdmin):
     list_display = ('productor',)
 
     form = ProductorMonitoreoAdminForm
-    
+
     inlines = [InlineTablaDecisiones]
 
 admin.site.register(TomaDecisiones,TomaDecisionesAdmin)
@@ -53,8 +53,7 @@ admin.site.register(TomaDecisiones,TomaDecisionesAdmin)
 #ficha monitoreo #1 ---------------------------------------------------------
 class InlineDatosMonitoreo(admin.TabularInline):
     model = DatosMonitoreo
-    max_num = 1
-    can_delete = False
+    extra = 1
 
 class InlineDatosParcela(admin.StackedInline):
     model = DatosParcela
@@ -84,8 +83,7 @@ class InlineHistorialRendimiento(admin.TabularInline):
 
 class InlineSemillas(admin.TabularInline):
     model = Semillas
-    max_num = 1
-    can_delete = False
+    extra = 1
 
 class InlineProcedenciaSemilla(admin.TabularInline):
     model = ProcedenciaSemilla
@@ -119,12 +117,12 @@ class InlineTablaMalezas(admin.TabularInline):
 class InlineVigorFrijol(admin.TabularInline):
     model = VigorFrijol
     extra = 1
-    max_num = 5
+    max_num = 3
 
 class InlineVigorMaiz(admin.TabularInline):
     model = VigorMaiz
     extra = 1
-    max_num = 5
+    max_num = 3
 
 class InlinePoblacionFrijol(admin.TabularInline):
     model = PoblacionFrijol
@@ -198,34 +196,51 @@ class InlineCuradoSemilla(admin.TabularInline):
     max_num = 1
     can_delete = False
 
-class MonitoreoAdmin(admin.ModelAdmin):
+class VisitasAdmin(admin.ModelAdmin):
     list_display = ('productor','visita','fecha')
     list_filter = ('visita',)
     search_fields = ('productor',)
 
-    form = MonitoreoAdminForm
+    form = VisitasAdminForm
 
-    inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
-                InlineRecursosSiembra,InlineHistorialRendimiento,InlineSemillas,
+    inlines = [
+                InlineSemillas,
                 InlineProcedenciaSemilla,InlinePruebaGerminacion,InlineSuelo,
                 InlineMacrofauna,InlineMonitoreoMalezas,InlineTablaMalezas,
                 InlineVigorFrijol,InlineVigorMaiz,InlinePlagasFrijol,InlinePlagasMaiz,
                 InlineEnfermedadesFrijol,InlineEnfermedadesMaiz,InlinePoblacionFrijol,
                 InlinePoblacionMaiz,InlineEstimadoCosechaFrijol,
                 InlineGranosPlanta,InlineEstimadoCosechaMaiz,InlineEstimadoCosechaMaiz2,
-                InlineSobreCosecha,InlineCuradoSemilla]
+                InlineSobreCosecha,InlineCuradoSemilla
+                ]
+    class Media:
+        js = ('granos_basicos/js/admin_visita.js',)
+        css = {
+            'all': ('granos_basicos/css/admin.css',)
+            }
 
+admin.site.register(Visitas,VisitasAdmin)
+
+class MonitoreoAdmin(admin.ModelAdmin):
+    list_display = ('productor',)
+    # list_filter = ('visita',)
+    search_fields = ('productor',)
+
+    form = MonitoreoAdminForm
+
+    inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
+                InlineRecursosSiembra,InlineHistorialRendimiento,
+                ]
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         kwargs['queryset'] = Persona.objects.filter(tipo_persona=1,productor__rubros_agro__nombre='Granos básicos')
         return super(MonitoreoAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     class Media:
-        js = ('granos_basicos/js/admin.js',)
+        js = ('granos_basicos/js/admin_monitoreo.js',)
         css = {
             'all': ('granos_basicos/css/admin.css',)
             }
-
 
 admin.site.register(Monitoreo,MonitoreoAdmin)
 admin.site.register(ParametrosSuelo)
@@ -245,81 +260,3 @@ class EspeciesAdmin(admin.ModelAdmin):
         js = ('granos_basicos/js/especies.js',)
 
 admin.site.register(Especies,EspeciesAdmin)
-
-# #siembra --------------------------------------------------------------------
-# class InlineNombreSemilla(admin.TabularInline):
-#     model = NombreSemilla
-#     extra = 1
-#     max_num = 2
-#
-# class InlineProcedenciaSemilla(admin.TabularInline):
-#     model = ProcedenciaSemilla
-#     extra = 1
-#     max_num = 2
-#
-# class InlinePruebaGerminacion(admin.TabularInline):
-#     model = PruebaGerminacion
-#     extra = 1
-#     max_num = 2
-#
-# class SemillasAdmin(admin.ModelAdmin):
-#     list_display = ('productor','fecha','visita')
-#
-#     inlines = [InlineNombreSemilla,InlineProcedenciaSemilla,
-#                 InlinePruebaGerminacion]
-#
-#     fields = (
-#             ('productor', 'fecha', 'visita'),
-#             ('areas','semilla_frijol','semilla_maiz'),
-#         )
-#
-# admin.site.register(Semillas,SemillasAdmin)
-#
-# #suelo ----------------------------------------------------------------------
-# class InlineTablaSuelo(admin.TabularInline):
-#     model = TablaSuelo
-#     extra = 1
-#     max_num = 21
-#
-# class SueloAdmin(admin.ModelAdmin):
-#     list_display = ('productor','fecha','visita')
-#
-#     inlines = [InlineTablaSuelo]
-#
-# admin.site.register(Suelo,SueloAdmin)
-# admin.site.register(ParametrosSuelo)
-#
-# #macrofauna ---------------------------------------------------------------
-# class InlineTablaMacrofauna(admin.TabularInline):
-#     model = TablaMacrofauna
-#     extra = 1
-#
-# class MacrofaunaAdmin(admin.ModelAdmin):
-#     list_display = ('productor','fecha','visita')
-#
-#     inlines = [InlineTablaMacrofauna]
-#
-# admin.site.register(Macrofauna,MacrofaunaAdmin)
-#
-# #poblacion-----------------------------------------------------------------
-# class InlineDistanciaSurco(admin.TabularInline):
-#     model = DistanciaSurco
-#     can_delete = False
-#     max_num = 1
-#
-# class InlineTablaPoblacion(admin.TabularInline):
-#     model = TablaPoblacion
-#     extra = 1
-#     max_num = 2
-#
-# class PoblacionAdmin(admin.ModelAdmin):
-#     list_display = ('productor','fecha','visita')
-#
-#     fields = (
-#             ('productor', 'fecha', 'visita'),
-#             ('areas',   ),
-#         )
-#
-#     inlines = [InlineDistanciaSurco,InlineTablaPoblacion]
-#
-# admin.site.register(Poblacion,PoblacionAdmin)

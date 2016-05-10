@@ -367,10 +367,12 @@ RELACION_CHOICES = (
 class ProductorGranosBasicos(models.Model):
     persona = models.ForeignKey(Persona)
     organizacion = models.ForeignKey(Organizaciones,verbose_name='Organización a la que está afiliado/a.')
-    nombre_finca = models.CharField(max_length=200)
+    #nombre_finca = models.CharField(max_length=200)
     telefono = models.IntegerField()
-    latitud = models.IntegerField()
-    longitud = models.IntegerField()
+    # latitud = models.IntegerField()
+    # longitud = models.IntegerField()
+    latitud1 = models.FloatField(blank=True, null=True,verbose_name='Latitud')
+    longitud1 = models.FloatField(blank=True, null=True,verbose_name='Longitud')
     nombre_productor = models.CharField(max_length=200,verbose_name='Nombre de el/la productor/a de la parcela GB')
     relacion = models.IntegerField(choices=RELACION_CHOICES,verbose_name='Relación de el/la productor/a con el/la responsable de Familia.')
 
@@ -395,32 +397,32 @@ class UsoSuelo(models.Model):
         verbose_name_plural = 'Uso de Suelo de la finca'
 
 FAMILIA_CHOICES = (
-    (1,'Padre'),
-    (2,'Madre'),
-    (3,'Hijo'),
-    (4,'Hija'),
-    (5,'Hermano'),
-    (6,'Hermana'),
-    (7,'Sobrino'),
-    (8,'Sobrina'),
-    (9,'Abuelo'),
-    (10,'Abuela'),
-    (11,'Cuñado'),
-    (12,'Cuñada'),
-    (13,'Yerno'),
-    (14,'Nuera'),
-    (15,'Otro'),
+    (1,'1-Padre'),
+    (2,'2-Madre'),
+    (3,'3-Hijo'),
+    (4,'4-Hija'),
+    (5,'5-Hermano'),
+    (6,'6-Hermana'),
+    (7,'7-Sobrino'),
+    (8,'8-Sobrina'),
+    (9,'9-Abuelo'),
+    (10,'10-Abuela'),
+    (11,'11-Cuñado'),
+    (12,'12-Cuñada'),
+    (13,'13-Yerno'),
+    (14,'14-Nuera'),
+    (15,'15-Otro'),
 )
 
 ESCOLARIDAD_CHOICES = (
-    (1,'Ninguno'),
-    (2,'Primaria Incompleta'),
-    (3,'Primaria'),
-    (4,'Secundaria Incompleta'),
-    (5,'Secundaria'),
-    (6,'Técnico'),
-    (7,'Universitario'),
-    (8,'Profesional'),
+    (1,'1-Ninguno'),
+    (2,'2-Primaria Incompleta'),
+    (3,'3-Primaria'),
+    (4,'4-Secundaria Incompleta'),
+    (5,'5-Secundaria'),
+    (6,'6-Técnico'),
+    (7,'7-Universitario'),
+    (8,'8-Profesional'),
 )
 
 SI_NO_CHOICES = (
