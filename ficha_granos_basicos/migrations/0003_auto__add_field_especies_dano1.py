@@ -8,9 +8,6 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting field 'Especies.dano'
-        db.delete_column(u'ficha_granos_basicos_especies', 'dano')
-
         # Adding field 'Especies.dano1'
         db.add_column(u'ficha_granos_basicos_especies', 'dano1',
                       self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True),
@@ -18,11 +15,6 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
-        # Adding field 'Especies.dano'
-        db.add_column(u'ficha_granos_basicos_especies', 'dano',
-                      self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True),
-                      keep_default=False)
-
         # Deleting field 'Especies.dano1'
         db.delete_column(u'ficha_granos_basicos_especies', 'dano1')
 
@@ -97,6 +89,7 @@ class Migration(SchemaMigration):
             'control_biologico': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'control_cultural': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'control_quimico': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'dano': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'dano1': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'descripcion': ('django.db.models.fields.CharField', [], {'max_length': '150', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
