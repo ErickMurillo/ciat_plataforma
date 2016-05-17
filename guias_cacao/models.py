@@ -611,6 +611,7 @@ CHOICE_ENFERMEDADES_CACAOTALES = (
         (7, 'Chupadores o áfidos'),
         (8, 'Escarabajos'),
         (9, 'Comején'),
+        (10, 'Ardillas'),
         (10, 'Otros'),
     )
 
@@ -638,12 +639,13 @@ CHOICE_ACCIONES_ENFERMEDADES = (
         (7, 'Podar las plantas de cacao'),
         (8, 'Aplicar venenos para Zompopo'),
         (9, 'Control de Comején'),
-        (10, 'Otros'),
+        (10, 'Ahuyar Ardillas'),
+        (11, 'Otras'),
     )
 
 class AccionesEnfermedad(models.Model):
     plagas_acciones = models.IntegerField(choices=CHOICE_ACCIONES_ENFERMEDADES,
-                    blank=True, null=True, verbose_name="Plagas y enfermedades")
+                    blank=True, null=True, verbose_name="Manejo de Plagas y enfermedadess")
     realiza_manejo = models.IntegerField(choices=CHOICE_SI_NO,
                 blank=True, null=True, verbose_name="Realiza en manejo")
     cuantas_veces = models.IntegerField(blank=True, null=True,
@@ -655,6 +657,9 @@ class AccionesEnfermedad(models.Model):
 
     def __unicode__(self):
         return u"AccionesEnfermedad"
+
+    class Meta:
+        verbose_name = "ACCIONES MANEJO DE PLAGAS Y ENFERMEDADE"
 
 CHOICE_ORIENTACION = (
     ("A", 'Técnico'),
@@ -684,7 +689,8 @@ CHOICE_OBSERVACION_PUNTO1 = (
         (7, 'Daño de zompopo'),
         (8, 'Bejuco'),
         (9, 'Tanda'),
-        (10, 'Otros'),
+        (10, 'Manejo de comején'),
+        (11, 'Otros'),
     )
 
 class ObservacionPunto1(models.Model):
@@ -841,7 +847,9 @@ CHOICE_ENFERMEDADES = (
         ("G", 'Chupadores o áfidos'),
         ("H", 'Escarabajos'),
         ("J", 'Comején'),
-        ("k", 'Otros'),
+        ("k", 'Daño por comején'),
+        ("L", 'Daño de minador de la hoja'),
+        ("M", 'Daño por lana'),
     )
 
 CHOICE_SITUACION_PLAGAS = (
