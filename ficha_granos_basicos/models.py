@@ -4,6 +4,7 @@ from multiselectfield import MultiSelectField
 from mapeo.models import Persona
 from comunicacion.utils import *
 from sorl.thumbnail import ImageField
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 #Inicio Ficha monitoreo 1 -----------------------------------------
@@ -166,12 +167,17 @@ class Visitas(models.Model):
     fecha = models.DateField()
     visita = models.IntegerField(choices=VISITA_CHOICES)
     areas = MultiSelectField(choices=AREAS_CHOICES,verbose_name='Áreas a Monitorear')
+    anio = models.IntegerField(editable=False,blank=True,null=True)
 
     def __unicode__(self):
 		return u'%s' % (self.productor)
 
     class Meta:
         verbose_name_plural = 'Visitas'
+
+    def save(self, *args, **kwargs):
+		self.anio = self.fecha.year
+		super(Visitas, self).save(*args, **kwargs)
 # #semilla ---------------------------------------------
 TIPO_SEMILLA_CHOICES = (
     (1,'Criolla'),
@@ -194,12 +200,12 @@ class Semillas(models.Model):
         verbose_name_plural = 'Semilla'
 
 PROCEDENCIA_CHOICES = (
-    (1,'Cosecha anterior'),
-    (2,'Productor/a de la comunidad'),
-    (3,'Productor/a de otra comunidad'),
-    (4,'Cooperativa o Agroservicio'),
-    (5,'ONG'),
-    (6,'Gobierno'),
+    (1,'1-Cosecha anterior'),
+    (2,'2-Productor/a de la comunidad'),
+    (3,'3-Productor/a de otra comunidad'),
+    (4,'4-Cooperativa o Agroservicio'),
+    (5,'5-ONG'),
+    (6,'6-Gobierno'),
 )
 
 class ProcedenciaSemilla(models.Model):
@@ -272,12 +278,11 @@ UMBRAL_CHOICES = (
 class Especies(models.Model):
     nombre_popular = models.CharField(max_length=100)
     nombre_cientifico = models.CharField(max_length=100,blank=True,null=True)
-    reconocimiento = models.CharField(max_length=200,blank=True,null=True)
-    # dano = models.CharField(max_length=200,blank=True,null=True,verbose_name='Daño')
-    dano1 = models.CharField(max_length=200,blank=True,null=True,verbose_name='Daño')
-    control_cultural = models.CharField(max_length=200,blank=True,null=True)
-    control_biologico = models.CharField(max_length=200,blank=True,null=True)
-    control_quimico = models.CharField(max_length=200,blank=True,null=True)
+    reconocimiento = RichTextField(blank=True,null=True)
+    dano1 = RichTextField(blank=True,null=True,verbose_name='Daño')
+    control_cultural = RichTextField(blank=True,null=True)
+    control_biologico = RichTextField(blank=True,null=True)
+    control_quimico = RichTextField(blank=True,null=True)
     tipo = models.IntegerField(choices=TIPO_PLAGA_CHOICES)
     rubro = models.IntegerField(choices=CULTIVO2_CHOICES)
     umbral = models.IntegerField(choices=UMBRAL_CHOICES)

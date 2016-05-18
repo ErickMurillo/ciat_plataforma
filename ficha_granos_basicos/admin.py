@@ -200,6 +200,7 @@ class VisitasAdmin(admin.ModelAdmin):
     list_display = ('productor','visita','fecha')
     list_filter = ('visita',)
     search_fields = ('productor',)
+    date_hierarchy = 'fecha'
 
     form = VisitasAdminForm
 

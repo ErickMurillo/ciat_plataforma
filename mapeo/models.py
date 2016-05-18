@@ -357,11 +357,11 @@ class Decisor(models.Model):
         verbose_name_plural = _(u'Decisor')
 
 RELACION_CHOICES = (
-    (1,'Jefe/Jefa de familia'),
-    (2,'Cónyuge'),
-    (3,'Hijo/Hija'),
-    (4,'Otro familiar'),
-    (5,'Administrador'),
+    (1,'1-Jefe/Jefa de familia'),
+    (2,'2-Cónyuge'),
+    (3,'3-Hijo/Hija'),
+    (4,'4-Otro familiar'),
+    (5,'5-Administrador'),
 )
 
 class ProductorGranosBasicos(models.Model):
@@ -426,8 +426,8 @@ ESCOLARIDAD_CHOICES = (
 )
 
 SI_NO_CHOICES = (
-    (1,'Si'),
-    (2,'No'),
+    (1,'1-Si'),
+    (2,'2-No'),
 )
 
 class ComposicionFamiliar(models.Model):
