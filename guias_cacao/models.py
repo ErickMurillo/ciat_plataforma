@@ -619,7 +619,7 @@ class PlagasEnfermedad(models.Model):
     plagas = models.IntegerField(choices=CHOICE_ENFERMEDADES_CACAOTALES,
                 blank=True, null=True, verbose_name="Plagas y enfermedades")
     visto = models.IntegerField(choices=CHOICE_SI_NO,
-                blank=True, null=True, verbose_name="He visto en mi cafetal")
+                blank=True, null=True, verbose_name="He visto en mi cacaotal")
     dano = models.IntegerField(choices=CHOICE_SI_NO,
                             blank=True, null=True, verbose_name="Hace daño año con año")
     promedio = models.FloatField("¿Promedio nivel de daño en %?")
@@ -956,6 +956,7 @@ CHOICE_ENFERMEDADES_PUNTO8 = (
         ("E", 'Barril'),
         ("F", 'Cutacha'),
         ("G", 'No tiene'),
+        ("H", 'Coba'),
     )
 class Punto8y9Plagas(models.Model):
     equipos = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO8,
@@ -1170,7 +1171,7 @@ class PisoPunto8(models.Model):
     piso = models.IntegerField(choices=CHOICE_PISO8,
             verbose_name="Manejo de piso",
             blank=True, null=True)
-    parte = models.IntegerField(choices=CHOICE_PISO6_2,
+    parte = models.IntegerField(choices=CHOICE_ACCIONES_PUNTO7_2,
             verbose_name="En que parte",
             blank=True, null=True)
     meses = MultiSelectField(choices=CHOICES_FECHA_PODA,
@@ -1190,6 +1191,7 @@ CHOICE_PISO10 = (
         ("E", 'Barril'),
         ("F", 'Cutacha'),
         ("G", 'No tiene'),
+        ("H", 'Coba'),
     )
 
 class PisoPunto10(models.Model):
