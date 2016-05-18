@@ -689,8 +689,10 @@ CHOICE_OBSERVACION_PUNTO1 = (
         (7, 'Daño de zompopo'),
         (8, 'Bejuco'),
         (9, 'Tanda'),
-        (10, 'Manejo de comején'),
-        (11, 'Otros'),
+        (10, 'Daño de comején'),
+        (11, 'Daño de minador de la hoja'),
+        (12, 'Daño por lana'),
+        (13, 'Otros'),
     )
 
 class ObservacionPunto1(models.Model):
@@ -847,9 +849,8 @@ CHOICE_ENFERMEDADES = (
         ("G", 'Chupadores o áfidos'),
         ("H", 'Escarabajos'),
         ("J", 'Comején'),
-        ("k", 'Daño por comején'),
-        ("L", 'Daño de minador de la hoja'),
-        ("M", 'Daño por lana'),
+        ("K", 'Minador de la hoja'),
+        ("L", 'Lana'),
     )
 
 CHOICE_SITUACION_PLAGAS = (
