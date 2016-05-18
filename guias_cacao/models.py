@@ -30,9 +30,27 @@ class Foto1(models.Model):
     foto = ImageField(upload_to='foto1Sombra')
     ficha = models.ForeignKey(FichaSombra)
 
+CHOICE_TIPO_PUNTO = (
+    (1, 'Perennifolia'),
+    (2, 'Caducifolia'),
+)
 
 class Especies(models.Model):
     nombre = models.CharField('Nombre de la especie', max_length=250)
+    tipo = models.IntegerField(choices=CHOICE_TIPO_PUNTO, blank=True, null=True)
+    foto = ImageField(upload_to='fotoEspecies', blank=True, null=True)
+    #pequenio
+    p_altura = models.FloatField('Altura en (mt)', blank=True, null=True)
+    p_diametro = models.FloatField('Diametro en (cm)', blank=True, null=True)
+    p_ancho = models.FloatField('Ancho copa en (mt)s', blank=True, null=True)
+    #mediano
+    m_altura = models.FloatField('Altura en (mt)', blank=True, null=True)
+    m_diametro = models.FloatField('Diametro en (cm)', blank=True, null=True)
+    m_ancho = models.FloatField('Ancho copa en (mt)s', blank=True, null=True)
+    #grande
+    g_altura = models.FloatField('Altura en (mt)', blank=True, null=True)
+    g_diametro = models.FloatField('Diametro en (cm)', blank=True, null=True)
+    g_ancho = models.FloatField('Ancho copa en (mt)s', blank=True, null=True)
 
     def __unicode__(self):
         return self.nombre
@@ -41,10 +59,6 @@ class Especies(models.Model):
         verbose_name = "Especie"
         verbose_name_plural = "Especies"
 
-CHOICE_TIPO_PUNTO = (
-    (1, 'Perennifolia'),
-    (2, 'Caducifolia'),
-)
 
 CHOICE_TIPO_COPA_PUNTO = (
     (1, 'Copa ancha'),
@@ -851,6 +865,9 @@ CHOICE_ENFERMEDADES = (
         ("J", 'Comején'),
         ("K", 'Minador de la hoja'),
         ("L", 'Lana'),
+        ("M", 'Ardillaa'),
+        ("N", 'Bejuco'),
+        ("O", 'Tanda'),
     )
 
 CHOICE_SITUACION_PLAGAS = (
