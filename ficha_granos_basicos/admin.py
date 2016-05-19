@@ -12,7 +12,7 @@ class InlineTablaGastos(admin.TabularInline):
 class GastosAdmin(admin.ModelAdmin):
     list_display = ('productor', 'fecha_siembra', 'rubro')
 
-    form = ProductorMonitoreoAdminForm
+    # form = ProductorMonitoreoAdminForm
 
     inlines = [InlineTablaGastos]
 
@@ -32,7 +32,7 @@ class InsumosAdmin(NestedModelAdmin):
 
     inlines = [InlineTablaInsumos]
 
-    form = InsumosAdminForm
+    # form = InsumosAdminForm
 
 admin.site.register(Insumos,InsumosAdmin)
 
@@ -44,7 +44,7 @@ class InlineTablaDecisiones(admin.TabularInline):
 class TomaDecisionesAdmin(admin.ModelAdmin):
     list_display = ('productor',)
 
-    form = ProductorMonitoreoAdminForm
+    # form = ProductorMonitoreoAdminForm
 
     inlines = [InlineTablaDecisiones]
 
@@ -202,7 +202,7 @@ class VisitasAdmin(admin.ModelAdmin):
     search_fields = ('productor',)
     date_hierarchy = 'fecha'
 
-    form = VisitasAdminForm
+    # form = VisitasAdminForm
 
     inlines = [
                 InlineSemillas,
@@ -215,23 +215,43 @@ class VisitasAdmin(admin.ModelAdmin):
                 InlineSobreCosecha,InlineCuradoSemilla
                 ]
     class Media:
-        js = ('granos_basicos/js/admin_visita.js',)
+        js = ('granos_basicos/js/jquery-2.2.1.min.js','granos_basicos/js/select2.min.js',
+                'granos_basicos/js/admin_visita.js',)
         css = {
-            'all': ('granos_basicos/css/admin.css',)
+            'all': ('granos_basicos/css/select2.min.css','granos_basicos/css/admin.css',)
             }
 
 admin.site.register(Visitas,VisitasAdmin)
 
 class MonitoreoAdmin(admin.ModelAdmin):
-    list_display = ('productor',)
-    # list_filter = ('visita',)
+    # list_display = ('productor',)
+    # search_fields = ('productor',)
+    #
+    # form = MonitoreoAdminForm
+
+    # inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
+    #             InlineRecursosSiembra,InlineHistorialRendimiento,
+    #             ]
+
+    #new code------------
+    list_display = ('productor','ciclo_productivo','anio','nombre_parcela')
     search_fields = ('productor',)
+    date_hierarchy = 'fecha_monitoreo'
 
     form = MonitoreoAdminForm
 
-    inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
+    inlines = [InlineDatosMonitoreo,InlineDistribucionPendiente,
                 InlineRecursosSiembra,InlineHistorialRendimiento,
                 ]
+
+    fieldsets = (
+            (None, {'fields' : (('productor','fecha_monitoreo','ciclo_productivo'),)}),
+            ('DATOS DE LA PARCELA', {'fields' : (('nombre_parcela','edad_parcela'),
+                                                ('latitud','longitud','direccion_viento'),
+                                                ('percepcion_fertilidad','tamano_parcela','profundidad_capa'),
+                                                ('acceso_agua','fuente_agua','distancia'),
+            )}),
+    )
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         kwargs['queryset'] = Persona.objects.filter(tipo_persona=1,productor__rubros_agro__nombre='Granos básicos')

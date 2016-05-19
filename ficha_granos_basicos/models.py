@@ -38,37 +38,6 @@ AREAS_CHOICES = (
     (9,'Almacenamiento'),
 )
 
-class Monitoreo(models.Model):
-    productor = models.ForeignKey(Persona)
-    # fecha = models.DateField()
-    # visita = models.IntegerField(choices=VISITA_CHOICES)
-    # areas = MultiSelectField(choices=AREAS_CHOICES,verbose_name='Áreas a Monitorear')
-
-    def __unicode__(self):
-		return u'%s' % (self.productor)
-
-CICLO_CHOICES = (
-    (1,'Primera'),
-    (2,'Postrera'),
-)
-
-CULTIVO_CHOICES = (
-    (1,'Maíz'),
-    (2,'Frijol'),
-    (3,'Maíz y Frijol'),
-)
-#datos del monitoreo ------------------------------
-class DatosMonitoreo(models.Model):
-    ciclo_productivo = models.IntegerField(choices=CICLO_CHOICES)
-    cultivo = models.IntegerField(choices=CULTIVO_CHOICES)
-    area_siembra = models.FloatField(verbose_name='Área de siembra (mz)')
-    fecha_siembra = models.DateField(blank=True,null=True)
-    fecha_cosecha = models.DateField(blank=True,null=True)
-    monitoreo = models.ForeignKey(Monitoreo)
-
-    class Meta:
-        verbose_name_plural = 'Datos del Monitoreo'
-
 DIRECCION_CHOICES = (
     (1,'N'),
     (2,'NE'),
@@ -92,6 +61,53 @@ ACCESO_AGUA_CHOICES = (
     (3,'Río'),
     (4,'Ojo de agua'),
 )
+
+CICLO_CHOICES = (
+    (1,'Primera'),
+    (2,'Postrera'),
+)
+
+class Monitoreo(models.Model):
+    productor = models.ForeignKey(Persona)
+    #-------
+    fecha_monitoreo = models.DateField(blank=True, null=True)
+    ciclo_productivo = models.IntegerField(choices=CICLO_CHOICES,blank=True, null=True)
+    nombre_parcela = models.CharField(max_length=100,blank=True, null=True)
+    edad_parcela = models.FloatField(verbose_name='Edad parcela (años)',blank=True, null=True)
+    latitud = models.FloatField(blank=True, null=True)
+    longitud = models.FloatField(blank=True, null=True)
+    direccion_viento = models.IntegerField(choices=DIRECCION_CHOICES,blank=True, null=True)
+    percepcion_fertilidad = models.IntegerField(choices=FERTILIDAD_CHOICES,blank=True, null=True)
+    tamano_parcela = models.FloatField(verbose_name='Tamaño de la parcela (mz)',blank=True, null=True)
+    profundidad_capa = models.FloatField(verbose_name='Profundidad de capa arable (cm)',blank=True, null=True)
+    acceso_agua = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Tiene acceso a agua en su parcela?',blank=True, null=True)
+    fuente_agua = MultiSelectField(choices=ACCESO_AGUA_CHOICES,verbose_name='Como tiene acceso a agua',blank=True, null=True)
+    distancia = models.FloatField(verbose_name='¿A qué distancia tiene la fuente de agua?',blank=True, null=True)
+    anio = models.IntegerField(editable=False,blank=True, null=True,verbose_name="Año")
+
+    def __unicode__(self):
+		return u'%s - %s - %s - Lat:%s - Lon:%s' % (self.productor,self.get_ciclo_productivo_display(),self.anio,self.latitud,self.longitud)
+
+    def save(self, *args, **kwargs):
+		self.anio = self.fecha_monitoreo.year
+		super(Monitoreo, self).save(*args, **kwargs)
+
+CULTIVO_CHOICES = (
+    (1,'Maíz'),
+    (2,'Frijol'),
+    (3,'Maíz y Frijol'),
+)
+#datos del monitoreo ------------------------------
+class DatosMonitoreo(models.Model):
+    # ciclo_productivo = models.IntegerField(choices=CICLO_CHOICES)
+    cultivo = models.IntegerField(choices=CULTIVO_CHOICES)
+    area_siembra = models.FloatField(verbose_name='Área de siembra (mz)')
+    fecha_siembra = models.DateField(blank=True,null=True)
+    fecha_cosecha = models.DateField(blank=True,null=True)
+    monitoreo = models.ForeignKey(Monitoreo)
+
+    class Meta:
+        verbose_name_plural = 'Datos del Monitoreo'
 
 class DatosParcela(models.Model):
     nombre = models.CharField(max_length=100)
