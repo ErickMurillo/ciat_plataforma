@@ -1,0 +1,85 @@
+{% extends "guiascacao/base.html" %}
+
+{% block contenido %}
+<form  action="." method="POST"> {% csrf_token %}
+  <div class="row">
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  		<label for="">{{form.fecha.label}}</label>
+  	</div>
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+  		{{form.fecha}}
+  	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  		<label for="">{{form.organizacion.label}}</label>
+  	</div>
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+  		{{form.organizacion}}
+  	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  		<label for="">{{form.pais.label}}</label>
+  	</div>
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+  		{{form.pais}}
+  	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  		<label for="">{{form.departamento.label}}</label>
+  	</div>
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+  		{{form.departamento}}
+  	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  		<label for="">{{form.municipio.label}}</label>
+  	</div>
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+  		{{form.municipio}}
+  	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  		<label for="">{{form.comunidad.label}}</label>
+  	</div>
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+  		{{form.comunidad}}
+  	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  		<label for="">{{form.sexo.label}}</label>
+  	</div>
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+  		{{form.sexo}}
+  	</div>
+  </div>
+
+  <div class="row">
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+  		<label for="">{{form.tipologia.label}}</label>
+  	</div>
+  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+  		{{form.tipologia}}
+  	</div>
+  </div>
+
+<input type="submit" value="Consultar" class="btn btn-form" name="consulta"/>
+
+</form>
+
+{% if centinela %}
+  <a href="/cacao/riqueza/"> ver riqueza</a>
+{% endif %}
+
+{% endblock contenido %}
