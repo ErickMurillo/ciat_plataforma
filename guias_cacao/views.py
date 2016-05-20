@@ -1,17 +1,23 @@
 # -*- coding: UTF-8 -*-
 from django.shortcuts import render
+from django.http import HttpResponse
 from .forms import ConsultaSombraForm
 from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso
+from mapeo.models import Persona
+import json as simplejson
 # Create your views here.
 
 def _queryset_filtrado_sombra(request):
     params = {}
 
     if 'fecha' in request.session:
-       params['fecha_visita__year'] = request.session['fecha']
+        params['fecha_visita__year'] = request.session['fecha']
+
+    if 'productor' in request.session:
+        params['productor'] = request.session['productor'].id
 
     if 'organizacion' in request.session:
-       params['productor__productor__organizacion'] = request.session['organizacion']
+        params['productor__productor__organizacion'] = request.session['organizacion']
 
     if 'pais' in request.session:
         params['productor__pais'] = request.session['pais']
@@ -50,6 +56,7 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
         form = ConsultaSombraForm(request.POST)
         if form.is_valid():
             request.session['fecha'] = form.cleaned_data['fecha']
+            request.session['productor'] = form.cleaned_data['productor']
             request.session['organizacion'] = form.cleaned_data['organizacion']
             request.session['pais'] = form.cleaned_data['pais']
             request.session['departamento'] = form.cleaned_data['departamento']
@@ -66,6 +73,7 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
 
         if 'fecha' in request.session:
             del request.session['fecha']
+            del request.session['productor']
             del request.session['organizacion']
             del request.session['pais']
             del request.session['departamento']
@@ -81,3 +89,18 @@ def sombra_riqueza(request, template="guiascacao/sombra_riqueza.html"):
     filtro = _queryset_filtrado_sombra(request)
     print filtro
     return render(request, template, locals())
+
+def get_productor(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        personas = Persona.objects.filter(nombre__icontains = q )[:20]
+        results = []
+        for person in personas:
+            personas_json = {}
+            personas_json['id'] = person.id
+            personas_json['label'] = person.nombre
+            personas_json['value'] = person.nombre
+            results.append(personas_json)
+    else:
+        results = 'fail'
+    return HttpResponse(simplejson.dumps(results), content_type='application/json')

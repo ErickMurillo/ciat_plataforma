@@ -1,5 +1,46 @@
 {% extends "guiascacao/base.html" %}
 
+{% block extra_js %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+  $(function() {
+    function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+    }
+
+    $( "#id_productor" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: "/cacao/api/productor/",   //"http://gd.geobytes.com/AutoCompleteCity",
+          dataType: "json",
+          data: {
+            q: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 3,
+      select: function( event, ui ) {
+        log( ui.item ?
+          "Seleccionado: " + ui.item.label :
+          "Nada seleccionado, introdujo " + this.value);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+  });
+  </script>
+{% endblock extra_js %}
+
 {% block contenido %}
 <form  action="." method="POST"> {% csrf_token %}
   <div class="row">
@@ -9,6 +50,15 @@
   	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
   		{{form.fecha}}
   	</div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      <label for="">{{form.productor.label}}</label>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+      {{form.productor}}
+    </div>
   </div>
 
   <div class="row">
