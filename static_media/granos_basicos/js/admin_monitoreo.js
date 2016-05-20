@@ -1,26 +1,26 @@
 (function($){
 	$(document).ready(function(){
-    valor = $('#id_datosparcela_set-0-acceso_agua').val();
+    valor = $('#id_acceso_agua').val();
     if (valor == 1) {
       $('.field-acceso_agua .inline').show();
-      $('#id_datosparcela_set-0-fuente_agua').show();
-      $('#id_datosparcela_set-0-distancia').show();
+      $('.field-acceso_agua #id_fuente_agua').show();
+      $('.field-distancia #id_distancia').show();
     } else {
-      $('.field-acceso_agua .inline').hide();
-      $('#id_datosparcela_set-0-fuente_agua').hide();
-      $('#id_datosparcela_set-0-distancia').hide();
+			$('.field-acceso_agua .inline').hide();
+			$('.field-acceso_agua #id_fuente_agua').hide();
+			$('.field-distancia #id_distancia').hide();
     }
 
-    $('#id_datosparcela_set-0-acceso_agua').change(function(){
-      valor = $('#id_datosparcela_set-0-acceso_agua').val();
+    $('#id_acceso_agua').change(function(){
+      valor = $('#id_acceso_agua').val();
       if (valor == 1) {
         $('.field-acceso_agua .inline').show();
-        $('#id_datosparcela_set-0-fuente_agua').show();
-        $('#id_datosparcela_set-0-distancia').show();
+        $('.field-acceso_agua #id_fuente_agua').show();
+        $('.field-distancia #id_distancia').show();
       } else {
         $('.field-acceso_agua .inline').hide();
-        $('#id_datosparcela_set-0-fuente_agua').hide();
-        $('#id_datosparcela_set-0-distancia').hide();
+        $('.field-acceso_agua #id_fuente_agua').hide();
+        $('.field-distancia #id_distancia').hide();
       }
     });
   });

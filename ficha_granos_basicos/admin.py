@@ -16,6 +16,13 @@ class GastosAdmin(admin.ModelAdmin):
 
     inlines = [InlineTablaGastos]
 
+    class Media:
+        js = ('granos_basicos/js/jquery-2.2.1.min.js','granos_basicos/js/select2.min.js',
+                'granos_basicos/js/global.js',)
+        css = {
+            'all': ('granos_basicos/css/select2.min.css',)
+            }
+
 admin.site.register(Gastos,GastosAdmin)
 
 class InlineLiga_Nested(NestedTabularInline):
@@ -32,6 +39,13 @@ class InsumosAdmin(NestedModelAdmin):
 
     inlines = [InlineTablaInsumos]
 
+    class Media:
+        js = ('granos_basicos/js/jquery-2.2.1.min.js','granos_basicos/js/select2.min.js',
+                'granos_basicos/js/global.js',)
+        css = {
+            'all': ('granos_basicos/css/select2.min.css',)
+            }
+
     # form = InsumosAdminForm
 
 admin.site.register(Insumos,InsumosAdmin)
@@ -47,6 +61,13 @@ class TomaDecisionesAdmin(admin.ModelAdmin):
     # form = ProductorMonitoreoAdminForm
 
     inlines = [InlineTablaDecisiones]
+
+    class Media:
+        js = ('granos_basicos/js/jquery-2.2.1.min.js','granos_basicos/js/select2.min.js',
+                'granos_basicos/js/global.js',)
+        css = {
+            'all': ('granos_basicos/css/select2.min.css',)
+            }
 
 admin.site.register(TomaDecisiones,TomaDecisionesAdmin)
 

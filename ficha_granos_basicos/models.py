@@ -86,7 +86,7 @@ class Monitoreo(models.Model):
     anio = models.IntegerField(editable=False,blank=True, null=True,verbose_name="Año")
 
     def __unicode__(self):
-		return u'%s - %s - %s - Lat:%s - Lon:%s' % (self.productor,self.get_ciclo_productivo_display(),self.anio,self.latitud,self.longitud)
+		return u'%s - %s - %s - %s - Lat:%s - Lon:%s' % (self.productor,self.get_ciclo_productivo_display(),self.anio,self.nombre_parcela,self.latitud,self.longitud)
 
     def save(self, *args, **kwargs):
 		self.anio = self.fecha_monitoreo.year
