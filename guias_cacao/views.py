@@ -39,6 +39,8 @@ def _queryset_filtrado_sombra(request):
     for key in unvalid_keys:
     	del params[key]
 
+    print params
+
     return FichaSombra.objects.filter(**params)
 
 

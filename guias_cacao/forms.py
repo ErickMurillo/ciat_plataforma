@@ -61,7 +61,7 @@ def fecha_choice():
 class ConsultaSombraForm(forms.Form):
     fecha = forms.ChoiceField(choices=fecha_choice(), label="Años", required=True)
     organizacion = forms.ModelChoiceField(queryset=Organizaciones.objects.all(), required=False)
-    pais = forms.ModelChoiceField(queryset=Pais.objects.all(), required=True)
+    pais = forms.ModelChoiceField(queryset=Pais.objects.all(), required=False)
     departamento = forms.ModelChoiceField(queryset=Departamento.objects.all(), required=False)
     municipio = forms.ModelChoiceField(queryset=Municipio.objects.all(), required=False)
     comunidad = forms.ModelChoiceField(queryset=Comunidad.objects.all(), required=False)
