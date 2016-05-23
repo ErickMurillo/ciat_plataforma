@@ -1,0 +1,361 @@
+{% extends "guiascacao/base.html" %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    // Build the chart
+    $('#grafo1').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Densidad de árboles de sombra'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_densidad.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo2').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Forma de copa de árboles de sombra'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_copa.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo3').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Arreglo de árboles'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_arreglo.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo4').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Cantidad de hojarasca'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_hojarasca.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo5').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Calidad de hojarasca'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_calidad_hojarasca.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo6').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Competencia de árboles con cacao'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_competencia.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo7').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Problema de sombra'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_problema.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+<p class="center-block">Analisis de sombra</p>
+
+<div class="row">
+ <div class="col-md-6">
+   <div id="grafo1"></div>
+ </div>
+ <div class="col-md-6">
+   <div id="grafo2"></div>
+ </div>
+</div>
+<hr>
+<div class="row">
+ <div class="col-md-6">
+   <div id="grafo3"></div>
+ </div>
+ <div class="col-md-6">
+   <div id="grafo4"></div>
+ </div>
+</div>
+<hr>
+<div class="row">
+ <div class="col-md-6">
+   <div id="grafo5"></div>
+ </div>
+ <div class="col-md-6">
+   <div id="grafo6"></div>
+ </div>
+</div>
+<hr>
+<div class="row">
+ <div class="col-md-6">
+   <div id="grafo7"></div>
+ </div>
+ <div class="col-md-6">
+   <div id="grafo8"></div>
+ </div>
+</div>
+{% endblock contenido %}

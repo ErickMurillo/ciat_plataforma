@@ -163,7 +163,7 @@ class AnalisisSombra(models.Model):
             (3,
              'Baja'),
         ),
-        verbose_name='Densidad de árboles de sombra ')
+        verbose_name='Densidad de árboles de sombra')
     forma_copa = models.IntegerField(
         choices=(
             (1,
@@ -173,9 +173,9 @@ class AnalisisSombra(models.Model):
             (3,
              'Angosta'),
         ),
-        verbose_name='Forma de copa de árboles de sombra ')
+        verbose_name='Forma de copa de árboles de sombra')
     arreglo = models.IntegerField(choices=((1, 'Uniforme'), (2, 'Desuniforme'),),
-                                  verbose_name='Arreglo de árboles ')
+                                  verbose_name='Arreglo de árboles')
     hojarasca = models.IntegerField(
         choices=(
             (1,
@@ -201,7 +201,7 @@ class AnalisisSombra(models.Model):
             (3,
              'Leve'),
         ),
-        verbose_name='Competencia de árboles con cacao ')
+        verbose_name='Competencia de árboles con cacao')
     Problema = models.IntegerField(
         choices=(
             (1,
@@ -214,7 +214,7 @@ class AnalisisSombra(models.Model):
              'Densidad Tipo de árboles'),
             (5,
              'Ninguno')),
-        verbose_name='Problema de sombra ')
+        verbose_name='Problema de sombra')
     ficha = models.ForeignKey(FichaSombra)
 
     class Meta:

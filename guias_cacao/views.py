@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import ConsultaSombraForm
-from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso
+from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, Cobertura1, Cobertura2, Cobertura3
 from mapeo.models import Persona
 import json as simplejson
 # Create your views here.
@@ -14,7 +14,7 @@ def _queryset_filtrado_sombra(request):
         params['fecha_visita__year'] = request.session['fecha']
 
     if 'productor' in request.session:
-        params['productor'] = request.session['productor'].id
+        params['productor__nombre'] = request.session['productor']
 
     if 'organizacion' in request.session:
         params['productor__productor__organizacion'] = request.session['organizacion']
@@ -85,15 +85,100 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
     return render(request, template, {'form': form, 'centinela': centinela})
 
 
-def sombra_riqueza(request, template="guiascacao/sombra_riqueza.html"):
+#---------------- salidas sombra -----------------------------
+
+def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     filtro = _queryset_filtrado_sombra(request)
     print filtro
     return render(request, template, locals())
 
+def analisis_sombra(request, template="guiascacao/analisis_sombra.html"):
+    filtro = _queryset_filtrado_sombra(request)
+
+    CHOICE_DENSIDAD = ( (1,'Alta'),
+                        (2,'Adecuada'),
+                        (3,'Baja'),
+                      )
+
+    CHOICE_COPA = ((1,'Ancha'),
+                   (2,'Adecuada'),
+                   (3,'Angosta'),
+                )
+
+    CHOICE_ARREGLO = ((1, 'Uniforme'), (2, 'Desuniforme'))
+    CHOICE_HOJARASCA = ((1, 'Suficiente'), (2, 'No Suficiente'))
+    CHOICE_HOJARASCA_CALIDAD = ((1, 'Rico en nutrientes'), (2, 'Pobre en nutriente'))
+    CHOICE_COMPETENCIA = ((1, 'Fuerte'), (2, 'Mediana'), (3, 'Leve'))
+    CHOICE_PROBLEMA = (
+                        (1,'Cobertura'),
+                        (2,'Mal arreglo'),
+                        (3,'Competencia'),
+                        (4,'Densidad Tipo de árboles'),
+                        (5,'Ninguno')
+                    )
+
+    dict_densidad = {}
+    for densidad in CHOICE_DENSIDAD:
+        conteo = filtro.filter(analisissombra__densidad=densidad[0]).count()
+        dict_densidad[densidad[1]] = conteo
+
+    dict_copa = {}
+    for copa in CHOICE_COPA:
+        conteo = filtro.filter(analisissombra__forma_copa=copa[0]).count()
+        dict_copa[copa[1]] = conteo
+
+    dict_arreglo = {}
+    for arreglo in CHOICE_ARREGLO:
+        conteo = filtro.filter(analisissombra__arreglo=arreglo[0]).count()
+        dict_arreglo[arreglo[1]] = conteo
+
+    dict_hojarasca = {}
+    for hoja in CHOICE_HOJARASCA:
+        conteo = filtro.filter(analisissombra__hojarasca=hoja[0]).count()
+        dict_hojarasca[hoja[1]] = conteo
+
+    dict_calidad_hojarasca = {}
+    for hoja in CHOICE_HOJARASCA_CALIDAD:
+        conteo = filtro.filter(analisissombra__calidad_hojarasca=hoja[0]).count()
+        dict_calidad_hojarasca[hoja[1]] = conteo
+
+    dict_competencia = {}
+    for obj in CHOICE_COMPETENCIA:
+        conteo = filtro.filter(analisissombra__competencia=obj[0]).count()
+        dict_competencia[obj[1]] = conteo
+
+    dict_problema = {}
+    for obj in CHOICE_PROBLEMA:
+        conteo = filtro.filter(analisissombra__Problema=obj[0]).count()
+        dict_problema[obj[1]] = conteo
+
+
+    return render(request, template, locals())
+
+def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
+    filtro = _queryset_filtrado_sombra(request)
+    print filtro
+    return render(request, template, locals())
+
+def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
+    filtro = _queryset_filtrado_sombra(request)
+
+    punto1 = Cobertura1.objects.filter(ficha__in=filtro)
+    punto2 = Cobertura2.objects.filter(ficha__in=filtro)
+    punto3 = Cobertura3.objects.filter(ficha__in=filtro)
+
+    
+
+
+    return render(request, template, locals())
+#----------------- fin salidas de sombra -------------------------
+
+#----------  funciones utilitarias
+
 def get_productor(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
-        personas = Persona.objects.filter(nombre__icontains = q )[:20]
+        personas = Persona.objects.filter(nombre__icontains = q, tipo_persona=1 )[:10]
         results = []
         for person in personas:
             personas_json = {}
