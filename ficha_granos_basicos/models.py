@@ -92,6 +92,9 @@ class Monitoreo(models.Model):
 		self.anio = self.fecha_monitoreo.year
 		super(Monitoreo, self).save(*args, **kwargs)
 
+    class Meta:
+        verbose_name_plural = '1. Monitoreos'
+
 CULTIVO_CHOICES = (
     (1,'Maíz'),
     (2,'Frijol'),
@@ -189,7 +192,7 @@ class Visitas(models.Model):
 		return u'%s' % (self.productor)
 
     class Meta:
-        verbose_name_plural = 'Visitas'
+        verbose_name_plural = '2. Visitas'
 
     def save(self, *args, **kwargs):
 		self.anio = self.fecha.year
@@ -723,7 +726,7 @@ class Gastos(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
 
     class Meta:
-        verbose_name_plural = 'Registro de Gastos'
+        verbose_name_plural = '3. Registro de Gastos'
 
 ACTIVIDAD_CHOICES = (
     (1,'Preparación de suelo'),
@@ -778,7 +781,7 @@ class Insumos(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
 
     class Meta:
-        verbose_name_plural = 'Registro de Insumos'
+        verbose_name_plural = '4. Registro de Insumos'
 
 class TablaInsumos(models.Model):
     fecha = models.DateField()
@@ -826,7 +829,7 @@ class TomaDecisiones(models.Model):
     productor = models.ForeignKey(Monitoreo)
 
     class Meta:
-        verbose_name_plural = 'Registro y Monitoreo de Cumplimiento'
+        verbose_name_plural = '5. Registro y Monitoreo de Cumplimiento'
 
 class TablaDecisiones(models.Model):
     visita = models.IntegerField(choices=VISITA2_CHOICES)
