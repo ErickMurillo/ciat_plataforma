@@ -7,6 +7,7 @@ from mapeo.models import Persona
 import json as simplejson
 from itertools import chain
 from django.db.models import Avg, Sum
+import numpy as np
 # Create your views here.
 
 def _queryset_filtrado_sombra(request):
@@ -166,37 +167,47 @@ def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     return render(request, template, locals())
 
 
-import numpy as np
 def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     punto1 = Cobertura1.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
     punto2 = Cobertura2.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
     punto3 = Cobertura3.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
-
+    print len(punto3)
     l = list(chain(punto1, punto2, punto3))
 
-    promedio_todo_puntos = reduce(lambda x, y: x + y, l) / len(l)
+    #promedio_todo_puntos = reduce(lambda x, y: x + y, l) / len(l)
 
     # media arítmetica
     promedio2 = np.mean(l)
-    print promedio2
-
     # mediana
     mediana2 = np.median(l)
-    print mediana2
-
     # Desviación típica
     desviacion2 = np.std(l)
-    print desviacion2
 
-    # varianza
-    varianza2 = np.var(l)
-    print varianza2
-    
+    rangos = {'0 - 20': (0, 20.99),
+              '21 - 40': (21, 40.99),
+              '41 - 60': (41, 60.99),
+              '61 - 80': (61, 80.99),
+              '> 81 ': (81, 10000000),
+              }
+    rangos_cobertura1 = {}
+    for k, v in rangos.items():
+        cnt = Cobertura1.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
+        rangos_cobertura1[k] = (cnt)
+
+    rangos_cobertura2 = {}
+    for k, v in rangos.items():
+        cnt = Cobertura2.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
+        rangos_cobertura2[k] = (cnt)
+
+    rangos_cobertura3 = {}
+    for k, v in rangos.items():
+        cnt = Cobertura3.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
+        rangos_cobertura3[k] = (cnt)
 
 
-
+    print { k: rangos_cobertura1.get(k, 0) + rangos_cobertura2.get(k, 0) + rangos_cobertura3.get(k, 0) for k in set(rangos_cobertura1) | set(rangos_cobertura2) | set(rangos_cobertura3)}
 
 
 
@@ -204,22 +215,6 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
 #----------------- fin salidas de sombra -------------------------
 
 #----------  funciones utilitarias -----------------
-def media(lista):
-        suma = 0
-        for i in lista:
-            suma += i[0]
-        return suma
-
-def varianza(lista):
-    suma = 0
-    la_media = media(lista)
-    for i in lista:
-        suma += i[0] ** 2 * i [1]
-    return suma - la_media ** 2
-
-def desviacion(lista):
-        calculo = varianza(lista)
-        return sqrt(calculo)
 
 def get_productor(request):
     if request.is_ajax():
