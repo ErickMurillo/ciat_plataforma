@@ -30,9 +30,27 @@ class Foto1(models.Model):
     foto = ImageField(upload_to='foto1Sombra')
     ficha = models.ForeignKey(FichaSombra)
 
+CHOICE_TIPO_PUNTO = (
+    (1, 'Perennifolia'),
+    (2, 'Caducifolia'),
+)
 
 class Especies(models.Model):
     nombre = models.CharField('Nombre de la especie', max_length=250)
+    tipo = models.IntegerField(choices=CHOICE_TIPO_PUNTO, blank=True, null=True)
+    foto = ImageField(upload_to='fotoEspecies', blank=True, null=True)
+    #pequenio
+    p_altura = models.FloatField('Altura en (mt)', blank=True, null=True)
+    p_diametro = models.FloatField('Diametro en (cm)', blank=True, null=True)
+    p_ancho = models.FloatField('Ancho copa en (mt)s', blank=True, null=True)
+    #mediano
+    m_altura = models.FloatField('Altura en (mt)', blank=True, null=True)
+    m_diametro = models.FloatField('Diametro en (cm)', blank=True, null=True)
+    m_ancho = models.FloatField('Ancho copa en (mt)s', blank=True, null=True)
+    #grande
+    g_altura = models.FloatField('Altura en (mt)', blank=True, null=True)
+    g_diametro = models.FloatField('Diametro en (cm)', blank=True, null=True)
+    g_ancho = models.FloatField('Ancho copa en (mt)s', blank=True, null=True)
 
     def __unicode__(self):
         return self.nombre
@@ -41,10 +59,6 @@ class Especies(models.Model):
         verbose_name = "Especie"
         verbose_name_plural = "Especies"
 
-CHOICE_TIPO_PUNTO = (
-    (1, 'Perennifolia'),
-    (2, 'Caducifolia'),
-)
 
 CHOICE_TIPO_COPA_PUNTO = (
     (1, 'Copa ancha'),
@@ -149,7 +163,7 @@ class AnalisisSombra(models.Model):
             (3,
              'Baja'),
         ),
-        verbose_name='Densidad de árboles de sombra ')
+        verbose_name='Densidad de árboles de sombra')
     forma_copa = models.IntegerField(
         choices=(
             (1,
@@ -159,9 +173,9 @@ class AnalisisSombra(models.Model):
             (3,
              'Angosta'),
         ),
-        verbose_name='Forma de copa de árboles de sombra ')
+        verbose_name='Forma de copa de árboles de sombra')
     arreglo = models.IntegerField(choices=((1, 'Uniforme'), (2, 'Desuniforme'),),
-                                  verbose_name='Arreglo de árboles ')
+                                  verbose_name='Arreglo de árboles')
     hojarasca = models.IntegerField(
         choices=(
             (1,
@@ -187,7 +201,7 @@ class AnalisisSombra(models.Model):
             (3,
              'Leve'),
         ),
-        verbose_name='Competencia de árboles con cacao ')
+        verbose_name='Competencia de árboles con cacao')
     Problema = models.IntegerField(
         choices=(
             (1,
@@ -200,7 +214,7 @@ class AnalisisSombra(models.Model):
              'Densidad Tipo de árboles'),
             (5,
              'Ninguno')),
-        verbose_name='Problema de sombra ')
+        verbose_name='Problema de sombra')
     ficha = models.ForeignKey(FichaSombra)
 
     class Meta:
@@ -611,6 +625,7 @@ CHOICE_ENFERMEDADES_CACAOTALES = (
         (7, 'Chupadores o áfidos'),
         (8, 'Escarabajos'),
         (9, 'Comején'),
+        (10, 'Ardillas'),
         (10, 'Otros'),
     )
 
@@ -618,7 +633,7 @@ class PlagasEnfermedad(models.Model):
     plagas = models.IntegerField(choices=CHOICE_ENFERMEDADES_CACAOTALES,
                 blank=True, null=True, verbose_name="Plagas y enfermedades")
     visto = models.IntegerField(choices=CHOICE_SI_NO,
-                blank=True, null=True, verbose_name="He visto en mi cafetal")
+                blank=True, null=True, verbose_name="He visto en mi cacaotal")
     dano = models.IntegerField(choices=CHOICE_SI_NO,
                             blank=True, null=True, verbose_name="Hace daño año con año")
     promedio = models.FloatField("¿Promedio nivel de daño en %?")
@@ -638,12 +653,13 @@ CHOICE_ACCIONES_ENFERMEDADES = (
         (7, 'Podar las plantas de cacao'),
         (8, 'Aplicar venenos para Zompopo'),
         (9, 'Control de Comején'),
-        (10, 'Otros'),
+        (10, 'Ahuyar Ardillas'),
+        (11, 'Otras'),
     )
 
 class AccionesEnfermedad(models.Model):
     plagas_acciones = models.IntegerField(choices=CHOICE_ACCIONES_ENFERMEDADES,
-                    blank=True, null=True, verbose_name="Plagas y enfermedades")
+                    blank=True, null=True, verbose_name="Manejo de Plagas y enfermedadess")
     realiza_manejo = models.IntegerField(choices=CHOICE_SI_NO,
                 blank=True, null=True, verbose_name="Realiza en manejo")
     cuantas_veces = models.IntegerField(blank=True, null=True,
@@ -655,6 +671,9 @@ class AccionesEnfermedad(models.Model):
 
     def __unicode__(self):
         return u"AccionesEnfermedad"
+
+    class Meta:
+        verbose_name = "ACCIONES MANEJO DE PLAGAS Y ENFERMEDADE"
 
 CHOICE_ORIENTACION = (
     ("A", 'Técnico'),
@@ -684,7 +703,10 @@ CHOICE_OBSERVACION_PUNTO1 = (
         (7, 'Daño de zompopo'),
         (8, 'Bejuco'),
         (9, 'Tanda'),
-        (10, 'Otros'),
+        (10, 'Daño de comején'),
+        (11, 'Daño de minador de la hoja'),
+        (12, 'Daño por lana'),
+        (13, 'Otros'),
     )
 
 class ObservacionPunto1(models.Model):
@@ -841,7 +863,11 @@ CHOICE_ENFERMEDADES = (
         ("G", 'Chupadores o áfidos'),
         ("H", 'Escarabajos'),
         ("J", 'Comején'),
-        ("k", 'Otros'),
+        ("K", 'Minador de la hoja'),
+        ("L", 'Lana'),
+        ("M", 'Ardillaa'),
+        ("N", 'Bejuco'),
+        ("O", 'Tanda'),
     )
 
 CHOICE_SITUACION_PLAGAS = (
@@ -948,6 +974,7 @@ CHOICE_ENFERMEDADES_PUNTO8 = (
         ("E", 'Barril'),
         ("F", 'Cutacha'),
         ("G", 'No tiene'),
+        ("H", 'Coba'),
     )
 class Punto8y9Plagas(models.Model):
     equipos = MultiSelectField(choices=CHOICE_ENFERMEDADES_PUNTO8,
@@ -1162,7 +1189,7 @@ class PisoPunto8(models.Model):
     piso = models.IntegerField(choices=CHOICE_PISO8,
             verbose_name="Manejo de piso",
             blank=True, null=True)
-    parte = models.IntegerField(choices=CHOICE_PISO6_2,
+    parte = models.IntegerField(choices=CHOICE_ACCIONES_PUNTO7_2,
             verbose_name="En que parte",
             blank=True, null=True)
     meses = MultiSelectField(choices=CHOICES_FECHA_PODA,
@@ -1182,6 +1209,7 @@ CHOICE_PISO10 = (
         ("E", 'Barril'),
         ("F", 'Cutacha'),
         ("G", 'No tiene'),
+        ("H", 'Coba'),
     )
 
 class PisoPunto10(models.Model):

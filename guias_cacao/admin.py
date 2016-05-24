@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 from .forms import ProductorSombraAdminForm, TecnicoAdminForm, ProductorPodaAdminForm, ProductorPlagaAdminForm, ProductorPisoAdminForm
 from .models import *
@@ -99,7 +100,6 @@ class FichaSombraAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(FichaSombra, FichaSombraAdmin)
-admin.site.register(Especies)
 
 #--------------------- admin ficha poda ---------------------------
 
@@ -184,7 +184,7 @@ admin.site.register(FichaPoda, FichaPodaAdmin)
 class PlagasEnfermedadInline(admin.TabularInline):
     model = PlagasEnfermedad
     extra = 1
-    max_num = 10
+    max_num = 13
 
 class AccionesEnfermedadInline(admin.TabularInline):
     model = AccionesEnfermedad
@@ -199,7 +199,7 @@ class OrientacionInline(admin.TabularInline):
 class ObservacionPunto1Inline(admin.TabularInline):
     model = ObservacionPunto1
     extra = 1
-    max_num = 10
+    max_num = 13
 
 class ObservacionPunto1NivelInline(admin.TabularInline):
     model = ObservacionPunto1Nivel
@@ -209,7 +209,7 @@ class ObservacionPunto1NivelInline(admin.TabularInline):
 class ObservacionPunto2Inline(admin.TabularInline):
     model = ObservacionPunto2
     extra = 1
-    max_num = 10
+    max_num = 13
 
 class ObservacionPunto2NivelInline(admin.TabularInline):
     model = ObservacionPunto2Nivel
@@ -219,7 +219,7 @@ class ObservacionPunto2NivelInline(admin.TabularInline):
 class ObservacionPunto3Inline(admin.TabularInline):
     model = ObservacionPunto3
     extra = 1
-    max_num = 10
+    max_num = 13
 
 class ObservacionPunto3NivelInline(admin.TabularInline):
     model = ObservacionPunto3Nivel
@@ -286,7 +286,7 @@ class PisoPunto4Inline(admin.TabularInline):
 class PisoPunto5Inline(admin.TabularInline):
     model = PisoPunto5
     extra = 1
-    max_num = 11
+    max_num = 13
 
 class PisoPunto6Inline(admin.TabularInline):
     model = PisoPunto6
@@ -324,3 +324,25 @@ class FichaPisoAdmin(admin.ModelAdmin):
         js = ('monitoreo/js/fichaPiso.js',)
 
 admin.site.register(FichaPiso, FichaPisoAdmin)
+
+class EspeciesAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': ('nombre', 'tipo', 'foto' )
+        }),
+        ('PEQUEÑO', {
+            'classes': ('collapse',),
+            'fields': ('p_altura', 'p_diametro', 'p_ancho'),
+        }),
+        ('MEDIANO', {
+            'classes': ('collapse',),
+            'fields': ('m_altura', 'm_diametro', 'm_ancho'),
+        }),
+        ('GRANDE', {
+            'classes': ('collapse',),
+            'fields': ('g_altura', 'g_diametro', 'g_ancho'),
+        }),
+    )
+
+
+admin.site.register(Especies, EspeciesAdmin)

@@ -1,0 +1,14 @@
+{% extends "guiascacao/base.html" %}
+
+{% block contenido %}
+ {{filtro}}
+
+ {{request.session.fecha}}
+ {{request.session.organizacion}}
+ {{request.session.pais}}
+ {{request.session.departamento}}
+ {{request.session.municipio}}
+ {{request.session.comunidad}}
+ {{request.session.sexo}}
+ {{request.session.tipologia}}
+{% endblock contenido %}
