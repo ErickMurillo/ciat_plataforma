@@ -5,6 +5,8 @@ from .forms import ConsultaSombraForm
 from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, Cobertura1, Cobertura2, Cobertura3
 from mapeo.models import Persona
 import json as simplejson
+from itertools import chain
+from django.db.models import Avg, Sum
 # Create your views here.
 
 def _queryset_filtrado_sombra(request):
@@ -72,15 +74,18 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
         centinela = 0
 
         if 'fecha' in request.session:
-            del request.session['fecha']
-            del request.session['productor']
-            del request.session['organizacion']
-            del request.session['pais']
-            del request.session['departamento']
-            del request.session['municipio']
-            del request.session['comunidad']
-            del request.session['sexo']
-            del request.session['tipologia']
+            try:
+                del request.session['fecha']
+                del request.session['productor']
+                del request.session['organizacion']
+                del request.session['pais']
+                del request.session['departamento']
+                del request.session['municipio']
+                del request.session['comunidad']
+                del request.session['sexo']
+                del request.session['tipologia']
+            except:
+                pass
 
     return render(request, template, {'form': form, 'centinela': centinela})
 
@@ -160,20 +165,61 @@ def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     print filtro
     return render(request, template, locals())
 
+
+import numpy as np
 def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
-    punto1 = Cobertura1.objects.filter(ficha__in=filtro)
-    punto2 = Cobertura2.objects.filter(ficha__in=filtro)
-    punto3 = Cobertura3.objects.filter(ficha__in=filtro)
+    punto1 = Cobertura1.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
+    punto2 = Cobertura2.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
+    punto3 = Cobertura3.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
 
+    l = list(chain(punto1, punto2, punto3))
+
+    promedio_todo_puntos = reduce(lambda x, y: x + y, l) / len(l)
+
+    # media arítmetica
+    promedio2 = np.mean(l)
+    print promedio2
+
+    # mediana
+    mediana2 = np.median(l)
+    print mediana2
+
+    # Desviación típica
+    desviacion2 = np.std(l)
+    print desviacion2
+
+    # varianza
+    varianza2 = np.var(l)
+    print varianza2
     
+
+
+
+
 
 
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
 
-#----------  funciones utilitarias
+#----------  funciones utilitarias -----------------
+def media(lista):
+        suma = 0
+        for i in lista:
+            suma += i[0]
+        return suma
+
+def varianza(lista):
+    suma = 0
+    la_media = media(lista)
+    for i in lista:
+        suma += i[0] ** 2 * i [1]
+    return suma - la_media ** 2
+
+def desviacion(lista):
+        calculo = varianza(lista)
+        return sqrt(calculo)
 
 def get_productor(request):
     if request.is_ajax():
