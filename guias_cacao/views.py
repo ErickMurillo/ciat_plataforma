@@ -2,12 +2,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import ConsultaSombraForm
-from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, Cobertura1, Cobertura2, Cobertura3
+from .models import *
 from mapeo.models import Persona
 import json as simplejson
 from itertools import chain
 from django.db.models import Avg, Sum
 import numpy as np
+from collections import OrderedDict
 # Create your views here.
 
 def _queryset_filtrado_sombra(request):
@@ -191,24 +192,55 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
               '61 - 80': (61, 80.99),
               '> 81 ': (81, 10000000),
               }
-    rangos_cobertura1 = {}
+    rangos_cobertura1 = OrderedDict()
     for k, v in rangos.items():
         cnt = Cobertura1.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
         rangos_cobertura1[k] = (cnt)
 
-    rangos_cobertura2 = {}
+    rangos_cobertura2 = OrderedDict()
     for k, v in rangos.items():
         cnt = Cobertura2.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
         rangos_cobertura2[k] = (cnt)
 
-    rangos_cobertura3 = {}
+    rangos_cobertura3 = OrderedDict()
     for k, v in rangos.items():
         cnt = Cobertura3.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
         rangos_cobertura3[k] = (cnt)
 
 
-    print { k: rangos_cobertura1.get(k, 0) + rangos_cobertura2.get(k, 0) + rangos_cobertura3.get(k, 0) for k in set(rangos_cobertura1) | set(rangos_cobertura2) | set(rangos_cobertura3)}
+    rangos_todos = { k: rangos_cobertura1.get(k, 0) + rangos_cobertura2.get(k, 0) + rangos_cobertura3.get(k, 0) for k in set(rangos_cobertura1) | set(rangos_cobertura2) | set(rangos_cobertura3)}
+    od = OrderedDict(sorted(rangos_todos.items()))
 
+    return render(request, template, locals())
+
+
+def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
+    filtro = _queryset_filtrado_sombra(request)
+
+    total1 = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro).aggregate(pi=Sum('pequena'),
+                                                                   mi=Sum('mediana'),
+                                                                   gi=Sum('grande'),
+                                                                   )
+    suma_punto1 = 0
+    for k,v in total1.items():
+        suma_punto1 += v
+
+    total2 = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro).aggregate(pi=Sum('pequena'),
+                                                                   mi=Sum('mediana'),
+                                                                   gi=Sum('grande'),
+                                                                   )
+    suma_punto2 = 0
+    for k,v in total2.items():
+        suma_punto2 += v
+
+
+    total3 = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro).aggregate(pi=Sum('pequena'),
+                                                                   mi=Sum('mediana'),
+                                                                   gi=Sum('grande'),
+                                                                   )
+    suma_punto3 = 0
+    for k,v in total3.items():
+        suma_punto3 += v
 
 
     return render(request, template, locals())
