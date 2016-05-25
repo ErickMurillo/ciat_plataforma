@@ -217,30 +217,43 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
 def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
-    total1 = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro).aggregate(pi=Sum('pequena'),
+    total_puntos = []
+    for obj in filtro:
+        total1 = Punto1.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
-                                                                   gi=Sum('grande'),
-                                                                   )
-    suma_punto1 = 0
-    for k,v in total1.items():
-        suma_punto1 += v
+                                                                   gi=Sum('grande'), )
+        suma_total1 = sum(total1.itervalues())
 
-    total2 = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro).aggregate(pi=Sum('pequena'),
+        total2 = Punto2.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
-                                                                   gi=Sum('grande'),
-                                                                   )
-    suma_punto2 = 0
-    for k,v in total2.items():
-        suma_punto2 += v
+                                                                   gi=Sum('grande'), )
+        suma_total2 = sum(total2.itervalues())
 
-
-    total3 = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro).aggregate(pi=Sum('pequena'),
+        total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
-                                                                   gi=Sum('grande'),
-                                                                   )
-    suma_punto3 = 0
-    for k,v in total3.items():
-        suma_punto3 += v
+                                                                   gi=Sum('grande'), )
+
+        suma_total3 = sum(total3.itervalues())
+
+        gran_suma = suma_total1 + suma_total2 + suma_total3
+        densidad_total = (gran_suma  * float(10000)) / float(3000)
+
+        total_puntos.append(densidad_total)
+    # media arítmetica
+    promedio2 = np.mean(total_puntos)
+    # mediana
+    mediana2 = np.median(total_puntos)
+    # Desviación típica
+    desviacion2 = np.std(total_puntos)
+
+    rangos = {'0 - 20': (0, 20.99),
+              '21 - 40': (21, 40.99),
+              '41 - 60': (41, 60.99),
+              '61 - 80': (61, 80.99),
+              '> 81 ': (81, 10000000),
+              }
+    
+
 
 
     return render(request, template, locals())
