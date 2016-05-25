@@ -232,8 +232,10 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
         total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
                                                                    gi=Sum('grande'), )
-
-        suma_total3 = sum(total3.itervalues())
+        try:
+            suma_total3 = sum(total3.itervalues())
+        except:
+            pass
 
         gran_suma = suma_total1 + suma_total2 + suma_total3
         densidad_total = (gran_suma  * float(10000)) / float(3000)
@@ -246,13 +248,86 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
     # Desviación típica
     desviacion2 = np.std(total_puntos)
 
-    rangos = {'0 - 20': (0, 20.99),
-              '21 - 40': (21, 40.99),
-              '41 - 60': (41, 60.99),
-              '61 - 80': (61, 80.99),
-              '> 81 ': (81, 10000000),
-              }
-    
+    veinte = 0
+    cuarenta = 0
+    sesenta = 0
+    ochenta = 0
+    mas_cien = 0
+    for obj in total_puntos:
+        if obj >= 0 and obj <= 20.99:
+            veinte += 1
+        elif obj >= 21 and obj <= 40.99:
+            cuarenta += 1
+        elif obj >= 41 and obj <= 60.99:
+            sesenta += 1
+        elif obj >= 61 and obj <= 80.99:
+            ochenta += 1
+        elif obj > 81:
+            mas_cien += 1
+
+    return render(request, template, locals())
+
+def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
+    filtro = _queryset_filtrado_sombra(request)
+
+    CHOICE_ACCIONES_SOMBRA = (
+        (1, 'Reducir la sombra'),
+        (2, 'Aumentar la sombra'),
+        (3, 'Ninguna'),)
+
+    dict_acciones = {}
+    for obj in CHOICE_ACCIONES_SOMBRA:
+        cnt = filtro.filter(accionessombra__accion=obj[0]).count()
+        dict_acciones[obj[1]] = (cnt/float(len(filtro))) * 100
+
+    CHOICE_PODA = (
+        (1, 'Si'),
+        (2, 'No'),
+    )
+    dict_reducir_poda = {}
+    dict_reducir_eliminando = {}
+    VAR_REDUCIR = filtro.filter(accionessombra__accion=1).count()
+    for obj in CHOICE_PODA:
+        cnt_poda = filtro.filter(reducirsombra__poda=obj[0]).count()
+        cnt_elim = filtro.filter(reducirsombra__eliminando=obj[0]).count()
+
+        dict_reducir_poda[obj[1]] = (cnt_poda/float(VAR_REDUCIR)) * 100
+        dict_reducir_eliminando[obj[1]] = (cnt_elim/float(VAR_REDUCIR)) * 100
+
+    CHOICE_TODO = (
+        (1, 'En todo la parcela '),
+        (2, 'Solo en una parte de la parcela'),
+    )
+    dict_todo = {}
+    for obj in CHOICE_TODO:
+        cnt = filtro.filter(reducirsombra__todo=obj[0]).count()
+
+        dict_todo[obj[1]] = (cnt/float(VAR_REDUCIR)) * 100
+
+    dict_aumentar_poda = {}
+    dict_aumentar_eliminando = {}
+    VAR_AUMENTAR = filtro.filter(accionessombra__accion=2).count()
+    for obj in CHOICE_PODA:
+        cnt_sembra = filtro.filter(aumentarsombra__sembrando=obj[0]).count()
+        cnt_cambia = filtro.filter(aumentarsombra__cambiando=obj[0]).count()
+
+        dict_aumentar_poda[obj[1]] = (cnt_sembra/float(VAR_AUMENTAR)) * 100
+        dict_aumentar_eliminando[obj[1]] = (cnt_cambia/float(VAR_AUMENTAR)) * 100
+
+    dict_aumentar_todo = {}
+    for obj in CHOICE_TODO:
+        cnt = filtro.filter(aumentarsombra__todo=obj[0]).count()
+
+        dict_aumentar_todo[obj[1]] = (cnt/float(VAR_REDUCIR)) * 100
+
+    dict_manejo_herramienta = {}
+    dict_manejo_formacion = {}
+    for obj in CHOICE_PODA:
+        cnt_herra = filtro.filter(manejosombra__herramientas=obj[0]).count()
+        cnt_forma = filtro.filter(manejosombra__formacion=obj[0]).count()
+
+        dict_manejo_herramienta[obj[1]] = (cnt_herra/float(len(filtro))) * 100
+        dict_manejo_formacion[obj[1]] = (cnt_forma/float(len(filtro))) * 100
 
 
 

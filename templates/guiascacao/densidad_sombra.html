@@ -12,7 +12,7 @@ $(function () {
             text: 'Densidad de arboles sombra'
         },
         subtitle: {
-            text: 'en %'
+            text: 'en cantidad'
         },
         xAxis: {
             title: {
@@ -115,15 +115,31 @@ $(function () {
         },
 
         series: [{
-            name: 'Rango',
+            name: 'Rangos',
             colorByPoint: true,
             data: [
-            {% for k,v in od.items %}
+
               {
-                  name: '{{k}}',
-                  y: {{v}},
+                  name: '(0, 20.99)',
+                  y: {{veinte}},
               },
-            {% endfor %}
+              {
+                  name: '(21, 40.99)',
+                  y: {{cuarenta}},
+              },
+              {
+                  name: '(41, 60.99)',
+                  y: {{sesenta}},
+              },
+              {
+                  name: '(61, 80.99)',
+                  y: {{ochenta}},
+              },
+              {
+                  name: 'mas de 81',
+                  y: {{mas_cien}},
+              },
+
             ]
         }]
     });

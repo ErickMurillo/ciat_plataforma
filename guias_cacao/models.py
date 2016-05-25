@@ -251,11 +251,11 @@ class ReducirSombra(models.Model):
     poda_cuales = models.CharField(max_length=350)
     eliminando = models.IntegerField(
         choices=CHOICE_PODA,
-        verbose_name="Eliminando árboles ")
+        verbose_name="Cambiando árboles")
     eliminando_cuales = models.CharField(max_length=350)
     todo = models.IntegerField(
         choices=CHOICE_TODO,
-        verbose_name="Todo o partes")
+        verbose_name="En todo la parcela o Solo en una parte de la parcela")
     que_parte = models.CharField(max_length=250)
     ficha = models.ForeignKey(FichaSombra)
 
@@ -270,7 +270,7 @@ class AumentarSombra(models.Model):
     sembrando_cuales = models.CharField(max_length=350)
     cambiando = models.IntegerField(
         choices=CHOICE_PODA,
-        verbose_name="Eliminando árboles ")
+        verbose_name="Cambiando árboles")
     cambiando_cuales = models.CharField(max_length=350)
     todo = models.IntegerField(
         choices=CHOICE_TODO,
