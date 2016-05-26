@@ -340,7 +340,6 @@ def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
 def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
-
     #punto1
     punto1_pere_pi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(pi=Sum('pequena'))
     punto1_pere_mi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(mi=Sum('mediana'))
@@ -386,6 +385,19 @@ def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.
     grafo_cad_gi = sum(total_puntos_cad_gi)
 
     return render(request, template, locals())
+
+def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
+    filtro = _queryset_filtrado_sombra(request)
+
+    dict_especie_todo = {}
+    for obj in Especies.objects.exclude(id=11):
+        cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('pequena'),
+                                                               mi=Sum('mediana'),
+                                                               gi=Sum('grande'))
+        dict_especie_todo[obj] = cnt_p1
+
+    print dict_especie_todo
+    return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
 
 #----------  funciones utilitarias -----------------
@@ -394,6 +406,7 @@ def get_productor(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
         personas = Persona.objects.filter(nombre__icontains = q, tipo_persona=1 )[:10]
+        print personas
         results = []
         for person in personas:
             personas_json = {}

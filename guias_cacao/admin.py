@@ -2,6 +2,7 @@
 from django.contrib import admin
 from .forms import ProductorSombraAdminForm, TecnicoAdminForm, ProductorPodaAdminForm, ProductorPlagaAdminForm, ProductorPisoAdminForm
 from .models import *
+from import_export.admin import ImportExportModelAdmin
 
 
 class Foto1Inline(admin.TabularInline):
@@ -325,7 +326,7 @@ class FichaPisoAdmin(admin.ModelAdmin):
 
 admin.site.register(FichaPiso, FichaPisoAdmin)
 
-class EspeciesAdmin(admin.ModelAdmin):
+class EspeciesAdmin(ImportExportModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('nombre', 'tipo', 'foto' )

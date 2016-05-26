@@ -9,6 +9,7 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^densidad/$', 'densidad_sombra', name='densidad-cacao'),
     url(r'^acciones/$', 'acciones_sombra', name='acciones-cacao'),
     url(r'^caracterizacion/$', 'caracterizacion_sombra', name='caracterizacion-cacao'),
+    url(r'^dominancia/$', 'dominancia_sombra', name='dominancia-cacao'),
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 
 )

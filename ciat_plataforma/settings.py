@@ -94,14 +94,10 @@ INSTALLED_APPS = (
     #biblioteca
     'biblioteca',
 
-    #fichas
-    #'ficha_sombra',
-    #'ficha_poda',
     'guias_cacao',
 
     'ficha_granos_basicos',
-
-
+    'import_export',
 )
 
 MIDDLEWARE_CLASSES = (
