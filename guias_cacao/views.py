@@ -174,7 +174,7 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
     punto1 = Cobertura1.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
     punto2 = Cobertura2.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
     punto3 = Cobertura3.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
-    print len(punto3)
+
     l = list(chain(punto1, punto2, punto3))
 
     #promedio_todo_puntos = reduce(lambda x, y: x + y, l) / len(l)
@@ -222,12 +222,18 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
         total1 = Punto1.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
                                                                    gi=Sum('grande'), )
-        suma_total1 = sum(total1.itervalues())
+        try:
+            suma_total1 = sum(total1.itervalues())
+        except:
+            pass
 
         total2 = Punto2.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
                                                                    gi=Sum('grande'), )
-        suma_total2 = sum(total2.itervalues())
+        try:
+            suma_total2 = sum(total2.itervalues())
+        except:
+            pass
 
         total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
@@ -329,7 +335,55 @@ def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
         dict_manejo_herramienta[obj[1]] = (cnt_herra/float(len(filtro))) * 100
         dict_manejo_formacion[obj[1]] = (cnt_forma/float(len(filtro))) * 100
 
+    return render(request, template, locals())
 
+def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.html"):
+    filtro = _queryset_filtrado_sombra(request)
+
+
+    #punto1
+    punto1_pere_pi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(pi=Sum('pequena'))
+    punto1_pere_mi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(mi=Sum('mediana'))
+    punto1_pere_gi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(gi=Sum('grande'))
+
+    punto1_cad_pi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(pi=Sum('pequena'))
+    punto1_cad_mi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(mi=Sum('mediana'))
+    punto1_cad_gi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(gi=Sum('grande'))
+
+    #punto2
+    punto2_pere_pi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(pi=Sum('pequena'))
+    punto2_pere_mi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(mi=Sum('mediana'))
+    punto2_pere_gi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(gi=Sum('grande'))
+
+    punto2_cad_pi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(pi=Sum('pequena'))
+    punto2_cad_mi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(mi=Sum('mediana'))
+    punto2_cad_gi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(gi=Sum('grande'))
+
+    #punto3
+    punto3_pere_pi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(pi=Sum('pequena'))
+    punto3_pere_mi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(mi=Sum('mediana'))
+    punto3_pere_gi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(gi=Sum('grande'))
+
+    punto3_cad_pi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(pi=Sum('pequena'))
+    punto3_cad_mi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(mi=Sum('mediana'))
+    punto3_cad_gi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(gi=Sum('grande'))
+
+    total_puntos_pere_pi = list(chain(punto1_pere_pi.itervalues(), punto2_pere_pi.itervalues(), punto3_pere_pi.itervalues()))
+    total_puntos_pere_mi = list(chain(punto1_pere_mi.itervalues(), punto2_pere_mi.itervalues(), punto3_pere_mi.itervalues()))
+    total_puntos_pere_gi = list(chain(punto1_pere_gi.itervalues(), punto2_pere_gi.itervalues(), punto3_pere_gi.itervalues()))
+
+
+    grafo_pere_pi = sum(total_puntos_pere_pi)
+    grafo_pere_mi = sum(total_puntos_pere_mi)
+    grafo_pere_gi = sum(total_puntos_pere_gi)
+
+    total_puntos_cad_pi = list(chain(punto1_cad_pi.itervalues(), punto2_cad_pi.itervalues(), punto3_cad_pi.itervalues()))
+    total_puntos_cad_mi = list(chain(punto1_cad_mi.itervalues(), punto2_cad_mi.itervalues(), punto3_cad_mi.itervalues()))
+    total_puntos_cad_gi = list(chain(punto1_cad_gi.itervalues(), punto2_cad_gi.itervalues(), punto3_cad_gi.itervalues()))
+
+    grafo_cad_pi = sum(total_puntos_cad_pi)
+    grafo_cad_mi = sum(total_puntos_cad_mi)
+    grafo_cad_gi = sum(total_puntos_cad_gi)
 
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
