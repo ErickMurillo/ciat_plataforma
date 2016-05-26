@@ -391,12 +391,31 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
 
     dict_especie_todo = {}
     for obj in Especies.objects.exclude(id=11):
-        cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('pequena'),
-                                                               mi=Sum('mediana'),
-                                                               gi=Sum('grande'))
-        dict_especie_todo[obj] = cnt_p1
+        cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('punto1__pequena'),
+                                                               mi=Sum('punto1__mediana'),
+                                                               gi=Sum('punto1__grande'))
+
+        cnt_p2 = filtro.filter(punto2__especie=obj).aggregate(pi=Sum('punto2__pequena'),
+                                                              mi=Sum('punto2__mediana'),
+                                                              gi=Sum('punto2__grande'))
+
+        cnt_p3 = filtro.filter(punto3__especie=obj).aggregate(pi=Sum('punto3__pequena'),
+                                                            mi=Sum('punto3__mediana'),
+                                                            gi=Sum('punto3__grande'))
+        try:
+            p1 = sum(cnt_p1.itervalues())
+            p2 = sum(cnt_p2.itervalues())
+            p3 = sum(cnt_p3.itervalues())
+        except:
+            p1 = 0
+            p2 = 0
+            p3 = 0
+            
+        dict_especie_todo[obj] = (sum([p1,p2,p3]))
+
 
     print dict_especie_todo
+
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
 

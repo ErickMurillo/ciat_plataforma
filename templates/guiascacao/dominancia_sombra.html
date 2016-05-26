@@ -12,6 +12,9 @@
 <div class="row">
  <div class="col-md-6">
    <div id="grafo1"></div>
+   {% for k,v in dict_especie_todo.items %}
+      {{k}} --> {{v}} <br>
+   {% endfor %}
  </div>
  <div class="col-md-6">
    <div id="grafo2"></div>
