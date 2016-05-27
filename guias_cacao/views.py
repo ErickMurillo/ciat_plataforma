@@ -8,7 +8,7 @@ import json as simplejson
 from itertools import chain
 from django.db.models import Avg, Sum
 import numpy as np
-from collections import OrderedDict
+from collections import OrderedDict, Counter
 # Create your views here.
 
 def _queryset_filtrado_sombra(request):
@@ -388,8 +388,9 @@ def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.
 
 def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
-
-    dict_especie_todo = {}
+    CUANTO_ESPECIES = Especies.objects.exclude(id=11).count()
+    dict_especie_todo = OrderedDict()
+    p1 = []
     for obj in Especies.objects.exclude(id=11):
         cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('punto1__pequena'),
                                                                mi=Sum('punto1__mediana'),
@@ -402,19 +403,20 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
         cnt_p3 = filtro.filter(punto3__especie=obj).aggregate(pi=Sum('punto3__pequena'),
                                                             mi=Sum('punto3__mediana'),
                                                             gi=Sum('punto3__grande'))
-        try:
-            p1 = sum(cnt_p1.itervalues())
-            p2 = sum(cnt_p2.itervalues())
-            p3 = sum(cnt_p3.itervalues())
-        except:
-            p1 = 0
-            p2 = 0
-            p3 = 0
-            
-        dict_especie_todo[obj] = (sum([p1,p2,p3]))
+
+        dict_especie_todo[obj] = [cnt_p1,cnt_p2,cnt_p3]
+
+    todo = {}
+    for k, myLIst in dict_especie_todo.items():
+        pe = [item['pi'] for item in myLIst if item['pi'] is not None]
+        me = [item['mi'] for item in myLIst if item['mi'] is not None]
+        ga = [item['gi'] for item in myLIst if item['gi'] is not None]
+        suma_total = sum([sum(pe),sum(me),sum(ga)])
+        if suma_total > 0:
+            todo[k] = suma_total
 
 
-    print dict_especie_todo
+    algo = sorted(todo.iteritems(), key=lambda (k,v): (v,k), reverse=True)
 
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
@@ -425,7 +427,7 @@ def get_productor(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
         personas = Persona.objects.filter(nombre__icontains = q, tipo_persona=1 )[:10]
-        print personas
+        #print personas
         results = []
         for person in personas:
             personas_json = {}

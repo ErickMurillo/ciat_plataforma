@@ -1,5 +1,7 @@
 {% extends "guiascacao/base.html" %}
 
+{% load tools %}
+
 {% block extra_js %}
 <script type="text/javascript">
 
@@ -8,13 +10,28 @@
 
 {% block contenido %}
 <p class="center-block">Dominancia de arboles de sombra</p>
-
+TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano en todo el sistema
 <div class="row">
  <div class="col-md-6">
    <div id="grafo1"></div>
-   {% for k,v in dict_especie_todo.items %}
-      {{k}} --> {{v}} <br>
-   {% endfor %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Especies</th>
+          <th># total</th>
+          <th>%</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for v in algo %}
+        <tr>
+          <th scope=row>{{v.0}}</th>
+          <td>{{v.1}}</td>
+          <td>{{v.1|calcular_frecuencia:CUANTO_ESPECIES}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
  </div>
  <div class="col-md-6">
    <div id="grafo2"></div>
