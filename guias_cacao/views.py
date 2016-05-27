@@ -94,11 +94,6 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
 
 #---------------- salidas sombra -----------------------------
 
-def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
-    filtro = _queryset_filtrado_sombra(request)
-    print filtro
-    return render(request, template, locals())
-
 def analisis_sombra(request, template="guiascacao/analisis_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
@@ -162,11 +157,6 @@ def analisis_sombra(request, template="guiascacao/analisis_sombra.html"):
 
     return render(request, template, locals())
 
-def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
-    filtro = _queryset_filtrado_sombra(request)
-    print filtro
-    return render(request, template, locals())
-
 
 def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
@@ -210,6 +200,67 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
 
     rangos_todos = { k: rangos_cobertura1.get(k, 0) + rangos_cobertura2.get(k, 0) + rangos_cobertura3.get(k, 0) for k in set(rangos_cobertura1) | set(rangos_cobertura2) | set(rangos_cobertura3)}
     od = OrderedDict(sorted(rangos_todos.items()))
+
+    return render(request, template, locals())
+
+def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
+    filtro = _queryset_filtrado_sombra(request)
+
+    total_puntos = []
+    for obj in filtro:
+        total1 = Punto1.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+                                                                   mi=Sum('mediana'),
+                                                                   gi=Sum('grande'), )
+        try:
+            suma_total1 = sum(total1.itervalues())
+        except:
+            pass
+
+        total2 = Punto2.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+                                                                   mi=Sum('mediana'),
+                                                                   gi=Sum('grande'), )
+        try:
+            suma_total2 = sum(total2.itervalues())
+        except:
+            pass
+
+        total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+                                                                   mi=Sum('mediana'),
+                                                                   gi=Sum('grande'), )
+        try:
+            suma_total3 = sum(total3.itervalues())
+        except:
+            pass
+
+        gran_suma = suma_total1 + suma_total2 + suma_total3
+        riqueza_total = (gran_suma  / float(3000)) * float(1000)
+
+        total_puntos.append(riqueza_total)
+
+    # media arítmetica
+    promedio2 = np.mean(total_puntos)
+    # mediana
+    mediana2 = np.median(total_puntos)
+    # Desviación típica
+    desviacion2 = np.std(total_puntos)
+
+    veinte = 0
+    cuarenta = 0
+    sesenta = 0
+    ochenta = 0
+    mas_cien = 0
+    for obj in total_puntos:
+        if obj >= 1 and obj <= 3.99:
+            veinte += 1
+        elif obj >= 4 and obj <= 6.99:
+            cuarenta += 1
+        elif obj >= 7 and obj <= 9.99:
+            sesenta += 1
+        elif obj >= 10 and obj <= 12.99:
+            ochenta += 1
+        elif obj > 13:
+            mas_cien += 1
+
 
     return render(request, template, locals())
 

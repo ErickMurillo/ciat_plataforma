@@ -1,14 +1,179 @@
 {% extends "guiascacao/base.html" %}
 
-{% block contenido %}
- {{filtro}}
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Riqueza de arboles sombra'
+        },
+        subtitle: {
+            text: 'en cantidad'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'riquezas de sombra'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Cantidad ()'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} , {point.y} '
+                }
+            }
+        },
+        series: [{
+            name: 'riquezas',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+                {% for obj in total_puntos %}
+                  [{{obj}}],
+                {% endfor %}
+                ]
 
- {{request.session.fecha}}
- {{request.session.organizacion}}
- {{request.session.pais}}
- {{request.session.departamento}}
- {{request.session.municipio}}
- {{request.session.comunidad}}
- {{request.session.sexo}}
- {{request.session.tipologia}}
+        }]
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Rangos de riqueza de sombra'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Total'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Rangos',
+            colorByPoint: true,
+            data: [
+
+              {
+                  name: '(1, 3.99)',
+                  y: {{veinte}},
+              },
+              {
+                  name: '(4, 6.99)',
+                  y: {{cuarenta}},
+              },
+              {
+                  name: '(7, 9.99)',
+                  y: {{sesenta}},
+              },
+              {
+                  name: '(10, 12.99)',
+                  y: {{ochenta}},
+              },
+              {
+                  name: 'mas de 13',
+                  y: {{mas_cien}},
+              },
+
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+<p class="center-block">Riqueza de sombra</p>
+
+<div class="row">
+ <div class="col-md-6">
+   <div id="grafo1"></div>
+ </div>
+ <div class="col-md-6">
+   <div id="grafo2"></div>
+ </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-2"></div>
+ <div class="col-md-8">
+  <p>
+    <h5>Promedio de riqueza total: {{promedio2|floatformat:2}}</h5>
+  </p>
+  <p>
+    <h5>Mediana de riqueza total: {{mediana2|floatformat:2}}</h5>
+  </p>
+  <p>
+    <h5>Desviación típica de riqueza total: {{desviacion2|floatformat:2}}</h5>
+  </p>
+
+ </div>
+ <div class="col-md-2"></div>
+</div>
+
 {% endblock contenido %}
