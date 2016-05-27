@@ -54,6 +54,7 @@ $(function() {
   	</div>
   </div>
 
+ {% if request.user.is_authenticated %}
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <label for="">{{form.productor.label}}</label>
@@ -62,6 +63,7 @@ $(function() {
       {{form.productor}}
     </div>
   </div>
+{% endif %}
 
   <div class="row">
   	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
