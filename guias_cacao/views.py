@@ -176,6 +176,9 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
     # Desviación típica
     desviacion2 = np.std(l)
 
+    #minimo y maximo
+    #TODO
+
     rangos = {'0 - 20': (0, 20.99),
               '21 - 40': (21, 40.99),
               '41 - 60': (41, 60.99),
@@ -439,10 +442,10 @@ def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.
 
 def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
-    CUANTO_ESPECIES = Especies.objects.exclude(id=11).count()
+    CUANTO_ESPECIES = Especies.objects.exclude(id__in=[11,60]).count()
     dict_especie_todo = OrderedDict()
     p1 = []
-    for obj in Especies.objects.exclude(id=11):
+    for obj in Especies.objects.exclude(id__in=[11,60]):
         cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('punto1__pequena'),
                                                                mi=Sum('punto1__mediana'),
                                                                gi=Sum('punto1__grande'))
@@ -458,6 +461,7 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
         dict_especie_todo[obj] = [cnt_p1,cnt_p2,cnt_p3]
 
     todo = {}
+    SUMA_TOTAL_ESPECIE = 0
     for k, myLIst in dict_especie_todo.items():
         pe = [item['pi'] for item in myLIst if item['pi'] is not None]
         me = [item['mi'] for item in myLIst if item['mi'] is not None]
@@ -465,8 +469,9 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
         suma_total = sum([sum(pe),sum(me),sum(ga)])
         if suma_total > 0:
             todo[k] = suma_total
+            SUMA_TOTAL_ESPECIE += suma_total
 
-
+    print SUMA_TOTAL_ESPECIE
     algo = sorted(todo.iteritems(), key=lambda (k,v): (v,k), reverse=True)
 
     return render(request, template, locals())

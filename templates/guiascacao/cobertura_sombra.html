@@ -225,7 +225,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Rangos de coberturas de sombra'
+            text: 'Distribución de cobertura'
         },
         subtitle: {
             text: ''
@@ -235,7 +235,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Total'
+                text: 'Numeros de puntos'
             }
 
         },
@@ -258,7 +258,7 @@ $(function () {
         },
 
         series: [{
-            name: 'Rango',
+            name: 'Rangos',
             colorByPoint: true,
             data: [
             {% for k,v in od.items %}

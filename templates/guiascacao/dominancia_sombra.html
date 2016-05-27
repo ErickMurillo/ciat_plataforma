@@ -10,7 +10,7 @@
 
 {% block contenido %}
 <p class="center-block">Dominancia de arboles de sombra</p>
-TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano en todo el sistema
+TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano en todo el sistema {{SUMA_TOTAL_ESPECIE}}
 <div class="row">
  <div class="col-md-6">
    <div id="grafo1"></div>
@@ -27,7 +27,7 @@ TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano en todo el sistema
         <tr>
           <th scope=row>{{v.0}}</th>
           <td>{{v.1}}</td>
-          <td>{{v.1|calcular_frecuencia:CUANTO_ESPECIES}}</td>
+          <td>{{v.1|calcular_frecuencia:SUMA_TOTAL_ESPECIE}}</td>
         </tr>
         {% endfor %}
       </tbody>
