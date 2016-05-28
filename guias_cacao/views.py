@@ -307,11 +307,17 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
         try:
             suma_total3 = sum(total3.itervalues())
         except:
-            pass
+            suma_total3 = 0
 
-        gran_suma = suma_total1 + suma_total2 + suma_total3
+        try:
+            gran_suma = suma_total1 + suma_total2 + suma_total3
+        except:
+            gran_suma = 0
         #print "gran suma: %s - encuesta: %s " % (gran_suma, obj)
-        densidad_total = (gran_suma  * float(10000)) / float(1890)
+        try:
+            densidad_total = (gran_suma  * float(10000)) / float(1890)
+        except:
+            densidad_total = 0
 
         total_puntos.append(densidad_total)
     # media arítmetica
