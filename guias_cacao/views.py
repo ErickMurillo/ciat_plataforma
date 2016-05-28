@@ -209,50 +209,61 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
 def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     filtro = _queryset_filtrado_sombra(request)
 
-    total_puntos = []
+    # total_puntos = []
+    # for obj in filtro:
+    #     total1 = Punto1.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+    #                                                                mi=Sum('mediana'),
+    #                                                                gi=Sum('grande'), )
+    #     try:
+    #         suma_total1 = sum(total1.itervalues())
+    #     except:
+    #         pass
+    #
+    #     total2 = Punto2.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+    #                                                                mi=Sum('mediana'),
+    #                                                                gi=Sum('grande'), )
+    #     try:
+    #         suma_total2 = sum(total2.itervalues())
+    #     except:
+    #         pass
+    #
+    #     total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+    #                                                                mi=Sum('mediana'),
+    #                                                                gi=Sum('grande'), )
+    #     try:
+    #         suma_total3 = sum(total3.itervalues())
+    #     except:
+    #         pass
+    #
+    #     gran_suma = suma_total1 + suma_total2 + suma_total3
+    #     riqueza_total = (gran_suma  / float(3000)) * float(1000)
+    #
+    #     total_puntos.append(riqueza_total)
+
+    puntos = []
     for obj in filtro:
-        total1 = Punto1.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-                                                                   mi=Sum('mediana'),
-                                                                   gi=Sum('grande'), )
-        try:
-            suma_total1 = sum(total1.itervalues())
-        except:
-            pass
+        cnt1 = Punto1.objects.filter(ficha=obj).values_list('especie__id', flat=True)
+        cnt2 = Punto2.objects.filter(ficha=obj).values_list('especie__id', flat=True)
+        cnt3 = Punto3.objects.filter(ficha=obj).values_list('especie__id', flat=True)
+        lista = list(cnt1) + list(cnt2) + list(cnt3)
 
-        total2 = Punto2.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-                                                                   mi=Sum('mediana'),
-                                                                   gi=Sum('grande'), )
-        try:
-            suma_total2 = sum(total2.itervalues())
-        except:
-            pass
-
-        total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-                                                                   mi=Sum('mediana'),
-                                                                   gi=Sum('grande'), )
-        try:
-            suma_total3 = sum(total3.itervalues())
-        except:
-            pass
-
-        gran_suma = suma_total1 + suma_total2 + suma_total3
-        riqueza_total = (gran_suma  / float(3000)) * float(1000)
-
-        total_puntos.append(riqueza_total)
+        reducida_lista = list(set(lista))
+        formula_riqueza = (len(reducida_lista) * 1000) / float(1890)
+        puntos.append(formula_riqueza)
 
     # media arítmetica
-    promedio2 = np.mean(total_puntos)
+    promedio2 = np.mean(puntos)
     # mediana
-    mediana2 = np.median(total_puntos)
+    mediana2 = np.median(puntos)
     # Desviación típica
-    desviacion2 = np.std(total_puntos)
+    desviacion2 = np.std(puntos)
 
     veinte = 0
     cuarenta = 0
     sesenta = 0
     ochenta = 0
     mas_cien = 0
-    for obj in total_puntos:
+    for obj in puntos:
         if obj >= 1 and obj <= 3.99:
             veinte += 1
         elif obj >= 4 and obj <= 6.99:
@@ -298,7 +309,8 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
             pass
 
         gran_suma = suma_total1 + suma_total2 + suma_total3
-        densidad_total = (gran_suma  * float(10000)) / float(3000)
+        #print "gran suma: %s - encuesta: %s " % (gran_suma, obj)
+        densidad_total = (gran_suma  * float(10000)) / float(1890)
 
         total_puntos.append(densidad_total)
     # media arítmetica
