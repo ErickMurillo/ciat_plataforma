@@ -12,12 +12,12 @@ $(function () {
             text: 'Cobertura del punto 1'
         },
         subtitle: {
-            text: 'en %'
+            text: 'en No. de observaciones'
         },
         xAxis: {
             title: {
                 enabled: true,
-                text: 'Cobertura de sombra'
+                text: 'Parcela 1'
             },
             startOnTick: true,
             endOnTick: true,
@@ -25,7 +25,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Porcentaje (%)'
+                text: 'Cantidades'
             }
         },
         legend: {
@@ -58,7 +58,7 @@ $(function () {
                 },
                 tooltip: {
                     headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} , {point.y} %'
+                    pointFormat: '{point.x} , {point.y}'
                 }
             }
         },
@@ -84,12 +84,12 @@ $(function () {
             text: 'Cobertura del punto 2'
         },
         subtitle: {
-            text: 'en %'
+            text: 'en No. de observaciones'
         },
         xAxis: {
             title: {
                 enabled: true,
-                text: 'Cobertura de sombra'
+                text: 'Parcela 2'
             },
             startOnTick: true,
             endOnTick: true,
@@ -97,7 +97,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Porcentaje (%)'
+                text: 'Cantidades'
             }
         },
         legend: {
@@ -130,7 +130,7 @@ $(function () {
                 },
                 tooltip: {
                     headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} , {point.y} %'
+                    pointFormat: '{point.x} , {point.y}'
                 }
             }
         },
@@ -156,12 +156,12 @@ $(function () {
             text: 'Cobertura del punto 3'
         },
         subtitle: {
-            text: 'en %'
+            text: 'en No. de observaciones'
         },
         xAxis: {
             title: {
                 enabled: true,
-                text: 'Cobertura de sombra'
+                text: 'Parcela 3'
             },
             startOnTick: true,
             endOnTick: true,
@@ -169,7 +169,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Porcentaje (%)'
+                text: 'cantidades'
             }
         },
         legend: {
@@ -202,7 +202,7 @@ $(function () {
                 },
                 tooltip: {
                     headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} , {point.y} %'
+                    pointFormat: '{point.x} , {point.y} '
                 }
             }
         },
@@ -254,7 +254,7 @@ $(function () {
 
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
         },
 
         series: [{
@@ -306,6 +306,12 @@ $(function () {
   </p>
   <p>
     <h5>Desviación típica de cobertura total: {{desviacion2|floatformat:2}}</h5>
+  </p>
+  <p>
+    <h5>Minimo de cobertura total: {{minimo2|floatformat:2}}</h5>
+  </p>
+  <p>
+    <h5>Maximo de cobertura total: {{maximo2|floatformat:2}}</h5>
   </p>
 
  </div>

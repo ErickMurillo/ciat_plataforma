@@ -175,8 +175,9 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
     mediana2 = np.median(l)
     # Desviación típica
     desviacion2 = np.std(l)
-
     #minimo y maximo
+    minimo2 = min(l)
+    maximo2 = max(l)
     #TODO
 
     rangos = {'0 - 20': (0, 20.99),
@@ -483,7 +484,6 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
             todo[k] = suma_total
             SUMA_TOTAL_ESPECIE += suma_total
 
-    print SUMA_TOTAL_ESPECIE
     algo = sorted(todo.iteritems(), key=lambda (k,v): (v,k), reverse=True)
 
     return render(request, template, locals())
