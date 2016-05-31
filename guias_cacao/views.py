@@ -416,31 +416,35 @@ def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.
     b = []
     c = []
     for obj in filtro:
-        total1 = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'))
-        total2 = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'))
-        total3 = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'))
-        try:
-            suma_total1 = sum(total1.itervalues())
-        except:
-            suma_total1 = 0
-        a.append(suma_total1)
-
-        try:
-            suma_total2 = sum(total2.itervalues())
-        except:
-            suma_total2 = 0
-        b.append(suma_total2)
-
-        try:
-            suma_total3 = sum(total3.itervalues())
-        except:
-            suma_total3 = 0
-        c.append(suma_total3)
+        total1 = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+        total2 = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+        total3 = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+        #suma_total1 = sum(total1['pi'].itervalues())
+        a.append(total1)
 
 
+        #suma_total2 = sum(total2['pi'].itervalues())
+        b.append(total2)
 
-    hola =  sum(a) + sum(b) + sum(c)
-    print hola
+
+        #suma_total3 = sum(total3['pi'].itervalues())
+        c.append(total3)
+
+    pi_pere =  sum([x[0] for x in a])
+    mi_pere =  sum([x[1] for x in a])
+    gi_pere =  sum([x[2] for x in a])
+
+
+
+    #print hola
+    #print b
+    #print c
     #punto1
     punto1_pere_pi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(pi=Sum('pequena'))
     punto1_pere_mi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(mi=Sum('mediana'))
