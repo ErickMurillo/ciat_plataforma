@@ -410,84 +410,114 @@ def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
 
     return render(request, template, locals())
 
+def change(f):
+    if f is None:
+        return 0
+    else:
+        return f
+
 def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
-    a = []
-    b = []
-    c = []
+
+    lista_punto1_pere = []
+    lista_punto2_pere = []
+    lista_punto3_pere = []
+    lista_punto1_cadu = []
+    lista_punto2_cadu = []
+    lista_punto3_cadu = []
     for obj in filtro:
-        total1 = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+        #calulos de los Perennifolia
+        punto1_pere = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
                                                                                                     gi=Sum('grande')).values()
-        total2 = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+        punto2_pere = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
                                                                                                     gi=Sum('grande')).values()
-        total3 = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+        punto3_pere = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
                                                                                                     gi=Sum('grande')).values()
-        #suma_total1 = sum(total1['pi'].itervalues())
-        a.append(total1)
+        lista_punto1_pere.append(punto1_pere)
+        lista_punto2_pere.append(punto2_pere)
+        lista_punto3_pere.append(punto3_pere)
+        #calulos de los Caducifolia
+        punto1_cadu = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=2).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+        punto2_cadu = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=2).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+        punto3_cadu = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=2).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+
+        lista_punto1_cadu.append(punto1_cadu)
+        lista_punto2_cadu.append(punto2_cadu)
+        lista_punto3_cadu.append(punto3_cadu)
 
 
-        #suma_total2 = sum(total2['pi'].itervalues())
-        b.append(total2)
+    #calulos de las sumatorias de los Perennifolia, pequeño
+    p1_pi_pere =  sum([change(x[0]) for x in lista_punto1_pere])
+    p2_pi_pere =  sum([change(x[0]) for x in lista_punto2_pere])
+    p3_pi_pere =  sum([change(x[0]) for x in lista_punto3_pere])
+    grafo_pere_pi = p1_pi_pere + p2_pi_pere + p3_pi_pere
+    #calulos de las sumatorias de los Perennifolia, mediana
+    p1_mi_pere =  sum([change(x[1]) for x in lista_punto1_pere])
+    p2_mi_pere =  sum([change(x[1]) for x in lista_punto2_pere])
+    p3_mi_pere =  sum([change(x[1]) for x in lista_punto3_pere])
+    grafo_pere_mi = p1_mi_pere + p2_mi_pere + p3_mi_pere
+    #calulos de las sumatorias de los Perennifolia, grande
+    p1_gi_pere =  sum([change(x[2]) for x in lista_punto1_pere])
+    p2_gi_pere =  sum([change(x[2]) for x in lista_punto2_pere])
+    p3_gi_pere =  sum([change(x[2]) for x in lista_punto3_pere])
+    grafo_pere_gi = p1_gi_pere + p2_gi_pere + p3_gi_pere
+
+    #calulos de las sumatorias de los Caducifolia, pequeño
+    p1_pi_cadu =  sum([change(x[0]) for x in lista_punto1_cadu])
+    p2_pi_cadu =  sum([change(x[0]) for x in lista_punto2_cadu])
+    p3_pi_cadu =  sum([change(x[0]) for x in lista_punto3_cadu])
+    grafo_cad_pi = p1_pi_cadu + p2_pi_cadu + p3_pi_cadu
+    #calulos de las sumatorias de los Caducifolia, mediano
+    p1_mi_cadu =  sum([change(x[1]) for x in lista_punto1_cadu])
+    p2_mi_cadu =  sum([change(x[1]) for x in lista_punto2_cadu])
+    p3_mi_cadu =  sum([change(x[1]) for x in lista_punto3_cadu])
+    grafo_cad_mi = p1_mi_cadu + p2_mi_cadu + p3_mi_cadu
+    #calulos de las sumatorias de los Caducifolia, grande
+    p1_gi_cadu =  sum([change(x[2]) for x in lista_punto1_cadu])
+    p2_gi_cadu =  sum([change(x[2]) for x in lista_punto2_cadu])
+    p3_gi_cadu =  sum([change(x[2]) for x in lista_punto3_cadu])
+    grafo_cad_gi = p1_gi_cadu + p2_gi_cadu + p3_gi_cadu
+
+    #calculos sobre tipo de copas
+    dict_todo_copa = {}
+    dict_p1_copa = {}
+    dict_p2_copa = {}
+    dict_p3_copa = {}
+    for obj in CHOICE_TIPO_COPA_PUNTO:
+        p1_copa = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+        #dict_p1_copa[obj[1]] = p1_copa
+        p2_copa = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+        #dict_p2_copa[obj[1]] = p2_copa
+        p3_copa = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande')).values()
+        #dict_p3_copa[obj[1]] = p3_copa
+        dict_todo_copa[obj[1]] = [p1_copa,p2_copa,p3_copa]
+
+    todo = {}
+    for k, v in dict_todo_copa.items():
+        print "%s --> %s" % (k,v)
+        pe = sum([change(x[0]) for x in v])
+        me = sum([change(x[1]) for x in v])
+        ga = sum([change(x[2]) for x in v])
+        todo[k] = (pe,me,ga)
+
+    print todo
 
 
-        #suma_total3 = sum(total3['pi'].itervalues())
-        c.append(total3)
-
-    pi_pere =  sum([x[0] for x in a])
-    mi_pere =  sum([x[1] for x in a])
-    gi_pere =  sum([x[2] for x in a])
-
-
-
-    #print hola
-    #print b
-    #print c
-    #punto1
-    punto1_pere_pi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(pi=Sum('pequena'))
-    punto1_pere_mi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(mi=Sum('mediana'))
-    punto1_pere_gi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(gi=Sum('grande'))
-
-    punto1_cad_pi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(pi=Sum('pequena'))
-    punto1_cad_mi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(mi=Sum('mediana'))
-    punto1_cad_gi = Punto1.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(gi=Sum('grande'))
-
-    #punto2
-    punto2_pere_pi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(pi=Sum('pequena'))
-    punto2_pere_mi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(mi=Sum('mediana'))
-    punto2_pere_gi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(gi=Sum('grande'))
-
-    punto2_cad_pi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(pi=Sum('pequena'))
-    punto2_cad_mi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(mi=Sum('mediana'))
-    punto2_cad_gi = Punto2.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(gi=Sum('grande'))
-
-    #punto3
-    punto3_pere_pi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(pi=Sum('pequena'))
-    punto3_pere_mi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(mi=Sum('mediana'))
-    punto3_pere_gi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=1).aggregate(gi=Sum('grande'))
-
-    punto3_cad_pi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(pi=Sum('pequena'))
-    punto3_cad_mi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(mi=Sum('mediana'))
-    punto3_cad_gi = Punto3.objects.exclude(especie__id=11).filter(ficha__in=filtro, tipo=2).aggregate(gi=Sum('grande'))
-
-    total_puntos_pere_pi = list(chain(punto1_pere_pi.itervalues(), punto2_pere_pi.itervalues(), punto3_pere_pi.itervalues()))
-    total_puntos_pere_mi = list(chain(punto1_pere_mi.itervalues(), punto2_pere_mi.itervalues(), punto3_pere_mi.itervalues()))
-    total_puntos_pere_gi = list(chain(punto1_pere_gi.itervalues(), punto2_pere_gi.itervalues(), punto3_pere_gi.itervalues()))
-
-
-    grafo_pere_pi = sum(total_puntos_pere_pi)
-    grafo_pere_mi = sum(total_puntos_pere_mi)
-    grafo_pere_gi = sum(total_puntos_pere_gi)
-
-    total_puntos_cad_pi = list(chain(punto1_cad_pi.itervalues(), punto2_cad_pi.itervalues(), punto3_cad_pi.itervalues()))
-    total_puntos_cad_mi = list(chain(punto1_cad_mi.itervalues(), punto2_cad_mi.itervalues(), punto3_cad_mi.itervalues()))
-    total_puntos_cad_gi = list(chain(punto1_cad_gi.itervalues(), punto2_cad_gi.itervalues(), punto3_cad_gi.itervalues()))
-
-    grafo_cad_pi = sum(total_puntos_cad_pi)
-    grafo_cad_mi = sum(total_puntos_cad_mi)
-    grafo_cad_gi = sum(total_puntos_cad_gi)
 
     return render(request, template, locals())
 
