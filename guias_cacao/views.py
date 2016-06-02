@@ -419,105 +419,78 @@ def change(f):
 def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
-    lista_punto1_pere = []
-    lista_punto2_pere = []
-    lista_punto3_pere = []
-    lista_punto1_cadu = []
-    lista_punto2_cadu = []
-    lista_punto3_cadu = []
-    for obj in filtro:
-        #calulos de los Perennifolia
-        punto1_pere = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+    #calculos sobre tipo de especies
+    dict_todo_tipo = {}
+    for obj in CHOICE_TIPO_PUNTO:
+        p1_tipo = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
-        punto2_pere = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+                                                                                                    gi=Sum('grande'))
+        p2_tipo = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
-        punto3_pere = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=1).aggregate(pi=Sum('pequena'),
+                                                                                                    gi=Sum('grande'))
+        p3_tipo = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
-        lista_punto1_pere.append(punto1_pere)
-        lista_punto2_pere.append(punto2_pere)
-        lista_punto3_pere.append(punto3_pere)
-        #calulos de los Caducifolia
-        punto1_cadu = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=2).aggregate(pi=Sum('pequena'),
-                                                                                                    mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
-        punto2_cadu = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=2).aggregate(pi=Sum('pequena'),
-                                                                                                    mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
-        punto3_cadu = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj, tipo=2).aggregate(pi=Sum('pequena'),
-                                                                                                    mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
+                                                                                                    gi=Sum('grande'))
+        dict_todo_tipo[obj[1]] = [p1_tipo,p2_tipo,p3_tipo]
 
-        lista_punto1_cadu.append(punto1_cadu)
-        lista_punto2_cadu.append(punto2_cadu)
-        lista_punto3_cadu.append(punto3_cadu)
-
-
-    #calulos de las sumatorias de los Perennifolia, pequeño
-    p1_pi_pere =  sum([change(x[0]) for x in lista_punto1_pere])
-    p2_pi_pere =  sum([change(x[0]) for x in lista_punto2_pere])
-    p3_pi_pere =  sum([change(x[0]) for x in lista_punto3_pere])
-    grafo_pere_pi = p1_pi_pere + p2_pi_pere + p3_pi_pere
-    #calulos de las sumatorias de los Perennifolia, mediana
-    p1_mi_pere =  sum([change(x[1]) for x in lista_punto1_pere])
-    p2_mi_pere =  sum([change(x[1]) for x in lista_punto2_pere])
-    p3_mi_pere =  sum([change(x[1]) for x in lista_punto3_pere])
-    grafo_pere_mi = p1_mi_pere + p2_mi_pere + p3_mi_pere
-    #calulos de las sumatorias de los Perennifolia, grande
-    p1_gi_pere =  sum([change(x[2]) for x in lista_punto1_pere])
-    p2_gi_pere =  sum([change(x[2]) for x in lista_punto2_pere])
-    p3_gi_pere =  sum([change(x[2]) for x in lista_punto3_pere])
-    grafo_pere_gi = p1_gi_pere + p2_gi_pere + p3_gi_pere
-
-    #calulos de las sumatorias de los Caducifolia, pequeño
-    p1_pi_cadu =  sum([change(x[0]) for x in lista_punto1_cadu])
-    p2_pi_cadu =  sum([change(x[0]) for x in lista_punto2_cadu])
-    p3_pi_cadu =  sum([change(x[0]) for x in lista_punto3_cadu])
-    grafo_cad_pi = p1_pi_cadu + p2_pi_cadu + p3_pi_cadu
-    #calulos de las sumatorias de los Caducifolia, mediano
-    p1_mi_cadu =  sum([change(x[1]) for x in lista_punto1_cadu])
-    p2_mi_cadu =  sum([change(x[1]) for x in lista_punto2_cadu])
-    p3_mi_cadu =  sum([change(x[1]) for x in lista_punto3_cadu])
-    grafo_cad_mi = p1_mi_cadu + p2_mi_cadu + p3_mi_cadu
-    #calulos de las sumatorias de los Caducifolia, grande
-    p1_gi_cadu =  sum([change(x[2]) for x in lista_punto1_cadu])
-    p2_gi_cadu =  sum([change(x[2]) for x in lista_punto2_cadu])
-    p3_gi_cadu =  sum([change(x[2]) for x in lista_punto3_cadu])
-    grafo_cad_gi = p1_gi_cadu + p2_gi_cadu + p3_gi_cadu
+    todo_tipo = []
+    for k, myLIst in dict_todo_tipo.items():
+        pe = [item['pi'] for item in myLIst if item['pi'] is not None]
+        me = [item['mi'] for item in myLIst if item['mi'] is not None]
+        ga = [item['gi'] for item in myLIst if item['gi'] is not None]
+        todo_tipo.append([sum(pe),sum(me),sum(ga)])
 
     #calculos sobre tipo de copas
     dict_todo_copa = {}
-    dict_p1_copa = {}
-    dict_p2_copa = {}
-    dict_p3_copa = {}
     for obj in CHOICE_TIPO_COPA_PUNTO:
-        p1_copa = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(pi=Sum('pequena'),
+        p1_copa = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
-        #dict_p1_copa[obj[1]] = p1_copa
-        p2_copa = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(pi=Sum('pequena'),
+                                                                                                    gi=Sum('grande'))
+        p2_copa = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
-        #dict_p2_copa[obj[1]] = p2_copa
-        p3_copa = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(pi=Sum('pequena'),
+                                                                                                    gi=Sum('grande'))
+        p3_copa = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, tipo_de_copa=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
                                                                                                     mi=Sum('mediana'),
-                                                                                                    gi=Sum('grande')).values()
-        #dict_p3_copa[obj[1]] = p3_copa
+                                                                                                    gi=Sum('grande'))
         dict_todo_copa[obj[1]] = [p1_copa,p2_copa,p3_copa]
 
-    todo = {}
-    for k, v in dict_todo_copa.items():
-        print "%s --> %s" % (k,v)
-        pe = sum([change(x[0]) for x in v])
-        me = sum([change(x[1]) for x in v])
-        ga = sum([change(x[2]) for x in v])
-        todo[k] = (pe,me,ga)
-
-    print todo
+    todo_copa = []
+    for k, myLIst in dict_todo_copa.items():
+        pe = [item['pi'] for item in myLIst if item['pi'] is not None]
+        me = [item['mi'] for item in myLIst if item['mi'] is not None]
+        ga = [item['gi'] for item in myLIst if item['gi'] is not None]
+        todo_copa.append([sum(pe),sum(me),sum(ga)])
 
 
+    #calculos sobre tipo de uso
+    dict_todo_uso = {}
+    for obj in CHOICE_TIPO_USO_PUNTO:
+        p1_uso = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, uso=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande'))
+        p2_uso = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, uso=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande'))
+        p3_uso = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha__in=filtro, uso=obj[0]).aggregate(
+                                                                                                    pi=Sum('pequena'),
+                                                                                                    mi=Sum('mediana'),
+                                                                                                    gi=Sum('grande'))
+        dict_todo_uso[obj[1]] = [p1_uso,p2_uso,p3_uso]
+
+    todo_uso = []
+    for k, myLIst in dict_todo_uso.items():
+        pe = [item['pi'] for item in myLIst if item['pi'] is not None]
+        me = [item['mi'] for item in myLIst if item['mi'] is not None]
+        ga = [item['gi'] for item in myLIst if item['gi'] is not None]
+        todo_uso.append([sum(pe),sum(me),sum(ga)])
 
     return render(request, template, locals())
 
