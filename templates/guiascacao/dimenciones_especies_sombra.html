@@ -7,34 +7,63 @@
 
 {% block contenido %}
 <p class="center-block">Dimenciones de arboles de sombra</p>
-{{dict_especie_todo}}
 <div class="row">
  <div class="col-md-6">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Especies</th>
-          <th># total</th>
-          <th>%</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for v in todo %}
-        <tr>
-          <th scope=row>{{v.0}}</th>
-          <td>{{v.1}}</td>
-          <td>{{v.1|calcular_frecuencia:SUMA_TOTAL_ESPECIE}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <h3>Datos de altura</h3>
+  <p>
+    PROMEDIO: {{promedio_altura|floatformat:2}}
+  </p>
+  <p>
+    DESVIACIÓN ESTANDAR: {{desviacion_altura|floatformat:2}}
+  </p>
+  <p>
+    MEDIANA: {{media_altura}}
+  </p>
+  <p>
+    RANGO MINIMO: {{minimo_altura}}
+  </p>
+  <p>
+    RANGO MAXIMO: {{maximo_altura}}
+  </p>
  </div>
  <div class="col-md-6">
+   <h3>Datos de Diametro</h3>
+   <p>
+     PROMEDIO: {{promedio_diametro|floatformat:2}}
+   </p>
+   <p>
+     DESVIACIÓN ESTANDAR: {{desviacion_diametro|floatformat:2}}
+   </p>
+   <p>
+     MEDIANA: {{media_diametro}}
+   </p>
+   <p>
+     RANGO MINIMO: {{minimo_diametro}}
+   </p>
+   <p>
+     RANGO MAXIMO: {{maximo_diametro}}
+   </p>
  </div>
 </div>
 <hr>
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-md-6">
+    <h3>Datos de Anchura de la copa</h3>
+    <p>
+      PROMEDIO: {{promedio_anchura|floatformat:2}}
+    </p>
+    <p>
+      DESVIACIÓN ESTANDAR: {{desviacion_anchura|floatformat:2}}
+    </p>
+    <p>
+      MEDIANA: {{media_anchura}}
+    </p>
+    <p>
+      RANGO MINIMO: {{minimo_anchura}}
+    </p>
+    <p>
+      RANGO MAXIMO: {{maximo_anchura}}
+    </p>
     <div id="grafo1"></div>
   </div>
 

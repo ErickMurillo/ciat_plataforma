@@ -539,60 +539,137 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
 def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
-    dict_especie_todo = {}
-    altura = []
-    diametro = []
-    anchura = []
+    altura_p1 = []
+    diametro_p1 = []
+    anchura_p1 = []
 
     for obj in Especies.objects.exclude(id__in=[11,60]):
         conteo = filtro.filter(punto1__especie=obj).count()
         cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('punto1__pequena'),
                                                                mi=Sum('punto1__mediana'),
                                                                gi=Sum('punto1__grande'))
-
-
-        #cnt_p2 = filtro.filter(punto2__especie=obj).aggregate(pi=Sum('punto2__pequena'),
-                                                              #mi=Sum('punto2__mediana'),
-                                                              #gi=Sum('punto2__grande'))
-
-        #cnt_p3 = filtro.filter(punto3__especie=obj).aggregate(pi=Sum('punto3__pequena'),
-                                                            #mi=Sum('punto3__mediana'),
-                                                            #gi=Sum('punto3__grande'))
-
         if conteo > 0:
             for k,v in cnt_p1.items():
                 if v > 0:
-                    print "%s --> %s" % (k,v)
                     if k == 'pi':
-                        print "pequeño"
                         alti = [obj.p_altura] * int(v)
                         diam = [obj.p_diametro] * int(v)
                         anch = [obj.p_ancho] * int(v)
-                        altura.append(alti)
-                        diametro.append(diam)
-                        anchura.append(anch)
+                        altura_p1.append(alti)
+                        diametro_p1.append(diam)
+                        anchura_p1.append(anch)
                     if k == 'mi':
-                        print "mediano"
                         alti = [obj.m_altura] * int(v)
                         diam = [obj.m_diametro] * int(v)
                         anch = [obj.m_ancho] * int(v)
-                        altura.append(alti)
-                        diametro.append(diam)
-                        anchura.append(anch)
+                        altura_p1.append(alti)
+                        diametro_p1.append(diam)
+                        anchura_p1.append(anch)
                     if k == "gi":
-                        print "grande"
                         alti = [obj.g_altura] * int(v)
                         diam = [obj.g_diametro] * int(v)
                         anch = [obj.g_ancho] * int(v)
-                        altura.append(alti)
-                        diametro.append(diam)
-                        anchura.append(anch)
-            dict_especie_todo[obj] = [cnt_p1]#,cnt_p2,cnt_p3]
+                        altura_p1.append(alti)
+                        diametro_p1.append(diam)
+                        anchura_p1.append(anch)
 
-    print dict_especie_todo
-    print altura
-    print diametro
-    print anchura
+    altura_p2 = []
+    diametro_p2 = []
+    anchura_p2 = []
+
+    for obj in Especies.objects.exclude(id__in=[11,60]):
+        conteo = filtro.filter(punto2__especie=obj).count()
+        cnt_p2 = filtro.filter(punto2__especie=obj).aggregate(pi=Sum('punto2__pequena'),
+                                                               mi=Sum('punto2__mediana'),
+                                                               gi=Sum('punto2__grande'))
+        if conteo > 0:
+            for k,v in cnt_p2.items():
+                if v > 0:
+                    if k == 'pi':
+                        alti = [obj.p_altura] * int(v)
+                        diam = [obj.p_diametro] * int(v)
+                        anch = [obj.p_ancho] * int(v)
+                        altura_p2.append(alti)
+                        diametro_p2.append(diam)
+                        anchura_p2.append(anch)
+                    if k == 'mi':
+                        alti = [obj.m_altura] * int(v)
+                        diam = [obj.m_diametro] * int(v)
+                        anch = [obj.m_ancho] * int(v)
+                        altura_p2.append(alti)
+                        diametro_p2.append(diam)
+                        anchura_p2.append(anch)
+                    if k == "gi":
+                        alti = [obj.g_altura] * int(v)
+                        diam = [obj.g_diametro] * int(v)
+                        anch = [obj.g_ancho] * int(v)
+                        altura_p2.append(alti)
+                        diametro_p2.append(diam)
+                        anchura_p2.append(anch)
+
+    altura_p3 = []
+    diametro_p3 = []
+    anchura_p3 = []
+
+    for obj in Especies.objects.exclude(id__in=[11,60]):
+        conteo = filtro.filter(punto3__especie=obj).count()
+        cnt_p3 = filtro.filter(punto3__especie=obj).aggregate(pi=Sum('punto3__pequena'),
+                                                               mi=Sum('punto3__mediana'),
+                                                               gi=Sum('punto3__grande'))
+        if conteo > 0:
+            for k,v in cnt_p3.items():
+                if v > 0:
+                    if k == 'pi':
+                        alti = [obj.p_altura] * int(v)
+                        diam = [obj.p_diametro] * int(v)
+                        anch = [obj.p_ancho] * int(v)
+                        altura_p3.append(alti)
+                        diametro_p3.append(diam)
+                        anchura_p3.append(anch)
+                    if k == 'mi':
+                        alti = [obj.m_altura] * int(v)
+                        diam = [obj.m_diametro] * int(v)
+                        anch = [obj.m_ancho] * int(v)
+                        altura_p3.append(alti)
+                        diametro_p3.append(diam)
+                        anchura_p3.append(anch)
+                    if k == "gi":
+                        alti = [obj.g_altura] * int(v)
+                        diam = [obj.g_diametro] * int(v)
+                        anch = [obj.g_ancho] * int(v)
+                        altura_p3.append(alti)
+                        diametro_p3.append(diam)
+                        anchura_p3.append(anch)
+
+    altura_total = altura_p1 + altura_p2 + altura_p3
+    diametro_total = diametro_p1 + diametro_p2 + diametro_p3
+    anchura_total = anchura_p1 + anchura_p2 + anchura_p3
+
+    #con esto trabajo estan las listas completas
+    todas_alturas = list(chain.from_iterable(altura_total))
+    todas_diametro = list(chain.from_iterable(diametro_total))
+    todas_anchura = list(chain.from_iterable(anchura_total))
+
+    #promedio, rango, desviacion estandar, media de altura
+    promedio_altura = np.mean(todas_alturas)
+    desviacion_altura = np.std(todas_alturas)
+    media_altura = np.median(todas_alturas)
+    minimo_altura = min(todas_alturas)
+    maximo_altura = max(todas_alturas)
+
+    #promedio, rango, desviacion estandar, media de diametro
+    promedio_diametro = np.mean(todas_diametro)
+    desviacion_diametro = np.std(todas_diametro)
+    media_diametro = np.median(todas_diametro)
+    minimo_diametro = min(todas_diametro)
+    maximo_diametro = max(todas_diametro)
+
+    #promedio, rango, desviacion estandar, media de anchura
+    promedio_anchura = np.mean(todas_anchura)
+    desviacion_anchura = np.std(todas_anchura)
+    media_anchura = np.median(todas_anchura)
+    minimo_anchura = min(todas_anchura)
+    maximo_anchura = max(todas_anchura)
 
 
     return render(request, template, locals())
