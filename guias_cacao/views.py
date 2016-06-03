@@ -502,9 +502,10 @@ def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.
 
 def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
+
     CUANTO_ESPECIES = Especies.objects.exclude(id__in=[11,60]).count()
     dict_especie_todo = OrderedDict()
-    p1 = []
+
     for obj in Especies.objects.exclude(id__in=[11,60]):
         cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('punto1__pequena'),
                                                                mi=Sum('punto1__mediana'),
@@ -532,6 +533,67 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
             SUMA_TOTAL_ESPECIE += suma_total
 
     algo = sorted(todo.iteritems(), key=lambda (k,v): (v,k), reverse=True)
+
+    return render(request, template, locals())
+
+def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra.html"):
+    filtro = _queryset_filtrado_sombra(request)
+
+    dict_especie_todo = {}
+    altura = []
+    diametro = []
+    anchura = []
+
+    for obj in Especies.objects.exclude(id__in=[11,60]):
+        conteo = filtro.filter(punto1__especie=obj).count()
+        cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('punto1__pequena'),
+                                                               mi=Sum('punto1__mediana'),
+                                                               gi=Sum('punto1__grande'))
+
+
+        #cnt_p2 = filtro.filter(punto2__especie=obj).aggregate(pi=Sum('punto2__pequena'),
+                                                              #mi=Sum('punto2__mediana'),
+                                                              #gi=Sum('punto2__grande'))
+
+        #cnt_p3 = filtro.filter(punto3__especie=obj).aggregate(pi=Sum('punto3__pequena'),
+                                                            #mi=Sum('punto3__mediana'),
+                                                            #gi=Sum('punto3__grande'))
+
+        if conteo > 0:
+            for k,v in cnt_p1.items():
+                if v > 0:
+                    print "%s --> %s" % (k,v)
+                    if k == 'pi':
+                        print "pequeño"
+                        alti = [obj.p_altura] * int(v)
+                        diam = [obj.p_diametro] * int(v)
+                        anch = [obj.p_ancho] * int(v)
+                        altura.append(alti)
+                        diametro.append(diam)
+                        anchura.append(anch)
+                    if k == 'mi':
+                        print "mediano"
+                        alti = [obj.m_altura] * int(v)
+                        diam = [obj.m_diametro] * int(v)
+                        anch = [obj.m_ancho] * int(v)
+                        altura.append(alti)
+                        diametro.append(diam)
+                        anchura.append(anch)
+                    if k == "gi":
+                        print "grande"
+                        alti = [obj.g_altura] * int(v)
+                        diam = [obj.g_diametro] * int(v)
+                        anch = [obj.g_ancho] * int(v)
+                        altura.append(alti)
+                        diametro.append(diam)
+                        anchura.append(anch)
+            dict_especie_todo[obj] = [cnt_p1]#,cnt_p2,cnt_p3]
+
+    print dict_especie_todo
+    print altura
+    print diametro
+    print anchura
+
 
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
