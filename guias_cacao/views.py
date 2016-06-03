@@ -390,8 +390,14 @@ def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
         cnt_sembra = filtro.filter(aumentarsombra__sembrando=obj[0]).count()
         cnt_cambia = filtro.filter(aumentarsombra__cambiando=obj[0]).count()
 
-        dict_aumentar_poda[obj[1]] = (cnt_sembra/float(VAR_AUMENTAR)) * 100
-        dict_aumentar_eliminando[obj[1]] = (cnt_cambia/float(VAR_AUMENTAR)) * 100
+        try:
+            dict_aumentar_poda[obj[1]] = (cnt_sembra/float(VAR_AUMENTAR)) * 100
+        except:
+            dict_aumentar_poda[obj[1]] = 0
+        try:
+            dict_aumentar_eliminando[obj[1]] = (cnt_cambia/float(VAR_AUMENTAR)) * 100
+        except:
+            dict_aumentar_eliminando[obj[1]] = 0
 
     dict_aumentar_todo = {}
     for obj in CHOICE_TODO:
