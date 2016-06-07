@@ -249,7 +249,7 @@ def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
         lista = list(cnt1) + list(cnt2) + list(cnt3)
 
         reducida_lista = list(set(lista))
-        formula_riqueza = (len(reducida_lista) * 1000) / float(1890)
+        formula_riqueza = len(reducida_lista) #(len(reducida_lista) * 1000) / float(1890)
         puntos.append(formula_riqueza)
 
     # media arítmetica
@@ -662,17 +662,32 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     barra3_altura = 0
     barra4_altura = 0
     barra5_altura = 0
+    barra6_altura = 0
+    barra7_altura = 0
+    barra8_altura = 0
+    barra9_altura = 0
+    barra10_altura = 0
     for obj in todas_alturas:
-        if obj >= 1 and obj <= 10.99:
+        if obj >= 1 and obj <= 4.99:
             barra1_altura += 1
-        elif obj >= 11 and obj <= 20.99:
+        elif obj >= 5 and obj <= 9.99:
             barra2_altura += 1
-        elif obj >= 21 and obj <= 30.99:
+        elif obj >= 10 and obj <= 14.99:
             barra3_altura += 1
-        elif obj >= 31 and obj <= 40.99:
+        elif obj >= 15 and obj <= 19.99:
             barra4_altura += 1
-        elif obj > 41:
+        elif obj >= 20 and obj <= 24.99:
             barra5_altura += 1
+        elif obj >= 25 and obj <= 29.99:
+            barra6_altura += 1
+        elif obj >= 30 and obj <= 34.99:
+            barra7_altura += 1
+        elif obj >= 35 and obj <= 39.99:
+            barra8_altura += 1
+        elif obj >= 40 and obj <= 44.99:
+            barra9_altura += 1
+        elif obj > 45:
+            barra10_altura += 1
 
     #promedio, rango, desviacion estandar, media de diametro
     promedio_diametro = np.mean(todas_diametro)
