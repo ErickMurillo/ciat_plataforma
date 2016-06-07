@@ -657,12 +657,46 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     minimo_altura = min(todas_alturas)
     maximo_altura = max(todas_alturas)
 
+    barra1_altura = 0
+    barra2_altura = 0
+    barra3_altura = 0
+    barra4_altura = 0
+    barra5_altura = 0
+    for obj in todas_alturas:
+        if obj >= 1 and obj <= 10.99:
+            barra1_altura += 1
+        elif obj >= 11 and obj <= 20.99:
+            barra2_altura += 1
+        elif obj >= 21 and obj <= 30.99:
+            barra3_altura += 1
+        elif obj >= 31 and obj <= 40.99:
+            barra4_altura += 1
+        elif obj > 41:
+            barra5_altura += 1
+
     #promedio, rango, desviacion estandar, media de diametro
     promedio_diametro = np.mean(todas_diametro)
     desviacion_diametro = np.std(todas_diametro)
     media_diametro = np.median(todas_diametro)
     minimo_diametro = min(todas_diametro)
     maximo_diametro = max(todas_diametro)
+
+    barra1_diametro = 0
+    barra2_diametro = 0
+    barra3_diametro = 0
+    barra4_diametro = 0
+    barra5_diametro = 0
+    for obj in todas_diametro:
+        if obj >= 0.1 and obj <= 50.99:
+            barra1_diametro += 1
+        elif obj >= 51 and obj <= 100.99:
+            barra2_diametro += 1
+        elif obj >= 101 and obj <= 150.99:
+            barra3_diametro += 1
+        elif obj >= 151 and obj <= 200.99:
+            barra4_diametro += 1
+        elif obj > 201:
+            barra5_diametro += 1
 
     #promedio, rango, desviacion estandar, media de anchura
     promedio_anchura = np.mean(todas_anchura)
@@ -671,6 +705,22 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     minimo_anchura = min(todas_anchura)
     maximo_anchura = max(todas_anchura)
 
+    barra1_anchura = 0
+    barra2_anchura = 0
+    barra3_anchura = 0
+    barra4_anchura = 0
+    barra5_anchura = 0
+    for obj in todas_anchura:
+        if obj >= 1 and obj <= 4.99:
+            barra1_anchura += 1
+        elif obj >= 5 and obj <= 9.99:
+            barra2_anchura += 1
+        elif obj >= 10 and obj <= 14.99:
+            barra3_anchura += 1
+        elif obj >= 15 and obj <= 20.99:
+            barra4_anchura += 1
+        elif obj > 21:
+            barra5_anchura += 1
 
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
