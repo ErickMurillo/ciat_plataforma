@@ -40,100 +40,158 @@ $(function() {
   //     }
   //   });
   // });
+    $("select").addClass("form-control");
+    $("#id_productor").addClass("form-control");
+    
   </script>
 {% endblock extra_js %}
 
 {% block contenido %}
-<form  action="." method="POST"> {% csrf_token %}
-  <div class="row">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-  		<label for="">{{form.fecha.label}}</label>
-  	</div>
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-  		{{form.fecha}}
-  	</div>
-  </div>
-
- {% if request.user.is_authenticated %}
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <label for="">{{form.productor.label}}</label>
+<div class="container hola">
+    <div class="title-consulta">
+        <h4><i class="fa fa-filter" aria-hidden="true"></i> Filtro</h4>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-      {{form.productor}}
+    <div class="filtro">
+        <div class="row">
+            <form  action="." method="POST"> {% csrf_token %}
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    {% if request.user.is_authenticated %}
+                    <div class="row borde">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-offset-2 col-lg-2">
+                            <label for="">Nombre del {{form.productor.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            {{form.productor}}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.fecha.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.fecha}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.organizacion.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.organizacion}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.pais.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.pais}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.departamento.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.departamento}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.municipio.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.municipio}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.comunidad.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.comunidad}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.sexo.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.sexo}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.tipologia.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.tipologia}}
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Consultar" class="btn btn-form" name="Consulta"/>
+            </form>
+        </div>
     </div>
-  </div>
-{% endif %}
-
-  <div class="row">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-  		<label for="">{{form.organizacion.label}}</label>
-  	</div>
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-  		{{form.organizacion}}
-  	</div>
-  </div>
-
-  <div class="row">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-  		<label for="">{{form.pais.label}}</label>
-  	</div>
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-  		{{form.pais}}
-  	</div>
-  </div>
-
-  <div class="row">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-  		<label for="">{{form.departamento.label}}</label>
-  	</div>
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-  		{{form.departamento}}
-  	</div>
-  </div>
-
-  <div class="row">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-  		<label for="">{{form.municipio.label}}</label>
-  	</div>
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-  		{{form.municipio}}
-  	</div>
-  </div>
-
-  <div class="row">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-  		<label for="">{{form.comunidad.label}}</label>
-  	</div>
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-  		{{form.comunidad}}
-  	</div>
-  </div>
-
-  <div class="row">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-  		<label for="">{{form.sexo.label}}</label>
-  	</div>
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-  		{{form.sexo}}
-  	</div>
-  </div>
-
-  <div class="row">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-  		<label for="">{{form.tipologia.label}}</label>
-  	</div>
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-  		{{form.tipologia}}
-  	</div>
-  </div>
-
-<input type="submit" value="Consultar" class="btn btn-form" name="consulta"/>
-
-</form>
-
+    
+</div>
 {% if centinela %}
-  {% include "guiascacao/menu_salidas.html" %}
+<style type="text/css">
+    .hola{display: none}
+</style>
+<div class="container">
+    <div class="indicadores">
+        <div class="title-consulta">
+            <h4><i class="fa fa-bars" aria-hidden="true"></i> Indicadores</h4>
+        </div>
+        <div class="enlaces">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <ul class="ind">
+                        <li class="list-header">Sombra</li>
+                        <li> <a href="/cacao/riqueza/"> Riqueza de sombra</a></li>
+                        <li><a href="/cacao/analisis/"> Analisis de sombra</a></li>
+                        <li><a href="/cacao/cobertura/"> Cobertura de sombra</a></li>
+                        <li><a href="/cacao/densidad/"> Densidad de sombra</a></li>
+                        <li><a href="/cacao/acciones/"> Acciones de sombra</a></li>
+                        <li><a href="/cacao/caracterizacion/"> Caracterizacion arborea de sombra</a></li>
+                        <li><a href="/cacao/dominancia/"> Dominancia especies sombra</a></li>
+                        <li><a href="/cacao/dimensiones/"> Dimenciones sombra</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock contenido %}
