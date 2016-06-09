@@ -329,7 +329,7 @@ admin.site.register(FichaPiso, FichaPisoAdmin)
 class EspeciesAdmin(ImportExportModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('nombre', 'tipo', 'foto' )
+            'fields': (('nombre','nombre_cientifico'), 'tipo','tipo_uso', 'foto' )
         }),
         ('PEQUEÑO', {
             'classes': ('collapse',),

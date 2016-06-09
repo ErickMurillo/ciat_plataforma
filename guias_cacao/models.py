@@ -35,9 +35,19 @@ CHOICE_TIPO_PUNTO = (
     (2, 'Caducifolia'),
 )
 
+CHOICE_TIPO_USO_PUNTO = (
+    (1, 'Leña'),
+    (2, 'Fruta'),
+    (3, 'Madera'),
+    (4, 'Sombra'),
+    (5, 'Nutrientes'),
+)
+
 class Especies(models.Model):
     nombre = models.CharField('Nombre de la especie', max_length=250)
+    nombre_cientifico = models.CharField('Nombre cientifico de la especie', max_length=250, blank=True, null=True)
     tipo = models.IntegerField(choices=CHOICE_TIPO_PUNTO, blank=True, null=True)
+    tipo_uso = MultiSelectField(choices=CHOICE_TIPO_USO_PUNTO, verbose_name='Tipo de uso', blank=True, null=True)
     foto = ImageField(upload_to='fotoEspecies', blank=True, null=True)
     #pequenio
     p_altura = models.FloatField('Altura en (mt)', blank=True, null=True)
@@ -64,14 +74,6 @@ CHOICE_TIPO_COPA_PUNTO = (
     (1, 'Copa ancha'),
     (2, 'Copa angosta'),
     (3, 'Copa mediana'),
-)
-
-CHOICE_TIPO_USO_PUNTO = (
-    (1, 'Leña'),
-    (2, 'Fruta'),
-    (3, 'Madera'),
-    (4, 'Sombra'),
-    (5, 'Nutrientes'),
 )
 
 
