@@ -94,7 +94,7 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
 
 #---------------- salidas sombra -----------------------------
 
-def analisis_sombra(request, template="guiascacao/analisis_sombra.html"):
+def analisis_sombra(request, template="guiascacao/sombra/analisis_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     CHOICE_DENSIDAD = ( (1,'Alta'),
@@ -158,7 +158,7 @@ def analisis_sombra(request, template="guiascacao/analisis_sombra.html"):
     return render(request, template, locals())
 
 
-def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
+def cobertura_sombra(request, template="guiascacao/sombra/cobertura_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     punto1 = Cobertura1.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
@@ -280,7 +280,7 @@ def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     return render(request, template, locals())
 
 
-def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
+def densidad_sombra(request, template="guiascacao/sombra/densidad_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     total_puntos = []
@@ -346,7 +346,7 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
 
     return render(request, template, locals())
 
-def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
+def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     CHOICE_ACCIONES_SOMBRA = (
@@ -422,7 +422,7 @@ def change(f):
     else:
         return f
 
-def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.html"):
+def caracterizacion_sombra(request, template="guiascacao/sombra/caracterizacion_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     #calculos sobre tipo de especies
@@ -500,7 +500,7 @@ def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.
 
     return render(request, template, locals())
 
-def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
+def dominancia_sombra(request, template="guiascacao/sombra/dominancia_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     CUANTO_ESPECIES = Especies.objects.exclude(id__in=[11,60]).count()
@@ -536,7 +536,7 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
 
     return render(request, template, locals())
 
-def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra.html"):
+def dimensiones_sombra(request, template="guiascacao/sombra/dimenciones_especies_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     altura_p1 = []
@@ -708,3 +708,5 @@ def get_productor(request):
     else:
         results = 'fail'
     return HttpResponse(simplejson.dumps(results), content_type='application/json')
+
+#salidas de poda

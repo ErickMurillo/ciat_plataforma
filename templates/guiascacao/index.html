@@ -42,7 +42,7 @@ $(function() {
   // });
     $("select").addClass("form-control");
     $("#id_productor").addClass("form-control");
-    
+
   </script>
 {% endblock extra_js %}
 
@@ -141,7 +141,7 @@ $(function() {
             </form>
         </div>
     </div>
-    
+
 </div>
 {% if centinela %}
 <style type="text/css">
@@ -154,19 +154,7 @@ $(function() {
         </div>
         <div class="enlaces">
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <ul class="ind">
-                        <li class="list-header">Sombra</li>
-                        <li> <a href="/cacao/riqueza/"> Riqueza de sombra</a></li>
-                        <li><a href="/cacao/analisis/"> Analisis de sombra</a></li>
-                        <li><a href="/cacao/cobertura/"> Cobertura de sombra</a></li>
-                        <li><a href="/cacao/densidad/"> Densidad de sombra</a></li>
-                        <li><a href="/cacao/acciones/"> Acciones de sombra</a></li>
-                        <li><a href="/cacao/caracterizacion/"> Caracterizacion arborea de sombra</a></li>
-                        <li><a href="/cacao/dominancia/"> Dominancia especies sombra</a></li>
-                        <li><a href="/cacao/dimensiones/"> Dimenciones sombra</a></li>
-                    </ul>
-                </div>
+                {% include "guiascacao/menu_salidas.html" %}
             </div>
         </div>
     </div>
