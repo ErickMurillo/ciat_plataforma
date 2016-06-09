@@ -242,6 +242,7 @@ def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
 
 def densidad_sombra(request, template="guiascacao/sombra/densidad_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
+    numero_parcelas = filtro.count()
 
     total_puntos = []
     for obj in filtro:
@@ -273,11 +274,12 @@ def densidad_sombra(request, template="guiascacao/sombra/densidad_sombra.html"):
             gran_suma = suma_total1 + suma_total2 + suma_total3
         except:
             gran_suma = 0
-        #print "gran suma: %s - encuesta: %s " % (gran_suma, obj)
+
         try:
             densidad_total = (gran_suma  * float(10000)) / float(1890)
         except:
             densidad_total = 0
+        #print "gran suma: %s - encuesta: %s " % (densidad_total, obj)
 
         total_puntos.append(densidad_total)
     # media arítmetica
@@ -286,23 +288,12 @@ def densidad_sombra(request, template="guiascacao/sombra/densidad_sombra.html"):
     mediana2 = np.median(total_puntos)
     # Desviación típica
     desviacion2 = np.std(total_puntos)
-
-    veinte = 0
-    cuarenta = 0
-    sesenta = 0
-    ochenta = 0
-    mas_cien = 0
-    for obj in total_puntos:
-        if obj >= 0 and obj <= 20.99:
-            veinte += 1
-        elif obj >= 21 and obj <= 40.99:
-            cuarenta += 1
-        elif obj >= 41 and obj <= 60.99:
-            sesenta += 1
-        elif obj >= 61 and obj <= 80.99:
-            ochenta += 1
-        elif obj > 81:
-            mas_cien += 1
+    #minimo
+    minimo = min(total_puntos)
+    #maximo
+    maximo = max(total_puntos)
+    #rangos
+    grafo_densidad = crear_rangos(request, total_puntos, minimo, maximo, step=25)
 
     return render(request, template, locals())
 

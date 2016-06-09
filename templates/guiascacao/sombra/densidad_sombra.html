@@ -9,10 +9,10 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: 'Densidad de arboles sombra'
+            text: 'Densidad de arboles'
         },
         subtitle: {
-            text: 'No. de arobles / ha'
+            text: 'Número de arboles / ha'
         },
         xAxis: {
             title: {
@@ -82,10 +82,10 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Rangos de densidad de sombra'
+            text: 'Distribución de frecuencia'
         },
         subtitle: {
-            text: ''
+            text: 'Rangos de densidad de sombra'
         },
         xAxis: {
             type: 'category'
@@ -118,27 +118,12 @@ $(function () {
             name: 'Rangos',
             colorByPoint: true,
             data: [
-
+              {% for k, v in grafo_densidad.items %}
               {
-                  name: '(0, 20.99)',
-                  y: {{veinte}},
+                  name: '{{k}}',
+                  y: {{v}},
               },
-              {
-                  name: '(21, 40.99)',
-                  y: {{cuarenta}},
-              },
-              {
-                  name: '(41, 60.99)',
-                  y: {{sesenta}},
-              },
-              {
-                  name: '(61, 80.99)',
-                  y: {{ochenta}},
-              },
-              {
-                  name: 'mas de 81',
-                  y: {{mas_cien}},
-              },
+              {% endfor %}
 
             ]
         }]
@@ -162,6 +147,10 @@ $(function () {
 <div class="row">
   <div class="col-md-2"></div>
  <div class="col-md-8">
+   <p>
+     <h5>Numero de parcela: {{numero_parcelas}}</h5>
+   </p>
+  <p>
   <p>
     <h5>Promedio de densidad total: {{promedio2|floatformat:2}}</h5>
   </p>
@@ -170,6 +159,12 @@ $(function () {
   </p>
   <p>
     <h5>Desviación típica de densidad total: {{desviacion2|floatformat:2}}</h5>
+  </p>
+  <p>
+    <h5>Minimo: {{minimo|floatformat:2}}</h5>
+  </p>
+  <p>
+    <h5>Maximo: {{maximo|floatformat:2}}</h5>
   </p>
 
  </div>
