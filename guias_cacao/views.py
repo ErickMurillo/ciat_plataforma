@@ -285,7 +285,7 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
 
     total_puntos = []
     for obj in filtro:
-        total1 = Punto1.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+        total1 = Punto1.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
                                                                    gi=Sum('grande'), )
         try:
@@ -293,7 +293,7 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
         except:
             pass
 
-        total2 = Punto2.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+        total2 = Punto2.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
                                                                    gi=Sum('grande'), )
         try:
@@ -301,7 +301,7 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
         except:
             pass
 
-        total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
+        total3 = Punto3.objects.exclude(especie__id__in=[11,60]).filter(ficha=obj).aggregate(pi=Sum('pequena'),
                                                                    mi=Sum('mediana'),
                                                                    gi=Sum('grande'), )
         try:
@@ -701,17 +701,32 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     barra3_diametro = 0
     barra4_diametro = 0
     barra5_diametro = 0
+    barra6_diametro = 0
+    barra7_diametro = 0
+    barra8_diametro = 0
+    barra9_diametro = 0
+    barra10_diametro = 0
     for obj in todas_diametro:
-        if obj >= 0.1 and obj <= 50.99:
+        if obj >= 0.1 and obj <= 20.99:
             barra1_diametro += 1
-        elif obj >= 51 and obj <= 100.99:
+        elif obj >= 21 and obj <= 40.99:
             barra2_diametro += 1
-        elif obj >= 101 and obj <= 150.99:
+        elif obj >= 41 and obj <= 60.99:
             barra3_diametro += 1
-        elif obj >= 151 and obj <= 200.99:
+        elif obj >= 61 and obj <= 80.99:
             barra4_diametro += 1
-        elif obj > 201:
+        elif obj >= 81 and obj <= 100.99:
             barra5_diametro += 1
+        elif obj >= 101 and obj <= 120.99:
+            barra6_diametro += 1
+        elif obj >= 121 and obj <= 140.99:
+            barra7_diametro += 1
+        elif obj >= 141 and obj <= 160.99:
+            barra8_diametro += 1
+        elif obj >= 161 and obj <= 180.99:
+            barra9_diametro += 1
+        elif obj > 181:
+            barra10_diametro += 1
 
     #promedio, rango, desviacion estandar, media de anchura
     promedio_anchura = np.mean(todas_anchura)
@@ -725,17 +740,32 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     barra3_anchura = 0
     barra4_anchura = 0
     barra5_anchura = 0
+    barra6_anchura = 0
+    barra7_anchura = 0
+    barra8_anchura = 0
+    barra9_anchura = 0
+    barra10_anchura = 0
     for obj in todas_anchura:
-        if obj >= 1 and obj <= 4.99:
+        if obj >= 1 and obj <= 1.99:
             barra1_anchura += 1
-        elif obj >= 5 and obj <= 9.99:
+        elif obj >= 2 and obj <= 3.99:
             barra2_anchura += 1
-        elif obj >= 10 and obj <= 14.99:
+        elif obj >= 4 and obj <= 5.99:
             barra3_anchura += 1
-        elif obj >= 15 and obj <= 20.99:
+        elif obj >= 6 and obj <= 7.99:
             barra4_anchura += 1
-        elif obj > 21:
+        elif obj >= 8 and obj <= 9.99:
             barra5_anchura += 1
+        elif obj >= 10 and obj <= 11.99:
+            barra6_anchura += 1
+        elif obj >= 12 and obj <= 13.99:
+            barra7_anchura += 1
+        elif obj >= 14 and obj <= 15.99:
+            barra8_anchura += 1
+        elif obj >= 16 and obj <= 17.99:
+            barra9_anchura += 1
+        elif obj > 18:
+            barra10_anchura += 1
 
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
