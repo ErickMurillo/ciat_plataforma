@@ -489,6 +489,7 @@ def dominancia_sombra(request, template="guiascacao/sombra/dominancia_sombra.htm
 
 def dimensiones_sombra(request, template="guiascacao/sombra/dimenciones_especies_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
+    numero_parcelas = filtro.count()
 
     altura_p1 = []
     diametro_p1 = []

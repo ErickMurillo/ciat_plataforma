@@ -11,17 +11,17 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Rangos de alturas'
+            text: 'Distribución de frecuencia'
         },
         subtitle: {
-            text: ''
+            text: 'Rangos de alturas mt'
         },
         xAxis: {
             type: 'category'
         },
         yAxis: {
             title: {
-                text: 'Total'
+                text: 'frecuencia'
             }
 
         },
@@ -67,17 +67,17 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Rangos de diametros'
+            text: 'Distribución'
         },
         subtitle: {
-            text: ''
+            text: 'Rangos de diametros en cm'
         },
         xAxis: {
             type: 'category'
         },
         yAxis: {
             title: {
-                text: 'Total'
+                text: 'frecuencia'
             }
 
         },
@@ -122,17 +122,17 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Rangos de anchura de copa'
+            text: 'Distribución de frecuencia'
         },
         subtitle: {
-            text: ''
+            text: 'Rangos de ancho de copa en mt'
         },
         xAxis: {
             type: 'category'
         },
         yAxis: {
             title: {
-                text: 'Total'
+                text: 'frecuencia'
             }
 
         },
@@ -175,7 +175,10 @@ $(function () {
 <p class="center-block">Dimenciones de arboles de sombra</p>
 <div class="row">
  <div class="col-md-6">
-  <h3>Datos de altura</h3>
+  <h3>Alturas de los árboles</h3>
+  <p>
+    Número de parcelas: {{numero_parcelas|floatformat:2}}
+  </p>
   <p>
     PROMEDIO: {{promedio_altura|floatformat:2}}
   </p>
@@ -199,7 +202,10 @@ $(function () {
 <hr>
 <div class="row">
  <div class="col-md-6">
-   <h3>Datos de Diametro</h3>
+   <h3>Diametros de árboles en cm</h3>
+   <p>
+     Número de parcela: {{numero_parcelas|floatformat:2}}
+   </p>
    <p>
      PROMEDIO: {{promedio_diametro|floatformat:2}}
    </p>
@@ -210,10 +216,10 @@ $(function () {
      MEDIANA: {{media_diametro}}
    </p>
    <p>
-     RANGO MINIMO: {{minimo_diametro}}
+     MINIMO: {{minimo_diametro}}
    </p>
    <p>
-     RANGO MAXIMO: {{maximo_diametro}}
+     MAXIMO: {{maximo_diametro}}
    </p>
  </div>
  <div class="col-md-6">
@@ -223,7 +229,10 @@ $(function () {
 <hr>
 <div class="row">
   <div class="col-md-6">
-    <h3>Datos de Anchura de la copa</h3>
+    <h3>Ancho de la copa de árboles en mt</h3>
+    <p>
+      Número de parcelas: {{numero_parcelas|floatformat:2}}
+    </p>
     <p>
       PROMEDIO: {{promedio_anchura|floatformat:2}}
     </p>
@@ -234,10 +243,10 @@ $(function () {
       MEDIANA: {{media_anchura}}
     </p>
     <p>
-      RANGO MINIMO: {{minimo_anchura}}
+      MINIMO: {{minimo_anchura}}
     </p>
     <p>
-      RANGO MAXIMO: {{maximo_anchura}}
+      MAXIMO: {{maximo_anchura}}
     </p>
   </div>
   <div class="col-md-6">

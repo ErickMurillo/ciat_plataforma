@@ -10,13 +10,13 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'World\'s largest cities per 2014'
+            text: 'Dominancia de especies'
         },
         subtitle: {
-            text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+            text: '% de frecuencia de especies'
         },
         xAxis: {
-            type: 'category',
+            type: 'Frecuencia',
             labels: {
                 rotation: -45,
                 style: {
@@ -28,14 +28,14 @@ $(function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)'
+                text: '% de conteo total'
             }
         },
         legend: {
             enabled: false
         },
         tooltip: {
-            pointFormat: 'Population in 2008: <b>{point.y:.1f} %</b>'
+            pointFormat: 'frecuencia: <b>{point.y:.1f} %</b>'
         },
         series: [{
             name: 'Population',
@@ -65,8 +65,8 @@ $(function () {
 {% endblock extra_js %}
 
 {% block contenido %}
-<p class="center-block">Dominancia de arboles de sombra</p>
-TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano en todo el sistema {{SUMA_TOTAL_ESPECIE}}
+<p class="center-block">Dominancia de árboles de sombra</p>
+TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano y plátano en todo el sistema {{SUMA_TOTAL_ESPECIE}}
 <div class="row">
  <div class="col-md-6">
     <table class="table table-striped">
