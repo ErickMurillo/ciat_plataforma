@@ -293,7 +293,7 @@ def densidad_sombra(request, template="guiascacao/sombra/densidad_sombra.html"):
     #maximo
     maximo = max(total_puntos)
     #rangos
-    grafo_densidad = crear_rangos(request, total_puntos, minimo, maximo, step=25)
+    grafo_densidad = crear_rangos(request, total_puntos, minimo, maximo, step=15)
 
     return render(request, template, locals())
 
