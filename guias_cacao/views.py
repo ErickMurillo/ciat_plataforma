@@ -312,7 +312,13 @@ def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
 
     CHOICE_PODA = (
         (1, 'Si'),
-        
+
+    )
+
+    CHOICE_HERRAMIENTA = (
+        (1, 'Si'),
+        (1, 'No'),
+
     )
     dict_reducir_poda = {}
     dict_reducir_eliminando = {}
@@ -358,7 +364,7 @@ def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
 
     dict_manejo_herramienta = {}
     dict_manejo_formacion = {}
-    for obj in CHOICE_PODA:
+    for obj in CHOICE_HERRAMIENTA:
         cnt_herra = filtro.filter(manejosombra__herramientas=obj[0]).count()
         cnt_forma = filtro.filter(manejosombra__formacion=obj[0]).count()
 
