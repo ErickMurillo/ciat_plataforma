@@ -312,7 +312,7 @@ def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
 
     CHOICE_PODA = (
         (1, 'Si'),
-        (2, 'No'),
+        
     )
     dict_reducir_poda = {}
     dict_reducir_eliminando = {}
