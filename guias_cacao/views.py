@@ -209,37 +209,7 @@ def cobertura_sombra(request, template="guiascacao/sombra/cobertura_sombra.html"
 
 def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     filtro = _queryset_filtrado_sombra(request)
-
-    # total_puntos = []
-    # for obj in filtro:
-    #     total1 = Punto1.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-    #                                                                mi=Sum('mediana'),
-    #                                                                gi=Sum('grande'), )
-    #     try:
-    #         suma_total1 = sum(total1.itervalues())
-    #     except:
-    #         pass
-    #
-    #     total2 = Punto2.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-    #                                                                mi=Sum('mediana'),
-    #                                                                gi=Sum('grande'), )
-    #     try:
-    #         suma_total2 = sum(total2.itervalues())
-    #     except:
-    #         pass
-    #
-    #     total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-    #                                                                mi=Sum('mediana'),
-    #                                                                gi=Sum('grande'), )
-    #     try:
-    #         suma_total3 = sum(total3.itervalues())
-    #     except:
-    #         pass
-    #
-    #     gran_suma = suma_total1 + suma_total2 + suma_total3
-    #     riqueza_total = (gran_suma  / float(3000)) * float(1000)
-    #
-    #     total_puntos.append(riqueza_total)
+    numero_parcelas = filtro.count()
 
     puntos = []
     for obj in filtro:
@@ -258,24 +228,13 @@ def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     mediana2 = np.median(puntos)
     # Desviación típica
     desviacion2 = np.std(puntos)
+    #minimo
+    minimo = min(puntos)
+    #maximo
+    maximo = max(puntos)
 
-    veinte = 0
-    cuarenta = 0
-    sesenta = 0
-    ochenta = 0
-    mas_cien = 0
-    for obj in puntos:
-        if obj >= 1 and obj <= 3.99:
-            veinte += 1
-        elif obj >= 4 and obj <= 6.99:
-            cuarenta += 1
-        elif obj >= 7 and obj <= 9.99:
-            sesenta += 1
-        elif obj >= 10 and obj <= 12.99:
-            ochenta += 1
-        elif obj > 13:
-            mas_cien += 1
-
+    #rangos
+    grafo_riqueza = crear_rangos(request, puntos, minimo, maximo, step=2)
 
     return render(request, template, locals())
 
