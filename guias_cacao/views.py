@@ -160,6 +160,7 @@ def analisis_sombra(request, template="guiascacao/sombra/analisis_sombra.html"):
 
 def cobertura_sombra(request, template="guiascacao/sombra/cobertura_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
+    numero_parcelas = filtro.count()
 
     punto1 = Cobertura1.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
     punto2 = Cobertura2.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)

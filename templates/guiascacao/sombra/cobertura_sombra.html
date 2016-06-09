@@ -9,15 +9,15 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: 'Cobertura del punto 1'
+            text: 'Cobertura de sombra punto 1'
         },
         subtitle: {
-            text: 'en No. de observaciones'
+            text: '(% cobertura estimación visual)'
         },
         xAxis: {
             title: {
                 enabled: true,
-                text: 'Parcela 1'
+                text: 'Parcela'
             },
             startOnTick: true,
             endOnTick: true,
@@ -25,7 +25,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Cantidades'
+                text: '% cobertura'
             }
         },
         legend: {
@@ -81,15 +81,15 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: 'Cobertura del punto 2'
+            text: 'Cobertura de sombra punto 2'
         },
         subtitle: {
-            text: 'en No. de observaciones'
+            text: '(% cobertura estimación visual)'
         },
         xAxis: {
             title: {
                 enabled: true,
-                text: 'Parcela 2'
+                text: 'Parcela'
             },
             startOnTick: true,
             endOnTick: true,
@@ -97,7 +97,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Cantidades'
+                text: '% cobertura'
             }
         },
         legend: {
@@ -153,15 +153,15 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: 'Cobertura del punto 3'
+            text: 'Cobertura de sombra punto 3'
         },
         subtitle: {
-            text: 'en No. de observaciones'
+            text: '(% cobertura estimación visual)'
         },
         xAxis: {
             title: {
                 enabled: true,
-                text: 'Parcela 3'
+                text: 'Parcela'
             },
             startOnTick: true,
             endOnTick: true,
@@ -169,7 +169,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'cantidades'
+                text: '% cobertura'
             }
         },
         legend: {
@@ -225,17 +225,17 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Distribución de cobertura'
+            text: 'Distribución de frecuencia'
         },
         subtitle: {
-            text: ''
+            text: 'Rangos de cobertura'
         },
         xAxis: {
             type: 'category'
         },
         yAxis: {
             title: {
-                text: 'Numeros de puntos'
+                text: 'Frecuencia'
             }
 
         },
@@ -298,6 +298,9 @@ $(function () {
 <div class="row">
   <div class="col-md-2"></div>
  <div class="col-md-8">
+   <p>
+     <h5>Numero de parcela: {{numero_parcelas}}</h5>
+   </p>
   <p>
     <h5>Promedio de cobertura total: {{promedio2|floatformat:2}}</h5>
   </p>
