@@ -317,7 +317,7 @@ def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
 
     CHOICE_HERRAMIENTA = (
         (1, 'Si'),
-        (1, 'No'),
+        (2, 'No'),
 
     )
     dict_reducir_poda = {}
