@@ -48,46 +48,12 @@ $(function () {
             colorByPoint: true,
             data: [
 
+              {% for k, v in grafo_altura.items %}
               {
-                  name: '(1, 4.99)',
-                  y: {{barra1_altura}},
+                  name: '{{k}}',
+                  y: {{v}},
               },
-              {
-                  name: '(5, 9.99)',
-                  y: {{barra2_altura}},
-              },
-              {
-                  name: '(10, 14.99)',
-                  y: {{barra3_altura}},
-              },
-              {
-                  name: '(15, 19.99)',
-                  y: {{barra4_altura}},
-              },
-              {
-                  name: '(20, 24.99)',
-                  y: {{barra5_altura}},
-              },
-              {
-                  name: '(25, 29.99)',
-                  y: {{barra6_altura}},
-              },
-              {
-                  name: '(30, 34.99)',
-                  y: {{barra7_altura}},
-              },
-              {
-                  name: '(35, 39.99)',
-                  y: {{barra8_altura}},
-              },
-              {
-                  name: '(40, 44.99)',
-                  y: {{barra9_altura}},
-              },
-              {
-                  name: 'más de 45',
-                  y: {{barra10_altura}},
-              },
+              {% endfor %}
 
             ]
         }]
@@ -138,46 +104,12 @@ $(function () {
             colorByPoint: true,
             data: [
 
+              {% for k, v in grafo_diametro.items %}
               {
-                  name: '(0.1, 20.99)',
-                  y: {{barra1_diametro}},
+                  name: '{{k}}',
+                  y: {{v}},
               },
-              {
-                  name: '(21, 40.99)',
-                  y: {{barra2_diametro}},
-              },
-              {
-                  name: '(41, 60.99)',
-                  y: {{barra3_diametro}},
-              },
-              {
-                  name: '(61, 80.99)',
-                  y: {{barra4_diametro}},
-              },
-              {
-                  name: '(81, 100.99)',
-                  y: {{barra5_diametro}},
-              },
-              {
-                  name: '(101, 120.99)',
-                  y: {{barra6_diametro}},
-              },
-              {
-                  name: '(121, 140.99)',
-                  y: {{barra7_diametro}},
-              },
-              {
-                  name: '(141, 160.99)',
-                  y: {{barra8_diametro}},
-              },
-              {
-                  name: '(161, 180.99)',
-                  y: {{barra9_diametro}},
-              },
-              {
-                  name: 'más de 181',
-                  y: {{barra10_diametro}},
-              },
+              {% endfor %}
 
             ]
         }]
@@ -226,48 +158,12 @@ $(function () {
             name: 'Rangos',
             colorByPoint: true,
             data: [
-
+              {% for k, v in grafo_anchura.items %}
               {
-                  name: '(1, 1.99)',
-                  y: {{barra1_anchura}},
+                  name: '{{k}}',
+                  y: {{v}},
               },
-              {
-                  name: '(2, 3.99)',
-                  y: {{barra2_anchura}},
-              },
-              {
-                  name: '(4, 5.99)',
-                  y: {{barra3_anchura}},
-              },
-              {
-                  name: '(6, 7.99)',
-                  y: {{barra4_anchura}},
-              },
-              {
-                  name: '(8, 9.99)',
-                  y: {{barra5_anchura}},
-              },
-              {
-                  name: '(10, 11.99)',
-                  y: {{barra6_anchura}},
-              },
-              {
-                  name: '(12, 13.99)',
-                  y: {{barra7_anchura}},
-              },
-              {
-                  name: '(14, 15.99)',
-                  y: {{barra8_anchura}},
-              },
-              {
-                  name: '(16, 17.99)',
-                  y: {{barra9_anchura}},
-              },
-              {
-                  name: 'más de 18',
-                  y: {{barra10_anchura}},
-              },
-
+              {% endfor %}
             ]
         }]
     });

@@ -657,37 +657,7 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     minimo_altura = min(todas_alturas)
     maximo_altura = max(todas_alturas)
 
-    barra1_altura = 0
-    barra2_altura = 0
-    barra3_altura = 0
-    barra4_altura = 0
-    barra5_altura = 0
-    barra6_altura = 0
-    barra7_altura = 0
-    barra8_altura = 0
-    barra9_altura = 0
-    barra10_altura = 0
-    for obj in todas_alturas:
-        if obj >= 1 and obj <= 4.99:
-            barra1_altura += 1
-        elif obj >= 5 and obj <= 9.99:
-            barra2_altura += 1
-        elif obj >= 10 and obj <= 14.99:
-            barra3_altura += 1
-        elif obj >= 15 and obj <= 19.99:
-            barra4_altura += 1
-        elif obj >= 20 and obj <= 24.99:
-            barra5_altura += 1
-        elif obj >= 25 and obj <= 29.99:
-            barra6_altura += 1
-        elif obj >= 30 and obj <= 34.99:
-            barra7_altura += 1
-        elif obj >= 35 and obj <= 39.99:
-            barra8_altura += 1
-        elif obj >= 40 and obj <= 44.99:
-            barra9_altura += 1
-        elif obj > 45:
-            barra10_altura += 1
+    grafo_altura = crear_rangos(request, todas_alturas, minimo_altura, maximo_altura, step=3)
 
     #promedio, rango, desviacion estandar, media de diametro
     promedio_diametro = np.mean(todas_diametro)
@@ -696,37 +666,7 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     minimo_diametro = min(todas_diametro)
     maximo_diametro = max(todas_diametro)
 
-    barra1_diametro = 0
-    barra2_diametro = 0
-    barra3_diametro = 0
-    barra4_diametro = 0
-    barra5_diametro = 0
-    barra6_diametro = 0
-    barra7_diametro = 0
-    barra8_diametro = 0
-    barra9_diametro = 0
-    barra10_diametro = 0
-    for obj in todas_diametro:
-        if obj >= 0.1 and obj <= 20.99:
-            barra1_diametro += 1
-        elif obj >= 21 and obj <= 40.99:
-            barra2_diametro += 1
-        elif obj >= 41 and obj <= 60.99:
-            barra3_diametro += 1
-        elif obj >= 61 and obj <= 80.99:
-            barra4_diametro += 1
-        elif obj >= 81 and obj <= 100.99:
-            barra5_diametro += 1
-        elif obj >= 101 and obj <= 120.99:
-            barra6_diametro += 1
-        elif obj >= 121 and obj <= 140.99:
-            barra7_diametro += 1
-        elif obj >= 141 and obj <= 160.99:
-            barra8_diametro += 1
-        elif obj >= 161 and obj <= 180.99:
-            barra9_diametro += 1
-        elif obj > 181:
-            barra10_diametro += 1
+    grafo_diametro = crear_rangos(request, todas_diametro, minimo_diametro, maximo_diametro, step=16)
 
     #promedio, rango, desviacion estandar, media de anchura
     promedio_anchura = np.mean(todas_anchura)
@@ -735,42 +675,23 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     minimo_anchura = min(todas_anchura)
     maximo_anchura = max(todas_anchura)
 
-    barra1_anchura = 0
-    barra2_anchura = 0
-    barra3_anchura = 0
-    barra4_anchura = 0
-    barra5_anchura = 0
-    barra6_anchura = 0
-    barra7_anchura = 0
-    barra8_anchura = 0
-    barra9_anchura = 0
-    barra10_anchura = 0
-    for obj in todas_anchura:
-        if obj >= 1 and obj <= 1.99:
-            barra1_anchura += 1
-        elif obj >= 2 and obj <= 3.99:
-            barra2_anchura += 1
-        elif obj >= 4 and obj <= 5.99:
-            barra3_anchura += 1
-        elif obj >= 6 and obj <= 7.99:
-            barra4_anchura += 1
-        elif obj >= 8 and obj <= 9.99:
-            barra5_anchura += 1
-        elif obj >= 10 and obj <= 11.99:
-            barra6_anchura += 1
-        elif obj >= 12 and obj <= 13.99:
-            barra7_anchura += 1
-        elif obj >= 14 and obj <= 15.99:
-            barra8_anchura += 1
-        elif obj >= 16 and obj <= 17.99:
-            barra9_anchura += 1
-        elif obj > 18:
-            barra10_anchura += 1
+    grafo_anchura = crear_rangos(request, todas_anchura, minimo_anchura, maximo_anchura, step=2)
 
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
 
 #----------  funciones utilitarias -----------------
+def crear_rangos(request, lista, start=0, stop=0, step=0):
+    dict_algo = OrderedDict()
+    rangos = []
+    contador = 0
+    rangos = [(n, n+int(step)-1) for n in range(int(start), int(stop), int(step))]
+
+    for desde, hasta in rangos:
+        dict_algo[(desde,hasta)] = len([x for x in lista if desde <= x <= hasta])
+
+    return dict_algo
+
 
 def get_productor(request):
     if request.is_ajax():
