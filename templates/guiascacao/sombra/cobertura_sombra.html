@@ -218,6 +218,7 @@ $(function () {
         }]
     });
 });
+//
 $(function () {
     // Create the chart
     $('#grafo4').highcharts({
@@ -261,7 +262,7 @@ $(function () {
             name: 'Rangos',
             colorByPoint: true,
             data: [
-            {% for k,v in od.items %}
+            {% for k,v in grafo_cobertura.items %}
               {
                   name: '{{k}}',
                   y: {{v}},
@@ -296,8 +297,7 @@ $(function () {
 </div>
 <hr>
 <div class="row">
-  <div class="col-md-2"></div>
- <div class="col-md-8">
+ <div class="col-md-6">
    <p>
      <h5>Numero de parcela: {{numero_parcelas}}</h5>
    </p>
@@ -318,7 +318,9 @@ $(function () {
   </p>
 
  </div>
- <div class="col-md-2"></div>
+ <div class="col-md-6">
+
+ </div>
 </div>
 
 {% endblock contenido %}

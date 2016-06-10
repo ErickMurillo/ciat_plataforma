@@ -174,7 +174,29 @@ $(function () {
 {% block contenido %}
 <p class="center-block">Dimenciones de arboles de sombra</p>
 <div class="row">
+
  <div class="col-md-6">
+   <form  action='.' method='GET'>
+         <label for='txt_minimo'>Tipo uso del árbol</label>
+         <select id='select_rango' name='usos'>
+           <option value=''>-------</option>
+           <option value='1'>Leña</option>
+           <option value='2'>Fruta</option>
+           <option value='3'>Madera</option>
+           <option value='4'>Sombra</option>
+           <option value='5'>Nutrientes</option>
+         </select>
+         <input type="submit" value="Consultar" class="btn btn-form" name="Consulta"/>
+       </form>
+       {% if uso %}
+        <p>
+          su busqueda fue por: {% if uso == '1' %}Leña{% endif %}
+                               {% if uso == '2' %}Fruta{% endif %}
+                               {% if uso == '3' %}Madera{% endif %}
+                               {% if uso == '4' %}Sombra{% endif %}
+                               {% if uso == '5' %}Nutrientes{% endif %}
+        </p>
+       {% endif %}
   <h3>Alturas de los árboles en mt</h3>
   <p>
     Número de parcelas: {{numero_parcelas|floatformat:2}}

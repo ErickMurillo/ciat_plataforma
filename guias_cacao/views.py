@@ -181,30 +181,7 @@ def cobertura_sombra(request, template="guiascacao/sombra/cobertura_sombra.html"
     maximo2 = max(l)
     #TODO
 
-    rangos = {'0 - 20': (0, 20.99),
-              '21 - 40': (21, 40.99),
-              '41 - 60': (41, 60.99),
-              '61 - 80': (61, 80.99),
-              '> 81 ': (81, 10000000),
-              }
-    rangos_cobertura1 = OrderedDict()
-    for k, v in rangos.items():
-        cnt = Cobertura1.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
-        rangos_cobertura1[k] = (cnt)
-
-    rangos_cobertura2 = OrderedDict()
-    for k, v in rangos.items():
-        cnt = Cobertura2.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
-        rangos_cobertura2[k] = (cnt)
-
-    rangos_cobertura3 = OrderedDict()
-    for k, v in rangos.items():
-        cnt = Cobertura3.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
-        rangos_cobertura3[k] = (cnt)
-
-
-    rangos_todos = { k: rangos_cobertura1.get(k, 0) + rangos_cobertura2.get(k, 0) + rangos_cobertura3.get(k, 0) for k in set(rangos_cobertura1) | set(rangos_cobertura2) | set(rangos_cobertura3)}
-    od = OrderedDict(sorted(rangos_todos.items()))
+    grafo_cobertura = crear_rangos(request, l, minimo2, maximo2, step=10)
 
     return render(request, template, locals())
 
@@ -497,11 +474,17 @@ def dimensiones_sombra(request, template="guiascacao/sombra/dimenciones_especies
     filtro = _queryset_filtrado_sombra(request)
     numero_parcelas = filtro.count()
 
+    if request.GET.get('usos'):
+        uso = request.GET['usos']
+        MODELO_ESPECIES = Especies.objects.exclude(id__in=[11,60]).filter(tipo_uso=uso)
+    else:
+        MODELO_ESPECIES = Especies.objects.exclude(id__in=[11,60])
+
     altura_p1 = []
     diametro_p1 = []
     anchura_p1 = []
 
-    for obj in Especies.objects.exclude(id__in=[11,60]):
+    for obj in MODELO_ESPECIES:
         conteo = filtro.filter(punto1__especie=obj).count()
         cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('punto1__pequena'),
                                                                mi=Sum('punto1__mediana'),
@@ -535,7 +518,7 @@ def dimensiones_sombra(request, template="guiascacao/sombra/dimenciones_especies
     diametro_p2 = []
     anchura_p2 = []
 
-    for obj in Especies.objects.exclude(id__in=[11,60]):
+    for obj in MODELO_ESPECIES:
         conteo = filtro.filter(punto2__especie=obj).count()
         cnt_p2 = filtro.filter(punto2__especie=obj).aggregate(pi=Sum('punto2__pequena'),
                                                                mi=Sum('punto2__mediana'),
@@ -569,7 +552,7 @@ def dimensiones_sombra(request, template="guiascacao/sombra/dimenciones_especies
     diametro_p3 = []
     anchura_p3 = []
 
-    for obj in Especies.objects.exclude(id__in=[11,60]):
+    for obj in MODELO_ESPECIES:
         conteo = filtro.filter(punto3__especie=obj).count()
         cnt_p3 = filtro.filter(punto3__especie=obj).aggregate(pi=Sum('punto3__pequena'),
                                                                mi=Sum('punto3__mediana'),
@@ -646,7 +629,7 @@ def crear_rangos(request, lista, start=0, stop=0, step=0):
     rangos = [(n, n+int(step)-1) for n in range(int(start), int(stop), int(step))]
 
     for desde, hasta in rangos:
-        dict_algo[(desde,hasta)] = len([x for x in lista if desde <= x <= hasta])
+        dict_algo['%s a %s' % (desde,hasta)] = len([x for x in lista if desde <= x <= hasta])
 
     return dict_algo
 
