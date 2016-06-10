@@ -94,7 +94,7 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
 
 #---------------- salidas sombra -----------------------------
 
-def analisis_sombra(request, template="guiascacao/analisis_sombra.html"):
+def analisis_sombra(request, template="guiascacao/sombra/analisis_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     CHOICE_DENSIDAD = ( (1,'Alta'),
@@ -158,8 +158,9 @@ def analisis_sombra(request, template="guiascacao/analisis_sombra.html"):
     return render(request, template, locals())
 
 
-def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
+def cobertura_sombra(request, template="guiascacao/sombra/cobertura_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
+    numero_parcelas = filtro.count()
 
     punto1 = Cobertura1.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
     punto2 = Cobertura2.objects.filter(ficha__in=filtro).values_list('cobertura', flat=True)
@@ -180,66 +181,13 @@ def cobertura_sombra(request, template="guiascacao/cobertura_sombra.html"):
     maximo2 = max(l)
     #TODO
 
-    rangos = {'0 - 20': (0, 20.99),
-              '21 - 40': (21, 40.99),
-              '41 - 60': (41, 60.99),
-              '61 - 80': (61, 80.99),
-              '> 81 ': (81, 10000000),
-              }
-    rangos_cobertura1 = OrderedDict()
-    for k, v in rangos.items():
-        cnt = Cobertura1.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
-        rangos_cobertura1[k] = (cnt)
-
-    rangos_cobertura2 = OrderedDict()
-    for k, v in rangos.items():
-        cnt = Cobertura2.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
-        rangos_cobertura2[k] = (cnt)
-
-    rangos_cobertura3 = OrderedDict()
-    for k, v in rangos.items():
-        cnt = Cobertura3.objects.filter(ficha__in=filtro).filter(cobertura__range=v).count()
-        rangos_cobertura3[k] = (cnt)
-
-
-    rangos_todos = { k: rangos_cobertura1.get(k, 0) + rangos_cobertura2.get(k, 0) + rangos_cobertura3.get(k, 0) for k in set(rangos_cobertura1) | set(rangos_cobertura2) | set(rangos_cobertura3)}
-    od = OrderedDict(sorted(rangos_todos.items()))
+    grafo_cobertura = crear_rangos(request, l, minimo2, maximo2, step=10)
 
     return render(request, template, locals())
 
 def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     filtro = _queryset_filtrado_sombra(request)
-
-    # total_puntos = []
-    # for obj in filtro:
-    #     total1 = Punto1.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-    #                                                                mi=Sum('mediana'),
-    #                                                                gi=Sum('grande'), )
-    #     try:
-    #         suma_total1 = sum(total1.itervalues())
-    #     except:
-    #         pass
-    #
-    #     total2 = Punto2.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-    #                                                                mi=Sum('mediana'),
-    #                                                                gi=Sum('grande'), )
-    #     try:
-    #         suma_total2 = sum(total2.itervalues())
-    #     except:
-    #         pass
-    #
-    #     total3 = Punto3.objects.exclude(especie__id=11).filter(ficha=obj).aggregate(pi=Sum('pequena'),
-    #                                                                mi=Sum('mediana'),
-    #                                                                gi=Sum('grande'), )
-    #     try:
-    #         suma_total3 = sum(total3.itervalues())
-    #     except:
-    #         pass
-    #
-    #     gran_suma = suma_total1 + suma_total2 + suma_total3
-    #     riqueza_total = (gran_suma  / float(3000)) * float(1000)
-    #
-    #     total_puntos.append(riqueza_total)
+    numero_parcelas = filtro.count()
 
     puntos = []
     for obj in filtro:
@@ -258,30 +206,20 @@ def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
     mediana2 = np.median(puntos)
     # Desviación típica
     desviacion2 = np.std(puntos)
+    #minimo
+    minimo = min(puntos)
+    #maximo
+    maximo = max(puntos)
 
-    veinte = 0
-    cuarenta = 0
-    sesenta = 0
-    ochenta = 0
-    mas_cien = 0
-    for obj in puntos:
-        if obj >= 1 and obj <= 3.99:
-            veinte += 1
-        elif obj >= 4 and obj <= 6.99:
-            cuarenta += 1
-        elif obj >= 7 and obj <= 9.99:
-            sesenta += 1
-        elif obj >= 10 and obj <= 12.99:
-            ochenta += 1
-        elif obj > 13:
-            mas_cien += 1
-
+    #rangos
+    grafo_riqueza = crear_rangos(request, puntos, minimo, maximo, step=2)
 
     return render(request, template, locals())
 
 
-def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
+def densidad_sombra(request, template="guiascacao/sombra/densidad_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
+    numero_parcelas = filtro.count()
 
     total_puntos = []
     for obj in filtro:
@@ -313,11 +251,12 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
             gran_suma = suma_total1 + suma_total2 + suma_total3
         except:
             gran_suma = 0
-        #print "gran suma: %s - encuesta: %s " % (gran_suma, obj)
+
         try:
             densidad_total = (gran_suma  * float(10000)) / float(1890)
         except:
             densidad_total = 0
+        #print "gran suma: %s - encuesta: %s " % (densidad_total, obj)
 
         total_puntos.append(densidad_total)
     # media arítmetica
@@ -326,27 +265,16 @@ def densidad_sombra(request, template="guiascacao/densidad_sombra.html"):
     mediana2 = np.median(total_puntos)
     # Desviación típica
     desviacion2 = np.std(total_puntos)
-
-    veinte = 0
-    cuarenta = 0
-    sesenta = 0
-    ochenta = 0
-    mas_cien = 0
-    for obj in total_puntos:
-        if obj >= 0 and obj <= 20.99:
-            veinte += 1
-        elif obj >= 21 and obj <= 40.99:
-            cuarenta += 1
-        elif obj >= 41 and obj <= 60.99:
-            sesenta += 1
-        elif obj >= 61 and obj <= 80.99:
-            ochenta += 1
-        elif obj > 81:
-            mas_cien += 1
+    #minimo
+    minimo = min(total_puntos)
+    #maximo
+    maximo = max(total_puntos)
+    #rangos
+    grafo_densidad = crear_rangos(request, total_puntos, minimo, maximo, step=15)
 
     return render(request, template, locals())
 
-def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
+def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     CHOICE_ACCIONES_SOMBRA = (
@@ -361,7 +289,13 @@ def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
 
     CHOICE_PODA = (
         (1, 'Si'),
+
+    )
+
+    CHOICE_HERRAMIENTA = (
+        (1, 'Si'),
         (2, 'No'),
+
     )
     dict_reducir_poda = {}
     dict_reducir_eliminando = {}
@@ -407,7 +341,7 @@ def acciones_sombra(request, template="guiascacao/acciones_sombra.html"):
 
     dict_manejo_herramienta = {}
     dict_manejo_formacion = {}
-    for obj in CHOICE_PODA:
+    for obj in CHOICE_HERRAMIENTA:
         cnt_herra = filtro.filter(manejosombra__herramientas=obj[0]).count()
         cnt_forma = filtro.filter(manejosombra__formacion=obj[0]).count()
 
@@ -422,7 +356,7 @@ def change(f):
     else:
         return f
 
-def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.html"):
+def caracterizacion_sombra(request, template="guiascacao/sombra/caracterizacion_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     #calculos sobre tipo de especies
@@ -500,7 +434,7 @@ def caracterizacion_sombra(request, template="guiascacao/caracterizacion_sombra.
 
     return render(request, template, locals())
 
-def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
+def dominancia_sombra(request, template="guiascacao/sombra/dominancia_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
 
     CUANTO_ESPECIES = Especies.objects.exclude(id__in=[11,60]).count()
@@ -536,14 +470,21 @@ def dominancia_sombra(request, template="guiascacao/dominancia_sombra.html"):
 
     return render(request, template, locals())
 
-def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra.html"):
+def dimensiones_sombra(request, template="guiascacao/sombra/dimenciones_especies_sombra.html"):
     filtro = _queryset_filtrado_sombra(request)
+    numero_parcelas = filtro.count()
+
+    if request.GET.get('usos'):
+        uso = request.GET['usos']
+        MODELO_ESPECIES = Especies.objects.exclude(id__in=[11,60]).filter(tipo_uso=uso)
+    else:
+        MODELO_ESPECIES = Especies.objects.exclude(id__in=[11,60])
 
     altura_p1 = []
     diametro_p1 = []
     anchura_p1 = []
 
-    for obj in Especies.objects.exclude(id__in=[11,60]):
+    for obj in MODELO_ESPECIES:
         conteo = filtro.filter(punto1__especie=obj).count()
         cnt_p1 = filtro.filter(punto1__especie=obj).aggregate(pi=Sum('punto1__pequena'),
                                                                mi=Sum('punto1__mediana'),
@@ -577,7 +518,7 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     diametro_p2 = []
     anchura_p2 = []
 
-    for obj in Especies.objects.exclude(id__in=[11,60]):
+    for obj in MODELO_ESPECIES:
         conteo = filtro.filter(punto2__especie=obj).count()
         cnt_p2 = filtro.filter(punto2__especie=obj).aggregate(pi=Sum('punto2__pequena'),
                                                                mi=Sum('punto2__mediana'),
@@ -611,7 +552,7 @@ def dimensiones_sombra(request, template="guiascacao/dimenciones_especies_sombra
     diametro_p3 = []
     anchura_p3 = []
 
-    for obj in Especies.objects.exclude(id__in=[11,60]):
+    for obj in MODELO_ESPECIES:
         conteo = filtro.filter(punto3__especie=obj).count()
         cnt_p3 = filtro.filter(punto3__especie=obj).aggregate(pi=Sum('punto3__pequena'),
                                                                mi=Sum('punto3__mediana'),
@@ -688,7 +629,7 @@ def crear_rangos(request, lista, start=0, stop=0, step=0):
     rangos = [(n, n+int(step)-1) for n in range(int(start), int(stop), int(step))]
 
     for desde, hasta in rangos:
-        dict_algo[(desde,hasta)] = len([x for x in lista if desde <= x <= hasta])
+        dict_algo['%s a %s' % (desde,hasta)] = len([x for x in lista if desde <= x <= hasta])
 
     return dict_algo
 
@@ -708,3 +649,5 @@ def get_productor(request):
     else:
         results = 'fail'
     return HttpResponse(simplejson.dumps(results), content_type='application/json')
+
+#salidas de poda

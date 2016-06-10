@@ -10,13 +10,13 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'World\'s largest cities per 2014'
+            text: 'Dominancia de especies'
         },
         subtitle: {
-            text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+            text: '% de frecuencia de especies'
         },
         xAxis: {
-            type: 'category',
+            type: 'Frecuencia',
             labels: {
                 rotation: -45,
                 style: {
@@ -28,14 +28,14 @@ $(function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)'
+                text: '% de conteo total'
             }
         },
         legend: {
             enabled: false
         },
         tooltip: {
-            pointFormat: 'Population in 2008: <b>{point.y:.1f} %</b>'
+            pointFormat: 'frecuencia: <b>{point.y:.1f} %</b>'
         },
         series: [{
             name: 'Population',
@@ -65,37 +65,104 @@ $(function () {
 {% endblock extra_js %}
 
 {% block contenido %}
-<p class="center-block">Dominancia de arboles de sombra</p>
-TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano en todo el sistema {{SUMA_TOTAL_ESPECIE}}
-<div class="row">
- <div class="col-md-6">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Especies</th>
-          <th># total</th>
-          <th>%</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for v in algo %}
-        <tr>
-          <th scope=row>{{v.0}}</th>
-          <td>{{v.1}}</td>
-          <td>{{v.1|calcular_frecuencia:SUMA_TOTAL_ESPECIE}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
- </div>
- <div class="col-md-6">
- </div>
-</div>
-<hr>
-<div class="row">
-  <div class="col-lg-12">
-    <div id="grafo1"></div>
-  </div>
 
-</div>
+    <div class="container-fluid"> 
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default panel-ind">
+                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
+                        <h4 class="panel-title">
+                            Sombra
+                        </h4>
+                    </a>
+                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body menu-">
+                            <ul class="list-group">
+                                
+                                <a class="list-group-item" href="/cacao/sombra/riqueza/"> 
+                                    Riqueza de sombra
+                                </a>
+                                 
+                                <a class="list-group-item" href="/cacao/sombra/analisis/">
+                                    Análisis de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/cobertura/"> 
+                                    Cobertura de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/densidad/"> 
+                                    Densidad de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/acciones/"> 
+                                    Acciones de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/caracterizacion/"> 
+                                    Caracterización arborea de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/dominancia/"> 
+                                    Dominancia especies sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/dimensiones/"> 
+                                    Dimenciones sombra
+                                </a>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Sombra</li>
+                            <li class="active">Dominancia especies sombra</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                        <p>TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano y plátano en todo el sistema {{SUMA_TOTAL_ESPECIE}}
+                        </p>
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Especies</th>
+                                  <th># total</th>
+                                  <th>%</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for v in algo %}
+                                <tr>
+                                  <th scope=row>{{v.0}}</th>
+                                  <td>{{v.1}}</td>
+                                  <td>{{v.1|calcular_frecuencia:SUMA_TOTAL_ESPECIE}}</td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                         </div>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+
+    </div>
 {% endblock contenido %}

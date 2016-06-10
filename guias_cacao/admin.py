@@ -344,6 +344,9 @@ class EspeciesAdmin(ImportExportModelAdmin):
             'fields': ('g_altura', 'g_diametro', 'g_ancho'),
         }),
     )
+    list_display = ('nombre', 'nombre_cientifico','tipo')
+    #list_filter = ('tipo', 'tipo_uso')
+    search_fields = ['nombre', 'nombre_cientifico']
 
 
 admin.site.register(Especies, EspeciesAdmin)

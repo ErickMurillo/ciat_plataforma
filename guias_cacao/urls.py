@@ -3,14 +3,14 @@ from .views import *
 
 urlpatterns = patterns('guias_cacao.views',
     url(r'^$', 'index_ficha_sombra', name='index-cacao'),
-    url(r'^riqueza/$', 'riqueza_sombra', name='riqueza-cacao'),
-    url(r'^analisis/$', 'analisis_sombra', name='analisis-cacao'),
-    url(r'^cobertura/$', 'cobertura_sombra', name='cobertura-cacao'),
-    url(r'^densidad/$', 'densidad_sombra', name='densidad-cacao'),
-    url(r'^acciones/$', 'acciones_sombra', name='acciones-cacao'),
-    url(r'^caracterizacion/$', 'caracterizacion_sombra', name='caracterizacion-cacao'),
-    url(r'^dominancia/$', 'dominancia_sombra', name='dominancia-cacao'),
-    url(r'^dimensiones/$', 'dimensiones_sombra', name='dimensiones-cacao'),
-    url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
+    url(r'^sombra/riqueza/$', 'riqueza_sombra', name='riqueza-cacao'),
+    url(r'^sombra/analisis/$', 'analisis_sombra', name='analisis-cacao'),
+    url(r'^sombra/cobertura/$', 'cobertura_sombra', name='cobertura-cacao'),
+    url(r'^sombra/densidad/$', 'densidad_sombra', name='densidad-cacao'),
+    url(r'^sombra/acciones/$', 'acciones_sombra', name='acciones-cacao'),
+    url(r'^sombra/caracterizacion/$', 'caracterizacion_sombra', name='caracterizacion-cacao'),
+    url(r'^sombra/dominancia/$', 'dominancia_sombra', name='dominancia-cacao'),
+    url(r'^sombra/dimensiones/$', 'dimensiones_sombra', name='dimensiones-cacao'),
+    url(r'^sombra/api/productor/$', 'get_productor', name='productor-cacao'),
 
 )
