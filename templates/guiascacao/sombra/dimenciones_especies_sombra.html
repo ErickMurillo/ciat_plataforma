@@ -173,7 +173,7 @@ $(function () {
 
 {% block contenido %}
 
-    <div class="container-fluid"> 
+    <div class="container-fluid">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default panel-ind">
@@ -182,43 +182,9 @@ $(function () {
                             Sombra
                         </h4>
                     </a>
-                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body menu-">
-                            <ul class="list-group">
-                                
-                                <a class="list-group-item" href="/cacao/sombra/riqueza/"> 
-                                    Riqueza de sombra
-                                </a>
-                                 
-                                <a class="list-group-item" href="/cacao/sombra/analisis/">
-                                    Análisis de sombra
-                                </a>
-                                
-                                <a class="list-group-item" href="/cacao/sombra/cobertura/"> 
-                                    Cobertura de sombra
-                                </a>
-                                
-                                <a class="list-group-item" href="/cacao/sombra/densidad/"> 
-                                    Densidad de sombra
-                                </a>
-                                
-                                <a class="list-group-item" href="/cacao/sombra/acciones/"> 
-                                    Acciones de sombra
-                                </a>
-                                
-                                <a class="list-group-item" href="/cacao/sombra/caracterizacion/"> 
-                                    Caracterización arborea de sombra
-                                </a>
-                                
-                                <a class="list-group-item" href="/cacao/sombra/dominancia/"> 
-                                    Dominancia especies sombra
-                                </a>
-                                
-                                <a class="list-group-item" href="/cacao/sombra/dimensiones/"> 
-                                    Dimenciones sombra
-                                </a>
-
-                            </ul>
+                          {% include "guiascacao/sombra/menu_collapse.html" %}
                         </div>
                     </div>
                 </div>
@@ -265,7 +231,7 @@ $(function () {
                         <div class="col-md-3">
                             <h3>Alturas de los árboles en mt</h3>
                             <p>
-                            Número de parcelas: {{numero_parcelas|floatformat:2}}
+                            NÚMERO DE PARCELAS: {{numero_parcelas|floatformat:2}}
                             </p>
                             <p>
                             PROMEDIO: {{promedio_altura|floatformat:2}}
@@ -292,7 +258,7 @@ $(function () {
                         <div class="col-md-3">
                             <h3>Diametros de árboles en cm</h3>
                             <p>
-                             Número de parcela: {{numero_parcelas|floatformat:2}}
+                             NÚMERO DE PARCELAS: {{numero_parcelas|floatformat:2}}
                             </p>
                             <p>
                              PROMEDIO: {{promedio_diametro|floatformat:2}}
@@ -319,7 +285,7 @@ $(function () {
                         <div class="col-md-3">
                             <h3>Ancho de la copa de árboles en mt</h3>
                             <p>
-                              Número de parcelas: {{numero_parcelas|floatformat:2}}
+                              NÚMERO DE PARCELAS: {{numero_parcelas|floatformat:2}}
                             </p>
                             <p>
                               PROMEDIO: {{promedio_anchura|floatformat:2}}
@@ -343,7 +309,7 @@ $(function () {
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
     </div>
