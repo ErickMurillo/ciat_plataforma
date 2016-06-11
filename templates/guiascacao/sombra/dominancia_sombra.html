@@ -16,7 +16,7 @@ $(function () {
             text: '% de frecuencia de especies'
         },
         xAxis: {
-            type: 'Frecuencia',
+            type: 'category',
             labels: {
                 rotation: -45,
                 style: {
@@ -35,24 +35,24 @@ $(function () {
             enabled: false
         },
         tooltip: {
-            pointFormat: 'frecuencia: <b>{point.y:.1f} %</b>'
+            pointFormat: 'Porcentaje: <b>{point.y:.1f} %</b>'
         },
         series: [{
             name: 'Population',
             data: [
-              {% for v in algo %}
-                {% if v.1 > 5.0 %}
+              {% for v in dominancia_todo|slice:":15"%}
+
                   ['{{v.0}}', {{v.1|calcular_frecuencia:SUMA_TOTAL_ESPECIE}}],
-                {% endif %}
+
               {% endfor %}
             ],
             dataLabels: {
                 enabled: true,
-                rotation: 45,
+                rotation: -90,
                 color: '#000000',
                 align: 'right',
                 format: '{point.y:.1f} %', // one decimal
-                y: -8, // 10 pixels down from the top
+                y: -40, // 10 pixels down from the top
                 style: {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
@@ -61,6 +61,7 @@ $(function () {
         }]
     });
 });
+
 </script>
 {% endblock extra_js %}
 
@@ -112,7 +113,7 @@ $(function () {
                                 </tr>
                               </thead>
                               <tbody>
-                                {% for v in algo %}
+                                {% for v in dominancia_todo %}
                                 <tr>
                                   <th scope=row>{{v.0}}</th>
                                   <td>{{v.1}}</td>

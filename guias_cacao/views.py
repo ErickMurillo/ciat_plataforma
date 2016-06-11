@@ -466,7 +466,10 @@ def dominancia_sombra(request, template="guiascacao/sombra/dominancia_sombra.htm
             todo[k] = suma_total
             SUMA_TOTAL_ESPECIE += suma_total
 
-    algo = sorted(todo.iteritems(), key=lambda (k,v): (v,k), reverse=True)
+    dominancia_todo = sorted(todo.iteritems(), key=lambda (k,v): (v,k), reverse=True)
+
+    # for obj in dominancia_todo:
+    #     print "%s --> %s" % (obj[0], obj[1])
 
     return render(request, template, locals())
 
