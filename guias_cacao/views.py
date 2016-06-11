@@ -185,7 +185,7 @@ def cobertura_sombra(request, template="guiascacao/sombra/cobertura_sombra.html"
 
     return render(request, template, locals())
 
-def riqueza_sombra(request, template="guiascacao/sombra_riqueza.html"):
+def riqueza_sombra(request, template="guiascacao/sombra/sombra_riqueza.html"):
     filtro = _queryset_filtrado_sombra(request)
     numero_parcelas = filtro.count()
 
@@ -623,6 +623,262 @@ def dimensiones_sombra(request, template="guiascacao/sombra/dimenciones_especies
 
     return render(request, template, locals())
 #----------------- fin salidas de sombra -------------------------
+def _queryset_filtrado_poda(request):
+    params = {}
+
+    if 'fecha' in request.session:
+        params['fecha_visita__year'] = request.session['fecha']
+
+    if 'productor' in request.session:
+        params['productor__nombre'] = request.session['productor']
+
+    if 'organizacion' in request.session:
+        params['productor__productor__organizacion'] = request.session['organizacion']
+
+    if 'pais' in request.session:
+        params['productor__pais'] = request.session['pais']
+
+    if 'departamento' in request.session:
+        params['productor__departamento'] = request.session['departamento']
+
+    if 'municipio' in request.session:
+        params['productor__municipio'] = request.session['municipio']
+
+    if 'comunidad' in request.session:
+        params['productor__comunidad'] = request.session['comunidad']
+
+    if 'sexo' in request.session:
+        params['productor__sexo'] = request.session['sexo']
+
+    if 'tipologia' in request.session:
+        params['productor__productor__tipologia'] = request.session['tipologia']
+
+    unvalid_keys = []
+    for key in params:
+    	if not params[key]:
+    		unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+    	del params[key]
+
+    print 'poda hermano'
+
+    return FichaPoda.objects.filter(**params)
+#----------------- salidas de poda -------------------------
+
+def altura_poda(request, template="guiascacao/poda/altura_poda.html"):
+    filtro = _queryset_filtrado_poda(request)
+    numero_parcelas = filtro.count()
+
+    altura1 = []
+    altura2 = []
+    altura3 = []
+    for obj in filtro:
+        cont1 = Punto1A.objects.filter(ficha=obj,plantas=1).aggregate(uno=Sum('uno'),
+                                                               dos=Sum('dos'),
+                                                               tres=Sum('tres'),
+                                                               cuatro=Sum('cuatro'),
+                                                               cinco=Sum('cinco'),
+                                                               seis=Sum('seis'),
+                                                               siete=Sum('siete'),
+                                                               ocho=Sum('ocho'),
+                                                               nueve=Sum('nueve'),
+                                                               dies=Sum('diez'),
+                                                               ).values()
+        try:
+            suma_cont1 = sum(cont1) / float(10)
+
+        except:
+            suma_cont1 = 0
+
+        altura1.append(suma_cont1)
+        #altura2
+        cont2 = Punto2A.objects.filter(ficha=obj,plantas=1).aggregate(uno=Sum('uno'),
+                                                               dos=Sum('dos'),
+                                                               tres=Sum('tres'),
+                                                               cuatro=Sum('cuatro'),
+                                                               cinco=Sum('cinco'),
+                                                               seis=Sum('seis'),
+                                                               siete=Sum('siete'),
+                                                               ocho=Sum('ocho'),
+                                                               nueve=Sum('nueve'),
+                                                               dies=Sum('diez'),
+                                                               ).values()
+        try:
+            suma_cont2 = sum(cont2) / float(10)
+
+        except:
+            suma_cont2 = 0
+
+        altura2.append(suma_cont2)
+        #altura 3
+        cont3 = Punto3A.objects.filter(ficha=obj,plantas=1).aggregate(uno=Sum('uno'),
+                                                               dos=Sum('dos'),
+                                                               tres=Sum('tres'),
+                                                               cuatro=Sum('cuatro'),
+                                                               cinco=Sum('cinco'),
+                                                               seis=Sum('seis'),
+                                                               siete=Sum('siete'),
+                                                               ocho=Sum('ocho'),
+                                                               nueve=Sum('nueve'),
+                                                               dies=Sum('diez'),
+                                                               ).values()
+        try:
+            suma_cont3 = sum(cont3) / float(10)
+
+        except:
+            suma_cont3 = 0
+
+        altura3.append(suma_cont3)
+
+    altura_total = altura1 + altura2 + altura3
+    #promedio, rango, desviacion estandar, media de altura
+    promedio_altura = np.mean(altura_total)
+    desviacion_altura = np.std(altura_total)
+    media_altura = np.median(altura_total)
+    minimo_altura = min(altura_total)
+    maximo_altura = max(altura_total)
+
+    grafo_altura = crear_rangos(request, altura_total, minimo_altura, maximo_altura, step=2)
+
+
+    return render(request, template, locals())
+
+def ancho_poda(request, template="guiascacao/poda/ancho_poda.html"):
+    filtro = _queryset_filtrado_poda(request)
+    numero_parcelas = filtro.count()
+
+    altura1 = []
+    altura2 = []
+    altura3 = []
+    for obj in filtro:
+        cont1 = Punto1A.objects.filter(ficha=obj,plantas=2).aggregate(uno=Sum('uno'),
+                                                               dos=Sum('dos'),
+                                                               tres=Sum('tres'),
+                                                               cuatro=Sum('cuatro'),
+                                                               cinco=Sum('cinco'),
+                                                               seis=Sum('seis'),
+                                                               siete=Sum('siete'),
+                                                               ocho=Sum('ocho'),
+                                                               nueve=Sum('nueve'),
+                                                               dies=Sum('diez'),
+                                                               ).values()
+        try:
+            suma_cont1 = sum(cont1) / float(10)
+
+        except:
+            suma_cont1 = 0
+
+        altura1.append(suma_cont1)
+        #altura2
+        cont2 = Punto2A.objects.filter(ficha=obj,plantas=2).aggregate(uno=Sum('uno'),
+                                                               dos=Sum('dos'),
+                                                               tres=Sum('tres'),
+                                                               cuatro=Sum('cuatro'),
+                                                               cinco=Sum('cinco'),
+                                                               seis=Sum('seis'),
+                                                               siete=Sum('siete'),
+                                                               ocho=Sum('ocho'),
+                                                               nueve=Sum('nueve'),
+                                                               dies=Sum('diez'),
+                                                               ).values()
+        try:
+            suma_cont2 = sum(cont2) / float(10)
+
+        except:
+            suma_cont2 = 0
+
+        altura2.append(suma_cont2)
+        #altura 3
+        cont3 = Punto3A.objects.filter(ficha=obj,plantas=2).aggregate(uno=Sum('uno'),
+                                                               dos=Sum('dos'),
+                                                               tres=Sum('tres'),
+                                                               cuatro=Sum('cuatro'),
+                                                               cinco=Sum('cinco'),
+                                                               seis=Sum('seis'),
+                                                               siete=Sum('siete'),
+                                                               ocho=Sum('ocho'),
+                                                               nueve=Sum('nueve'),
+                                                               dies=Sum('diez'),
+                                                               ).values()
+        try:
+            suma_cont3 = sum(cont3) / float(10)
+
+        except:
+            suma_cont3 = 0
+
+        altura3.append(suma_cont3)
+
+    altura_total = altura1 + altura2 + altura3
+    #promedio, rango, desviacion estandar, media de altura
+    promedio_altura = np.mean(altura_total)
+    desviacion_altura = np.std(altura_total)
+    media_altura = np.median(altura_total)
+    minimo_altura = min(altura_total)
+    maximo_altura = max(altura_total)
+
+    grafo_altura = crear_rangos(request, altura_total, minimo_altura, maximo_altura, step=2)
+
+
+    return render(request, template, locals())
+
+def produccion_poda(request, template="guiascacao/poda/produccion_poda.html"):
+    filtro = _queryset_filtrado_poda(request)
+    numero_parcelas = filtro.count()
+
+    CHOICE_PRODUCCION = (
+        (1, 'Alta'),
+        (2, 'Media'),
+        (3, 'Baja'),
+    )
+
+    nivel = {}
+    for obj in CHOICE_PRODUCCION:
+        uno1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__uno=obj[0]).count()
+        dos1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__dos=obj[0]).count()
+        tres1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__tres=obj[0]).count()
+        cuatro1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__cuatro=obj[0]).count()
+        cinco1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__cinco=obj[0]).count()
+        seis1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__seis=obj[0]).count()
+        siete1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__siete=obj[0]).count()
+        ocho1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__ocho=obj[0]).count()
+        nueve1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__nueve=obj[0]).count()
+        diez1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__diez=obj[0]).count()
+        suma_punto1 = uno1 + dos1 + tres1 + cuatro1 + cinco1 + seis1 + siete1 + ocho1 + nueve1 + diez1
+
+        uno2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__uno=obj[0]).count()
+        dos2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__dos=obj[0]).count()
+        tres2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__tres=obj[0]).count()
+        cuatro2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__cuatro=obj[0]).count()
+        cinco2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__cinco=obj[0]).count()
+        seis2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__seis=obj[0]).count()
+        siete2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__siete=obj[0]).count()
+        ocho2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__ocho=obj[0]).count()
+        nueve2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__nueve=obj[0]).count()
+        diez2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__diez=obj[0]).count()
+        suma_punto2 = uno2 + dos2 + tres2 + cuatro2 + cinco2 + seis2 + siete2 + ocho2 + nueve2 + diez2
+
+        uno3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__uno=obj[0]).count()
+        dos3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__dos=obj[0]).count()
+        tres3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__tres=obj[0]).count()
+        cuatro3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__cuatro=obj[0]).count()
+        cinco3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__cinco=obj[0]).count()
+        seis3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__seis=obj[0]).count()
+        siete3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__siete=obj[0]).count()
+        ocho3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__ocho=obj[0]).count()
+        nueve3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__nueve=obj[0]).count()
+        diez3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__diez=obj[0]).count()
+        suma_punto3 = uno3 + dos3 + tres3 + cuatro3 + cinco3 + seis3 + siete3 + ocho3 + nueve3 + diez3
+
+        totales_suma = suma_punto1 + suma_punto2 + suma_punto3
+
+        nivel[obj[1]] = totales_suma
+
+
+    return render(request, template, locals())
+
+
+
 
 #----------  funciones utilitarias -----------------
 def crear_rangos(request, lista, start=0, stop=0, step=0):
@@ -652,5 +908,3 @@ def get_productor(request):
     else:
         results = 'fail'
     return HttpResponse(simplejson.dumps(results), content_type='application/json')
-
-#salidas de poda

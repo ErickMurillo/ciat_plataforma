@@ -1,0 +1,384 @@
+{% extends "guiascacao/base.html" %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Altura de platas punto 1 en mt2'
+        },
+        subtitle: {
+            text: '(% altura estimación visual)'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Parcela'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: '% altura'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'bottom',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} , {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Punto 1',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+                {% for obj in altura1 %}
+                  [{{obj}}],
+                {% endfor %}
+                ]
+
+        }]
+    });
+});
+$(function () {
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Altura de platas punto 2 en mt2'
+        },
+        subtitle: {
+            text: '(% altura estimación visual)'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Parcela'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: '% altura'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'bottom',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} , {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Punto 2',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+                {% for obj in altura2 %}
+                  [{{obj}}],
+                {% endfor %}
+                ]
+
+        }]
+    });
+});
+$(function () {
+    $('#grafo3').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Altura de platas punto 3 en mt2'
+        },
+        subtitle: {
+            text: '(% altura estimación visual)'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Parcela'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: '% altura'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'bottom',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} , {point.y} '
+                }
+            }
+        },
+        series: [{
+            name: 'Punto 3',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+                {% for obj in altura3 %}
+                  [{{obj}}],
+                {% endfor %}
+                ]
+
+        }]
+    });
+});
+//
+$(function () {
+    // Create the chart
+    $('#grafo4').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Distribución de frecuencia'
+        },
+        subtitle: {
+            text: 'Rangos de alturas'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Rangos',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_altura.items %}
+              {
+                  name: '{{k}}',
+                  y: {{v}},
+              },
+            {% endfor %}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default panel-ind">
+                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
+                        <h4 class="panel-title">
+                            Poda
+                        </h4>
+                    </a>
+                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body menu-">
+                            {% include "guiascacao/poda/menu_poda.html" %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Poda</li>
+                            <li class="active">Alturas de las plantas</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row datos">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Número de parcelas
+                            </div>
+                            <div class="number-data">
+                                {{numero_parcelas}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Promedio
+                            </div>
+                            <div class="number-data">
+                                {{promedio_altura|floatformat:2}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Mediana
+                            </div>
+                            <div class="number-data">
+                                {{media_altura|floatformat:2}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Desviación típica
+                            </div>
+                            <div class="number-data">
+                                {{desviacion_altura|floatformat:2}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Mínimo
+                            </div>
+                            <div class="number-data">
+                                {{minimo_altura|floatformat:2}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Máximo
+                            </div>
+                            <div class="number-data">
+                                {{maximo_altura|floatformat:2}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo1"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo2"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo3"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+{% endblock contenido %}
