@@ -18,5 +18,6 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^poda/produccion/$', 'produccion_poda', name='produccion-poda'),
     url(r'^poda/atributos/$', 'atributos_poda', name='produccion-poda'),
     url(r'^poda/analisis/$', 'analisis_poda', name='analisis-poda'),
-
+    url(r'^poda/tipos-poda/$', 'tipo_poda', name='tipo-poda'),
+    url(r'^poda/acciones/$', 'acciones_poda', name='acciones-poda'),
 )

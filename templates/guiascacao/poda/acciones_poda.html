@@ -1,0 +1,258 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'En que meses se va a realizar acciones poda'
+        },
+        subtitle: {
+            text: '% de frecuencia'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '% de conteo total'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Porcentaje: <b>{point.y:.1f} %</b>'
+        },
+        series: [{
+            name: 'problema',
+            data: [
+              {% for k,v in meses.items %}
+
+                  ['{{k}}', {{v|calcular_frecuencia:numero_parcelas}}],
+
+              {% endfor %}
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#000000',
+                align: 'right',
+                format: '{point.y:.1f} %', // one decimal
+                y: -40, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo1').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Acciones para mejorar entrada de luz'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in luz.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo3').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Tienen herramientas?'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in herramienta.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo4').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Tiene formación'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in formacion.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default panel-ind">
+                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
+                        <h4 class="panel-title">
+                            Poda
+                        </h4>
+                    </a>
+                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body menu-">
+                            {% include "guiascacao/poda/menu_poda.html" %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Poda</li>
+                            <li class="active">Tipos de poda a realizar</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="grafo2"></div>
+                         </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div id="grafo3"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="grafo4"></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock contenido %}

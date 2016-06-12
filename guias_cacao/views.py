@@ -944,6 +944,54 @@ def analisis_poda(request, template="guiascacao/poda/analisis_poda.html"):
 
     return render(request, template, locals())
 
+def tipo_poda(request, template="guiascacao/poda/tipo_poda.html"):
+    filtro = _queryset_filtrado_poda(request)
+    numero_parcelas = filtro.count()
+
+    problema = {}
+    for obj in CHOICES_TIPO_PODA:
+        cont = AnalisisPoda.objects.filter(ficha__in=filtro, campo2__contains=obj[0]).count()
+        problema[obj[1]] = cont
+
+    donde = {}
+    for obj in CHOICE_REALIZA_PODA:
+        cont = AnalisisPoda.objects.filter(ficha__in=filtro, campo3=obj[0]).count()
+        donde[obj[1]] = cont
+
+    vigor = {}
+    for obj in CHOICE_VIGOR:
+        cont = AnalisisPoda.objects.filter(ficha__in=filtro, campo4=obj[0]).count()
+        vigor[obj[1]] = cont
+
+
+    return render(request, template, locals())
+
+def acciones_poda(request, template="guiascacao/poda/acciones_poda.html"):
+    filtro = _queryset_filtrado_poda(request)
+    numero_parcelas = filtro.count()
+
+    luz = OrderedDict()
+    for obj in CHOICE_ENTRADA_LUZ:
+        cont = AnalisisPoda.objects.filter(ficha__in=filtro, campo5=obj[0]).count()
+        luz[obj[1]] = cont
+
+    meses = OrderedDict()
+    for obj in CHOICES_FECHA_PODA:
+        cont = AnalisisPoda.objects.filter(ficha__in=filtro, campo6__contains=obj[0]).count()
+        meses[obj[1]] = cont
+
+    herramienta = OrderedDict()
+    formacion = OrderedDict()
+    for obj in CHOICE_PODA:
+        cont = ManejoPoda.objects.filter(ficha__in=filtro, herramientas=obj[0]).count()
+        herramienta[obj[1]] = cont
+        cont1 = ManejoPoda.objects.filter(ficha__in=filtro, formacion=obj[0]).count()
+        formacion[obj[1]] = cont1
+
+
+
+
+    return render(request, template, locals())
 
 #----------  funciones utilitarias -----------------
 def crear_rangos(request, lista, start=0, stop=0, step=0):

@@ -61,7 +61,96 @@ $(function () {
         }]
     });
 });
-
+$(function () {
+    // Build the chart
+    $('#grafo2').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Donde va a realizar poda'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in donde.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo3').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Vigor de plantas para podar'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in vigor.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
 </script>
 {% endblock extra_js %}
 
@@ -91,7 +180,7 @@ $(function () {
                     <h3 class="panel-title">
                         <ol class="breadcrumb">
                             <li class="active">Poda</li>
-                            <li class="active">Analisis de poda</li>
+                            <li class="active">Tipos de poda a realizar</li>
                             <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
@@ -124,6 +213,13 @@ $(function () {
                          </div>
 
                     </div>
+                    <div class="col-md-6">
+                        <div id="grafo2"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="grafo3"></div>
+                    </div>
+
                 </div>
             </div>
 
