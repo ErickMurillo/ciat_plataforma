@@ -834,40 +834,40 @@ def produccion_poda(request, template="guiascacao/poda/produccion_poda.html"):
 
     nivel = {}
     for obj in CHOICE_PRODUCCION:
-        uno1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__uno=obj[0]).count()
-        dos1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__dos=obj[0]).count()
-        tres1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__tres=obj[0]).count()
-        cuatro1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__cuatro=obj[0]).count()
-        cinco1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__cinco=obj[0]).count()
-        seis1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__seis=obj[0]).count()
-        siete1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__siete=obj[0]).count()
-        ocho1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__ocho=obj[0]).count()
-        nueve1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__nueve=obj[0]).count()
-        diez1 = filtro.filter(punto1c__ficha__in=filtro,punto1c__plantas=1,punto1c__diez=obj[0]).count()
+        uno1 = filtro.filter(punto1c__plantas=1,punto1c__uno=obj[0]).count()
+        dos1 = filtro.filter(punto1c__plantas=1,punto1c__dos=obj[0]).count()
+        tres1 = filtro.filter(punto1c__plantas=1,punto1c__tres=obj[0]).count()
+        cuatro1 = filtro.filter(punto1c__plantas=1,punto1c__cuatro=obj[0]).count()
+        cinco1 = filtro.filter(punto1c__plantas=1,punto1c__cinco=obj[0]).count()
+        seis1 = filtro.filter(punto1c__plantas=1,punto1c__seis=obj[0]).count()
+        siete1 = filtro.filter(punto1c__plantas=1,punto1c__siete=obj[0]).count()
+        ocho1 = filtro.filter(punto1c__plantas=1,punto1c__ocho=obj[0]).count()
+        nueve1 = filtro.filter(punto1c__plantas=1,punto1c__nueve=obj[0]).count()
+        diez1 = filtro.filter(punto1c__plantas=1,punto1c__diez=obj[0]).count()
         suma_punto1 = uno1 + dos1 + tres1 + cuatro1 + cinco1 + seis1 + siete1 + ocho1 + nueve1 + diez1
 
-        uno2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__uno=obj[0]).count()
-        dos2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__dos=obj[0]).count()
-        tres2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__tres=obj[0]).count()
-        cuatro2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__cuatro=obj[0]).count()
-        cinco2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__cinco=obj[0]).count()
-        seis2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__seis=obj[0]).count()
-        siete2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__siete=obj[0]).count()
-        ocho2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__ocho=obj[0]).count()
-        nueve2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__nueve=obj[0]).count()
-        diez2 = filtro.filter(punto2c__ficha__in=filtro,punto2c__plantas=1,punto2c__diez=obj[0]).count()
+        uno2 = filtro.filter(punto2c__plantas=1,punto2c__uno=obj[0]).count()
+        dos2 = filtro.filter(punto2c__plantas=1,punto2c__dos=obj[0]).count()
+        tres2 = filtro.filter(punto2c__plantas=1,punto2c__tres=obj[0]).count()
+        cuatro2 = filtro.filter(punto2c__plantas=1,punto2c__cuatro=obj[0]).count()
+        cinco2 = filtro.filter(punto2c__plantas=1,punto2c__cinco=obj[0]).count()
+        seis2 = filtro.filter(punto2c__plantas=1,punto2c__seis=obj[0]).count()
+        siete2 = filtro.filter(punto2c__plantas=1,punto2c__siete=obj[0]).count()
+        ocho2 = filtro.filter(punto2c__plantas=1,punto2c__ocho=obj[0]).count()
+        nueve2 = filtro.filter(punto2c__plantas=1,punto2c__nueve=obj[0]).count()
+        diez2 = filtro.filter(punto2c__plantas=1,punto2c__diez=obj[0]).count()
         suma_punto2 = uno2 + dos2 + tres2 + cuatro2 + cinco2 + seis2 + siete2 + ocho2 + nueve2 + diez2
 
-        uno3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__uno=obj[0]).count()
-        dos3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__dos=obj[0]).count()
-        tres3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__tres=obj[0]).count()
-        cuatro3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__cuatro=obj[0]).count()
-        cinco3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__cinco=obj[0]).count()
-        seis3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__seis=obj[0]).count()
-        siete3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__siete=obj[0]).count()
-        ocho3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__ocho=obj[0]).count()
-        nueve3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__nueve=obj[0]).count()
-        diez3 = filtro.filter(punto3c__ficha__in=filtro,punto3c__plantas=1,punto3c__diez=obj[0]).count()
+        uno3 = filtro.filter(punto3c__plantas=1,punto3c__uno=obj[0]).count()
+        dos3 = filtro.filter(punto3c__plantas=1,punto3c__dos=obj[0]).count()
+        tres3 = filtro.filter(punto3c__plantas=1,punto3c__tres=obj[0]).count()
+        cuatro3 = filtro.filter(punto3c__plantas=1,punto3c__cuatro=obj[0]).count()
+        cinco3 = filtro.filter(punto3c__plantas=1,punto3c__cinco=obj[0]).count()
+        seis3 = filtro.filter(punto3c__plantas=1,punto3c__seis=obj[0]).count()
+        siete3 = filtro.filter(punto3c__plantas=1,punto3c__siete=obj[0]).count()
+        ocho3 = filtro.filter(punto3c__plantas=1,punto3c__ocho=obj[0]).count()
+        nueve3 = filtro.filter(punto3c__plantas=1,punto3c__nueve=obj[0]).count()
+        diez3 = filtro.filter(punto3c__plantas=1,punto3c__diez=obj[0]).count()
         suma_punto3 = uno3 + dos3 + tres3 + cuatro3 + cinco3 + seis3 + siete3 + ocho3 + nueve3 + diez3
 
         totales_suma = suma_punto1 + suma_punto2 + suma_punto3
@@ -877,7 +877,72 @@ def produccion_poda(request, template="guiascacao/poda/produccion_poda.html"):
 
     return render(request, template, locals())
 
+def atributos_poda(request, template="guiascacao/poda/atributos_poda.html"):
+    filtro = _queryset_filtrado_poda(request)
+    numero_parcelas = filtro.count()
 
+    atributos = {}
+
+    CHOICE_SI_NO = (
+        (1, 'Si'),
+        (2, 'No'),
+    )
+
+    for obj in CHOICE_PLANTAS2:
+        atributos[obj[1]] = {}
+        for x in CHOICE_SI_NO:
+            uno1 = filtro.filter(punto1b__plantas=obj[0],punto1b__uno=x[0]).count()
+            dos1 = filtro.filter(punto1b__plantas=obj[0],punto1b__dos=x[0]).count()
+            tres1 = filtro.filter(punto1b__plantas=obj[0],punto1b__tres=x[0]).count()
+            cuatro1 = filtro.filter(punto1b__plantas=obj[0],punto1b__cuatro=x[0]).count()
+            cinco1 = filtro.filter(punto1b__plantas=obj[0],punto1b__cinco=x[0]).count()
+            seis1 = filtro.filter(punto1b__plantas=obj[0],punto1b__seis=x[0]).count()
+            siete1 = filtro.filter(punto1b__plantas=obj[0],punto1b__siete=x[0]).count()
+            ocho1 = filtro.filter(punto1b__plantas=obj[0],punto1b__ocho=x[0]).count()
+            nueve1 = filtro.filter(punto1b__plantas=obj[0],punto1b__nueve=x[0]).count()
+            diez1 = filtro.filter(punto1b__plantas=obj[0],punto1b__diez=x[0]).count()
+            suma_punto1 = uno1 + dos1 + tres1 + cuatro1 + cinco1 + seis1 + siete1 + ocho1 + nueve1 + diez1
+
+            uno2 = filtro.filter(punto2b__plantas=obj[0],punto2b__uno=x[0]).count()
+            dos2 = filtro.filter(punto2b__plantas=obj[0],punto2b__dos=x[0]).count()
+            tres2 = filtro.filter(punto2b__plantas=obj[0],punto2b__tres=x[0]).count()
+            cuatro2 = filtro.filter(punto2b__plantas=obj[0],punto2b__cuatro=x[0]).count()
+            cinco2 = filtro.filter(punto2b__plantas=obj[0],punto2b__cinco=x[0]).count()
+            seis2 = filtro.filter(punto2b__plantas=obj[0],punto2b__seis=x[0]).count()
+            siete2 = filtro.filter(punto2b__plantas=obj[0],punto2b__siete=x[0]).count()
+            ocho2 = filtro.filter(punto2b__plantas=obj[0],punto2b__ocho=x[0]).count()
+            nueve2 = filtro.filter(punto2b__plantas=obj[0],punto2b__nueve=x[0]).count()
+            diez2 = filtro.filter(punto2b__plantas=obj[0],punto2b__diez=x[0]).count()
+            suma_punto2 = uno2 + dos2 + tres2 + cuatro2 + cinco2 + seis2 + siete2 + ocho2 + nueve2 + diez2
+
+            uno3 = filtro.filter(punto3b__plantas=obj[0],punto3b__uno=x[0]).count()
+            dos3 = filtro.filter(punto3b__plantas=obj[0],punto3b__dos=x[0]).count()
+            tres3 = filtro.filter(punto3b__plantas=obj[0],punto3b__tres=x[0]).count()
+            cuatro3 = filtro.filter(punto3b__plantas=obj[0],punto3b__cuatro=x[0]).count()
+            cinco3 = filtro.filter(punto3b__plantas=obj[0],punto3b__cinco=x[0]).count()
+            seis3 = filtro.filter(punto3b__plantas=obj[0],punto3b__seis=x[0]).count()
+            siete3 = filtro.filter(punto3b__plantas=obj[0],punto3b__siete=x[0]).count()
+            ocho3 = filtro.filter(punto3b__plantas=obj[0],punto3b__ocho=x[0]).count()
+            nueve3 = filtro.filter(punto3b__plantas=obj[0],punto3b__nueve=x[0]).count()
+            diez3 = filtro.filter(punto3b__plantas=obj[0],punto3b__diez=x[0]).count()
+            suma_punto3 = uno3 + dos3 + tres3 + cuatro3 + cinco3 + seis3 + siete3 + ocho3 + nueve3 + diez3
+
+            total = suma_punto1 + suma_punto2 + suma_punto3
+
+            atributos[obj[1]][x[1]] = total
+
+    return render(request, template, locals())
+
+def analisis_poda(request, template="guiascacao/poda/analisis_poda.html"):
+    filtro = _queryset_filtrado_poda(request)
+    numero_parcelas = filtro.count()
+
+    problema = {}
+    for obj in CHOICES_PROBLEMA_PLANTA:
+        cont = AnalisisPoda.objects.filter(ficha__in=filtro, campo1__contains=obj[0]).count()
+        problema[obj[1]] = cont
+
+    return render(request, template, locals())
 
 
 #----------  funciones utilitarias -----------------

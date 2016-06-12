@@ -1,0 +1,133 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Analisis de poda'
+        },
+        subtitle: {
+            text: '% de frecuencia'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '% de conteo total'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Porcentaje: <b>{point.y:.1f} %</b>'
+        },
+        series: [{
+            name: 'problema',
+            data: [
+              {% for k,v in problema.items %}
+
+                  ['{{k}}', {{v|calcular_frecuencia:numero_parcelas}}],
+
+              {% endfor %}
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#000000',
+                align: 'right',
+                format: '{point.y:.1f} %', // one decimal
+                y: -40, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+});
+
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default panel-ind">
+                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
+                        <h4 class="panel-title">
+                            Poda
+                        </h4>
+                    </a>
+                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body menu-">
+                            {% include "guiascacao/poda/menu_poda.html" %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Poda</li>
+                            <li class="active">Analisis de poda</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th>Especies</th>
+                                  <th># total</th>
+                                  <th>%</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for k,v in problema.items %}
+                                <tr>
+                                  <th scope=row>{{k}}</th>
+                                  <td>{{v}}</td>
+                                  <td>{{v|calcular_frecuencia:numero_parcelas}}</td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                         </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock contenido %}

@@ -1,0 +1,115 @@
+{% extends "guiascacao/base.html" %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Atributos de los arboles'
+        },
+        xAxis: {
+            categories: [{%for k, v in atributos.items %}'{{k}}',{%endfor%}]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total'
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            align: 'right',
+            x: -30,
+            verticalAlign: 'top',
+            y: 25,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+            borderColor: '#CCC',
+            borderWidth: 1,
+            shadow: false
+        },
+        tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style: {
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }
+        },
+        series: [
+        {
+            name: 'Si',
+            data: [{%for k, v in atributos.items%}{{v.Si}},{%endfor%}]
+        }, {
+            name: 'No',
+            data: [{%for k, v in atributos.items%}{{v.No}},{%endfor%}]
+        }
+      ]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default panel-ind">
+                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
+                        <h4 class="panel-title">
+                            Poda
+                        </h4>
+                    </a>
+                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body menu-">
+                          {% include "guiascacao/poda/menu_poda.html" %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Poda</li>
+                            <li class="active">Atributos de los árboles</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+{% endblock contenido %}
