@@ -479,7 +479,7 @@ def dimensiones_sombra(request, template="guiascacao/sombra/dimenciones_especies
 
     if request.GET.get('usos'):
         uso = request.GET['usos']
-        MODELO_ESPECIES = Especies.objects.exclude(id__in=[11,60]).filter(tipo_uso=uso)
+        MODELO_ESPECIES = Especies.objects.exclude(id__in=[11,60]).filter(tipo_uso__contains=uso)
     else:
         MODELO_ESPECIES = Especies.objects.exclude(id__in=[11,60])
 
