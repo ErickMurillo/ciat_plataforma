@@ -301,58 +301,58 @@ $(function () {
                         <ol class="breadcrumb">
                             <li class="active">Sombra</li>
                             <li class="active">Cobertura de sombra</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
                 </div>
                 <div class="panel-body">
                     <div class="row datos">
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Número de parcelas
-                            </div>
-                            <div class="number-data">
-                                {{numero_parcelas}}
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Promedio de cobertura total
-                            </div>
+                        
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-offset-1 col-lg-2">
                             <div class="number-data">
                                 {{promedio2|floatformat:2}}
                             </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Mediana de cobertura total
+                                Promedio
                             </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
                             <div class="number-data">
                                 {{mediana2|floatformat:2}}
                             </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Desviación típica de cobertura total
+                                Mediana
                             </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
                             <div class="number-data">
                                 {{desviacion2|floatformat:2}}
                             </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Mínimo de cobertura
+                                Desviación típica
                             </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
                             <div class="number-data">
                                 {{minimo2|floatformat:2}}
                             </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Máximo de cobertura
+                                Mínimo
                             </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                            
                             <div class="number-data">
                                 {{maximo2|floatformat:2}}
                             </div>
+                            <div class="title-data">
+                                Máximo
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="row">

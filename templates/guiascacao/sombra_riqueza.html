@@ -134,7 +134,7 @@ $(function () {
 
 {% block contenido %}
 
-    <div class="container-fluid">
+    <div class="container-fluid"> 
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default panel-ind">
@@ -143,9 +143,43 @@ $(function () {
                             Sombra
                         </h4>
                     </a>
-                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
+                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body menu-">
-                            {% include "guiascacao/sombra/menu_collapse.html" %}
+                            <ul class="list-group">
+                                
+                                <a class="list-group-item" href="/cacao/sombra/riqueza/"> 
+                                    Riqueza de sombra
+                                </a>
+                                 
+                                <a class="list-group-item" href="/cacao/sombra/analisis/">
+                                    Análisis de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/cobertura/"> 
+                                    Cobertura de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/densidad/"> 
+                                    Densidad de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/acciones/"> 
+                                    Acciones de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/caracterizacion/"> 
+                                    Caracterización arborea de sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/dominancia/"> 
+                                    Dominancia especies sombra
+                                </a>
+                                
+                                <a class="list-group-item" href="/cacao/sombra/dimensiones/"> 
+                                    Dimenciones sombra
+                                </a>
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -165,67 +199,50 @@ $(function () {
                 </div>
                 <div class="panel-body">
                     <div class="row datos">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            Promedio de riqueza total: {{promedio2|floatformat:2}}
 
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-offset-1 col-lg-2">
-                            <div class="number-data">
-                                {{promedio2|floatformat:2}}
-                            </div>
-                            <div class="title-data">
-                                Promedio
-                            </div>
-                            
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
-                            <div class="number-data">
-                                {{mediana2|floatformat:2}}
-                            </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Mediana
+                                Mediana de riqueza total:{{mediana2|floatformat:2}}
                             </div>
-                            
+
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
-                            <div class="number-data">
-                                {{desviacion2|floatformat:2}}
-                            </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Desviación típica
+                                Desviación típica de riqueza total: {{desviacion2|floatformat:2}}
                             </div>
-                            
+
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
-                            <div class="number-data">
-                                {{minimo|floatformat:2}}
-                            </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
                                 Mínimo
                             </div>
-                            
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
                             <div class="number-data">
-                                {{maximo|floatformat:2}}
+                                {{minimo|floatformat:2}}
                             </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
                                 Máximo
                             </div>
-                            
+                            <div class="number-data">
+                                {{maximo|floatformat:2}}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div id="grafo1"></div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <hr>
                         <div class="col-md-12">
                             <div id="grafo2"></div>
                         </div>
-                    </div>  
+                    </div>
                 </div>
             </div>
-
+            
         </div>
 
 
