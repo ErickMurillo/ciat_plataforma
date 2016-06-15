@@ -1226,3 +1226,208 @@ class PisoPunto10(models.Model):
 
     def __unicode__(self):
         return u"punto 10 y 11"
+
+#-------------------------- entradas de suelo ----------------------------------
+
+class FichaSuelo(models.Model):
+    productor = models.ForeignKey(Persona,
+            verbose_name='Nombre de productor o productora',
+            related_name='persona_productor_suelo')
+    tecnico = models.ForeignKey(Persona,
+            verbose_name='Nombre de técnico',
+            related_name='persona_tecnico_suelo')
+    fecha_visita = models.DateField()
+
+    def __unicode__(self):
+        return self.productor.nombre
+
+    class Meta:
+        verbose_name = "Ficha suelo"
+        verbose_name_plural = "Fichas suelos"
+
+
+CHOICE_SUELO_USO_PARCELA = (
+                            (1, 'Bosque'),
+                            (2, 'Potrero'),
+                            (3, 'Granos básicos'),
+                            (4, 'Tacotal'),
+                            (5, 'Cacaotal viejo'),
+                            )
+CHOICE_SUELO_LIMITANTES = (
+                            ('A', 'Acidez / pH del suelo '),
+                            ('B', 'Encharcamiento / Mal Drenaje'),
+                            ('C', 'Enfermedades de raíces '),
+                            ('D', 'Deficiencia de nutrientes'),
+                            ('E', 'Baja materia orgánica'),
+                            ('F', 'Baja actividad biológica y presencia de lombrices'),
+                            ('G', 'Erosión'),
+                            ('H', 'Compactación e infiltración de agua'),
+                            )
+
+CHOICE_SUELO_ORIENTACION = (
+                            ('A', 'Técnico'),
+                            ('B', 'Casa comercial'),
+                            ('C', 'Cooperativa'),
+                            ('D', 'Otros productores'),
+                            ('E', 'Experiencia propia/costumbres'),
+                            ('F', 'Otros medio de comunicación'),
+                            ('G', 'Análisis de suelo '),
+                            )
+
+CHOICE_SUELO_ABONOS = (
+                            ('A', 'Hecho en finca (compost, estiércol)'),
+                            ('B', 'Regalados de otra finca (compost, estiércol)'),
+                            ('C', 'Comprados de otra finca (compost, estiércol)'),
+                            ('D', 'Comprado de casa comercial'),
+                            ('E', 'Con crédito de la cooperativa'),
+                            ('F', 'Incentivos/Regalados'),
+                            )
+
+class Punto1Suelo(models.Model):
+    uso_parcela = models.IntegerField(choices=CHOICE_SUELO_USO_PARCELA,
+                  verbose_name="Cuál era el uso de la parcela antes de establecer el cacao?")
+    limitante = MultiSelectField(choices=CHOICE_SUELO_LIMITANTES,
+          verbose_name='Cuáles son los limitantes productivos del suelo de la parcela?')
+    orientacion = MultiSelectField(choices=CHOICE_SUELO_ORIENTACION,
+        verbose_name='Quien su orientación de manejo de fertilidad de suelo?')
+    abonos = MultiSelectField(choices=CHOICE_SUELO_ABONOS,
+        verbose_name='4. De donde consigue los abonos, fertilizantes y enmiendas de suelo?')
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"punto 1 suelo"
+
+CHOICE_SUELO_EROSION_OPCION = (
+                            (1, 'Deslizamientos'),
+                            (2, 'Evidencia de erosión'),
+                            (3, 'Cárcavas'),
+                            (4, 'Área de acumulación de sedimentos'),
+                            (5, 'Pedregosidad'),
+                            (6, 'Raíces desnudos'),
+                        )
+
+CHOICE_SUELO_EROSION_RESPUESTA = (
+                            (1, 'No presente'),
+                            (2, 'Algo'),
+                            (3, 'Severo'),
+                        )
+
+class PuntoASuelo(models.Model):
+    opcion = models.IntegerField(choices=CHOICE_SUELO_EROSION_OPCION,
+                  verbose_name="Indicadores")
+    respuesta = models.IntegerField(choices=CHOICE_SUELO_EROSION_RESPUESTA,
+                verbose_name="respuesta")
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Indicadores de erosión"
+
+CHOICE_SUELO_CONSERVACION_OPCION = (
+                            (1, 'Barrera muertas'),
+                            (2, 'Barrera Viva'),
+                            (3, 'Siembra en Curvas a Nivel'),
+                            (4, 'Terrazas'),
+                            (5, 'Cobertura de piso'),
+                        )
+
+CHOICE_SUELO_CONSERVACION_RESPUESTA = (
+                            (1, 'No presente'),
+                            (2, 'En mal estado'),
+                            (3, 'En buen estado'),
+                        )
+
+class PuntoBSuelo(models.Model):
+    opcion = models.IntegerField(choices=CHOICE_SUELO_CONSERVACION_OPCION,
+                  verbose_name="Obras")
+    respuesta = models.IntegerField(choices=CHOICE_SUELO_CONSERVACION_RESPUESTA,
+                verbose_name="respuesta")
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Obras de conservación de suelo"
+
+
+CHOICE_SUELO_DRENAJE_OPCION = (
+                            (1, 'Encharcamientos'),
+                            (2, 'Amarillamiento/mal crecimiento'),
+                            (3, 'Enfermedades (phytophthora)'),
+                        )
+
+class Punto2ASuelo(models.Model):
+    opcion = models.IntegerField(choices=CHOICE_SUELO_DRENAJE_OPCION,
+                  verbose_name="Indicadores")
+    respuesta = models.IntegerField(choices=CHOICE_SUELO_EROSION_RESPUESTA,
+                verbose_name="respuesta")
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Indicadores de drenaje"
+
+CHOICE_SUELO_DRENAJE_OPCION2 = (
+                            (1, 'Acequias'),
+                            (2, 'Canales de drenaje a lo largo y ancho de la parcela'),
+                            (3, 'Canales de drenaje alrededor de las plantas'),
+                            (4, 'Canales a lado de la parcela'),
+                            (5, 'Cobertura de piso'),
+                        )
+class Punto2BSuelo(models.Model):
+    opcion = models.IntegerField(choices=CHOICE_SUELO_DRENAJE_OPCION2,
+                  verbose_name="Indicadores")
+    respuesta = models.IntegerField(choices=CHOICE_SUELO_CONSERVACION_RESPUESTA,
+                verbose_name="respuesta")
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Obras de drenaje"
+
+
+CHOICE_SUELO_OPCION_PUNTOS = (
+                            (1, 'Severidad de daño de nematodos'),
+                            (2, 'Severidad de daño de hongos'),
+                        )
+
+CHOICE_SUELO_RESPUESTA_PUNTOS = (
+                            (1, 'No Afectado'),
+                            (2, 'Afectado'),
+                            (3, 'Muy Afectados'),
+                            (4, 'Severamente afectados'),
+                        )
+
+
+class Punto3SueloPunto1(models.Model):
+    opcion = models.IntegerField(choices=CHOICE_SUELO_OPCION_PUNTOS,
+                  verbose_name="Indicadores")
+    respuesta = models.IntegerField(choices=CHOICE_SUELO_RESPUESTA_PUNTOS,
+                verbose_name="respuesta")
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Punto 1"
+
+class Punto3SueloPunto2(models.Model):
+    opcion = models.IntegerField(choices=CHOICE_SUELO_OPCION_PUNTOS,
+                  verbose_name="Indicadores")
+    respuesta = models.IntegerField(choices=CHOICE_SUELO_RESPUESTA_PUNTOS,
+                verbose_name="respuesta")
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Punto 2"
+
+class Punto3SueloPunto3(models.Model):
+    opcion = models.IntegerField(choices=CHOICE_SUELO_OPCION_PUNTOS,
+                  verbose_name="Indicadores")
+    respuesta = models.IntegerField(choices=CHOICE_SUELO_RESPUESTA_PUNTOS,
+                verbose_name="respuesta")
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Punto 3"
