@@ -69,21 +69,7 @@ $(function () {
 
     <div class="container-fluid">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default panel-ind">
-                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
-                        <h4 class="panel-title">
-                            Sombra
-                        </h4>
-                    </a>
-                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body menu-">
-                            {% include "guiascacao/sombra/menu_collapse.html" %}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            {% include "guiascacao/menu_salidas.html" %}
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
             <div class="panel panel-default panel-graficos">
@@ -92,6 +78,7 @@ $(function () {
                         <ol class="breadcrumb">
                             <li class="active">Sombra</li>
                             <li class="active">Dominancia especies sombra</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
                 </div>
@@ -101,27 +88,53 @@ $(function () {
                         <div class="col-md-12">
                             <div id="grafo1"></div>
                         </div>
+                    </div>
+                    <hr>
+                    
                         <p>TOTAL DE ESPECIES: {{CUANTO_ESPECIES}}  *se excluyo banano y plátano en todo el sistema {{SUMA_TOTAL_ESPECIE}}
                         </p>
+                    
+                    <hr>
+                    <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Especies</th>
-                                  <th># total</th>
-                                  <th>%</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {% for v in dominancia_todo %}
-                                <tr>
-                                  <th scope=row>{{v.0}}</th>
-                                  <td>{{v.1}}</td>
-                                  <td>{{v.1|calcular_frecuencia:SUMA_TOTAL_ESPECIE}}</td>
-                                </tr>
-                                {% endfor %}
-                              </tbody>
-                            </table>
+                        
+                            <div class="table-responsive tabla-especies">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Especies</th>
+                                            <th>Número total</th>
+                                            <th>Porcentaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for v in dominancia_todo %}
+                                        <tr>
+                                            <th scope=row>
+                                                <a class="" data-toggle="modal" href='#modal-id'>{{v.0}}</a>
+                                            </th>
+                                            <td>{{v.1}}</td>
+                                            <td>{{v.1|calcular_frecuencia:SUMA_TOTAL_ESPECIE}}%</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table> 
+                            </div>
+                            
+
+                            <div class="modal fade bs-example-modal-lg" id="modal-id">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">Nombre de la especie</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img class="center-block" src="http://placehold.it/600x400" alt="nombre especie">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                          </div>
 
                     </div>

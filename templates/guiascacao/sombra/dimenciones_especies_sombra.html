@@ -168,6 +168,7 @@ $(function () {
         }]
     });
 });
+$("select").addClass("form-control");
 </script>
 {% endblock extra_js %}
 
@@ -175,21 +176,7 @@ $(function () {
 
     <div class="container-fluid">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default panel-ind">
-                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
-                        <h4 class="panel-title">
-                            Sombra
-                        </h4>
-                    </a>
-                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body menu-">
-                          {% include "guiascacao/sombra/menu_collapse.html" %}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+             {% include "guiascacao/menu_salidas.html" %}
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
             <div class="panel panel-default panel-graficos">
@@ -198,14 +185,17 @@ $(function () {
                         <ol class="breadcrumb">
                             <li class="active">Sombra</li>
                             <li class="active">Dimenciones de arboles de sombra</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <form  action='.' method='GET'>
-                                <label for='txt_minimo'>Tipo uso del árbol</label>
+                    <form class="formulario-uso"  action='.' method='GET'>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                                <label for="">Tipo uso del árbol</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                                 <select id='select_rango' name='usos'>
                                     <option value=''>-------</option>
                                     <option value='1'>Leña</option>
@@ -214,97 +204,106 @@ $(function () {
                                     <option value='4'>Sombra</option>
                                     <option value='5'>Nutrientes</option>
                                 </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
                                 <input type="submit" value="Consultar" class="btn btn-form" name="Consulta"/>
-                            </form>
+                            </div>
+                            {% if uso %}
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
+                                <p>
+                                    <strong><em>
+                                  Su busqueda fue por: {% if uso == '1' %}Leña{% endif %}
+                                                       {% if uso == '2' %}Fruta{% endif %}
+                                                       {% if uso == '3' %}Madera{% endif %}
+                                                       {% if uso == '4' %}Sombra{% endif %}
+                                                       {% if uso == '5' %}Nutrientes{% endif %}
+                                    </em></strong>
+                                </p>
+                            </div>
+                            {% endif %}
                         </div>
-                    </div>
-                    {% if uso %}
-                    <p>
-                      su busqueda fue por: {% if uso == '1' %}Leña{% endif %}
-                                           {% if uso == '2' %}Fruta{% endif %}
-                                           {% if uso == '3' %}Madera{% endif %}
-                                           {% if uso == '4' %}Sombra{% endif %}
-                                           {% if uso == '5' %}Nutrientes{% endif %}
-                    </p>
-                   {% endif %}
+                    </form>
+                    <hr>
+                    
+                   
                     <div class="row">
-                        <div class="col-md-3">
-                            <h3>Alturas de los árboles en mt</h3>
-                            <p>
-                            NÚMERO DE PARCELAS: {{numero_parcelas|floatformat:2}}
-                            </p>
-                            <p>
-                            PROMEDIO: {{promedio_altura|floatformat:2}}
-                            </p>
-                            <p>
-                            DESVIACIÓN ESTANDAR: {{desviacion_altura|floatformat:2}}
-                            </p>
-                            <p>
-                            MEDIANA: {{media_altura}}
-                            </p>
-                            <p>
-                            RANGO MINIMO: {{minimo_altura}}
-                            </p>
-                            <p>
-                            RANGO MAXIMO: {{maximo_altura}}
-                            </p>
-                        </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div id="grafo1"></div>
                         </div>
+                        <div class="col-md-4">
+                            <h4>Alturas de los árboles en mt</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Promedio:</b> {{promedio_altura|floatformat:2}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Desviación estandar:</b> {{desviacion_altura|floatformat:2}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Mediana: </b>{{media_altura}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Rango mínimo:</b> {{minimo_altura}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Rango máximo:</b> {{maximo_altura}}
+                                </li>
+                            </ul>
+                        </div>
+                        
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-3">
-                            <h3>Diametros de árboles en cm</h3>
-                            <p>
-                             NÚMERO DE PARCELAS: {{numero_parcelas|floatformat:2}}
-                            </p>
-                            <p>
-                             PROMEDIO: {{promedio_diametro|floatformat:2}}
-                            </p>
-                            <p>
-                             DESVIACIÓN ESTANDAR: {{desviacion_diametro|floatformat:2}}
-                            </p>
-                            <p>
-                             MEDIANA: {{media_diametro}}
-                            </p>
-                            <p>
-                             MINIMO: {{minimo_diametro}}
-                            </p>
-                            <p>
-                             MAXIMO: {{maximo_diametro}}
-                            </p>
-                        </div>
-                        <div class="col-md-9">
+                        
+                        <div class="col-md-8">
                             <div id="grafo2"></div>
                         </div>
+                        <div class="col-md-4">
+                            <h4>Diametros de árboles en cm</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Promedio:</b> {{promedio_diametro|floatformat:2}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Desviación estandar:</b> {{desviacion_diametro|floatformat:2}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Mediana: </b>{{media_diametro}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Rango mínimo:</b> {{minimo_diametro}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Rango máximo:</b> {{maximo_diametro}}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-3">
-                            <h3>Ancho de la copa de árboles en mt</h3>
-                            <p>
-                              NÚMERO DE PARCELAS: {{numero_parcelas|floatformat:2}}
-                            </p>
-                            <p>
-                              PROMEDIO: {{promedio_anchura|floatformat:2}}
-                            </p>
-                            <p>
-                              DESVIACIÓN ESTANDAR: {{desviacion_anchura|floatformat:2}}
-                            </p>
-                            <p>
-                              MEDIANA: {{media_anchura}}
-                            </p>
-                            <p>
-                              MINIMO: {{minimo_anchura}}
-                            </p>
-                            <p>
-                              MAXIMO: {{maximo_anchura}}
-                            </p>
-                        </div>
-                        <div class="col-md-9">
+                       
+                        <div class="col-md-8">
                             <div id="grafo3"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Ancho de la copa de árboles en mt</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Promedio:</b> {{promedio_anchura|floatformat:2}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Desviación estandar:</b> {{desviacion_anchura|floatformat:2}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Mediana: </b>{{media_anchura}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Rango mínimo:</b> {{minimo_anchura}}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Rango máximo:</b> {{maximo_anchura}}
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -278,21 +278,7 @@ $(function () {
 {% block contenido %}
     <div class="container-fluid">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default panel-ind">
-                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
-                        <h4 class="panel-title">
-                            Sombra
-                        </h4>
-                    </a>
-                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body menu-">
-                            {% include "guiascacao/sombra/menu_collapse.html" %}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+             {% include "guiascacao/menu_salidas.html" %}
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
             <div class="panel panel-default panel-graficos">
@@ -301,58 +287,58 @@ $(function () {
                         <ol class="breadcrumb">
                             <li class="active">Sombra</li>
                             <li class="active">Cobertura de sombra</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
                 </div>
                 <div class="panel-body">
                     <div class="row datos">
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Número de parcelas
-                            </div>
-                            <div class="number-data">
-                                {{numero_parcelas}}
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Promedio de cobertura total
-                            </div>
+                        
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-offset-1 col-lg-2">
                             <div class="number-data">
                                 {{promedio2|floatformat:2}}
                             </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Mediana de cobertura total
+                                Promedio
                             </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
                             <div class="number-data">
                                 {{mediana2|floatformat:2}}
                             </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Desviación típica de cobertura total
+                                Mediana
                             </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
                             <div class="number-data">
                                 {{desviacion2|floatformat:2}}
                             </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Mínimo de cobertura
+                                Desviación típica
                             </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
                             <div class="number-data">
                                 {{minimo2|floatformat:2}}
                             </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="title-data">
-                                Máximo de cobertura
+                                Mínimo
                             </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                            
                             <div class="number-data">
                                 {{maximo2|floatformat:2}}
                             </div>
+                            <div class="title-data">
+                                Máximo
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="row">
