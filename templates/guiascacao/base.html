@@ -65,6 +65,17 @@
   <script src="/static/general/bootstrap/js/bootstrap.min.js"></script>
   <script src="{% static 'analisis/js/highcharts.js' %}"></script>
   <script src="{% static 'analisis/js/exporting.js' %}"></script>
+  <script type="text/javascript">
+    var ficha = window.location.pathname.split('/');
+
+    if (ficha[2]=="sombra") {
+        $( "#sombra" ).addClass( "in" );
+        $( "#poda" ).removeClass( "in" );
+    }else {
+        $( "#poda" ).addClass( "in" );
+        $( "#sombra" ).removeClass( "in" );
+    };
+  </script>
   {% block extra_js %}{% endblock extra_js %}
 
 </body>

@@ -129,6 +129,16 @@ $(function () {
         }]
     });
 });
+var pathname = window.location.pathname;
+var arregloDeCadenas = pathname.split('/');
+
+if (arregloDeCadenas[2]="sombra") {
+    $( "#sombra" ).addClass( "in" );
+    $( "#poda" ).removeClass( "in" );
+}else if (arregloDeCadenas[2]="poda") {
+    $( "#poda" ).addClass( "in" );
+    $( "#sombra" ).removeClass( "in" );
+};
 </script>
 {% endblock extra_js %}
 
@@ -136,21 +146,7 @@ $(function () {
 
     <div class="container-fluid">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default panel-ind">
-                    <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"id="headingOne">
-                        <h4 class="panel-title">
-                            Sombra
-                        </h4>
-                    </a>
-                    <div id="collapseOne" class="panel-collapse collapse.in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body menu-">
-                            {% include "guiascacao/sombra/menu_collapse.html" %}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            {% include "guiascacao/menu_salidas.html" %}
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
             <div class="panel panel-default panel-graficos">
