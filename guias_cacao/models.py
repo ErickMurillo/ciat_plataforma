@@ -1431,3 +1431,90 @@ class Punto3SueloPunto3(models.Model):
 
     def __unicode__(self):
         return u"Punto 3"
+
+
+class Punto4Suelo(models.Model):
+    area = models.FloatField(verbose_name='Tamaño de Área de Cacao SAF (en manzanas)')
+    densidad = models.FloatField(verbose_name='Densidad de Arboles de Cacao en parcela SAF (por manzana)')
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Balance de nutrientes de parcela Cacao SAF"
+
+
+CHOICE_SUELO_PRODUCTO_COSECHA = (
+                            (1, 'Cacao Grano Seco - (qq/mz/año)'),
+                            (2, 'Leña - (cargas de 125lb /mz/año)'),
+                            (3, 'Cabezas de Banano - (cabezas/mz/año)'),
+                        )
+
+class Punto4SueloCosecha(models.Model):
+    producto = models.IntegerField(choices=CHOICE_SUELO_PRODUCTO_COSECHA)
+    cantidad = models.FloatField()
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Cosechas del Productos SAF"
+
+
+class Punto4SueloSI(models.Model):
+    opcion = models.IntegerField(choices=CHOICE_SI_NO)
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Se regresa la cascara a la parcela como abono?"
+
+
+class TipoFertilizantes(models.Model):
+    nombre = models.CharField(max_length=250)
+    unidad = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return u'%s - %s' % (self.nombre, self.unidad)
+
+
+class Punto5SueloAbonos(models.Model):
+    tipo = models.ForeignKey(TipoFertilizantes)
+    cantidad = models.FloatField('Cantidad(Valor)')
+    humedad = models.FloatField('Humedad (%)')
+    frecuencia = models.FloatField('Frecuencia (por año)')
+    meses = MultiSelectField(choices=CHOICES_FECHA_PODA, verbose_name='Meses de aplicación')
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF"
+
+
+class DatosAnalisis(models.Model):
+    variable = models.CharField(max_length=250)
+    unidad = models.CharField(max_length=250)
+    valor_critico = models.FloatField()
+
+    def __unicode__(self):
+        return self.variable
+
+
+class Punto6AnalisisSuelo(models.Model):
+    variable = models.ForeignKey(DatosAnalisis)
+    valor = models.FloatField()
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Datos de análisis de suelo"
+
+
+class Punto7TipoSuelo(models.Model):
+    opcion = models.IntegerField(choices=(
+                                        (1,'Ultisol (rojo)'),
+                                        (2, 'Andisol (volcánico)'),
+                                        (3, 'Vertisol'),))
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Tipo de suelo"
