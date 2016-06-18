@@ -1470,15 +1470,16 @@ class Punto4SueloSI(models.Model):
 
 class TipoFertilizantes(models.Model):
     nombre = models.CharField(max_length=250)
-    unidad = models.CharField(max_length=250)
 
     def __unicode__(self):
-        return u'%s - %s' % (self.nombre, self.unidad)
+        return u'%s' % (self.nombre)
 
+CHOICE_UNIDAD_MEDIDA_ABONO = ((1,'lb/mz'),(2,'lb/planta '),(3,'oz/planta'),(4,'L/mz'))
 
 class Punto5SueloAbonos(models.Model):
     tipo = models.ForeignKey(TipoFertilizantes)
     cantidad = models.FloatField('Cantidad(Valor)')
+    unidad = models.IntegerField(choices=CHOICE_UNIDAD_MEDIDA_ABONO)
     humedad = models.FloatField('Humedad (%)')
     frecuencia = models.FloatField('Frecuencia (por año)')
     meses = MultiSelectField(choices=CHOICES_FECHA_PODA, verbose_name='Meses de aplicación')
@@ -1518,3 +1519,16 @@ class Punto7TipoSuelo(models.Model):
 
     def __unicode__(self):
         return u"Tipo de suelo"
+
+
+class Punto8SueloPropuesta(models.Model):
+    tipo = models.ForeignKey(TipoFertilizantes)
+    cantidad = models.FloatField('Cantidad(Valor)')
+    unidad = models.IntegerField(choices=CHOICE_UNIDAD_MEDIDA_ABONO)
+    frecuencia = models.FloatField('Frecuencia (por año)')
+    meses = MultiSelectField(choices=CHOICES_FECHA_PODA, verbose_name='Meses de aplicación')
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Nueva Propuesta de Fertilización Generada"
