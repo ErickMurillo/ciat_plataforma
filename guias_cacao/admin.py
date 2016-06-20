@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from .forms import ProductorSombraAdminForm, TecnicoAdminForm, ProductorPodaAdminForm, ProductorPlagaAdminForm, ProductorPisoAdminForm
+from .forms import *
 from .models import *
 from import_export.admin import ImportExportModelAdmin
 
@@ -350,3 +350,133 @@ class EspeciesAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Especies, EspeciesAdmin)
+
+#----- ficha de suelo ----
+class Punto1SueloInline(admin.TabularInline):
+    model = Punto1Suelo
+    extra = 1
+    max_num = 1
+
+class PuntoASueloInline(admin.TabularInline):
+    model = PuntoASuelo
+    extra = 1
+    max_num = 6
+
+class PuntoBSueloInline(admin.TabularInline):
+    model = PuntoBSuelo
+    extra = 1
+    max_num = 5
+
+class Punto2ASueloInline(admin.TabularInline):
+    model = Punto2ASuelo
+    extra = 1
+    max_num = 1
+
+class Punto2BSueloInline(admin.TabularInline):
+    model = Punto2BSuelo
+    extra = 1
+    max_num = 1
+
+class Punto3SueloPunto1Inline(admin.TabularInline):
+    model = Punto3SueloPunto1
+    extra = 1
+    max_num = 1
+
+class Punto3SueloPunto2Inline(admin.TabularInline):
+    model = Punto3SueloPunto2
+    extra = 1
+    max_num = 1
+
+class Punto3SueloPunto3Inline(admin.TabularInline):
+    model = Punto3SueloPunto3
+    extra = 1
+    max_num = 1
+
+class Punto4SueloInline(admin.TabularInline):
+    model = Punto4Suelo
+    extra = 1
+    max_num = 1
+
+class Punto4SueloCosechaInline(admin.TabularInline):
+    model = Punto4SueloCosecha
+    extra = 1
+    max_num = 1
+
+class Punto4SueloSIInline(admin.TabularInline):
+    model = Punto4SueloSI
+    extra = 1
+    max_num = 1
+
+class Punto5SueloAbonosInline(admin.TabularInline):
+    model = Punto5SueloAbonos
+    extra = 1
+    max_num = 1
+
+class Punto6AnalisisSueloInline(admin.TabularInline):
+    model = Punto6AnalisisSuelo
+    extra = 1
+    max_num = 1
+
+class Punto7TipoSueloInline(admin.TabularInline):
+    model = Punto7TipoSuelo
+    extra = 1
+    max_num = 1
+
+class Punto8SueloPropuestaInline(admin.TabularInline):
+    model = Punto8SueloPropuesta
+    extra = 1
+    max_num = 1
+
+class Punto9ErosionInline(admin.TabularInline):
+    model = Punto9Erosion
+    extra = 1
+    max_num = 1
+
+class Punto9DrenajeInline(admin.TabularInline):
+    model = Punto9Drenaje
+    extra = 1
+    max_num = 1
+
+class Punto9NutrientesInline(admin.TabularInline):
+    model = Punto9Nutrientes
+    extra = 1
+    max_num = 1
+
+class Punto9ExcesoInline(admin.TabularInline):
+    model = Punto9Exceso
+    extra = 1
+    max_num = 1
+
+class Punto9DesbalanceInline(admin.TabularInline):
+    model = Punto9Desbalance
+    extra = 1
+    max_num = 1
+
+class Punto9EnfermedadesInline(admin.TabularInline):
+    model = Punto9Enfermedades
+    extra = 1
+    max_num = 1
+
+class FichaSueloAdmin(admin.ModelAdmin):
+    form = ProductorSueloAdminForm
+    inlines = [Punto1SueloInline,PuntoASueloInline,PuntoBSueloInline,
+               Punto2ASueloInline,Punto2BSueloInline,Punto3SueloPunto1Inline,
+               Punto3SueloPunto2Inline,Punto3SueloPunto3Inline,
+               Punto4SueloInline,Punto4SueloCosechaInline,Punto4SueloSIInline,
+               Punto5SueloAbonosInline,Punto6AnalisisSueloInline,
+               Punto7TipoSueloInline,Punto8SueloPropuestaInline,Punto9ErosionInline,
+               Punto9DrenajeInline,Punto9NutrientesInline,Punto9ExcesoInline,
+               Punto9DesbalanceInline,Punto9EnfermedadesInline]
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+    class Media:
+        css = {
+           'all': ('monitoreo/css/adminSombra.css',)
+       }
+        js = ('monitoreo/js/fichaSombra.js',)
+
+# Register your models here.
+admin.site.register(TipoFertilizantes)
+admin.site.register(FichaSuelo, FichaSueloAdmin)

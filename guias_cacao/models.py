@@ -1532,3 +1532,121 @@ class Punto8SueloPropuesta(models.Model):
 
     def __unicode__(self):
         return u"Nueva Propuesta de Fertilización Generada"
+
+CHOICE_PUNTO9_LIMITACION_1 = (
+                                (1, 'Erosión de Suelo'),
+                            )
+
+CHOICE_PUNTO9_LIMITACION_1_ACCION = (
+                                ('A', 'Barrera viva'),
+                                ('B', 'Cobertura de suelo'),
+                                ('C', 'Barrera Muerta'),
+                                ('D', 'Siembra en Curvas a Nivel'),
+                                ('E', 'Terrazas'),
+                            )
+
+CHOICE_PUNTO9_LIMITACION_2 = (
+                                (1, 'Mal drenaje y encharamientos'),
+                            )
+CHOICE_PUNTO9_LIMITACION_2_ACCION = (
+                                ('A', 'Acequias'),
+                                ('B', 'Canales de drenaje de larga'),
+                                ('C', 'Canales de drenaje alrededor de la parcela'),
+                            )
+
+CHOICE_PUNTO9_LIMITACION_3 = (
+                                (1, 'Deficiencia de Nutrientes'),
+                            )
+CHOICE_PUNTO9_LIMITACION_3_ACCION = (
+                                ('A', 'Aplicar abonos orgánicos'),
+                                ('B', 'Aplicar abonos minerales'),
+                            )
+
+CHOICE_PUNTO9_LIMITACION_4 = (
+                                (1, 'Exceso de nutrientes'),
+                            )
+CHOICE_PUNTO9_LIMITACION_4_ACCION = (
+                                ('A', 'Bajar nivel de fertilización'),
+                            )
+
+CHOICE_PUNTO9_LIMITACION_5 = (
+                                (1, 'Desbalance de nutrientes'),
+                            )
+CHOICE_PUNTO9_LIMITACION_5_ACCION = (
+                                ('A', 'Ajustar programa de fertilización '),
+                            )
+CHOICE_PUNTO9_LIMITACION_6 = (
+                                (1, 'Enfermedades y plagas de raíces'),
+                            )
+CHOICE_PUNTO9_LIMITACION_6_ACCION = (
+                                ('A', 'Abonos orgánicos'),
+                                ('B', 'Obras de drenaje'),
+                                ('C', 'Aplicación de ceniza'),
+                            )
+
+CHOICE_PUNTO9_DONDE = (
+                                (1, 'En todo parcela'),
+                                (2, 'En algunas partes'),
+                            )
+
+
+class Punto9Erosion(models.Model):
+    limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_1)
+    acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_1_ACCION, verbose_name='Acciones potenciales')
+    donde = models.IntegerField(choices=CHOICE_PUNTO9_DONDE)
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Toma de decisión con base en las observaciones de eroción"
+
+class Punto9Drenaje(models.Model):
+    limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_2)
+    acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_2_ACCION, verbose_name='Acciones potenciales')
+    donde = models.IntegerField(choices=CHOICE_PUNTO9_DONDE)
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Toma de decisión con base en las observaciones de mal drenaje"
+
+
+class Punto9Nutrientes(models.Model):
+    limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_3)
+    acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_3_ACCION, verbose_name='Acciones potenciales')
+    donde = models.IntegerField(choices=CHOICE_PUNTO9_DONDE)
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Toma de decisión con base en las observaciones de deficiencia nutrientes"
+
+class Punto9Exceso(models.Model):
+    limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_4_ACCION)
+    acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_4_ACCION, verbose_name='Acciones potenciales')
+    donde = models.IntegerField(choices=CHOICE_PUNTO9_DONDE)
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Toma de decisión con base en las observaciones de exceso de nutrientes"
+
+class Punto9Desbalance(models.Model):
+    limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_5)
+    acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_5_ACCION, verbose_name='Acciones potenciales')
+    donde = models.IntegerField(choices=CHOICE_PUNTO9_DONDE)
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Toma de decisión con base en las observaciones de desbalance de nutrientes"
+
+class Punto9Enfermedades(models.Model):
+    limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_6)
+    acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_6_ACCION, verbose_name='Acciones potenciales')
+    donde = models.IntegerField(choices=CHOICE_PUNTO9_DONDE)
+
+    ficha = models.ForeignKey(FichaSuelo)
+
+    def __unicode__(self):
+        return u"Toma de decisión con base en las observaciones de enfermedades y plagas"
