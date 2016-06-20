@@ -1297,9 +1297,9 @@ class Punto1Suelo(models.Model):
 
     def __unicode__(self):
         return u"Punto 1"
-    # class Meta:
-    #     verbose_name = 'Historial de manejo y limitaciones observados'
-    #     verbose_name_plural = 'Historial de manejo y limitaciones observados'
+    class Meta:
+        verbose_name = 'Historial de manejo y limitaciones observados'
+        verbose_name_plural = 'Historial de manejo y limitaciones observados'
 
 CHOICE_SUELO_EROSION_OPCION = (
                             (1, 'Deslizamientos'),
@@ -1356,9 +1356,9 @@ class PuntoBSuelo(models.Model):
     def __unicode__(self):
         return u"Obras de conservación de suelo"
 
-    # class Meta:
-    #     verbose_name = 'Obras de conservación de suelo'
-    #     verbose_name_plural = 'Obras de conservación de suelo'
+    class Meta:
+        verbose_name = 'Obras de conservación de suelo'
+        verbose_name_plural = 'Obras de conservación de suelo'
 
 
 CHOICE_SUELO_DRENAJE_OPCION = (
@@ -1473,9 +1473,9 @@ class Punto4Suelo(models.Model):
     def __unicode__(self):
         return u"Balance de nutrientes de parcela Cacao SAF"
 
-    # class Meta:
-    #     verbose_name = 'Balance de nutrientes de parcela Cacao SAF'
-    #     verbose_name_plural = 'Balance de nutrientes de parcela Cacao SAF'
+    class Meta:
+        verbose_name = 'Balance de nutrientes de parcela Cacao SAF'
+        verbose_name_plural = 'Balance de nutrientes de parcela Cacao SAF'
 
 
 CHOICE_SUELO_PRODUCTO_COSECHA = (
@@ -1493,9 +1493,9 @@ class Punto4SueloCosecha(models.Model):
     def __unicode__(self):
         return u"Cosechas del Productos SAF"
 
-    # class Meta:
-    #     verbose_name = 'Cosechas del Productos SAF'
-    #     verbose_name_plural = 'Cosechas del Productos SAF'
+    class Meta:
+        verbose_name = 'Cosechas del Productos SAF'
+        verbose_name_plural = 'Cosechas del Productos SAF'
 
 
 
@@ -1507,9 +1507,9 @@ class Punto4SueloSI(models.Model):
     def __unicode__(self):
         return u"Se regresa la cascara a la parcela como abono?"
 
-    # class Meta:
-    #     verbose_name = 'Se regresa la cascara a la parcela como abono?'
-    #     verbose_name_plural = 'Se regresa la cascara a la parcela como abono?'
+    class Meta:
+        verbose_name = 'Se regresa la cascara a la parcela como abono?'
+        verbose_name_plural = 'Se regresa la cascara a la parcela como abono?'
 
 
 class TipoFertilizantes(models.Model):
@@ -1533,9 +1533,9 @@ class Punto5SueloAbonos(models.Model):
     def __unicode__(self):
         return u"Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF"
 
-    # class Meta:
-    #     verbose_name = 'Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF'
-    #     verbose_name_plural = 'Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF'
+    class Meta:
+        verbose_name = 'Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF'
+        verbose_name_plural = 'Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF'
 
 
 class DatosAnalisis(models.Model):
@@ -1589,9 +1589,9 @@ class Punto8SueloPropuesta(models.Model):
     def __unicode__(self):
         return u"Nueva Propuesta de Fertilización Generada"
 
-    # class Meta:
-    #     verbose_name = 'Nueva Propuesta de Fertilización Generada'
-    #     verbose_name_plural = 'Nueva Propuesta de Fertilización Generada'
+    class Meta:
+        verbose_name = 'Nueva Propuesta de Fertilización Generada'
+        verbose_name_plural = 'Nueva Propuesta de Fertilización Generada'
 
 CHOICE_PUNTO9_LIMITACION_1 = (
                                 (1, 'Erosión de Suelo'),
@@ -1674,9 +1674,9 @@ class Punto9Drenaje(models.Model):
     def __unicode__(self):
         return u"Toma de decisión con base en las observaciones de mal drenaje"
 
-    # class Meta:
-    #     verbose_name = 'Mal drenaje y encharamientos'
-    #     verbose_name_plural = 'Mal drenaje y encharamientos'
+    class Meta:
+        verbose_name = 'Mal drenaje y encharamientos'
+        verbose_name_plural = 'Mal drenaje y encharamientos'
 
 
 class Punto9Nutrientes(models.Model):
@@ -1731,6 +1731,6 @@ class Punto9Enfermedades(models.Model):
     def __unicode__(self):
         return u"Toma de decisión con base en las observaciones de enfermedades y plagas"
 
-    # class Meta:
-    #     verbose_name = 'Enfermedades y plagas de raíces'
-    #     verbose_name_plural = 'Enfermedades y plagas de raíces'
+    class Meta:
+        verbose_name = 'Enfermedades y plagas de raíces'
+        verbose_name_plural = 'Enfermedades y plagas de raíces'
