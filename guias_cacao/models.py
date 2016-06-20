@@ -1296,7 +1296,10 @@ class Punto1Suelo(models.Model):
     ficha = models.ForeignKey(FichaSuelo)
 
     def __unicode__(self):
-        return u"punto 1 suelo"
+        return u"Punto 1"
+    class Meta:
+        verbose_name = 'Historial de manejo y limitaciones observados'
+        verbose_name_plural = 'Historial de manejo y limitaciones observados'
 
 CHOICE_SUELO_EROSION_OPCION = (
                             (1, 'Deslizamientos'),
@@ -1324,6 +1327,10 @@ class PuntoASuelo(models.Model):
     def __unicode__(self):
         return u"Indicadores de erosión"
 
+    class Meta:
+        verbose_name = 'Indicadores de erosión'
+        verbose_name_plural = 'Indicadores de erosión'
+
 CHOICE_SUELO_CONSERVACION_OPCION = (
                             (1, 'Barrera muertas'),
                             (2, 'Barrera Viva'),
@@ -1349,6 +1356,10 @@ class PuntoBSuelo(models.Model):
     def __unicode__(self):
         return u"Obras de conservación de suelo"
 
+    class Meta:
+        verbose_name = 'Obras de conservación de suelo'
+        verbose_name_plural = 'Obras de conservación de suelo'
+
 
 CHOICE_SUELO_DRENAJE_OPCION = (
                             (1, 'Encharcamientos'),
@@ -1367,6 +1378,10 @@ class Punto2ASuelo(models.Model):
     def __unicode__(self):
         return u"Indicadores de drenaje"
 
+    class Meta:
+        verbose_name = 'Indicadores de drenaje'
+        verbose_name_plural = 'Indicadores de drenaje'
+
 CHOICE_SUELO_DRENAJE_OPCION2 = (
                             (1, 'Acequias'),
                             (2, 'Canales de drenaje a lo largo y ancho de la parcela'),
@@ -1384,6 +1399,10 @@ class Punto2BSuelo(models.Model):
 
     def __unicode__(self):
         return u"Obras de drenaje"
+
+    class Meta:
+        verbose_name = 'Obras de drenaje'
+        verbose_name_plural = 'Obras de drenaje'
 
 
 CHOICE_SUELO_OPCION_PUNTOS = (
@@ -1410,6 +1429,10 @@ class Punto3SueloPunto1(models.Model):
     def __unicode__(self):
         return u"Punto 1"
 
+    class Meta:
+        verbose_name = 'Salud de Raíces punto 1'
+        verbose_name_plural = 'Salud de Raíces punto 1'
+
 class Punto3SueloPunto2(models.Model):
     opcion = models.IntegerField(choices=CHOICE_SUELO_OPCION_PUNTOS,
                   verbose_name="Indicadores")
@@ -1420,6 +1443,10 @@ class Punto3SueloPunto2(models.Model):
 
     def __unicode__(self):
         return u"Punto 2"
+
+    class Meta:
+        verbose_name = 'Salud de Raíces punto 2'
+        verbose_name_plural = 'Salud de Raíces punto 2'
 
 class Punto3SueloPunto3(models.Model):
     opcion = models.IntegerField(choices=CHOICE_SUELO_OPCION_PUNTOS,
@@ -1432,6 +1459,10 @@ class Punto3SueloPunto3(models.Model):
     def __unicode__(self):
         return u"Punto 3"
 
+    class Meta:
+        verbose_name = 'Salud de Raíces punto 3'
+        verbose_name_plural = 'Salud de Raíces punto 3'
+
 
 class Punto4Suelo(models.Model):
     area = models.FloatField(verbose_name='Tamaño de Área de Cacao SAF (en manzanas)')
@@ -1441,6 +1472,10 @@ class Punto4Suelo(models.Model):
 
     def __unicode__(self):
         return u"Balance de nutrientes de parcela Cacao SAF"
+
+    class Meta:
+        verbose_name = 'Balance de nutrientes de parcela Cacao SAF'
+        verbose_name_plural = 'Balance de nutrientes de parcela Cacao SAF'
 
 
 CHOICE_SUELO_PRODUCTO_COSECHA = (
@@ -1458,6 +1493,11 @@ class Punto4SueloCosecha(models.Model):
     def __unicode__(self):
         return u"Cosechas del Productos SAF"
 
+    class Meta:
+        verbose_name = 'Cosechas del Productos SAF'
+        verbose_name_plural = 'Cosechas del Productos SAF'
+
+
 
 class Punto4SueloSI(models.Model):
     opcion = models.IntegerField(choices=CHOICE_SI_NO)
@@ -1466,6 +1506,10 @@ class Punto4SueloSI(models.Model):
 
     def __unicode__(self):
         return u"Se regresa la cascara a la parcela como abono?"
+
+    class Meta:
+        verbose_name = 'Se regresa la cascara a la parcela como abono?'
+        verbose_name_plural = 'Se regresa la cascara a la parcela como abono?'
 
 
 class TipoFertilizantes(models.Model):
@@ -1489,6 +1533,10 @@ class Punto5SueloAbonos(models.Model):
     def __unicode__(self):
         return u"Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF"
 
+    class Meta:
+        verbose_name = 'Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF'
+        verbose_name_plural = 'Abonos, fertilizantes y Enmiendas aplicadas en la parcela cacao SAF'
+
 
 class DatosAnalisis(models.Model):
     variable = models.CharField(max_length=250)
@@ -1508,6 +1556,10 @@ class Punto6AnalisisSuelo(models.Model):
     def __unicode__(self):
         return u"Datos de análisis de suelo"
 
+    class Meta:
+        verbose_name = 'Datos de análisis de suelo'
+        verbose_name_plural = 'Datos de análisis de suelo'
+
 
 class Punto7TipoSuelo(models.Model):
     opcion = models.IntegerField(choices=(
@@ -1519,6 +1571,10 @@ class Punto7TipoSuelo(models.Model):
 
     def __unicode__(self):
         return u"Tipo de suelo"
+
+    class Meta:
+        verbose_name = 'Tipo de suelo'
+        verbose_name_plural = 'Tipo de suelo'
 
 
 class Punto8SueloPropuesta(models.Model):
@@ -1532,6 +1588,10 @@ class Punto8SueloPropuesta(models.Model):
 
     def __unicode__(self):
         return u"Nueva Propuesta de Fertilización Generada"
+
+    class Meta:
+        verbose_name = 'Nueva Propuesta de Fertilización Generada'
+        verbose_name_plural = 'Nueva Propuesta de Fertilización Generada'
 
 CHOICE_PUNTO9_LIMITACION_1 = (
                                 (1, 'Erosión de Suelo'),
@@ -1600,6 +1660,10 @@ class Punto9Erosion(models.Model):
     def __unicode__(self):
         return u"Toma de decisión con base en las observaciones de eroción"
 
+    class Meta:
+        verbose_name = 'Erosión de Suelo'
+        verbose_name_plural = 'Erosión de Suelo'
+
 class Punto9Drenaje(models.Model):
     limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_2)
     acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_2_ACCION, verbose_name='Acciones potenciales')
@@ -1609,6 +1673,10 @@ class Punto9Drenaje(models.Model):
 
     def __unicode__(self):
         return u"Toma de decisión con base en las observaciones de mal drenaje"
+
+    class Meta:
+        verbose_name = 'Mal drenaje y encharamientos'
+        verbose_name_plural = 'Mal drenaje y encharamientos'
 
 
 class Punto9Nutrientes(models.Model):
@@ -1621,8 +1689,12 @@ class Punto9Nutrientes(models.Model):
     def __unicode__(self):
         return u"Toma de decisión con base en las observaciones de deficiencia nutrientes"
 
+    class Meta:
+        verbose_name = 'Deficiencia de Nutrientes'
+        verbose_name_plural = 'Deficiencia de Nutrientes'
+
 class Punto9Exceso(models.Model):
-    limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_4_ACCION)
+    limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_4)
     acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_4_ACCION, verbose_name='Acciones potenciales')
     donde = models.IntegerField(choices=CHOICE_PUNTO9_DONDE)
 
@@ -1630,6 +1702,10 @@ class Punto9Exceso(models.Model):
 
     def __unicode__(self):
         return u"Toma de decisión con base en las observaciones de exceso de nutrientes"
+
+    class Meta:
+        verbose_name = 'Exceso de nutrientes'
+        verbose_name_plural = 'Exceso de nutrientes'
 
 class Punto9Desbalance(models.Model):
     limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_5)
@@ -1641,6 +1717,10 @@ class Punto9Desbalance(models.Model):
     def __unicode__(self):
         return u"Toma de decisión con base en las observaciones de desbalance de nutrientes"
 
+    class Meta:
+        verbose_name = 'Desbalance de nutrientes'
+        verbose_name_plural = 'Desbalance de nutrientes'
+
 class Punto9Enfermedades(models.Model):
     limitaciones = models.IntegerField(choices=CHOICE_PUNTO9_LIMITACION_6)
     acciones = MultiSelectField(choices=CHOICE_PUNTO9_LIMITACION_6_ACCION, verbose_name='Acciones potenciales')
@@ -1650,3 +1730,7 @@ class Punto9Enfermedades(models.Model):
 
     def __unicode__(self):
         return u"Toma de decisión con base en las observaciones de enfermedades y plagas"
+
+    class Meta:
+        verbose_name = 'Enfermedades y plagas de raíces'
+        verbose_name_plural = 'Enfermedades y plagas de raíces'

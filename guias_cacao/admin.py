@@ -370,27 +370,27 @@ class PuntoBSueloInline(admin.TabularInline):
 class Punto2ASueloInline(admin.TabularInline):
     model = Punto2ASuelo
     extra = 1
-    max_num = 1
+    max_num = 3
 
 class Punto2BSueloInline(admin.TabularInline):
     model = Punto2BSuelo
     extra = 1
-    max_num = 1
+    max_num = 5
 
 class Punto3SueloPunto1Inline(admin.TabularInline):
     model = Punto3SueloPunto1
     extra = 1
-    max_num = 1
+    max_num = 2
 
 class Punto3SueloPunto2Inline(admin.TabularInline):
     model = Punto3SueloPunto2
     extra = 1
-    max_num = 1
+    max_num = 2
 
 class Punto3SueloPunto3Inline(admin.TabularInline):
     model = Punto3SueloPunto3
     extra = 1
-    max_num = 1
+    max_num = 2
 
 class Punto4SueloInline(admin.TabularInline):
     model = Punto4Suelo
@@ -400,7 +400,7 @@ class Punto4SueloInline(admin.TabularInline):
 class Punto4SueloCosechaInline(admin.TabularInline):
     model = Punto4SueloCosecha
     extra = 1
-    max_num = 1
+    max_num = 3
 
 class Punto4SueloSIInline(admin.TabularInline):
     model = Punto4SueloSI
@@ -410,12 +410,12 @@ class Punto4SueloSIInline(admin.TabularInline):
 class Punto5SueloAbonosInline(admin.TabularInline):
     model = Punto5SueloAbonos
     extra = 1
-    max_num = 1
+    max_num = 16
 
 class Punto6AnalisisSueloInline(admin.TabularInline):
     model = Punto6AnalisisSuelo
     extra = 1
-    max_num = 1
+    max_num = 8
 
 class Punto7TipoSueloInline(admin.TabularInline):
     model = Punto7TipoSuelo
@@ -425,7 +425,7 @@ class Punto7TipoSueloInline(admin.TabularInline):
 class Punto8SueloPropuestaInline(admin.TabularInline):
     model = Punto8SueloPropuesta
     extra = 1
-    max_num = 1
+    max_num = 16
 
 class Punto9ErosionInline(admin.TabularInline):
     model = Punto9Erosion
@@ -479,4 +479,5 @@ class FichaSueloAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(TipoFertilizantes)
+admin.site.register(DatosAnalisis)
 admin.site.register(FichaSuelo, FichaSueloAdmin)
