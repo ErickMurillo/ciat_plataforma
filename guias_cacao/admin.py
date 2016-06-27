@@ -481,3 +481,6 @@ class FichaSueloAdmin(admin.ModelAdmin):
 admin.site.register(TipoFertilizantes)
 admin.site.register(DatosAnalisis)
 admin.site.register(FichaSuelo, FichaSueloAdmin)
+#------ ficha vivero -------------------
+admin.site.register(FichaVivero)
+admin.site.register(ProductosVivero)

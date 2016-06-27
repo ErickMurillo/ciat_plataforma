@@ -1736,3 +1736,282 @@ class Punto9Enfermedades(models.Model):
     class Meta:
         verbose_name = 'Enfermedades y plagas de raíces'
         verbose_name_plural = 'Enfermedades y plagas de raíces'
+
+#------------ fin ficha suelo ---------------------------------
+#-------------------- comienza ficha viviero ------------------
+
+class FichaVivero(models.Model):
+    productor = models.ForeignKey(Persona,
+            verbose_name='Nombre de productor o productora',
+            related_name='persona_productor_vivero')
+    tecnico = models.ForeignKey(Persona,
+            verbose_name='Nombre de técnico',
+            related_name='persona_tecnico_vivero')
+    fecha_visita = models.DateField()
+
+    def __unicode__(self):
+        return self.productor.nombre
+
+    class Meta:
+        verbose_name = "Ficha vivero"
+        verbose_name_plural = "Fichas viveros"
+
+
+CHOICE_VIVERO_CONVERSACION_1 = (
+                                ('A', 'Enero'),
+                                ('B', 'Febrero'),
+                                ('C', 'Marzo'),
+                                ('D', 'Abril'),
+                                ('E', 'Mayo'),
+                                ('F', 'Junio'),
+                                ('G', 'Julio'),
+                                ('H', 'Agosto'),
+                                ('I', 'Septiembre'),
+                                ('J', 'Octubre'),
+                                ('K', 'Noviembre'),
+                                ('L', 'Diciembre'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_2 = (
+                                ('A', 'En este momento hay buena semilla'),
+                                ('B', 'En este momento hay suficiente agua'),
+                                ('C', 'En este momento hay menos plagas'),
+                                ('D', 'Nos permite para tener plantas listas para sembrar en el invierno'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_3 = (
+                                ('A', 'Buena altura'),
+                                ('B', 'Tallo fuerte'),
+                                ('C', 'Buena formación horqueta'),
+                                ('D', 'Ramas principales robustas'),
+                                ('E', 'Buena producción de frutos (más de 40 frutos por planta)'),
+                                ('F', 'Alta tolerancia a plagas y enfermedades'),
+                                ('G', 'Más de 40 almendras dentro de la mazorca'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_4 = (
+                                ('A', 'Corte de mazorca madura'),
+                                ('B', 'Extracción de almendras'),
+                                ('C', 'Selección de almendras de mayor tamaño'),
+                                ('D', 'Remoción de mucilago o baba'),
+                                ('E', 'Empaque en bolsas plásticas con aserrín semi-húmedo'),
+                                ('F', 'Toma en cuenta fases de la luna'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_5 = (
+                                ('A', 'Soleando la tierra'),
+                                ('B', 'Aplicando agua caliente'),
+                                ('C', 'Aplicando cal o ceniza'),
+                                ('D', 'Aplicando venenos'),
+                                ('E', 'No desinfecta'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_6 = (
+                                (1, 'Sola tierra'),
+                                (2, 'Tierra + Arena'),
+                                (3, 'Tierra + Abono orgánico (compost)'),
+                                (4, 'Tierra + abono orgánico + Cal o ceniza'),
+                                (5, 'Tierra + Arena + Cal o Ceniza + Abono orgánico'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_7 = (
+                                (1, 'Bolsa de 6 X 8 pulgadas '),
+                                (2, 'Bolsa de 8 X 10 pulgadas'),
+                                (3, 'Bolsa de 8 X 10 pulgadas'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_8 = (
+                                (1, 'Acostado u horizontal'),
+                                (2, 'Parado o Vertical'),
+                                (3, 'De cualquier manera'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_9 = (
+                                ('A', 'Cerca de fuentes de agua'),
+                                ('B', 'Cercado protegido de animales'),
+                                ('C', 'Terreno plano'),
+                                ('D', 'Con buena orientación de los bancos (Este-Oeste)'),
+                                ('E', 'Con sombra natural'),
+                                ('F', 'Con ramada'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_10 = (
+                                (1, 'Injerto de yema'),
+                                (2, 'Injerto de cogollo'),
+                                (3, 'Ninguno'),
+                            )
+
+CHOICE_VIVERO_CONVERSACION_12 = (
+                                (1, 'De la misma finca'),
+                                (2, 'De finca vecina'),
+                                (3, 'De Jardín Clonal'),
+                            )
+
+class VivieroConversacion(models.Model):
+    conversacion1 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_1, 
+                                verbose_name='1.¿En qué meses del año planifica o construye viveros para producción de plantas de cacao?')
+    conversacion2 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_2, 
+                                verbose_name='2.¿Por qué hace vivero en estos meses?')
+    conversacion3 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_3, 
+                                verbose_name='3.¿Cuáles son características más deseables para una planta productiva?')
+    conversacion4 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_4, 
+                                verbose_name='4.¿Qué pasos realiza para la preparación de semillas de cacao?')
+    conversacion5 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_5, 
+                                verbose_name='5.¿Con qué desinfecta el suelo para el vivero?')
+    conversacion6 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_6,
+                                        verbose_name='¿Cómo prepara el sustrato para la producción de plantas de cacao en vivero?')
+    conversacion7 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_7,
+                                        verbose_name='¿Qué tamaño de bolsa de polietileno utiliza para la producción de plantas en vivero?')
+    conversacion8 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_8,
+                                        verbose_name='¿Cómo coloca la semilla en el sustrato en la bolsa de polietileno?')
+    conversacion9 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_9, 
+                                verbose_name='¿Cómo es el sitio del vivero?')
+    conversacion10 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_10, 
+                                verbose_name=' ¿Qué tipo de injerto ha realizado?')
+    conversacion11 = models.FloatField('¿Cuál ha sido el porcentaje de prendimiento?')
+    conversacion12 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_12, 
+                                verbose_name='¿De dónde obtiene las varetas para realizar los injertos?')
+
+    ficha = models.ForeignKey(FichaVivero)
+
+    def __unicode__(self):
+        return u"Conversación con el Productor o productora"
+
+    # class Meta:
+    #     verbose_name = 'I.Conversación con el Productor o productora'
+    #     verbose_name_plural = 'I.Conversación con el Productor o productora'
+
+#observaciones
+CHOICER_VIVIERO_FUENTE_SEMILLA = ((1,'De la misma finca'),(2,'De finca vecina'),(3,'De Jardín Clonal'))
+
+class VivieroObservacion1(models.Model):
+    observacion1 = models.FloatField('Cantidad de las plantas')
+    observacion2 = models.FloatField('Edad de las plantas en meses')
+    observacion3 = models.IntegerField(choices=CHOICER_VIVIERO_FUENTE_SEMILLA,
+                                        verbose_name='Fuente de semilla')
+    
+
+    ficha = models.ForeignKey(FichaVivero)
+
+    def __unicode__(self):
+        return u"Observación del vivero 1"
+
+    class Meta:
+        verbose_name = ''
+        verbose_name_plural = ''
+
+
+CHOICE_VIVERO_PLAGAS_ENFERMEDADES = (
+                                (1, 'Zompopo'),
+                                (2, 'Barrenador'),
+                                (3, 'Minador'),
+                                (4, 'Tizón'),
+                                (5, 'Antracnosis'),
+                                (6, 'Mal de talluelo'),
+                                (7, 'Áfidos'),
+                                (8, 'Gusanos'),
+                                (9, 'Deficiencia nutricional'),
+                            )
+CHOICE_VIVERO_SI_NO = (
+                                (1, 'Si'),
+                                (2, 'No'),
+                            )
+
+class VivieroObservacion2(models.Model):
+    observacion3 = models.IntegerField(choices=CHOICE_VIVERO_PLAGAS_ENFERMEDADES,
+                                        verbose_name='Plaga o enfermedad')
+    planta_1 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_2 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_3 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_4 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_5 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_6 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_7 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_8 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_9 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    planta_10 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
+    
+
+    ficha = models.ForeignKey(FichaVivero)
+
+    def __unicode__(self):
+        return u"Observación del vivero 2"
+
+    # class Meta:
+    #     verbose_name = 'Presencia de plagas y enfermedades'
+    #     verbose_name_plural = 'Presencia de plagas y enfermedades'
+
+class ProductosVivero(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    # class Meta:
+    #     verbose_name = 'Productos para el vivero'
+    #     verbose_name_plural = 'Productos para el vivero'
+
+CHOICE_VIVERO_UNIDAD_PRODUCTOS = ((1,'Onz/planta'),(2,'Lt/bombada'),)
+
+class VivieroObservacionProductos(models.Model):
+    producto = models.ForeignKey(ProductosVivero, verbose_name='Nombre')
+    cantidad = models.FloatField()
+    unidad = models.IntegerField(choices=CHOICE_VIVERO_UNIDAD_PRODUCTOS)
+    frecuencia = models.FloatField()
+    
+
+    ficha = models.ForeignKey(FichaVivero)
+
+    def __unicode__(self):
+        return u"Observación del vivero 3"
+
+CHOICE_VIVERO_ANALISIS_1 = (
+                                ('A', 'Ningún problema'),
+                                ('B', 'Proveniente de plantas con baja productividad'),
+                                ('C', 'Posiblemente con alta incompatibilidad'),
+                            )
+
+CHOICE_VIVERO_ANALISIS_2 = (
+                                ('A', 'Ningún problema'),
+                                ('B', 'Planta desuniforme'),
+                                ('C', 'Plantas con poco vigor'),
+                                ('D', 'Plantas con deficiencia nutricionales'),
+                                ('E', 'Mal manejo de riego'),
+                                ('F', 'Mal manejo de sombra'),
+                            )
+
+CHOICE_VIVERO_ANALISIS_3 = (
+                                ('A', 'Zompopo'),
+                                ('B', 'Barrenador'),
+                                ('C', 'Minador'),
+                                ('D', 'Tizón'),
+                                ('E', 'Antracnosis'),
+                                ('F', 'Mal de talluelo'),
+                                ('G', 'Áfidos'),
+                                ('H', 'Gusanos'),
+                            )
+
+CHOICE_VIVERO_ANALISIS_4 = (
+                                ('A', 'Mejorar la fuente de semilla'),
+                                ('B', 'Mezclar las 9 fuentes de semilla'),
+                                ('C', 'Mejorar el sustrato en las bolsas'),
+                                ('D', 'Mejorar el manejo de plagas'),
+                                ('E', 'Mejorar el manejo de nutrición'),
+                                ('F', 'Mejorar el riego y sombra'),
+                            )
+
+class VivieroAnalisisSituacion(models.Model):
+    analisis1 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_1, 
+                                verbose_name='¿Cuáles son los problemas de la semilla?')
+    analisis2 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_2, 
+                                verbose_name='¿Cuáles son los problemas las plantas?')
+    analisis3 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_3, 
+                                verbose_name='¿Cuáles son los problemas de plagas y enfermedades?')
+    analisis4 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_4, 
+                                verbose_name='¿Qué acciones vamos a realizar para mejorar el vivero?')
+    
+
+    ficha = models.ForeignKey(FichaVivero)
+
+    def __unicode__(self):
+        return u"Análisis de la situación y acciones en el vivero"
