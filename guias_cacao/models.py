@@ -1272,6 +1272,7 @@ CHOICE_SUELO_ORIENTACION = (
                             ('E', 'Experiencia propia/costumbres'),
                             ('F', 'Otros medio de comunicación'),
                             ('G', 'Análisis de suelo '),
+                            ('H', 'Otros '),
                             )
 
 CHOICE_SUELO_ABONOS = (
@@ -1281,6 +1282,7 @@ CHOICE_SUELO_ABONOS = (
                             ('D', 'Comprado de casa comercial'),
                             ('E', 'Con crédito de la cooperativa'),
                             ('F', 'Incentivos/Regalados'),
+                            ('G', 'No aplica'),
                             )
 
 class Punto1Suelo(models.Model):
@@ -1518,7 +1520,7 @@ class TipoFertilizantes(models.Model):
     def __unicode__(self):
         return u'%s' % (self.nombre)
 
-CHOICE_UNIDAD_MEDIDA_ABONO = ((1,'lb/mz'),(2,'lb/planta '),(3,'oz/planta'),(4,'L/mz'))
+CHOICE_UNIDAD_MEDIDA_ABONO = ((1,'lb/mz'),(2,'lb/planta '),(3,'oz/planta'),(4,'L/mz'),(5, 'qq/mz'))
 
 class Punto5SueloAbonos(models.Model):
     tipo = models.ForeignKey(TipoFertilizantes)
