@@ -1848,29 +1848,18 @@ CHOICE_VIVERO_CONVERSACION_12 = (
                             )
 
 class VivieroConversacion(models.Model):
-    conversacion1 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_1, 
+    conversacion1 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_1,
                                 verbose_name='1.¿En qué meses del año planifica o construye viveros para producción de plantas de cacao?')
-    conversacion2 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_2, 
+    conversacion2 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_2,
                                 verbose_name='2.¿Por qué hace vivero en estos meses?')
-    conversacion3 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_3, 
+    conversacion3 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_3,
                                 verbose_name='3.¿Cuáles son características más deseables para una planta productiva?')
-    conversacion4 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_4, 
+    conversacion4 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_4,
                                 verbose_name='4.¿Qué pasos realiza para la preparación de semillas de cacao?')
-    conversacion5 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_5, 
+    conversacion5 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_5,
                                 verbose_name='5.¿Con qué desinfecta el suelo para el vivero?')
     conversacion6 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_6,
                                         verbose_name='¿Cómo prepara el sustrato para la producción de plantas de cacao en vivero?')
-    conversacion7 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_7,
-                                        verbose_name='¿Qué tamaño de bolsa de polietileno utiliza para la producción de plantas en vivero?')
-    conversacion8 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_8,
-                                        verbose_name='¿Cómo coloca la semilla en el sustrato en la bolsa de polietileno?')
-    conversacion9 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_9, 
-                                verbose_name='¿Cómo es el sitio del vivero?')
-    conversacion10 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_10, 
-                                verbose_name=' ¿Qué tipo de injerto ha realizado?')
-    conversacion11 = models.FloatField('¿Cuál ha sido el porcentaje de prendimiento?')
-    conversacion12 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_12, 
-                                verbose_name='¿De dónde obtiene las varetas para realizar los injertos?')
 
     ficha = models.ForeignKey(FichaVivero)
 
@@ -1881,6 +1870,24 @@ class VivieroConversacion(models.Model):
     #     verbose_name = 'I.Conversación con el Productor o productora'
     #     verbose_name_plural = 'I.Conversación con el Productor o productora'
 
+class ViveroConversacion2(models.Model):
+    conversacion7 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_7,
+                                        verbose_name='¿Qué tamaño de bolsa de polietileno utiliza para la producción de plantas en vivero?')
+    conversacion8 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_8,
+                                        verbose_name='¿Cómo coloca la semilla en el sustrato en la bolsa de polietileno?')
+    conversacion9 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_9,
+                                verbose_name='¿Cómo es el sitio del vivero?')
+    conversacion10 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_10,
+                                verbose_name=' ¿Qué tipo de injerto ha realizado?')
+    conversacion11 = models.FloatField('¿Cuál ha sido el porcentaje de prendimiento?', null=True)
+    conversacion12 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_12,
+                                verbose_name='¿De dónde obtiene las varetas para realizar los injertos?')
+
+    ficha = models.ForeignKey(FichaVivero)
+
+    def __unicode__(self):
+        return u"Conversación con el Productor o productora 2"
+
 #observaciones
 CHOICER_VIVIERO_FUENTE_SEMILLA = ((1,'De la misma finca'),(2,'De finca vecina'),(3,'De Jardín Clonal'))
 
@@ -1889,7 +1896,6 @@ class VivieroObservacion1(models.Model):
     observacion2 = models.FloatField('Edad de las plantas en meses')
     observacion3 = models.IntegerField(choices=CHOICER_VIVIERO_FUENTE_SEMILLA,
                                         verbose_name='Fuente de semilla')
-    
 
     ficha = models.ForeignKey(FichaVivero)
 
@@ -1930,7 +1936,6 @@ class VivieroObservacion2(models.Model):
     planta_8 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
     planta_9 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
     planta_10 = models.IntegerField(choices=CHOICE_VIVERO_SI_NO)
-    
 
     ficha = models.ForeignKey(FichaVivero)
 
@@ -1958,7 +1963,6 @@ class VivieroObservacionProductos(models.Model):
     cantidad = models.FloatField()
     unidad = models.IntegerField(choices=CHOICE_VIVERO_UNIDAD_PRODUCTOS)
     frecuencia = models.FloatField()
-    
 
     ficha = models.ForeignKey(FichaVivero)
 
@@ -2001,15 +2005,14 @@ CHOICE_VIVERO_ANALISIS_4 = (
                             )
 
 class VivieroAnalisisSituacion(models.Model):
-    analisis1 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_1, 
+    analisis1 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_1,
                                 verbose_name='¿Cuáles son los problemas de la semilla?')
-    analisis2 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_2, 
+    analisis2 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_2,
                                 verbose_name='¿Cuáles son los problemas las plantas?')
-    analisis3 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_3, 
+    analisis3 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_3,
                                 verbose_name='¿Cuáles son los problemas de plagas y enfermedades?')
-    analisis4 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_4, 
+    analisis4 = MultiSelectField(choices=CHOICE_VIVERO_ANALISIS_4,
                                 verbose_name='¿Qué acciones vamos a realizar para mejorar el vivero?')
-    
 
     ficha = models.ForeignKey(FichaVivero)
 

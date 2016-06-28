@@ -482,5 +482,48 @@ admin.site.register(TipoFertilizantes)
 admin.site.register(DatosAnalisis)
 admin.site.register(FichaSuelo, FichaSueloAdmin)
 #------ ficha vivero -------------------
-admin.site.register(FichaVivero)
+
+class VivieroConversacionInline(admin.TabularInline):
+    model = VivieroConversacion
+    extra = 1
+    max_num = 1
+
+class ViveroConversacion2Inline(admin.TabularInline):
+    model = ViveroConversacion2
+    extra = 1
+    max_num = 1
+
+class VivieroObservacion1Inline(admin.TabularInline):
+    model = VivieroObservacion1
+    extra = 1
+    max_num = 1
+
+class VivieroObservacion2Inline(admin.TabularInline):
+    model = VivieroObservacion2
+    extra = 1
+    max_num = 9
+
+class VivieroObservacionProductosInline(admin.TabularInline):
+    model = VivieroObservacionProductos
+    extra = 1
+
+class VivieroAnalisisSituacionInline(admin.TabularInline):
+    model = VivieroAnalisisSituacion
+    extra = 1
+    max_num = 1
+
+class FichaViveroAdmin(admin.ModelAdmin):
+    form = ProductorViveroAdminForm
+    inlines = [VivieroConversacionInline,ViveroConversacion2Inline,VivieroObservacion1Inline,
+                    VivieroObservacion2Inline,VivieroObservacionProductosInline,VivieroAnalisisSituacionInline]
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+    class Media:
+        css = {
+           'all': ('guiacacao/css/adminVivero.css',)
+       }
+
+admin.site.register(FichaVivero, FichaViveroAdmin)
 admin.site.register(ProductosVivero)
