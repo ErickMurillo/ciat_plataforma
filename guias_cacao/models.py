@@ -2018,3 +2018,134 @@ class VivieroAnalisisSituacion(models.Model):
 
     def __unicode__(self):
         return u"Análisis de la situación y acciones en el vivero"
+
+#-------- fin de ficha vivero -----------------------
+#--------- inicia ficha cosecha ----------------------
+
+class FichaCosecha(models.Model):
+    productor = models.ForeignKey(
+        Persona,
+        verbose_name='Nombre de productor o productora',
+        related_name='persona_productor_cosecha')
+    tecnico = models.ForeignKey(
+        Persona,
+        verbose_name='Nombre de técnico',
+        related_name='persona_tecnico_cosecha')
+    fecha_visita = models.DateField()
+
+    def __unicode__(self):
+        return self.productor.nombre
+
+    class Meta:
+        verbose_name = "Ficha cosecha"
+        verbose_name_plural = "Ficha cosechas"
+
+CHOICE_COSECHA_CONVERSACION_1 = (
+                                ('A', 'Por el color'),
+                                ('B', 'Por el tamaño'),
+                                ('C', 'Por la textura'),
+                                ('D', 'Por la fecha'),
+                            )
+
+CHOICE_COSECHA_CONVERSACION_2 = (
+                                ('A', 'Media Luna'),
+                                ('B', 'Cutacha'),
+                                ('C', 'Machete'),
+                                ('D', 'Tijera'),
+                            )
+
+CHOICE_COSECHA_CONVERSACION_3 = (
+                                ('A', 'Rechazar mazorcas enfermas'),
+                                ('B', 'Rechazar mazorcas dañadas'),
+                                ('C', 'Rechazar mazorcas sobremaduras'),
+                                ('D', 'Rechazar mazorcas inmaduras'),
+                                ('E', 'Rechazar mazorcas pequeñas'),
+                                ('F', 'Seleccionar mazorcas maduras'),
+                                ('G', 'Seleccionar mazorcas de buena calidad'),
+                            )
+CHOICE_COSECHA_CONVERSACION_4 = (
+                                ('A', 'Media Luna'),
+                                ('B', 'Cutacha'),
+                                ('C', 'Machete'),
+                                ('D', 'Maso'),
+                            )
+
+CHOICE_COSECHA_CONVERSACION_5 = (
+                                ('A', 'Bolsa plástica'),
+                                ('B', 'Bidón o Balde'),
+                                ('C', 'Saco Macen'),
+                                ('D', 'Saco de yute'),
+                                ('E', 'Cajón de madera'),
+                            )
+
+CHOICE_COSECHA_CONVERSACION_7 = (
+                                ('A', 'Entierra las mazorcas'),
+                                ('B', 'Botan las mazorcas sin enterrar'),
+                                ('C', 'Queman las mazorcas'),
+                            )
+
+CHOICE_COSECHA_CONVERSACION_8 = (
+                                (1, 'Cada mes'),
+                                (2, 'Cada quince días'),
+                                (3, 'Depende de la maduración'),
+                            )
+
+CHOICE_COSECHA_9_MESES = (
+                                (1, 'Enero'),
+                                (2, 'Febrero'),
+                                (3, 'Marzo'),
+                                (4, 'Abril'),
+                                (5, 'Mayo'),
+                                (6, 'Junio'),
+                                (7, 'Julio'),
+                                (8, 'Agosto'),
+                                (9, 'Septiembre'),
+                                (10, 'Octubre'),
+                                (11, 'Noviembre'),
+                                (12, 'Diciembre'),
+                            )
+
+CHOICE_COSECHA_9_FLORACION = (
+                                (1, 'No hay flores'),
+                                (2, 'Poca flores'),
+                                (3, 'Algo de flores'),
+                                (4, 'Mucha flores'),
+                            )
+
+CHOICE_COSECHA_10_COSECHA = (
+                                (1, 'No hay Cosecha'),
+                                (2, 'Poca cosecha'),
+                                (3, 'Algo de cosecha'),
+                                (4, 'Mucha cosecha'),
+                            )
+
+CHOICE_COSECHA_ESTIMADO_PUNTOS = (
+                                (1, 'Número de mazorcas sanas'),
+                                (2, 'Número de mazorcas enfermas'),
+                                (3, 'Número de mazorcas dañadas'),
+                            )
+
+CHOICE_COSECHA_ANALISIS_1 = (
+                                ('A', 'Pocas plantas productivas'),
+                                ('B', 'Muchas mazorcas enfermas'),
+                                ('C', 'Muchas mazorcas dañadas'),
+                                ('D', 'Muchas mazorcas pequeñas'),
+                                ('E', 'Muchas mazorcas con pocos granos'),
+                                ('F', 'Muchos granos pequeños'),
+                            )
+
+CHOICE_COSECHA_ANALISIS_2 = (
+                                ('A', 'Mazorcas enfermas'),
+                                ('B', 'Mazorcas dañadas'),
+                                ('C', 'Mazorcas pequeñas'),
+                            )
+
+CHOICE_COSECHA_ANALISIS_3 = (
+                                ('A', 'Remover las mazorcas enfermas a tiempo'),
+                                ('B', 'Establecer control de las ardillas'),
+                                ('C', 'Mejorar la nutrición de las plantas'),
+                                ('D', 'Realizar poda de las plantas de cacao'),
+                                ('E', 'Regular la sombra'),
+                                ('F', 'Cosechar a tiempo'),
+                                ('G', 'Reponer las plantas no productivas con plantas productivas'),
+                            )
