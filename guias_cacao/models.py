@@ -1243,7 +1243,7 @@ class FichaSuelo(models.Model):
 
     class Meta:
         verbose_name = "Ficha suelo"
-        verbose_name_plural = "Fichas suelos"
+        verbose_name_plural = "Ficha suelo"
 
 
 CHOICE_SUELO_USO_PARCELA = (
@@ -1754,7 +1754,7 @@ class FichaVivero(models.Model):
 
     class Meta:
         verbose_name = "Ficha vivero"
-        verbose_name_plural = "Fichas viveros"
+        verbose_name_plural = "Ficha vivero"
 
 
 CHOICE_VIVERO_CONVERSACION_1 = (
@@ -2038,7 +2038,7 @@ class FichaCosecha(models.Model):
 
     class Meta:
         verbose_name = "Ficha cosecha"
-        verbose_name_plural = "Ficha cosechas"
+        verbose_name_plural = "Ficha cosecha"
 
 CHOICE_COSECHA_CONVERSACION_1 = (
                                 ('A', 'Por el color'),
@@ -2070,6 +2070,21 @@ CHOICE_COSECHA_CONVERSACION_4 = (
                                 ('D', 'Maso'),
                             )
 
+class CosechaConversacion1(models.Model):
+    conversacion1 = MultiSelectField(choices=CHOICE_COSECHA_CONVERSACION_1,
+                                verbose_name='1.1-¿Cómo se determina qué la mazorca está madura para cosecha? ')
+    conversacion2 = MultiSelectField(choices=CHOICE_COSECHA_CONVERSACION_2,
+                                verbose_name='1.2-¿Qué herramientas utiliza para el corte de las mazorcas maduras? ')
+    conversacion3 = MultiSelectField(choices=CHOICE_COSECHA_CONVERSACION_3,
+                                verbose_name='1.3-¿Qué criterios toma en cuenta para la selección de mazorcas antes del quiebre? ')
+    conversacion4 = MultiSelectField(choices=CHOICE_COSECHA_CONVERSACION_4,
+                                verbose_name='1.4-¿Qué herramientas utiliza para el quiebre de las mazorcas seleccionadas? ')
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"Conversación con la productora o el productor 1"
+
 CHOICE_COSECHA_CONVERSACION_5 = (
                                 ('A', 'Bolsa plástica'),
                                 ('B', 'Bidón o Balde'),
@@ -2089,6 +2104,20 @@ CHOICE_COSECHA_CONVERSACION_8 = (
                                 (2, 'Cada quince días'),
                                 (3, 'Depende de la maduración'),
                             )
+
+class CosechaConversacion2(models.Model):
+    conversacion5 = MultiSelectField(choices=CHOICE_COSECHA_CONVERSACION_5,
+                                verbose_name='1.5-¿Qué tipo de almacenamiento emplea después del quiebre de las mazorcas de cacao?  ')
+    conversacion6 = models.FloatField('1.6-¿Cuánto tiempo tarda en llevar el cacao en baba al centro de acopio?')
+    conversacion7 = MultiSelectField(choices=CHOICE_COSECHA_CONVERSACION_7,
+                                verbose_name='1.7-¿Qué manejo realiza con las mazorcas de cacao enfermas? ')
+    conversacion8 = models.IntegerField(choices=CHOICE_COSECHA_CONVERSACION_8,
+                                verbose_name='1.8-¿Cada cuánto realizan los cortes? ')
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"Conversación con la productora o el productor 2"
 
 CHOICE_COSECHA_9_MESES = (
                                 (1, 'Enero'),
@@ -2112,6 +2141,17 @@ CHOICE_COSECHA_9_FLORACION = (
                                 (4, 'Mucha flores'),
                             )
 
+class CosechaMesesFloracion(models.Model):
+    mes = models.IntegerField(choices=CHOICE_COSECHA_9_MESES,
+                                verbose_name='Meses')
+    floracion = models.IntegerField(choices=CHOICE_COSECHA_9_FLORACION,
+                                verbose_name='Floración')
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"¿Cuáles son las meses de mayor floración? "
+
 CHOICE_COSECHA_10_COSECHA = (
                                 (1, 'No hay Cosecha'),
                                 (2, 'Poca cosecha'),
@@ -2119,11 +2159,89 @@ CHOICE_COSECHA_10_COSECHA = (
                                 (4, 'Mucha cosecha'),
                             )
 
+class CosechaMesesCosecha(models.Model):
+    mes = models.IntegerField(choices=CHOICE_COSECHA_9_MESES,
+                                verbose_name='Meses')
+    floracion = models.IntegerField(choices=CHOICE_COSECHA_10_COSECHA,
+                                verbose_name='Cosecha')
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"¿Cuáles son las meses de mayor floración? "
+
 CHOICE_COSECHA_ESTIMADO_PUNTOS = (
                                 (1, 'Número de mazorcas sanas'),
                                 (2, 'Número de mazorcas enfermas'),
                                 (3, 'Número de mazorcas dañadas'),
                             )
+
+class CosechaPunto1(models.Model):
+    mazorcas = models.IntegerField(choices=CHOICE_COSECHA_ESTIMADO_PUNTOS,
+                                verbose_name='Mazorcas')
+    planta_1 = models.FloatField()
+    planta_2 = models.FloatField()
+    planta_3 = models.FloatField()
+    planta_4 = models.FloatField()
+    planta_5 = models.FloatField()
+    planta_6 = models.FloatField()
+    planta_7 = models.FloatField()
+    planta_8 = models.FloatField()
+    planta_9 = models.FloatField()
+    planta_10 = models.FloatField()
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"2.1 Punto 1"
+
+class CosechaPunto2(models.Model):
+    mazorcas = models.IntegerField(choices=CHOICE_COSECHA_ESTIMADO_PUNTOS,
+                                verbose_name='Mazorcas')
+    planta_1 = models.FloatField()
+    planta_2 = models.FloatField()
+    planta_3 = models.FloatField()
+    planta_4 = models.FloatField()
+    planta_5 = models.FloatField()
+    planta_6 = models.FloatField()
+    planta_7 = models.FloatField()
+    planta_8 = models.FloatField()
+    planta_9 = models.FloatField()
+    planta_10 = models.FloatField()
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"2.2 Punto 2"
+
+class CosechaPunto3(models.Model):
+    mazorcas = models.IntegerField(choices=CHOICE_COSECHA_ESTIMADO_PUNTOS,
+                                verbose_name='Mazorcas')
+    planta_1 = models.FloatField()
+    planta_2 = models.FloatField()
+    planta_3 = models.FloatField()
+    planta_4 = models.FloatField()
+    planta_5 = models.FloatField()
+    planta_6 = models.FloatField()
+    planta_7 = models.FloatField()
+    planta_8 = models.FloatField()
+    planta_9 = models.FloatField()
+    planta_10 = models.FloatField()
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"2.3 Punto 3"
+
+
+class CosechaAreaPlantas(models.Model):
+    area = models.FloatField('Área de la parcela (en mz)')
+    plantas = models.FloatField('Número de plantas por mz')
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"Area y número de platas"
 
 CHOICE_COSECHA_ANALISIS_1 = (
                                 ('A', 'Pocas plantas productivas'),
@@ -2149,3 +2267,16 @@ CHOICE_COSECHA_ANALISIS_3 = (
                                 ('F', 'Cosechar a tiempo'),
                                 ('G', 'Reponer las plantas no productivas con plantas productivas'),
                             )
+
+class CosechaAnalisis(models.Model):
+    analisis1 = MultiSelectField(choices=CHOICE_COSECHA_ANALISIS_1,
+                                verbose_name='3.1-¿Cuál es el problema principal que afecta el rendimiento productivo de la parcela de cacao?')
+    analisis2 = MultiSelectField(choices=CHOICE_COSECHA_ANALISIS_2,
+                                verbose_name='3.2-¿Cuál es la causa de la pérdida de producción en la parcela de cacao?  ')
+    analisis3 = MultiSelectField(choices=CHOICE_COSECHA_ANALISIS_3,
+                                verbose_name='3.3-¿Qué prácticas se pueden realizar en la parcela de cacao para mejorar la cosecha?  ')
+
+    ficha = models.ForeignKey(FichaCosecha)
+
+    def __unicode__(self):
+        return u"Análisis sobre la cosecha y acciones"

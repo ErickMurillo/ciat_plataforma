@@ -527,3 +527,66 @@ class FichaViveroAdmin(admin.ModelAdmin):
 
 admin.site.register(FichaVivero, FichaViveroAdmin)
 admin.site.register(ProductosVivero)
+
+#--------- ficha cosecha -----------------
+
+class CosechaConversacion1Inline(admin.TabularInline):
+    model = CosechaConversacion1
+    extra = 1
+    max_num = 1
+
+class CosechaConversacion2Inline(admin.TabularInline):
+    model = CosechaConversacion2
+    extra = 1
+    max_num = 1
+
+class CosechaMesesFloracionInline(admin.TabularInline):
+    model = CosechaMesesFloracion
+    extra = 1
+    max_num = 12
+
+class CosechaMesesCosechaInline(admin.TabularInline):
+    model = CosechaMesesCosecha
+    extra = 1
+    max_num = 12
+
+class CosechaPunto1Inline(admin.TabularInline):
+    model = CosechaPunto1
+    extra = 1
+    max_num = 3
+
+class CosechaPunto2Inline(admin.TabularInline):
+    model = CosechaPunto2
+    extra = 1
+    max_num = 3
+
+class CosechaPunto3Inline(admin.TabularInline):
+    model = CosechaPunto3
+    extra = 1
+    max_num = 3
+
+class CosechaAreaPlantasInline(admin.TabularInline):
+    model = CosechaAreaPlantas
+    extra = 1
+    max_num = 1
+
+class CosechaAnalisisInline(admin.TabularInline):
+    model = CosechaAnalisis
+    extra = 1
+    max_num = 1
+
+class FichaCosechaAdmin(admin.ModelAdmin):
+    form = ProductorCosechaAdminForm
+    inlines = [CosechaConversacion1Inline,CosechaConversacion2Inline,CosechaMesesFloracionInline,
+                    CosechaMesesCosechaInline,CosechaPunto1Inline,CosechaPunto2Inline,CosechaPunto3Inline,
+                    CosechaAreaPlantasInline,CosechaAnalisisInline]
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+    class Media:
+        css = {
+           'all': ('guiacacao/css/adminCosecha.css',)
+       }
+
+admin.site.register(FichaCosecha, FichaCosechaAdmin)
