@@ -2280,3 +2280,131 @@ class CosechaAnalisis(models.Model):
 
     def __unicode__(self):
         return u"Análisis sobre la cosecha y acciones"
+
+# ---------------- fin ficha cosecha ---------------------------------
+# ---------------- inicia ficha saf ----------------------------------
+
+class FichaSaf(models.Model):
+    productor = models.ForeignKey(
+        Persona,
+        verbose_name='Nombre de productor o productora',
+        related_name='persona_productor_saf')
+    tecnico = models.ForeignKey(
+        Persona,
+        verbose_name='Nombre de técnico',
+        related_name='persona_tecnico_saf')
+    fecha_visita = models.DateField()
+
+    def __unicode__(self):
+        return self.productor.nombre
+
+    class Meta:
+        verbose_name = "Ficha saf"
+        verbose_name_plural = "Ficha saf"
+
+
+CHOICE_SAF_1_1 = (
+                    ('A', 'Producción convencional con uso intensivo de químicos'),
+                    ('B', 'Producción orgánica con insumos naturales'),
+                    ('C', 'Producción agroecológica y diversificada'),
+                    ('D', 'Producción especializada según el tipo de mercado'),
+                )
+
+CHOICE_SAF_1_2 = (
+                    ('A', 'Producción de cacao'),
+                    ('B', 'Producción de frutas'),
+                    ('C', 'Producción de madera'),
+                    ('D', 'Conservación de suelo y agua'),
+                    ('E', 'Aumento de ingresos'),
+                    ('F', 'Generar empleo'),
+                    ('G', 'Diversidad natural'),
+                    ('H', 'Otros beneficios'),
+                )
+
+
+class SafConversacion1(models.Model):
+    conversacion1 = MultiSelectField(choices=CHOICE_SAF_1_1,
+                                verbose_name='1.1¿Cuál fue su objetivo de establecer el cultivo de cacao en sistema agroforestales?')
+    conversacion2 = MultiSelectField(choices=CHOICE_SAF_1_2,
+                                verbose_name='1.2¿Qué beneficios esperaban del sistema agroforestal en su parcela de cacao?')
+   
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"Conversación 1"
+
+CHOICE_SAF_1_3 = (
+                    (1, 'Nada de lluvia'),
+                    (2, 'Poca lluvia'),
+                    (3, 'Algo de lluvia'),
+                    (4, 'Mucha lluvia'),
+                )
+
+class SafConversacion2(models.Model):
+    conversacion3 = models.IntegerField(choices=CHOICE_COSECHA_9_MESES,
+                                verbose_name='Meses')
+    conversacion4 = models.IntegerField(choices=CHOICE_SAF_1_3,
+                                verbose_name='Opciones')
+   
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"1.3¿Cuáles son meses más lluviosos en su finca?"
+
+CHOICE_SAF_1_4 = (
+                    (1, 'Nada de viento'),
+                    (2, 'Poco viento'),
+                    (3, 'Algo de viento'),
+                    (4, 'Mucho viento'),
+                )
+
+class SafConversacion3(models.Model):
+    conversacion3 = models.IntegerField(choices=CHOICE_COSECHA_9_MESES,
+                                verbose_name='Meses')
+    conversacion4 = models.IntegerField(choices=CHOICE_SAF_1_4,
+                                verbose_name='Opciones')
+   
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"1.4¿Cuáles son meses más ventosos en su finca?"
+
+
+CHOICE_SAF_1_5 = (
+                    (1, 'Establecer el vivero'),
+                    (2, 'Limpieza de terreno'),
+                    (3, 'Siembra de cacao'),
+                    (4, 'Establecer la sombra'),
+                    (5, 'Poda de cacao'),
+                    (6, 'Manejo de sombra'),
+                    (7, 'Deshierba'),
+                    (8, 'Abonar'),
+                    (9, 'Foliar'),
+                    (10, 'Deschuponar'),
+                    (11, 'Cortar mazorcas enfermas'),
+                    (12, 'Cosecha y Quiebre'),
+                )
+
+class SafConversacion4(models.Model):
+    conversacion5 = models.IntegerField(choices=CHOICE_SAF_1_4,
+                                verbose_name='Opcion')
+    conversacion6 = MultiSelectField(choices=CHOICES_FECHA_PODA,
+                                verbose_name='Opciones')
+   
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"1.5¿Cómo toma en cuenta lluvia y viento para decidir los momentos de las labores de sistema agroforestal?"
+
+
+CHOICE_SAF_1_5_TOPOGRAFIA = (
+                    (1, 'Terreno plano'),
+                    (2, 'Terreno con poco pendiente'),
+                    (3, 'Terreno con mucho pendiente'),
+                )
+
+CHOICE_SAF_1_5_FERTILIDAD = (
+                    (1, 'Suelo fértil'),
+                    (2, 'Suelo poco fértil'),
+                    (3, 'Suelo degradado y compacto'),
+                )
