@@ -2682,3 +2682,50 @@ class SafObservacionPunto3(models.Model):
 
     def __unicode__(self):
         return u"Punto 3"
+
+
+CHOICE_SAF_OBSERVACION_2_5 = (
+                    (1, 'Cuadrado'),
+                    (2, 'Rectangular'),
+                    (3, 'Tres bolillos'),
+                    (4, 'Sin arreglo')
+                )
+
+CHOICE_SAF_OBSERVACION_2_6 = (
+                    (1, 'Demasiado árboles y mucha sombra'),
+                    (2, 'Muy poca árboles y poca sombra'),
+                    (3, 'Plantas de cacao y otros árboles compiten'),
+                    (4, 'No hay problema y arreglo esta bien')
+                )
+
+CHOICE_SAF_OBSERVACION_2_7 = (
+                    (1, 'Cacao + maderable + musáceas + pejibaye'),
+                    (2, 'Cacao + musáceas + cultivos anuales'),
+                    (3, 'Cacao + maderables + musáceas'),
+                    (4, 'Cacao + musáceas + leguminosa + maderables')
+                    (5, 'Cacao + musáceas + leguminosa + maderables+ frutales')
+                )
+
+CHOICE_SAF_OBSERVACION_2_8 = (
+                    ('A', 'Mejorar la producción de cacao'),
+                    ('B', 'Diversificar la producción e ingreso'),
+                    ('C', 'Producir más alimento'),
+                    ('D', 'Producir leña'),
+                    ('E', 'Producir madera'),
+                    ('F', 'Mejorar la conservación de Recursos naturales'),
+                )
+
+class SafObservaciones4(models.Model):
+    observacion8 =  models.IntegerField(choices=CHOICE_SAF_OBSERVACION_2_5,
+                                verbose_name='2.5 ¿Cómo es el arreglo de la plantación?')
+    observacion9 =  models.IntegerField(choices=CHOICE_SAF_OBSERVACION_2_6,
+                                verbose_name='2.6 ¿Qué dificultades le ha generado su diseño actual de plantación de cacao?')
+    observacion10 =  models.IntegerField(choices=CHOICE_SAF_OBSERVACION_2_7,
+                                verbose_name='2.7 ¿Cuál sería el diseño para mejorar el sistema agroforestal cacao? ')
+    observacion11 = MultiSelectField(choices=CHOICE_SAF_OBSERVACION_2_8,
+                                verbose_name='2.8 ¿Por qué toma la decisión de establecer el diseño seleccionado?')
+       
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"Observacion 2.5 al 2.8"
