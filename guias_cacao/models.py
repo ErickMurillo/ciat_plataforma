@@ -2327,7 +2327,7 @@ class SafConversacion1(models.Model):
                                 verbose_name='1.1¿Cuál fue su objetivo de establecer el cultivo de cacao en sistema agroforestales?')
     conversacion2 = MultiSelectField(choices=CHOICE_SAF_1_2,
                                 verbose_name='1.2¿Qué beneficios esperaban del sistema agroforestal en su parcela de cacao?')
-   
+
     ficha = models.ForeignKey(FichaSaf)
 
     def __unicode__(self):
@@ -2345,7 +2345,7 @@ class SafConversacion2(models.Model):
                                 verbose_name='Meses')
     conversacion4 = models.IntegerField(choices=CHOICE_SAF_1_3,
                                 verbose_name='Opciones')
-   
+
     ficha = models.ForeignKey(FichaSaf)
 
     def __unicode__(self):
@@ -2363,7 +2363,7 @@ class SafConversacion3(models.Model):
                                 verbose_name='Meses')
     conversacion4 = models.IntegerField(choices=CHOICE_SAF_1_4,
                                 verbose_name='Opciones')
-   
+
     ficha = models.ForeignKey(FichaSaf)
 
     def __unicode__(self):
@@ -2390,7 +2390,7 @@ class SafConversacion4(models.Model):
                                 verbose_name='Opcion')
     conversacion6 = MultiSelectField(choices=CHOICES_FECHA_PODA,
                                 verbose_name='Opciones')
-   
+
     ficha = models.ForeignKey(FichaSaf)
 
     def __unicode__(self):
@@ -2408,3 +2408,277 @@ CHOICE_SAF_1_5_FERTILIDAD = (
                     (2, 'Suelo poco fértil'),
                     (3, 'Suelo degradado y compacto'),
                 )
+
+class SafConversacion5(models.Model):
+    conversacion7 = models.IntegerField(choices=CHOICE_SAF_1_5_TOPOGRAFIA,
+                                verbose_name='Topografía')
+    conversacion8 = models.IntegerField(choices=CHOICE_SAF_1_5_FERTILIDAD,
+                                verbose_name='Fertilidad')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"1.5¿Cómo son las características del suelo y su fertilidad?"
+
+CHOICE_SAF_1_6_MADERABLE = (
+                    ('A', 'Que tenga buena altura'),
+                    ('B', 'Que no tenga hojas en el verano'),
+                    ('C', 'Que tenga hojas en el verano '),
+                    ('D', 'Que tenga crecimiento rápido '),
+                    ('E', 'Que tenga una sombre no muy densa '),
+                    ('F', 'Que tenga valor comercial '),
+                    ('G', 'Que es fácil para podar '),
+                )
+
+CHOICE_SAF_1_6_FRUTALES = (
+                    ('A', 'Que produce buenos elementos '),
+                    ('B', 'Que ayuda a manejar el daño de pájaros y ardillas'),
+                    ('C', 'Que tenga resistencia a plagas '),
+                    ('D', 'Que tenga una sombre no muy densa'),
+                    ('E', 'Que tenga valor comercial'),
+                    ('F', 'Que es fácil para manejar'),
+                )
+
+CHOICE_SAF_1_6_SERVICIOS = (
+                    ('A', 'Que produce más y mejor hojarasca '),
+                    ('B', 'Que las hojas dan nutrientes'),
+                    ('C', 'Que no compiten con cacao'),
+                    ('D', 'Que dan buena sombra'),
+                    ('E', 'Que tienen hojas todo el tiempo'),
+                    ('F', 'Que producen leña'),
+                    ('G', 'Que tenga uso medicinal'),
+                    ('H', 'Que adapte bien en la zona '),
+                )
+
+
+class SafConversacion6(models.Model):
+    conversacion9 = MultiSelectField(choices=CHOICE_SAF_1_6_MADERABLE,
+                                verbose_name='Para escoger a los árboles maderable ')
+    conversacion10 = MultiSelectField(choices=CHOICE_SAF_1_6_FRUTALES,
+                                verbose_name='Para escoger a los árboles frutales')
+    conversacion11 = MultiSelectField(choices=CHOICE_SAF_1_6_SERVICIOS,
+                                verbose_name='Para escoger a los árboles que proveen servicios')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"¿Cuáles son sus criterio para escoger los árboles para acompañar el cacao?"
+
+CHOICE_SAF_1_6_ETAPA = (
+                    (1, 'Crecimiento vegetativo'),
+                    (2, 'Floración'),
+                    (3, 'Cuajado y maduración'),
+                    (4, 'Cosecha'),
+                )
+
+CHOICE_SAF_1_6_NIVEL_SOMBRA = (
+                    (1, 'Sin sombra'),
+                    (2, 'Poca Sombra'),
+                    (3, 'Media sombra'),
+                    (4, 'Mucha sombra'),
+                )
+
+class SafConversacion7(models.Model):
+    conversacion12 =  models.IntegerField(choices=CHOICE_SAF_1_6_ETAPA,
+                                verbose_name='Etapas')
+    conversacion13 = MultiSelectField(choices=CHOICES_FECHA_PODA,
+                                verbose_name='Meses que ocurren')
+    conversacion14 =  models.IntegerField(choices=CHOICE_SAF_1_6_NIVEL_SOMBRA,
+                                verbose_name='Nivel de sombra')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"1.6¿Cómo quisiera tener la sombra en diferentes momentos de vida de cacao?"
+
+CHOICE_SAF_1_7_PROBLEMAS = (
+                    (1, 'Poca floración'),
+                    (2, 'Presencia de malezas'),
+                    (3, 'Presencia de Monilia'),
+                    (4, 'Presencia de mazorca negra'),
+                    (5, 'Baja producción'),
+                    (6, 'Daño de ardillas'),
+                )
+
+CHOICE_SAF_1_7_CAUSA_PROBLEMAS = (
+                    (1, 'Poca Sombra'),
+                    (2, 'Mucha Sombra'),
+                )
+
+class SafConversacion8(models.Model):
+    conversacion15 =  models.IntegerField(choices=CHOICE_SAF_1_7_PROBLEMAS,
+                                verbose_name='Problemas')
+    conversacion16 =  models.IntegerField(choices=CHOICE_SAF_1_7_CAUSA_PROBLEMAS,
+                                verbose_name='Que causa el problema')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"1.7¿Cuál es la percepción de los problemas en relación a la sombra?"
+
+CHOICE_SAF_1_8 = (
+                    (1, 'De propia finca'),
+                    (2, 'De propia finca árboles élites'),
+                    (3, 'De finca vecina'),
+                    (4, 'De jardines clónales'),
+                    (5, 'De afuera del territorio '),
+                )
+
+CHOICE_SAF_1_9 = (
+                    ('A', 'Cacao criollo'),
+                    ('B', 'Cacao forastero'),
+                    ('C', 'Cacao Trinitario'),
+                    ('D', 'Cacao híbrido'),
+                    ('E', 'Clones de cacao'),
+                    ('F', 'No sabe'),
+                )
+
+CHOICE_SAF_1_10 = (
+                    ('A', 'Cacao criollo'),
+                    ('B', 'Cacao forastero'),
+                    ('C', 'Cacao Trinitario'),
+                    ('D', 'Cacao híbrido'),
+                    ('E', 'Clones de cacao'),
+                    ('F', 'Cacao rojo'),
+                     ('G', 'No sabe'),
+                )
+
+CHOICE_SAF_1_11 = (
+                    ('A', 'Cacao criollo'),
+                    ('B', 'Cacao forastero'),
+                    ('C', 'Cacao Trinitario'),
+                    ('D', 'Cacao híbrido'),
+                    ('E', 'Clones de cacao'),
+                    ('F', 'Cacao rojo'),
+                     ('G', 'No sabe'),
+                )
+
+class SafConversacion9(models.Model):
+    conversacion17 =  models.IntegerField(choices=CHOICE_SAF_1_8,
+                                verbose_name='1.8¿De dónde obtuvo la semilla para establecer la plantación de cacao? ')
+    conversacion18 = MultiSelectField(choices=CHOICE_SAF_1_9,
+                                verbose_name='1.9¿Con que tipo de cacao se estableció  la plantación de cacao? ')
+    conversacion19 = MultiSelectField(choices=CHOICE_SAF_1_10,
+                                verbose_name='1.10¿Cuáles son las variedades de cacao tolerantes a las enfermedades? ')
+    conversacion20 = MultiSelectField(choices=CHOICE_SAF_1_11,
+                                verbose_name='1.11¿Qué tipo de variedades le han recomendado para resiembra y en nuevas plantaciones de cacao? ')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"18,19,20"
+
+
+CHOICE_SAF_2_TEMA1 = (
+                    (1, 'Cantidad de lombrices/250 cm2'),
+                )
+
+CHOICE_SAF_2_TEMA2 = (
+                    (1, 'Grado de efervescencia con prueba de Agua Oxigenada'),
+                )
+
+CHOICE_SAF_2_OPCIONES = (
+                    (1, 'Baja'),
+                    (2, 'Media'),
+                    (3, 'Alta'),
+                )
+
+class SafObservaciones(models.Model):
+    observacion1 =  models.IntegerField(choices=CHOICE_SAF_2_TEMA1,
+                                verbose_name='Tema')
+    observacion2 = models.FloatField('Punto 1')
+    observacion3 = models.FloatField('Punto 2')
+    observacion4 = models.FloatField('Punto 3')
+    observacion5 = models.FloatField('Punto 4')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"Calidad de vida de suelo 1"
+
+class SafObservaciones2(models.Model):
+    observacion1 =  models.IntegerField(choices=CHOICE_SAF_2_TEMA2,
+                                verbose_name='Tema')
+    observacion2 = models.IntegerField(choices=CHOICE_SAF_2_OPCIONES,
+                                verbose_name='Punto 1')
+    observacion3 = models.IntegerField(choices=CHOICE_SAF_2_OPCIONES,
+                                verbose_name='Punto 2')
+    observacion4 = models.IntegerField(choices=CHOICE_SAF_2_OPCIONES,
+                                verbose_name='Punto 3')
+    observacion5 = models.IntegerField(choices=CHOICE_SAF_2_OPCIONES,
+                                verbose_name='Punto 4')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"Calidad de vida de suelo 2"
+
+CHOICE_SAF_OBSERVACION_2_2 = (
+                    (1, 'Bueno y apto para cacao'),
+                    (2, 'Regular necesita enmienda para mejorar'),
+                    (3, 'Malo y no apto para Cacao'),
+                    (4,'Degradado y compacto no apto para cacao')
+                )
+
+CHOICE_SAF_OBSERVACION_2_3 = (
+                    ('A', 'Promover o sembrar cobertura'),
+                    ('B', 'Sembrar árboles que provee buena hojarasca'),
+                    ('C', 'Utilizar materiales de poda de sombra y cacao'),
+                    ('D', 'Utilizar materiales de banano'),
+                    ('E', 'Utilizar abono verde'),
+                    ('F', 'Utilizar abono orgánico'),
+                )
+
+class SafObservaciones3(models.Model):
+    observacion6 =  models.IntegerField(choices=CHOICE_SAF_OBSERVACION_2_2,
+                                verbose_name='2.2Según lo observado en las pruebas de suelo cómo valora es estado de suelo')
+    observacion7 = MultiSelectField(choices=CHOICE_SAF_OBSERVACION_2_3,
+                                verbose_name='2.3¿Qué prácticas se pueden hacer en el suelo de su parcela de aprendizaje para mejorar el la vida de suelo?')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"Observacion 2.2 y 2.3"
+
+
+class SafObservacionPunto1(models.Model):
+    especies = models.ForeignKey(Especies)
+    cantidad = models.FloatField()
+    lena = models.FloatField('Para leña')
+    nutrientes = models.FloatField('Para nutrientes')
+    frutas = models.FloatField('Para Frutas')
+    madera = models.FloatField('Para Madera')
+    sombra = models.FloatField('Para sombra')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"Punto 1"
+
+class SafObservacionPunto2(models.Model):
+    especies = models.ForeignKey(Especies)
+    cantidad = models.FloatField()
+    lena = models.FloatField('Para leña')
+    nutrientes = models.FloatField('Para nutrientes')
+    frutas = models.FloatField('Para Frutas')
+    madera = models.FloatField('Para Madera')
+    sombra = models.FloatField('Para sombra')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"Punto 2"
+
+class SafObservacionPunto3(models.Model):
+    especies = models.ForeignKey(Especies)
+    cantidad = models.FloatField()
+    lena = models.FloatField('Para leña')
+    nutrientes = models.FloatField('Para nutrientes')
+    frutas = models.FloatField('Para Frutas')
+    madera = models.FloatField('Para Madera')
+    sombra = models.FloatField('Para sombra')
+
+    ficha = models.ForeignKey(FichaSaf)
+
+    def __unicode__(self):
+        return u"Punto 3"
