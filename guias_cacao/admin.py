@@ -590,3 +590,97 @@ class FichaCosechaAdmin(admin.ModelAdmin):
        }
 
 admin.site.register(FichaCosecha, FichaCosechaAdmin)
+
+#----------------------- ficha saf ------------------------------------
+
+class SafConversacion1Inline(admin.TabularInline):
+    model = SafConversacion1
+    extra = 1
+    max_num = 1
+
+class SafConversacion2Inline(admin.TabularInline):
+    model = SafConversacion2
+    extra = 1
+    max_num = 12
+
+class SafConversacion3Inline(admin.TabularInline):
+    model = SafConversacion3
+    extra = 1
+    max_num = 12
+
+class SafConversacion4Inline(admin.TabularInline):
+    model = SafConversacion4
+    extra = 1
+    max_num = 12
+
+class SafConversacion5Inline(admin.TabularInline):
+    model = SafConversacion5
+    extra = 1
+    max_num = 1
+
+class SafConversacion6Inline(admin.TabularInline):
+    model = SafConversacion6
+    extra = 1
+    max_num = 1
+
+class SafConversacion7Inline(admin.TabularInline):
+    model = SafConversacion7
+    extra = 1
+    max_num = 4
+
+class SafConversacion8Inline(admin.TabularInline):
+    model = SafConversacion8
+    extra = 1
+    max_num = 6
+
+class SafConversacion9Inline(admin.TabularInline):
+    model = SafConversacion9
+    extra = 1
+    max_num = 1
+
+class SafObservacionesInline(admin.TabularInline):
+    model = SafObservaciones
+    extra = 1
+    max_num = 1
+
+class SafObservaciones2Inline(admin.TabularInline):
+    model = SafObservaciones2
+    extra = 1
+    max_num = 1
+
+class SafObservaciones3Inline(admin.TabularInline):
+    model = SafObservaciones3
+    extra = 1
+    max_num = 1
+
+class SafObservacionPunto1Inline(admin.TabularInline):
+    model = SafObservacionPunto1
+    extra = 1
+
+class SafObservacionPunto2Inline(admin.TabularInline):
+    model = SafObservacionPunto2
+    extra = 1
+
+class SafObservacionPunto3Inline(admin.TabularInline):
+    model = SafObservacionPunto3
+    extra = 1
+
+class SafObservaciones4Inline(admin.TabularInline):
+    model = SafObservaciones4
+    extra = 1
+    max_num = 1
+
+class FichaSafAdmin(admin.ModelAdmin):
+    form = ProductorSafAdminForm
+    inlines = [SafConversacion1Inline,SafConversacion2Inline,SafConversacion3Inline,
+                    SafConversacion4Inline,SafConversacion5Inline,SafConversacion6Inline,
+                    SafConversacion7Inline,SafConversacion8Inline,SafConversacion9Inline,
+                    SafObservacionesInline,SafObservaciones2Inline,SafObservaciones3Inline,
+                    SafObservacionPunto1Inline,SafObservacionPunto2Inline,SafObservacionPunto3Inline,
+                    SafObservaciones4Inline]
+
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+admin.site.register(FichaSaf, FichaSafAdmin)

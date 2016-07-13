@@ -2386,7 +2386,7 @@ CHOICE_SAF_1_5 = (
                 )
 
 class SafConversacion4(models.Model):
-    conversacion5 = models.IntegerField(choices=CHOICE_SAF_1_4,
+    conversacion5 = models.IntegerField(choices=CHOICE_SAF_1_5,
                                 verbose_name='Opcion')
     conversacion6 = MultiSelectField(choices=CHOICES_FECHA_PODA,
                                 verbose_name='Opciones')
@@ -2702,8 +2702,8 @@ CHOICE_SAF_OBSERVACION_2_7 = (
                     (1, 'Cacao + maderable + musáceas + pejibaye'),
                     (2, 'Cacao + musáceas + cultivos anuales'),
                     (3, 'Cacao + maderables + musáceas'),
-                    (4, 'Cacao + musáceas + leguminosa + maderables')
-                    (5, 'Cacao + musáceas + leguminosa + maderables+ frutales')
+                    (4, 'Cacao + musáceas + leguminosa + maderables'),
+                    (5, 'Cacao + musáceas + leguminosa + maderables+ frutales'),
                 )
 
 CHOICE_SAF_OBSERVACION_2_8 = (
@@ -2724,7 +2724,7 @@ class SafObservaciones4(models.Model):
                                 verbose_name='2.7 ¿Cuál sería el diseño para mejorar el sistema agroforestal cacao? ')
     observacion11 = MultiSelectField(choices=CHOICE_SAF_OBSERVACION_2_8,
                                 verbose_name='2.8 ¿Por qué toma la decisión de establecer el diseño seleccionado?')
-       
+
     ficha = models.ForeignKey(FichaSaf)
 
     def __unicode__(self):
