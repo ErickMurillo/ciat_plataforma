@@ -2729,3 +2729,26 @@ class SafObservaciones4(models.Model):
 
     def __unicode__(self):
         return u"Observacion 2.5 al 2.8"
+
+#--------------------- fin ficha saf -----------
+
+#---------------------- Ficha Cierre -----------
+
+class FichaCierre(models.Model):
+    productor = models.ForeignKey(
+        Persona,
+        verbose_name='Nombre de productor o productora',
+        related_name='persona_productor_cierre')
+    tecnico = models.ForeignKey(
+        Persona,
+        verbose_name='Nombre de técnico',
+        related_name='persona_tecnico_cierre')
+    fecha_visita = models.DateField()
+
+    def __unicode__(self):
+        return self.productor.nombre
+
+    class Meta:
+        verbose_name = "Ficha cierre"
+        verbose_name_plural = "Ficha cierre"
+
