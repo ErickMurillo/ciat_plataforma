@@ -2752,3 +2752,390 @@ class FichaCierre(models.Model):
         verbose_name = "Ficha cierre"
         verbose_name_plural = "Ficha cierre"
 
+CHOICE_CIERRE_1_1_IMPACTO = (
+                    ('A', 'Tipo de árboles y cantidad'),
+                    ('B', 'Mucha sombra de los árboles'),
+                    ('C', 'Poca sombra de los árboles'),
+                    ('D', 'Efecto de sombra sobre las plagas y enfermedades'),
+                    ('E', 'Efecto de sombra sobre la producción'),
+                    ('F', 'Ninguna'),
+                )
+
+CHOICE_CIERRE_1_1_PLANIFICADA = (
+                    ('A', 'Regulación de sombra'),
+                    ('B', 'Eliminación de árboles'),
+                    ('C', 'Sembrar árboles'),
+                    ('D', 'Eliminar musaceas'),
+                    ('E', 'Sembrar musaceas y sombra temporal'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+CHOICE_CIERRE_1_1_REALIZADA = (
+                    ('A', 'Regulación de sombra'),
+                    ('B', 'Eliminación de árboles'),
+                    ('C', 'Sembrar árboles'),
+                    ('D', 'Eliminar musaceas'),
+                    ('E', 'Sembrar musaceas y sombra temporal'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+class CierreManejo1(models.Model):
+    campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_1_IMPACTO,
+                                verbose_name='Observación que impacto')
+    campo2 = MultiSelectField(choices=CHOICE_CIERRE_1_1_PLANIFICADA,
+                                verbose_name='Acciones planificadas')
+    campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_1_REALIZADA,
+                                verbose_name='Acciones realizadas')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"1.1"
+
+    class Meta:
+        verbose_name='1.1'
+        verbose_name_plural='1.1'
+
+
+CHOICE_CIERRE_1_2_IMPACTO = (
+                    ('A', 'Altura y ancho de plantas de cacao'),
+                    ('B', 'Falta de horquetas'),
+                    ('C', 'Muchas ramas bajeras y entrecruzadas'),
+                    ('D', 'Poca penetración de luz'),
+                    ('E', 'Relación entre poda y productividad'),
+                    ('F', 'Ninguna'),
+                )
+
+CHOICE_CIERRE_1_2_PLANIFICADA = (
+                    ('A', 'Descope de las plantas'),
+                    ('B', 'Poda de las ramas  entrecruzadas'),
+                    ('C', 'Eliminar los chupones'),
+                    ('D', 'Formar horquetas'),
+                    ('E', 'Eliminar ramas bajeras'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+CHOICE_CIERRE_1_2_REALIZADA = (
+                    ('A', 'Descope de las plantas'),
+                    ('B', 'Poda de las ramas  entrecruzadas'),
+                    ('C', 'Eliminar los chupones'),
+                    ('D', 'Formar horquetas'),
+                    ('E', 'Eliminar ramas bajeras'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+class CierreManejo2(models.Model):
+    campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_2_IMPACTO,
+                                verbose_name='Observación que impacto')
+    campo2 = MultiSelectField(choices=CHOICE_CIERRE_1_2_PLANIFICADA,
+                                verbose_name='Acciones planificadas')
+    campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_2_REALIZADA,
+                                verbose_name='Acciones realizadas')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"1.2"
+
+    class Meta:
+        verbose_name='1.2'
+        verbose_name_plural='1.2'
+
+CHOICE_CIERRE_1_3_IMPACTO = (
+                    ('A', 'Falta de obra de conservación'),
+                    ('B', 'Falta de obra de drenaje'),
+                    ('C', 'Deficiencia o desbalance de nutrientes'),
+                    ('D', 'Estado de fertilidad de suelo'),
+                    ('E', 'Relación entre suelo, fertilidad y la productividad'),
+                    ('F', 'Ninguna'),
+                )
+
+CHOICE_CIERRE_1_3_PLANIFICADA = (
+                    ('A', 'Aplicar abono orgánicos'),
+                    ('B', 'Aplicar abono mineral'),
+                    ('C', 'Aplicar Cal o Ceniza'),
+                    ('D', 'Abonar según datos de análisis'),
+                    ('E', 'Sembrar abono verde y cobertura'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+CHOICE_CIERRE_1_3_REALIZADA = (
+                    ('A', 'Aplicar abono orgánicos'),
+                    ('B', 'Aplicar abono mineral'),
+                    ('C', 'Aplicar Cal o Ceniza'),
+                    ('D', 'Abonar según datos de análisis'),
+                    ('E', 'Sembrar abono verde y cobertura'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+class CierreManejo3(models.Model):
+    campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_3_IMPACTO,
+                                verbose_name='Observación que impacto')
+    campo2 = MultiSelectField(choices=CHOICE_CIERRE_1_3_PLANIFICADA,
+                                verbose_name='Acciones planificadas')
+    campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_3_REALIZADA,
+                                verbose_name='Acciones realizadas')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"1.3"
+
+    class Meta:
+        verbose_name='1.3'
+        verbose_name_plural='1.3'
+
+CHOICE_CIERRE_1_4_IMPACTO = (
+                    ('A', 'Variedad de plagas y enfermedades'),
+                    ('B', 'Nivel de daño de plagas y enfermedades'),
+                    ('C', 'Relación entre poda , plagas y enfermedades'),
+                    ('D', 'Relación entre sombra y plagas y enfermedades'),
+                    ('E', 'Impacto de plagas y enfermedades sobre producción'),
+                    ('F', 'Ninguna'),
+                )
+
+CHOICE_CIERRE_1_4_PLANIFICADA = (
+                    ('A', 'Realizar recuentos'),
+                    ('B', 'Mejorar la sombra'),
+                    ('C', 'Mejorar la poda'),
+                    ('D', 'Eliminar mazorcas enfermas'),
+                    ('E', 'Aplicar caldo sulfo-calcico'),
+                    ('F', 'Aplicar bio-fermentados'),
+                    ('G', 'Ninguna'),
+                    ('H', 'Ninguna por falta de recursos'),
+                )
+
+CHOICE_CIERRE_1_4_REALIZADA = (
+                    ('A', 'Realizar recuentos'),
+                    ('B', 'Mejorar la sombra'),
+                    ('C', 'Mejorar la poda'),
+                    ('D', 'Eliminar mazorcas enfermas'),
+                    ('E', 'Aplicar caldo sulfo-calcico'),
+                    ('F', 'Aplicar bio-fermentados'),
+                    ('G', 'Ninguna'),
+                    ('H', 'Ninguna por falta de recursos'),
+                )
+
+class CierreManejo4(models.Model):
+    campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_4_IMPACTO,
+                                verbose_name='Observación que impacto')
+    campo2 = MultiSelectField(choices=CHOICE_CIERRE_1_4_PLANIFICADA,
+                                verbose_name='Acciones planificadas')
+    campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_4_REALIZADA,
+                                verbose_name='Acciones realizadas')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"1.4"
+
+    class Meta:
+        verbose_name='1.4'
+        verbose_name_plural='1.4'
+
+CHOICE_CIERRE_1_5_IMPACTO = (
+                    ('A', 'Variedad de mala hierbas'),
+                    ('B', 'Nivel de daño de mala hierbas'),
+                    ('C', 'Relación entre chapoda y composición del piso'),
+                    ('D', 'Relación entre herbicidas y composición del piso'),
+                    ('E', 'Cantidad de bejucos en el piso y plantas'),
+                    ('F', 'Ninguna'),
+                )
+
+CHOICE_CIERRE_1_5_PLANIFICADA = (
+                    ('A', 'Realizar conteo'),
+                    ('B', 'Mejorar la sombra'),
+                    ('C', 'Eliminar bejucos'),
+                    ('D', 'Eliminar tanda'),
+                    ('E', 'Realizar manejo selectivo'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+CHOICE_CIERRE_1_5_REALIZADA = (
+                    ('A', 'Realizar conteo'),
+                    ('B', 'Mejorar la sombra'),
+                    ('C', 'Eliminar bejucos'),
+                    ('D', 'Eliminar tanda'),
+                    ('E', 'Realizar manejo selectivo'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+class CierreManejo5(models.Model):
+    campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_5_IMPACTO,
+                                verbose_name='Observación que impacto')
+    campo2 = MultiSelectField(choices=CHOICE_CIERRE_1_5_PLANIFICADA,
+                                verbose_name='Acciones planificadas')
+    campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_5_REALIZADA,
+                                verbose_name='Acciones realizadas')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"1.5"
+
+    class Meta:
+        verbose_name='1.5'
+        verbose_name_plural='1.5'
+
+CHOICE_CIERRE_1_6_IMPACTO = (
+                    ('A', 'Tipo de cacao que estamos sembrando'),
+                    ('B', 'Auto-incompatibilidad de las semillas'),
+                    ('C', 'La calidad de semillas'),
+                    ('D', 'Incidencia de plagas y enfermedades en vivero'),
+                    ('E', 'Calidad de plantas'),
+                    ('F', 'Ninguna'),
+                )
+
+CHOICE_CIERRE_1_6_PLANIFICADA = (
+                    ('A', 'Seleccionar mazorcas y mezclar para conseguir semilla'),
+                    ('B', 'Utilizar mejor calidad de semillas'),
+                    ('C', 'Mejorar el sustrato'),
+                    ('D', 'Mejorar el tamaño de bolsa'),
+                    ('E', 'Mejorar manejo de enfermedades y plagas'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+CHOICE_CIERRE_1_6_REALIZADA = (
+                    ('A', 'Seleccionar mazorcas y mezclar para conseguir semilla'),
+                    ('B', 'Utilizar mejor calidad de semillas'),
+                    ('C', 'Mejorar el sustrato'),
+                    ('D', 'Mejorar el tamaño de bolsa'),
+                    ('E', 'Mejorar manejo de enfermedades y plagas'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+class CierreManejo6(models.Model):
+    campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_6_IMPACTO,
+                                verbose_name='Observación que impacto')
+    campo2 = MultiSelectField(choices=CHOICE_CIERRE_1_6_PLANIFICADA,
+                                verbose_name='Acciones planificadas')
+    campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_6_REALIZADA,
+                                verbose_name='Acciones realizadas')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"1.6"
+
+    class Meta:
+        verbose_name='1.6'
+        verbose_name_plural='1.6'
+
+CHOICE_CIERRE_1_7_IMPACTO = (
+                    ('A', 'Cantidad de planta productiva'),
+                    ('B', 'Numero de mazorcas sanas'),
+                    ('C', 'Numero de mazorcas dañadas'),
+                    ('D', 'Nivel de cosecha de la parcela'),
+                    ('E', 'Ninguna'),
+                )
+
+CHOICE_CIERRE_1_7_PLANIFICADA = (
+                    ('A', 'Mejorar la poda y sombra'),
+                    ('B', 'Mejorar la fertilización'),
+                    ('C', 'Mejorar manejo de plagas'),
+                    ('D', 'Eliminar planta poca productivas'),
+                    ('E', 'Sembrar plantas más productivas'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+CHOICE_CIERRE_1_7_REALIZADA = (
+                    ('A', 'Mejorar la poda y sombra'),
+                    ('B', 'Mejorar la fertilización'),
+                    ('C', 'Mejorar manejo de plagas'),
+                    ('D', 'Eliminar planta poca productivas'),
+                    ('E', 'Sembrar plantas más productivas'),
+                    ('F', 'Ninguna'),
+                    ('G', 'Ninguna por falta de recursos'),
+                )
+
+class CierreManejo7(models.Model):
+    campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_7_IMPACTO,
+                                verbose_name='Observación que impacto')
+    campo2 = MultiSelectField(choices=CHOICE_CIERRE_1_7_PLANIFICADA,
+                                verbose_name='Acciones planificadas')
+    campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_7_REALIZADA,
+                                verbose_name='Acciones realizadas')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"1.7"
+
+    class Meta:
+        verbose_name='1.7'
+        verbose_name_plural='1.7'
+
+CHOICE_CIERRE_COSTO_1 = (
+                    ('A', 'Cacao Criollo'),
+                    ('B', 'Cacao Trinitario'),
+                    ('C', 'Cacao Forastero'),
+                    ('D', 'Cacao híbrido'),
+                    ('E', 'Clones de cacao'),
+                )
+
+class CierreCosto1(models.Model):
+    costo = models.FloatField('Costo de mano de obra C$/día')
+    area = models.FloatField('Área de parcela de cacao en mz')
+    tipo = MultiSelectField(choices=CHOICE_CIERRE_COSTO_1,
+                                verbose_name='Tipo de Cacao ')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"2"
+
+class ActividadesCierre(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural='Actividades de cierre'
+
+class CierreActividad(models.Model):
+    actividad = models.ForeignKey(ActividadesCierre)
+    meses = MultiSelectField(choices=CHOICES_FECHA_PODA,
+            verbose_name='En qué meses realizan')
+    familiar = models.FloatField('Uso de DP familiar')
+    contratada = models.FloatField('Uso de DP contratada')
+    insumo = models.CharField('Uso Insumo', max_length=250)
+    costo = models.FloatField('Costo de insumo en C$')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"2.1"
+
+
+class ManejosCierre(models.Model):
+    nombre = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name_plural='Manejos de cierre'
+
+class CierreManejo(models.Model):
+    manejo = models.ForeignKey(ManejosCierre)
+    reposo = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    crecimiento = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    floracion = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    cosecha = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"2.1"
