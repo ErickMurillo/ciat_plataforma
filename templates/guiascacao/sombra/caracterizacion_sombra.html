@@ -1,0 +1,264 @@
+{% extends "guiascacao/base.html" %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+  $('#grafo1').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Tipos de especies'
+      },
+      xAxis: {
+          categories: [{% for k,v in dict_todo_tipo.items %} '{{k}}', {% endfor%}]
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: ''
+          },
+          stackLabels: {
+              enabled: true,
+              style: {
+                  fontWeight: 'bold',
+                  color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+          }
+      },
+      legend: {
+          align: 'right',
+          x: -30,
+          verticalAlign: 'top',
+          y: 25,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+      },
+      tooltip: {
+          headerFormat: '<b>{point.x}</b><br/>',
+          pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      },
+      plotOptions: {
+          column: {
+              stacking: 'normal',
+              dataLabels: {
+                  enabled: true,
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                  style: {
+                      textShadow: '0 0 3px black'
+                  }
+              }
+          }
+      },
+      series: [
+        {
+          name: 'pequeña',
+          data: [{{todo_tipo.0.0}},{{todo_tipo.1.0}}]
+        },
+        {
+          name: 'mediano',
+          data: [{{todo_tipo.0.1}},{{todo_tipo.1.1}}]
+        },
+        {
+          name: 'grande',
+          data: [{{todo_tipo.0.2}},{{todo_tipo.1.2}}]
+        },
+      ]
+  });
+});
+
+$(function () {
+  $('#grafo2').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Tipos de copas'
+      },
+      xAxis: {
+          categories: [{% for k,v in dict_todo_copa.items %} '{{k}}', {% endfor%}]
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: ''
+          },
+          stackLabels: {
+              enabled: true,
+              style: {
+                  fontWeight: 'bold',
+                  color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+          }
+      },
+      legend: {
+          align: 'right',
+          x: -30,
+          verticalAlign: 'top',
+          y: 25,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+      },
+      tooltip: {
+          headerFormat: '<b>{point.x}</b><br/>',
+          pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      },
+      plotOptions: {
+          column: {
+              stacking: 'normal',
+              dataLabels: {
+                  enabled: true,
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                  style: {
+                      textShadow: '0 0 3px black'
+                  }
+              }
+          }
+      },
+      series: [
+            {
+              name: 'pequeña',
+              data: [{{todo_copa.0.0}},{{todo_copa.1.0}},{{todo_copa.2.0}}]
+            },
+            {
+              name: 'mediano',
+              data: [{{todo_copa.0.1}},{{todo_copa.1.1}},{{todo_copa.2.1}}]
+            },
+            {
+              name: 'grande',
+              data: [{{todo_copa.0.2}},{{todo_copa.1.2}},{{todo_copa.2.2}}]
+            },
+    ]
+  });
+});
+
+$(function () {
+  $('#grafo3').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Tipos de usos'
+      },
+      xAxis: {
+          categories: [{% for k,v in dict_todo_uso.items %} '{{k}}', {% endfor%}]
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: ''
+          },
+          stackLabels: {
+              enabled: true,
+              style: {
+                  fontWeight: 'bold',
+                  color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+          }
+      },
+      legend: {
+          align: 'right',
+          x: -30,
+          verticalAlign: 'top',
+          y: 25,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+      },
+      tooltip: {
+          headerFormat: '<b>{point.x}</b><br/>',
+          pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      },
+      plotOptions: {
+          column: {
+              stacking: 'normal',
+              dataLabels: {
+                  enabled: true,
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                  style: {
+                      textShadow: '0 0 3px black'
+                  }
+              }
+          }
+      },
+      series: [
+            {
+              name: 'pequeña',
+              data: [{{todo_uso.0.0}},{{todo_uso.1.0}},{{todo_uso.2.0}},{{todo_uso.3.0}},{{todo_uso.4.0}}]
+            },
+            {
+              name: 'mediano',
+              data: [{{todo_uso.0.1}},{{todo_uso.1.1}},{{todo_uso.2.1}},{{todo_uso.3.1}},{{todo_uso.4.1}}]
+            },
+            {
+              name: 'grande',
+              data: [{{todo_uso.0.2}},{{todo_uso.1.2}},{{todo_uso.2.2}},{{todo_uso.3.2}},{{todo_uso.4.2}}]
+            },
+    ]
+  });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Sombra</li>
+                            <li class="active">Caracterización arborea de sombra</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo3"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo4"></div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+{% endblock contenido %}

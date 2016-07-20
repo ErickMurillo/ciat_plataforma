@@ -1,0 +1,370 @@
+{% extends "guiascacao/base.html" %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Cobertura de sombra punto 1'
+        },
+        subtitle: {
+            text: '(% cobertura estimación visual)'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Parcela'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: '% cobertura'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} , {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Punto 1',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+                {% for obj in punto1 %}
+                  [{{obj}}],
+                {% endfor %}
+                ]
+
+        }]
+    });
+});
+$(function () {
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Cobertura de sombra punto 2'
+        },
+        subtitle: {
+            text: '(% cobertura estimación visual)'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Parcela'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: '% cobertura'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} , {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Punto 2',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+                {% for obj in punto2 %}
+                  [{{obj}}],
+                {% endfor %}
+                ]
+
+        }]
+    });
+});
+$(function () {
+    $('#grafo3').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Cobertura de sombra punto 3'
+        },
+        subtitle: {
+            text: '(% cobertura estimación visual)'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Parcela'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: '% cobertura'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} , {point.y} '
+                }
+            }
+        },
+        series: [{
+            name: 'Punto 3',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+                {% for obj in punto3 %}
+                  [{{obj}}],
+                {% endfor %}
+                ]
+
+        }]
+    });
+});
+//
+$(function () {
+    // Create the chart
+    $('#grafo4').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Distribución de frecuencia'
+        },
+        subtitle: {
+            text: 'Rangos de cobertura'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Rangos',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_cobertura.items %}
+              {
+                  name: '{{k}}',
+                  y: {{v}},
+              },
+            {% endfor %}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Sombra</li>
+                            <li class="active">Cobertura de sombra</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row datos">
+                        
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-offset-1 col-lg-2">
+                            <div class="number-data">
+                                {{promedio2|floatformat:2}}
+                            </div>
+                            <div class="title-data">
+                                Promedio
+                            </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                            <div class="number-data">
+                                {{mediana2|floatformat:2}}
+                            </div>
+                            <div class="title-data">
+                                Mediana
+                            </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                            <div class="number-data">
+                                {{desviacion2|floatformat:2}}
+                            </div>
+                            <div class="title-data">
+                                Desviación típica
+                            </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                            <div class="number-data">
+                                {{minimo2|floatformat:2}}
+                            </div>
+                            <div class="title-data">
+                                Mínimo
+                            </div>
+                            
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                            
+                            <div class="number-data">
+                                {{maximo2|floatformat:2}}
+                            </div>
+                            <div class="title-data">
+                                Máximo
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo1"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo2"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo3"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+{% endblock contenido %}

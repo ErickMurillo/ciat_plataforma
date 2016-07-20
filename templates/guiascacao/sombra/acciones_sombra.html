@@ -1,0 +1,480 @@
+{% extends "guiascacao/base.html" %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    // Build the chart
+    $('#grafo1').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Acciones de sombra'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_acciones.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Reducir la sombra'
+        },
+        subtitle: {
+            text: 'Frecuencia de opciones'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Rangos',
+            colorByPoint: true,
+            data: [
+            {% for k,v in dict_reducir_poda.items %}
+              {
+                  name: '{{k}} - Poda',
+                  y: {{v}},
+              },
+            {% endfor %}
+            {% for k,v in dict_reducir_eliminando.items %}
+              {
+                  name: '{{k}} - Elimina',
+                  y: {{v}},
+              },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo3').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'En todo la parcela o Solo en una parte de la parcela'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    distance: -30,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_todo.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+//aumentar sombra
+$(function () {
+    // Create the chart
+    $('#grafo4').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Aumentar la sombra'
+        },
+        subtitle: {
+            text: 'Frecuencia de opciones'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Rangos',
+            colorByPoint: true,
+            data: [
+            {% for k,v in dict_aumentar_poda.items %}
+              {
+                  name: '{{k}} - Sembrando',
+                  y: {{v}},
+              },
+            {% endfor %}
+            {% for k,v in dict_aumentar_eliminando.items %}
+              {
+                  name: '{{k}} - Cambiando',
+                  y: {{v}},
+              },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo5').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'En todo la parcela o Solo en una parte de la parcela'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    distance: -30,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_aumentar_todo.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+//manejos de sombra
+$(function () {
+    // Build the chart
+    $('#grafo6').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Tiene herramienta para manejo de sombra?'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_manejo_herramienta.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});$(function () {
+    // Build the chart
+    $('#grafo7').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Tiene formación para manejo de sombra?'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in dict_manejo_formacion.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+<style type="text/css">
+    #grafo1,#grafo2,#grafo3,#grafo4,#grafo5,#grafo6,#grafo7{
+        border: 1px solid #eee;
+    }
+    .panel-graficos .panel-heading{
+        margin-bottom:20px;
+    }
+</style>
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Sombra</li>
+                            <li class="active">Acciones de sombra</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <!--<div class="row datos">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Número de parcelas
+                            </div>
+                            <div class="number-data">
+                                {{numero_parcelas}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Promedio de riqueza total
+                            </div>
+                            <div class="number-data">
+                                {{promedio2|floatformat:2}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Mediana de riqueza total
+                            </div>
+                            <div class="number-data">
+                                {{mediana2|floatformat:2}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Desviación típica de riqueza total
+                            </div>
+                            <div class="number-data">
+                                {{desviacion2|floatformat:2}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Mínimo
+                            </div>
+                            <div class="number-data">
+                                {{minimo|floatformat:2}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="title-data">
+                                Máximo
+                            </div>
+                            <div class="number-data">
+                                {{maximo|floatformat:2}}
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo2" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo3" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo4" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo5" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>Manejo de sombra</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo6" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo7" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+{% endblock contenido %}

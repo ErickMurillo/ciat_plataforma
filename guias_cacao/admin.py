@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from .forms import ProductorSombraAdminForm, TecnicoAdminForm, ProductorPodaAdminForm, ProductorPlagaAdminForm, ProductorPisoAdminForm
+from .forms import *
 from .models import *
+from import_export.admin import ImportExportModelAdmin
 
 
 class Foto1Inline(admin.TabularInline):
@@ -325,10 +326,10 @@ class FichaPisoAdmin(admin.ModelAdmin):
 
 admin.site.register(FichaPiso, FichaPisoAdmin)
 
-class EspeciesAdmin(admin.ModelAdmin):
+class EspeciesAdmin(ImportExportModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('nombre', 'tipo', 'foto' )
+            'fields': (('nombre','nombre_cientifico'), 'tipo','tipo_uso', 'foto' )
         }),
         ('PEQUEÑO', {
             'classes': ('collapse',),
@@ -343,6 +344,343 @@ class EspeciesAdmin(admin.ModelAdmin):
             'fields': ('g_altura', 'g_diametro', 'g_ancho'),
         }),
     )
+    list_display = ('nombre', 'nombre_cientifico','tipo')
+    #list_filter = ('tipo', 'tipo_uso')
+    search_fields = ['nombre', 'nombre_cientifico']
 
 
 admin.site.register(Especies, EspeciesAdmin)
+
+#----- ficha de suelo ----
+class Punto1SueloInline(admin.TabularInline):
+    model = Punto1Suelo
+    extra = 1
+    max_num = 1
+
+class PuntoASueloInline(admin.TabularInline):
+    model = PuntoASuelo
+    extra = 1
+    max_num = 6
+
+class PuntoBSueloInline(admin.TabularInline):
+    model = PuntoBSuelo
+    extra = 1
+    max_num = 5
+
+class Punto2ASueloInline(admin.TabularInline):
+    model = Punto2ASuelo
+    extra = 1
+    max_num = 3
+
+class Punto2BSueloInline(admin.TabularInline):
+    model = Punto2BSuelo
+    extra = 1
+    max_num = 5
+
+class Punto3SueloPunto1Inline(admin.TabularInline):
+    model = Punto3SueloPunto1
+    extra = 1
+    max_num = 2
+
+class Punto3SueloPunto2Inline(admin.TabularInline):
+    model = Punto3SueloPunto2
+    extra = 1
+    max_num = 2
+
+class Punto3SueloPunto3Inline(admin.TabularInline):
+    model = Punto3SueloPunto3
+    extra = 1
+    max_num = 2
+
+class Punto4SueloInline(admin.TabularInline):
+    model = Punto4Suelo
+    extra = 1
+    max_num = 1
+
+class Punto4SueloCosechaInline(admin.TabularInline):
+    model = Punto4SueloCosecha
+    extra = 1
+    max_num = 3
+
+class Punto4SueloSIInline(admin.TabularInline):
+    model = Punto4SueloSI
+    extra = 1
+    max_num = 1
+
+class Punto5SueloAbonosInline(admin.TabularInline):
+    model = Punto5SueloAbonos
+    extra = 1
+    max_num = 16
+
+class Punto6AnalisisSueloInline(admin.TabularInline):
+    model = Punto6AnalisisSuelo
+    extra = 1
+    max_num = 8
+
+class Punto7TipoSueloInline(admin.TabularInline):
+    model = Punto7TipoSuelo
+    extra = 1
+    max_num = 1
+
+class Punto8SueloPropuestaInline(admin.TabularInline):
+    model = Punto8SueloPropuesta
+    extra = 1
+    max_num = 16
+
+class Punto9ErosionInline(admin.TabularInline):
+    model = Punto9Erosion
+    extra = 1
+    max_num = 1
+
+class Punto9DrenajeInline(admin.TabularInline):
+    model = Punto9Drenaje
+    extra = 1
+    max_num = 1
+
+class Punto9NutrientesInline(admin.TabularInline):
+    model = Punto9Nutrientes
+    extra = 1
+    max_num = 1
+
+class Punto9ExcesoInline(admin.TabularInline):
+    model = Punto9Exceso
+    extra = 1
+    max_num = 1
+
+class Punto9DesbalanceInline(admin.TabularInline):
+    model = Punto9Desbalance
+    extra = 1
+    max_num = 1
+
+class Punto9EnfermedadesInline(admin.TabularInline):
+    model = Punto9Enfermedades
+    extra = 1
+    max_num = 1
+
+class FichaSueloAdmin(admin.ModelAdmin):
+    form = ProductorSueloAdminForm
+    inlines = [Punto1SueloInline,PuntoASueloInline,PuntoBSueloInline,
+               Punto2ASueloInline,Punto2BSueloInline,Punto3SueloPunto1Inline,
+               Punto3SueloPunto2Inline,Punto3SueloPunto3Inline,
+               Punto4SueloInline,Punto4SueloCosechaInline,Punto4SueloSIInline,
+               Punto5SueloAbonosInline,Punto6AnalisisSueloInline,
+               Punto7TipoSueloInline,Punto8SueloPropuestaInline,Punto9ErosionInline,
+               Punto9DrenajeInline,Punto9NutrientesInline,Punto9ExcesoInline,
+               Punto9DesbalanceInline,Punto9EnfermedadesInline]
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+    class Media:
+        css = {
+           'all': ('monitoreo/css/adminSombra.css',)
+       }
+        js = ('monitoreo/js/fichaSombra.js',)
+
+# Register your models here.
+admin.site.register(TipoFertilizantes)
+admin.site.register(DatosAnalisis)
+admin.site.register(FichaSuelo, FichaSueloAdmin)
+#------ ficha vivero -------------------
+
+class VivieroConversacionInline(admin.TabularInline):
+    model = VivieroConversacion
+    extra = 1
+    max_num = 1
+
+class ViveroConversacion2Inline(admin.TabularInline):
+    model = ViveroConversacion2
+    extra = 1
+    max_num = 1
+
+class VivieroObservacion1Inline(admin.TabularInline):
+    model = VivieroObservacion1
+    extra = 1
+    max_num = 1
+
+class VivieroObservacion2Inline(admin.TabularInline):
+    model = VivieroObservacion2
+    extra = 1
+    max_num = 9
+
+class VivieroObservacionProductosInline(admin.TabularInline):
+    model = VivieroObservacionProductos
+    extra = 1
+
+class VivieroAnalisisSituacionInline(admin.TabularInline):
+    model = VivieroAnalisisSituacion
+    extra = 1
+    max_num = 1
+
+class FichaViveroAdmin(admin.ModelAdmin):
+    form = ProductorViveroAdminForm
+    inlines = [VivieroConversacionInline,ViveroConversacion2Inline,VivieroObservacion1Inline,
+                    VivieroObservacion2Inline,VivieroObservacionProductosInline,VivieroAnalisisSituacionInline]
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+    class Media:
+        css = {
+           'all': ('guiacacao/css/adminVivero.css',)
+       }
+
+admin.site.register(FichaVivero, FichaViveroAdmin)
+admin.site.register(ProductosVivero)
+
+#--------- ficha cosecha -----------------
+
+class CosechaConversacion1Inline(admin.TabularInline):
+    model = CosechaConversacion1
+    extra = 1
+    max_num = 1
+
+class CosechaConversacion2Inline(admin.TabularInline):
+    model = CosechaConversacion2
+    extra = 1
+    max_num = 1
+
+class CosechaMesesFloracionInline(admin.TabularInline):
+    model = CosechaMesesFloracion
+    extra = 1
+    max_num = 12
+
+class CosechaMesesCosechaInline(admin.TabularInline):
+    model = CosechaMesesCosecha
+    extra = 1
+    max_num = 12
+
+class CosechaPunto1Inline(admin.TabularInline):
+    model = CosechaPunto1
+    extra = 1
+    max_num = 3
+
+class CosechaPunto2Inline(admin.TabularInline):
+    model = CosechaPunto2
+    extra = 1
+    max_num = 3
+
+class CosechaPunto3Inline(admin.TabularInline):
+    model = CosechaPunto3
+    extra = 1
+    max_num = 3
+
+class CosechaAreaPlantasInline(admin.TabularInline):
+    model = CosechaAreaPlantas
+    extra = 1
+    max_num = 1
+
+class CosechaAnalisisInline(admin.TabularInline):
+    model = CosechaAnalisis
+    extra = 1
+    max_num = 1
+
+class FichaCosechaAdmin(admin.ModelAdmin):
+    form = ProductorCosechaAdminForm
+    inlines = [CosechaConversacion1Inline,CosechaConversacion2Inline,CosechaMesesFloracionInline,
+                    CosechaMesesCosechaInline,CosechaPunto1Inline,CosechaPunto2Inline,CosechaPunto3Inline,
+                    CosechaAreaPlantasInline,CosechaAnalisisInline]
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+    class Media:
+        css = {
+           'all': ('guiacacao/css/adminCosecha.css',)
+       }
+
+admin.site.register(FichaCosecha, FichaCosechaAdmin)
+
+#----------------------- ficha saf ------------------------------------
+
+class SafConversacion1Inline(admin.TabularInline):
+    model = SafConversacion1
+    extra = 1
+    max_num = 1
+
+class SafConversacion2Inline(admin.TabularInline):
+    model = SafConversacion2
+    extra = 1
+    max_num = 12
+
+class SafConversacion3Inline(admin.TabularInline):
+    model = SafConversacion3
+    extra = 1
+    max_num = 12
+
+class SafConversacion4Inline(admin.TabularInline):
+    model = SafConversacion4
+    extra = 1
+    max_num = 12
+
+class SafConversacion5Inline(admin.TabularInline):
+    model = SafConversacion5
+    extra = 1
+    max_num = 1
+
+class SafConversacion6Inline(admin.TabularInline):
+    model = SafConversacion6
+    extra = 1
+    max_num = 1
+
+class SafConversacion7Inline(admin.TabularInline):
+    model = SafConversacion7
+    extra = 1
+    max_num = 4
+
+class SafConversacion8Inline(admin.TabularInline):
+    model = SafConversacion8
+    extra = 1
+    max_num = 6
+
+class SafConversacion9Inline(admin.TabularInline):
+    model = SafConversacion9
+    extra = 1
+    max_num = 1
+
+class SafObservacionesInline(admin.TabularInline):
+    model = SafObservaciones
+    extra = 1
+    max_num = 1
+
+class SafObservaciones2Inline(admin.TabularInline):
+    model = SafObservaciones2
+    extra = 1
+    max_num = 1
+
+class SafObservaciones3Inline(admin.TabularInline):
+    model = SafObservaciones3
+    extra = 1
+    max_num = 1
+
+class SafObservacionPunto1Inline(admin.TabularInline):
+    model = SafObservacionPunto1
+    extra = 1
+
+class SafObservacionPunto2Inline(admin.TabularInline):
+    model = SafObservacionPunto2
+    extra = 1
+
+class SafObservacionPunto3Inline(admin.TabularInline):
+    model = SafObservacionPunto3
+    extra = 1
+
+class SafObservaciones4Inline(admin.TabularInline):
+    model = SafObservaciones4
+    extra = 1
+    max_num = 1
+
+class FichaSafAdmin(admin.ModelAdmin):
+    form = ProductorSafAdminForm
+    inlines = [SafConversacion1Inline,SafConversacion2Inline,SafConversacion3Inline,
+                    SafConversacion4Inline,SafConversacion5Inline,SafConversacion6Inline,
+                    SafConversacion7Inline,SafConversacion8Inline,SafConversacion9Inline,
+                    SafObservacionesInline,SafObservaciones2Inline,SafObservaciones3Inline,
+                    SafObservacionPunto1Inline,SafObservacionPunto2Inline,SafObservacionPunto3Inline,
+                    SafObservaciones4Inline]
+
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+admin.site.register(FichaSaf, FichaSafAdmin)

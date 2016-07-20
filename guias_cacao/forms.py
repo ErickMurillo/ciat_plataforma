@@ -2,7 +2,7 @@
 from django import forms
 from lookups import ProductorLookup, TecnicoLookup
 import selectable.forms as selectable
-from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso
+from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, FichaSuelo, FichaVivero, FichaCosecha, FichaSaf
 from mapeo.models import Persona, Organizaciones
 from comunicacion.lugar.models import Pais, Departamento, Municipio, Comunidad
 
@@ -47,6 +47,42 @@ class ProductorPisoAdminForm(forms.ModelForm):
 
     class Meta(object):
         model = FichaPiso
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorSueloAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaSuelo
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorViveroAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaVivero
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorCosechaAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaCosecha
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorSafAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaSaf
         widgets = {
             'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
             'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
