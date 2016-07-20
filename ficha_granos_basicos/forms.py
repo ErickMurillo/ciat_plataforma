@@ -53,7 +53,7 @@ CICLO_CHOICES = (('','Ambos'),(1,'Primera'),(2,'Postrera'))
 class Consulta(forms.Form):
     def __init__(self, *args, **kwargs):
         super(Consulta, self).__init__(*args, **kwargs)
-        self.fields['year'] = forms.MultipleChoiceField(choices=fecha_choice(),required=True,label=u'Años')
+        self.fields['year'] = forms.ChoiceField(choices=fecha_choice(),required=True,label=u'Años')
         self.fields['municipio'] = forms.ModelMultipleChoiceField(queryset=municipios(), required=False)
         self.fields['comunidad'] = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
         self.fields['ciclo'] = forms.ChoiceField(label=u'Ciclo productivo',choices=CICLO_CHOICES,required=False)
