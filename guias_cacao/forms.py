@@ -2,7 +2,7 @@
 from django import forms
 from lookups import ProductorLookup, TecnicoLookup
 import selectable.forms as selectable
-from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, FichaSuelo, FichaVivero, FichaCosecha, FichaSaf
+from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, FichaSuelo, FichaVivero, FichaCosecha, FichaSaf, FichaCierre
 from mapeo.models import Persona, Organizaciones
 from comunicacion.lugar.models import Pais, Departamento, Municipio, Comunidad
 
@@ -83,6 +83,15 @@ class ProductorSafAdminForm(forms.ModelForm):
 
     class Meta(object):
         model = FichaSaf
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorCierreAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaCierre
         widgets = {
             'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
             'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),

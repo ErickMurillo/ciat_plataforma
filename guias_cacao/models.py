@@ -3138,4 +3138,259 @@ class CierreManejo(models.Model):
     ficha = models.ForeignKey(FichaCierre)
 
     def __unicode__(self):
-        return u"2.1"
+        return u"3"
+
+CHOICE_CIERRE_CONOCIMIENTO_TEMA1 = ((1, 'Variedad más común en mi finca'),)
+
+class CierreConocimiento1(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_CONOCIMIENTO_TEMA1)
+    criollas = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    forastero = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    trinitaria = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    hibridos = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    clones = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 tema 1"
+
+CHOICE_CIERRE_CONOCIMIENTO_TEMA2 = ((1, 'Ventajas de variedades'),)
+CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS = (
+                                                                                                ('A', 'Produce más'),
+                                                                                                ('B', 'Granos grandes'),
+                                                                                                ('C', 'Tolerante a plagas y enfermedades'),
+                                                                                                ('D', 'Tiene buena estructura'),
+                                                                                                ('E', 'No necesita mucho abono'),
+                                                                                         )
+
+class CierreConocimiento2(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_CONOCIMIENTO_TEMA2)
+    criollas = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+    forastero = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+    trinitaria = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+    hibridos = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+    clones = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 tema 2"
+
+CHOICE_CIERRE_CONOCIMIENTO_TEMA3 = ((1, 'Desventajas  de variedades'),)
+CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3 = (
+                                                                                                ('A', 'Produce poco'),
+                                                                                                ('B', 'Granos menudos'),
+                                                                                                ('C', 'Susceptible a plagas y enfermedades'),
+                                                                                                ('D', 'No tiene buena estructura'),
+                                                                                                ('E', 'Necesita mucho abono'),
+                                                                                         )
+
+class CierreConocimiento3(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_CONOCIMIENTO_TEMA3)
+    criollas = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+    forastero = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+    trinitaria = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+    hibridos = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+    clones = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 tema 3"
+
+CHOICE_CIERRE_SUELO_TEMA1 = ((1, 'Que elementos aportan'),)
+CHOICE_CIERRE_SUELO_RESPUESTAS1 = (
+                                                                                ('A', 'Nitrógeno'),
+                                                                                ('B', 'Fósforo'),
+                                                                                ('C', 'Potasio'),
+                                                                                ('D', 'Calcio'),
+                                                                                ('E', 'Magnesio'),
+                                                                         )
+
+class CierreSuelo1(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_SUELO_TEMA1)
+    abono = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS1,
+                                                verbose_name='Abono verde y coberturas')
+    hojarasca = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS1,
+                                                        verbose_name='Hojarasca de los árboles')
+    organico = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS1,
+                                                        verbose_name='Abono orgánico')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .2 tema 1"
+
+CHOICE_CIERRE_SUELO_TEMA2 = ((1, 'Ventajas de esta práctica'),)
+CHOICE_CIERRE_SUELO_RESPUESTAS2 = (
+                                                                                ('A', 'Fácil de implementar'),
+                                                                                ('B', 'De bajo costo'),
+                                                                                ('C', 'No necesita mucha inversión'),
+                                                                                ('D', 'No necesita mucha mano de obra'),
+                                                                                ('E', 'Aporta al desarrollo de las plantas'),
+                                                                         )
+
+class CierreSuelo2(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_SUELO_TEMA2)
+    abono = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS2,
+                                                verbose_name='Abono verde y coberturas')
+    hojarasca = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS2,
+                                                        verbose_name='Hojarasca de los árboles')
+    organico = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS2,
+                                                        verbose_name='Abono orgánico')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .2 tema 2"
+
+
+CHOICE_CIERRE_SUELO_TEMA3 = ((1, 'Desventajas  de variedades'),)
+CHOICE_CIERRE_SUELO_RESPUESTAS3 = (
+                                                                                ('A', 'Difícil de implementar'),
+                                                                                ('B', 'Alto costo'),
+                                                                                ('C', 'Necesita mucha inversión'),
+                                                                                ('D', 'Necesita mucha mano de obra'),
+                                                                                ('E', 'No aporta al desarrollo de las plantas'),
+                                                                         )
+
+class CierreSuelo3(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_SUELO_TEMA3)
+    abono = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS3,
+                                                verbose_name='Abono verde y coberturas')
+    hojarasca = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS3,
+                                                        verbose_name='Hojarasca de los árboles')
+    organico = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS3,
+                                                        verbose_name='Abono orgánico')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .2 tema 3"
+
+CHOICE_CIERRE_PLAGA_TEMA1 = ((1, 'Nivel de daño en la parcela'),
+                                                                (2, 'Nivel de daño en las fincas vecinas'),)
+
+class CierrePlaga1(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_PLAGA_TEMA1)
+    monilla = models.FloatField()
+    mazorca = models.FloatField('Mazorca Negra')
+    zompopos = models.FloatField()
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .3 tema 1"
+
+
+CHOICE_CIERRE_PLAGA_TEMA2 = ((1, 'Prácticas para prevenir'),)
+CHOICE_CIERRE_PLAGA_RESPUESTAS2 = (
+                                                                                ('A', 'Eliminar mazorcas enfermas'),
+                                                                                ('B', 'Realizar poda'),
+                                                                                ('C', 'Manejo de sombra'),
+                                                                                ('D', 'Abonar las plantas'),
+                                                                                ('E', 'Buen manejo de piso'),
+                                                                         )
+CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO = (
+                                                                                ('A', 'Eliminar zompoperas'),
+                                                                                ('B', 'Realizar caseo'),
+                                                                                ('C', 'Sembrar plantas repelentes'),
+                                                                                ('D', 'Utilizar cal o ceniza'),
+                                                                                ('E', 'Buen manejo de piso'),
+                                                                         )
+
+class CierrePlaga2(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_PLAGA_TEMA2)
+    monilla = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS2,
+                                                verbose_name='Monilla')
+    mazorca = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS2,
+                                                        verbose_name='Mazorca Negra')
+    zompopos = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO,
+                                                        verbose_name='Zompopos')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .3 tema 2"
+
+CHOICE_CIERRE_PLAGA_TEMA3 = ((1, 'Prácticas para controlar'),)
+CHOICE_CIERRE_PLAGA_RESPUESTAS3 = (
+                                                                                ('A', 'Aplicar caldo sulfo-calcico'),
+                                                                                ('B', 'Aplicar fungicidas'),
+                                                                         )
+CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO3 = (
+                                                                                ('A', 'Aplicar venenos en las zompoperas'),
+                                                                                ('B', 'Proteger las plantas con plástico'),
+                                                                         )
+
+class CierrePlaga3(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_PLAGA_TEMA3)
+    monilla = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS3,
+                                                verbose_name='Monilla')
+    mazorca = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS3,
+                                                        verbose_name='Mazorca Negra')
+    zompopos = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO3,
+                                                        verbose_name='Zompopos')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .3 tema 3"
+
+CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA = (
+    (1, 'Mucho'),
+    (2, 'Algo'),
+    (3, 'Poco'),
+    (4, 'Nada '),
+    )
+
+CHOICE_CIERRE_CICLO_TRABAJO2_RESPUESTA = (
+    (1, 'Todas'),
+    (2, 'Algunas'),
+    (3, 'Pocas'),
+    (4, 'Ninguna'),
+    )
+
+CHOICE_CIERRE_CICLO_TRABAJO3_RESPUESTA = (
+    (1, 'Demasiada visitas'),
+    (2, 'Adecuadas visitas'),
+    (3, 'Pocas visitas'),
+    )
+
+CHOICE_CIERRE_CICLO_TRABAJO4_RESPUESTA = (
+    (1, 'Demasiada larga'),
+    (2, 'Adecuado tiempo '),
+    (3, 'Muy corta'),
+    )
+
+CHOICE_CIERRE_CICLO_TRABAJO5_RESPUESTA = (
+    (1, 'Si y con mucho ánimo'),
+    (2, 'Si pero con poco ánimo'),
+    (3, 'Si porque siento obligado'),
+    (4, 'No quiero seguir'),
+    )
+
+class CierreCicloTrabajo(models.Model):
+    pregunta1 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA,
+                        verbose_name='¿Las visitas que hemos realizados han servido para aprender nuevas cosas? ')
+    pregunta2 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA,
+                        verbose_name='¿Las visitas que hemos realizados han servido para observar sobre diferentes aspectos de la parcela de cacao? ')
+    pregunta3 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA,
+                        verbose_name='¿Las observaciones y discusiones han servido para mejorar el manejo de las parcela de cacao?')
+    pregunta4 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO2_RESPUESTA,
+                        verbose_name='¿Han podido implementar las acciones que se acordaron a partir de las visitas?')
+    pregunta5 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO3_RESPUESTA,
+                        verbose_name='¿Qué piensa sobre la frecuencia de las visitas?')
+    pregunta6 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO4_RESPUESTA,
+                        verbose_name='¿Qué piensa sobre el tiempo que dura cada visita?')
+    pregunta7 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO5_RESPUESTA,
+                        verbose_name='¿Quiere seguir trabajando con las visitas para el segundo ciclo?')
+    pregunta8 = models.IntegerField(choices=((1,'Si'),(2,'No'),),
+                        verbose_name='Estaría usted interesado organizar un día de campo en su finca para que otras y otros productores vengan a visitar la parcela?')
+    pregunta9 = models.TextField('¿Qué sugiere para mejorar el trabajo de este ciclo?')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"5 ciclo de trabajo"
