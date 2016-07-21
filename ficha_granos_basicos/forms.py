@@ -48,7 +48,9 @@ def municipios():
     foo = Monitoreo.objects.all().order_by('productor__comunidad__municipio__nombre').distinct().values_list('productor__comunidad__municipio__id', flat=True)
     return Municipio.objects.filter(id__in=foo)
 
-CICLO_CHOICES = (('','Ambos'),(1,'Primera'),(2,'Postrera'))
+CICLO_CHOICES = (('','------'),(1,'Primera'),(2,'Postrera'))
+
+CULTIVO_CHOICES = (('','------'),(1,'Maíz'),(2,'Frijol'),(3,'Maíz y Frijol'))
 
 class Consulta(forms.Form):
     def __init__(self, *args, **kwargs):

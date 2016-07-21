@@ -1,0 +1,283 @@
+{% extends "granos_basicos/base.html" %}
+
+{% block contenido %}
+<style type="text/css">
+    #grafo1,#grafo2,#grafo3,#grafo4,#grafo5{
+        border: 1px solid #eee;
+    }
+    .panel-graficos .panel-heading{
+        margin-bottom:20px;
+    }
+</style>
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "granos_basicos/menu_salidas_indicadores.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Monitoreos</li>
+                            <li class="active">Características de la parcela</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo3" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo4" style="min-width: 210px; width: 390px; margin: 0 auto;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo4" style="min-width: 210px; width: 390px; margin: 0 auto;"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript">
+$( "#monitoreo" ).addClass( "in" );
+
+$(function () {
+  $('#grafo1').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Edad de la parcela y profundidad de la capa arable'
+    },
+
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: 'Profundidad (cm)'
+      }
+    },
+    tooltip: {
+        formatter: function() {
+            return ''+
+            this.series.name +': '+ this.y;
+        }
+    },
+    legend: {
+      enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y} cm',
+                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                style: {
+                    textShadow: '0 0 3px white'
+                }
+            }
+        }
+    },
+
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} cm</b><br/>'
+    },
+
+    series: [{
+      name: "Promedio",
+      colorByPoint: true,
+      data: [
+    {
+      name: "Menores de 5 años",
+      y: {{parcela_5|default:'0'}},
+    }, {
+      name: "Entre 6 y 20 años",
+      y: {{parcela_6_20|default:'0'}},
+    }, {
+      name: "Mayores de 20 años",
+      y: {{parcela_20|default:'0'}},
+    },
+    ]
+  }],
+});
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'spline',
+        },
+        title: {
+            text: 'Área Inclinado de la parcela es mayor del 60%'
+        },
+        // subtitle: {
+        //     text: 'According to the Standard Atmosphere Model'
+        // },
+        xAxis: {
+            reversed: false,
+            title: {
+                enabled: true,
+                text: 'Capa arable'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value + 'cm';
+                }
+            },
+            maxPadding: 0.05,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Porcentaje de inclinación'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value + '%';
+                }
+            },
+            lineWidth: 2
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br/>',
+            pointFormat: '{point.x} cm: {point.y}%'
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    enable: false
+                }
+            }
+        },
+        series: [{
+            name: 'Inclinación',
+            data: [
+              {% for value in inclinado %}[{{value.0}},{{value.1}}],{% endfor %}
+              ]
+        }]
+    });
+
+    $('#grafo3').highcharts({
+        chart: {
+            type: 'spline',
+        },
+        title: {
+            text: 'Área Plano de la parcela es mayor del 60%'
+        },
+        // subtitle: {
+        //     text: 'According to the Standard Atmosphere Model'
+        // },
+        xAxis: {
+            reversed: false,
+            title: {
+                enabled: true,
+                text: 'Capa arable'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value + 'cm';
+                }
+            },
+            maxPadding: 0.05,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Porcentaje de inclinación'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value + '%';
+                }
+            },
+            lineWidth: 2
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br/>',
+            pointFormat: '{point.x} cm: {point.y}%'
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    enable: false
+                }
+            }
+        },
+        series: [{
+            name: 'Inclinación',
+            data: [
+              {% for value in plano %}[{{value.0}},{{value.1}}],{% endfor %}
+              ]
+        }]
+    });
+
+    $('#grafo4').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: 'pie'
+			},
+			title: {
+				text: 'Parcelas que tienen acceso al agua'
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						format: '{point.percentage:.2f}%',
+						color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+						style: {
+							textShadow: '0 0 3px white'
+						}
+					},
+					showInLegend: true
+				}
+
+			},
+			series: [{
+				name: "Porcentajes",
+				colorByPoint: true,
+				data: [
+				{% for x,y in acceso_agua.items %}
+				{
+					name: "{{x}}",
+					y: {{y}}
+				},
+				{% endfor %}
+
+
+				]
+			}]
+		});
+});
+</script>
+{% endblock %}

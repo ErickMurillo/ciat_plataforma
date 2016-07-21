@@ -112,22 +112,22 @@ class DatosMonitoreo(models.Model):
     class Meta:
         verbose_name_plural = 'Datos del Monitoreo'
 
-class DatosParcela(models.Model):
-    nombre = models.CharField(max_length=100)
-    edad_parcela = models.FloatField(verbose_name='Edad parcela (años)')
-    latitud = models.FloatField(blank=True, null=True)
-    longitud = models.FloatField(blank=True, null=True)
-    direccion_viento = models.IntegerField(choices=DIRECCION_CHOICES)
-    percepcion_fertilidad = models.IntegerField(choices=FERTILIDAD_CHOICES)
-    tamano_parcela = models.FloatField(verbose_name='Tamaño de la parcela (mz)')
-    profundidad_capa = models.FloatField(verbose_name='Profundidad de capa arable (cm)')
-    acceso_agua = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Tiene acceso a agua en su parcela?')
-    fuente_agua = MultiSelectField(choices=ACCESO_AGUA_CHOICES,verbose_name='Como tiene acceso a agua',blank=True, null=True)
-    distancia = models.FloatField(verbose_name='¿A qué distancia tiene la fuente de agua?',blank=True, null=True)
-    monitoreo = models.ForeignKey(Monitoreo)
-
-    class Meta:
-        verbose_name_plural = 'Datos de la parcela'
+# class DatosParcela(models.Model):
+#     nombre = models.CharField(max_length=100)
+#     edad_parcela = models.FloatField(verbose_name='Edad parcela (años)')
+#     latitud = models.FloatField(blank=True, null=True)
+#     longitud = models.FloatField(blank=True, null=True)
+#     direccion_viento = models.IntegerField(choices=DIRECCION_CHOICES)
+#     percepcion_fertilidad = models.IntegerField(choices=FERTILIDAD_CHOICES)
+#     tamano_parcela = models.FloatField(verbose_name='Tamaño de la parcela (mz)')
+#     profundidad_capa = models.FloatField(verbose_name='Profundidad de capa arable (cm)')
+#     acceso_agua = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Tiene acceso a agua en su parcela?')
+#     fuente_agua = MultiSelectField(choices=ACCESO_AGUA_CHOICES,verbose_name='Como tiene acceso a agua',blank=True, null=True)
+#     distancia = models.FloatField(verbose_name='¿A qué distancia tiene la fuente de agua?',blank=True, null=True)
+#     monitoreo = models.ForeignKey(Monitoreo)
+#
+#     class Meta:
+#         verbose_name_plural = 'Datos de la parcela'
 
 DISTRIBUCION_CHOICES = (
     (1,'% Área'),

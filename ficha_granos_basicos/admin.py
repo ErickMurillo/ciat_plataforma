@@ -76,17 +76,17 @@ class InlineDatosMonitoreo(admin.TabularInline):
     model = DatosMonitoreo
     extra = 1
 
-class InlineDatosParcela(admin.StackedInline):
-    model = DatosParcela
-    max_num = 1
-    can_delete = False
-
-    fields = (
-            ('nombre', 'edad_parcela'),
-            ('latitud', 'longitud', 'direccion_viento'),
-            ('percepcion_fertilidad','tamano_parcela','profundidad_capa'),
-            ('acceso_agua', 'fuente_agua', 'distancia'),
-        )
+# class InlineDatosParcela(admin.StackedInline):
+#     model = DatosParcela
+#     max_num = 1
+#     can_delete = False
+#
+#     fields = (
+#             ('nombre', 'edad_parcela'),
+#             ('latitud', 'longitud', 'direccion_viento'),
+#             ('percepcion_fertilidad','tamano_parcela','profundidad_capa'),
+#             ('acceso_agua', 'fuente_agua', 'distancia'),
+#         )
 
 class InlineDistribucionPendiente(admin.TabularInline):
     model = DistribucionPendiente
