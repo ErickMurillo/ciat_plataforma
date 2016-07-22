@@ -59,4 +59,4 @@ class Consulta(forms.Form):
         self.fields['municipio'] = forms.ModelMultipleChoiceField(queryset=municipios(), required=False)
         self.fields['comunidad'] = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
         self.fields['ciclo'] = forms.ChoiceField(label=u'Ciclo productivo',choices=CICLO_CHOICES,required=False)
-        self.fields['rubro'] = forms.ChoiceField(label=u'Rubro',choices=CULTIVO_CHOICES,required=False)
+        # self.fields['rubro'] = forms.ChoiceField(label=u'Rubro',choices=CULTIVO_CHOICES,required=False)

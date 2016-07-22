@@ -6,6 +6,7 @@ from comunicacion.lugar.models import *
 from mapeo.models import *
 from django.http import HttpResponse
 from django.db.models import Sum, Count, Avg
+import collections
 
 # Create your views here.
 def _queryset_filtrado(request):
@@ -23,8 +24,8 @@ def _queryset_filtrado(request):
 	if request.session['ciclo']:
 		params['ciclo_productivo'] = request.session['ciclo']
 
-	if request.session['rubro']:
-		params['datosmonitoreo__cultivo'] = request.session['rubro']
+	# if request.session['rubro']:
+	# 	params['datosmonitoreo__cultivo'] = request.session['rubro']
 
 
 	unvalid_keys = []
@@ -46,7 +47,7 @@ def consulta(request,template="granos_basicos/consulta.html"):
 			request.session['municipio'] = form.cleaned_data['municipio']
 			request.session['comunidad'] = form.cleaned_data['comunidad']
 			request.session['ciclo'] = form.cleaned_data['ciclo']
-			request.session['rubro'] = form.cleaned_data['rubro']
+			# request.session['rubro'] = form.cleaned_data['rubro']
 
 			mensaje = "Todas las variables estan correctamente :)"
 			request.session['activo'] = True
@@ -65,7 +66,7 @@ def consulta(request,template="granos_basicos/consulta.html"):
 			del request.session['municipio']
 			del request.session['comunidad']
 			del request.session['ciclo']
-			del request.session['rubro']
+			# del request.session['rubro']
 		except:
 			pass
 
@@ -190,6 +191,8 @@ def georeferencia(request,template="granos_basicos/monitoreos/georeferencia.html
 def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracteristicas_parcela.html"):
 	filtro = _queryset_filtrado(request)
 
+	count_monitoreo = filtro.count()
+
 	parcela_5 = filtro.filter(edad_parcela__range = (0,5)).aggregate(avg = Avg('profundidad_capa'))['avg']
 	parcela_6_20 = filtro.filter(edad_parcela__range = (6,20)).aggregate(avg = Avg('profundidad_capa'))['avg']
 	parcela_20 = filtro.filter(edad_parcela__range = (21,100)).aggregate(avg = Avg('profundidad_capa'))['avg']
@@ -210,33 +213,79 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	fuente_agua = {}
 	for obj in ACCESO_AGUA_CHOICES:
 		conteo = filtro.filter(fuente_agua__icontains = obj[0]).count()
-		fuente_agua[obj[1]] = conteo
+		fuente_agua[obj[1]] = saca_porcentajes(conteo,count_monitoreo,False)
 
-	print fuente_agua
+	return render(request, template, locals())
+
+def ciclo_productivo(request,template="granos_basicos/monitoreos/ciclo_productivo.html"):
+	filtro = _queryset_filtrado(request)
+
+	return render(request, template, locals())
+
+def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
+	filtro = _queryset_filtrado(request)
+
+	avg_fincas = filtro.filter(productor__usosuelo__uso = '1').distinct().aggregate(avg = Avg('productor__usosuelo__cantidad'))['avg']
+
+	avg_cultivos_anuales = filtro.filter(productor__usosuelo__uso = '2').distinct().aggregate(avg = Avg('productor__usosuelo__cantidad'))['avg']
+
+	USO_SUELO_CHOICES = ((2,'Cultivos Anuales (GB)'),(3,'Cultivos perennes'),
+	    (4,'Tacotales'),(5,'Potreros'),(6,'Pasto de Corte'))
+
+	areas_finca = collections.OrderedDict()
+	areas = filtro.filter(productor__usosuelo__uso = '1').distinct('productor').values_list('productor__usosuelo__cantidad', flat = True)
+	total_areas = 0
+	for x in areas:
+		total_areas += x
+
+	for obj in USO_SUELO_CHOICES:
+		area = 0
+		values = filtro.filter(productor__usosuelo__uso = obj[0]).distinct('productor').values_list('productor__usosuelo__cantidad', flat = True)
+		if values == None:
+			values = 0
+		for y in values:
+			area += y
+
+		areas_finca[obj[1]] = (area,saca_porcentajes(area,total_areas,False))
+
+	return render(request, template, locals())
+
+def recursos_economicos(request,template="granos_basicos/monitoreos/recursos_economicos.html"):
+	filtro = _queryset_filtrado(request)
+
+	maiz = {}
+	frijol = {}
+	for obj in RESPUESTA_CHOICES:
+		conteo_maiz = filtro.filter(recursossiembra__respuesta = obj[0],recursossiembra__rubro = '1').count()
+		maiz[obj[1]] = conteo_maiz
+
+		conteo_frijol = filtro.filter(recursossiembra__respuesta = obj[0],recursossiembra__rubro = '2').count()
+		frijol[obj[1]] = conteo_frijol
+
+	print maiz,frijol
+
 	return render(request, template, locals())
 
 def get_comunies(request):
-    ids = request.GET.get('ids', '')
-    results = []
-    dicc = {}
-    if ids:
-        lista = ids.split(',')
+	ids = request.GET.get('ids', '')
+	results = []
+	dicc = {}
+	if ids:
+		lista = ids.split(',')
 
-    monitoreos = Monitoreo.objects.filter(productor__municipio__pk__in = lista).distinct().values_list('productor__comunidad__id', flat=True)
-    municipios = Municipio.objects.filter(pk__in = lista)
+		for id in lista:
+			monitoreos = Monitoreo.objects.filter(productor__municipio__id = id).distinct().values_list('productor__comunidad__id', flat=True)
+			municipios = Municipio.objects.get(pk = id)
+			comunies = Comunidad.objects.filter(municipio__id = municipios.pk,id__in = monitoreos).order_by('nombre')
+			lista1 = []
+			for c in comunies:
+				comu = {}
+				comu['id'] = c.id
+				comu['nombre'] = c.nombre
+				lista1.append(comu)
+				dicc[municipios.nombre] = lista1
 
-    dicc = {}
-    for municipio in municipios:
-        comunies = Comunidad.objects.filter(municipio__id = municipio.id,id = monitoreos)
-        lista1 = []
-        comu = {}
-        for c in comunies:
-            comu['id'] = c.id
-            comu['nombre'] = c.nombre
-            lista1.append(comu)
-            dicc[municipio.nombre] = lista1
-
-    return HttpResponse(simplejson.dumps(dicc), content_type = 'application/json')
+	return HttpResponse(simplejson.dumps(dicc), content_type = 'application/json')
 
 def saca_porcentajes(dato, total, formato=True):
 	if dato != None:

@@ -25,14 +25,14 @@
                             {{form.ciclo}}
                         </div>
                     </div>
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                             <label for="">{{form.rubro.label}}</label>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
                             {{form.rubro}}
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div class="row">
@@ -139,7 +139,6 @@
 
       var foo2 = [];
       $(document).on('change','#id_municipio',function(){
-
           $('#id_municipio :selected').each(function(i, selected){
               foo2[i] = $(selected).val();
           });
