@@ -86,11 +86,11 @@ def genero_produccion(request,template="granos_basicos/productores/genero_produc
         sexo_productor[obj[1]] = conteo
 
         for x in CHOICE_SEXO_JEFE:
-            jefe_familia = filtro.filter(productor__sexo = obj[0],productor__productor__jefe = x[0]).distinct('productor').count()
-            if obj[0] == '1':
-                prod_hombres[x[1]] = jefe_familia
-            else:
-                prod_mujeres[x[1]] = jefe_familia
+			jefe_familia = filtro.filter(productor__sexo = obj[0],productor__productor__jefe = x[0]).distinct('productor').count()
+			if obj[0] == 1:
+				prod_hombres[x[1]] = jefe_familia
+			else:
+				prod_mujeres[x[1]] = jefe_familia
 
     quien_produce = {}
     for obj in RELACION_CHOICES:
@@ -205,15 +205,18 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	SI_NO_CHOICES = ((1,'Si'),(2,'No'))
 
 	acceso_agua = {}
+	conteo_si = 0
 	for obj in SI_NO_CHOICES:
 		conteo = filtro.filter(acceso_agua = obj[0]).count()
 		acceso_agua[obj[1]] = conteo
+		if conteo == 1:
+			conteo_si = conteo
 
 	#fuente agua
 	fuente_agua = {}
 	for obj in ACCESO_AGUA_CHOICES:
 		conteo = filtro.filter(fuente_agua__icontains = obj[0]).count()
-		fuente_agua[obj[1]] = saca_porcentajes(conteo,count_monitoreo,False)
+		fuente_agua[obj[1]] = saca_porcentajes(conteo,conteo_si,False)
 
 	return render(request, template, locals())
 
@@ -261,8 +264,6 @@ def recursos_economicos(request,template="granos_basicos/monitoreos/recursos_eco
 
 		conteo_frijol = filtro.filter(recursossiembra__respuesta = obj[0],recursossiembra__rubro = '2').count()
 		frijol[obj[1]] = conteo_frijol
-
-	print maiz,frijol
 
 	return render(request, template, locals())
 
