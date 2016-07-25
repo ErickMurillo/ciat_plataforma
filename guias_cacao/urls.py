@@ -21,5 +21,8 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^poda/tipos-poda/$', 'tipo_poda', name='tipo-poda'),
     url(r'^poda/acciones/$', 'acciones_poda', name='acciones-poda'),
 
+    #urls de plaga
+    url(r'^plaga/historial/$', 'historial_plaga', name='historial-plaga'),
+
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )

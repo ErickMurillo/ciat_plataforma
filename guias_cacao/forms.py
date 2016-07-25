@@ -101,6 +101,10 @@ def fecha_choice():
     years = []
     for en in FichaSombra.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
         years.append((en.year,en.year))
+    for en in FichaPoda.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaPlaga.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
     return list(sorted(set(years)))
 
 CHOICE_SEXO1 = (

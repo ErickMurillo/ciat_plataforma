@@ -628,7 +628,7 @@ CHOICE_ENFERMEDADES_CACAOTALES = (
         (8, 'Escarabajos'),
         (9, 'Comején'),
         (10, 'Ardillas'),
-        (10, 'Otros'),
+        (11, 'Otros'),
     )
 
 class PlagasEnfermedad(models.Model):

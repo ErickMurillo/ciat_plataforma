@@ -988,12 +988,76 @@ def acciones_poda(request, template="guiascacao/poda/acciones_poda.html"):
         cont1 = ManejoPoda.objects.filter(ficha__in=filtro, formacion=obj[0]).count()
         formacion[obj[1]] = cont1
 
+    return render(request, template, locals())
+# ------------------ fin de poda ------------------
 
+#----------------- inicio de plaga ----------------
+
+def _queryset_filtrado_plaga(request):
+    params = {}
+
+    if 'fecha' in request.session:
+        params['fecha_visita__year'] = request.session['fecha']
+
+    if 'productor' in request.session:
+        params['productor__nombre'] = request.session['productor']
+
+    if 'organizacion' in request.session:
+        params['productor__productor__organizacion'] = request.session['organizacion']
+
+    if 'pais' in request.session:
+        params['productor__pais'] = request.session['pais']
+
+    if 'departamento' in request.session:
+        params['productor__departamento'] = request.session['departamento']
+
+    if 'municipio' in request.session:
+        params['productor__municipio'] = request.session['municipio']
+
+    if 'comunidad' in request.session:
+        params['productor__comunidad'] = request.session['comunidad']
+
+    if 'sexo' in request.session:
+        params['productor__sexo'] = request.session['sexo']
+
+    if 'tipologia' in request.session:
+        params['productor__productor__tipologia'] = request.session['tipologia']
+
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+        del params[key]
+
+    print 'plaga hermano'
+
+    return FichaPlaga.objects.filter(**params)
+#----------------- salidas de plaga -------------------------
+
+def historial_plaga(request, template="guiascacao/plaga/historial_plaga.html"):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    plagas = OrderedDict()
+    for obj in CHOICE_ENFERMEDADES_CACAOTALES:
+        cont_visto = filtro.filter(plagasenfermedad__plagas=obj[0],
+                                   plagasenfermedad__visto=1).count()
+        cont_dano = filtro.filter(plagasenfermedad__plagas=obj[0],
+                                  plagasenfermedad__dano=1).count()
+        plagas[obj[1]] = [((float(cont_visto)/float(numero_parcelas))*100), ((float(cont_dano)/float(numero_parcelas))*100)]
+
+    print plagas
 
 
     return render(request, template, locals())
 
-#----------  funciones utilitarias -----------------
+
+
+
+
+#----------  funciones utilitarias --------------------------
 def crear_rangos(request, lista, start=0, stop=0, step=0):
     dict_algo = OrderedDict()
     rangos = []
