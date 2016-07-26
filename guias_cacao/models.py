@@ -2795,8 +2795,8 @@ class CierreManejo1(models.Model):
         return u"1.1"
 
     class Meta:
-        verbose_name='1.1'
-        verbose_name_plural='1.1'
+        verbose_name='1.1 Sombra'
+        verbose_name_plural='1.1 Sombra'
 
 
 CHOICE_CIERRE_1_2_IMPACTO = (
@@ -2842,8 +2842,8 @@ class CierreManejo2(models.Model):
         return u"1.2"
 
     class Meta:
-        verbose_name='1.2'
-        verbose_name_plural='1.2'
+        verbose_name='1.2 Poda'
+        verbose_name_plural='1.2 Poda'
 
 CHOICE_CIERRE_1_3_IMPACTO = (
                     ('A', 'Falta de obra de conservación'),
@@ -2888,8 +2888,8 @@ class CierreManejo3(models.Model):
         return u"1.3"
 
     class Meta:
-        verbose_name='1.3'
-        verbose_name_plural='1.3'
+        verbose_name='1.3 Suelo'
+        verbose_name_plural='1.3 Suelo'
 
 CHOICE_CIERRE_1_4_IMPACTO = (
                     ('A', 'Variedad de plagas y enfermedades'),
@@ -2936,8 +2936,8 @@ class CierreManejo4(models.Model):
         return u"1.4"
 
     class Meta:
-        verbose_name='1.4'
-        verbose_name_plural='1.4'
+        verbose_name='1.4 Plaga'
+        verbose_name_plural='1.4 Plaga'
 
 CHOICE_CIERRE_1_5_IMPACTO = (
                     ('A', 'Variedad de mala hierbas'),
@@ -2946,6 +2946,7 @@ CHOICE_CIERRE_1_5_IMPACTO = (
                     ('D', 'Relación entre herbicidas y composición del piso'),
                     ('E', 'Cantidad de bejucos en el piso y plantas'),
                     ('F', 'Ninguna'),
+                    ('G', 'Falta de materia organica'),
                 )
 
 CHOICE_CIERRE_1_5_PLANIFICADA = (
@@ -2956,6 +2957,7 @@ CHOICE_CIERRE_1_5_PLANIFICADA = (
                     ('E', 'Realizar manejo selectivo'),
                     ('F', 'Ninguna'),
                     ('G', 'Ninguna por falta de recursos'),
+                    ('H', 'Repartir hojarasca'),
                 )
 
 CHOICE_CIERRE_1_5_REALIZADA = (
@@ -2966,6 +2968,7 @@ CHOICE_CIERRE_1_5_REALIZADA = (
                     ('E', 'Realizar manejo selectivo'),
                     ('F', 'Ninguna'),
                     ('G', 'Ninguna por falta de recursos'),
+                    ('H', 'Repartir hojarasca'),
                 )
 
 class CierreManejo5(models.Model):
@@ -2982,8 +2985,8 @@ class CierreManejo5(models.Model):
         return u"1.5"
 
     class Meta:
-        verbose_name='1.5'
-        verbose_name_plural='1.5'
+        verbose_name='1.5 Piso'
+        verbose_name_plural='1.5 Piso'
 
 CHOICE_CIERRE_1_6_IMPACTO = (
                     ('A', 'Tipo de cacao que estamos sembrando'),
@@ -3028,8 +3031,8 @@ class CierreManejo6(models.Model):
         return u"1.6"
 
     class Meta:
-        verbose_name='1.6'
-        verbose_name_plural='1.6'
+        verbose_name='1.6 Vivero'
+        verbose_name_plural='1.6 Vivero'
 
 CHOICE_CIERRE_1_7_IMPACTO = (
                     ('A', 'Cantidad de planta productiva'),
@@ -3037,6 +3040,8 @@ CHOICE_CIERRE_1_7_IMPACTO = (
                     ('C', 'Numero de mazorcas dañadas'),
                     ('D', 'Nivel de cosecha de la parcela'),
                     ('E', 'Ninguna'),
+                    ('F', 'Efecto de sombra sobre la producción'),
+                    ('G', 'Efecto de poda sobre la producción'),
                 )
 
 CHOICE_CIERRE_1_7_PLANIFICADA = (
@@ -3073,8 +3078,8 @@ class CierreManejo7(models.Model):
         return u"1.7"
 
     class Meta:
-        verbose_name='1.7'
-        verbose_name_plural='1.7'
+        verbose_name='1.7 Cosecha'
+        verbose_name_plural='1.7 Cosecha'
 
 CHOICE_CIERRE_COSTO_1 = (
                     ('A', 'Cacao Criollo'),
