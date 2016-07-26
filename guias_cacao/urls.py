@@ -23,6 +23,8 @@ urlpatterns = patterns('guias_cacao.views',
 
     #urls de plaga
     url(r'^plaga/historial/$', 'historial_plaga', name='historial-plaga'),
+    url(r'^plaga/acciones/$', 'acciones_plaga', name='acciones-plaga'),
+    url(r'^plaga/fuente-incidencia/$', 'fuente_incidencia_plaga', name='fuente-incidencia-plaga'),
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )

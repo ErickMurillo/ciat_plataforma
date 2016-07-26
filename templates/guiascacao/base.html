@@ -71,9 +71,15 @@
     if (ficha[2]=="sombra") {
         $( "#sombra" ).addClass( "in" );
         $( "#poda" ).removeClass( "in" );
-    }else {
+        $( "#plaga" ).removeClass( "in" );
+    }else if (ficha[2]=="poda") {
         $( "#poda" ).addClass( "in" );
         $( "#sombra" ).removeClass( "in" );
+        $( "#plaga" ).removeClass( "in" );
+    }else if (ficha[2]=="plaga"){
+        $( "#plaga" ).addClass( "in" );
+        $( "#sombra" ).removeClass( "in" );
+        $( "#poda" ).removeClass( "in" );
     };
   </script>
   {% block extra_js %}{% endblock extra_js %}

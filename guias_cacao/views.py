@@ -1040,6 +1040,19 @@ def historial_plaga(request, template="guiascacao/plaga/historial_plaga.html"):
     filtro = _queryset_filtrado_plaga(request)
     numero_parcelas = filtro.count()
 
+    CHOICE_ENFERMEDADES_CACAOTALES = (
+        (1, 'Monilia'),
+        (2, 'Mazorca negra'),
+        (3, 'Mal de machete'),
+        (4, 'Mal de talluelo en el vivero'),
+        (5, 'Barrenadores de tallo'),
+        (6, 'Zompopos'),
+        (7, 'Chupadores o áfidos'),
+        (8, 'Escarabajos'),
+        (9, 'Comején'),
+        (10, 'Ardillas'),
+    )
+
     plagas = OrderedDict()
     for obj in CHOICE_ENFERMEDADES_CACAOTALES:
         cont_visto = filtro.filter(plagasenfermedad__plagas=obj[0],
@@ -1048,14 +1061,99 @@ def historial_plaga(request, template="guiascacao/plaga/historial_plaga.html"):
                                   plagasenfermedad__dano=1).count()
         plagas[obj[1]] = [((float(cont_visto)/float(numero_parcelas))*100), ((float(cont_dano)/float(numero_parcelas))*100)]
 
-    print plagas
+    promedio_plagas = OrderedDict()
+    for obj in CHOICE_ENFERMEDADES_CACAOTALES:
+        cont_avg = filtro.filter(plagasenfermedad__plagas=obj[0]).aggregate(promedio=Avg('plagasenfermedad__promedio'))['promedio']
+        promedio_plagas[obj[1]] = cont_avg
 
+    mediana_plagas = OrderedDict()
+    for obj in CHOICE_ENFERMEDADES_CACAOTALES:
+        numeros = filtro.filter(plagasenfermedad__plagas=obj[0]).values_list('plagasenfermedad__promedio', flat=True)
+        mediana_plagas[obj[1]] = np.median(numeros)
 
     return render(request, template, locals())
 
 
+def acciones_plaga(request, template="guiascacao/plaga/acciones_plaga.html"):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    CHOICE_ACCIONES_ENFERMEDADES = (
+        (1, 'Recuento de plagas'),
+        (2, 'Cortar las mazorcas enfermas'),
+        (3, 'Abonar las plantas'),
+        (4, 'Aplicar Caldos'),
+        (5, 'Aplicar Fungicidas'),
+        (6, 'Manejo de sombra'),
+        (7, 'Podar las plantas de cacao'),
+        (8, 'Aplicar venenos para Zompopo'),
+        (9, 'Control de Comején'),
+        (10, 'Ahuyar Ardillas'),
+        (11, 'Otras'),
+    )
+
+    acciones_plagas = OrderedDict()
+    for obj in CHOICE_ACCIONES_ENFERMEDADES:
+        conteo_si = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],accionesenfermedad__realiza_manejo=1).count()
+        avg_veces = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],accionesenfermedad__realiza_manejo=1).aggregate(promedio=Avg('accionesenfermedad__cuantas_veces'))['promedio']
+        numeros = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],accionesenfermedad__realiza_manejo=1).values_list('accionesenfermedad__cuantas_veces', flat=True)
+        acciones_plagas[obj[1]] = [conteo_si,(float(conteo_si)/float(numero_parcelas)*100),avg_veces,np.std(numeros)]
+
+    grafo_momento = OrderedDict()
+    for obj in CHOICE_ACCIONES_ENFERMEDADES:
+        ene = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='A').count()
+        feb = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='B').count()
+        mar = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='C').count()
+        abr = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='D').count()
+        may = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='E').count()
+        jun = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='F').count()
+        jul = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='G').count()
+        ago = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='H').count()
+        sep = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='I').count()
+        octu = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='J').count()
+        nov = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='K').count()
+        dic = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],
+                                         accionesenfermedad__realiza_manejo=1,
+                                         accionesenfermedad__meses__contains='L').count()
+        grafo_momento[obj[1]] = [ene,feb,mar,abr,may,jun,jul,ago,sep,octu,nov,dic]
 
 
+    return render(request, template, locals())
+
+def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidencia_plaga.html"):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    grafo_fuente = OrderedDict()
+    for obj in CHOICE_ORIENTACION:
+        conteo = filtro.filter(orientacion__fuentes__contains=obj[0]).count()
+        grafo_fuente[obj[1]] = (float(conteo)/float(numero_parcelas)*100)
+
+    print grafo_fuente
+
+    return render(request, template, locals())
 
 #----------  funciones utilitarias --------------------------
 def crear_rangos(request, lista, start=0, stop=0, step=0):

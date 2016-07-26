@@ -723,7 +723,7 @@ class ObservacionPunto1(models.Model):
     siete = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     ocho = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
-    dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True, verbose_name='Diez')
 
     ficha = models.ForeignKey(FichaPlaga)
 
