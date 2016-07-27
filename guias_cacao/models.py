@@ -1870,6 +1870,8 @@ class VivieroConversacion(models.Model):
     #     verbose_name = 'I.Conversación con el Productor o productora'
     #     verbose_name_plural = 'I.Conversación con el Productor o productora'
 
+CHOICE_VIVERO_NUEVO_CONVERSACION2 = ((1,'Misma finca'),(2,'Del jardin clonal'),(3, 'Otras fuentes'))
+
 class ViveroConversacion2(models.Model):
     conversacion7 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_7,
                                         verbose_name='¿Qué tamaño de bolsa de polietileno utiliza para la producción de plantas en vivero?')
@@ -1882,6 +1884,9 @@ class ViveroConversacion2(models.Model):
     conversacion11 = models.FloatField('¿Cuál ha sido el porcentaje de prendimiento?', null=True)
     conversacion12 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_12,
                                 verbose_name='¿De dónde obtiene las varetas para realizar los injertos?')
+    conversacion13 = models.FloatField('¿Cuanto meses se mantiene la plata en e vivero?', null=True, blank=True)
+    conversacion14 = models.IntegerField(choices=CHOICE_VIVERO_NUEVO_CONVERSACION2,
+                                        verbose_name='¿De donde obtiene las semillas?', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaVivero)
 
@@ -1956,7 +1961,7 @@ class ProductosVivero(models.Model):
     #     verbose_name = 'Productos para el vivero'
     #     verbose_name_plural = 'Productos para el vivero'
 
-CHOICE_VIVERO_UNIDAD_PRODUCTOS = ((1,'Onz/planta'),(2,'Lt/bombada'),)
+CHOICE_VIVERO_UNIDAD_PRODUCTOS = ((1,'Onz/planta'),(2,'Lt/bombada'),(3,'onz/bomba'),)
 
 class VivieroObservacionProductos(models.Model):
     producto = models.ForeignKey(ProductosVivero, verbose_name='Nombre')
@@ -2781,6 +2786,14 @@ CHOICE_CIERRE_1_1_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_1_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Mejor control de malas hierbas'),
+                    ('C', 'Reducción de enfermedades'),
+                    ('D', 'Eliminar musaceas'),
+                    ('E', 'Ninguna'),
+                )
+
 class CierreManejo1(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_1_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2788,6 +2801,8 @@ class CierreManejo1(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_1_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_1_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2828,6 +2843,13 @@ CHOICE_CIERRE_1_2_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_2_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Mejor entrada de luz'),
+                    ('C', 'Reducción de enfermedades'),
+                    ('D', 'Ninguna'),
+                )
+
 class CierreManejo2(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_2_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2835,6 +2857,8 @@ class CierreManejo2(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_2_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_2_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2874,6 +2898,14 @@ CHOICE_CIERRE_1_3_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_3_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Aumento de la floración'),
+                    ('C', 'Reducción de enfermedades'),
+                    ('D', 'Abonar según datos de análisis'),
+                    ('E', 'Ninguna'),
+                )
+
 class CierreManejo3(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_3_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2881,6 +2913,8 @@ class CierreManejo3(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_3_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_3_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2922,6 +2956,13 @@ CHOICE_CIERRE_1_4_REALIZADA = (
                     ('H', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_4_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Reducción de daño de plagas'),
+                    ('C', 'Reducción de enfermedades'),
+                    ('D', 'Ninguna'),
+                )
+
 class CierreManejo4(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_4_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2929,6 +2970,8 @@ class CierreManejo4(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_4_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_4_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2971,6 +3014,14 @@ CHOICE_CIERRE_1_5_REALIZADA = (
                     ('H', 'Repartir hojarasca'),
                 )
 
+CHOICE_CIERRE_1_5_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Reducción de malas hierbas dañinas'),
+                    ('C', 'Aumento de cobertura'),
+                    ('D', 'Eliminar tanda'),
+                    ('E', 'Ninguna'),
+                )
+
 class CierreManejo5(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_5_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2978,6 +3029,8 @@ class CierreManejo5(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_5_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_5_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -3017,6 +3070,13 @@ CHOICE_CIERRE_1_6_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_6_RESULTADOS = (
+                    ('A', 'Mejor vigor de las plantas'),
+                    ('B', 'Menos daño de plagas'),
+                    ('C', 'Menos daño de enfermedades'),
+                    ('D', 'Ninguna'),
+                )
+
 class CierreManejo6(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_6_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -3024,6 +3084,8 @@ class CierreManejo6(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_6_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_6_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -3064,6 +3126,14 @@ CHOICE_CIERRE_1_7_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_7_RESULTADO = (
+                    ('A', 'Aumento de la cosecha'),
+                    ('B', 'Aumento de plantas productivas'),
+                    ('C', 'Mejor calidad de mazorcas'),
+                    ('D', 'Mejor calidad de granos'),
+                    ('E', 'Ninguna'),
+                )
+
 class CierreManejo7(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_7_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -3071,6 +3141,8 @@ class CierreManejo7(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_7_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_7_RESULTADO,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -3123,6 +3195,25 @@ class CierreActividad(models.Model):
     def __unicode__(self):
         return u"2.1"
 
+class CierreBabaRoja(models.Model):
+    campo1 = models.FloatField('Cosecha anual qq baba', null=True, blank=True)
+    campo2 = models.FloatField('Venta qq baba', null=True, blank=True)
+    campo3 = models.FloatField('Precio de venta qq baba', null=True, blank=True)
+    campo4 = models.FloatField('Cosecha anual qq grano rojo', null=True, blank=True)
+    campo5 = models.FloatField('Venta qq grano rojo', null=True, blank=True)
+    campo6 = models.FloatField('Precio de venta qq grano rojo', null=True, blank=True)
+    campo7 = models.FloatField('Consumo  anual qq grano rojo', null=True, blank=True)
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"2.2"
+
+    class Meta:
+        verbose_name='Datos'
+        verbose_name_plural='Datos'
+
+
 
 class ManejosCierre(models.Model):
     nombre = models.CharField(max_length=250)
@@ -3167,6 +3258,7 @@ CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS = (
                                                                                                 ('C', 'Tolerante a plagas y enfermedades'),
                                                                                                 ('D', 'Tiene buena estructura'),
                                                                                                 ('E', 'No necesita mucho abono'),
+                                                                                                ('F', 'No aplica'),
                                                                                          )
 
 class CierreConocimiento2(models.Model):
@@ -3189,6 +3281,7 @@ CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3 = (
                                                                                                 ('C', 'Susceptible a plagas y enfermedades'),
                                                                                                 ('D', 'No tiene buena estructura'),
                                                                                                 ('E', 'Necesita mucho abono'),
+                                                                                                 ('F', 'No aplica'),
                                                                                          )
 
 class CierreConocimiento3(models.Model):
@@ -3211,6 +3304,7 @@ CHOICE_CIERRE_SUELO_RESPUESTAS1 = (
                                                                                 ('C', 'Potasio'),
                                                                                 ('D', 'Calcio'),
                                                                                 ('E', 'Magnesio'),
+                                                                                 ('F', 'No aplica'),
                                                                          )
 
 class CierreSuelo1(models.Model):
@@ -3234,6 +3328,7 @@ CHOICE_CIERRE_SUELO_RESPUESTAS2 = (
                                                                                 ('C', 'No necesita mucha inversión'),
                                                                                 ('D', 'No necesita mucha mano de obra'),
                                                                                 ('E', 'Aporta al desarrollo de las plantas'),
+                                                                                 ('F', 'No aplica'),
                                                                          )
 
 class CierreSuelo2(models.Model):
@@ -3258,6 +3353,7 @@ CHOICE_CIERRE_SUELO_RESPUESTAS3 = (
                                                                                 ('C', 'Necesita mucha inversión'),
                                                                                 ('D', 'Necesita mucha mano de obra'),
                                                                                 ('E', 'No aporta al desarrollo de las plantas'),
+                                                                                 ('F', 'No aplica'),
                                                                          )
 
 class CierreSuelo3(models.Model):
@@ -3296,6 +3392,7 @@ CHOICE_CIERRE_PLAGA_RESPUESTAS2 = (
                                                                                 ('C', 'Manejo de sombra'),
                                                                                 ('D', 'Abonar las plantas'),
                                                                                 ('E', 'Buen manejo de piso'),
+                                                                                 ('F', 'No aplica'),
                                                                          )
 CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO = (
                                                                                 ('A', 'Eliminar zompoperas'),
@@ -3303,6 +3400,7 @@ CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO = (
                                                                                 ('C', 'Sembrar plantas repelentes'),
                                                                                 ('D', 'Utilizar cal o ceniza'),
                                                                                 ('E', 'Buen manejo de piso'),
+                                                                                 ('F', 'No aplica'),
                                                                          )
 
 class CierrePlaga2(models.Model):
@@ -3323,10 +3421,12 @@ CHOICE_CIERRE_PLAGA_TEMA3 = ((1, 'Prácticas para controlar'),)
 CHOICE_CIERRE_PLAGA_RESPUESTAS3 = (
                                                                                 ('A', 'Aplicar caldo sulfo-calcico'),
                                                                                 ('B', 'Aplicar fungicidas'),
+                                                                                 ('C', 'No aplica'),
                                                                          )
 CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO3 = (
                                                                                 ('A', 'Aplicar venenos en las zompoperas'),
                                                                                 ('B', 'Proteger las plantas con plástico'),
+                                                                                 ('C', 'No aplica'),
                                                                          )
 
 class CierrePlaga3(models.Model):

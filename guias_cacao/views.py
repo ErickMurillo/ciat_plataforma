@@ -1154,47 +1154,47 @@ def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidenci
 
     tabla_incidencia = OrderedDict()
 
-    for obj in CHOICE_OBSERVACION_PUNTO1:
-        conta_si = 0
-        punto1 = filtro.filter(observacionpunto1__planta=obj[0], 
-                             Q(observacionpunto1__uno=1) | 
-                             Q(observacionpunto1__dos=1) |
-                             Q(observacionpunto1__tres=1) |
-                             Q(observacionpunto1__cuatro=1) |
-                             Q(observacionpunto1__cinco=1) |
-                             Q(observacionpunto1__seis=1) |
-                             Q(observacionpunto1__siete=1) |
-                             Q(observacionpunto1__ocho=1) |
-                             Q(observacionpunto1__nueve=1) |
-                             Q(observacionpunto1__dies=1)).count()
+    # for obj in CHOICE_OBSERVACION_PUNTO1:
+    #     conta_si = 0
+    #     punto1 = filtro.filter(observacionpunto1__planta=obj[0],
+    #                          Q(observacionpunto1__uno=1) | \
+    #                          Q(observacionpunto1__dos=1) |
+    #                          Q(observacionpunto1__tres=1) |
+    #                          Q(observacionpunto1__cuatro=1) |
+    #                          Q(observacionpunto1__cinco=1) |
+    #                          Q(observacionpunto1__seis=1) |
+    #                          Q(observacionpunto1__siete=1) |
+    #                          Q(observacionpunto1__ocho=1) |
+    #                          Q(observacionpunto1__nueve=1) |
+    #                          Q(observacionpunto1__dies=1)).count()
 
-        punto2 = filtro.filter(observacionpunto2__planta=obj[0], 
-                             Q(observacionpunto2__uno=1) | 
-                             Q(observacionpunto2__dos=1) |
-                             Q(observacionpunto2__tres=1) |
-                             Q(observacionpunto2__cuatro=1) |
-                             Q(observacionpunto2__cinco=1) |
-                             Q(observacionpunto2__seis=1) |
-                             Q(observacionpunto2__siete=1) |
-                             Q(observacionpunto2__ocho=1) |
-                             Q(observacionpunto2__nueve=1) |
-                             Q(observacionpunto2__dies=1)).count()
+    #     punto2 = filtro.filter(observacionpunto2__planta=obj[0],
+    #                          Q(observacionpunto2__uno=1) |
+    #                          Q(observacionpunto2__dos=1) |
+    #                          Q(observacionpunto2__tres=1) |
+    #                          Q(observacionpunto2__cuatro=1) |
+    #                          Q(observacionpunto2__cinco=1) |
+    #                          Q(observacionpunto2__seis=1) |
+    #                          Q(observacionpunto2__siete=1) |
+    #                          Q(observacionpunto2__ocho=1) |
+    #                          Q(observacionpunto2__nueve=1) |
+    #                          Q(observacionpunto2__dies=1)).count()
 
-        punto3 = filtro.filter(observacionpunto3__planta=obj[0], 
-                             Q(observacionpunto3__uno=1) | 
-                             Q(observacionpunto3__dos=1) |
-                             Q(observacionpunto3__tres=1) |
-                             Q(observacionpunto3__cuatro=1) |
-                             Q(observacionpunto3__cinco=1) |
-                             Q(observacionpunto3__seis=1) |
-                             Q(observacionpunto3__siete=1) |
-                             Q(observacionpunto3__ocho=1) |
-                             Q(observacionpunto3__nueve=1) |
-                             Q(observacionpunto3__dies=1)).count()
-        suma_total = punto1 + punto2 + punto3
-        if suma_total >= 1:
-            conta_si += 1
-        
+    #     punto3 = filtro.filter(observacionpunto3__planta=obj[0],
+    #                          Q(observacionpunto3__uno=1) |
+    #                          Q(observacionpunto3__dos=1) |
+    #                          Q(observacionpunto3__tres=1) |
+    #                          Q(observacionpunto3__cuatro=1) |
+    #                          Q(observacionpunto3__cinco=1) |
+    #                          Q(observacionpunto3__seis=1) |
+    #                          Q(observacionpunto3__siete=1) |
+    #                          Q(observacionpunto3__ocho=1) |
+    #                          Q(observacionpunto3__nueve=1) |
+    #                          Q(observacionpunto3__dies=1)).count()
+    #     suma_total = punto1 + punto2 + punto3
+    #     if suma_total >= 1:
+    #         conta_si += 1
+
 
 
     return render(request, template, locals())
