@@ -785,11 +785,16 @@ class CierreCicloTrabajoInline(admin.TabularInline):
     extra = 1
     max_num = 1
 
+class CierreBabaRojaInline(admin.TabularInline):
+    model = CierreBabaRoja
+    extra = 1
+    max_num = 1
+
 class FichaCierreAdmin(admin.ModelAdmin):
     form = ProductorCierreAdminForm
     inlines = [CierreManejo1Inline,CierreManejo2Inline,CierreManejo3Inline,CierreManejo4Inline,
                     CierreManejo5Inline,CierreManejo6Inline,CierreManejo7Inline,CierreCosto1Inline,
-                    CierreActividadInline,CierreManejoInline,CierreConocimiento1Inline,CierreConocimiento2Inline,
+                    CierreActividadInline,CierreBabaRojaInline,CierreManejoInline,CierreConocimiento1Inline,CierreConocimiento2Inline,
                     CierreConocimiento3Inline,CierreSuelo1Inline,CierreSuelo2Inline,CierreSuelo3Inline,
                     CierrePlaga1Inline,CierrePlaga2Inline,CierrePlaga3Inline,CierreCicloTrabajoInline]
 
