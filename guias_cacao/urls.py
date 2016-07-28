@@ -25,6 +25,9 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^plaga/historial/$', 'historial_plaga', name='historial-plaga'),
     url(r'^plaga/acciones/$', 'acciones_plaga', name='acciones-plaga'),
     url(r'^plaga/fuente-incidencia/$', 'fuente_incidencia_plaga', name='fuente-incidencia-plaga'),
+    url(r'^plaga/produccion/$', 'produccion_rendimiento_plaga', name='produccion-rendimiento-plaga'),
+    url(r'^plaga/analisis/$', 'analisis_plaga', name='analisis-plaga'),
+    url(r'^plaga/suelo/$', 'observacion_sombra_poda_plaga', name='observacion-sombra-poda-plaga'),
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )

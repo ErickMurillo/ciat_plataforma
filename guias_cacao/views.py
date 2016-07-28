@@ -1199,7 +1199,110 @@ def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidenci
 
     return render(request, template, locals())
 
+def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_rendimiento_plaga.html"):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    grafo_nivel_produccion = OrderedDict()
+    for obj in CHOICE_PRODUCCION:
+        punto1_uno = filtro.filter(observacionpunto1nivel__uno=obj[0]).count()
+        punto1_dos = filtro.filter(observacionpunto1nivel__dos=obj[0]).count()
+        punto1_tres = filtro.filter(observacionpunto1nivel__tres=obj[0]).count()
+        punto1_cuatro = filtro.filter(observacionpunto1nivel__cuatro=obj[0]).count()
+        punto1_cinco = filtro.filter(observacionpunto1nivel__cinco=obj[0]).count()
+        punto1_seis = filtro.filter(observacionpunto1nivel__seis=obj[0]).count()
+        punto1_siete = filtro.filter(observacionpunto1nivel__siete=obj[0]).count()
+        punto1_ocho = filtro.filter(observacionpunto1nivel__ocho=obj[0]).count()
+        punto1_nueve = filtro.filter(observacionpunto1nivel__nueve=obj[0]).count()
+        punto1_diez = filtro.filter(observacionpunto1nivel__dies=obj[0]).count()
+
+        total_punto1 = punto1_uno+punto1_dos+punto1_tres+punto1_cuatro+\
+                        punto1_cinco+punto1_seis+punto1_siete+punto1_ocho+\
+                        punto1_nueve+punto1_diez
+
+        punto2_uno = filtro.filter(observacionpunto2nivel__uno=obj[0]).count()
+        punto2_dos = filtro.filter(observacionpunto2nivel__dos=obj[0]).count()
+        punto2_tres = filtro.filter(observacionpunto2nivel__tres=obj[0]).count()
+        punto2_cuatro = filtro.filter(observacionpunto2nivel__cuatro=obj[0]).count()
+        punto2_cinco = filtro.filter(observacionpunto2nivel__cinco=obj[0]).count()
+        punto2_seis = filtro.filter(observacionpunto2nivel__seis=obj[0]).count()
+        punto2_siete = filtro.filter(observacionpunto2nivel__siete=obj[0]).count()
+        punto2_ocho = filtro.filter(observacionpunto2nivel__ocho=obj[0]).count()
+        punto2_nueve = filtro.filter(observacionpunto2nivel__nueve=obj[0]).count()
+        punto2_diez = filtro.filter(observacionpunto2nivel__dies=obj[0]).count()
+
+        total_punto2 = punto2_uno+punto2_dos+punto2_tres+punto2_cuatro+\
+                        punto2_cinco+punto2_seis+punto2_siete+punto2_ocho+\
+                        punto2_nueve+punto2_diez
+
+        punto3_uno = filtro.filter(observacionpunto3nivel__uno=obj[0]).count()
+        punto3_dos = filtro.filter(observacionpunto3nivel__dos=obj[0]).count()
+        punto3_tres = filtro.filter(observacionpunto3nivel__tres=obj[0]).count()
+        punto3_cuatro = filtro.filter(observacionpunto3nivel__cuatro=obj[0]).count()
+        punto3_cinco = filtro.filter(observacionpunto3nivel__cinco=obj[0]).count()
+        punto3_seis = filtro.filter(observacionpunto3nivel__seis=obj[0]).count()
+        punto3_siete = filtro.filter(observacionpunto3nivel__siete=obj[0]).count()
+        punto3_ocho = filtro.filter(observacionpunto3nivel__ocho=obj[0]).count()
+        punto3_nueve = filtro.filter(observacionpunto3nivel__nueve=obj[0]).count()
+        punto3_diez = filtro.filter(observacionpunto3nivel__dies=obj[0]).count()
+
+        total_punto3 = punto3_uno+punto3_dos+punto3_tres+punto3_cuatro+\
+                        punto3_cinco+punto3_seis+punto3_siete+punto3_ocho+\
+                        punto3_nueve+punto3_diez
+
+        gran_total = total_punto1 + total_punto2 + total_punto3
+        gran_total_porcentaje = float((gran_total*100))/(float(numero_parcelas)*30)
+
+        grafo_nivel_produccion[obj[1]] = gran_total_porcentaje
+
+
+    return render(request, template, locals())
+
+
+def analisis_plaga(request, template="guiascacao/plaga/analisis_plaga.html"):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    grafo_analisis_plaga = OrderedDict()
+    for obj in CHOICE_ENFERMEDADES:
+        cont_observada = filtro.filter(problemasprincipales__observadas__contains=obj[0]).count()
+        cont_principal = filtro.filter(problemasprincipales__principales__contains=obj[0]).count()
+        grafo_analisis_plaga[obj[1]] = [cont_observada,cont_principal]
+
+    grafo_situacion_plaga = OrderedDict()
+    for obj in CHOICE_SITUACION_PLAGAS:
+        cont_situacion = filtro.filter(problemasprincipales__situacion=obj[0]).count()
+        
+        grafo_situacion_plaga[obj[1]] = cont_situacion
+
+    return render(request, template, locals())
+
+def observacion_sombra_poda_plaga(request, template="guiascacao/plaga/observacion_sombra_poda_plaga.html"):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    grafo_suelo_plaga = OrderedDict()
+    for obj in CHOICE_ENFERMEDADES_PUNTO6_1:
+        conteo = filtro.filter(punto6plagas__observaciones__contains=obj[0]).count()
+        grafo_suelo_plaga[obj[1]] = conteo
+
+    grafo_sombra_plaga = OrderedDict()
+    for obj in CHOICE_ENFERMEDADES_PUNTO6_2:
+        conteo = filtro.filter(punto6plagas__sombra=obj[0]).count()
+        grafo_sombra_plaga[obj[1]] = conteo
+
+    grafo_poda_plaga = OrderedDict()
+    for obj in CHOICE_ENFERMEDADES_PUNTO6_3:
+        conteo = filtro.filter(punto6plagas__manejo__contains=obj[0]).count()
+        grafo_poda_plaga[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+
 #----------  funciones utilitarias --------------------------
+
+
+
 def crear_rangos(request, lista, start=0, stop=0, step=0):
     dict_algo = OrderedDict()
     rangos = []

@@ -3,59 +3,56 @@
 {% block extra_js %}
 <script type="text/javascript">
 $(function () {
-    // Create the chart
-    $('#grafo1').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: '1.5 Fuentes'
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo1').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
             title: {
-                text: 'Frecuencia (%)'
-            }
-
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
+                text: 'Nivel de Producción'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
                     enabled: true,
-                    format: '{point.y:.1f}%'
-                }
-            }
-        },
-
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-        },
-
-        series: [{
-            name: 'Fuente',
-            colorByPoint: true,
-            data: [
-            {% for k,v in grafo_fuente.items %}
-                {
-                    name: '{{k}}',
-                    y: {{v|default:0}},
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
                 },
-            {% endfor %}
-
-            ]
-        }]
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'producción',
+                colorByPoint: true,
+                data: [
+                {% for k,v in grafo_nivel_produccion.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true 
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
     });
 });
+
 </script>
 {% endblock extra_js %}
 
@@ -70,7 +67,7 @@ $(function () {
                     <h3 class="panel-title">
                         <ol class="breadcrumb">
                             <li class="active">Plaga</li>
-                            <li class="active">Fuentes e incidencia</li>
+                            <li class="active">Producción y relación plaga y rendimiento</li>
                             <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
