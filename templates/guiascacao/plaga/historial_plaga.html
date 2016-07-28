@@ -3,49 +3,118 @@
 {% block extra_js %}
 <script type="text/javascript">
 $(function () {
+    // Create the chart
     $('#grafo1').highcharts({
         chart: {
             type: 'column'
         },
         title: {
-            text: '1.1 Ocurrencia y daño'
+            text: '1.1 Ocurrencia y daño (Hace daño año con año)'
+        },
+        subtitle: {
+            text: ''
         },
         xAxis: {
-            categories: [{% for k,v in  plagas.items %} '{{k}}', {% endfor %}]
+            type: 'category'
         },
         yAxis: {
-            min: 0,
             title: {
                 text: 'Frecuencia (%)'
             }
+
         },
-        tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
+        legend: {
+            enabled: false
         },
         plotOptions: {
-            column: {
-                stacking: 'percent'
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
             }
         },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+
         series: [{
-            name: 'Hace daño año con año',
-            data: [{% for k,v in  plagas.items%}
-                            {{v.1|floatformat:2}},
-                     {% endfor %}]
-        }, {
-            name: 'He visto',
-            data: [{% for k,v in  plagas.items%}
-                            {{v.0|floatformat:2}},
-                     {% endfor %}]
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in plagas.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v.1|default:0}},
+                },
+            {% endfor %}
+
+            ]
         }]
     });
 });
 
-
 $(function () {
     // Create the chart
     $('#grafo2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '1.1 Ocurrencia y daño (He visto)'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (%)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in plagas.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v.0|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo3').highcharts({
         chart: {
             type: 'column'
         },
@@ -100,7 +169,7 @@ $(function () {
 
 $(function () {
     // Create the chart
-    $('#grafo3').highcharts({
+    $('#grafo4').highcharts({
         chart: {
             type: 'column'
         },
@@ -193,6 +262,12 @@ $(function () {
                     <div class="row">
                         <div class="col-md-12">
                             <div id="grafo3"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo4"></div>
                         </div>
                     </div>
                 </div>
