@@ -11,7 +11,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Observaciones de suelo'
+            text: 'Equipos necesarios para realizar manejo de plagas y enfermedades'
         },
         subtitle: {
             text: ''
@@ -47,7 +47,7 @@ $(function () {
             name: 'Suelo',
             colorByPoint: true,
             data: [
-            {% for k,v in grafo_suelo_plaga.items %}
+            {% for k,v in grafo_equipos.items %}
                 {
                     name: '{{k}}',
                     y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
@@ -72,7 +72,7 @@ $(function () {
                 type: 'pie'
             },
             title: {
-                text: 'Observaciones de sombra'
+                text: 'Formación para realizar el manejo de plagas y enfermedades'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -95,7 +95,7 @@ $(function () {
                 name: 'sombra',
                 colorByPoint: true,
                 data: [
-                {% for k,v in grafo_sombra_plaga.items %}
+                {% for k,v in grafo_formacion.items %}
                   {
                     name: '{{k}}',
                     y: {{v}} {% if forloop.counter == 1 %},
@@ -109,62 +109,6 @@ $(function () {
         });
     });
 });
-
-$(function () {
-    // Create the chart
-    $('#grafo3').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Observaciones de manejo'
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
-            title: {
-                text: 'Frecuencia (%)'
-            }
-
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y:.1f}%'
-                }
-            }
-        },
-
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-        },
-
-        series: [{
-            name: 'Manejo',
-            colorByPoint: true,
-            data: [
-            {% for k,v in grafo_poda_plaga.items %}
-                {
-                    name: '{{k}}',
-                    y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
-                },
-            {% endfor %}
-
-            ]
-        }]
-    });
-});
-
 </script>
 {% endblock extra_js %}
 
@@ -179,7 +123,7 @@ $(function () {
                     <h3 class="panel-title">
                         <ol class="breadcrumb">
                             <li class="active">Plaga</li>
-                            <li class="active">Observación de suelos</li>
+                            <li class="active">Equipos y formación</li>
                             <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
@@ -218,4 +162,3 @@ $(function () {
     </div>
 
 {% endblock contenido %}
-

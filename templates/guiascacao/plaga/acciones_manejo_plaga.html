@@ -1,5 +1,7 @@
 {% extends "guiascacao/base.html" %}
 
+{% load tools %}
+
 {% block extra_js %}
 <script type="text/javascript">
 $(function () {
@@ -8,7 +10,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: '1.4 Momentos de las acciones'
+            text: '3.7 Momentos de las acciones'
         },
         xAxis: {
             categories:  ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
@@ -88,18 +90,19 @@ $(function () {
                                       <th>Acción</th>
                                       <th>#si</th>
                                       <th>Porcentaje(%)</th>
-                                      <th>Cuántas veces al año <br>
-                                            promedio  &plusmn; desv. Estandar
+                                      <th>Toda la finca(%) <br>
+                                     <th>Alguna parte de la parcela(%) <br>
                                       </th>
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {% for k,v in acciones_plagas.items %}
+                                    {% for k,v in tabla_acciones.items %}
                                     <tr>
                                       <th scope=row>{{k}}</th>
                                       <td>{{v.0|default:0}}</td>
-                                      <td>{{v.1|floatformat:1|default:0}}</td>
-                                      <td>{{v.2|floatformat:1|default:0}} &plusmn; {{v.3|floatformat:1|default:0}}</td>
+                                      <td>{{v.0|calcular_frecuencia:numero_parcelas}}</td>
+                                      <td>{{v.1|calcular_frecuencia:v.0}}</td>
+                                      <td>{{v.2|calcular_frecuencia:v.0}}</td>
                                     </tr>
                                     {% endfor %}
                                   </tbody>

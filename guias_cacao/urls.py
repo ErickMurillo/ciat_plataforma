@@ -28,6 +28,8 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^plaga/produccion/$', 'produccion_rendimiento_plaga', name='produccion-rendimiento-plaga'),
     url(r'^plaga/analisis/$', 'analisis_plaga', name='analisis-plaga'),
     url(r'^plaga/suelo/$', 'observacion_sombra_poda_plaga', name='observacion-sombra-poda-plaga'),
+    url(r'^plaga/acciones-manejo/$', 'acciones_manejo_plaga', name='acciones-manejo-plaga'),
+    url(r'^plaga/equipos-formacion/$', 'equipos_formacion_plaga', name='equipos-formacion-plaga'),
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )

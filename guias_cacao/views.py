@@ -1272,7 +1272,7 @@ def analisis_plaga(request, template="guiascacao/plaga/analisis_plaga.html"):
     grafo_situacion_plaga = OrderedDict()
     for obj in CHOICE_SITUACION_PLAGAS:
         cont_situacion = filtro.filter(problemasprincipales__situacion=obj[0]).count()
-        
+
         grafo_situacion_plaga[obj[1]] = cont_situacion
 
     return render(request, template, locals())
@@ -1298,6 +1298,62 @@ def observacion_sombra_poda_plaga(request, template="guiascacao/plaga/observacio
 
     return render(request, template, locals())
 
+def acciones_manejo_plaga(request, template="guiascacao/plaga/acciones_manejo_plaga.html"):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    tabla_acciones = OrderedDict()
+    for obj in CHOICE_ACCIONES_PUNTO7_1:
+        conteo_si = filtro.filter(punto7plagas__manejo=obj[0]).count()
+        conteo_toda = filtro.filter(punto7plagas__manejo=obj[0], punto7plagas__parte=1).count()
+        conteo_alguna = filtro.filter(punto7plagas__manejo=obj[0], punto7plagas__parte=2).count()
+        tabla_acciones[obj[1]] = [conteo_si, conteo_toda,conteo_alguna]
+
+    grafo_momento = OrderedDict()
+    for obj in CHOICE_ACCIONES_PUNTO7_1:
+        ene = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='A').count()
+        feb = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='B').count()
+        mar = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='C').count()
+        abr = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='D').count()
+        may = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='E').count()
+        jun = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='F').count()
+        jul = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='G').count()
+        ago = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='H').count()
+        sep = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='I').count()
+        octu = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='J').count()
+        nov = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='K').count()
+        dic = filtro.filter(punto7plagas__manejo=obj[0],
+                                         punto7plagas__meses__contains='L').count()
+        grafo_momento[obj[1]] = [ene,feb,mar,abr,may,jun,jul,ago,sep,octu,nov,dic]
+
+    return render(request, template, locals())
+
+def equipos_formacion_plaga(request, template="guiascacao/plaga/equipos_formacion_plaga.html"):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    grafo_equipos = OrderedDict()
+    for obj in CHOICE_ENFERMEDADES_PUNTO8:
+        conteo = filtro.filter(punto8y9plagas__equipos__contains=obj[0]).count()
+        grafo_equipos[obj[1]] = conteo
+
+    grafo_formacion = OrderedDict()
+    for obj in CHOICE_SI_NO:
+        conteo = filtro.filter(punto8y9plagas__opcion=obj[0]).count()
+        grafo_formacion[obj[1]] = conteo
+
+    return render(request, template, locals())
 
 #----------  funciones utilitarias --------------------------
 
