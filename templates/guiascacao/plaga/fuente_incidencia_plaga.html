@@ -1,5 +1,7 @@
 {% extends "guiascacao/base.html" %}
 
+{% load tools %}
+
 {% block extra_js %}
 <script type="text/javascript">
 $(function () {
@@ -91,16 +93,26 @@ $(function () {
                                   <thead>
                                     <tr>
                                       <th>Observación</th>
-                                      <th>#si</th>
+                                      <th>#fincas si</th>
                                       <th>Porcentaje(%)</th>
+                                      <th>Promedio plantas afectadas</th>
+                                      <th>Desviación Estandar</th>
+                                      <th>Mediana</th>
+                                      <th>Valor minimo</th>
+                                      <th>Valor maximo</th>
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {% for k,v in acciones_plagas.items %}
+                                    {% for k,v in tabla_incidencia.items %}
                                     <tr>
                                       <th scope=row>{{k}}</th>
                                       <td>{{v.0|default:0}}</td>
+                                      <td>{{v.0|default:0|calcular_frecuencia:numero_parcelas}}</td>
                                       <td>{{v.1|floatformat:1|default:0}}</td>
+                                      <td>{{v.2|floatformat:1|default:0}}</td>
+                                      <td>{{v.3|floatformat:1|default:0}}</td>
+                                      <td>{{v.4|floatformat:1|default:0}}</td>
+                                      <td>{{v.5|floatformat:1|default:0}}</td>
                                     </tr>
                                     {% endfor %}
                                   </tbody>

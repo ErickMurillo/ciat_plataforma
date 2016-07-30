@@ -1153,9 +1153,12 @@ def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidenci
         grafo_fuente[obj[1]] = (float(conteo)/float(numero_parcelas)*100)
 
     tabla_incidencia = OrderedDict()
-    for x in filtro:
-        tabla_incidencia[x] = OrderedDict()
-        for obj in CHOICE_OBSERVACION_PUNTO1:
+
+    for obj in CHOICE_OBSERVACION_PUNTO1:
+        tabla_incidencia[obj[1]] = {}
+        lista_arreglo = []
+        contador_si = 0
+        for x in filtro:
             punto1_uno = ObservacionPunto1.objects.filter(ficha=x,planta=obj[0],uno=1).count()
             punto1_dos = ObservacionPunto1.objects.filter(ficha=x,planta=obj[0],dos=1).count()
             punto1_tres = ObservacionPunto1.objects.filter(ficha=x,planta=obj[0],tres=1).count()
@@ -1168,8 +1171,8 @@ def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidenci
             punto1_diez = ObservacionPunto1.objects.filter(ficha=x,planta=obj[0],dies=1).count()
 
             total_punto1 = punto1_uno+punto1_dos+punto1_tres+punto1_cuatro+\
-                            punto1_cinco+punto1_seis+punto1_siete+punto1_ocho+\
-                            punto1_nueve+punto1_diez
+                         punto1_cinco+punto1_seis+punto1_siete+punto1_ocho+\
+                         punto1_nueve+punto1_diez
 
             punto2_uno = ObservacionPunto2.objects.filter(ficha=x,planta=obj[0],uno=1).count()
             punto2_dos = ObservacionPunto2.objects.filter(ficha=x,planta=obj[0],dos=1).count()
@@ -1202,11 +1205,11 @@ def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidenci
                             punto3_nueve+punto3_diez
 
             suma_total = total_punto1 + total_punto2 + total_punto3
+            if suma_total >=1:
+                contador_si += 1
+            lista_arreglo.append(suma_total)
 
-        tabla_incidencia[x][obj[1]] = suma_total
-
-    print tabla_incidencia
-
+            tabla_incidencia[obj[1]] = (contador_si,np.mean(lista_arreglo),np.std(lista_arreglo),np.median(lista_arreglo),min(lista_arreglo),max(lista_arreglo))
 
     return render(request, template, locals())
 
