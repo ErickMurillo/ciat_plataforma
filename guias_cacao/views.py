@@ -1369,10 +1369,70 @@ def equipos_formacion_plaga(request, template="guiascacao/plaga/equipos_formacio
 
     return render(request, template, locals())
 
+#----------  fin salidas plagas  --------------------------
+#-----------Inicio de piso -----------------------
+def _queryset_filtrado_piso(request):
+    params = {}
+
+    if 'fecha' in request.session:
+        params['fecha_visita__year'] = request.session['fecha']
+
+    if 'productor' in request.session:
+        params['productor__nombre'] = request.session['productor']
+
+    if 'organizacion' in request.session:
+        params['productor__productor__organizacion'] = request.session['organizacion']
+
+    if 'pais' in request.session:
+        params['productor__pais'] = request.session['pais']
+
+    if 'departamento' in request.session:
+        params['productor__departamento'] = request.session['departamento']
+
+    if 'municipio' in request.session:
+        params['productor__municipio'] = request.session['municipio']
+
+    if 'comunidad' in request.session:
+        params['productor__comunidad'] = request.session['comunidad']
+
+    if 'sexo' in request.session:
+        params['productor__sexo'] = request.session['sexo']
+
+    if 'tipologia' in request.session:
+        params['productor__productor__tipologia'] = request.session['tipologia']
+
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+        del params[key]
+
+    print 'Piso hermano'
+
+    return FichaPiso.objects.filter(**params)
+#----------  SALIDAS DE PISO --------------------------
+def estado_piso(request, template="guiascacao/piso/estado_piso.html"):
+    filtro = _queryset_filtrado_piso(request)
+    numero_parcelas = filtro.count()
+
+    grafo_estado = OrderedDict()
+    for obj in CHOICE_PISO1:
+        conteo_p1 = filtro.filter(pisopunto1__punto1__contains=obj[0]).count()
+        conteo_p2 = filtro.filter(pisopunto1__punto2__contains=obj[0]).count()
+        grafo_estado[obj[1]] = (conteo_p1,conteo_p2)
+
+    grafo_manejo_piso = OrderedDict()
+    for obj in CHOICE_PISO3:
+        conteo_p1 = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1).count()
+        grafo_manejo_piso[obj[1]] = conteo_p1
+
+
+    return render(request, template, locals())
+
+
 #----------  funciones utilitarias --------------------------
-
-
-
 def crear_rangos(request, lista, start=0, stop=0, step=0):
     dict_algo = OrderedDict()
     rangos = []

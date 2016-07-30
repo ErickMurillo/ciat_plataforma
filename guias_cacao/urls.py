@@ -31,5 +31,8 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^plaga/acciones-manejo/$', 'acciones_manejo_plaga', name='acciones-manejo-plaga'),
     url(r'^plaga/equipos-formacion/$', 'equipos_formacion_plaga', name='equipos-formacion-plaga'),
 
+    #urls de piso
+    url(r'^piso/estado/$', 'estado_piso', name='estado-piso'),
+
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )
