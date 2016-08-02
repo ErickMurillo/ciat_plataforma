@@ -1269,6 +1269,12 @@ def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_
 
         grafo_nivel_produccion[obj[1]] = gran_total_porcentaje
 
+    VAR_BAJA = grafo_nivel_produccion['Baja']
+    VAR_MEDIA = grafo_nivel_produccion['Media']
+    VAR_ALTA = grafo_nivel_produccion['Alta']
+
+
+
 
     return render(request, template, locals())
 
