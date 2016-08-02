@@ -5,84 +5,13 @@
 {% block extra_js %}
 <script type="text/javascript">
 $(function () {
-    $('#grafo1').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Hierbas qué cubren el piso y sube sobre las planta de cacao'
-        },
-        xAxis: {
-            categories: [{% for k,v in grafo_estado.items %}'{{k}}',{% endfor %}]
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Frecuencia (%)'
-            }
-        },
-        legend: {
-            reversed: true
-        },
-         tooltip: {
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y} %'
-        },
-        plotOptions: {
-            series: {
-                stacking: 'normal'
-            }
-        },
-        series: [{
-            name: '',
-            data: [{% for k,v in grafo_estado.items %} {{v.0|calcular_frecuencia:numero_parcelas}},{% endfor %}]
-        }]
-    });
-});
-$(function () {
-    $('#grafo2').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Hierbas qué se consideran dañinas'
-        },
-        xAxis: {
-            categories: [{% for k,v in grafo_estado.items %}'{{k}}',{% endfor %}]
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Frecuencia (%)'
-            }
-        },
-        legend: {
-            reversed: true
-        },
-         tooltip: {
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y} %'
-        },
-        plotOptions: {
-            series: {
-                stacking: 'normal'
-            }
-        },
-        series: [{
-            name: '',
-            data: [{% for k,v in grafo_estado.items %} {{v.1|calcular_frecuencia:numero_parcelas}},{% endfor %}]
-        }]
-    });
-});
-
-$(function () {
     // Create the chart
-    $('#grafo3').highcharts({
+    $('#grafo1').highcharts({
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Manejo del piso'
+            text: 'Observaciones de suelo'
         },
         subtitle: {
             text: ''
@@ -118,7 +47,118 @@ $(function () {
             name: 'Daño',
             colorByPoint: true,
             data: [
-            {% for k,v in grafo_manejo_piso.items %}
+            {% for k,v in grafo_suelo.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Observaciones de sombra'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Cobertura (%)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_sombra.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+
+
+$(function () {
+    // Create the chart
+    $('#grafo3').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Observaciones de manejo'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Cobertura (%)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_manejo.items %}
                 {
                     name: '{{k}}',
                     y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
@@ -133,6 +173,7 @@ $(function () {
 {% endblock extra_js %}
 
 {% block contenido %}
+</style>
     <div class="container-fluid">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
              {% include "guiascacao/menu_salidas.html" %}
@@ -143,25 +184,25 @@ $(function () {
                     <h3 class="panel-title">
                         <ol class="breadcrumb">
                             <li class="active">Piso</li>
-                            <li class="active">Estado y manejo del piso</li>
+                            <li class="active">Suelo</li>
                             <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
                 </div>
                 <div class="panel-body">
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="grafo1"></div>
-                        </div>
-                    </div>
-                     <hr>
-                  <div class="row">
+                   <div class="row">
                     <div class="col-md-12">
-                        <div id="grafo2"></div>
+                        <div id="grafo1"></div>
                     </div>
                 </div>
                 <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div id="grafo2"></div>
+                        </div>
+                    </div>
+                     <hr>
                  <div class="row">
                     <div class="col-md-12">
                         <div id="grafo3"></div>
@@ -172,4 +213,3 @@ $(function () {
         </div>
     </div>
 {% endblock contenido %}
-

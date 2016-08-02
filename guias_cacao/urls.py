@@ -33,6 +33,12 @@ urlpatterns = patterns('guias_cacao.views',
 
     #urls de piso
     url(r'^piso/estado/$', 'estado_piso', name='estado-piso'),
+    url(r'^piso/manejo/$', 'estado_piso2', name='estado-piso-2'),
+    url(r'^piso/orientacion/$', 'orientacion_composicion_piso', name='orientacion-composicion-piso'),
+    url(r'^piso/analisis/$', 'analisis_piso', name='analisis-piso'),
+    url(r'^piso/suelo/$', 'suelo_piso', name='suelo-piso'),
+    url(r'^piso/propuesta/$', 'propuesta_piso', name='propuesta-piso'),
+    url(r'^piso/equipo-formacion/$', 'equipo_piso', name='equipo-piso'),
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )

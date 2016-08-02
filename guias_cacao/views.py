@@ -1428,10 +1428,144 @@ def estado_piso(request, template="guiascacao/piso/estado_piso.html"):
         conteo_p1 = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1).count()
         grafo_manejo_piso[obj[1]] = conteo_p1
 
+    return render(request, template, locals())
+
+def estado_piso2(request, template="guiascacao/piso/estado_manejo_piso.html"):
+    filtro = _queryset_filtrado_piso(request)
+    numero_parcelas = filtro.count()
+
+    tabla_manejo_piso = OrderedDict()
+    for obj in CHOICE_PISO3:
+        conteo = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1).count()
+        arreglo_manejo = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1).values_list('pisopunto3__veces', flat=True)
+        tabla_manejo_piso[obj[1]] = (conteo,np.mean(arreglo_manejo),
+                                                          np.std(arreglo_manejo),np.median(arreglo_manejo),
+                                                          min(arreglo_manejo),max(arreglo_manejo))
+
+    grafo_momento = OrderedDict()
+    for obj in CHOICE_PISO3:
+        ene = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='A').count()
+        feb = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='B').count()
+        mar = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='C').count()
+        abr = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='D').count()
+        may = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='E').count()
+        jun = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='F').count()
+        jul = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='G').count()
+        ago = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='H').count()
+        sep = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='I').count()
+        octu = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='J').count()
+        nov = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='K').count()
+        dic = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='L').count()
+        grafo_momento[obj[1]] = [ene,feb,mar,abr,may,jun,jul,ago,sep,octu,nov,dic]
+
+    return render(request, template, locals())
+
+def orientacion_composicion_piso(request, template="guiascacao/piso/orientacion_composicion_piso.html"):
+    filtro = _queryset_filtrado_piso(request)
+    numero_parcelas = filtro.count()
+
+    grafo_orientacion = OrderedDict()
+    for obj in CHOICE_PISO4:
+        conteo = filtro.filter(pisopunto4__manejo=obj[0]).count()
+        grafo_orientacion[obj[1]] = conteo
+
+    tabla_composicion = OrderedDict()
+    for obj in CHOICE_PISO5:
+        conteo = filtro.filter(pisopunto5__estado=obj[0]).count()
+        suma = filtro.filter(pisopunto5__estado=obj[0]).aggregate(total=Sum('pisopunto5__conteo'))['total']
+        tabla_composicion[obj[1]] = (suma,conteo)
+
+    return render(request, template, locals())
+
+def analisis_piso(request, template="guiascacao/piso/analisis_piso.html"):
+    filtro = _queryset_filtrado_piso(request)
+    numero_parcelas = filtro.count()
+
+    grafo_competencia = OrderedDict()
+    for obj in CHOICE_PISO6_1:
+        conteo = filtro.filter(pisopunto6__manejo__contains=obj[0]).count()
+        grafo_competencia[obj[1]] = conteo
+
+    grafo_cobertura = OrderedDict()
+    for obj in CHOICE_PISO6_2:
+        conteo = filtro.filter(pisopunto6__estado=obj[0]).count()
+        grafo_cobertura[obj[1]] = conteo
+
+    grafo_maleza = OrderedDict()
+    for obj in CHOICE_PISO6_3:
+        conteo = filtro.filter(pisopunto6__maleza__contains=obj[0]).count()
+        grafo_maleza[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+def suelo_piso(request, template="guiascacao/piso/suelo_piso.html"):
+    filtro = _queryset_filtrado_piso(request)
+    numero_parcelas = filtro.count()
+
+    grafo_suelo = OrderedDict()
+    for obj in CHOICE_PISO7_1:
+        conteo = filtro.filter(pisopunto7__suelo__contains=obj[0]).count()
+        grafo_suelo[obj[1]] = conteo
+
+    grafo_sombra = OrderedDict()
+    for obj in CHOICE_PISO7_2:
+        conteo = filtro.filter(pisopunto7__sombra__contains=obj[0]).count()
+        grafo_sombra[obj[1]] = conteo
+
+    grafo_manejo = OrderedDict()
+    for obj in CHOICE_PISO7_3:
+        conteo = filtro.filter(pisopunto7__manejo__contains=obj[0]).count()
+        grafo_manejo[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+def propuesta_piso(request, template="guiascacao/piso/propuesta_piso.html"):
+    filtro = _queryset_filtrado_piso(request)
+    numero_parcelas = filtro.count()
+
+    tabla_propuesta = OrderedDict()
+    for obj in CHOICE_PISO8:
+        conteo_piso = filtro.filter(pisopunto8__piso=obj[0]).count()
+        conteo_toda = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__parte=1).count()
+        conteo_alguna = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__parte=2).count()
+        tabla_propuesta[obj[1]] = (conteo_piso,conteo_toda,conteo_alguna)
+
+    grafo_manejo = OrderedDict()
+    for obj in CHOICE_PISO8:
+        ene = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='A').count()
+        feb = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='B').count()
+        mar = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='C').count()
+        abr = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='D').count()
+        may = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='E').count()
+        jun = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='F').count()
+        jul = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='G').count()
+        ago = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='H').count()
+        sep = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='I').count()
+        octu = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='J').count()
+        nov = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='K').count()
+        dic = filtro.filter(pisopunto8__piso=obj[0], pisopunto8__meses__contains='L').count()
+        grafo_manejo[obj[1]] = [ene,feb,mar,abr,may,jun,jul,ago,sep,octu,nov,dic]
+
 
     return render(request, template, locals())
 
 
+def equipo_piso(request, template="guiascacao/piso/equipo_piso.html"):
+    filtro = _queryset_filtrado_piso(request)
+    numero_parcelas = filtro.count()
+
+    grafo_equipo = OrderedDict()
+    for obj in CHOICE_PISO10:
+        conteo = filtro.filter(pisopunto10__equipo__contains=obj[0]).count()
+        grafo_equipo[obj[1]] = conteo
+
+    grafo_formacion = OrderedDict()
+    for obj in CHOICE_SI_NO:
+        conteo = filtro.filter(pisopunto10__formacion=obj[0]).count()
+        grafo_formacion[obj[1]] = conteo
+
+
+    return render(request, template, locals())
 #----------  funciones utilitarias --------------------------
 def crear_rangos(request, lista, start=0, stop=0, step=0):
     dict_algo = OrderedDict()
