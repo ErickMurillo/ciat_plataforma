@@ -169,8 +169,8 @@ table th {
                                     {% for k,v in tabla_composicion.items %}
                                     <tr>
                                       <th scope=row>{{k}}</th>
-                                      <td>{{v.1|default:0}}</td>
-                                      <td>{{v.1|default:0|calcular_frecuencia:v.0}}</td>
+                                      <td>{{v|default:0}}</td>
+                                      <td>{{v|default:0|calcular_frecuencia:VAR_TOTAL}}</td>
                                     </tr>
                                     {% endfor %}
                                   </tbody>

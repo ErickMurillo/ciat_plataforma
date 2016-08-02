@@ -1475,11 +1475,18 @@ def orientacion_composicion_piso(request, template="guiascacao/piso/orientacion_
         conteo = filtro.filter(pisopunto4__manejo=obj[0]).count()
         grafo_orientacion[obj[1]] = conteo
 
-    tabla_composicion = OrderedDict()
+    tabla_composicion = OrderedDict()  
     for obj in CHOICE_PISO5:
         conteo = filtro.filter(pisopunto5__estado=obj[0]).count()
         suma = filtro.filter(pisopunto5__estado=obj[0]).aggregate(total=Sum('pisopunto5__conteo'))['total']
-        tabla_composicion[obj[1]] = (suma,conteo)
+        
+        tabla_composicion[obj[1]] = suma
+
+    VAR_TOTAL = 0
+    for k,v in tabla_composicion.items():
+        VAR_TOTAL += v
+
+    print VAR_TOTAL
 
     return render(request, template, locals())
 
