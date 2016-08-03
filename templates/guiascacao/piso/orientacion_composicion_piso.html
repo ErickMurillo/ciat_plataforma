@@ -50,7 +50,7 @@ $(function () {
             {% for k,v in tabla_composicion.items %}
                 {
                     name: '{{k}}',
-                    y: {{v.1|default:0|calcular_frecuencia:numero_parcelas}},
+                    y: {{v|default:0|calcular_frecuencia:VAR_TOTAL}},
                 },
             {% endfor %}
 
@@ -109,6 +109,7 @@ table th {
                                       <th>Composición</th>
                                       <th>Conteo</th>
                                       <th>Porcentaje(%)</th>
+                                      <th>Total (%)</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -117,6 +118,13 @@ table th {
                                       <th scope=row>{{k}}</th>
                                       <td>{{v|default:0}}</td>
                                       <td>{{v|default:0|calcular_frecuencia:VAR_TOTAL}}</td>
+                                      {% if forloop.first%}
+                                          <td rowspan="6">50</td>
+                                       {% elif forloop.counter == 7 %}
+                                            <td rowspan="4">10</td>
+                                       {% elif forloop.last %}
+                                          <td rowspan="0">nada</td>
+                                      {% endif %}
                                     </tr>
                                     {% endfor %}
                                   </tbody>
