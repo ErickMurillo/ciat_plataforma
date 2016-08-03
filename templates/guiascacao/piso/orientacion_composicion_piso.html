@@ -4,6 +4,27 @@
 
 {% block extra_js %}
 <script type="text/javascript">
+var elems = document.getElementsByClassName('valorBadge');
+var arr = jQuery.makeArray( elems );
+var otro1 = arr.slice(0,6);
+var sum1 = 0;
+    for (var i = 0;i < otro1.length; i++) {
+    sum1 += parseFloat(otro1[i].innerHTML, 10);
+    }
+document.getElementById('totalBadge1').innerHTML = sum1.toFixed(2);
+
+var otro2 = arr.slice(6,10);
+var sum2 = 0;
+    for (var i = 0;i < otro2.length; i++) {
+    sum2 += parseFloat(otro2[i].innerHTML, 10);
+    }
+document.getElementById('totalBadge2').innerHTML = sum2.toFixed(2);
+
+
+var otro3 = arr.slice(-1);
+var sum3 = parseFloat(otro3[0].innerHTML, 10);
+document.getElementById('totalBadge3').innerHTML = sum3;
+
 $(function () {
     // Create the chart
     $('#grafo2').highcharts({
@@ -117,13 +138,13 @@ table th {
                                     <tr>
                                       <th scope=row>{{k}}</th>
                                       <td>{{v|default:0}}</td>
-                                      <td>{{v|default:0|calcular_frecuencia:VAR_TOTAL}}</td>
+                                      <td class="valorBadge">{{v|default:0|calcular_frecuencia:VAR_TOTAL}}</td>
                                       {% if forloop.first%}
-                                          <td rowspan="6">nada</td>
+                                          <td class="totalBadge" rowspan="6"><div id="totalBadge1"></div></td>
                                        {% elif forloop.counter == 7 %}
-                                            <td rowspan="4">nada</td>
+                                            <td rowspan="4"><div id="totalBadge2"></div></td>
                                        {% elif forloop.last %}
-                                          <td rowspan="0">nada</td>
+                                          <td rowspan="0"><div id="totalBadge3"></div></td>
                                       {% endif %}
                                     </tr>
                                     {% endfor %}
