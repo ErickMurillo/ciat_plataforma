@@ -1140,17 +1140,17 @@ def acciones_plaga(request, template="guiascacao/plaga/acciones_plaga.html"):
                                          accionesenfermedad__meses__contains='L').count()
         grafo_momento[obj[1]] = [ene,feb,mar,abr,may,jun,jul,ago,sep,octu,nov,dic]
 
+    grafo_fuente = OrderedDict()
+    for obj in CHOICE_ORIENTACION:
+        conteo = filtro.filter(orientacion__fuentes__contains=obj[0]).count()
+        grafo_fuente[obj[1]] = (float(conteo)/float(numero_parcelas)*100)
+
 
     return render(request, template, locals())
 
 def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidencia_plaga.html"):
     filtro = _queryset_filtrado_plaga(request)
     numero_parcelas = filtro.count()
-
-    grafo_fuente = OrderedDict()
-    for obj in CHOICE_ORIENTACION:
-        conteo = filtro.filter(orientacion__fuentes__contains=obj[0]).count()
-        grafo_fuente[obj[1]] = (float(conteo)/float(numero_parcelas)*100)
 
     tabla_incidencia = OrderedDict()
 
@@ -1205,9 +1205,10 @@ def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidenci
                             punto3_nueve+punto3_diez
 
             suma_total = total_punto1 + total_punto2 + total_punto3
+            porcentaje_suma_total = float(suma_total)/30
             if suma_total >=1:
                 contador_si += 1
-            lista_arreglo.append(suma_total)
+            lista_arreglo.append(porcentaje_suma_total)
 
             tabla_incidencia[obj[1]] = (contador_si,np.mean(lista_arreglo),np.std(lista_arreglo),np.median(lista_arreglo),min(lista_arreglo),max(lista_arreglo))
 
@@ -1464,22 +1465,22 @@ def estado_piso2(request, template="guiascacao/piso/estado_manejo_piso.html"):
         dic = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1,pisopunto3__meses__contains='L').count()
         grafo_momento[obj[1]] = [ene,feb,mar,abr,may,jun,jul,ago,sep,octu,nov,dic]
 
+    grafo_orientacion = OrderedDict()
+    for obj in CHOICE_PISO4:
+        conteo = filtro.filter(pisopunto4__manejo=obj[0]).count()
+        grafo_orientacion[obj[1]] = conteo
+
     return render(request, template, locals())
 
 def orientacion_composicion_piso(request, template="guiascacao/piso/orientacion_composicion_piso.html"):
     filtro = _queryset_filtrado_piso(request)
     numero_parcelas = filtro.count()
 
-    grafo_orientacion = OrderedDict()
-    for obj in CHOICE_PISO4:
-        conteo = filtro.filter(pisopunto4__manejo=obj[0]).count()
-        grafo_orientacion[obj[1]] = conteo
-
-    tabla_composicion = OrderedDict()  
+    tabla_composicion = OrderedDict()
     for obj in CHOICE_PISO5:
         conteo = filtro.filter(pisopunto5__estado=obj[0]).count()
         suma = filtro.filter(pisopunto5__estado=obj[0]).aggregate(total=Sum('pisopunto5__conteo'))['total']
-        
+
         tabla_composicion[obj[1]] = suma
 
     VAR_TOTAL = 0

@@ -57,6 +57,60 @@ $(function () {
         {% endfor %}]
     });
 });
+$(function () {
+    // Create the chart
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '1.5 Fuentes'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (%)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Fuente',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_fuente.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
 </script>
 {% endblock extra_js %}
 
@@ -87,8 +141,8 @@ $(function () {
                                     <tr>
                                       <th>Acción</th>
                                       <th>#si</th>
-                                      <th>Porcentaje(%)</th>
-                                      <th>Cuántas veces al año <br>
+                                      <th>Porcentaje de fincas(%)</th>
+                                      <th>Cuántas veces realiza al año <br>
                                             promedio  &plusmn; desv. Estandar
                                       </th>
                                     </tr>
@@ -111,6 +165,12 @@ $(function () {
                     <div class="row">
                         <div class="col-md-12">
                             <div id="grafo1"></div>
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2"></div>
                         </div>
                     </div>
                 </div>

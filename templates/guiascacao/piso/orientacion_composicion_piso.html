@@ -6,60 +6,6 @@
 <script type="text/javascript">
 $(function () {
     // Create the chart
-    $('#grafo1').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Orientación fuente'
-        },
-        subtitle: {
-            text: ''
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
-            title: {
-                text: 'Frecuencia (%)'
-            }
-
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y:.1f}%'
-                }
-            }
-        },
-
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-        },
-
-        series: [{
-            name: 'Daño',
-            colorByPoint: true,
-            data: [
-            {% for k,v in grafo_orientacion.items %}
-                {
-                    name: '{{k}}',
-                    y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
-                },
-            {% endfor %}
-
-            ]
-        }]
-    });
-});
-$(function () {
-    // Create the chart
     $('#grafo2').highcharts({
         chart: {
             type: 'column'
@@ -157,7 +103,7 @@ table th {
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
-                                <caption>Composición del piso (NOTA: NO RECUERDO SI EL CONTEO ES LA SUMATORIA Y EL PORCENTAJE CON QUE LO SACO XD)</caption>
+                                <caption>Composición del piso</caption>
                                   <thead>
                                     <tr>
                                       <th>Composición</th>

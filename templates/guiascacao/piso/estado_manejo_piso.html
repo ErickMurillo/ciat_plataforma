@@ -59,6 +59,60 @@ $(function () {
         {% endfor %}]
     });
 });
+$(function () {
+    // Create the chart
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Orientación fuente'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (%)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_orientacion.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
 </script>
 {% endblock extra_js %}
 
@@ -89,8 +143,8 @@ $(function () {
                                     <tr>
                                       <th>Observación</th>
                                       <th>#fincas si</th>
-                                      <th>Porcentaje(%)</th>
-                                      <th>Promedio</th>
+                                      <th>Porcentaje(%) de fincas</th>
+                                      <th>Promedio de veces que aplican</th>
                                       <th>Desviación Estandar</th>
                                       <th>Mediana</th>
                                       <th>Valor minimo</th>
@@ -122,6 +176,11 @@ $(function () {
                     </div>
                 </div>
                 <hr>
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div id="grafo2"></div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>

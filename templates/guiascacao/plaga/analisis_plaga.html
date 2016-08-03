@@ -10,7 +10,7 @@ $(function () {
             type: 'bar'
         },
         title: {
-            text: 'Observadas en %'
+            text: 'Plagas observadas'
         },
         xAxis: {
             categories: [{% for k,v in grafo_analisis_plaga.items %}'{{k}}',{% endfor %}]
@@ -18,7 +18,7 @@ $(function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Frecuencia (%)'
+                text: '(%) fincas afectadas'
             }
         },
         legend: {
@@ -46,7 +46,7 @@ $(function () {
             type: 'bar'
         },
         title: {
-            text: 'Principales en %'
+            text: 'Plagas principales'
         },
         xAxis: {
             categories: [{% for k,v in grafo_analisis_plaga.items %}'{{k}}',{% endfor %}]
@@ -54,7 +54,7 @@ $(function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Frecuencia (%)'
+                text: '(%) de fincas afectadas'
             }
         },
         legend: {
