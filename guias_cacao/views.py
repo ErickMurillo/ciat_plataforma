@@ -1580,6 +1580,105 @@ def equipo_piso(request, template="guiascacao/piso/equipo_piso.html"):
 
 
     return render(request, template, locals())
+
+#--------- fin de salida de piso  -------------------------
+# -------- comienza salidas de cosecha -------------
+def _queryset_filtrado_cosecha(request):
+    params = {}
+
+    if 'fecha' in request.session:
+        params['fecha_visita__year'] = request.session['fecha']
+
+    if 'productor' in request.session:
+        params['productor__nombre'] = request.session['productor']
+
+    if 'organizacion' in request.session:
+        params['productor__productor__organizacion'] = request.session['organizacion']
+
+    if 'pais' in request.session:
+        params['productor__pais'] = request.session['pais']
+
+    if 'departamento' in request.session:
+        params['productor__departamento'] = request.session['departamento']
+
+    if 'municipio' in request.session:
+        params['productor__municipio'] = request.session['municipio']
+
+    if 'comunidad' in request.session:
+        params['productor__comunidad'] = request.session['comunidad']
+
+    if 'sexo' in request.session:
+        params['productor__sexo'] = request.session['sexo']
+
+    if 'tipologia' in request.session:
+        params['productor__productor__tipologia'] = request.session['tipologia']
+
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+        del params[key]
+
+    print 'Cosecha hermano'
+
+    return FichaCosecha.objects.filter(**params)
+#----------  SALIDAS DE COSECHA --------------------------
+
+def conversacion_cosecha(request, template="guiascacao/cosecha/conversaciones_cosecha.html"):
+    filtro = _queryset_filtrado_cosecha(request)
+    numero_parcelas = filtro.count()
+
+    dict_conversacion1 = OrderedDict()
+    for obj in CHOICE_COSECHA_CONVERSACION_1:
+        conteo = filtro.filter(cosechaconversacion1__conversacion1__contains=obj[0]).count()
+        dict_conversacion1[obj[1]] = conteo
+
+    dict_conversacion2 = OrderedDict()
+    for obj in CHOICE_COSECHA_CONVERSACION_2:
+        conteo = filtro.filter(cosechaconversacion1__conversacion2__contains=obj[0]).count()
+        dict_conversacion2[obj[1]] = conteo
+
+    dict_conversacion3 = OrderedDict()
+    for obj in CHOICE_COSECHA_CONVERSACION_3:
+        conteo = filtro.filter(cosechaconversacion1__conversacion3__contains=obj[0]).count()
+        dict_conversacion3[obj[1]] = conteo
+
+    dict_conversacion4 = OrderedDict()
+    for obj in CHOICE_COSECHA_CONVERSACION_4:
+        conteo = filtro.filter(cosechaconversacion1__conversacion4__contains=obj[0]).count()
+        dict_conversacion4[obj[1]] = conteo
+
+    dict_conversacion5 = OrderedDict()
+    for obj in CHOICE_COSECHA_CONVERSACION_5:
+        conteo = filtro.filter(cosechaconversacion2__conversacion5__contains=obj[0]).count()
+        dict_conversacion5[obj[1]] = conteo
+
+    list_conversacion6 = []
+    for obj in filtro:
+        lista = CosechaConversacion2.objects.filter(ficha=obj).values_list('conversacion6', flat=True)
+        list_conversacion6.append(lista)
+        print list_conversacion6
+    print list_conversacion6
+
+    dict_conversacion7 = OrderedDict()
+    for obj in CHOICE_COSECHA_CONVERSACION_7:
+        conteo = filtro.filter(cosechaconversacion2__conversacion7__contains=obj[0]).count()
+        dict_conversacion7[obj[1]] = conteo
+
+    dict_conversacion8 = OrderedDict()
+    for obj in CHOICE_COSECHA_CONVERSACION_8:
+        conteo = filtro.filter(cosechaconversacion2__conversacion8__contains=obj[0]).count()
+        dict_conversacion8[obj[1]] = conteo
+
+
+    return render(request, template, locals())
+
+
+
+
+
 #----------  funciones utilitarias --------------------------
 def crear_rangos(request, lista, start=0, stop=0, step=0):
     dict_algo = OrderedDict()
