@@ -42,7 +42,11 @@ urlpatterns = patterns('guias_cacao.views',
 
     #urls cosecha
     url(r'^cosecha/conversaciones/$', 'conversacion_cosecha', name='conversacion-cosecha'),
-    url(r'^cosecha/mazorcas_sanas/$', 'datos_sanos_cosecha', name='datos-sanos-cosecha'),
+    url(r'^cosecha/mazorcas-sanas/$', 'datos_sanos_cosecha', name='datos-sanos-cosecha'),
+    url(r'^cosecha/mazorcas-enfermas/$', 'datos_enfermas_cosecha', name='datos-enfermas-cosecha'),
+    url(r'^cosecha/mazorcas-danadas/$', 'datos_danadas_cosecha', name='datos-danadas-cosecha'),
+    url(r'^cosecha/analisis/$', 'analisis_cosecha', name='analisis-cosecha'),
+
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )
