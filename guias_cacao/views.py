@@ -1205,7 +1205,7 @@ def fuente_incidencia_plaga(request, template="guiascacao/plaga/fuente_incidenci
                             punto3_nueve+punto3_diez
 
             suma_total = total_punto1 + total_punto2 + total_punto3
-            porcentaje_suma_total = float(suma_total)/30
+            porcentaje_suma_total = (float(suma_total)/30)*100
             if suma_total >=1:
                 contador_si += 1
             lista_arreglo.append(porcentaje_suma_total)
@@ -1814,13 +1814,13 @@ def datos_sanos_cosecha(request, template="guiascacao/cosecha/datos_sanos_cosech
     MAZORCAS_SANAS_X_MANZANAS = MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA
 
     #Numero 6
-    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS)/float(5) * 100
+    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(5) * 100)
 
     #numero 7
     PESO_GRANO_SECO = float(PESO_BABA)/float(3)
 
     #numero 8
-    PESO_GRANO_SECO_KILO_HA = PESO_GRANO_SECO * 1.4 * 0.454 * 100
+    PESO_GRANO_SECO_KILO_HA = PESO_GRANO_SECO * (1.4 * 0.454 * 100)
 
     return render(request, template, locals())
 
