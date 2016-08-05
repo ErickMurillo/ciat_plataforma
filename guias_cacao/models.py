@@ -2195,7 +2195,40 @@ class CosechaPunto1(models.Model):
     planta_9 = models.FloatField()
     planta_10 = models.FloatField()
 
+    total_platas = models.FloatField(editable=False, null=True, blank=True)
+    contador = models.IntegerField(editable=False, default=0, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaCosecha)
+
+    def save(self, *args, **kwargs):
+        self.total_platas = self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + \
+                                        self.planta_5 + self.planta_6 + self.planta_7 + self.planta_8 + self.planta_9 + self.planta_10
+        contar = 0
+        if self.planta_1 >= 0:
+            contar += 1
+        if self.planta_2 >= 0:
+            contar += 1
+        if self.planta_3 >= 0:
+            contar += 1
+        if self.planta_4 >= 0:
+            contar += 1
+        if self.planta_5 >= 0:
+            contar += 1
+        if self.planta_6 >= 0:
+            contar += 1
+        if self.planta_7 >= 0:
+            contar += 1
+        if self.planta_8 >= 0:
+            contar += 1
+        if self.planta_9 >= 0:
+            contar += 1
+        if self.planta_10 >= 0:
+            contar += 1
+
+        self.contador = contar
+
+        super(CosechaPunto1, self).save(*args, **kwargs)
+
 
     def __unicode__(self):
         return u"2.1 Punto 1"
@@ -2214,7 +2247,39 @@ class CosechaPunto2(models.Model):
     planta_9 = models.FloatField()
     planta_10 = models.FloatField()
 
+    total_platas = models.FloatField(editable=False, null=True, blank=True)
+    contador = models.IntegerField(editable=False, default=0, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaCosecha)
+
+    def save(self, *args, **kwargs):
+        self.total_platas = self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + \
+                                        self.planta_5 + self.planta_6 + self.planta_7 + self.planta_8 + self.planta_9 + self.planta_10
+        contar = 0
+        if self.planta_1 >= 0:
+            contar += 1
+        if self.planta_2 >= 0:
+            contar += 1
+        if self.planta_3 >= 0:
+            contar += 1
+        if self.planta_4 >= 0:
+            contar += 1
+        if self.planta_5 >= 0:
+            contar += 1
+        if self.planta_6 >= 0:
+            contar += 1
+        if self.planta_7 >= 0:
+            contar += 1
+        if self.planta_8 >= 0:
+            contar += 1
+        if self.planta_9 >= 0:
+            contar += 1
+        if self.planta_10 >= 0:
+            contar += 1
+
+        self.contador = contar
+
+        super(CosechaPunto2, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"2.2 Punto 2"
@@ -2233,7 +2298,39 @@ class CosechaPunto3(models.Model):
     planta_9 = models.FloatField()
     planta_10 = models.FloatField()
 
+    total_platas = models.FloatField(editable=False, null=True, blank=True)
+    contador = models.IntegerField(editable=False, default=0, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaCosecha)
+
+    def save(self, *args, **kwargs):
+        self.total_platas = self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + \
+                                        self.planta_5 + self.planta_6 + self.planta_7 + self.planta_8 + self.planta_9 + self.planta_10
+        contar = 0
+        if self.planta_1 >= 0:
+            contar += 1
+        if self.planta_2 >= 0:
+            contar += 1
+        if self.planta_3 >= 0:
+            contar += 1
+        if self.planta_4 >= 0:
+            contar += 1
+        if self.planta_5 >= 0:
+            contar += 1
+        if self.planta_6 >= 0:
+            contar += 1
+        if self.planta_7 >= 0:
+            contar += 1
+        if self.planta_8 >= 0:
+            contar += 1
+        if self.planta_9 >= 0:
+            contar += 1
+        if self.planta_10 >= 0:
+            contar += 1
+
+        self.contador = contar
+
+        super(CosechaPunto3, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"2.3 Punto 3"

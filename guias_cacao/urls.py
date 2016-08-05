@@ -42,6 +42,7 @@ urlpatterns = patterns('guias_cacao.views',
 
     #urls cosecha
     url(r'^cosecha/conversaciones/$', 'conversacion_cosecha', name='conversacion-cosecha'),
+    url(r'^cosecha/mazorcas_sanas/$', 'datos_sanos_cosecha', name='datos-sanos-cosecha'),
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )
