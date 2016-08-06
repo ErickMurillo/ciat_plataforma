@@ -1920,6 +1920,21 @@ def analisis_cosecha(request, template="guiascacao/cosecha/analisis_cosecha.html
     filtro = _queryset_filtrado_cosecha(request)
     numero_parcelas = filtro.count()
 
+    analisis_1 = OrderedDict()
+    for obj in CHOICE_COSECHA_ANALISIS_1:
+        conteo = filtro.filter(cosechaanalisis__analisis1__contains=obj[0]).count()
+        analisis_1[obj[1]] = conteo
+
+    analisis_2 = OrderedDict()
+    for obj in CHOICE_COSECHA_ANALISIS_2:
+        conteo = filtro.filter(cosechaanalisis__analisis2__contains=obj[0]).count()
+        analisis_2[obj[1]] = conteo
+
+    analisis_3 = OrderedDict()
+    for obj in CHOICE_COSECHA_ANALISIS_3:
+        conteo = filtro.filter(cosechaanalisis__analisis3__contains=obj[0]).count()
+        analisis_3[obj[1]] = conteo
+
     return render(request, template, locals())
 
 

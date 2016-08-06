@@ -11,7 +11,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Determinación de madurez'
+            text: 'Problema principal que afecta el rendimiento productivo de la parcela de cacao'
         },
         subtitle: {
             text: ''
@@ -47,7 +47,7 @@ $(function () {
             name: '',
             colorByPoint: true,
             data: [
-            {% for k,v in dict_conversacion1.items %}
+            {% for k,v in analisis_1.items %}
                 {
                     name: '{{k}}',
                     y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
@@ -66,7 +66,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Herramientas para el corte'
+            text: 'Causa de la pérdida de producción en la parcela de cacao'
         },
         subtitle: {
             text: ''
@@ -102,7 +102,7 @@ $(function () {
             name: 'Daño',
             colorByPoint: true,
             data: [
-            {% for k,v in dict_conversacion2.items %}
+            {% for k,v in analisis_2.items %}
                 {
                     name: '{{k}}',
                     y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
@@ -121,7 +121,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Criterias para seleccionar antes de quiebra'
+            text: 'Prácticas  realiza en la parcela de cacao para mejorar la cosecha'
         },
         subtitle: {
             text: ''
@@ -157,7 +157,7 @@ $(function () {
             name: 'Daño',
             colorByPoint: true,
             data: [
-            {% for k,v in dict_conversacion3.items %}
+            {% for k,v in analisis_3.items %}
                 {
                     name: '{{k}}',
                     y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
