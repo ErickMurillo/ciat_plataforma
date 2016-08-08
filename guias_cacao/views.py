@@ -1322,11 +1322,12 @@ def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_
                         punto3_nueve+punto3_diez
 
             gran_total = total_punto1 + total_punto2 + total_punto3
-            gran_total_porcentaje = float((gran_total*100))/(float(numero_parcelas)*30)
+            #gran_total_porcentaje = float((gran_total*100))/(float(numero_parcelas)*30)
 
-            grafo_nivel_produccion2[obj[1]] = gran_total_porcentaje
+            grafo_nivel_produccion2[obj[1]] = gran_total
 
-        formula = float((5*grafo_nivel_produccion2['Baja'])+(20*grafo_nivel_produccion2['Media'])+(40*grafo_nivel_produccion2['Alta']))/100
+        formula = float((5*grafo_nivel_produccion2['Baja'])+(20*grafo_nivel_produccion2['Media'])+(40*grafo_nivel_produccion2['Alta'])) / float(30)
+        
         punto1_uno = ObservacionPunto1.objects.filter(ficha=x,planta=1,uno=1).count()
         punto1_dos = ObservacionPunto1.objects.filter(ficha=x,planta=1,dos=1).count()
         punto1_tres = ObservacionPunto1.objects.filter(ficha=x,planta=1,tres=1).count()
@@ -1808,13 +1809,14 @@ def datos_sanos_cosecha(request, template="guiascacao/cosecha/datos_sanos_cosech
     lista_completa = list(punto1_plantas_numero) + list(punto2_plantas_numero) + list(punto3_plantas_numero)
 
     #Numero 4
-    PROMEDIO_PLATAS_POR_MANZANA = np.mean(lista_completa)
+
+    PROMEDIO_PLATAS_POR_MANZANA = filtro.aggregate(promedio=Avg('cosechaareaplantas__plantas'))['promedio']
 
     #Numero 5
-    MAZORCAS_SANAS_X_MANZANAS = MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA
+    MAZORCAS_SANAS_X_MANZANAS = (MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA) * float(1.6)
 
     #Numero 6
-    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(5) * 100)
+    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(3.5) * 100)
 
     #numero 7
     PESO_GRANO_SECO = float(PESO_BABA)/float(3)
@@ -1854,13 +1856,14 @@ def datos_enfermas_cosecha(request, template="guiascacao/cosecha/datos_enfermas_
     lista_completa = list(punto1_plantas_numero) + list(punto2_plantas_numero) + list(punto3_plantas_numero)
 
     #Numero 4
-    PROMEDIO_PLATAS_POR_MANZANA = np.mean(lista_completa)
+    PROMEDIO_PLATAS_POR_MANZANA = filtro.aggregate(promedio=Avg('cosechaareaplantas__plantas'))['promedio']
 
     #Numero 5
-    MAZORCAS_SANAS_X_MANZANAS = MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA
+    MAZORCAS_SANAS_X_MANZANAS = (MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA) * float(1.6)
+
 
     #Numero 6
-    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(5) * 100)
+    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(3.5) * 100) 
 
     #numero 7
     PESO_GRANO_SECO = float(PESO_BABA)/float(3)
@@ -1900,13 +1903,14 @@ def datos_danadas_cosecha(request, template="guiascacao/cosecha/datos_danadas_co
     lista_completa = list(punto1_plantas_numero) + list(punto2_plantas_numero) + list(punto3_plantas_numero)
 
     #Numero 4
-    PROMEDIO_PLATAS_POR_MANZANA = np.mean(lista_completa)
+    PROMEDIO_PLATAS_POR_MANZANA = filtro.aggregate(promedio=Avg('cosechaareaplantas__plantas'))['promedio']
 
     #Numero 5
-    MAZORCAS_SANAS_X_MANZANAS = MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA
+    MAZORCAS_SANAS_X_MANZANAS = (MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA) * float(1.6)
+
 
     #Numero 6
-    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(5) * 100)
+    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(3.5) * 100)
 
     #numero 7
     PESO_GRANO_SECO = float(PESO_BABA)/float(3)
