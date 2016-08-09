@@ -47,6 +47,16 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^cosecha/mazorcas-danadas/$', 'datos_danadas_cosecha', name='datos-danadas-cosecha'),
     url(r'^cosecha/analisis/$', 'analisis_cosecha', name='analisis-cosecha'),
 
+    #urls cierre
+    url(r'^cierre/sombra/$', 'sombra_cierre', name='sombra-cierre'),
+    url(r'^cierre/poda/$', 'poda_cierre', name='poda-cierre'),
+    url(r'^cierre/suelo/$', 'suelo_cierre', name='suelo-cierre'),
+    url(r'^cierre/plaga/$', 'plaga_cierre', name='plaga-cierre'),
+    url(r'^cierre/piso/$', 'piso_cierre', name='piso-cierre'),
+    url(r'^cierre/vivero/$', 'vivero_cierre', name='vivero-cierre'),
+    url(r'^cierre/cosecha/$', 'cosecha_cierre', name='cosecha-cierre'),
+    url(r'^cierre/ciclo-trabajo/$', 'ciclo_trabajo_cierre', name='ciclo-trabajo-cierre'),
+
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )

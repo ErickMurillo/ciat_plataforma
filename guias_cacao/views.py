@@ -1941,6 +1941,283 @@ def analisis_cosecha(request, template="guiascacao/cosecha/analisis_cosecha.html
 
     return render(request, template, locals())
 
+#-------------- fin de salidas de cosecha -------------
+
+#-------------- comienza salidas de cierre ------------
+def _queryset_filtrado_cierre(request):
+    params = {}
+
+    if 'fecha' in request.session:
+        params['fecha_visita__year'] = request.session['fecha']
+
+    if 'productor' in request.session:
+        params['productor__nombre'] = request.session['productor']
+
+    if 'organizacion' in request.session:
+        params['productor__productor__organizacion'] = request.session['organizacion']
+
+    if 'pais' in request.session:
+        params['productor__pais'] = request.session['pais']
+
+    if 'departamento' in request.session:
+        params['productor__departamento'] = request.session['departamento']
+
+    if 'municipio' in request.session:
+        params['productor__municipio'] = request.session['municipio']
+
+    if 'comunidad' in request.session:
+        params['productor__comunidad'] = request.session['comunidad']
+
+    if 'sexo' in request.session:
+        params['productor__sexo'] = request.session['sexo']
+
+    if 'tipologia' in request.session:
+        params['productor__productor__tipologia'] = request.session['tipologia']
+
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+        del params[key]
+
+    print 'Cierre hermano'
+
+    return FichaCierre.objects.filter(**params)
+
+#---------- SALIDAS DE CIERRE --------------------------
+
+def sombra_cierre(request, template="guiascacao/cierre/sombra_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    impacto_sombra = OrderedDict()
+    for obj in CHOICE_CIERRE_1_1_IMPACTO:
+        conteo = filtro.filter(cierremanejo1__campo1__contains=obj[0]).count()
+        impacto_sombra[obj[1]] = conteo
+
+    planificada_sombra = OrderedDict()
+    for obj in CHOICE_CIERRE_1_1_PLANIFICADA:
+        conteo = filtro.filter(cierremanejo1__campo2__contains=obj[0]).count()
+        planificada_sombra[obj[1]] = conteo
+
+    realizada_sombra = OrderedDict()
+    for obj in CHOICE_CIERRE_1_1_REALIZADA:
+        conteo = filtro.filter(cierremanejo1__campo3__contains=obj[0]).count()
+        realizada_sombra[obj[1]] = conteo
+
+    resultado_sombra = OrderedDict()
+    for obj in CHOICE_CIERRE_1_1_RESULTADOS:
+        conteo = filtro.filter(cierremanejo1__campo4__contains=obj[0]).count()
+        resultado_sombra[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+
+def poda_cierre(request, template="guiascacao/cierre/poda_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    impacto_poda = OrderedDict()
+    for obj in CHOICE_CIERRE_1_2_IMPACTO:
+        conteo = filtro.filter(cierremanejo2__campo1__contains=obj[0]).count()
+        impacto_poda[obj[1]] = conteo
+
+    planificada_poda = OrderedDict()
+    for obj in CHOICE_CIERRE_1_2_PLANIFICADA:
+        conteo = filtro.filter(cierremanejo2__campo2__contains=obj[0]).count()
+        planificada_poda[obj[1]] = conteo
+
+    realizada_poda = OrderedDict()
+    for obj in CHOICE_CIERRE_1_2_REALIZADA:
+        conteo = filtro.filter(cierremanejo2__campo3__contains=obj[0]).count()
+        realizada_poda[obj[1]] = conteo
+
+    resultado_poda = OrderedDict()
+    for obj in CHOICE_CIERRE_1_2_RESULTADOS:
+        conteo = filtro.filter(cierremanejo2__campo4__contains=obj[0]).count()
+        resultado_poda[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+
+def suelo_cierre(request, template="guiascacao/cierre/suelo_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    impacto_suelo = OrderedDict()
+    for obj in CHOICE_CIERRE_1_3_IMPACTO:
+        conteo = filtro.filter(cierremanejo3__campo1__contains=obj[0]).count()
+        impacto_suelo[obj[1]] = conteo
+
+    planificada_suelo = OrderedDict()
+    for obj in CHOICE_CIERRE_1_3_PLANIFICADA:
+        conteo = filtro.filter(cierremanejo3__campo2__contains=obj[0]).count()
+        planificada_suelo[obj[1]] = conteo
+
+    realizada_suelo = OrderedDict()
+    for obj in CHOICE_CIERRE_1_3_REALIZADA:
+        conteo = filtro.filter(cierremanejo3__campo3__contains=obj[0]).count()
+        realizada_suelo[obj[1]] = conteo
+
+    resultado_suelo = OrderedDict()
+    for obj in CHOICE_CIERRE_1_3_RESULTADOS:
+        conteo = filtro.filter(cierremanejo3__campo4__contains=obj[0]).count()
+        resultado_suelo[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+def plaga_cierre(request, template="guiascacao/cierre/plaga_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    impacto_plaga = OrderedDict()
+    for obj in CHOICE_CIERRE_1_4_IMPACTO:
+        conteo = filtro.filter(cierremanejo4__campo1__contains=obj[0]).count()
+        impacto_plaga[obj[1]] = conteo
+
+    planificada_plaga = OrderedDict()
+    for obj in CHOICE_CIERRE_1_4_PLANIFICADA:
+        conteo = filtro.filter(cierremanejo4__campo2__contains=obj[0]).count()
+        planificada_plaga[obj[1]] = conteo
+
+    realizada_plaga = OrderedDict()
+    for obj in CHOICE_CIERRE_1_4_REALIZADA:
+        conteo = filtro.filter(cierremanejo4__campo3__contains=obj[0]).count()
+        realizada_plaga[obj[1]] = conteo
+
+    resultado_plaga = OrderedDict()
+    for obj in CHOICE_CIERRE_1_4_RESULTADOS:
+        conteo = filtro.filter(cierremanejo4__campo4__contains=obj[0]).count()
+        resultado_plaga[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+def piso_cierre(request, template="guiascacao/cierre/piso_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    impacto_piso = OrderedDict()
+    for obj in CHOICE_CIERRE_1_5_IMPACTO:
+        conteo = filtro.filter(cierremanejo5__campo1__contains=obj[0]).count()
+        impacto_piso[obj[1]] = conteo
+
+    planificada_piso = OrderedDict()
+    for obj in CHOICE_CIERRE_1_5_PLANIFICADA:
+        conteo = filtro.filter(cierremanejo5__campo2__contains=obj[0]).count()
+        planificada_piso[obj[1]] = conteo
+
+    realizada_piso = OrderedDict()
+    for obj in CHOICE_CIERRE_1_5_REALIZADA:
+        conteo = filtro.filter(cierremanejo5__campo3__contains=obj[0]).count()
+        realizada_piso[obj[1]] = conteo
+
+    resultado_piso = OrderedDict()
+    for obj in CHOICE_CIERRE_1_5_RESULTADOS:
+        conteo = filtro.filter(cierremanejo5__campo4__contains=obj[0]).count()
+        resultado_piso[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+def vivero_cierre(request, template="guiascacao/cierre/vivero_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    impacto_viviero = OrderedDict()
+    for obj in CHOICE_CIERRE_1_6_IMPACTO:
+        conteo = filtro.filter(cierremanejo6__campo1__contains=obj[0]).count()
+        impacto_viviero[obj[1]] = conteo
+
+    planificada_viviero = OrderedDict()
+    for obj in CHOICE_CIERRE_1_6_PLANIFICADA:
+        conteo = filtro.filter(cierremanejo6__campo2__contains=obj[0]).count()
+        planificada_viviero[obj[1]] = conteo
+
+    realizada_viviero = OrderedDict()
+    for obj in CHOICE_CIERRE_1_6_REALIZADA:
+        conteo = filtro.filter(cierremanejo6__campo3__contains=obj[0]).count()
+        realizada_viviero[obj[1]] = conteo
+
+    resultado_viviero = OrderedDict()
+    for obj in CHOICE_CIERRE_1_6_RESULTADOS:
+        conteo = filtro.filter(cierremanejo6__campo4__contains=obj[0]).count()
+        resultado_viviero[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+def cosecha_cierre(request, template="guiascacao/cierre/cosecha_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    impacto_cosecha = OrderedDict()
+    for obj in CHOICE_CIERRE_1_7_IMPACTO:
+        conteo = filtro.filter(cierremanejo7__campo1__contains=obj[0]).count()
+        impacto_cosecha[obj[1]] = conteo
+
+    planificada_cosecha = OrderedDict()
+    for obj in CHOICE_CIERRE_1_7_PLANIFICADA:
+        conteo = filtro.filter(cierremanejo7__campo2__contains=obj[0]).count()
+        planificada_cosecha[obj[1]] = conteo
+
+    realizada_cosecha = OrderedDict()
+    for obj in CHOICE_CIERRE_1_7_REALIZADA:
+        conteo = filtro.filter(cierremanejo7__campo3__contains=obj[0]).count()
+        realizada_cosecha[obj[1]] = conteo
+
+    resultado_cosecha = OrderedDict()
+    for obj in CHOICE_CIERRE_1_7_RESULTADO:
+        conteo = filtro.filter(cierremanejo7__campo4__contains=obj[0]).count()
+        resultado_cosecha[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+def ciclo_trabajo_cierre(request, template="guiascacao/cierre/ciclo_trabajo_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    pie_1 = OrderedDict()
+    for obj in CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA:
+        conteo = filtro.filter(cierreciclotrabajo__pregunta1=obj[0]).count()
+        pie_1[obj[1]] = conteo
+
+    pie_2 = OrderedDict()
+    for obj in CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA:
+        conteo = filtro.filter(cierreciclotrabajo__pregunta2=obj[0]).count()
+        pie_2[obj[1]] = conteo
+
+    pie_3 = OrderedDict()
+    for obj in CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA:
+        conteo = filtro.filter(cierreciclotrabajo__pregunta3=obj[0]).count()
+        pie_3[obj[1]] = conteo
+
+    pie_4 = OrderedDict()
+    for obj in CHOICE_CIERRE_CICLO_TRABAJO2_RESPUESTA:
+        conteo = filtro.filter(cierreciclotrabajo__pregunta4=obj[0]).count()
+        pie_4[obj[1]] = conteo
+
+    pie_5 = OrderedDict()
+    for obj in CHOICE_CIERRE_CICLO_TRABAJO3_RESPUESTA:
+        conteo = filtro.filter(cierreciclotrabajo__pregunta5=obj[0]).count()
+        pie_5[obj[1]] = conteo
+
+    pie_6 = OrderedDict()
+    for obj in CHOICE_CIERRE_CICLO_TRABAJO4_RESPUESTA:
+        conteo = filtro.filter(cierreciclotrabajo__pregunta6=obj[0]).count()
+        pie_6[obj[1]] = conteo
+
+    pie_7 = OrderedDict()
+    for obj in CHOICE_CIERRE_CICLO_TRABAJO5_RESPUESTA:
+        conteo = filtro.filter(cierreciclotrabajo__pregunta7=obj[0]).count()
+        pie_7[obj[1]] = conteo
+
+    pie_8 = OrderedDict()
+    for obj in CHOICE_SI_NO:
+        conteo = filtro.filter(cierreciclotrabajo__pregunta8=obj[0]).count()
+        pie_8[obj[1]] = conteo
+
+
+    return render(request, template, locals())
 
 
 #----------  funciones utilitarias --------------------------
