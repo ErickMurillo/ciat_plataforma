@@ -1327,7 +1327,7 @@ def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_
             grafo_nivel_produccion2[obj[1]] = gran_total
 
         formula = float((5*grafo_nivel_produccion2['Baja'])+(20*grafo_nivel_produccion2['Media'])+(40*grafo_nivel_produccion2['Alta'])) / float(30)
-        
+
         punto1_uno = ObservacionPunto1.objects.filter(ficha=x,planta=1,uno=1).count()
         punto1_dos = ObservacionPunto1.objects.filter(ficha=x,planta=1,dos=1).count()
         punto1_tres = ObservacionPunto1.objects.filter(ficha=x,planta=1,tres=1).count()
@@ -1783,46 +1783,7 @@ def datos_sanos_cosecha(request, template="guiascacao/cosecha/datos_sanos_cosech
     filtro = _queryset_filtrado_cosecha(request)
     numero_parcelas = filtro.count()
 
-    punto1_plantas = filtro.filter(cosechapunto1__mazorcas=1,
-                    cosechapunto1__contador__gt=0).aggregate(plantas=Sum('cosechapunto1__contador'))['plantas']
-    punto2_plantas = filtro.filter(cosechapunto2__mazorcas=1,
-                    cosechapunto2__contador__gt=0).aggregate(plantas=Sum('cosechapunto2__contador'))['plantas']
-    punto3_plantas = filtro.filter(cosechapunto3__mazorcas=1,
-                    cosechapunto3__contador__gt=0).aggregate(plantas=Sum('cosechapunto3__contador'))['plantas']
-
-    #Numero 1
-    TOTAL_PLANTAS = punto1_plantas + punto2_plantas + punto3_plantas
-
-    punto1_mazorca_sana = filtro.filter(cosechapunto1__mazorcas=1).aggregate(sanas=Sum('cosechapunto1__total_platas'))['sanas']
-    punto2_mazorca_sana = filtro.filter(cosechapunto2__mazorcas=1).aggregate(sanas=Sum('cosechapunto2__total_platas'))['sanas']
-    punto3_mazorca_sana = filtro.filter(cosechapunto3__mazorcas=1).aggregate(sanas=Sum('cosechapunto3__total_platas'))['sanas']
-
-    #Numero 2
-    TOTAL_MAZORCAS_SANAS = punto1_mazorca_sana + punto2_mazorca_sana + punto3_mazorca_sana
-
-    #Numero 3
-    MAZORCA_SANA_POR_PLATA = float(TOTAL_MAZORCAS_SANAS)/float(TOTAL_PLANTAS)
-    punto1_plantas_numero = filtro.filter(cosechapunto1__mazorcas=1,cosechapunto1__contador__gt=0).values_list('cosechapunto1__contador', flat=True)
-    punto2_plantas_numero = filtro.filter(cosechapunto2__mazorcas=1,cosechapunto2__contador__gt=0).values_list('cosechapunto2__contador', flat=True)
-    punto3_plantas_numero = filtro.filter(cosechapunto3__mazorcas=1,cosechapunto3__contador__gt=0).values_list('cosechapunto3__contador', flat=True)
-
-    lista_completa = list(punto1_plantas_numero) + list(punto2_plantas_numero) + list(punto3_plantas_numero)
-
-    #Numero 4
-
-    PROMEDIO_PLATAS_POR_MANZANA = filtro.aggregate(promedio=Avg('cosechaareaplantas__plantas'))['promedio']
-
-    #Numero 5
-    MAZORCAS_SANAS_X_MANZANAS = (MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA) * float(1.6)
-
-    #Numero 6
-    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(3.5) * 100)
-
-    #numero 7
-    PESO_GRANO_SECO = float(PESO_BABA)/float(3)
-
-    #numero 8
-    PESO_GRANO_SECO_KILO_HA = PESO_GRANO_SECO * (1.4 * 0.454 * 100)
+    danadas = generic_datos_cosecha(request,1)
 
     return render(request, template, locals())
 
@@ -1830,46 +1791,7 @@ def datos_enfermas_cosecha(request, template="guiascacao/cosecha/datos_enfermas_
     filtro = _queryset_filtrado_cosecha(request)
     numero_parcelas = filtro.count()
 
-    punto1_plantas = filtro.filter(cosechapunto1__mazorcas=2,
-                    cosechapunto1__contador__gt=0).aggregate(plantas=Sum('cosechapunto1__contador'))['plantas']
-    punto2_plantas = filtro.filter(cosechapunto2__mazorcas=2,
-                    cosechapunto2__contador__gt=0).aggregate(plantas=Sum('cosechapunto2__contador'))['plantas']
-    punto3_plantas = filtro.filter(cosechapunto3__mazorcas=2,
-                    cosechapunto3__contador__gt=0).aggregate(plantas=Sum('cosechapunto3__contador'))['plantas']
-
-    #Numero 1
-    TOTAL_PLANTAS = punto1_plantas + punto2_plantas + punto3_plantas
-
-    punto1_mazorca_sana = filtro.filter(cosechapunto1__mazorcas=2).aggregate(sanas=Sum('cosechapunto1__total_platas'))['sanas']
-    punto2_mazorca_sana = filtro.filter(cosechapunto2__mazorcas=2).aggregate(sanas=Sum('cosechapunto2__total_platas'))['sanas']
-    punto3_mazorca_sana = filtro.filter(cosechapunto3__mazorcas=2).aggregate(sanas=Sum('cosechapunto3__total_platas'))['sanas']
-
-    #Numero 2
-    TOTAL_MAZORCAS_SANAS = punto1_mazorca_sana + punto2_mazorca_sana + punto3_mazorca_sana
-
-    #Numero 3
-    MAZORCA_SANA_POR_PLATA = float(TOTAL_MAZORCAS_SANAS)/float(TOTAL_PLANTAS)
-    punto1_plantas_numero = filtro.filter(cosechapunto1__mazorcas=2,cosechapunto1__contador__gt=0).values_list('cosechapunto1__contador', flat=True)
-    punto2_plantas_numero = filtro.filter(cosechapunto2__mazorcas=2,cosechapunto2__contador__gt=0).values_list('cosechapunto2__contador', flat=True)
-    punto3_plantas_numero = filtro.filter(cosechapunto3__mazorcas=2,cosechapunto3__contador__gt=0).values_list('cosechapunto3__contador', flat=True)
-
-    lista_completa = list(punto1_plantas_numero) + list(punto2_plantas_numero) + list(punto3_plantas_numero)
-
-    #Numero 4
-    PROMEDIO_PLATAS_POR_MANZANA = filtro.aggregate(promedio=Avg('cosechaareaplantas__plantas'))['promedio']
-
-    #Numero 5
-    MAZORCAS_SANAS_X_MANZANAS = (MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA) * float(1.6)
-
-
-    #Numero 6
-    PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(3.5) * 100) 
-
-    #numero 7
-    PESO_GRANO_SECO = float(PESO_BABA)/float(3)
-
-    #numero 8
-    PESO_GRANO_SECO_KILO_HA = PESO_GRANO_SECO * (1.4 * 0.454 * 100)
+    danadas = generic_datos_cosecha(request,2)
 
     return render(request, template, locals())
 
@@ -1877,48 +1799,47 @@ def datos_danadas_cosecha(request, template="guiascacao/cosecha/datos_danadas_co
     filtro = _queryset_filtrado_cosecha(request)
     numero_parcelas = filtro.count()
 
-    punto1_plantas = filtro.filter(cosechapunto1__mazorcas=3,
+    danadas = generic_datos_cosecha(request,3)
+
+    return render(request, template, locals())
+
+def generic_datos_cosecha(request, tipo=0):
+    filtro = _queryset_filtrado_cosecha(request)
+    numero_parcelas = filtro.count()
+
+    punto1_plantas = filtro.filter(cosechapunto1__mazorcas=tipo,
                     cosechapunto1__contador__gt=0).aggregate(plantas=Sum('cosechapunto1__contador'))['plantas']
-    punto2_plantas = filtro.filter(cosechapunto2__mazorcas=3,
+    punto2_plantas = filtro.filter(cosechapunto2__mazorcas=tipo,
                     cosechapunto2__contador__gt=0).aggregate(plantas=Sum('cosechapunto2__contador'))['plantas']
-    punto3_plantas = filtro.filter(cosechapunto3__mazorcas=3,
+    punto3_plantas = filtro.filter(cosechapunto3__mazorcas=tipo,
                     cosechapunto3__contador__gt=0).aggregate(plantas=Sum('cosechapunto3__contador'))['plantas']
 
     #Numero 1
     TOTAL_PLANTAS = punto1_plantas + punto2_plantas + punto3_plantas
 
-    punto1_mazorca_sana = filtro.filter(cosechapunto1__mazorcas=3).aggregate(sanas=Sum('cosechapunto1__total_platas'))['sanas']
-    punto2_mazorca_sana = filtro.filter(cosechapunto2__mazorcas=3).aggregate(sanas=Sum('cosechapunto2__total_platas'))['sanas']
-    punto3_mazorca_sana = filtro.filter(cosechapunto3__mazorcas=3).aggregate(sanas=Sum('cosechapunto3__total_platas'))['sanas']
+    punto1_mazorca_sana = filtro.filter(cosechapunto1__mazorcas=tipo).aggregate(sanas=Sum('cosechapunto1__total_platas'))['sanas']
+    punto2_mazorca_sana = filtro.filter(cosechapunto2__mazorcas=tipo).aggregate(sanas=Sum('cosechapunto2__total_platas'))['sanas']
+    punto3_mazorca_sana = filtro.filter(cosechapunto3__mazorcas=tipo).aggregate(sanas=Sum('cosechapunto3__total_platas'))['sanas']
 
     #Numero 2
     TOTAL_MAZORCAS_SANAS = punto1_mazorca_sana + punto2_mazorca_sana + punto3_mazorca_sana
-
     #Numero 3
     MAZORCA_SANA_POR_PLATA = float(TOTAL_MAZORCAS_SANAS)/float(TOTAL_PLANTAS)
-    punto1_plantas_numero = filtro.filter(cosechapunto1__mazorcas=3,cosechapunto1__contador__gt=0).values_list('cosechapunto1__contador', flat=True)
-    punto2_plantas_numero = filtro.filter(cosechapunto2__mazorcas=3,cosechapunto2__contador__gt=0).values_list('cosechapunto2__contador', flat=True)
-    punto3_plantas_numero = filtro.filter(cosechapunto3__mazorcas=3,cosechapunto3__contador__gt=0).values_list('cosechapunto3__contador', flat=True)
-
-    lista_completa = list(punto1_plantas_numero) + list(punto2_plantas_numero) + list(punto3_plantas_numero)
-
     #Numero 4
     PROMEDIO_PLATAS_POR_MANZANA = filtro.aggregate(promedio=Avg('cosechaareaplantas__plantas'))['promedio']
-
     #Numero 5
     MAZORCAS_SANAS_X_MANZANAS = (MAZORCA_SANA_POR_PLATA * PROMEDIO_PLATAS_POR_MANZANA) * float(1.6)
-
-
     #Numero 6
     PESO_BABA = float(MAZORCAS_SANAS_X_MANZANAS) / (float(3.5) * 100)
-
     #numero 7
     PESO_GRANO_SECO = float(PESO_BABA)/float(3)
-
     #numero 8
     PESO_GRANO_SECO_KILO_HA = PESO_GRANO_SECO * (1.4 * 0.454 * 100)
 
-    return render(request, template, locals())
+    completo = [TOTAL_PLANTAS,TOTAL_MAZORCAS_SANAS,MAZORCA_SANA_POR_PLATA,
+                          PROMEDIO_PLATAS_POR_MANZANA,MAZORCAS_SANAS_X_MANZANAS,
+                          PESO_BABA,PESO_GRANO_SECO,PESO_GRANO_SECO_KILO_HA]
+    return completo
 
 def analisis_cosecha(request, template="guiascacao/cosecha/analisis_cosecha.html"):
     filtro = _queryset_filtrado_cosecha(request)
