@@ -111,6 +111,65 @@ $(function () {
         }]
     });
 });
+
+$(function () {
+    $('#grafo3').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Indice de productividad monilia'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Indice de monilia'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Maximo 40'
+            }
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x}, {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Monilia',
+            color: 'rgba(223, 83, 83, .5)',
+            data: {{grafo_monilia}}
+
+        }]
+    });
+});
 </script>
 {% endblock extra_js %}
 
@@ -141,6 +200,12 @@ $(function () {
                     <div class="row">
                         <div class="col-md-12">
                          <div id="grafo2"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                         <div id="grafo3"></div>
                         </div>
                     </div>
                     <hr>

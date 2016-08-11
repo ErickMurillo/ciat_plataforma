@@ -1186,17 +1186,26 @@ def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_
     alto1 = filtro.aggregate(total=Sum('observacionpunto1nivel__alta'))['total']
     alto2 = filtro.aggregate(total=Sum('observacionpunto2nivel__alta'))['total']
     alto3 = filtro.aggregate(total=Sum('observacionpunto3nivel__alta'))['total']
-    total_alta = alto1 + alto2 + alto3
+    try:
+        total_alta = alto1 + alto2 + alto3
+    except:
+        total_alta = 0
 
     media1 = filtro.aggregate(total=Sum('observacionpunto1nivel__media'))['total']
     media2 = filtro.aggregate(total=Sum('observacionpunto2nivel__media'))['total']
     media3 = filtro.aggregate(total=Sum('observacionpunto3nivel__media'))['total']
-    total_media = media1 + media2 + media3
+    try:
+        total_media = media1 + media2 + media3
+    except:
+        total_media = 0
 
     baja1 = filtro.aggregate(total=Sum('observacionpunto1nivel__baja'))['total']
     baja2 = filtro.aggregate(total=Sum('observacionpunto2nivel__baja'))['total']
     baja3 = filtro.aggregate(total=Sum('observacionpunto3nivel__baja'))['total']
-    total_baja = baja1 + baja2 + baja3
+    try:
+        total_baja = baja1 + baja2 + baja3
+    except:
+        total_baja = 0
 
     grafo_nivel_produccion['Alta'] = float((total_alta*100))/(float(numero_parcelas)*30)
     grafo_nivel_produccion['Media'] = float((total_media*100))/(float(numero_parcelas)*30)
@@ -1255,7 +1264,6 @@ def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_
                         punto3_nueve+punto3_diez
 
             gran_total = total_punto1 + total_punto2 + total_punto3
-            #gran_total_porcentaje = float((gran_total*100))/(float(numero_parcelas)*30)
 
             grafo_nivel_produccion2[obj[1]] = gran_total
 
@@ -1310,7 +1318,60 @@ def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_
         monilia = (float(suma_total)/float(30))*100
         grafo_dispercion.append([monilia,formula])
 
+    grafo_monilia = generic_indice_produccion(request, 1)
+
     return render(request, template, locals())
+
+def generic_indice_produccion(request, tipo=0):
+    filtro = _queryset_filtrado_plaga(request)
+    numero_parcelas = filtro.count()
+
+    grafo_dispercion = []
+    grafo_nivel_produccion2 = OrderedDict()
+    for x in filtro:
+        alto1 = ObservacionPunto1Nivel.objects.filter(ficha=x).aggregate(total=Sum('alta'))['total'] or 0
+        alto2 = ObservacionPunto2Nivel.objects.filter(ficha=x).aggregate(total=Sum('alta'))['total'] or 0
+        alto3 = ObservacionPunto3Nivel.objects.filter(ficha=x).aggregate(total=Sum('alta'))['total'] or 0
+        print x
+        print alto1
+        total_alta = alto1 + alto2 + alto3
+
+        media1 = ObservacionPunto1Nivel.objects.filter(ficha=x).aggregate(total=Sum('media'))['total'] or 0
+        media2 = ObservacionPunto2Nivel.objects.filter(ficha=x).aggregate(total=Sum('media'))['total'] or 0
+        media3 = ObservacionPunto3Nivel.objects.filter(ficha=x).aggregate(total=Sum('media'))['total'] or 0
+       
+        total_media = media1 + media2 + media3
+        
+        baja1 = ObservacionPunto1Nivel.objects.filter(ficha=x).aggregate(total=Sum('baja'))['total'] or 0
+        baja2 = ObservacionPunto2Nivel.objects.filter(ficha=x).aggregate(total=Sum('baja'))['total'] or 0
+        baja3 = ObservacionPunto3Nivel.objects.filter(ficha=x).aggregate(total=Sum('baja'))['total'] or 0
+        
+        total_baja = baja1 + baja2 + baja3
+
+        grafo_nivel_produccion2['Alta'] = total_alta
+        grafo_nivel_produccion2['Media'] = total_media
+        grafo_nivel_produccion2['Baja'] = total_baja
+        
+        #------------------------------------------------------
+        formula = float((5*grafo_nivel_produccion2['Baja'])+(20*grafo_nivel_produccion2['Media'])+(40*grafo_nivel_produccion2['Alta'])) / float(30)
+        #-----------------------------------------------------------
+
+        punto1 = ObservacionPunto1.objects.filter(ficha=x,planta=tipo).aggregate(total=Sum('contador'))['total'] or 0
+
+        punto2 = ObservacionPunto2.objects.filter(ficha=x,planta=tipo).aggregate(total=Sum('contador'))['total'] or 0
+
+        punto3= ObservacionPunto3.objects.filter(ficha=x,planta=tipo).aggregate(total=Sum('contador'))['total'] or 0
+        
+        
+        suma_total = punto1 + punto2 + punto3
+    
+        #----------------------------------------
+        monilia = (float(suma_total)/float(30))*100
+        #-----------------------------------------
+
+        grafo_dispercion.append([monilia,formula])
+        print  grafo_dispercion
+    return grafo_dispercion
 
 
 def analisis_plaga(request, template="guiascacao/plaga/analisis_plaga.html"):
