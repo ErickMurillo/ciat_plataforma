@@ -725,7 +725,36 @@ class ObservacionPunto1(models.Model):
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True, verbose_name='Diez')
 
+    contador = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar = 0
+        if self.uno == 1:
+            contar += 1
+        if self.dos == 1:
+            contar += 1
+        if self.tres == 1:
+            contar += 1
+        if self.cuatro == 1:
+            contar += 1
+        if self.cinco == 1:
+            contar += 1
+        if self.seis == 1:
+            contar += 1
+        if self.siete == 1:
+            contar += 1
+        if self.ocho == 1:
+            contar += 1
+        if self.nueve == 1:
+            contar += 1
+        if self.dies == 1:
+            contar += 1
+
+        self.contador = contar
+
+        super(ObservacionPunto1, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"Punto1"
@@ -752,8 +781,84 @@ class ObservacionPunto1Nivel(models.Model):
             blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
+
+    alta = models.IntegerField(editable=False, null=True, blank=True)
+    media = models.IntegerField(editable=False, null=True, blank=True)
+    baja = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
 
+    def save(self, *args, **kwargs):
+        contar_alta = 0
+        if self.uno == 1:
+            contar_alta += 1
+        if self.dos == 1:
+            contar_alta += 1
+        if self.tres == 1:
+            contar_alta += 1
+        if self.cuatro == 1:
+            contar_alta += 1
+        if self.cinco == 1:
+            contar_alta += 1
+        if self.seis == 1:
+            contar_alta += 1
+        if self.siete == 1:
+            contar_alta += 1
+        if self.ocho == 1:
+            contar_alta += 1
+        if self.nueve == 1:
+            contar_alta += 1
+        if self.dies == 1:
+            contar_alta += 1
+        self.alta = contar_alta
+
+        contar_media = 0
+        if self.uno == 2:
+            contar_media += 1
+        if self.dos == 2:
+            contar_media += 1
+        if self.tres == 2:
+            contar_media += 1
+        if self.cuatro == 2:
+            contar_media += 1
+        if self.cinco == 2:
+            contar_media += 1
+        if self.seis == 2:
+            contar_media += 1
+        if self.siete == 2:
+            contar_media += 1
+        if self.ocho == 2:
+            contar_media += 1
+        if self.nueve == 2:
+            contar_media += 1
+        if self.dies == 2:
+            contar_media += 1
+        self.media = contar_media
+
+        contar_baja = 0
+        if self.uno == 3:
+            contar_baja += 1
+        if self.dos == 3:
+            contar_baja += 1
+        if self.tres == 3:
+            contar_baja += 1
+        if self.cuatro == 3:
+            contar_baja += 1
+        if self.cinco == 3:
+            contar_baja += 1
+        if self.seis == 3:
+            contar_baja += 1
+        if self.siete == 3:
+            contar_baja += 1
+        if self.ocho == 3:
+            contar_baja += 1
+        if self.nueve == 3:
+            contar_baja += 1
+        if self.dies == 3:
+            contar_baja += 1
+        self.baja = contar_baja
+
+        super(ObservacionPunto1Nivel, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"Punto1 nivel produccion"
@@ -773,7 +878,36 @@ class ObservacionPunto2(models.Model):
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
 
+    contador = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar = 0
+        if self.uno == 1:
+            contar += 1
+        if self.dos == 1:
+            contar += 1
+        if self.tres == 1:
+            contar += 1
+        if self.cuatro == 1:
+            contar += 1
+        if self.cinco == 1:
+            contar += 1
+        if self.seis == 1:
+            contar += 1
+        if self.siete == 1:
+            contar += 1
+        if self.ocho == 1:
+            contar += 1
+        if self.nueve == 1:
+            contar += 1
+        if self.dies == 1:
+            contar += 1
+
+        self.contador = contar
+
+        super(ObservacionPunto2, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"Punto2"
@@ -801,7 +935,83 @@ class ObservacionPunto2Nivel(models.Model):
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
 
+    alta = models.IntegerField(editable=False, null=True, blank=True)
+    media = models.IntegerField(editable=False, null=True, blank=True)
+    baja = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar_alta = 0
+        if self.uno == 1:
+            contar_alta += 1
+        if self.dos == 1:
+            contar_alta += 1
+        if self.tres == 1:
+            contar_alta += 1
+        if self.cuatro == 1:
+            contar_alta += 1
+        if self.cinco == 1:
+            contar_alta += 1
+        if self.seis == 1:
+            contar_alta += 1
+        if self.siete == 1:
+            contar_alta += 1
+        if self.ocho == 1:
+            contar_alta += 1
+        if self.nueve == 1:
+            contar_alta += 1
+        if self.dies == 1:
+            contar_alta += 1
+        self.alta = contar_alta
+
+        contar_media = 0
+        if self.uno == 2:
+            contar_media += 1
+        if self.dos == 2:
+            contar_media += 1
+        if self.tres == 2:
+            contar_media += 1
+        if self.cuatro == 2:
+            contar_media += 1
+        if self.cinco == 2:
+            contar_media += 1
+        if self.seis == 2:
+            contar_media += 1
+        if self.siete == 2:
+            contar_media += 1
+        if self.ocho == 2:
+            contar_media += 1
+        if self.nueve == 2:
+            contar_media += 1
+        if self.dies == 2:
+            contar_media += 1
+        self.media = contar_media
+
+        contar_baja = 0
+        if self.uno == 3:
+            contar_baja += 1
+        if self.dos == 3:
+            contar_baja += 1
+        if self.tres == 3:
+            contar_baja += 1
+        if self.cuatro == 3:
+            contar_baja += 1
+        if self.cinco == 3:
+            contar_baja += 1
+        if self.seis == 3:
+            contar_baja += 1
+        if self.siete == 3:
+            contar_baja += 1
+        if self.ocho == 3:
+            contar_baja += 1
+        if self.nueve == 3:
+            contar_baja += 1
+        if self.dies == 3:
+            contar_baja += 1
+        self.baja = contar_baja
+
+        super(ObservacionPunto2Nivel, self).save(*args, **kwargs)
 
 
     def __unicode__(self):
@@ -821,7 +1031,36 @@ class ObservacionPunto3(models.Model):
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
 
+    contador = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar = 0
+        if self.uno == 1:
+            contar += 1
+        if self.dos == 1:
+            contar += 1
+        if self.tres == 1:
+            contar += 1
+        if self.cuatro == 1:
+            contar += 1
+        if self.cinco == 1:
+            contar += 1
+        if self.seis == 1:
+            contar += 1
+        if self.siete == 1:
+            contar += 1
+        if self.ocho == 1:
+            contar += 1
+        if self.nueve == 1:
+            contar += 1
+        if self.dies == 1:
+            contar += 1
+
+        self.contador = contar
+
+        super(ObservacionPunto3, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"Punto3"
@@ -849,7 +1088,83 @@ class ObservacionPunto3Nivel(models.Model):
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
 
+    alta = models.IntegerField(editable=False, null=True, blank=True)
+    media = models.IntegerField(editable=False, null=True, blank=True)
+    baja = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar_alta = 0
+        if self.uno == 1:
+            contar_alta += 1
+        if self.dos == 1:
+            contar_alta += 1
+        if self.tres == 1:
+            contar_alta += 1
+        if self.cuatro == 1:
+            contar_alta += 1
+        if self.cinco == 1:
+            contar_alta += 1
+        if self.seis == 1:
+            contar_alta += 1
+        if self.siete == 1:
+            contar_alta += 1
+        if self.ocho == 1:
+            contar_alta += 1
+        if self.nueve == 1:
+            contar_alta += 1
+        if self.dies == 1:
+            contar_alta += 1
+        self.alta = contar_alta
+
+        contar_media = 0
+        if self.uno == 2:
+            contar_media += 1
+        if self.dos == 2:
+            contar_media += 1
+        if self.tres == 2:
+            contar_media += 1
+        if self.cuatro == 2:
+            contar_media += 1
+        if self.cinco == 2:
+            contar_media += 1
+        if self.seis == 2:
+            contar_media += 1
+        if self.siete == 2:
+            contar_media += 1
+        if self.ocho == 2:
+            contar_media += 1
+        if self.nueve == 2:
+            contar_media += 1
+        if self.dies == 2:
+            contar_media += 1
+        self.media = contar_media
+
+        contar_baja = 0
+        if self.uno == 3:
+            contar_baja += 1
+        if self.dos == 3:
+            contar_baja += 1
+        if self.tres == 3:
+            contar_baja += 1
+        if self.cuatro == 3:
+            contar_baja += 1
+        if self.cinco == 3:
+            contar_baja += 1
+        if self.seis == 3:
+            contar_baja += 1
+        if self.siete == 3:
+            contar_baja += 1
+        if self.ocho == 3:
+            contar_baja += 1
+        if self.nueve == 3:
+            contar_baja += 1
+        if self.dies == 3:
+            contar_baja += 1
+        self.baja = contar_baja
+
+        super(ObservacionPunto3Nivel, self).save(*args, **kwargs)
 
 
     def __unicode__(self):
