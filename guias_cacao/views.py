@@ -50,8 +50,6 @@ def _queryset_filtrado_sombra(request):
     for key in unvalid_keys:
     	del params[key]
 
-    print params
-
     return FichaSombra.objects.filter(**params)
 
 
@@ -1183,142 +1181,34 @@ def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_
     numero_parcelas = filtro.count()
 
     grafo_nivel_produccion = OrderedDict()
-    alto1 = filtro.aggregate(total=Sum('observacionpunto1nivel__alta'))['total']
-    alto2 = filtro.aggregate(total=Sum('observacionpunto2nivel__alta'))['total']
-    alto3 = filtro.aggregate(total=Sum('observacionpunto3nivel__alta'))['total']
-    try:
-        total_alta = alto1 + alto2 + alto3
-    except:
-        total_alta = 0
+    alto1 = filtro.aggregate(total=Sum('observacionpunto1nivel__alta'))['total'] or 0
+    alto2 = filtro.aggregate(total=Sum('observacionpunto2nivel__alta'))['total'] or 0
+    alto3 = filtro.aggregate(total=Sum('observacionpunto3nivel__alta'))['total'] or 0
 
-    media1 = filtro.aggregate(total=Sum('observacionpunto1nivel__media'))['total']
-    media2 = filtro.aggregate(total=Sum('observacionpunto2nivel__media'))['total']
-    media3 = filtro.aggregate(total=Sum('observacionpunto3nivel__media'))['total']
-    try:
-        total_media = media1 + media2 + media3
-    except:
-        total_media = 0
+    total_alta = alto1 + alto2 + alto3
 
-    baja1 = filtro.aggregate(total=Sum('observacionpunto1nivel__baja'))['total']
-    baja2 = filtro.aggregate(total=Sum('observacionpunto2nivel__baja'))['total']
-    baja3 = filtro.aggregate(total=Sum('observacionpunto3nivel__baja'))['total']
-    try:
-        total_baja = baja1 + baja2 + baja3
-    except:
-        total_baja = 0
+    media1 = filtro.aggregate(total=Sum('observacionpunto1nivel__media'))['total'] or 0
+    media2 = filtro.aggregate(total=Sum('observacionpunto2nivel__media'))['total'] or 0
+    media3 = filtro.aggregate(total=Sum('observacionpunto3nivel__media'))['total'] or 0
+
+    total_media = media1 + media2 + media3
+
+    baja1 = filtro.aggregate(total=Sum('observacionpunto1nivel__baja'))['total'] or 0
+    baja2 = filtro.aggregate(total=Sum('observacionpunto2nivel__baja'))['total'] or 0
+    baja3 = filtro.aggregate(total=Sum('observacionpunto3nivel__baja'))['total'] or 0
+
+    total_baja = baja1 + baja2 + baja3
 
     grafo_nivel_produccion['Alta'] = float((total_alta*100))/(float(numero_parcelas)*30)
     grafo_nivel_produccion['Media'] = float((total_media*100))/(float(numero_parcelas)*30)
     grafo_nivel_produccion['Baja'] = float((total_baja*100))/(float(numero_parcelas)*30)
 
-
-
-    grafo_dispercion = []
-    grafo_nivel_produccion2 = OrderedDict()
-    for x in filtro:
-
-        for obj in CHOICE_PRODUCCION:
-            punto1_uno = ObservacionPunto1Nivel.objects.filter(ficha=x,uno=obj[0]).count()
-            punto1_dos = ObservacionPunto1Nivel.objects.filter(ficha=x,dos=obj[0]).count()
-            punto1_tres = ObservacionPunto1Nivel.objects.filter(ficha=x,tres=obj[0]).count()
-            punto1_cuatro = ObservacionPunto1Nivel.objects.filter(ficha=x,cuatro=obj[0]).count()
-            punto1_cinco = ObservacionPunto1Nivel.objects.filter(ficha=x,cinco=obj[0]).count()
-            punto1_seis = ObservacionPunto1Nivel.objects.filter(ficha=x,seis=obj[0]).count()
-            punto1_siete = ObservacionPunto1Nivel.objects.filter(ficha=x,siete=obj[0]).count()
-            punto1_ocho = ObservacionPunto1Nivel.objects.filter(ficha=x,ocho=obj[0]).count()
-            punto1_nueve = ObservacionPunto1Nivel.objects.filter(ficha=x,nueve=obj[0]).count()
-            punto1_diez = ObservacionPunto1Nivel.objects.filter(ficha=x,dies=obj[0]).count()
-
-            total_punto1 = punto1_uno+punto1_dos+punto1_tres+punto1_cuatro+\
-                            punto1_cinco+punto1_seis+punto1_siete+punto1_ocho+\
-                            punto1_nueve+punto1_diez
-
-            punto2_uno = ObservacionPunto2Nivel.objects.filter(ficha=x,uno=obj[0]).count()
-            punto2_dos = ObservacionPunto2Nivel.objects.filter(ficha=x,dos=obj[0]).count()
-            punto2_tres = ObservacionPunto2Nivel.objects.filter(ficha=x,tres=obj[0]).count()
-            punto2_cuatro = ObservacionPunto2Nivel.objects.filter(ficha=x,cuatro=obj[0]).count()
-            punto2_cinco = ObservacionPunto2Nivel.objects.filter(ficha=x,cinco=obj[0]).count()
-            punto2_seis = ObservacionPunto2Nivel.objects.filter(ficha=x,seis=obj[0]).count()
-            punto2_siete = ObservacionPunto2Nivel.objects.filter(ficha=x,siete=obj[0]).count()
-            punto2_ocho = ObservacionPunto2Nivel.objects.filter(ficha=x,ocho=obj[0]).count()
-            punto2_nueve = ObservacionPunto2Nivel.objects.filter(ficha=x,nueve=obj[0]).count()
-            punto2_diez = ObservacionPunto2Nivel.objects.filter(ficha=x,dies=obj[0]).count()
-
-            total_punto2 = punto2_uno+punto2_dos+punto2_tres+punto2_cuatro+\
-                            punto2_cinco+punto2_seis+punto2_siete+punto2_ocho+\
-                            punto2_nueve+punto2_diez
-
-            punto3_uno = ObservacionPunto3Nivel.objects.filter(ficha=x,uno=obj[0]).count()
-            punto3_dos = ObservacionPunto3Nivel.objects.filter(ficha=x,dos=obj[0]).count()
-            punto3_tres = ObservacionPunto3Nivel.objects.filter(ficha=x,tres=obj[0]).count()
-            punto3_cuatro = ObservacionPunto3Nivel.objects.filter(ficha=x,cuatro=obj[0]).count()
-            punto3_cinco = ObservacionPunto3Nivel.objects.filter(ficha=x,cinco=obj[0]).count()
-            punto3_seis = ObservacionPunto3Nivel.objects.filter(ficha=x,seis=obj[0]).count()
-            punto3_siete = ObservacionPunto3Nivel.objects.filter(ficha=x,siete=obj[0]).count()
-            punto3_ocho = ObservacionPunto3Nivel.objects.filter(ficha=x,ocho=obj[0]).count()
-            punto3_nueve = ObservacionPunto3Nivel.objects.filter(ficha=x,nueve=obj[0]).count()
-            punto3_diez = ObservacionPunto3Nivel.objects.filter(ficha=x,dies=obj[0]).count()
-
-            total_punto3 = punto3_uno+punto3_dos+punto3_tres+punto3_cuatro+\
-                        punto3_cinco+punto3_seis+punto3_siete+punto3_ocho+\
-                        punto3_nueve+punto3_diez
-
-            gran_total = total_punto1 + total_punto2 + total_punto3
-
-            grafo_nivel_produccion2[obj[1]] = gran_total
-
-        formula = float((5*grafo_nivel_produccion2['Baja'])+(20*grafo_nivel_produccion2['Media'])+(40*grafo_nivel_produccion2['Alta'])) / float(30)
-
-        punto1_uno = ObservacionPunto1.objects.filter(ficha=x,planta=1,uno=1).count()
-        punto1_dos = ObservacionPunto1.objects.filter(ficha=x,planta=1,dos=1).count()
-        punto1_tres = ObservacionPunto1.objects.filter(ficha=x,planta=1,tres=1).count()
-        punto1_cuatro = ObservacionPunto1.objects.filter(ficha=x,planta=1,cuatro=1).count()
-        punto1_cinco = ObservacionPunto1.objects.filter(ficha=x,planta=1,cinco=1).count()
-        punto1_seis = ObservacionPunto1.objects.filter(ficha=x,planta=1,seis=1).count()
-        punto1_siete = ObservacionPunto1.objects.filter(ficha=x,planta=1,siete=1).count()
-        punto1_ocho = ObservacionPunto1.objects.filter(ficha=x,planta=1,ocho=1).count()
-        punto1_nueve = ObservacionPunto1.objects.filter(ficha=x,planta=1,nueve=1).count()
-        punto1_diez = ObservacionPunto1.objects.filter(ficha=x,planta=1,dies=1).count()
-
-        total_punto_monilia1 = punto1_uno+punto1_dos+punto1_tres+punto1_cuatro+\
-                     punto1_cinco+punto1_seis+punto1_siete+punto1_ocho+\
-                     punto1_nueve+punto1_diez
-
-        punto2_uno = ObservacionPunto2.objects.filter(ficha=x,planta=1,uno=1).count()
-        punto2_dos = ObservacionPunto2.objects.filter(ficha=x,planta=1,dos=1).count()
-        punto2_tres = ObservacionPunto2.objects.filter(ficha=x,planta=1,tres=1).count()
-        punto2_cuatro = ObservacionPunto2.objects.filter(ficha=x,planta=1,cuatro=1).count()
-        punto2_cinco = ObservacionPunto2.objects.filter(ficha=x,planta=1,cinco=1).count()
-        punto2_seis = ObservacionPunto2.objects.filter(ficha=x,planta=1,seis=1).count()
-        punto2_siete = ObservacionPunto2.objects.filter(ficha=x,planta=1,siete=1).count()
-        punto2_ocho = ObservacionPunto2.objects.filter(ficha=x,planta=1,ocho=1).count()
-        punto2_nueve = ObservacionPunto2.objects.filter(ficha=x,planta=1,nueve=1).count()
-        punto2_diez = ObservacionPunto2.objects.filter(ficha=x,planta=1,dies=1).count()
-
-        total_punto_monilia2 = punto2_uno+punto2_dos+punto2_tres+punto2_cuatro+\
-                        punto2_cinco+punto2_seis+punto2_siete+punto2_ocho+\
-                        punto2_nueve+punto2_diez
-
-        punto3_uno = ObservacionPunto3.objects.filter(ficha=x,planta=1,uno=1).count()
-        punto3_dos = ObservacionPunto3.objects.filter(ficha=x,planta=1,dos=1).count()
-        punto3_tres = ObservacionPunto3.objects.filter(ficha=x,planta=1,tres=1).count()
-        punto3_cuatro = ObservacionPunto3.objects.filter(ficha=x,planta=1,cuatro=1).count()
-        punto3_cinco = ObservacionPunto3.objects.filter(ficha=x,planta=1,cinco=1).count()
-        punto3_seis = ObservacionPunto3.objects.filter(ficha=x,planta=1,seis=1).count()
-        punto3_siete = ObservacionPunto3.objects.filter(ficha=x,planta=1,siete=1).count()
-        punto3_ocho = ObservacionPunto3.objects.filter(ficha=x,planta=1,ocho=1).count()
-        punto3_nueve = ObservacionPunto3.objects.filter(ficha=x,planta=1,nueve=1).count()
-        punto3_diez = ObservacionPunto3.objects.filter(ficha=x,planta=1,dies=1).count()
-
-        total_punto_monilia3 = punto3_uno+punto3_dos+punto3_tres+punto3_cuatro+\
-                        punto3_cinco+punto3_seis+punto3_siete+punto3_ocho+\
-                        punto3_nueve+punto3_diez
-
-        suma_total = total_punto_monilia1 + total_punto_monilia2 + total_punto_monilia3
-        monilia = (float(suma_total)/float(30))*100
-        grafo_dispercion.append([monilia,formula])
-
     grafo_monilia = generic_indice_produccion(request, 1)
+    grafo_mazorca = generic_indice_produccion(request, 2)
+    grafo_ardillas = generic_indice_produccion(request, 10)
+    grafo_machete = generic_indice_produccion(request, 3)
+    grafo_zompopo = generic_indice_produccion(request, 6)
+
 
     return render(request, template, locals())
 
@@ -1332,26 +1222,24 @@ def generic_indice_produccion(request, tipo=0):
         alto1 = ObservacionPunto1Nivel.objects.filter(ficha=x).aggregate(total=Sum('alta'))['total'] or 0
         alto2 = ObservacionPunto2Nivel.objects.filter(ficha=x).aggregate(total=Sum('alta'))['total'] or 0
         alto3 = ObservacionPunto3Nivel.objects.filter(ficha=x).aggregate(total=Sum('alta'))['total'] or 0
-        print x
-        print alto1
         total_alta = alto1 + alto2 + alto3
 
         media1 = ObservacionPunto1Nivel.objects.filter(ficha=x).aggregate(total=Sum('media'))['total'] or 0
         media2 = ObservacionPunto2Nivel.objects.filter(ficha=x).aggregate(total=Sum('media'))['total'] or 0
         media3 = ObservacionPunto3Nivel.objects.filter(ficha=x).aggregate(total=Sum('media'))['total'] or 0
-       
+
         total_media = media1 + media2 + media3
-        
+
         baja1 = ObservacionPunto1Nivel.objects.filter(ficha=x).aggregate(total=Sum('baja'))['total'] or 0
         baja2 = ObservacionPunto2Nivel.objects.filter(ficha=x).aggregate(total=Sum('baja'))['total'] or 0
         baja3 = ObservacionPunto3Nivel.objects.filter(ficha=x).aggregate(total=Sum('baja'))['total'] or 0
-        
+
         total_baja = baja1 + baja2 + baja3
 
         grafo_nivel_produccion2['Alta'] = total_alta
         grafo_nivel_produccion2['Media'] = total_media
         grafo_nivel_produccion2['Baja'] = total_baja
-        
+
         #------------------------------------------------------
         formula = float((5*grafo_nivel_produccion2['Baja'])+(20*grafo_nivel_produccion2['Media'])+(40*grafo_nivel_produccion2['Alta'])) / float(30)
         #-----------------------------------------------------------
@@ -1361,16 +1249,16 @@ def generic_indice_produccion(request, tipo=0):
         punto2 = ObservacionPunto2.objects.filter(ficha=x,planta=tipo).aggregate(total=Sum('contador'))['total'] or 0
 
         punto3= ObservacionPunto3.objects.filter(ficha=x,planta=tipo).aggregate(total=Sum('contador'))['total'] or 0
-        
-        
+
+
         suma_total = punto1 + punto2 + punto3
-    
+
         #----------------------------------------
         monilia = (float(suma_total)/float(30))*100
         #-----------------------------------------
 
         grafo_dispercion.append([monilia,formula])
-        print  grafo_dispercion
+
     return grafo_dispercion
 
 
@@ -1580,8 +1468,6 @@ def orientacion_composicion_piso(request, template="guiascacao/piso/orientacion_
     VAR_TOTAL = 0
     for k,v in tabla_composicion.items():
         VAR_TOTAL += v
-
-    print VAR_TOTAL
 
     return render(request, template, locals())
 
