@@ -2087,6 +2087,14 @@ def cosecha_cierre(request, template="guiascacao/cierre/cosecha_cierre.html"):
 
     return render(request, template, locals())
 
+def calculos_cierre(request, template="guiascacao/cierre/calculos_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    
+
+    return render(request, template, locals())
+
 def ciclo_trabajo_cierre(request, template="guiascacao/cierre/ciclo_trabajo_cierre.html"):
     filtro = _queryset_filtrado_cierre(request)
     numero_parcelas = filtro.count()
