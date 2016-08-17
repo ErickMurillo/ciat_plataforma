@@ -106,12 +106,11 @@ $(function () {
         series: [{
             name: 'Monilia',
             color: 'rgba(223, 83, 83, .5)',
-            data: {{grafo_dispercion}}
+            data: {{grafo_monilia}}
 
         }]
     });
 });
-
 $(function () {
     $('#grafo3').highcharts({
         chart: {
@@ -119,7 +118,7 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: 'Indice de productividad monilia'
+            text: 'Indice de productividad mazorca negra'
         },
         subtitle: {
             text: ''
@@ -127,7 +126,7 @@ $(function () {
         xAxis: {
             title: {
                 enabled: true,
-                text: 'Indice de monilia'
+                text: 'Indice de mazorca negra'
             },
             startOnTick: true,
             endOnTick: true,
@@ -163,9 +162,183 @@ $(function () {
             }
         },
         series: [{
-            name: 'Monilia',
+            name: 'Mazorca negra',
             color: 'rgba(223, 83, 83, .5)',
-            data: {{grafo_monilia}}
+            data: {{grafo_mazorca}}
+
+        }]
+    });
+});
+$(function () {
+    $('#grafo4').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Indice de productividad ardillas'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Indice de ardillas'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Maximo 40'
+            }
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x}, {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Ardillas',
+            color: 'rgba(223, 83, 83, .5)',
+            data: {{grafo_ardillas}}
+
+        }]
+    });
+});
+$(function () {
+    $('#grafo5').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Indice de productividad mal de machete'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Indice de mal de machete'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Maximo 40'
+            }
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x}, {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Mal de machete',
+            color: 'rgba(223, 83, 83, .5)',
+            data: {{grafo_machete}}
+
+        }]
+    });
+});
+$(function () {
+    $('#grafo6').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Indice de productividad zompopos'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Indice de zompopos'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Maximo 40'
+            }
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x}, {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Zompopos',
+            color: 'rgba(223, 83, 83, .5)',
+            data: {{grafo_zompopo}}
 
         }]
     });
@@ -206,6 +379,24 @@ $(function () {
                     <div class="row">
                         <div class="col-md-12">
                          <div id="grafo3"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                         <div id="grafo4"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                         <div id="grafo5"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                         <div id="grafo6"></div>
                         </div>
                     </div>
                     <hr>
