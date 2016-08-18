@@ -1982,9 +1982,9 @@ def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.h
 
     dict_actividades = OrderedDict()
     for obj in ActividadesCierre.objects.all():
-        avg_familiar = filtro.filter(cierreactividad__actividad=obj).aggregate(familiar=Avg('cierreactividad__familiar'))['familiar']
-        avg_contratada = filtro.filter(cierreactividad__actividad=obj).aggregate(contra=Avg('cierreactividad__contratada'))['contra']
-        avg_costo = filtro.filter(cierreactividad__actividad=obj).aggregate(costo=Avg('cierreactividad__costo'))['costo']
+        avg_familiar = filtro.filter(cierreactividad__actividad=obj).aggregate(familiar=Avg('cierreactividad__familiar'))['familiar'] or 0
+        avg_contratada = filtro.filter(cierreactividad__actividad=obj).aggregate(contra=Avg('cierreactividad__contratada'))['contra'] or 0
+        avg_costo = filtro.filter(cierreactividad__actividad=obj).aggregate(costo=Avg('cierreactividad__costo'))['costo'] or 0
         dict_actividades[obj] = [avg_familiar,avg_contratada,avg_costo]
 
     suma_familiar = sum(v[0] for k,v in dict_actividades.iteritems())
