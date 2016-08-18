@@ -56,6 +56,7 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^cierre/vivero/$', 'vivero_cierre', name='vivero-cierre'),
     url(r'^cierre/cosecha/$', 'cosecha_cierre', name='cosecha-cierre'),
     url(r'^cierre/ciclo-trabajo/$', 'ciclo_trabajo_cierre', name='ciclo-trabajo-cierre'),
+     url(r'^cierre/costos/$', 'calculos_costo_cierre', name='calculos-costo-cierre'),
 
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),

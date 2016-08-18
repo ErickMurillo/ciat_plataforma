@@ -1973,11 +1973,47 @@ def cosecha_cierre(request, template="guiascacao/cierre/cosecha_cierre.html"):
 
     return render(request, template, locals())
 
-def calculos_cierre(request, template="guiascacao/cierre/calculos_cierre.html"):
+def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.html"):
     filtro = _queryset_filtrado_cierre(request)
     numero_parcelas = filtro.count()
 
-    
+    costo_mano_obra = filtro.aggregate(costo=Avg('cierrecosto1__costo'))['costo']
+    area_mz = filtro.aggregate(area=Avg('cierrecosto1__area'))['area']
+
+    dict_actividades = OrderedDict()
+    for obj in ActividadesCierre.objects.all():
+        avg_familiar = filtro.filter(cierreactividad__actividad=obj).aggregate(familiar=Avg('cierreactividad__familiar'))['familiar']
+        avg_contratada = filtro.filter(cierreactividad__actividad=obj).aggregate(contra=Avg('cierreactividad__contratada'))['contra']
+        avg_costo = filtro.filter(cierreactividad__actividad=obj).aggregate(costo=Avg('cierreactividad__costo'))['costo']
+        dict_actividades[obj] = [avg_familiar,avg_contratada,avg_costo]
+
+    suma_familiar = sum(v[0] for k,v in dict_actividades.iteritems())
+    suma_contradata = sum(v[1] for k,v in dict_actividades.iteritems())
+    suma_costo = sum(v[2] for k,v in dict_actividades.iteritems())
+
+    cosecha_baba = filtro.aggregate(valor=Avg('cierrebabaroja__campo1'))['valor']
+    venta_baba = filtro.aggregate(valor=Avg('cierrebabaroja__campo2'))['valor']
+    precio_baba = filtro.aggregate(valor=Avg('cierrebabaroja__campo3'))['valor']
+    cosecha_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo4'))['valor']
+    venta_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo5'))['valor']
+    consumo_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo7'))['valor']
+    precio_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo6'))['valor']
+
+    gasto_mo_familiar = suma_familiar * costo_mano_obra
+    gasto_mo_contratada = suma_contradata * costo_mano_obra
+    gasto_efectivo = suma_costo + gasto_mo_contratada
+    costo_produccion = gasto_efectivo + gasto_mo_familiar
+    ingreso_venta = (venta_baba * precio_baba) + (venta_rojo * precio_rojo)
+    consumo_familiar = consumo_rojo * precio_rojo
+    ingreso_bruto = ingreso_venta + consumo_familiar
+    ingreso_neto_parcial = ingreso_bruto - gasto_efectivo
+    retorno_mo_familiar = float(ingreso_neto_parcial) / float(suma_familiar)
+    ingreso_neto = ingreso_bruto - costo_produccion
+    tasa_retorno_ciclo = (float(ingreso_neto) / float(costo_produccion)) * 100
+    inversion_mz = float(costo_produccion) / float(area_mz)
+    ingreso_neto_mz = ingreso_neto / area_mz
+    costo_qq_baba = costo_produccion/ ((cosecha_baba+cosecha_rojo)*3)
+
 
     return render(request, template, locals())
 
