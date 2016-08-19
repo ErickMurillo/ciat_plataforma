@@ -1978,25 +1978,25 @@ def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.h
     numero_parcelas = filtro.count()
 
     costo_mano_obra = filtro.aggregate(costo=Avg('cierrecosto1__costo'))['costo']
-    area_mz = filtro.aggregate(area=Avg('cierrecosto1__area'))['area']
+    area_mz = filtro.aggregate(area=Sum('cierrecosto1__area'))['area']
 
     dict_actividades = OrderedDict()
     for obj in ActividadesCierre.objects.all():
-        avg_familiar = filtro.filter(cierreactividad__actividad=obj).aggregate(familiar=Avg('cierreactividad__familiar'))['familiar'] or 0
-        avg_contratada = filtro.filter(cierreactividad__actividad=obj).aggregate(contra=Avg('cierreactividad__contratada'))['contra'] or 0
-        avg_costo = filtro.filter(cierreactividad__actividad=obj).aggregate(costo=Avg('cierreactividad__costo'))['costo'] or 0
+        avg_familiar = filtro.filter(cierreactividad__actividad=obj).aggregate(familiar=Sum('cierreactividad__familiar'))['familiar'] or 0
+        avg_contratada = filtro.filter(cierreactividad__actividad=obj).aggregate(contra=Sum('cierreactividad__contratada'))['contra'] or 0
+        avg_costo = filtro.filter(cierreactividad__actividad=obj).aggregate(costo=Sum('cierreactividad__costo'))['costo'] or 0
         dict_actividades[obj] = [avg_familiar,avg_contratada,avg_costo]
 
     suma_familiar = sum(v[0] for k,v in dict_actividades.iteritems())
     suma_contradata = sum(v[1] for k,v in dict_actividades.iteritems())
     suma_costo = sum(v[2] for k,v in dict_actividades.iteritems())
 
-    cosecha_baba = filtro.aggregate(valor=Avg('cierrebabaroja__campo1'))['valor']
-    venta_baba = filtro.aggregate(valor=Avg('cierrebabaroja__campo2'))['valor']
+    cosecha_baba = filtro.aggregate(valor=Sum('cierrebabaroja__campo1'))['valor']
+    venta_baba = filtro.aggregate(valor=Sum('cierrebabaroja__campo2'))['valor']
     precio_baba = filtro.aggregate(valor=Avg('cierrebabaroja__campo3'))['valor']
-    cosecha_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo4'))['valor']
-    venta_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo5'))['valor']
-    consumo_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo7'))['valor']
+    cosecha_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo4'))['valor']
+    venta_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo5'))['valor']
+    consumo_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo7'))['valor']
     precio_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo6'))['valor']
 
     gasto_mo_familiar = suma_familiar * costo_mano_obra
@@ -2012,7 +2012,7 @@ def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.h
     tasa_retorno_ciclo = (float(ingreso_neto) / float(costo_produccion)) * 100
     inversion_mz = float(costo_produccion) / float(area_mz)
     ingreso_neto_mz = ingreso_neto / area_mz
-    costo_qq_baba = costo_produccion/ ((cosecha_baba+cosecha_rojo)*3)
+    costo_qq_baba = costo_produccion / float((cosecha_baba + (cosecha_rojo*3)))
 
 
     return render(request, template, locals())
