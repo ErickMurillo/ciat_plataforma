@@ -1999,20 +1999,23 @@ def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.h
     consumo_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo7'))['valor']
     precio_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo6'))['valor']
 
-    gasto_mo_familiar = suma_familiar * costo_mano_obra
-    gasto_mo_contratada = suma_contradata * costo_mano_obra
-    gasto_efectivo = suma_costo + gasto_mo_contratada
-    costo_produccion = gasto_efectivo + gasto_mo_familiar
-    ingreso_venta = (venta_baba * precio_baba) + (venta_rojo * precio_rojo)
-    consumo_familiar = consumo_rojo * precio_rojo
-    ingreso_bruto = ingreso_venta + consumo_familiar
-    ingreso_neto_parcial = ingreso_bruto - gasto_efectivo
-    retorno_mo_familiar = float(ingreso_neto_parcial) / float(suma_familiar)
-    ingreso_neto = ingreso_bruto - costo_produccion
-    tasa_retorno_ciclo = (float(ingreso_neto) / float(costo_produccion)) * 100
-    inversion_mz = float(costo_produccion) / float(area_mz)
-    ingreso_neto_mz = ingreso_neto / area_mz
-    costo_qq_baba = costo_produccion / float((cosecha_baba + (cosecha_rojo*3)))
+    try:
+        gasto_mo_familiar = suma_familiar * costo_mano_obra
+        gasto_mo_contratada = suma_contradata * costo_mano_obra
+        gasto_efectivo = suma_costo + gasto_mo_contratada
+        costo_produccion = gasto_efectivo + gasto_mo_familiar
+        ingreso_venta = (venta_baba * precio_baba) + (venta_rojo * precio_rojo)
+        consumo_familiar = consumo_rojo * precio_rojo
+        ingreso_bruto = ingreso_venta + consumo_familiar
+        ingreso_neto_parcial = ingreso_bruto - gasto_efectivo
+        retorno_mo_familiar = float(ingreso_neto_parcial) / float(suma_familiar)
+        ingreso_neto = ingreso_bruto - costo_produccion
+        tasa_retorno_ciclo = (float(ingreso_neto) / float(costo_produccion)) * 100
+        inversion_mz = float(costo_produccion) / float(area_mz)
+        ingreso_neto_mz = ingreso_neto / area_mz
+        costo_qq_baba = costo_produccion / float((cosecha_baba + (cosecha_rojo*3)))
+    except:
+        pass
 
 
     return render(request, template, locals())
