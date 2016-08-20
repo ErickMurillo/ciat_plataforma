@@ -2001,18 +2001,57 @@ def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.h
 
     try:
         gasto_mo_familiar = suma_familiar * costo_mano_obra
+    except:
+        pass
+    try:
         gasto_mo_contratada = suma_contradata * costo_mano_obra
+    except:
+        pass
+    try:
         gasto_efectivo = suma_costo + gasto_mo_contratada
+    except:
+        pass
+    try:
         costo_produccion = gasto_efectivo + gasto_mo_familiar
+    except:
+        pass
+    try:
         ingreso_venta = (venta_baba * precio_baba) + (venta_rojo * precio_rojo)
+    except:
+       pass
+    try:
         consumo_familiar = consumo_rojo * precio_rojo
+    except:
+        pass
+    try:
         ingreso_bruto = ingreso_venta + consumo_familiar
+    except:
+       pass
+    try:
         ingreso_neto_parcial = ingreso_bruto - gasto_efectivo
+    except:
+       pass
+    try:
         retorno_mo_familiar = float(ingreso_neto_parcial) / float(suma_familiar)
+    except:
+        pass
+    try:
         ingreso_neto = ingreso_bruto - costo_produccion
+    except:
+       pass
+    try:
         tasa_retorno_ciclo = (float(ingreso_neto) / float(costo_produccion)) * 100
+    except:
+        pass
+    try:
         inversion_mz = float(costo_produccion) / float(area_mz)
+    except:
+       pass
+    try:
         ingreso_neto_mz = ingreso_neto / area_mz
+    except:
+        pass
+    try:
         costo_qq_baba = costo_produccion / float((cosecha_baba + (cosecha_rojo*3)))
     except:
         pass
