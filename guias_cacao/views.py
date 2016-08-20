@@ -1977,8 +1977,8 @@ def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.h
     filtro = _queryset_filtrado_cierre(request)
     numero_parcelas = filtro.count()
 
-    costo_mano_obra = filtro.aggregate(costo=Avg('cierrecosto1__costo'))['costo']
-    area_mz = filtro.aggregate(area=Sum('cierrecosto1__area'))['area']
+    costo_mano_obra = filtro.aggregate(costo=Avg('cierrecosto1__costo'))['costo'] or 0
+    area_mz = filtro.aggregate(area=Sum('cierrecosto1__area'))['area'] or 0
 
     dict_actividades = OrderedDict()
     for obj in ActividadesCierre.objects.all():
@@ -1991,13 +1991,13 @@ def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.h
     suma_contradata = sum(v[1] for k,v in dict_actividades.iteritems())
     suma_costo = sum(v[2] for k,v in dict_actividades.iteritems())
 
-    cosecha_baba = filtro.aggregate(valor=Sum('cierrebabaroja__campo1'))['valor']
-    venta_baba = filtro.aggregate(valor=Sum('cierrebabaroja__campo2'))['valor']
-    precio_baba = filtro.aggregate(valor=Avg('cierrebabaroja__campo3'))['valor']
-    cosecha_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo4'))['valor']
-    venta_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo5'))['valor']
-    consumo_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo7'))['valor']
-    precio_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo6'))['valor']
+    cosecha_baba = filtro.aggregate(valor=Sum('cierrebabaroja__campo1'))['valor'] or 0
+    venta_baba = filtro.aggregate(valor=Sum('cierrebabaroja__campo2'))['valor'] or 0
+    precio_baba = filtro.aggregate(valor=Avg('cierrebabaroja__campo3'))['valor'] or 0
+    cosecha_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo4'))['valor'] or 0
+    venta_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo5'))['valor'] or 0
+    consumo_rojo = filtro.aggregate(valor=Sum('cierrebabaroja__campo7'))['valor'] or 0
+    precio_rojo = filtro.aggregate(valor=Avg('cierrebabaroja__campo6'))['valor'] or 0
 
     try:
         gasto_mo_familiar = suma_familiar * costo_mano_obra
