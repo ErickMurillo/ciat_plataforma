@@ -2059,6 +2059,47 @@ def calculos_costo_cierre(request, template="guiascacao/cierre/calculos_cierre.h
 
     return render(request, template, locals())
 
+def tablas_cierre(request, template="guiascacao/cierre/tablas_cierre.html"):
+    filtro = _queryset_filtrado_cierre(request)
+    numero_parcelas = filtro.count()
+
+    tabla_cierre_manejo = OrderedDict()
+    for obj in ManejosCierre.objects.all():
+        cont_reposo = filtro.filter(cierremanejo__manejo=obj, cierremanejo__reposo=1).count()
+        cont_crecimiento = filtro.filter(cierremanejo__manejo=obj, cierremanejo__crecimiento=1).count()
+        cont_floracion = filtro.filter(cierremanejo__manejo=obj, cierremanejo__floracion=1).count()
+        cont_cosecha = filtro.filter(cierremanejo__manejo=obj, cierremanejo__cosecha=1).count()
+        tabla_cierre_manejo[obj] = [cont_reposo,cont_crecimiento,cont_floracion,cont_cosecha]
+
+    tabla_variedad = OrderedDict()
+    for obj in CHOICE_CIERRE_CONOCIMIENTO_TEMA1:
+        cont_criollas = filtro.filter(cierreconocimiento1__tema=obj[0], cierreconocimiento1__criollas=1).count()
+        cont_forastero = filtro.filter(cierreconocimiento1__tema=obj[0], cierreconocimiento1__forastero=1).count()
+        cont_trinitaria = filtro.filter(cierreconocimiento1__tema=obj[0], cierreconocimiento1__trinitaria=1).count()
+        cont_hibridos = filtro.filter(cierreconocimiento1__tema=obj[0], cierreconocimiento1__hibridos=1).count()
+        cont_clones = filtro.filter(cierreconocimiento1__tema=obj[0], cierreconocimiento1__clones=1).count()
+        tabla_variedad[obj[1]] = [cont_criollas,cont_forastero,cont_trinitaria,cont_hibridos,cont_clones]
+
+    tabla_ventajas = OrderedDict()
+    for obj in CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS:
+        cont_criollas = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__criollas__contains=obj[0]).count()
+        cont_forastero = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__forastero=obj[0]).count()
+        cont_trinitaria = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__trinitaria=obj[0]).count()
+        cont_hibridos = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__hibridos=obj[0]).count()
+        cont_clones = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__clones=obj[0]).count()
+        tabla_ventajas[obj[1]] = [cont_criollas,cont_forastero,cont_trinitaria,cont_hibridos,cont_clones]
+
+    tabla_desventajas = OrderedDict()
+    for obj in CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3:
+        cont_criollas = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__criollas__contains=obj[0]).count()
+        cont_forastero = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__forastero=obj[0]).count()
+        cont_trinitaria = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__trinitaria=obj[0]).count()
+        cont_hibridos = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__hibridos=obj[0]).count()
+        cont_clones = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__clones=obj[0]).count()
+        tabla_desventajas[obj[1]] = [cont_criollas,cont_forastero,cont_trinitaria,cont_hibridos,cont_clones]
+
+    return render(request, template, locals())
+
 def ciclo_trabajo_cierre(request, template="guiascacao/cierre/ciclo_trabajo_cierre.html"):
     filtro = _queryset_filtrado_cierre(request)
     numero_parcelas = filtro.count()

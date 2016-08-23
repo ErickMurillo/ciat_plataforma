@@ -3665,13 +3665,13 @@ class CierreConocimiento1(models.Model):
 
 CHOICE_CIERRE_CONOCIMIENTO_TEMA2 = ((1, 'Ventajas de variedades'),)
 CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS = (
-                                                                                                ('A', 'Produce más'),
-                                                                                                ('B', 'Granos grandes'),
-                                                                                                ('C', 'Tolerante a plagas y enfermedades'),
-                                                                                                ('D', 'Tiene buena estructura'),
-                                                                                                ('E', 'No necesita mucho abono'),
-                                                                                                ('F', 'No aplica'),
-                                                                                         )
+                                        ('A', 'Produce más'),
+                                        ('B', 'Granos grandes'),
+                                        ('C', 'Tolerante a plagas y enfermedades'),
+                                        ('D', 'Tiene buena estructura'),
+                                        ('E', 'No necesita mucho abono'),
+                                        ('F', 'No aplica'),
+                                 )
 
 class CierreConocimiento2(models.Model):
     tema = models.IntegerField(choices=CHOICE_CIERRE_CONOCIMIENTO_TEMA2)
@@ -3688,13 +3688,13 @@ class CierreConocimiento2(models.Model):
 
 CHOICE_CIERRE_CONOCIMIENTO_TEMA3 = ((1, 'Desventajas  de variedades'),)
 CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3 = (
-                                                                                                ('A', 'Produce poco'),
-                                                                                                ('B', 'Granos menudos'),
-                                                                                                ('C', 'Susceptible a plagas y enfermedades'),
-                                                                                                ('D', 'No tiene buena estructura'),
-                                                                                                ('E', 'Necesita mucho abono'),
-                                                                                                 ('F', 'No aplica'),
-                                                                                         )
+                                            ('A', 'Produce poco'),
+                                            ('B', 'Granos menudos'),
+                                            ('C', 'Susceptible a plagas y enfermedades'),
+                                            ('D', 'No tiene buena estructura'),
+                                            ('E', 'Necesita mucho abono'),
+                                             ('F', 'No aplica'),
+                                     )
 
 class CierreConocimiento3(models.Model):
     tema = models.IntegerField(choices=CHOICE_CIERRE_CONOCIMIENTO_TEMA3)
