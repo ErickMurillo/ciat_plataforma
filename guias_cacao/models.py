@@ -3711,13 +3711,13 @@ class CierreConocimiento3(models.Model):
 
 CHOICE_CIERRE_SUELO_TEMA1 = ((1, 'Que elementos aportan'),)
 CHOICE_CIERRE_SUELO_RESPUESTAS1 = (
-                                                                                ('A', 'Nitrógeno'),
-                                                                                ('B', 'Fósforo'),
-                                                                                ('C', 'Potasio'),
-                                                                                ('D', 'Calcio'),
-                                                                                ('E', 'Magnesio'),
-                                                                                 ('F', 'No aplica'),
-                                                                         )
+                                    ('A', 'Nitrógeno'),
+                                    ('B', 'Fósforo'),
+                                    ('C', 'Potasio'),
+                                    ('D', 'Calcio'),
+                                    ('E', 'Magnesio'),
+                                     ('F', 'No aplica'),
+                             )
 
 class CierreSuelo1(models.Model):
     tema = models.IntegerField(choices=CHOICE_CIERRE_SUELO_TEMA1)
