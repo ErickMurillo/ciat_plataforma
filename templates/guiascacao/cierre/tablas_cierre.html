@@ -50,14 +50,14 @@
                                         <td>{{v.3|default:0}}</td>
                                     </tr>
                                   {% endfor %}
-                                    
+
                                   </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <hr>
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
@@ -65,7 +65,7 @@
                                 <caption>Variedades más comunes en las fincas</caption>
                                   <thead>
                                     <tr>
-                                      
+
                                       <th>Criollas</th>
                                       <th>Forastero</th>
                                       <th>Trinitaria</th>
@@ -76,7 +76,7 @@
                                   <tbody>
                                   {% for k,v in tabla_variedad.items %}
                                     <tr>
-                                        
+
                                         <td>{{v.0|default:0}}</td>
                                         <td>{{v.1|default:0}}</td>
                                         <td>{{v.2|default:0}}</td>
@@ -84,7 +84,7 @@
                                         <td>{{v.4|default:0}}</td>
                                     </tr>
                                   {% endfor %}
-                                    
+
                                   </tbody>
                                 </table>
                             </div>
@@ -118,7 +118,7 @@
                                         <td>{{v.4|default:0}}</td>
                                     </tr>
                                   {% endfor %}
-                                    
+
                                   </tbody>
                                 </table>
                             </div>
@@ -152,14 +152,206 @@
                                         <td>{{v.4|default:0}}</td>
                                     </tr>
                                   {% endfor %}
-                                    
+
                                   </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <hr>
-            <h3>Manejo de suelo y fertilidad</h3>     
+            <h3>Manejo de suelo y fertilidad</h3>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Que elementos aportan</caption>
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Abono verde y coberturas</th>
+                                      <th>Hojarasca de los árboles</th>
+                                      <th>Abono orgánico</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for k,v in tabla_suelo1.items %}
+                                    <tr>
+                                        <td>{{k}}</td>
+                                        <td>{{v.0|default:0}}</td>
+                                        <td>{{v.1|default:0}}</td>
+                                        <td>{{v.2|default:0}}</td>
+                                    </tr>
+                                  {% endfor %}
+
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Ventajas de esta práctica </caption>
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Abono verde y coberturas</th>
+                                      <th>Hojarasca de los árboles</th>
+                                      <th>Abono orgánico</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for k,v in tabla_suelo2.items %}
+                                    <tr>
+                                        <td>{{k}}</td>
+                                        <td>{{v.0|default:0}}</td>
+                                        <td>{{v.1|default:0}}</td>
+                                        <td>{{v.2|default:0}}</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Desventajas de estas variedades</caption>
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Abono verde y coberturas</th>
+                                      <th>Hojarasca de los árboles</th>
+                                      <th>Abono orgánico</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for k,v in tabla_suelo3.items %}
+                                    <tr>
+                                        <td>{{k}}</td>
+                                        <td>{{v.0|default:0}}</td>
+                                        <td>{{v.1|default:0}}</td>
+                                        <td>{{v.2|default:0}}</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+              <h3>Manejo de plagas y enfermedades</h3>
+                  <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Prácticas para prevenir monilla y mazorca negra</caption>
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Monilla</th>
+                                      <th>Mazorca Negra</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for k,v in tabla_plaga2.items %}
+                                    <tr>
+                                        <td>{{k}}</td>
+                                        <td>{{v.0|default:0}}</td>
+                                        <td>{{v.1|default:0}}</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+              <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Prácticas para prevenir zompopos</caption>
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Zompopos</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for k,v in tabla_plaga22.items %}
+                                    <tr>
+                                        <td>{{k}}</td>
+                                        <td>{{v.0|default:0}}</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                 <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Prácticas para controlar monilla y mazorca negra</caption>
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Monilla</th>
+                                      <th>Mazorca Negra</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for k,v in tabla_plaga3.items %}
+                                    <tr>
+                                        <td>{{k}}</td>
+                                        <td>{{v.0|default:0}}</td>
+                                        <td>{{v.1|default:0}}</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Prácticas para controlar zompopos</caption>
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Zompopos</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for k,v in tabla_plaga33.items %}
+                                    <tr>
+                                        <td>{{k}}</td>
+                                        <td>{{v.0|default:0}}</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
                 </div>
             </div>
 

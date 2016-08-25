@@ -2083,20 +2083,63 @@ def tablas_cierre(request, template="guiascacao/cierre/tablas_cierre.html"):
     tabla_ventajas = OrderedDict()
     for obj in CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS:
         cont_criollas = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__criollas__contains=obj[0]).count()
-        cont_forastero = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__forastero=obj[0]).count()
-        cont_trinitaria = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__trinitaria=obj[0]).count()
-        cont_hibridos = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__hibridos=obj[0]).count()
-        cont_clones = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__clones=obj[0]).count()
+        cont_forastero = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__forastero__contains=obj[0]).count()
+        cont_trinitaria = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__trinitaria__contains=obj[0]).count()
+        cont_hibridos = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__hibridos__contains=obj[0]).count()
+        cont_clones = filtro.filter(cierreconocimiento2__tema=1, cierreconocimiento2__clones__contains=obj[0]).count()
         tabla_ventajas[obj[1]] = [cont_criollas,cont_forastero,cont_trinitaria,cont_hibridos,cont_clones]
 
     tabla_desventajas = OrderedDict()
     for obj in CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3:
         cont_criollas = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__criollas__contains=obj[0]).count()
-        cont_forastero = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__forastero=obj[0]).count()
-        cont_trinitaria = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__trinitaria=obj[0]).count()
-        cont_hibridos = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__hibridos=obj[0]).count()
-        cont_clones = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__clones=obj[0]).count()
+        cont_forastero = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__forastero__contains=obj[0]).count()
+        cont_trinitaria = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__trinitaria__contains=obj[0]).count()
+        cont_hibridos = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__hibridos__contains=obj[0]).count()
+        cont_clones = filtro.filter(cierreconocimiento3__tema=1, cierreconocimiento3__clones__contains=obj[0]).count()
         tabla_desventajas[obj[1]] = [cont_criollas,cont_forastero,cont_trinitaria,cont_hibridos,cont_clones]
+
+    tabla_suelo1 = OrderedDict()
+    for obj in CHOICE_CIERRE_SUELO_RESPUESTAS1:
+        cont_abono = filtro.filter(cierresuelo1__tema=1, cierresuelo1__abono__contains=obj[0]).count()
+        cont_hojarasca = filtro.filter(cierresuelo1__tema=1, cierresuelo1__hojarasca__contains=obj[0]).count()
+        cont_organico = filtro.filter(cierresuelo1__tema=1, cierresuelo1__organico__contains=obj[0]).count()
+        tabla_suelo1[obj[1]] = [cont_abono,cont_hojarasca,cont_organico]
+
+    tabla_suelo2 = OrderedDict()
+    for obj in CHOICE_CIERRE_SUELO_RESPUESTAS2:
+        cont_abono = filtro.filter(cierresuelo2__tema=1, cierresuelo2__abono__contains=obj[0]).count()
+        cont_hojarasca = filtro.filter(cierresuelo2__tema=1, cierresuelo2__hojarasca__contains=obj[0]).count()
+        cont_organico = filtro.filter(cierresuelo2__tema=1, cierresuelo2__organico__contains=obj[0]).count()
+        tabla_suelo2[obj[1]] = [cont_abono,cont_hojarasca,cont_organico]
+
+    tabla_suelo3 = OrderedDict()
+    for obj in CHOICE_CIERRE_SUELO_RESPUESTAS3:
+        cont_abono = filtro.filter(cierresuelo3__tema=1, cierresuelo3__abono__contains=obj[0]).count()
+        cont_hojarasca = filtro.filter(cierresuelo3__tema=1, cierresuelo3__hojarasca__contains=obj[0]).count()
+        cont_organico = filtro.filter(cierresuelo3__tema=1, cierresuelo3__organico__contains=obj[0]).count()
+        tabla_suelo3[obj[1]] = [cont_abono,cont_hojarasca,cont_organico]
+
+    tabla_plaga2 = OrderedDict()
+    for obj in CHOICE_CIERRE_PLAGA_RESPUESTAS2:
+        cont_monilla = filtro.filter(cierreplaga2__tema=1, cierreplaga2__monilla__contains=obj[0]).count()
+        cont_mazorca = filtro.filter(cierreplaga2__tema=1, cierreplaga2__mazorca__contains=obj[0]).count()
+        tabla_plaga2[obj[1]] = [cont_monilla,cont_mazorca]
+
+    tabla_plaga22 = OrderedDict()
+    for obj in CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO:
+        cont_zompopos = filtro.filter(cierreplaga2__tema=1, cierreplaga2__zompopos__contains=obj[0]).count()
+        tabla_plaga22[obj[1]] = [cont_zompopos]
+
+    tabla_plaga3 = OrderedDict()
+    for obj in CHOICE_CIERRE_PLAGA_RESPUESTAS3:
+        cont_monilla = filtro.filter(cierreplaga3__tema=1, cierreplaga3__monilla__contains=obj[0]).count()
+        cont_mazorca = filtro.filter(cierreplaga3__tema=1, cierreplaga3__mazorca__contains=obj[0]).count()
+        tabla_plaga3[obj[1]] = [cont_monilla,cont_mazorca]
+
+    tabla_plaga33 = OrderedDict()
+    for obj in CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO3:
+        cont_zompopos = filtro.filter(cierreplaga3__tema=1, cierreplaga3__zompopos__contains=obj[0]).count()
+        tabla_plaga33[obj[1]] = [cont_zompopos]
 
     return render(request, template, locals())
 
