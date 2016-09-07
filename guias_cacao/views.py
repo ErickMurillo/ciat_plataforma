@@ -2190,6 +2190,80 @@ def ciclo_trabajo_cierre(request, template="guiascacao/cierre/ciclo_trabajo_cier
 
     return render(request, template, locals())
 
+#fin de salidas de cierre
+#------------------------- entradas de saf --------------------------
+def _queryset_filtrado_saf(request):
+    params = {}
+
+    if 'fecha' in request.session:
+        params['fecha_visita__year'] = request.session['fecha']
+
+    if 'productor' in request.session:
+        params['productor__nombre'] = request.session['productor']
+
+    if 'organizacion' in request.session:
+        params['productor__productor__organizacion'] = request.session['organizacion']
+
+    if 'pais' in request.session:
+        params['productor__pais'] = request.session['pais']
+
+    if 'departamento' in request.session:
+        params['productor__departamento'] = request.session['departamento']
+
+    if 'municipio' in request.session:
+        params['productor__municipio'] = request.session['municipio']
+
+    if 'comunidad' in request.session:
+        params['productor__comunidad'] = request.session['comunidad']
+
+    if 'sexo' in request.session:
+        params['productor__sexo'] = request.session['sexo']
+
+    if 'tipologia' in request.session:
+        params['productor__productor__tipologia'] = request.session['tipologia']
+
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+        del params[key]
+
+    return FichaSaf.objects.filter(**params)
+
+
+def objetivos_saf(request, template='guiascacao/saf/objetivos.html'):
+    filtro = _queryset_filtrado_saf(request)
+    numero_parcelas = filtro.count()
+
+    saf_conversacion1 = OrderedDict()
+    for obj in CHOICE_SAF_1_1:
+        conteo = filtro.filter(safconversacion1__conversacion1__contains=obj[0]).count()
+        saf_conversacion1[obj[1]] = conteo
+
+    safconversacion1_total = sum([v for k,v in saf_conversacion1.items()])
+
+    saf_conversacion2 = OrderedDict()
+    for obj in CHOICE_SAF_1_2:
+        conteo = filtro.filter(safconversacion1__conversacion2__contains=obj[0]).count()
+        saf_conversacion2[obj[1]] = conteo
+
+    safconversacion2_total = sum([v for k,v in saf_conversacion2.items()])
+
+    saf_conversacion3 = OrderedDict()
+
+    for obj in CHOICE_COSECHA_9_MESES:
+        saf_conversacion3[obj[1]] = OrderedDict()
+        for x in CHOICE_SAF_1_3:  
+            conteo = filtro.filter(safconversacion2__conversacion3=obj[0],safconversacion2__conversacion4=x[0]).count()
+            saf_conversacion3[obj[1]][x[1]] = conteo
+
+    print saf_conversacion3
+
+
+    return render(request, template, locals())
+
 
 #----------  funciones utilitarias --------------------------
 def crear_rangos(request, lista, start=0, stop=0, step=0):

@@ -59,6 +59,9 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^cierre/costos/$', 'calculos_costo_cierre', name='calculos-costo-cierre'),
     url(r'^cierre/tablas/$', 'tablas_cierre', name='tablas-cierre'),
 
+    #urls saf
+    url(r'^saf/objetivos/$', 'objetivos_saf', name='objetivos-saf'),
+
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )
