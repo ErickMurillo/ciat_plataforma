@@ -7,7 +7,7 @@
 $(function () {
     $('#grafo1').highcharts({
         chart: {
-            type: 'column'
+            type: 'bar'
         },
         title: {
             text: 'Objetivo de establecer el cultivo de cacao en sistema agroforestales'
@@ -18,7 +18,7 @@ $(function () {
         xAxis: {
             type: 'category',
             labels: {
-                rotation: -45,
+                rotation: 0,
                 style: {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
@@ -32,7 +32,15 @@ $(function () {
             }
         },
         legend: {
-            enabled: false
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
         },
         tooltip: {
             pointFormat: 'Porcentaje: <b>{point.y:.1f} %</b>'
@@ -42,17 +50,17 @@ $(function () {
             data: [
               {% for k,v in saf_conversacion1.items %}
 
-                  ['{{k}}', {{v|calcular_frecuencia:safconversacion1_total}}],
+                  ['{{k|truncatewords:2 }}', {{v|calcular_frecuencia:safconversacion1_total}}],
 
               {% endfor %}
             ],
             dataLabels: {
                 enabled: true,
-                rotation: -90,
+                rotation: 0,
                 color: '#000000',
-                align: 'right',
+                verticalAlign: 'top',
                 format: '{point.y:.1f} %', // one decimal
-                y: -40, // 10 pixels down from the top
+                y: 0, // 10 pixels down from the top
                 style: {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
@@ -65,7 +73,7 @@ $(function () {
 $(function () {
     $('#grafo2').highcharts({
         chart: {
-            type: 'column'
+            type: 'bar'
         },
         title: {
             text: 'Beneficios esperaban del sistema agroforestal en su parcela de cacao'
@@ -76,7 +84,7 @@ $(function () {
         xAxis: {
             type: 'category',
             labels: {
-                rotation: -45,
+                rotation: 0,
                 style: {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
@@ -106,11 +114,11 @@ $(function () {
             ],
             dataLabels: {
                 enabled: true,
-                rotation: -90,
+                rotation: 0,
                 color: '#000000',
-                align: 'right',
+                verticalAlign: 'top',
                 format: '{point.y:.1f} %', // one decimal
-                y: -40, // 10 pixels down from the top
+                y: -4, // 10 pixels down from the top
                 style: {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
@@ -134,8 +142,8 @@ $(function () {
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <ol class="breadcrumb">
-                            <li class="active">Poda</li>
-                            <li class="active">Analisis de poda</li>
+                            <li class="active">Saf</li>
+                            <li class="active">Objetivos</li>
                             <li class="active">Número de parcelas: {{numero_parcelas}}</li>
                         </ol>
                     </h3>
@@ -205,41 +213,11 @@ $(function () {
                         </div>
 
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                  <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Nada de lluvia</th>
-                                        <th>Poca lluvia</th>
-                                        <th>Algo de lluvia</th>
-                                        <th>Mucha lluvia</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {% for k,v in saf_conversacion3.items %}
-                                    <tr>
-                                      <th scope=row>{{k}}</th>
-                                      {% for llave, valor in v.items %}
-                                          <td>{{valor}}</td>
-                                      {% endfor %}
-                                    </tr>
-                                    {% endfor %}
-                                  </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
 
                 </div>
             </div>
 
         </div>
-
 
     </div>
 {% endblock contenido %}

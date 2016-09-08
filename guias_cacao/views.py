@@ -2251,19 +2251,148 @@ def objetivos_saf(request, template='guiascacao/saf/objetivos.html'):
 
     safconversacion2_total = sum([v for k,v in saf_conversacion2.items()])
 
-    saf_conversacion3 = OrderedDict()
 
+    return render(request, template, locals())
+
+def clima_saf(request, template='guiascacao/saf/clima.html'):
+    filtro = _queryset_filtrado_saf(request)
+    numero_parcelas = filtro.count()
+
+    saf_conversacion3 = OrderedDict()
     for obj in CHOICE_COSECHA_9_MESES:
         saf_conversacion3[obj[1]] = OrderedDict()
         for x in CHOICE_SAF_1_3:  
             conteo = filtro.filter(safconversacion2__conversacion3=obj[0],safconversacion2__conversacion4=x[0]).count()
             saf_conversacion3[obj[1]][x[1]] = conteo
 
-    print saf_conversacion3
+    saf_conversacion4 = OrderedDict()
+    for obj in CHOICE_COSECHA_9_MESES:
+        saf_conversacion4[obj[1]] = OrderedDict()
+        for x in CHOICE_SAF_1_4:  
+            conteo = filtro.filter(safconversacion3__conversacion3=obj[0],safconversacion3__conversacion4=x[0]).count()
+            saf_conversacion4[obj[1]][x[1]] = conteo
 
+
+    grafo_momento = OrderedDict()
+    for obj in CHOICE_SAF_1_5:
+        ene = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='A').count()
+        feb = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='B').count()
+        mar = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='C').count()
+        abr = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='D').count()
+        may = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='E').count()
+        jun = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='F').count()
+        jul = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='G').count()
+        ago = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='H').count()
+        sep = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='I').count()
+        octu = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='J').count()
+        nov = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='K').count()
+        dic = filtro.filter(safconversacion4__conversacion5=obj[0],
+                                         safconversacion4__conversacion6__contains='L').count()
+        grafo_momento[obj[1]] = [ene,feb,mar,abr,may,jun,jul,ago,sep,octu,nov,dic]
 
     return render(request, template, locals())
 
+def condiciones_saf(request, template='guiascacao/saf/condiciones.html'):
+    filtro = _queryset_filtrado_saf(request)
+    numero_parcelas = filtro.count()
+
+    grafo_topografia = OrderedDict()
+    for obj in CHOICE_SAF_1_5_TOPOGRAFIA:
+        conteo = filtro.filter(safconversacion5__conversacion7=obj[0]).count()
+        grafo_topografia[obj[1]] = conteo
+
+    grafo_fertilidad = OrderedDict()
+    for obj in CHOICE_SAF_1_5_FERTILIDAD:
+        conteo = filtro.filter(safconversacion5__conversacion8=obj[0]).count()
+        grafo_fertilidad[obj[1]] = conteo
+
+    tabla_maderable = OrderedDict()
+    for obj in CHOICE_SAF_1_6_MADERABLE:
+        conteo = filtro.filter(safconversacion6__conversacion9__contains=obj[0]).count()
+        tabla_maderable[obj[1]] = conteo
+
+    tabla_frutales = OrderedDict()
+    for obj in CHOICE_SAF_1_6_FRUTALES:
+        conteo = filtro.filter(safconversacion6__conversacion10__contains=obj[0]).count()
+        tabla_frutales[obj[1]] = conteo
+
+    tabla_servicios = OrderedDict()
+    for obj in CHOICE_SAF_1_6_SERVICIOS:
+        conteo = filtro.filter(safconversacion6__conversacion11__contains=obj[0]).count()
+        tabla_servicios[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+
+def sombra_saf(request, template='guiascacao/saf/sombra.html'):
+    filtro = _queryset_filtrado_saf(request)
+    numero_parcelas = filtro.count()
+
+    tabla_momento = OrderedDict()
+    for obj in CHOICE_SAF_1_6_ETAPA:
+        ene = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='A').count()
+        feb = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='B').count()
+        mar = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='C').count()
+        abr = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='D').count()
+        may = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='E').count()
+        jun = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='F').count()
+        jul = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='G').count()
+        ago = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='H').count()
+        sep = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='I').count()
+        octu = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='J').count()
+        nov = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='K').count()
+        dic = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion13__contains='L').count()
+        tabla_momento[obj[1]] = [ene,feb,mar,abr,may,jun,jul,ago,sep,octu,nov,dic]
+
+    tabla_momento2 = OrderedDict()
+    for obj in CHOICE_SAF_1_6_ETAPA:
+        sin_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion14=1).count()
+        poca_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion14=2).count()
+        media_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion14=3).count()
+        mucha_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion14=4).count()
+        tabla_momento2[obj[1]] = [sin_sombra,poca_sombra,media_sombra,mucha_sombra]
+
+    tabla_momento3 = OrderedDict()
+    for obj in CHOICE_SAF_1_6_ETAPA:
+        sin_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion14=1).count()
+        poca_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion14=2).count()
+        media_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion14=3).count()
+        mucha_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
+                                         safconversacion7__conversacion14=4).count()
+        tabla_momento3[obj[1]] = [sin_sombra,poca_sombra,media_sombra,mucha_sombra]
+
+
+    return render(request, template, locals())
 
 #----------  funciones utilitarias --------------------------
 def crear_rangos(request, lista, start=0, stop=0, step=0):
