@@ -75,6 +75,7 @@
         $( "#piso" ).removeClass( "in" );
         $( "#cosecha" ).removeClass( "in" );
         $( "#cierre" ).removeClass( "in" );
+        $( "#saf" ).removeClass( "in" );
     }else if (ficha[2]=="poda") {
         $( "#poda" ).addClass( "in" );
         $( "#sombra" ).removeClass( "in" );
@@ -82,6 +83,7 @@
         $( "#piso" ).removeClass( "in" );
         $( "#cosecha" ).removeClass( "in" );
         $( "#cierre" ).removeClass( "in" );
+        $( "#saf" ).removeClass( "in" );
     }else if (ficha[2]=="plaga"){
         $( "#plaga" ).addClass( "in" );
         $( "#sombra" ).removeClass( "in" );
@@ -89,6 +91,7 @@
         $( "#piso" ).removeClass( "in" );
         $( "#cosecha" ).removeClass( "in" );
         $( "#cierre" ).removeClass( "in" );
+        $( "#saf" ).removeClass( "in" );
     }else if (ficha[2]=="piso"){
         $( "#piso" ).addClass( "in" );
         $( "#sombra" ).removeClass( "in" );
@@ -96,6 +99,7 @@
         $( "#plaga" ).removeClass( "in" );
         $( "#cosecha" ).removeClass( "in" );
         $( "#cierre" ).removeClass( "in" );
+        $( "#saf" ).removeClass( "in" );
     }else if (ficha[2]=="cosecha"){
         $( "#cosecha" ).addClass( "in" );
         $( "#sombra" ).removeClass( "in" );
@@ -103,6 +107,7 @@
         $( "#plaga" ).removeClass( "in" );
         $( "#piso" ).removeClass( "in" );
         $( "#cierre" ).removeClass( "in" );
+        $( "#saf" ).removeClass( "in" );
     }else if (ficha[2]=="cierre"){
         $( "#cierre" ).addClass( "in" );
         $( "#cosecha" ).removeClass( "in" );
@@ -110,7 +115,16 @@
         $( "#poda" ).removeClass( "in" );
         $( "#plaga" ).removeClass( "in" );
         $( "#piso" ).removeClass( "in" );
-    };
+        $( "#saf" ).removeClass( "in" );
+    }else if (ficha[2]=="saf"){
+        $( "#saf" ).addClass( "in" );
+        $( "#cierre" ).removeClass( "in" );
+        $( "#cosecha" ).removeClass( "in" );
+        $( "#sombra" ).removeClass( "in" );
+        $( "#poda" ).removeClass( "in" );
+        $( "#plaga" ).removeClass( "in" );
+        $( "#piso" ).removeClass( "in" );
+      };
   </script>
   {% block extra_js %}{% endblock extra_js %}
 
