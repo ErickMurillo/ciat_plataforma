@@ -68,6 +68,11 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^saf/calidad/$', 'calidad_saf', name='calidad-saf'),
     url(r'^saf/disenio-saf/$', 'disenio_saf_saf', name='disenio-saf'),
 
+    #urls vivero
+    url(r'^vivero/conversaciones/$', 'conversaciones_vivero', name='conservaciones-vivero'),
+    url(r'^vivero/conversaciones-dos/$', 'conversaciones_dos_vivero', name='conservaciones-dos-vivero'),
+    url(r'^vivero/observacion/$', 'observacion_vivero', name='observacion-vivero'),
+    url(r'^vivero/analisis/$', 'analisis_vivero', name='analisis-vivero'),
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
 )

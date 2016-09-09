@@ -2479,8 +2479,152 @@ def disenio_saf_saf(request, template='guiascacao/saf/disenio.html'):
 
 
     return render(request, template, locals())
+#fin salidas de saf
+# ---------------------------- COMIENZA SALIDAS DE VIVERO
+def _queryset_filtrado_vivero(request):
+    params = {}
+
+    if 'fecha' in request.session:
+        params['fecha_visita__year'] = request.session['fecha']
+
+    if 'productor' in request.session:
+        params['productor__nombre'] = request.session['productor']
+
+    if 'organizacion' in request.session:
+        params['productor__productor__organizacion'] = request.session['organizacion']
+
+    if 'pais' in request.session:
+        params['productor__pais'] = request.session['pais']
+
+    if 'departamento' in request.session:
+        params['productor__departamento'] = request.session['departamento']
+
+    if 'municipio' in request.session:
+        params['productor__municipio'] = request.session['municipio']
+
+    if 'comunidad' in request.session:
+        params['productor__comunidad'] = request.session['comunidad']
+
+    if 'sexo' in request.session:
+        params['productor__sexo'] = request.session['sexo']
+
+    if 'tipologia' in request.session:
+        params['productor__productor__tipologia'] = request.session['tipologia']
+
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+        del params[key]
+
+    return FichaVivero.objects.filter(**params)
+
+#ahora si las salidas
+
+def conversaciones_vivero(request, template='guiascacao/vivero/conversaciones.html'):
+    filtro = _queryset_filtrado_vivero(request)
+    numero_parcelas = filtro.count()
+
+    grafo_meses = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_1:
+        conteo = filtro.filter(vivieroconversacion__conversacion1__contains=obj[0]).count()
+        grafo_meses[obj[1]] = conteo
+
+    grafo_razones = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_2:
+        conteo = filtro.filter(vivieroconversacion__conversacion2__contains=obj[0]).count()
+        grafo_razones[obj[1]] = conteo
+
+    grafo_caracteristicas = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_3:
+        conteo = filtro.filter(vivieroconversacion__conversacion3__contains=obj[0]).count()
+        grafo_caracteristicas[obj[1]] = conteo
+
+    grafo_preparar = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_4:
+        conteo = filtro.filter(vivieroconversacion__conversacion4__contains=obj[0]).count()
+        grafo_preparar[obj[1]] = conteo
+
+    grafo_desinfecta = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_5:
+        conteo = filtro.filter(vivieroconversacion__conversacion5__contains=obj[0]).count()
+        grafo_desinfecta[obj[1]] = conteo
+
+    grafo_sustrato = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_6:
+        conteo = filtro.filter(vivieroconversacion__conversacion6=obj[0]).count()
+        grafo_sustrato[obj[1]] = conteo
+
+
+    return render(request, template, locals())
+
+def conversaciones_dos_vivero(request, template='guiascacao/vivero/conversaciones_dos.html'):
+    filtro = _queryset_filtrado_vivero(request)
+    numero_parcelas = filtro.count()
+
+    grafo_bolsa = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_7:
+        conteo = filtro.filter(viveroconversacion2__conversacion7=obj[0]).count()
+        grafo_bolsa[obj[1]] = conteo
+
+    grafo_semilla = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_8:
+        conteo = filtro.filter(viveroconversacion2__conversacion8=obj[0]).count()
+        grafo_semilla[obj[1]] = conteo
+
+    grafo_sitio = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_9:
+        conteo = filtro.filter(viveroconversacion2__conversacion9__contains=obj[0]).count()
+        grafo_sitio[obj[1]] = conteo
+
+    grafo_injerto = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_10:
+        conteo = filtro.filter(viveroconversacion2__conversacion10__contains=obj[0]).count()
+        grafo_injerto[obj[1]] = conteo
+
+    lista = filtro.values_list('viveroconversacion2__conversacion11', flat=True)
+    grafo_procedimiento = crear_rangos(request, lista, 0, 100, 26)
+    print grafo_procedimiento
+
+
+    return render(request, template, locals())
+
+def observacion_vivero(request, template='guiascacao/vivero/observacion.html'):
+    filtro = _queryset_filtrado_vivero(request)
+    numero_parcelas = filtro.count()
+
+    return render(request, template, locals())
+
+def analisis_vivero(request, template='guiascacao/vivero/analisis.html'):
+    filtro = _queryset_filtrado_vivero(request)
+    numero_parcelas = filtro.count()
+
+    grafo_semilla = OrderedDict()
+    for obj in CHOICE_VIVERO_ANALISIS_1:
+        conteo = filtro.filter(vivieroanalisissituacion__analisis1__contains=obj[0]).count()
+        grafo_semilla[obj[1]] = conteo
+
+    grafo_plantas = OrderedDict()
+    for obj in CHOICE_VIVERO_ANALISIS_2:
+        conteo = filtro.filter(vivieroanalisissituacion__analisis2__contains=obj[0]).count()
+        grafo_plantas[obj[1]] = conteo
+
+    grafo_plagas = OrderedDict()
+    for obj in CHOICE_VIVERO_ANALISIS_3:
+        conteo = filtro.filter(vivieroanalisissituacion__analisis3__contains=obj[0]).count()
+        grafo_plagas[obj[1]] = conteo
+
+    grafo_acciones = OrderedDict()
+    for obj in CHOICE_VIVERO_ANALISIS_4:
+        conteo = filtro.filter(vivieroanalisissituacion__analisis4__contains=obj[0]).count()
+        grafo_acciones[obj[1]] = conteo
+    
+    return render(request, template, locals())
 
 #----------  funciones utilitarias --------------------------
+
 def crear_rangos(request, lista, start=0, stop=0, step=0):
     dict_algo = OrderedDict()
     rangos = []

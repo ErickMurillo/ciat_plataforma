@@ -111,6 +111,10 @@ def fecha_choice():
         years.append((en.year,en.year))
     for en in FichaCierre.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
         years.append((en.year,en.year))
+    for en in FichaSaf.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaVivero.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
     return list(sorted(set(years)))
 
 CHOICE_SEXO1 = (

@@ -2132,7 +2132,7 @@ CHOICE_VIVERO_CONVERSACION_6 = (
 CHOICE_VIVERO_CONVERSACION_7 = (
                                 (1, 'Bolsa de 6 X 8 pulgadas '),
                                 (2, 'Bolsa de 8 X 10 pulgadas'),
-                                (3, 'Bolsa de 8 X 10 pulgadas'),
+                                (3, 'Bolsa de 10 X 12 pulgadas'),
                             )
 
 CHOICE_VIVERO_CONVERSACION_8 = (
@@ -2199,7 +2199,7 @@ class ViveroConversacion2(models.Model):
     conversacion11 = models.FloatField('¿Cuál ha sido el porcentaje de prendimiento?', null=True)
     conversacion12 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_12,
                                 verbose_name='¿De dónde obtiene las varetas para realizar los injertos?')
-    conversacion13 = models.FloatField('¿Cuanto meses se mantiene la plata en e vivero?', null=True, blank=True)
+    conversacion13 = models.FloatField('¿Cuanto meses se mantiene la plata en el vivero?', null=True, blank=True)
     conversacion14 = models.IntegerField(choices=CHOICE_VIVERO_NUEVO_CONVERSACION2,
                                         verbose_name='¿De donde obtiene las semillas?', null=True, blank=True)
 
