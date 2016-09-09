@@ -64,10 +64,9 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^saf/clima/$', 'clima_saf', name='clima-saf'),
     url(r'^saf/condiciones/$', 'condiciones_saf', name='condiciones-saf'),
     url(r'^saf/sombra/$', 'sombra_saf', name='sombra-saf'),
-    # url(r'^saf/semilla/$', 'semilla_saf', name='semilla-saf'),
-    # url(r'^saf/calidad/$', 'calidad_saf', name='calidad-saf'),
-    # url(r'^saf/clima/$', 'clima_saf', name='clima-saf'),
-    # url(r'^saf/disenio-saf/$', 'disenio_saf_saf', name='disenio-saf'),
+    url(r'^saf/semilla/$', 'semilla_saf', name='semilla-saf'),
+    url(r'^saf/calidad/$', 'calidad_saf', name='calidad-saf'),
+    url(r'^saf/disenio-saf/$', 'disenio_saf_saf', name='disenio-saf'),
 
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),

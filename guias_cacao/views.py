@@ -6,7 +6,7 @@ from .models import *
 from mapeo.models import Persona
 import json as simplejson
 from itertools import chain
-from django.db.models import Avg, Sum
+from django.db.models import Avg, Sum, F
 import numpy as np
 from collections import OrderedDict, Counter
 from django.db.models import Q
@@ -2261,14 +2261,14 @@ def clima_saf(request, template='guiascacao/saf/clima.html'):
     saf_conversacion3 = OrderedDict()
     for obj in CHOICE_COSECHA_9_MESES:
         saf_conversacion3[obj[1]] = OrderedDict()
-        for x in CHOICE_SAF_1_3:  
+        for x in CHOICE_SAF_1_3:
             conteo = filtro.filter(safconversacion2__conversacion3=obj[0],safconversacion2__conversacion4=x[0]).count()
             saf_conversacion3[obj[1]][x[1]] = conteo
 
     saf_conversacion4 = OrderedDict()
     for obj in CHOICE_COSECHA_9_MESES:
         saf_conversacion4[obj[1]] = OrderedDict()
-        for x in CHOICE_SAF_1_4:  
+        for x in CHOICE_SAF_1_4:
             conteo = filtro.filter(safconversacion3__conversacion3=obj[0],safconversacion3__conversacion4=x[0]).count()
             saf_conversacion4[obj[1]][x[1]] = conteo
 
@@ -2390,6 +2390,92 @@ def sombra_saf(request, template='guiascacao/saf/sombra.html'):
         mucha_sombra = filtro.filter(safconversacion7__conversacion12=obj[0],
                                          safconversacion7__conversacion14=4).count()
         tabla_momento3[obj[1]] = [sin_sombra,poca_sombra,media_sombra,mucha_sombra]
+
+    tabla_momento4 = OrderedDict()
+    for obj in CHOICE_SAF_1_7_PROBLEMAS:
+        poca_sombra = filtro.filter(safconversacion8__conversacion15=obj[0],
+                                         safconversacion8__conversacion16=1).count()
+        mucha_sombra = filtro.filter(safconversacion8__conversacion15=obj[0],
+                                         safconversacion8__conversacion16=2).count()
+        tabla_momento4[obj[1]] = [poca_sombra,mucha_sombra]
+
+    return render(request, template, locals())
+
+def semilla_saf(request, template='guiascacao/saf/semilla.html'):
+    filtro = _queryset_filtrado_saf(request)
+    numero_parcelas = filtro.count()
+
+    grafo_fuente_semilla = OrderedDict()
+    for obj in CHOICE_SAF_1_8:
+        conteo = filtro.filter(safconversacion9__conversacion17=obj[0]).count()
+        grafo_fuente_semilla[obj[1]] = conteo
+
+    tabla_semilla_cacao = OrderedDict()
+    for obj in CHOICE_SAF_1_9:
+        conteo_1 = filtro.filter(safconversacion9__conversacion18__contains=obj[0]).count()
+        tabla_semilla_cacao[obj[1]] = conteo_1
+
+    tabla_semilla_cacao2 = OrderedDict()
+    for obj in CHOICE_SAF_1_11:
+        conteo_2 = filtro.filter(safconversacion9__conversacion19__contains=obj[0]).count()
+        conteo_3 = filtro.filter(safconversacion9__conversacion20__contains=obj[0]).count()
+        tabla_semilla_cacao2[obj[1]] = [conteo_2,conteo_3]
+
+    return render(request, template, locals())
+
+def calidad_saf(request, template='guiascacao/saf/calidad.html'):
+    filtro = _queryset_filtrado_saf(request)
+    numero_parcelas = filtro.count()
+
+    grafo_dispercion = []
+    for obj in filtro:
+        suma_observaciones = SafObservaciones.objects.filter(ficha=obj).values_list('observacion2',
+                                                                                                                                            'observacion3',
+                                                                                                                                            'observacion4',
+                                                                                                                                            'observacion5')
+        if len(suma_observaciones) >= 1:
+            suma_total = (sum(suma_observaciones[0]) / float(4))
+            grafo_dispercion.append(suma_total)
+
+    grafo_barra = OrderedDict()
+    for obj in CHOICE_SAF_2_OPCIONES:
+        conteo_1 = filtro.filter(safobservaciones2__observacion1=1, safobservaciones2__observacion2=obj[0]).count()
+        conteo_2 = filtro.filter(safobservaciones2__observacion1=1, safobservaciones2__observacion3=obj[0]).count()
+        conteo_3 = filtro.filter(safobservaciones2__observacion1=1, safobservaciones2__observacion4=obj[0]).count()
+        conteo_4 = filtro.filter(safobservaciones2__observacion1=1, safobservaciones2__observacion5=obj[0]).count()
+        total = conteo_1 + conteo_2 + conteo_3 + conteo_4
+        grafo_barra[obj[1]] = total
+
+    return render(request, template, locals())
+
+def disenio_saf_saf(request, template='guiascacao/saf/disenio.html'):
+    filtro = _queryset_filtrado_saf(request)
+    numero_parcelas = filtro.count()
+
+    grafo_suelo = OrderedDict()
+    for obj in CHOICE_SAF_OBSERVACION_2_2:
+        conteo = filtro.filter(safobservaciones3__observacion6=obj[0]).count()
+        grafo_suelo[obj[1]] = conteo
+
+    grafo_practicas = OrderedDict()
+    for obj in CHOICE_SAF_OBSERVACION_2_3:
+        conteo = filtro.filter(safobservaciones3__observacion7__contains=obj[0]).count()
+        grafo_practicas[obj[1]] = conteo
+
+    grafo_arreglo = OrderedDict()
+    for obj in CHOICE_SAF_OBSERVACION_2_5:
+        conteo = filtro.filter(safobservaciones4__observacion8=obj[0]).count()
+        grafo_arreglo[obj[1]] = conteo
+
+    grafo_dificultad = OrderedDict()
+    for obj in CHOICE_SAF_OBSERVACION_2_6:
+        conteo = filtro.filter(safobservaciones4__observacion9=obj[0]).count()
+        grafo_dificultad[obj[1]] = conteo
+
+    grafo_mejor = OrderedDict()
+    for obj in CHOICE_SAF_OBSERVACION_2_7:
+        conteo = filtro.filter(safobservaciones4__observacion10=obj[0]).count()
+        grafo_mejor[obj[1]] = conteo
 
 
     return render(request, template, locals())
