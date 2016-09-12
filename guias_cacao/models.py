@@ -2259,8 +2259,35 @@ class VivieroObservacion2(models.Model):
 
     ficha = models.ForeignKey(FichaVivero)
 
+    total_si = models.IntegerField(editable=False, null=True, blank=True)
+
     def __unicode__(self):
         return u"Observación del vivero 2"
+
+    def save(self, *args, **kwargs):
+        contar_total = 0
+        if self.planta_1 == 1:
+            contar_total += 1
+        if self.planta_2 == 1:
+            contar_total += 1
+        if self.planta_3 == 1:
+            contar_total += 1
+        if self.planta_4 == 1:
+            contar_total += 1
+        if self.planta_5 == 1:
+            contar_total += 1
+        if self.planta_6 == 1:
+            contar_total += 1
+        if self.planta_7 == 1:
+            contar_total += 1
+        if self.planta_8 == 1:
+            contar_total += 1
+        if self.planta_9 == 1:
+            contar_total += 1
+        if self.planta_10 == 1:
+            contar_total += 1
+        self.total_si = contar_total
+        super(VivieroObservacion2, self).save(*args, **kwargs)
 
     # class Meta:
     #     verbose_name = 'Presencia de plagas y enfermedades'

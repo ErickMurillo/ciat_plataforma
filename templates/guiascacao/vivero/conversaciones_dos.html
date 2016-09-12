@@ -269,6 +269,61 @@ $(function () {
         }]
     });
 });
+
+$(function () {
+    // Create the chart
+    $('#grafo6').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Meses que mantiene el vivero'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_mantiene_vivero.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
 </script>
 {% endblock extra_js %}
 
@@ -328,6 +383,49 @@ $(function () {
                         </div>
                     </div>
                     <hr>
+                     <div class="table-responsive tabla-especies">
+                                <table class="table table-bordered table-striped">
+                                <caption>Fuente de vareta</caption>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Conteo</th>
+                                            <th>Porcentaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for k,v in tabla_vareta.items %}
+                                        <tr>
+                                            <th scope=row>{{k}}</th>
+                                            <td>{{v}}</td>
+                                            <td>{{v|calcular_frecuencia:numero_parcelas}}%</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table> 
+                            </div>
+                    <hr>
+                    <div class="table-responsive tabla-especies">
+                                <table class="table table-bordered table-striped">
+                                <caption>Fuente de semilla</caption>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Conteo</th>
+                                            <th>Porcentaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for k,v in tabla_semilla.items %}
+                                        <tr>
+                                            <th scope=row>{{k}}</th>
+                                            <td>{{v}}</td>
+                                            <td>{{v|calcular_frecuencia:numero_parcelas}}%</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table> 
+                            </div>
 
                 </div>
             </div>

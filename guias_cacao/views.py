@@ -2586,14 +2586,82 @@ def conversaciones_dos_vivero(request, template='guiascacao/vivero/conversacione
 
     lista = filtro.values_list('viveroconversacion2__conversacion11', flat=True)
     grafo_procedimiento = crear_rangos(request, lista, 0, 100, 26)
-    print grafo_procedimiento
 
+    dicc_mantiene = {'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10}
+    grafo_mantiene_vivero = OrderedDict()
+    for k,v in dicc_mantiene.items():
+        conteo = filtro.filter(viveroconversacion2__conversacion13=v).count()
+        grafo_mantiene_vivero[k] = conteo
+
+    tabla_vareta = OrderedDict()
+    for obj in CHOICE_VIVERO_CONVERSACION_12:
+        conteo = filtro.filter(viveroconversacion2__conversacion12__contains=obj[0]).count()
+        tabla_vareta[obj[1]] = conteo
+
+    tabla_semilla = OrderedDict()
+    for obj in CHOICE_VIVERO_NUEVO_CONVERSACION2:
+        conteo = filtro.filter(viveroconversacion2__conversacion14=obj[0]).count()
+        tabla_semilla[obj[1]] = conteo
 
     return render(request, template, locals())
 
 def observacion_vivero(request, template='guiascacao/vivero/observacion.html'):
     filtro = _queryset_filtrado_vivero(request)
     numero_parcelas = filtro.count()
+
+    cantidad_planta = filtro.values_list('vivieroobservacion1__observacion1', flat=True)
+    try:
+        cantidad_planta_promedio = np.mean(cantidad_planta)
+    except:
+        pass
+    try:
+        cantidad_planta_mediano = np.median(cantidad_planta)
+    except:
+        pass
+    try:
+        cantidad_planta_minimo = min(cantidad_planta)
+    except:
+        pass
+    try:
+        cantidad_planta_maximo = max(cantidad_planta)
+    except:
+        pass
+    try:
+        cantidad_planta_desviacion = np.std(cantidad_planta)
+    except:
+        pass
+
+    edad_planta = filtro.values_list('vivieroobservacion1__observacion2', flat=True)
+    try:
+        edad_planta_promedio = np.mean(edad_planta)
+    except:
+        pass
+    try:
+        edad_planta_medianp = np.median(edad_planta)
+    except:
+        pass
+    try:
+        edad_planta_minimo = min(edad_planta)
+    except:
+        pass
+    try:
+        edad_planta_maximo = max(edad_planta)
+    except:
+        pass
+    try:
+        edad_planta_desviacion = np.std(edad_planta)
+    except:
+        pass
+
+    fuente_semilla = OrderedDict()
+    for obj in CHOICER_VIVIERO_FUENTE_SEMILLA:
+        conteo = filtro.filter(vivieroobservacion1__observacion3=obj[0]).count()
+        fuente_semilla[obj[1]] = conteo
+
+    dicc_plagas = OrderedDict()
+    for obj in CHOICE_VIVERO_PLAGAS_ENFERMEDADES:
+        datos = filtro.filter(vivieroobservacion2__observacion3=obj[0]).values_list('total_si', flat=True)
+        dicc_plagas[obj[1]] = [len(datos),np.mean(datos),np.median(datos),min(datos),max(datos),np.std(datos)]
 
     return render(request, template, locals())
 
