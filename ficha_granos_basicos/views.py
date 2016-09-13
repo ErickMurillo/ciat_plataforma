@@ -12,8 +12,8 @@ import collections
 def _queryset_filtrado(request):
 	params = {}
 
-	if request.session['year']:
-		params['anio'] = request.session['year']
+	# if request.session['year']:
+	# 	params['anio'] = request.session['year']
 
 	if request.session['municipio']:
 			params['productor__comunidad__municipio__in'] = request.session['municipio']
@@ -43,7 +43,7 @@ def consulta(request,template="granos_basicos/consulta.html"):
 		mensaje = None
 		form = Consulta(request.POST)
 		if form.is_valid():
-			request.session['year'] = form.cleaned_data['year']
+			# request.session['year'] = form.cleaned_data['year']
 			request.session['municipio'] = form.cleaned_data['municipio']
 			request.session['comunidad'] = form.cleaned_data['comunidad']
 			request.session['ciclo'] = form.cleaned_data['ciclo']
@@ -62,7 +62,7 @@ def consulta(request,template="granos_basicos/consulta.html"):
 		mensaje = "Existen alguno errores"
 		centinela = 0
 		try:
-			del request.session['year']
+			# del request.session['year']
 			del request.session['municipio']
 			del request.session['comunidad']
 			del request.session['ciclo']
