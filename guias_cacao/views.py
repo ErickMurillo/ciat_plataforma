@@ -2660,8 +2660,11 @@ def observacion_vivero(request, template='guiascacao/vivero/observacion.html'):
 
     dicc_plagas = OrderedDict()
     for obj in CHOICE_VIVERO_PLAGAS_ENFERMEDADES:
-        datos = filtro.filter(vivieroobservacion2__observacion3=obj[0]).values_list('total_si', flat=True)
-        dicc_plagas[obj[1]] = [len(datos),np.mean(datos),np.median(datos),min(datos),max(datos),np.std(datos)]
+        datos = filtro.filter(vivieroobservacion2__observacion3=obj[0]).values_list('vivieroobservacion2__total_si', flat=True)
+        try:
+            dicc_plagas[obj[1]] = [len(datos),np.mean(datos),np.median(datos),min(datos),max(datos),np.std(datos)]
+        except:
+            pass
 
     return render(request, template, locals())
 
@@ -2688,7 +2691,7 @@ def analisis_vivero(request, template='guiascacao/vivero/analisis.html'):
     for obj in CHOICE_VIVERO_ANALISIS_4:
         conteo = filtro.filter(vivieroanalisissituacion__analisis4__contains=obj[0]).count()
         grafo_acciones[obj[1]] = conteo
-    
+
     return render(request, template, locals())
 
 #----------  funciones utilitarias --------------------------

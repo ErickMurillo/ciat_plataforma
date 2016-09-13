@@ -41,7 +41,7 @@
                                             <th>Desviación estandar</th>
                                         </tr>
                                     </thead>
-                                    <tbody>  
+                                    <tbody>
                                         <tr>
                                             <th scope=row>{{cantidad_plata|length}}</th>
                                             <td>{{cantidad_planta_promedio}}</td>
@@ -51,7 +51,7 @@
                                             <td>{{cantidad_planta_desviacion}}</td>
                                         </tr>
                                     </tbody>
-                                </table> 
+                                </table>
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@
                                             <th>Desviación estandar</th>
                                         </tr>
                                     </thead>
-                                    <tbody>  
+                                    <tbody>
                                         <tr>
                                             <th scope=row>{{edad_planta|length}}</th>
                                             <td>{{edad_planta_promedio}}</td>
@@ -82,7 +82,7 @@
                                             <td>{{edad_planta_desviacion}}</td>
                                         </tr>
                                     </tbody>
-                                </table> 
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -97,24 +97,32 @@
                         <div class="col-md-12">
                             <div class="table-responsive tabla-especies">
                                 <table class="table table-bordered table-striped">
-                                <caption>Fuente de semilla</caption>
+                                <caption></caption>
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>Conteo</th>
-                                            <th>Porcentaje</th>
+                                            <th>#</th>
+                                            <th>Promedio</th>
+                                            <th>Mediano</th>
+                                            <th>Minimo</th>
+                                            <th>Maximo</th>
+                                            <th>Desviación estandar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for k,v in tabla_semilla.items %}
+                                        {% for k,v in dicc_plagas.items %}
                                         <tr>
                                             <th scope=row>{{k}}</th>
-                                            <td>{{v}}</td>
-                                            <td>{{v|calcular_frecuencia:numero_parcelas}}%</td>
+                                            <td>{{v.0}}</td>
+                                            <td>{{v.1}}</td>
+                                            <td>{{v.2}}</td>
+                                            <td>{{v.3}}</td>
+                                            <td>{{v.4}}</td>
+                                            <td>{{v.5}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
-                                </table> 
+                                </table>
                             </div>
                         </div>
                     </div>
