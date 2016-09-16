@@ -10,7 +10,7 @@ class InlineTablaGastos(admin.TabularInline):
     extra = 1
 
 class GastosAdmin(admin.ModelAdmin):
-    list_display = ('productor', 'fecha_siembra', 'rubro')
+    list_display = ('productor', 'fecha_siembra')
 
     # form = ProductorMonitoreoAdminForm
 
@@ -35,7 +35,7 @@ class InlineTablaInsumos(NestedTabularInline):
     inlines = [InlineLiga_Nested]
 
 class InsumosAdmin(NestedModelAdmin):
-    list_display = ('productor', 'fecha_siembra', 'rubro')
+    list_display = ('productor', 'fecha_siembra',)
 
     inlines = [InlineTablaInsumos]
 

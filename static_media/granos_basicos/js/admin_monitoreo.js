@@ -35,6 +35,13 @@
 			valor = $('#id_cultivo').val();
 			if (valor == 1) {
 				$(".select-monitoreo option[value='2']").hide();
+				$(".select-monitoreo option[value='1']").show();
+			} else if (valor == 2){
+				$(".select-monitoreo option[value='1']").hide();
+				$(".select-monitoreo option[value='2']").show();
+			} else {
+				$(".select-monitoreo option[value='1']").show();
+				$(".select-monitoreo option[value='2']").show();
 			}
 		});
 
@@ -42,8 +49,13 @@
 			valor = $('#id_cultivo').val();
 			if (valor == 1) {
 				$(".select-monitoreo option[value='2']").hide();
+				$(".select-monitoreo option[value='1']").show();
 			} else if (valor == 2){
 				$(".select-monitoreo option[value='1']").hide();
+				$(".select-monitoreo option[value='2']").show();
+			} else {
+				$(".select-monitoreo option[value='1']").show();
+				$(".select-monitoreo option[value='2']").show();
 			}
 		});
 

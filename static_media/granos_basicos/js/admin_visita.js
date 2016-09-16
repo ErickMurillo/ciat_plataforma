@@ -25,8 +25,13 @@
     if ($('#id_areas_0').is(':checked')) {
 			if (result == ' Maíz ') {
 				$(".select-monitoreo option[value='2']").hide();
+				$(".select-monitoreo option[value='1']").show();
 			}else if (result == ' Frijol '){
 				$(".select-monitoreo option[value='1']").hide();
+				$(".select-monitoreo option[value='2']").show();
+			}else {
+				$(".select-monitoreo option[value='1']").show();
+				$(".select-monitoreo option[value='2']").show();
 			}
       $('#semillas_set-group').show();
       $('#procedenciasemilla_set-group').show();
@@ -41,8 +46,13 @@
         if ($('#id_areas_0').is(':checked')) {
 					if (result == ' Maíz ') {
 						$(".select-monitoreo option[value='2']").hide();
+						$(".select-monitoreo option[value='1']").show();
 					}else if (result == ' Frijol '){
 						$(".select-monitoreo option[value='1']").hide();
+						$(".select-monitoreo option[value='2']").show();
+					}else {
+						$(".select-monitoreo option[value='1']").show();
+						$(".select-monitoreo option[value='2']").show();
 					}
           $('#semillas_set-group').show();
           $('#procedenciasemilla_set-group').show();
