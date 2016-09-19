@@ -73,31 +73,32 @@ def consulta(request,template="granos_basicos/consulta.html"):
 	return render(request, template, locals())
 
 def genero_produccion(request,template="granos_basicos/productores/genero_produccion.html"):
-    filtro = _queryset_filtrado(request)
+	filtro = _queryset_filtrado(request)
+	print filtro
 
-    CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
-    CHOICE_SEXO_JEFE = ((1,'Hombre'),(2,'Mujer'),(3,'Compartida'))
+	CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
+	CHOICE_SEXO_JEFE = ((1,'Hombre'),(2,'Mujer'),(3,'Compartida'))
 
-    sexo_productor = {}
-    prod_mujeres = {}
-    prod_hombres = {}
-    for obj in CHOICE_SEXO:
-        conteo = filtro.filter(productor__productor__sexo = obj[0]).distinct('productor__productor').count()
-        sexo_productor[obj[1]] = conteo
+	sexo_productor = {}
+	prod_mujeres = {}
+	prod_hombres = {}
+	for obj in CHOICE_SEXO:
+		conteo = filtro.filter(productor__productor__sexo = obj[0]).distinct('productor__productor').count()
+		sexo_productor[obj[1]] = conteo
 
-        for x in CHOICE_SEXO_JEFE:
+		for x in CHOICE_SEXO_JEFE:
 			jefe_familia = filtro.filter(productor__productor__sexo = obj[0],productor__productor__productor__jefe = x[0]).distinct('productor__productor').count()
 			if obj[0] == 1:
 				prod_hombres[x[1]] = jefe_familia
 			else:
 				prod_mujeres[x[1]] = jefe_familia
 
-    quien_produce = {}
-    for obj in RELACION_CHOICES:
-        conteo = filtro.filter(productor__productor__productorgranosbasicos__relacion = obj[0]).distinct('productor__productor').count()
-        quien_produce[obj[1]] = conteo
+	quien_produce = {}
+	for obj in RELACION_CHOICES:
+		conteo = filtro.filter(productor__productor__productorgranosbasicos__relacion = obj[0]).distinct('productor__productor').count()
+		quien_produce[obj[1]] = conteo
 
-    return render(request, template, locals())
+	return render(request, template, locals())
 
 def composicion_familiar(request,template="granos_basicos/productores/composicion_familiar.html"):
 	filtro = _queryset_filtrado(request)
@@ -193,13 +194,13 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 
 	count_monitoreo = filtro.count()
 
-	parcela_5 = filtro.filter(productor__edad_parcela__range = (0,5)).aggregate(avg = Avg('productor__profundidad_capa'))['avg']
-	parcela_6_20 = filtro.filter(productor__edad_parcela__range = (6,20)).aggregate(avg = Avg('productor__profundidad_capa'))['avg']
-	parcela_20 = filtro.filter(productor__edad_parcela__range = (21,100)).aggregate(avg = Avg('productor__profundidad_capa'))['avg']
+	parcela_5 = filtro.filter(productor__edad_parcela__range = (0,5)).distinct().aggregate(avg = Avg('productor__profundidad_capa'))['avg']
+	parcela_6_20 = filtro.filter(productor__edad_parcela__range = (6,20)).distinct().aggregate(avg = Avg('productor__profundidad_capa'))['avg']
+	parcela_20 = filtro.filter(productor__edad_parcela__range = (21,100)).distinct().aggregate(avg = Avg('productor__profundidad_capa'))['avg']
 
 	#grafico de lineas
-	inclinado = filtro.filter(productor__distribucionpendiente__seleccion = '1',productor__distribucionpendiente__inclinado__gt = 59.9).values_list('productor__profundidad_capa','productor__distribucionpendiente__inclinado')
-	plano = filtro.filter(productor__distribucionpendiente__seleccion = '1',productor__distribucionpendiente__plano__gt = 59.9).values_list('productor__profundidad_capa','productor__distribucionpendiente__plano')
+	inclinado = filtro.filter(productor__distribucionpendiente__seleccion = '1',productor__distribucionpendiente__inclinado__gt = 59.9).distinct('productor__productor').values_list('productor__profundidad_capa','productor__distribucionpendiente__inclinado')
+	plano = filtro.filter(productor__distribucionpendiente__seleccion = '1',productor__distribucionpendiente__plano__gt = 59.9).distinct('productor__productor').values_list('productor__profundidad_capa','productor__distribucionpendiente__plano')
 
 	#acceso agua
 	SI_NO_CHOICES = ((1,'Si'),(2,'No'))
@@ -207,7 +208,7 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	acceso_agua = {}
 	conteo_si = 0
 	for obj in SI_NO_CHOICES:
-		conteo = filtro.filter(productor__acceso_agua = obj[0]).count()
+		conteo = filtro.filter(productor__acceso_agua = obj[0]).distinct('productor__productor').count()
 		acceso_agua[obj[1]] = conteo
 		if conteo == 1:
 			conteo_si = conteo
@@ -215,7 +216,8 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	#fuente agua
 	fuente_agua = {}
 	for obj in ACCESO_AGUA_CHOICES:
-		conteo = filtro.filter(productor__fuente_agua__icontains = obj[0]).count()
+		conteo = filtro.filter(productor__fuente_agua__icontains = obj[0]).distinct('productor__productor').count()
+		print obj[1],conteo
 		fuente_agua[obj[1]] = saca_porcentajes(conteo,conteo_si,False)
 
 	return render(request, template, locals())
@@ -259,10 +261,10 @@ def recursos_economicos(request,template="granos_basicos/monitoreos/recursos_eco
 	maiz = {}
 	frijol = {}
 	for obj in RESPUESTA_CHOICES:
-		conteo_maiz = filtro.filter(productor__recursossiembra__respuesta = obj[0],productor__recursossiembra__rubro = '1').count()
+		conteo_maiz = filtro.filter(productor__recursossiembra__respuesta = obj[0],productor__recursossiembra__rubro = '1').distinct('productor__productor').count()
 		maiz[obj[1]] = conteo_maiz
 
-		conteo_frijol = filtro.filter(productor__recursossiembra__respuesta = obj[0],productor__recursossiembra__rubro = '2').count()
+		conteo_frijol = filtro.filter(productor__recursossiembra__respuesta = obj[0],productor__recursossiembra__rubro = '2').distinct('productor__productor').count()
 		frijol[obj[1]] = conteo_frijol
 
 	return render(request, template, locals())
