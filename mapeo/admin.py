@@ -60,7 +60,7 @@ class PersonaAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('/static/general/js/personaAdmin.js',
-                # '/static/granos_basicos/js/suelo.js'
+                '/static/mapeo/js/granos_basicos.js'
                 )
 
 

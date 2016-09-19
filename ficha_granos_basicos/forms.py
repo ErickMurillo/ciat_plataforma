@@ -40,7 +40,7 @@ class InsumosAdminForm(forms.ModelForm):
 #filtros-----------
 def fecha_choice():
     years = []
-    for en in Monitoreo.objects.order_by('anio').values_list('anio', flat=True):
+    for en in Visitas.objects.order_by('anio').values_list('anio', flat=True):
         years.append((en,en))
     return list(sorted(set(years)))
 
@@ -48,9 +48,9 @@ def municipios():
     foo = Monitoreo.objects.all().order_by('productor__comunidad__municipio__nombre').distinct().values_list('productor__comunidad__municipio__id', flat=True)
     return Municipio.objects.filter(id__in=foo)
 
-CICLO_CHOICES = (('','------'),(1,'Primera'),(2,'Postrera'))
+CICLO_CHOICES = (('','------'),(1,'Primera'),(2,'Postrera'),(3,'Apante'))
 
-CULTIVO_CHOICES = (('','------'),(1,'Maíz'),(2,'Frijol'),(3,'Maíz y Frijol'))
+CULTIVO_CHOICES1 = (('','------'),(1,'Maíz'),(2,'Frijol'),(3,'Asocio Maíz y Frijol'))
 
 class Consulta(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -59,4 +59,4 @@ class Consulta(forms.Form):
         self.fields['municipio'] = forms.ModelMultipleChoiceField(queryset=municipios(), required=False)
         self.fields['comunidad'] = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
         self.fields['ciclo'] = forms.ChoiceField(label=u'Ciclo productivo',choices=CICLO_CHOICES,required=False)
-        # self.fields['rubro'] = forms.ChoiceField(label=u'Rubro',choices=CULTIVO_CHOICES,required=False)
+        self.fields['rubro'] = forms.ChoiceField(label=u'Rubro',choices=CULTIVO_CHOICES1,required=False)
