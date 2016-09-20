@@ -74,7 +74,6 @@ def consulta(request,template="granos_basicos/consulta.html"):
 
 def genero_produccion(request,template="granos_basicos/productores/genero_produccion.html"):
 	filtro = _queryset_filtrado(request)
-	print filtro
 
 	CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
 	CHOICE_SEXO_JEFE = ((1,'Hombre'),(2,'Mujer'),(3,'Compartida'))
@@ -191,8 +190,7 @@ def georeferencia(request,template="granos_basicos/monitoreos/georeferencia.html
 
 def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracteristicas_parcela.html"):
 	filtro = _queryset_filtrado(request)
-
-	count_monitoreo = filtro.count()
+	conteo_filtro = filtro.count()
 
 	parcela_5 = filtro.filter(productor__edad_parcela__range = (0,5)).distinct().aggregate(avg = Avg('productor__profundidad_capa'))['avg']
 	parcela_6_20 = filtro.filter(productor__edad_parcela__range = (6,20)).distinct().aggregate(avg = Avg('productor__profundidad_capa'))['avg']
@@ -217,7 +215,6 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	fuente_agua = {}
 	for obj in ACCESO_AGUA_CHOICES:
 		conteo = filtro.filter(productor__fuente_agua__icontains = obj[0]).distinct('productor__productor').count()
-		print obj[1],conteo
 		fuente_agua[obj[1]] = saca_porcentajes(conteo,conteo_si,False)
 
 	return render(request, template, locals())

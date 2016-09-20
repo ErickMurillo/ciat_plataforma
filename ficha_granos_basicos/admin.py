@@ -260,7 +260,7 @@ class MonitoreoAdmin(admin.ModelAdmin):
                 ]
 
     fieldsets = (
-            (None, {'fields' : (('productor','cultivo','ciclo_productivo'),)}),
+            (None, {'fields' : (('productor','cultivo','ciclo_productivo','annio'),)}),
             ('DATOS DE LA PARCELA', {'fields' : (('nombre_parcela','edad_parcela'),
                                                 ('latitud','longitud','direccion_viento'),
                                                 ('percepcion_fertilidad','tamano_parcela','profundidad_capa'),

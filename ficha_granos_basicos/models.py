@@ -74,11 +74,22 @@ CULTIVO_CHOICES1 = (
     (3,'Asocio Maíz y Frijol'),
 )
 
+ANIO_CHOICES = (
+    (1,'2014'),
+    (2,'2015'),
+    (3,'2016'),
+    (4,'2017'),
+    (5,'2018'),
+    (6,'2019'),
+    (7,'2020'),
+)
+
 class Monitoreo(models.Model):
     productor = models.ForeignKey(Persona)
     #-------
     # fecha_monitoreo = models.DateField(blank=True, null=True)
     ciclo_productivo = models.IntegerField(choices=CICLO_CHOICES,blank=True, null=True)
+    annio = models.IntegerField(choices=ANIO_CHOICES,verbose_name='Año')
     cultivo = models.IntegerField(choices=CULTIVO_CHOICES1,blank=True, null=True)
     nombre_parcela = models.CharField(max_length=100,blank=True, null=True)
     edad_parcela = models.FloatField(verbose_name='Edad parcela (años)',blank=True, null=True)
@@ -91,7 +102,7 @@ class Monitoreo(models.Model):
     acceso_agua = models.IntegerField(choices=SI_NO_CHOICES,verbose_name='¿Tiene acceso a agua en su parcela?',blank=True, null=True)
     fuente_agua = MultiSelectField(choices=ACCESO_AGUA_CHOICES,verbose_name='Como tiene acceso a agua',blank=True, null=True)
     distancia = models.FloatField(verbose_name='¿A qué distancia tiene la fuente de agua?',blank=True, null=True)
-    anio = models.IntegerField(editable=False,blank=True, null=True,verbose_name="Año")
+    # anio = models.IntegerField(editable=False,blank=True, null=True,verbose_name="Año")
 
     def __unicode__(self):
 		return u'%s - %s - %s - %s' % (self.productor,self.get_cultivo_display(),self.get_ciclo_productivo_display(),self.nombre_parcela)
@@ -164,16 +175,6 @@ class RecursosSiembra(models.Model):
 
     class Meta:
         verbose_name_plural = 'Recursos para la siembra'
-
-ANIO_CHOICES = (
-    (1,'2014'),
-    (2,'2015'),
-    (3,'2016'),
-    (4,'2017'),
-    (5,'2018'),
-    (6,'2019'),
-    (7,'2020'),
-)
 
 class HistorialRendimiento(models.Model):
     rubro = models.IntegerField(choices=RUBRO_CHOICES)
