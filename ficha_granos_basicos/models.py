@@ -75,13 +75,13 @@ CULTIVO_CHOICES1 = (
 )
 
 ANIO_CHOICES = (
-    (1,'2014'),
-    (2,'2015'),
-    (3,'2016'),
-    (4,'2017'),
-    (5,'2018'),
-    (6,'2019'),
-    (7,'2020'),
+    (2014,'2014'),
+    (2015,'2015'),
+    (2016,'2016'),
+    (2017,'2017'),
+    (2018,'2018'),
+    (2019,'2019'),
+    (2020,'2020'),
 )
 
 class Monitoreo(models.Model):
@@ -105,7 +105,7 @@ class Monitoreo(models.Model):
     # anio = models.IntegerField(editable=False,blank=True, null=True,verbose_name="Año")
 
     def __unicode__(self):
-		return u'%s - %s - %s - %s' % (self.productor,self.get_cultivo_display(),self.get_ciclo_productivo_display(),self.nombre_parcela)
+		return u'%s - %s - %s - %s - %s' % (self.productor,self.get_cultivo_display(),self.get_ciclo_productivo_display(),self.get_annio_display(),self.nombre_parcela)
 
     # def save(self, *args, **kwargs):
 	# 	self.anio = self.fecha_monitoreo.year

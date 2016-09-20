@@ -13,7 +13,7 @@ def _queryset_filtrado(request):
 	params = {}
 
 	if request.session['year']:
-		params['anio'] = request.session['year']
+		params['annio'] = request.session['year']
 
 	if request.session['municipio']:
 			params['productor__comunidad__municipio__in'] = request.session['municipio']
@@ -22,11 +22,13 @@ def _queryset_filtrado(request):
 			params['productor__comunidad__in'] = request.session['comunidad']
 
 	if request.session['ciclo']:
-		params['productor__ciclo_productivo'] = request.session['ciclo']
+		params['ciclo_productivo'] = request.session['ciclo']
 
 	if request.session['rubro']:
-		params['productor__cultivo'] = request.session['rubro']
+		params['cultivo'] = request.session['rubro']
 
+	if request.session['organizacion']:
+		params['productor__productor__organizacion'] = request.session['organizacion']
 
 	unvalid_keys = []
 	for key in params:
@@ -36,7 +38,7 @@ def _queryset_filtrado(request):
 	for key in unvalid_keys:
 		del params[key]
 
-	return Visitas.objects.filter(**params)
+	return Monitoreo.objects.filter(**params)
 
 def consulta(request,template="granos_basicos/consulta.html"):
 	if request.method == 'POST':
@@ -48,6 +50,7 @@ def consulta(request,template="granos_basicos/consulta.html"):
 			request.session['comunidad'] = form.cleaned_data['comunidad']
 			request.session['ciclo'] = form.cleaned_data['ciclo']
 			request.session['rubro'] = form.cleaned_data['rubro']
+			request.session['organizacion'] = form.cleaned_data['organizacion']
 
 			mensaje = "Todas las variables estan correctamente :)"
 			request.session['activo'] = True
@@ -67,6 +70,7 @@ def consulta(request,template="granos_basicos/consulta.html"):
 			del request.session['comunidad']
 			del request.session['ciclo']
 			del request.session['rubro']
+			del request.session['organizacion']
 		except:
 			pass
 
@@ -74,6 +78,7 @@ def consulta(request,template="granos_basicos/consulta.html"):
 
 def genero_produccion(request,template="granos_basicos/productores/genero_produccion.html"):
 	filtro = _queryset_filtrado(request)
+	productores = filtro.distinct('productor').count()
 
 	CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
 	CHOICE_SEXO_JEFE = ((1,'Hombre'),(2,'Mujer'),(3,'Compartida'))
@@ -82,11 +87,11 @@ def genero_produccion(request,template="granos_basicos/productores/genero_produc
 	prod_mujeres = {}
 	prod_hombres = {}
 	for obj in CHOICE_SEXO:
-		conteo = filtro.filter(productor__productor__sexo = obj[0]).distinct('productor__productor').count()
+		conteo = filtro.filter(productor__sexo = obj[0]).distinct('productor').count()
 		sexo_productor[obj[1]] = conteo
 
 		for x in CHOICE_SEXO_JEFE:
-			jefe_familia = filtro.filter(productor__productor__sexo = obj[0],productor__productor__productor__jefe = x[0]).distinct('productor__productor').count()
+			jefe_familia = filtro.filter(productor__sexo = obj[0],productor__productor__jefe = x[0]).distinct('productor').count()
 			if obj[0] == 1:
 				prod_hombres[x[1]] = jefe_familia
 			else:
@@ -94,20 +99,21 @@ def genero_produccion(request,template="granos_basicos/productores/genero_produc
 
 	quien_produce = {}
 	for obj in RELACION_CHOICES:
-		conteo = filtro.filter(productor__productor__productorgranosbasicos__relacion = obj[0]).distinct('productor__productor').count()
+		conteo = filtro.filter(productor__productorgranosbasicos__relacion = obj[0]).distinct('productor').count()
 		quien_produce[obj[1]] = conteo
 
 	return render(request, template, locals())
 
 def composicion_familiar(request,template="granos_basicos/productores/composicion_familiar.html"):
 	filtro = _queryset_filtrado(request)
+	productores = filtro.distinct('productor').count()
 
 	count_productores = filtro.distinct('productor').count()
 
-	hijas = filtro.filter(productor__productor__composicionfamiliar__familia = '4').distinct('productor__productor__composicionfamiliar').count()
+	hijas = filtro.filter(productor__composicionfamiliar__familia = '4').distinct('productor__composicionfamiliar').count()
 	avg_hijas = hijas / count_productores
 
-	hijos = filtro.filter(productor__productor__composicionfamiliar__familia = '3').distinct('productor__productor__composicionfamiliar').count()
+	hijos = filtro.filter(productor__composicionfamiliar__familia = '3').distinct('productor__composicionfamiliar').count()
 	avg_hijos = hijos / count_productores
 
 	ESCOLARIDAD_CHOICES = (
@@ -119,42 +125,42 @@ def composicion_familiar(request,template="granos_basicos/productores/composicio
 	escolaridad = {}
 	escolaridad_hijos = {}
 	for obj in ESCOLARIDAD_CHOICES:
-		padre = filtro.filter(productor__productor__composicionfamiliar__familia = '1',
-		                    productor__productor__composicionfamiliar__escolaridad = obj[0]).distinct('productor__productor__composicionfamiliar').count()
+		padre = filtro.filter(productor__composicionfamiliar__familia = '1',
+		                    productor__composicionfamiliar__escolaridad = obj[0]).distinct('productor__composicionfamiliar').count()
 		percentage_padre = (padre / count_productores) * 100
 
-		madre = filtro.filter(productor__productor__composicionfamiliar__familia = '2',
-		                    productor__productor__composicionfamiliar__escolaridad = obj[0]).distinct('productor__productor__composicionfamiliar').count()
+		madre = filtro.filter(productor__composicionfamiliar__familia = '2',
+		                    productor__composicionfamiliar__escolaridad = obj[0]).distinct('productor__composicionfamiliar').count()
 		percentage_madre = (madre / count_productores) * 100
 
 		escolaridad[obj[1]] = (percentage_padre,percentage_madre)
 
 		#--------------------------------
 		#hijos--------------------
-		hijos_5_12 = filtro.filter(productor__productor__composicionfamiliar__familia = '3',
-									productor__productor__composicionfamiliar__escolaridad = obj[0],
-									productor__productor__composicionfamiliar__edad__range = (5,12)).distinct('productor__productor__composicionfamiliar').count()
+		hijos_5_12 = filtro.filter(productor__composicionfamiliar__familia = '3',
+									productor__composicionfamiliar__escolaridad = obj[0],
+									productor__composicionfamiliar__edad__range = (5,12)).distinct('productor__composicionfamiliar').count()
 
-		hijos_13_18 = filtro.filter(productor__productor__composicionfamiliar__familia = '3',
-									productor__productor__composicionfamiliar__escolaridad = obj[0],
-									productor__productor__composicionfamiliar__edad__range = (13,18)).distinct('productor__productor__composicionfamiliar').count()
+		hijos_13_18 = filtro.filter(productor__composicionfamiliar__familia = '3',
+									productor__composicionfamiliar__escolaridad = obj[0],
+									productor__composicionfamiliar__edad__range = (13,18)).distinct('productor__composicionfamiliar').count()
 
-		hijos_19 = filtro.filter(productor__productor__composicionfamiliar__familia = '3',
-									productor__productor__composicionfamiliar__escolaridad = obj[0],
-									productor__productor__composicionfamiliar__edad__range = (19,100)).distinct('productor__productor__composicionfamiliar').count()
+		hijos_19 = filtro.filter(productor__composicionfamiliar__familia = '3',
+									productor__composicionfamiliar__escolaridad = obj[0],
+									productor__composicionfamiliar__edad__range = (19,100)).distinct('productor__composicionfamiliar').count()
 
 		#hijas--------------------
-		hijas_5_12 = filtro.filter(productor__productor__composicionfamiliar__familia = '4',
-									productor__productor__composicionfamiliar__escolaridad = obj[0],
-									productor__productor__composicionfamiliar__edad__range = (5,12)).distinct('productor__productor__composicionfamiliar').count()
+		hijas_5_12 = filtro.filter(productor__composicionfamiliar__familia = '4',
+									productor__composicionfamiliar__escolaridad = obj[0],
+									productor__composicionfamiliar__edad__range = (5,12)).distinct('productor__composicionfamiliar').count()
 
-		hijas_13_18 = filtro.filter(productor__productor__composicionfamiliar__familia = '4',
-									productor__productor__composicionfamiliar__escolaridad = obj[0],
-									productor__productor__composicionfamiliar__edad__range = (13,18)).distinct('productor__productor__composicionfamiliar').count()
+		hijas_13_18 = filtro.filter(productor__composicionfamiliar__familia = '4',
+									productor__composicionfamiliar__escolaridad = obj[0],
+									productor__composicionfamiliar__edad__range = (13,18)).distinct('productor__composicionfamiliar').count()
 
-		hijas_19 = filtro.filter(productor__productor__composicionfamiliar__familia = '4',
-									productor__productor__composicionfamiliar__escolaridad = obj[0],
-									productor__productor__composicionfamiliar__edad__range = (19,100)).distinct('productor__productor__composicionfamiliar').count()
+		hijas_19 = filtro.filter(productor__composicionfamiliar__familia = '4',
+									productor__composicionfamiliar__escolaridad = obj[0],
+									productor__composicionfamiliar__edad__range = (19,100)).distinct('productor__composicionfamiliar').count()
 
 		escolaridad_hijos[obj[1]] = (saca_porcentajes(hijas_5_12,hijas,False),
 									saca_porcentajes(hijas_13_18,hijas,False),
@@ -168,13 +174,13 @@ def composicion_familiar(request,template="granos_basicos/productores/composicio
 
 	participacion = {}
 	for obj in SI_NO_CHOICES:
-		participan_hijos = filtro.filter(productor__productor__composicionfamiliar__familia = '3',
-									productor__productor__composicionfamiliar__participacion = obj[0]).distinct(
-									'productor__productor__composicionfamiliar').count()
+		participan_hijos = filtro.filter(productor__composicionfamiliar__familia = '3',
+									productor__composicionfamiliar__participacion = obj[0]).distinct(
+									'productor__composicionfamiliar').count()
 
-		participan_hijas = filtro.filter(productor__productor__composicionfamiliar__familia = '4',
-									productor__productor__composicionfamiliar__participacion = obj[0]).distinct(
-									'productor__productor__composicionfamiliar').count()
+		participan_hijas = filtro.filter(productor__composicionfamiliar__familia = '4',
+									productor__composicionfamiliar__participacion = obj[0]).distinct(
+									'productor__composicionfamiliar').count()
 
 		participacion[obj[1]] = (saca_porcentajes(participan_hijos,hijos,False),
 								saca_porcentajes(participan_hijas,hijas,False))
@@ -183,22 +189,23 @@ def composicion_familiar(request,template="granos_basicos/productores/composicio
 
 def georeferencia(request,template="granos_basicos/monitoreos/georeferencia.html"):
 	filtro = _queryset_filtrado(request)
+	productores = filtro.distinct('productor').count()
 
-	mapa = filtro.values('productor__nombre_parcela','productor__latitud','productor__longitud')
+	mapa = filtro.values('nombre_parcela','latitud','longitud')
 
 	return render(request, template, locals())
 
 def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracteristicas_parcela.html"):
 	filtro = _queryset_filtrado(request)
-	conteo_filtro = filtro.count()
+	productores = filtro.distinct('productor').count()
 
-	parcela_5 = filtro.filter(productor__edad_parcela__range = (0,5)).distinct().aggregate(avg = Avg('productor__profundidad_capa'))['avg']
-	parcela_6_20 = filtro.filter(productor__edad_parcela__range = (6,20)).distinct().aggregate(avg = Avg('productor__profundidad_capa'))['avg']
-	parcela_20 = filtro.filter(productor__edad_parcela__range = (21,100)).distinct().aggregate(avg = Avg('productor__profundidad_capa'))['avg']
+	parcela_5 = filtro.filter(edad_parcela__range = (0,5)).aggregate(avg = Avg('profundidad_capa'))['avg']
+	parcela_6_20 = filtro.filter(edad_parcela__range = (6,20)).aggregate(avg = Avg('profundidad_capa'))['avg']
+	parcela_20 = filtro.filter(edad_parcela__range = (21,100)).aggregate(avg = Avg('profundidad_capa'))['avg']
 
 	#grafico de lineas
-	inclinado = filtro.filter(productor__distribucionpendiente__seleccion = '1',productor__distribucionpendiente__inclinado__gt = 59.9).distinct('productor__productor').values_list('productor__profundidad_capa','productor__distribucionpendiente__inclinado')
-	plano = filtro.filter(productor__distribucionpendiente__seleccion = '1',productor__distribucionpendiente__plano__gt = 59.9).distinct('productor__productor').values_list('productor__profundidad_capa','productor__distribucionpendiente__plano')
+	inclinado = filtro.filter(distribucionpendiente__seleccion = '1',distribucionpendiente__inclinado__gt = 59.9).values_list('profundidad_capa','distribucionpendiente__inclinado')
+	plano = filtro.filter(distribucionpendiente__seleccion = '1',distribucionpendiente__plano__gt = 59.9).values_list('profundidad_capa','distribucionpendiente__plano')
 
 	#acceso agua
 	SI_NO_CHOICES = ((1,'Si'),(2,'No'))
@@ -206,43 +213,45 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	acceso_agua = {}
 	conteo_si = 0
 	for obj in SI_NO_CHOICES:
-		conteo = filtro.filter(productor__acceso_agua = obj[0]).distinct('productor__productor').count()
+		conteo = filtro.filter(acceso_agua = obj[0]).count()
 		acceso_agua[obj[1]] = conteo
-		if conteo == 1:
-			conteo_si = conteo
 
 	#fuente agua
 	fuente_agua = {}
+	conteo_si = filtro.filter(acceso_agua = 1).count()
 	for obj in ACCESO_AGUA_CHOICES:
-		conteo = filtro.filter(productor__fuente_agua__icontains = obj[0]).distinct('productor__productor').count()
+		conteo = filtro.filter(fuente_agua__icontains = obj[0]).count()
+		print conteo, obj[1]
 		fuente_agua[obj[1]] = saca_porcentajes(conteo,conteo_si,False)
 
 	return render(request, template, locals())
 
 def ciclo_productivo(request,template="granos_basicos/monitoreos/ciclo_productivo.html"):
 	filtro = _queryset_filtrado(request)
+	productores = filtro.distinct('productor').count()
 
 	return render(request, template, locals())
 
 def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 	filtro = _queryset_filtrado(request)
+	productores = filtro.distinct('productor').count()
 
-	avg_fincas = filtro.filter(productor__productor__usosuelo__uso = '1').distinct().aggregate(avg = Avg('productor__productor__usosuelo__cantidad'))['avg']
+	avg_fincas = filtro.filter(productor__usosuelo__uso = '1').distinct().aggregate(avg = Avg('productor__usosuelo__cantidad'))['avg']
 
-	avg_cultivos_anuales = filtro.filter(productor__productor__usosuelo__uso = '2').distinct().aggregate(avg = Avg('productor__productor__usosuelo__cantidad'))['avg']
+	avg_cultivos_anuales = filtro.filter(productor__usosuelo__uso = '2').distinct().aggregate(avg = Avg('productor__usosuelo__cantidad'))['avg']
 
 	USO_SUELO_CHOICES = ((2,'Cultivos Anuales (GB)'),(3,'Cultivos perennes'),
 	    (4,'Tacotales'),(5,'Potreros'),(6,'Pasto de Corte'))
 
 	areas_finca = collections.OrderedDict()
-	areas = filtro.filter(productor__productor__usosuelo__uso = '1').distinct('productor__productor').values_list('productor__productor__usosuelo__cantidad', flat = True)
+	areas = filtro.filter(productor__usosuelo__uso = '1').distinct('productor__productor').values_list('productor__usosuelo__cantidad', flat = True)
 	total_areas = 0
 	for x in areas:
 		total_areas += x
 
 	for obj in USO_SUELO_CHOICES:
 		area = 0
-		values = filtro.filter(productor__productor__usosuelo__uso = obj[0]).distinct('productor__productor').values_list('productor__productor__usosuelo__cantidad', flat = True)
+		values = filtro.filter(productor__usosuelo__uso = obj[0]).values_list('productor__usosuelo__cantidad', flat = True)
 		if values == None:
 			values = 0
 		for y in values:
@@ -254,14 +263,15 @@ def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 
 def recursos_economicos(request,template="granos_basicos/monitoreos/recursos_economicos.html"):
 	filtro = _queryset_filtrado(request)
+	productores = filtro.distinct('productor').count()
 
 	maiz = {}
 	frijol = {}
 	for obj in RESPUESTA_CHOICES:
-		conteo_maiz = filtro.filter(productor__recursossiembra__respuesta = obj[0],productor__recursossiembra__rubro = '1').distinct('productor__productor').count()
+		conteo_maiz = filtro.filter(recursossiembra__respuesta = obj[0],recursossiembra__rubro = '1').count()
 		maiz[obj[1]] = conteo_maiz
 
-		conteo_frijol = filtro.filter(productor__recursossiembra__respuesta = obj[0],productor__recursossiembra__rubro = '2').distinct('productor__productor').count()
+		conteo_frijol = filtro.filter(recursossiembra__respuesta = obj[0],recursossiembra__rubro = '2').count()
 		frijol[obj[1]] = conteo_frijol
 
 	return render(request, template, locals())

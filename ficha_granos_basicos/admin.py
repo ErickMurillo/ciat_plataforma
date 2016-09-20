@@ -249,7 +249,7 @@ class VisitasAdmin(admin.ModelAdmin):
 admin.site.register(Visitas,VisitasAdmin)
 
 class MonitoreoAdmin(admin.ModelAdmin):
-    list_display = ('productor','cultivo','ciclo_productivo','nombre_parcela')
+    list_display = ('productor','cultivo','ciclo_productivo','annio','nombre_parcela')
     search_fields = ('productor',)
     # date_hierarchy = 'fecha_monitoreo'
 

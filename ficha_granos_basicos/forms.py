@@ -3,6 +3,7 @@ from django import forms
 from lookups import *
 import selectable.forms as selectable
 from .models import *
+from mapeo.models import *
 from comunicacion.lugar.models import *
 
 class MonitoreoAdminForm(forms.ModelForm):
@@ -40,13 +41,17 @@ class InsumosAdminForm(forms.ModelForm):
 #filtros-----------
 def fecha_choice():
     years = []
-    for en in Visitas.objects.order_by('anio').values_list('anio', flat=True):
+    for en in Monitoreo.objects.order_by('annio').values_list('annio', flat=True):
         years.append((en,en))
     return list(sorted(set(years)))
 
 def municipios():
     foo = Monitoreo.objects.all().order_by('productor__comunidad__municipio__nombre').distinct().values_list('productor__comunidad__municipio__id', flat=True)
     return Municipio.objects.filter(id__in=foo)
+
+def organizaciones():
+    foo = Monitoreo.objects.all().order_by('productor__productor__organizacion').distinct().values_list('productor__productor__organizacion', flat=True)
+    return Organizaciones.objects.filter(id__in=foo)
 
 CICLO_CHOICES = (('','------'),(1,'Primera'),(2,'Postrera'),(3,'Apante'))
 
@@ -60,3 +65,4 @@ class Consulta(forms.Form):
         self.fields['comunidad'] = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
         self.fields['ciclo'] = forms.ChoiceField(label=u'Ciclo productivo',choices=CICLO_CHOICES,required=False)
         self.fields['rubro'] = forms.ChoiceField(label=u'Rubro',choices=CULTIVO_CHOICES1,required=False)
+        self.fields['organizacion'] = forms.ModelMultipleChoiceField(queryset=organizaciones(),required=False)

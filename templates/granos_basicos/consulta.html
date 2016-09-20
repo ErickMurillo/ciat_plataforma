@@ -52,6 +52,15 @@
                             {{form.comunidad}}
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <label for="">{{form.organizacion.label}}</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+                            {{form.organizacion}}
+                        </div>
+                    </div>
                 </div>
                 <input type="submit" value="Consultar" class="btn btn-form" name="Consulta"/>
             </form>
@@ -83,6 +92,33 @@
 <script type="text/javascript">
   $("select").addClass("form-control");
   $(document).ready(function() {
+
+    $('#id_organizacion').multiselect({
+        buttonWidth: '250px',
+        includeSelectAllOption: true,
+        selectAllText: 'Seleccionar todos',
+        buttonText: function(options, select) {
+                if (options.length === 0) {
+                    return 'Sin selección ...';
+                }
+                else if (options.length > 3) {
+                    return 'Varias opciones seleccionadas!';
+                }
+                 else {
+                     var labels = [];
+                     options.each(function() {
+                         if ($(this).attr('label') !== undefined) {
+                             labels.push($(this).attr('label'));
+                         }
+                         else {
+                             labels.push($(this).html());
+                         }
+                     });
+                     return labels.join(', ') + '';
+                 }
+            }
+    });
+
       $('#id_municipio').multiselect({
           buttonWidth: '250px',
           includeSelectAllOption: true,
