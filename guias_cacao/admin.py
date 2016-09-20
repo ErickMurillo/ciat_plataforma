@@ -684,3 +684,124 @@ class FichaSafAdmin(admin.ModelAdmin):
     date_hierarchy = 'fecha_visita'
 
 admin.site.register(FichaSaf, FichaSafAdmin)
+
+# ------- inicio admin Ficha cierre
+
+class CierreManejo1Inline(admin.TabularInline):
+    model = CierreManejo1
+    extra = 1
+    max_num = 1
+
+class CierreManejo2Inline(admin.TabularInline):
+    model = CierreManejo2
+    extra = 1
+    max_num = 1
+
+class CierreManejo3Inline(admin.TabularInline):
+    model = CierreManejo3
+    extra = 1
+    max_num = 1
+
+class CierreManejo4Inline(admin.TabularInline):
+    model = CierreManejo4
+    extra = 1
+    max_num = 1
+
+class CierreManejo5Inline(admin.TabularInline):
+    model = CierreManejo5
+    extra = 1
+    max_num = 1
+
+class CierreManejo6Inline(admin.TabularInline):
+    model = CierreManejo6
+    extra = 1
+    max_num = 1
+
+class CierreManejo7Inline(admin.TabularInline):
+    model = CierreManejo7
+    extra = 1
+    max_num = 1
+
+class CierreCosto1Inline(admin.TabularInline):
+    model = CierreCosto1
+    extra = 1
+    max_num = 1
+
+class CierreActividadInline(admin.TabularInline):
+    model = CierreActividad
+    extra = 1
+
+class CierreManejoInline(admin.TabularInline):
+    model = CierreManejo
+    extra = 1
+
+class CierreConocimiento1Inline(admin.TabularInline):
+    model = CierreConocimiento1
+    extra = 1
+    max_num = 1
+
+class CierreConocimiento2Inline(admin.TabularInline):
+    model = CierreConocimiento2
+    extra = 1
+    max_num = 1
+
+class CierreConocimiento3Inline(admin.TabularInline):
+    model = CierreConocimiento3
+    extra = 1
+    max_num = 1
+
+class CierreSuelo1Inline(admin.TabularInline):
+    model = CierreSuelo1
+    extra = 1
+    max_num = 1
+
+class CierreSuelo2Inline(admin.TabularInline):
+    model = CierreSuelo2
+    extra = 1
+    max_num = 1
+
+class CierreSuelo3Inline(admin.TabularInline):
+    model = CierreSuelo3
+    extra = 1
+    max_num = 1
+
+class CierrePlaga1Inline(admin.TabularInline):
+    model = CierrePlaga1
+    extra = 1
+    max_num = 2
+
+class CierrePlaga2Inline(admin.TabularInline):
+    model = CierrePlaga2
+    extra = 1
+    max_num = 1
+
+class CierrePlaga3Inline(admin.TabularInline):
+    model = CierrePlaga3
+    extra = 1
+    max_num = 1
+
+class CierreCicloTrabajoInline(admin.TabularInline):
+    model = CierreCicloTrabajo
+    extra = 1
+    max_num = 1
+
+class CierreBabaRojaInline(admin.TabularInline):
+    model = CierreBabaRoja
+    extra = 1
+    max_num = 1
+
+class FichaCierreAdmin(admin.ModelAdmin):
+    form = ProductorCierreAdminForm
+    inlines = [CierreManejo1Inline,CierreManejo2Inline,CierreManejo3Inline,CierreManejo4Inline,
+                    CierreManejo5Inline,CierreManejo6Inline,CierreManejo7Inline,CierreCosto1Inline,
+                    CierreActividadInline,CierreBabaRojaInline,CierreManejoInline,CierreConocimiento1Inline,CierreConocimiento2Inline,
+                    CierreConocimiento3Inline,CierreSuelo1Inline,CierreSuelo2Inline,CierreSuelo3Inline,
+                    CierrePlaga1Inline,CierrePlaga2Inline,CierrePlaga3Inline,CierreCicloTrabajoInline]
+
+    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    search_fields = ('productor__nombre',)
+    date_hierarchy = 'fecha_visita'
+
+admin.site.register(FichaCierre, FichaCierreAdmin)
+admin.site.register(ActividadesCierre)
+admin.site.register(ManejosCierre)

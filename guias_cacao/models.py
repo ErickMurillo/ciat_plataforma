@@ -628,7 +628,7 @@ CHOICE_ENFERMEDADES_CACAOTALES = (
         (8, 'Escarabajos'),
         (9, 'Comején'),
         (10, 'Ardillas'),
-        (10, 'Otros'),
+        (11, 'Otros'),
     )
 
 class PlagasEnfermedad(models.Model):
@@ -723,9 +723,38 @@ class ObservacionPunto1(models.Model):
     siete = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     ocho = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
-    dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
+    dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True, verbose_name='Diez')
+
+    contador = models.IntegerField(editable=False, null=True, blank=True)
 
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar = 0
+        if self.uno == 1:
+            contar += 1
+        if self.dos == 1:
+            contar += 1
+        if self.tres == 1:
+            contar += 1
+        if self.cuatro == 1:
+            contar += 1
+        if self.cinco == 1:
+            contar += 1
+        if self.seis == 1:
+            contar += 1
+        if self.siete == 1:
+            contar += 1
+        if self.ocho == 1:
+            contar += 1
+        if self.nueve == 1:
+            contar += 1
+        if self.dies == 1:
+            contar += 1
+
+        self.contador = contar
+
+        super(ObservacionPunto1, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"Punto1"
@@ -752,8 +781,84 @@ class ObservacionPunto1Nivel(models.Model):
             blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
+
+    alta = models.IntegerField(editable=False, null=True, blank=True)
+    media = models.IntegerField(editable=False, null=True, blank=True)
+    baja = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
 
+    def save(self, *args, **kwargs):
+        contar_alta = 0
+        if self.uno == 1:
+            contar_alta += 1
+        if self.dos == 1:
+            contar_alta += 1
+        if self.tres == 1:
+            contar_alta += 1
+        if self.cuatro == 1:
+            contar_alta += 1
+        if self.cinco == 1:
+            contar_alta += 1
+        if self.seis == 1:
+            contar_alta += 1
+        if self.siete == 1:
+            contar_alta += 1
+        if self.ocho == 1:
+            contar_alta += 1
+        if self.nueve == 1:
+            contar_alta += 1
+        if self.dies == 1:
+            contar_alta += 1
+        self.alta = contar_alta
+
+        contar_media = 0
+        if self.uno == 2:
+            contar_media += 1
+        if self.dos == 2:
+            contar_media += 1
+        if self.tres == 2:
+            contar_media += 1
+        if self.cuatro == 2:
+            contar_media += 1
+        if self.cinco == 2:
+            contar_media += 1
+        if self.seis == 2:
+            contar_media += 1
+        if self.siete == 2:
+            contar_media += 1
+        if self.ocho == 2:
+            contar_media += 1
+        if self.nueve == 2:
+            contar_media += 1
+        if self.dies == 2:
+            contar_media += 1
+        self.media = contar_media
+
+        contar_baja = 0
+        if self.uno == 3:
+            contar_baja += 1
+        if self.dos == 3:
+            contar_baja += 1
+        if self.tres == 3:
+            contar_baja += 1
+        if self.cuatro == 3:
+            contar_baja += 1
+        if self.cinco == 3:
+            contar_baja += 1
+        if self.seis == 3:
+            contar_baja += 1
+        if self.siete == 3:
+            contar_baja += 1
+        if self.ocho == 3:
+            contar_baja += 1
+        if self.nueve == 3:
+            contar_baja += 1
+        if self.dies == 3:
+            contar_baja += 1
+        self.baja = contar_baja
+
+        super(ObservacionPunto1Nivel, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"Punto1 nivel produccion"
@@ -773,7 +878,36 @@ class ObservacionPunto2(models.Model):
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
 
+    contador = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar = 0
+        if self.uno == 1:
+            contar += 1
+        if self.dos == 1:
+            contar += 1
+        if self.tres == 1:
+            contar += 1
+        if self.cuatro == 1:
+            contar += 1
+        if self.cinco == 1:
+            contar += 1
+        if self.seis == 1:
+            contar += 1
+        if self.siete == 1:
+            contar += 1
+        if self.ocho == 1:
+            contar += 1
+        if self.nueve == 1:
+            contar += 1
+        if self.dies == 1:
+            contar += 1
+
+        self.contador = contar
+
+        super(ObservacionPunto2, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"Punto2"
@@ -801,7 +935,83 @@ class ObservacionPunto2Nivel(models.Model):
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
 
+    alta = models.IntegerField(editable=False, null=True, blank=True)
+    media = models.IntegerField(editable=False, null=True, blank=True)
+    baja = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar_alta = 0
+        if self.uno == 1:
+            contar_alta += 1
+        if self.dos == 1:
+            contar_alta += 1
+        if self.tres == 1:
+            contar_alta += 1
+        if self.cuatro == 1:
+            contar_alta += 1
+        if self.cinco == 1:
+            contar_alta += 1
+        if self.seis == 1:
+            contar_alta += 1
+        if self.siete == 1:
+            contar_alta += 1
+        if self.ocho == 1:
+            contar_alta += 1
+        if self.nueve == 1:
+            contar_alta += 1
+        if self.dies == 1:
+            contar_alta += 1
+        self.alta = contar_alta
+
+        contar_media = 0
+        if self.uno == 2:
+            contar_media += 1
+        if self.dos == 2:
+            contar_media += 1
+        if self.tres == 2:
+            contar_media += 1
+        if self.cuatro == 2:
+            contar_media += 1
+        if self.cinco == 2:
+            contar_media += 1
+        if self.seis == 2:
+            contar_media += 1
+        if self.siete == 2:
+            contar_media += 1
+        if self.ocho == 2:
+            contar_media += 1
+        if self.nueve == 2:
+            contar_media += 1
+        if self.dies == 2:
+            contar_media += 1
+        self.media = contar_media
+
+        contar_baja = 0
+        if self.uno == 3:
+            contar_baja += 1
+        if self.dos == 3:
+            contar_baja += 1
+        if self.tres == 3:
+            contar_baja += 1
+        if self.cuatro == 3:
+            contar_baja += 1
+        if self.cinco == 3:
+            contar_baja += 1
+        if self.seis == 3:
+            contar_baja += 1
+        if self.siete == 3:
+            contar_baja += 1
+        if self.ocho == 3:
+            contar_baja += 1
+        if self.nueve == 3:
+            contar_baja += 1
+        if self.dies == 3:
+            contar_baja += 1
+        self.baja = contar_baja
+
+        super(ObservacionPunto2Nivel, self).save(*args, **kwargs)
 
 
     def __unicode__(self):
@@ -821,7 +1031,36 @@ class ObservacionPunto3(models.Model):
     nueve = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
     dies = models.IntegerField(choices=CHOICE_SI_NO, blank=True, null=True)
 
+    contador = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar = 0
+        if self.uno == 1:
+            contar += 1
+        if self.dos == 1:
+            contar += 1
+        if self.tres == 1:
+            contar += 1
+        if self.cuatro == 1:
+            contar += 1
+        if self.cinco == 1:
+            contar += 1
+        if self.seis == 1:
+            contar += 1
+        if self.siete == 1:
+            contar += 1
+        if self.ocho == 1:
+            contar += 1
+        if self.nueve == 1:
+            contar += 1
+        if self.dies == 1:
+            contar += 1
+
+        self.contador = contar
+
+        super(ObservacionPunto3, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"Punto3"
@@ -849,7 +1088,83 @@ class ObservacionPunto3Nivel(models.Model):
     dies = models.IntegerField(choices=CHOICE_PRODUCCION,
             blank=True, null=True)
 
+    alta = models.IntegerField(editable=False, null=True, blank=True)
+    media = models.IntegerField(editable=False, null=True, blank=True)
+    baja = models.IntegerField(editable=False, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaPlaga)
+
+    def save(self, *args, **kwargs):
+        contar_alta = 0
+        if self.uno == 1:
+            contar_alta += 1
+        if self.dos == 1:
+            contar_alta += 1
+        if self.tres == 1:
+            contar_alta += 1
+        if self.cuatro == 1:
+            contar_alta += 1
+        if self.cinco == 1:
+            contar_alta += 1
+        if self.seis == 1:
+            contar_alta += 1
+        if self.siete == 1:
+            contar_alta += 1
+        if self.ocho == 1:
+            contar_alta += 1
+        if self.nueve == 1:
+            contar_alta += 1
+        if self.dies == 1:
+            contar_alta += 1
+        self.alta = contar_alta
+
+        contar_media = 0
+        if self.uno == 2:
+            contar_media += 1
+        if self.dos == 2:
+            contar_media += 1
+        if self.tres == 2:
+            contar_media += 1
+        if self.cuatro == 2:
+            contar_media += 1
+        if self.cinco == 2:
+            contar_media += 1
+        if self.seis == 2:
+            contar_media += 1
+        if self.siete == 2:
+            contar_media += 1
+        if self.ocho == 2:
+            contar_media += 1
+        if self.nueve == 2:
+            contar_media += 1
+        if self.dies == 2:
+            contar_media += 1
+        self.media = contar_media
+
+        contar_baja = 0
+        if self.uno == 3:
+            contar_baja += 1
+        if self.dos == 3:
+            contar_baja += 1
+        if self.tres == 3:
+            contar_baja += 1
+        if self.cuatro == 3:
+            contar_baja += 1
+        if self.cinco == 3:
+            contar_baja += 1
+        if self.seis == 3:
+            contar_baja += 1
+        if self.siete == 3:
+            contar_baja += 1
+        if self.ocho == 3:
+            contar_baja += 1
+        if self.nueve == 3:
+            contar_baja += 1
+        if self.dies == 3:
+            contar_baja += 1
+        self.baja = contar_baja
+
+        super(ObservacionPunto3Nivel, self).save(*args, **kwargs)
 
 
     def __unicode__(self):
@@ -1817,7 +2132,7 @@ CHOICE_VIVERO_CONVERSACION_6 = (
 CHOICE_VIVERO_CONVERSACION_7 = (
                                 (1, 'Bolsa de 6 X 8 pulgadas '),
                                 (2, 'Bolsa de 8 X 10 pulgadas'),
-                                (3, 'Bolsa de 8 X 10 pulgadas'),
+                                (3, 'Bolsa de 10 X 12 pulgadas'),
                             )
 
 CHOICE_VIVERO_CONVERSACION_8 = (
@@ -1870,6 +2185,8 @@ class VivieroConversacion(models.Model):
     #     verbose_name = 'I.Conversación con el Productor o productora'
     #     verbose_name_plural = 'I.Conversación con el Productor o productora'
 
+CHOICE_VIVERO_NUEVO_CONVERSACION2 = ((1,'Misma finca'),(2,'Del jardin clonal'),(3, 'Otras fuentes'))
+
 class ViveroConversacion2(models.Model):
     conversacion7 = models.IntegerField(choices=CHOICE_VIVERO_CONVERSACION_7,
                                         verbose_name='¿Qué tamaño de bolsa de polietileno utiliza para la producción de plantas en vivero?')
@@ -1882,6 +2199,9 @@ class ViveroConversacion2(models.Model):
     conversacion11 = models.FloatField('¿Cuál ha sido el porcentaje de prendimiento?', null=True)
     conversacion12 = MultiSelectField(choices=CHOICE_VIVERO_CONVERSACION_12,
                                 verbose_name='¿De dónde obtiene las varetas para realizar los injertos?')
+    conversacion13 = models.FloatField('¿Cuanto meses se mantiene la plata en el vivero?', null=True, blank=True)
+    conversacion14 = models.IntegerField(choices=CHOICE_VIVERO_NUEVO_CONVERSACION2,
+                                        verbose_name='¿De donde obtiene las semillas?', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaVivero)
 
@@ -1939,8 +2259,35 @@ class VivieroObservacion2(models.Model):
 
     ficha = models.ForeignKey(FichaVivero)
 
+    total_si = models.IntegerField(editable=False, null=True, blank=True)
+
     def __unicode__(self):
         return u"Observación del vivero 2"
+
+    def save(self, *args, **kwargs):
+        contar_total = 0
+        if self.planta_1 == 1:
+            contar_total += 1
+        if self.planta_2 == 1:
+            contar_total += 1
+        if self.planta_3 == 1:
+            contar_total += 1
+        if self.planta_4 == 1:
+            contar_total += 1
+        if self.planta_5 == 1:
+            contar_total += 1
+        if self.planta_6 == 1:
+            contar_total += 1
+        if self.planta_7 == 1:
+            contar_total += 1
+        if self.planta_8 == 1:
+            contar_total += 1
+        if self.planta_9 == 1:
+            contar_total += 1
+        if self.planta_10 == 1:
+            contar_total += 1
+        self.total_si = contar_total
+        super(VivieroObservacion2, self).save(*args, **kwargs)
 
     # class Meta:
     #     verbose_name = 'Presencia de plagas y enfermedades'
@@ -1956,7 +2303,7 @@ class ProductosVivero(models.Model):
     #     verbose_name = 'Productos para el vivero'
     #     verbose_name_plural = 'Productos para el vivero'
 
-CHOICE_VIVERO_UNIDAD_PRODUCTOS = ((1,'Onz/planta'),(2,'Lt/bombada'),)
+CHOICE_VIVERO_UNIDAD_PRODUCTOS = ((1,'Onz/planta'),(2,'Lt/bombada'),(3,'onz/bomba'),)
 
 class VivieroObservacionProductos(models.Model):
     producto = models.ForeignKey(ProductosVivero, verbose_name='Nombre')
@@ -2190,7 +2537,40 @@ class CosechaPunto1(models.Model):
     planta_9 = models.FloatField()
     planta_10 = models.FloatField()
 
+    total_platas = models.FloatField(editable=False, null=True, blank=True)
+    contador = models.IntegerField(editable=False, default=0, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaCosecha)
+
+    def save(self, *args, **kwargs):
+        self.total_platas = self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + \
+                                        self.planta_5 + self.planta_6 + self.planta_7 + self.planta_8 + self.planta_9 + self.planta_10
+        contar = 0
+        if self.planta_1 >= 0:
+            contar += 1
+        if self.planta_2 >= 0:
+            contar += 1
+        if self.planta_3 >= 0:
+            contar += 1
+        if self.planta_4 >= 0:
+            contar += 1
+        if self.planta_5 >= 0:
+            contar += 1
+        if self.planta_6 >= 0:
+            contar += 1
+        if self.planta_7 >= 0:
+            contar += 1
+        if self.planta_8 >= 0:
+            contar += 1
+        if self.planta_9 >= 0:
+            contar += 1
+        if self.planta_10 >= 0:
+            contar += 1
+
+        self.contador = contar
+
+        super(CosechaPunto1, self).save(*args, **kwargs)
+
 
     def __unicode__(self):
         return u"2.1 Punto 1"
@@ -2209,7 +2589,39 @@ class CosechaPunto2(models.Model):
     planta_9 = models.FloatField()
     planta_10 = models.FloatField()
 
+    total_platas = models.FloatField(editable=False, null=True, blank=True)
+    contador = models.IntegerField(editable=False, default=0, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaCosecha)
+
+    def save(self, *args, **kwargs):
+        self.total_platas = self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + \
+                                        self.planta_5 + self.planta_6 + self.planta_7 + self.planta_8 + self.planta_9 + self.planta_10
+        contar = 0
+        if self.planta_1 >= 0:
+            contar += 1
+        if self.planta_2 >= 0:
+            contar += 1
+        if self.planta_3 >= 0:
+            contar += 1
+        if self.planta_4 >= 0:
+            contar += 1
+        if self.planta_5 >= 0:
+            contar += 1
+        if self.planta_6 >= 0:
+            contar += 1
+        if self.planta_7 >= 0:
+            contar += 1
+        if self.planta_8 >= 0:
+            contar += 1
+        if self.planta_9 >= 0:
+            contar += 1
+        if self.planta_10 >= 0:
+            contar += 1
+
+        self.contador = contar
+
+        super(CosechaPunto2, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"2.2 Punto 2"
@@ -2228,7 +2640,39 @@ class CosechaPunto3(models.Model):
     planta_9 = models.FloatField()
     planta_10 = models.FloatField()
 
+    total_platas = models.FloatField(editable=False, null=True, blank=True)
+    contador = models.IntegerField(editable=False, default=0, null=True, blank=True)
+
     ficha = models.ForeignKey(FichaCosecha)
+
+    def save(self, *args, **kwargs):
+        self.total_platas = self.planta_1 + self.planta_2 + self.planta_3 + self.planta_4 + \
+                                        self.planta_5 + self.planta_6 + self.planta_7 + self.planta_8 + self.planta_9 + self.planta_10
+        contar = 0
+        if self.planta_1 >= 0:
+            contar += 1
+        if self.planta_2 >= 0:
+            contar += 1
+        if self.planta_3 >= 0:
+            contar += 1
+        if self.planta_4 >= 0:
+            contar += 1
+        if self.planta_5 >= 0:
+            contar += 1
+        if self.planta_6 >= 0:
+            contar += 1
+        if self.planta_7 >= 0:
+            contar += 1
+        if self.planta_8 >= 0:
+            contar += 1
+        if self.planta_9 >= 0:
+            contar += 1
+        if self.planta_10 >= 0:
+            contar += 1
+
+        self.contador = contar
+
+        super(CosechaPunto3, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u"2.3 Punto 3"
@@ -2781,6 +3225,14 @@ CHOICE_CIERRE_1_1_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_1_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Mejor control de malas hierbas'),
+                    ('C', 'Reducción de enfermedades'),
+                    ('D', 'Eliminar musaceas'),
+                    ('E', 'Ninguna'),
+                )
+
 class CierreManejo1(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_1_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2788,6 +3240,8 @@ class CierreManejo1(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_1_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_1_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2795,8 +3249,8 @@ class CierreManejo1(models.Model):
         return u"1.1"
 
     class Meta:
-        verbose_name='1.1'
-        verbose_name_plural='1.1'
+        verbose_name='1.1 Sombra'
+        verbose_name_plural='1.1 Sombra'
 
 
 CHOICE_CIERRE_1_2_IMPACTO = (
@@ -2828,6 +3282,13 @@ CHOICE_CIERRE_1_2_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_2_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Mejor entrada de luz'),
+                    ('C', 'Reducción de enfermedades'),
+                    ('D', 'Ninguna'),
+                )
+
 class CierreManejo2(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_2_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2835,6 +3296,8 @@ class CierreManejo2(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_2_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_2_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2842,8 +3305,8 @@ class CierreManejo2(models.Model):
         return u"1.2"
 
     class Meta:
-        verbose_name='1.2'
-        verbose_name_plural='1.2'
+        verbose_name='1.2 Poda'
+        verbose_name_plural='1.2 Poda'
 
 CHOICE_CIERRE_1_3_IMPACTO = (
                     ('A', 'Falta de obra de conservación'),
@@ -2874,6 +3337,14 @@ CHOICE_CIERRE_1_3_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_3_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Aumento de la floración'),
+                    ('C', 'Reducción de enfermedades'),
+                    ('D', 'Abonar según datos de análisis'),
+                    ('E', 'Ninguna'),
+                )
+
 class CierreManejo3(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_3_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2881,6 +3352,8 @@ class CierreManejo3(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_3_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_3_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2888,8 +3361,8 @@ class CierreManejo3(models.Model):
         return u"1.3"
 
     class Meta:
-        verbose_name='1.3'
-        verbose_name_plural='1.3'
+        verbose_name='1.3 Suelo'
+        verbose_name_plural='1.3 Suelo'
 
 CHOICE_CIERRE_1_4_IMPACTO = (
                     ('A', 'Variedad de plagas y enfermedades'),
@@ -2922,6 +3395,13 @@ CHOICE_CIERRE_1_4_REALIZADA = (
                     ('H', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_4_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Reducción de daño de plagas'),
+                    ('C', 'Reducción de enfermedades'),
+                    ('D', 'Ninguna'),
+                )
+
 class CierreManejo4(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_4_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -2929,6 +3409,8 @@ class CierreManejo4(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_4_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_4_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2936,8 +3418,8 @@ class CierreManejo4(models.Model):
         return u"1.4"
 
     class Meta:
-        verbose_name='1.4'
-        verbose_name_plural='1.4'
+        verbose_name='1.4 Plaga'
+        verbose_name_plural='1.4 Plaga'
 
 CHOICE_CIERRE_1_5_IMPACTO = (
                     ('A', 'Variedad de mala hierbas'),
@@ -2946,6 +3428,7 @@ CHOICE_CIERRE_1_5_IMPACTO = (
                     ('D', 'Relación entre herbicidas y composición del piso'),
                     ('E', 'Cantidad de bejucos en el piso y plantas'),
                     ('F', 'Ninguna'),
+                    ('G', 'Falta de materia organica'),
                 )
 
 CHOICE_CIERRE_1_5_PLANIFICADA = (
@@ -2956,6 +3439,7 @@ CHOICE_CIERRE_1_5_PLANIFICADA = (
                     ('E', 'Realizar manejo selectivo'),
                     ('F', 'Ninguna'),
                     ('G', 'Ninguna por falta de recursos'),
+                    ('H', 'Repartir hojarasca'),
                 )
 
 CHOICE_CIERRE_1_5_REALIZADA = (
@@ -2966,6 +3450,15 @@ CHOICE_CIERRE_1_5_REALIZADA = (
                     ('E', 'Realizar manejo selectivo'),
                     ('F', 'Ninguna'),
                     ('G', 'Ninguna por falta de recursos'),
+                    ('H', 'Repartir hojarasca'),
+                )
+
+CHOICE_CIERRE_1_5_RESULTADOS = (
+                    ('A', 'Aumento de producción'),
+                    ('B', 'Reducción de malas hierbas dañinas'),
+                    ('C', 'Aumento de cobertura'),
+                    ('D', 'Eliminar tanda'),
+                    ('E', 'Ninguna'),
                 )
 
 class CierreManejo5(models.Model):
@@ -2975,6 +3468,8 @@ class CierreManejo5(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_5_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_5_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -2982,8 +3477,8 @@ class CierreManejo5(models.Model):
         return u"1.5"
 
     class Meta:
-        verbose_name='1.5'
-        verbose_name_plural='1.5'
+        verbose_name='1.5 Piso'
+        verbose_name_plural='1.5 Piso'
 
 CHOICE_CIERRE_1_6_IMPACTO = (
                     ('A', 'Tipo de cacao que estamos sembrando'),
@@ -3014,6 +3509,13 @@ CHOICE_CIERRE_1_6_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_6_RESULTADOS = (
+                    ('A', 'Mejor vigor de las plantas'),
+                    ('B', 'Menos daño de plagas'),
+                    ('C', 'Menos daño de enfermedades'),
+                    ('D', 'Ninguna'),
+                )
+
 class CierreManejo6(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_6_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -3021,6 +3523,8 @@ class CierreManejo6(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_6_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_6_RESULTADOS,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -3028,8 +3532,8 @@ class CierreManejo6(models.Model):
         return u"1.6"
 
     class Meta:
-        verbose_name='1.6'
-        verbose_name_plural='1.6'
+        verbose_name='1.6 Vivero'
+        verbose_name_plural='1.6 Vivero'
 
 CHOICE_CIERRE_1_7_IMPACTO = (
                     ('A', 'Cantidad de planta productiva'),
@@ -3037,6 +3541,8 @@ CHOICE_CIERRE_1_7_IMPACTO = (
                     ('C', 'Numero de mazorcas dañadas'),
                     ('D', 'Nivel de cosecha de la parcela'),
                     ('E', 'Ninguna'),
+                    ('F', 'Efecto de sombra sobre la producción'),
+                    ('G', 'Efecto de poda sobre la producción'),
                 )
 
 CHOICE_CIERRE_1_7_PLANIFICADA = (
@@ -3059,6 +3565,14 @@ CHOICE_CIERRE_1_7_REALIZADA = (
                     ('G', 'Ninguna por falta de recursos'),
                 )
 
+CHOICE_CIERRE_1_7_RESULTADO = (
+                    ('A', 'Aumento de la cosecha'),
+                    ('B', 'Aumento de plantas productivas'),
+                    ('C', 'Mejor calidad de mazorcas'),
+                    ('D', 'Mejor calidad de granos'),
+                    ('E', 'Ninguna'),
+                )
+
 class CierreManejo7(models.Model):
     campo1 = MultiSelectField(choices=CHOICE_CIERRE_1_7_IMPACTO,
                                 verbose_name='Observación que impacto')
@@ -3066,6 +3580,8 @@ class CierreManejo7(models.Model):
                                 verbose_name='Acciones planificadas')
     campo3 = MultiSelectField(choices=CHOICE_CIERRE_1_7_REALIZADA,
                                 verbose_name='Acciones realizadas')
+    campo4 = MultiSelectField(choices=CHOICE_CIERRE_1_7_RESULTADO,
+                                verbose_name='Resultados obtenidos', null=True, blank=True)
 
     ficha = models.ForeignKey(FichaCierre)
 
@@ -3073,8 +3589,8 @@ class CierreManejo7(models.Model):
         return u"1.7"
 
     class Meta:
-        verbose_name='1.7'
-        verbose_name_plural='1.7'
+        verbose_name='1.7 Cosecha'
+        verbose_name_plural='1.7 Cosecha'
 
 CHOICE_CIERRE_COSTO_1 = (
                     ('A', 'Cacao Criollo'),
@@ -3118,6 +3634,25 @@ class CierreActividad(models.Model):
     def __unicode__(self):
         return u"2.1"
 
+class CierreBabaRoja(models.Model):
+    campo1 = models.FloatField('Cosecha anual qq baba', null=True, blank=True)
+    campo2 = models.FloatField('Venta qq baba', null=True, blank=True)
+    campo3 = models.FloatField('Precio de venta qq baba', null=True, blank=True)
+    campo4 = models.FloatField('Cosecha anual qq grano rojo', null=True, blank=True)
+    campo5 = models.FloatField('Venta qq grano rojo', null=True, blank=True)
+    campo6 = models.FloatField('Precio de venta qq grano rojo', null=True, blank=True)
+    campo7 = models.FloatField('Consumo  anual qq grano rojo', null=True, blank=True)
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"2.2"
+
+    class Meta:
+        verbose_name='Datos'
+        verbose_name_plural='Datos'
+
+
 
 class ManejosCierre(models.Model):
     nombre = models.CharField(max_length=250)
@@ -3138,4 +3673,268 @@ class CierreManejo(models.Model):
     ficha = models.ForeignKey(FichaCierre)
 
     def __unicode__(self):
-        return u"2.1"
+        return u"3"
+
+CHOICE_CIERRE_CONOCIMIENTO_TEMA1 = ((1, 'Variedad más común en mi finca'),)
+
+class CierreConocimiento1(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_CONOCIMIENTO_TEMA1)
+    criollas = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    forastero = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    trinitaria = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    hibridos = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+    clones = models.IntegerField(choices=((1,'Si'),(2,'No'),) )
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 tema 1"
+
+CHOICE_CIERRE_CONOCIMIENTO_TEMA2 = ((1, 'Ventajas de variedades'),)
+CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS = (
+                                        ('A', 'Produce más'),
+                                        ('B', 'Granos grandes'),
+                                        ('C', 'Tolerante a plagas y enfermedades'),
+                                        ('D', 'Tiene buena estructura'),
+                                        ('E', 'No necesita mucho abono'),
+                                        ('F', 'No aplica'),
+                                 )
+
+class CierreConocimiento2(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_CONOCIMIENTO_TEMA2)
+    criollas = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+    forastero = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+    trinitaria = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+    hibridos = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+    clones = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS)
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 tema 2"
+
+CHOICE_CIERRE_CONOCIMIENTO_TEMA3 = ((1, 'Desventajas  de variedades'),)
+CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3 = (
+                                            ('A', 'Produce poco'),
+                                            ('B', 'Granos menudos'),
+                                            ('C', 'Susceptible a plagas y enfermedades'),
+                                            ('D', 'No tiene buena estructura'),
+                                            ('E', 'Necesita mucho abono'),
+                                             ('F', 'No aplica'),
+                                     )
+
+class CierreConocimiento3(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_CONOCIMIENTO_TEMA3)
+    criollas = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+    forastero = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+    trinitaria = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+    hibridos = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+    clones = MultiSelectField(choices=CHOICE_CIERRE_CONOCIMIENTO_RESPUESTAS3)
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 tema 3"
+
+CHOICE_CIERRE_SUELO_TEMA1 = ((1, 'Que elementos aportan'),)
+CHOICE_CIERRE_SUELO_RESPUESTAS1 = (
+                                    ('A', 'Nitrógeno'),
+                                    ('B', 'Fósforo'),
+                                    ('C', 'Potasio'),
+                                    ('D', 'Calcio'),
+                                    ('E', 'Magnesio'),
+                                     ('F', 'No aplica'),
+                             )
+
+class CierreSuelo1(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_SUELO_TEMA1)
+    abono = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS1,
+                                                verbose_name='Abono verde y coberturas')
+    hojarasca = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS1,
+                                                        verbose_name='Hojarasca de los árboles')
+    organico = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS1,
+                                                        verbose_name='Abono orgánico')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .2 tema 1"
+
+CHOICE_CIERRE_SUELO_TEMA2 = ((1, 'Ventajas de esta práctica'),)
+CHOICE_CIERRE_SUELO_RESPUESTAS2 = (
+                                                                                ('A', 'Fácil de implementar'),
+                                                                                ('B', 'De bajo costo'),
+                                                                                ('C', 'No necesita mucha inversión'),
+                                                                                ('D', 'No necesita mucha mano de obra'),
+                                                                                ('E', 'Aporta al desarrollo de las plantas'),
+                                                                                 ('F', 'No aplica'),
+                                                                         )
+
+class CierreSuelo2(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_SUELO_TEMA2)
+    abono = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS2,
+                                                verbose_name='Abono verde y coberturas')
+    hojarasca = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS2,
+                                                        verbose_name='Hojarasca de los árboles')
+    organico = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS2,
+                                                        verbose_name='Abono orgánico')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .2 tema 2"
+
+
+CHOICE_CIERRE_SUELO_TEMA3 = ((1, 'Desventajas  de variedades'),)
+CHOICE_CIERRE_SUELO_RESPUESTAS3 = (
+                                                                                ('A', 'Difícil de implementar'),
+                                                                                ('B', 'Alto costo'),
+                                                                                ('C', 'Necesita mucha inversión'),
+                                                                                ('D', 'Necesita mucha mano de obra'),
+                                                                                ('E', 'No aporta al desarrollo de las plantas'),
+                                                                                 ('F', 'No aplica'),
+                                                                         )
+
+class CierreSuelo3(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_SUELO_TEMA3)
+    abono = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS3,
+                                                verbose_name='Abono verde y coberturas')
+    hojarasca = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS3,
+                                                        verbose_name='Hojarasca de los árboles')
+    organico = MultiSelectField(choices=CHOICE_CIERRE_SUELO_RESPUESTAS3,
+                                                        verbose_name='Abono orgánico')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .2 tema 3"
+
+CHOICE_CIERRE_PLAGA_TEMA1 = ((1, 'Nivel de daño en la parcela'),
+                                                                (2, 'Nivel de daño en las fincas vecinas'),)
+
+class CierrePlaga1(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_PLAGA_TEMA1)
+    monilla = models.FloatField()
+    mazorca = models.FloatField('Mazorca Negra')
+    zompopos = models.FloatField()
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .3 tema 1"
+
+
+CHOICE_CIERRE_PLAGA_TEMA2 = ((1, 'Prácticas para prevenir'),)
+CHOICE_CIERRE_PLAGA_RESPUESTAS2 = (
+                                                                                ('A', 'Eliminar mazorcas enfermas'),
+                                                                                ('B', 'Realizar poda'),
+                                                                                ('C', 'Manejo de sombra'),
+                                                                                ('D', 'Abonar las plantas'),
+                                                                                ('E', 'Buen manejo de piso'),
+                                                                                 ('F', 'No aplica'),
+                                                                         )
+CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO = (
+                                                                                ('A', 'Eliminar zompoperas'),
+                                                                                ('B', 'Realizar caseo'),
+                                                                                ('C', 'Sembrar plantas repelentes'),
+                                                                                ('D', 'Utilizar cal o ceniza'),
+                                                                                ('E', 'Buen manejo de piso'),
+                                                                                 ('F', 'No aplica'),
+                                                                         )
+
+class CierrePlaga2(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_PLAGA_TEMA2)
+    monilla = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS2,
+                                                verbose_name='Monilla')
+    mazorca = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS2,
+                                                        verbose_name='Mazorca Negra')
+    zompopos = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO,
+                                                        verbose_name='Zompopos')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .3 tema 2"
+
+CHOICE_CIERRE_PLAGA_TEMA3 = ((1, 'Prácticas para controlar'),)
+CHOICE_CIERRE_PLAGA_RESPUESTAS3 = (
+                                                                                ('A', 'Aplicar caldo sulfo-calcico'),
+                                                                                ('B', 'Aplicar fungicidas'),
+                                                                                 ('C', 'No aplica'),
+                                                                         )
+CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO3 = (
+                                                                                ('A', 'Aplicar venenos en las zompoperas'),
+                                                                                ('B', 'Proteger las plantas con plástico'),
+                                                                                 ('C', 'No aplica'),
+                                                                         )
+
+class CierrePlaga3(models.Model):
+    tema = models.IntegerField(choices=CHOICE_CIERRE_PLAGA_TEMA3)
+    monilla = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS3,
+                                                verbose_name='Monilla')
+    mazorca = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS3,
+                                                        verbose_name='Mazorca Negra')
+    zompopos = MultiSelectField(choices=CHOICE_CIERRE_PLAGA_RESPUESTAS_ZOMPOPO3,
+                                                        verbose_name='Zompopos')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"4 .3 tema 3"
+
+CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA = (
+    (1, 'Mucho'),
+    (2, 'Algo'),
+    (3, 'Poco'),
+    (4, 'Nada '),
+    )
+
+CHOICE_CIERRE_CICLO_TRABAJO2_RESPUESTA = (
+    (1, 'Todas'),
+    (2, 'Algunas'),
+    (3, 'Pocas'),
+    (4, 'Ninguna'),
+    )
+
+CHOICE_CIERRE_CICLO_TRABAJO3_RESPUESTA = (
+    (1, 'Demasiada visitas'),
+    (2, 'Adecuadas visitas'),
+    (3, 'Pocas visitas'),
+    )
+
+CHOICE_CIERRE_CICLO_TRABAJO4_RESPUESTA = (
+    (1, 'Demasiada larga'),
+    (2, 'Adecuado tiempo '),
+    (3, 'Muy corta'),
+    )
+
+CHOICE_CIERRE_CICLO_TRABAJO5_RESPUESTA = (
+    (1, 'Si y con mucho ánimo'),
+    (2, 'Si pero con poco ánimo'),
+    (3, 'Si porque siento obligado'),
+    (4, 'No quiero seguir'),
+    )
+
+class CierreCicloTrabajo(models.Model):
+    pregunta1 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA,
+                        verbose_name='¿Las visitas que hemos realizados han servido para aprender nuevas cosas? ')
+    pregunta2 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA,
+                        verbose_name='¿Las visitas que hemos realizados han servido para observar sobre diferentes aspectos de la parcela de cacao? ')
+    pregunta3 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO1_RESPUESTA,
+                        verbose_name='¿Las observaciones y discusiones han servido para mejorar el manejo de las parcela de cacao?')
+    pregunta4 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO2_RESPUESTA,
+                        verbose_name='¿Han podido implementar las acciones que se acordaron a partir de las visitas?')
+    pregunta5 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO3_RESPUESTA,
+                        verbose_name='¿Qué piensa sobre la frecuencia de las visitas?')
+    pregunta6 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO4_RESPUESTA,
+                        verbose_name='¿Qué piensa sobre el tiempo que dura cada visita?')
+    pregunta7 = models.IntegerField(choices=CHOICE_CIERRE_CICLO_TRABAJO5_RESPUESTA,
+                        verbose_name='¿Quiere seguir trabajando con las visitas para el segundo ciclo?')
+    pregunta8 = models.IntegerField(choices=((1,'Si'),(2,'No'),),
+                        verbose_name='Estaría usted interesado organizar un día de campo en su finca para que otras y otros productores vengan a visitar la parcela?')
+    pregunta9 = models.TextField('¿Qué sugiere para mejorar el trabajo de este ciclo?')
+
+    ficha = models.ForeignKey(FichaCierre)
+
+    def __unicode__(self):
+        return u"5 ciclo de trabajo"
