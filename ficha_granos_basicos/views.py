@@ -221,7 +221,6 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	conteo_si = filtro.filter(acceso_agua = 1).count()
 	for obj in ACCESO_AGUA_CHOICES:
 		conteo = filtro.filter(fuente_agua__icontains = obj[0]).count()
-		print conteo, obj[1]
 		fuente_agua[obj[1]] = saca_porcentajes(conteo,conteo_si,False)
 
 	return render(request, template, locals())
