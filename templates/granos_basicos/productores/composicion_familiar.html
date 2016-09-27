@@ -25,46 +25,45 @@
                     <h5>Número de productores {{productores}}</h5>
                 </div>
                 <div class="panel-body">
-                  <div class="row datos">
-                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-offset-1 col-lg-2">
-                          <div class="number-data">
-                              {{avg_hijas}}
-                          </div>
-                          <div class="title-data">
-                              Número promedio de Hijas por hogar
-                          </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <table id="customers2" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                            <caption>Número promedio de Hijos/Hijas</caption>
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Número de hijos</th>
+                                <th>Número de hijas</th>
+                                <th>Número de hijos + hijas</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {%for fila in result %}
+                              <tr>
+                                {% if forloop.counter == 1 %}
+                                <td>Promedio</td>
+                                {% elif forloop.counter == 2 %}
+                                <td>Mediana</td>
+                                {% elif forloop.counter == 3 %}
+                                <td>Desviación estandar</td>
+                                {% elif forloop.counter == 4 %}
+                                <td>Mínimo</td>
+                                {% elif forloop.counter == 5 %}
+                                <td>Máximo</td>
+                                {% endif %}
 
-                      </div>
-                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
-                          <div class="number-data">
-                              {{avg_hijos}}
-                          </div>
-                          <div class="title-data">
-                              Número promedio de Hijos por hogar
-                          </div>
-
-                      </div>
-
-                  </div>
-                    <hr>
+                                {%for celda in fila %}
+                                <td>{{celda|floatformat:"2"}}</td>
+                                {%endfor%}
+                              </tr>
+                              {%endfor%}
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div id="grafo1" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="grafo2" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="grafo3" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="grafo4" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
                         </div>
                     </div>
                 </div>
@@ -77,44 +76,46 @@
 <script type="text/javascript">
 $( "#productores" ).addClass( "in" );
 $(function () {
-    $('#grafo1').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Nivel Educativo por Género (Padre y Madre)'
-        },
-        xAxis: {
-            categories: [{% for k in escolaridad.keys %}'{{k}}',{% endfor %}]
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
+  $('#grafo1').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Nivel educativo de padres de las familias'
+      },
+      xAxis: {
+          categories: [{% for k in escolaridad.keys %}'{{k}}',{% endfor %}]
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Frecuencia (%)'
+          }
+      },
+      tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true
+      },
+      plotOptions: {
+            column: {
+                stacking: 'percent',
                 dataLabels: {
                     enabled: true,
-                    format: '{point.y:.2f}%',
-                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                     style: {
-                        textShadow: '0 0 3px white'
+                        textShadow: '0 0 3px black'
                     }
                 }
             }
         },
-
-        series: [
-          {
-             name: 'Madre',
-             data: [{% for v in escolaridad.values %}{{v.1}},{% endfor %}]
-         },
-        {
-            name: 'Padre',
-            data: [{% for v in escolaridad.values %}{{v.0}},{% endfor %}]
-        },
-      ]
-    });
+      series: [{
+          name: 'Madre',
+          data: [{% for v in escolaridad.values %}{{v.0}},{% endfor %}]
+      }, {
+          name: 'Padre',
+          data: [{% for v in escolaridad.values %}{{v.1}},{% endfor %}]
+      }]
+  });
 
     $('#grafo2').highcharts({
        chart: {

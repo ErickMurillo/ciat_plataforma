@@ -7,6 +7,7 @@ from mapeo.models import *
 from django.http import HttpResponse
 from django.db.models import Sum, Count, Avg
 import collections
+import numpy as np
 
 # Create your views here.
 def _queryset_filtrado(request):
@@ -81,26 +82,44 @@ def genero_produccion(request,template="granos_basicos/productores/genero_produc
 	productores = filtro.distinct('productor').count()
 
 	CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
-	CHOICE_SEXO_JEFE = ((1,'Hombre'),(2,'Mujer'),(3,'Compartida'))
 
+	choice = ((1,'Hombre'),(2,'Mujer'),(3,'Compartida'))
 	sexo_productor = {}
-	prod_mujeres = {}
-	prod_hombres = {}
-	for obj in CHOICE_SEXO:
-		conteo = filtro.filter(productor__sexo = obj[0]).distinct('productor').count()
+	for obj in choice:
+		conteo = filtro.filter(productor__productor__jefe = obj[0]).distinct('productor').count()
 		sexo_productor[obj[1]] = conteo
 
-		for x in CHOICE_SEXO_JEFE:
-			jefe_familia = filtro.filter(productor__sexo = obj[0],productor__productor__jefe = x[0]).distinct('productor').count()
-			if obj[0] == 1:
-				prod_hombres[x[1]] = jefe_familia
-			else:
-				prod_mujeres[x[1]] = jefe_familia
+	if request.GET.get('jefe'):
+		jefe = request.GET['jefe']
+		if jefe == '1':
+			CHOICE_SEXO_JEFE = ((1,'Hombre'),)
+		elif jefe == '2':
+			CHOICE_SEXO_JEFE = ((2,'Mujer'),)
+		elif jefe == '3':
+			CHOICE_SEXO_JEFE = ((3,'Compartida'),)
+	else:
+		CHOICE_SEXO_JEFE = ((1,'Hombre'),(2,'Mujer'),(3,'Compartida'))
 
-	quien_produce = {}
-	for obj in RELACION_CHOICES:
-		conteo = filtro.filter(productor__productorgranosbasicos__relacion = obj[0]).distinct('productor').count()
-		quien_produce[obj[1]] = conteo
+	RELACION_CHOICES = ((1,'Jefe/Jefa de familia'),(2,'Cónyuge'),
+	    				(3,'Hijo/Hija'),(4,'Otro familiar'),
+	    				(5,'Administrador'),)
+
+	prod_gb = {}
+	prod = {}
+	dic_relacion = {}
+	for obj in CHOICE_SEXO_JEFE:
+		for x in CHOICE_SEXO:
+			#relacion entre responsables de familia
+			jefe_familia = filtro.filter(productor__sexo = x[0],productor__productor__jefe = obj[0]).distinct('productor').count()
+			prod[x[1]] = jefe_familia
+
+		for relacion in RELACION_CHOICES:
+			conteo = filtro.filter(productor__productorgranosbasicos__relacion = relacion[0],productor__productor__jefe = obj[0]).distinct('productor').count()
+			dic_relacion[relacion[1]] = conteo
+
+	for x in CHOICE_SEXO:
+		conteo = filtro.filter(productor__sexo = x[0]).distinct('productor').count()
+		prod_gb[x[1]] = conteo
 
 	return render(request, template, locals())
 
@@ -110,19 +129,52 @@ def composicion_familiar(request,template="granos_basicos/productores/composicio
 
 	count_productores = filtro.distinct('productor').count()
 
-	hijas = filtro.filter(productor__composicionfamiliar__familia = '4').distinct('productor__composicionfamiliar').count()
-	avg_hijas = hijas / count_productores
+	#nuevas salidas
+	lista_hijos = []
+	lista_hijas = []
+	lista_sumatoria = []
+	for obj in filtro:
+		hijos = ComposicionFamiliar.objects.filter(persona = obj.productor,familia = '3').count()
+		lista_hijos.append(hijos)
 
-	hijos = filtro.filter(productor__composicionfamiliar__familia = '3').distinct('productor__composicionfamiliar').count()
-	avg_hijos = hijos / count_productores
+		hijas = ComposicionFamiliar.objects.filter(persona = obj.productor,familia = '4').count()
+		lista_hijas.append(hijas)
 
+		sumatoria = hijos + hijas
+		lista_sumatoria.append(sumatoria)
+
+	result = []
+	#promedio,mediana,desviacion standard, minimo y maximo
+	promedios = [np.mean(lista_hijos),np.mean(lista_hijas),np.mean(lista_sumatoria)]
+	mediana = [np.median(lista_hijos),np.median(lista_hijas),np.median(lista_sumatoria)]
+	desviacion = [np.std(lista_hijos),np.std(lista_hijas),np.std(lista_sumatoria)]
+	minimo = [min(lista_hijos),min(lista_hijas),min(lista_sumatoria)]
+	maximo = [max(lista_hijos),max(lista_hijas),max(lista_sumatoria)]
+	# agregando a la lista
+	result.append(promedios)
+	result.append(mediana)
+	result.append(desviacion)
+	result.append(minimo)
+	result.append(maximo)
+
+	#grafico nivel educativo de los padres en las familias
 	ESCOLARIDAD_CHOICES = (
 		(1,'Ninguno'),(2,'Primaria Incompleta'),(3,'Primaria'),
 		(4,'Secundaria Incompleta'),(5,'Secundaria'),(6,'Técnico'),
-		(7,'Universitario'),(8,'Profesional'),
-	)
+		(7,'Universitario'),(8,'Profesional'))
 
-	escolaridad = {}
+	escolaridad = collections.OrderedDict()
+	for obj in ESCOLARIDAD_CHOICES:
+		madre = filtro.filter(productor__composicionfamiliar__familia = '2',
+		                    productor__composicionfamiliar__escolaridad = obj[0]).distinct('productor__composicionfamiliar').count()
+		padre = filtro.filter(productor__composicionfamiliar__familia = '1',
+		                    productor__composicionfamiliar__escolaridad = obj[0]).distinct('productor__composicionfamiliar').count()
+		escolaridad[obj[1]] = (madre,padre)
+	#--------------------------------------------------------------------------------
+
+
+
+
 	escolaridad_hijos = {}
 	for obj in ESCOLARIDAD_CHOICES:
 		padre = filtro.filter(productor__composicionfamiliar__familia = '1',
@@ -133,7 +185,7 @@ def composicion_familiar(request,template="granos_basicos/productores/composicio
 		                    productor__composicionfamiliar__escolaridad = obj[0]).distinct('productor__composicionfamiliar').count()
 		percentage_madre = (madre / count_productores) * 100
 
-		escolaridad[obj[1]] = (percentage_padre,percentage_madre)
+		# escolaridad[obj[1]] = (percentage_padre,percentage_madre)
 
 		#--------------------------------
 		#hijos--------------------

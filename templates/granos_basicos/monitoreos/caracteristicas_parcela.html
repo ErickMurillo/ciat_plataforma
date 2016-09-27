@@ -121,63 +121,96 @@ $(function () {
       ]
     }],
   });
-  
+
+  // $('#grafo2').highcharts({
+  //   chart: {
+  //     type: 'spline',
+  //   },
+  //   title: {
+  //     text: 'Área Inclinado de la parcela es mayor del 60%'
+  //   },
+  //   // subtitle: {
+  //   //     text: 'According to the Standard Atmosphere Model'
+  //   // },
+  //   xAxis: {
+  //     reversed: false,
+  //     title: {
+  //       enabled: true,
+  //       text: 'Capa arable'
+  //     },
+  //     labels: {
+  //       formatter: function () {
+  //         return this.value + 'cm';
+  //       }
+  //     },
+  //     maxPadding: 0.05,
+  //     showLastLabel: true
+  //   },
+  //   yAxis: {
+  //     title: {
+  //       text: 'Porcentaje de inclinación'
+  //     },
+  //     labels: {
+  //       formatter: function () {
+  //         return this.value + '%';
+  //       }
+  //     },
+  //     lineWidth: 2
+  //   },
+  //   legend: {
+  //     enabled: false
+  //   },
+  //   tooltip: {
+  //     headerFormat: '<b>{series.name}</b><br/>',
+  //     pointFormat: '{point.x} cm: {point.y}%'
+  //   },
+  //   plotOptions: {
+  //     spline: {
+  //       marker: {
+  //         enable: false
+  //       }
+  //     }
+  //   },
+  //   series: [{
+  //     name: 'Inclinación',
+  //     data: [
+  //       {% for value in inclinado %}[{{value.0}},{{value.1}}],{% endfor %}
+  //     ]
+  //   }]
+  // });
+
   $('#grafo2').highcharts({
-    chart: {
-      type: 'spline',
-    },
-    title: {
-      text: 'Área Inclinado de la parcela es mayor del 60%'
-    },
-    // subtitle: {
-    //     text: 'According to the Standard Atmosphere Model'
-    // },
-    xAxis: {
-      reversed: false,
-      title: {
-        enabled: true,
-        text: 'Capa arable'
-      },
-      labels: {
-        formatter: function () {
-          return this.value + 'cm';
-        }
-      },
-      maxPadding: 0.05,
-      showLastLabel: true
-    },
-    yAxis: {
-      title: {
-        text: 'Porcentaje de inclinación'
-      },
-      labels: {
-        formatter: function () {
-          return this.value + '%';
-        }
-      },
-      lineWidth: 2
-    },
-    legend: {
-      enabled: false
-    },
-    tooltip: {
-      headerFormat: '<b>{series.name}</b><br/>',
-      pointFormat: '{point.x} cm: {point.y}%'
-    },
-    plotOptions: {
-      spline: {
-        marker: {
-          enable: false
-        }
-      }
-    },
-    series: [{
-      name: 'Inclinación',
-      data: [
-        {% for value in inclinado %}[{{value.0}},{{value.1}}],{% endfor %}
-      ]
-    }]
-  });
+        title: {
+            text: 'Área Inclinado de la parcela es mayor del 60%',
+            x: -20 //center
+        },
+        xAxis: {
+            categories: [{% for value in inclinado %}'{{value.0}} cm',{% endfor %}]
+        },
+        yAxis: {
+            title: {
+                text: 'Porcentaje de inclinación'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Tokyo',
+            data: [{% for value in inclinado %}{{value.1}},{% endfor %}]
+        }]
+    });
 
   $('#grafo3').highcharts({
     chart: {
