@@ -363,20 +363,63 @@ def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 	entre_3_4 = filtro.filter(datosmonitoreo__area_siembra__range = (3.1,4)).count()
 	entre_4_5 = filtro.filter(datosmonitoreo__area_siembra__range = (4.1,5)).count()
 
+	#promedio area de siembra
+	area_siembra = filtro.values_list('datosmonitoreo__area_siembra',flat = True)
+	promedio_area = np.mean(area_siembra)
+	desviacion_area = np.std(area_siembra)
+	mediana_area = np.median(area_siembra)
+	minimo_area = min(area_siembra)
+	maximo_area = max(area_siembra)
+
 	return render(request, template, locals())
 
 def recursos_economicos(request,template="granos_basicos/monitoreos/recursos_economicos.html"):
 	filtro = _queryset_filtrado(request)
 	productores = filtro.distinct('productor').count()
 
-	maiz = {}
-	frijol = {}
+	dic = {}
 	for obj in RESPUESTA_CHOICES:
-		conteo_maiz = filtro.filter(recursossiembra__respuesta = obj[0],recursossiembra__rubro = '1').count()
-		maiz[obj[1]] = conteo_maiz
+		conteo = filtro.filter(recursossiembra__respuesta = obj[0]).count()
+		dic[obj[1]] = conteo
 
-		conteo_frijol = filtro.filter(recursossiembra__respuesta = obj[0],recursossiembra__rubro = '2').count()
-		frijol[obj[1]] = conteo_frijol
+	return render(request, template, locals())
+
+def rendimiento(request,template="granos_basicos/monitoreos/rendimiento.html"):
+	filtro = _queryset_filtrado(request)
+	productores = filtro.distinct('productor').count()
+
+	ANIO_CHOICES = ((2014,'2014'),(2015,'2015'),(2016,'2016'),(2017,'2017'),
+	    			(2018,'2018'),(2019,'2019'),(2020,'2020'),)
+
+	#maiz
+	rend_maiz = collections.OrderedDict()
+	for obj in ANIO_CHOICES:
+		primera_maiz = HistorialRendimiento.objects.filter(ciclo_productivo = '1',rubro = '1',
+														anio = obj[1]).aggregate(avg = Avg('rendimiento'))['avg']
+
+		postrera_maiz = HistorialRendimiento.objects.filter(ciclo_productivo = '2',rubro = '1',
+														anio = obj[1]).aggregate(avg = Avg('rendimiento'))['avg']
+
+		apante_maiz = HistorialRendimiento.objects.filter(ciclo_productivo = '3',rubro = '1',
+														anio = obj[1]).aggregate(avg = Avg('rendimiento'))['avg']
+
+		if primera_maiz != None or postrera_maiz != None or apante_maiz != None:
+			rend_maiz[obj[1]] = (primera_maiz,postrera_maiz,apante_maiz)
+
+	#frijol
+	rend_frijol = collections.OrderedDict()
+	for obj in ANIO_CHOICES:
+		primera_frijol = HistorialRendimiento.objects.filter(ciclo_productivo = '1',rubro = '2',
+														anio = obj[1]).aggregate(avg = Avg('rendimiento'))['avg']
+
+		postrera_frijol = HistorialRendimiento.objects.filter(ciclo_productivo = '2',rubro = '3',
+														anio = obj[1]).aggregate(avg = Avg('rendimiento'))['avg']
+
+		apante_frijol = HistorialRendimiento.objects.filter(ciclo_productivo = '3',rubro = '4',
+														anio = obj[1]).aggregate(avg = Avg('rendimiento'))['avg']
+
+		if primera_frijol != None or postrera_frijol != None or apante_frijol != None:
+			rend_frijol[obj[1]] = (primera_frijol,postrera_frijol,apante_frijol)
 
 	return render(request, template, locals())
 
