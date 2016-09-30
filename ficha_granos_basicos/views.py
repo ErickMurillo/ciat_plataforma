@@ -331,7 +331,7 @@ def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 		mz = filtro.filter(productor__usosuelo__uso = obj[0]).aggregate(total = Sum('productor__usosuelo__cantidad'))['total']
 		porcentaje = saca_porcentajes(mz,total,False)
 		try:
-			promedio = mz / float(familias)
+			promedio = mz / float(productores)
 		except:
 			promedio = 0
 
@@ -344,11 +344,11 @@ def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 
 	result = []
 	#promedio,mediana,desviacion standard, minimo y maximo
-	promedios = [np.mean(tamano_finca),np.mean(granos_basicos),np.mean(area_siembra)]
-	mediana = [np.median(tamano_finca),np.median(granos_basicos),np.median(area_siembra)]
-	desviacion = [np.std(tamano_finca),np.std(granos_basicos),np.std(area_siembra)]
-	minimo = [min(tamano_finca),min(granos_basicos),min(area_siembra)]
-	maximo = [max(tamano_finca),max(granos_basicos),max(area_siembra)]
+	promedios = [np.mean(tamano_finca),np.mean(granos_basicos)]
+	mediana = [np.median(tamano_finca),np.median(granos_basicos)]
+	desviacion = [np.std(tamano_finca),np.std(granos_basicos)]
+	minimo = [min(tamano_finca),min(granos_basicos)]
+	maximo = [max(tamano_finca),max(granos_basicos)]
 	# agregando a la lista
 	result.append(promedios)
 	result.append(mediana)
@@ -393,6 +393,7 @@ def rendimiento(request,template="granos_basicos/monitoreos/rendimiento.html"):
 
 	#maiz
 	rend_maiz = collections.OrderedDict()
+	productores_maiz = HistorialRendimiento.objects.filter(ciclo_productivo = '1',rubro = '1').distinct('monitoreo__productor').count()
 	for obj in ANIO_CHOICES:
 		primera_maiz = HistorialRendimiento.objects.filter(ciclo_productivo = '1',rubro = '1',
 														anio = obj[1]).aggregate(avg = Avg('rendimiento'))['avg']
@@ -408,6 +409,7 @@ def rendimiento(request,template="granos_basicos/monitoreos/rendimiento.html"):
 
 	#frijol
 	rend_frijol = collections.OrderedDict()
+	productores_frijol = HistorialRendimiento.objects.filter(ciclo_productivo = '1',rubro = '2').distinct('monitoreo__productor').count()
 	for obj in ANIO_CHOICES:
 		primera_frijol = HistorialRendimiento.objects.filter(ciclo_productivo = '1',rubro = '2',
 														anio = obj[1]).aggregate(avg = Avg('rendimiento'))['avg']

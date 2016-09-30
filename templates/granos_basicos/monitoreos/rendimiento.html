@@ -52,7 +52,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Rendimiento maíz'
+            text: 'Rendimiento maíz (productores: {{productores_maiz}})'
         },
         xAxis: {
             categories: [{%for k in rend_maiz.keys %}'{{k}}',{%endfor%}]
@@ -68,6 +68,15 @@ $(function () {
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
             pointFormat: '<span style="color:{point.color}"> <b>{point.y}</b> qq/mz<br/>'
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y} qq/mz'
+                }
+            }
         },
         series: [
 
@@ -88,7 +97,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text: 'Rendimiento frijol'
+            text: 'Rendimiento frijol (productores: {{productores_frijol}})'
         },
         xAxis: {
             categories: [{%for k in rend_frijol.keys %}'{{k}}',{%endfor%}]
@@ -100,6 +109,15 @@ $(function () {
         },
         credits: {
             enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y} qq/mz'
+                }
+            }
         },
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',

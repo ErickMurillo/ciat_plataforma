@@ -109,46 +109,46 @@
 <script type="text/javascript">
 $( "#productores" ).addClass( "in" );
 $(function () {
-  $('#grafo1').highcharts({
-      chart: {
-          type: 'column'
-      },
-      title: {
-          text: 'Nivel educativo de padres de las familias'
-      },
-      xAxis: {
-          categories: [{% for k in escolaridad.keys %}'{{k}}',{% endfor %}]
-      },
-      yAxis: {
-          min: 0,
+        $('#grafo1').highcharts({
+          chart: {
+              type: 'column'
+          },
           title: {
-              text: 'Frecuencia (%)'
-          }
-      },
-      tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-          shared: true
-      },
-      plotOptions: {
-            column: {
-                stacking: 'percent',
-                dataLabels: {
-                    enabled: true,
-                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                    style: {
-                        textShadow: '0 0 3px black'
+              text: 'Nivel educativo de hijos'
+          },
+          xAxis: {
+              categories: [{% for k in escolaridad.keys %}'{{k}}',{% endfor %}]
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Frecuencia'
+              }
+          },
+          tooltip: {
+              pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+              shared: true
+          },
+          plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black'
+                        }
                     }
                 }
-            }
-        },
-      series: [{
-          name: 'Madre',
-          data: [{% for v in escolaridad.values %}{{v.0}},{% endfor %}]
-      }, {
-          name: 'Padre',
-          data: [{% for v in escolaridad.values %}{{v.1}},{% endfor %}]
-      }]
-  });
+            },
+            series: [{
+                    name: 'Madre',
+                    data: [{% for v in escolaridad.values %}{{v.0}},{% endfor %}]
+                }, {
+                    name: 'Padre',
+                    data: [{% for v in escolaridad.values %}{{v.1}},{% endfor %}]
+                }]
+      });
 
   $('#grafo2').highcharts({
       chart: {
@@ -163,16 +163,16 @@ $(function () {
       yAxis: {
           min: 0,
           title: {
-              text: 'Frecuencia (%)'
+              text: 'Frecuencia'
           }
       },
       tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
           shared: true
       },
       plotOptions: {
             column: {
-                stacking: 'percent',
+                stacking: 'normal',
                 dataLabels: {
                     enabled: true,
                     color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
@@ -208,16 +208,16 @@ $(function () {
       yAxis: {
           min: 0,
           title: {
-              text: 'Frecuencia (%)'
+              text: 'Frecuencia'
           }
       },
       tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
           shared: true
       },
       plotOptions: {
             column: {
-                stacking: 'percent',
+                stacking: 'normal',
                 dataLabels: {
                     enabled: true,
                     color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
