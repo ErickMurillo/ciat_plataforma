@@ -67,8 +67,8 @@ urlpatterns = patterns('',
     url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
     #url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^rosetta/', include('rosetta.urls')),
-
-
+    # qbe
+    url(r'^qbe/', include('django_qbe.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

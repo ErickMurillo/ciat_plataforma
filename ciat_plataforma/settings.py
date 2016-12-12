@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'ajax_select',
     'nested_inline',
     'multiselectfield',
+    'django_qbe',
 
     'comunicacion.lugar',
     #apps solo de mapeo
@@ -205,3 +206,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'ciat_plataforma.context.globales',
     )
+
+QBE_AUTOCOMPLETE = True
+
+QBE_EXHIBIT = False
+
+QBE_ADMIN = "admin"
+
+QBE_ADMIN_SITE ="admin.admin_site"
+
+QBE_ACCESS_FOR = lambda user: user.is_staff
+
+QBE_FORMATS_EXPORT = "qbe_formats"
